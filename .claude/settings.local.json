@@ -56,7 +56,9 @@
       "Bash(pkill -f \"src.cli web\")",
       "Bash(rm -f inbox/clubs/hooks/*.mp4 \"/tmp/My Cool Hook.mp4\")",
       "Bash(.venv/bin/python -m pytest tests/test_web.py --no-header)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(.venv/bin/python -m pytest tests/test_doctor.py --no-header)",
+      "Bash(sed -i '' 's|^| |; s|^ ||' README.md)"
     ]
   }
 }

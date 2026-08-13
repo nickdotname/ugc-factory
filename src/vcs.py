@@ -152,3 +152,24 @@ def detect_token() -> str | None:
     if proc.returncode != 0:
         return None
     return proc.stdout.strip() or None
+
+
+def list_secret_names(repo: str) -> list[str] | None:
+    """Names of repository secrets already set. Never values.
+
+    ``gh`` cannot read a secret's value back and neither can anything else —
+    only the name list is available, which is exactly what a readiness check
+    needs. Returns None when gh is unavailable or unauthorised.
+    """
+    proc = subprocess.run(
+        ["gh", "secret", "list", "--repo", repo, "--json", "name"],
+        capture_output=True, text=True, timeout=30, check=False,
+    )
+    if proc.returncode != 0:
+        return None
+    import json
+
+    try:
+        return [str(entry["name"]) for entry in json.loads(proc.stdout or "[]")]
+    except (ValueError, KeyError, TypeError):
+        return None

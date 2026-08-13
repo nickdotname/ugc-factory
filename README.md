@@ -141,6 +141,32 @@ mypy src/ && pytest
 
 ---
 
+## Start here
+
+```bash
+python -m src.cli setup --campaign clubs
+```
+
+Checks all four systems this depends on — git repo, GitHub Secrets, the Buffer
+channel, the assets Release — and prints the exact command to fix each gap. Run
+it any time you are unsure what state things are in.
+
+```
+  OK  config                        clubs · instagram · reel · 2/day
+  OK  github repo                   nickdotname/ugc-factory
+   x  secret BUFFER_API_KEY         not set — Buffer personal API key
+  OK  buffer channel                instagram · nickdotname · automatic
+   x  assets release                empty
+   x  descriptions                  3 records · still template text
+
+Next:
+  1. secret BUFFER_API_KEY — gh secret set BUFFER_API_KEY --repo owner/repo
+  2. assets release — python -m src.cli web --campaign clubs
+```
+
+It never handles secret values: `gh secret set` prompts you for those, so they
+never pass through this tool.
+
 ## Setup checklist
 
 1. **Make the repo public** (SPEC §3). Public repos get unlimited Actions

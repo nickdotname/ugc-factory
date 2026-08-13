@@ -25,7 +25,7 @@ import sys
 import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Sequence
+from typing import Any, Sequence
 
 from src.assets import (
     GitHubReleasesStore,
@@ -718,6 +718,104 @@ def _print_titles(config: CampaignConfig, descriptions: list[Description]) -> No
                   f"display on Shorts")
 
 
+# ------------------------------------------------------------------- command: setup
+
+
+def cmd_setup(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Report exactly what is wired up and what still needs doing."""
+    from src import doctor
+    from src.vcs import detect_repo, detect_token, list_secret_names
+
+    clock: Clock = SystemClock()
+    log = get_logger(command="setup", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    report = doctor.Report()
+
+    report.add("config", doctor.Status.OK,
+               f"{config.slug} · {config.buffer.service.value} · "
+               f"{config.buffer.post_type.value} · {config.posting.posts_per_day}/day")
+
+    repo = env.get("GITHUB_REPOSITORY") or detect_repo(REPO_ROOT)
+    report.checks.append(doctor.check_repo(repo))
+
+    names = list_secret_names(repo) if repo else None
+    report.checks.extend(doctor.check_secrets(config, repo, names))
+
+    # Buffer channel — only checkable with a key in this shell.
+    channels = None
+    api_key = _secret(config.buffer.api_key_secret, env) or env.get("BUFFER_API_KEY")
+    if api_key:
+        try:
+            channels = _buffer_channels(api_key, log)
+        except UgcError as exc:
+            log.exception("setup_buffer_check_failed", exc)
+    report.checks.append(doctor.check_buffer_channel(config, channels))
+    skipped = doctor.check_local_buffer_key(config)
+    if skipped and channels is None:
+        report.checks.append(skipped)
+
+    # Assets and descriptions.
+    counts = None
+    token = env.get("GITHUB_TOKEN") or detect_token()
+    if repo and token:
+        try:
+            store = GitHubReleasesStore(repo, token, log, clock)
+            asset_names = store.list_assets(_assets_tag(config.slug))
+            counts = {
+                kind: len([n for n in asset_names if n.lower().startswith(kind)])
+                for kind in ("hook", "body", "music")
+            }
+        except UgcError as exc:
+            log.exception("setup_assets_check_failed", exc)
+
+    report.checks.extend(doctor.check_assets(counts, config))
+    bank_path = _campaign_dir(config.slug) / "captions.txt"
+    report.checks.extend(doctor.check_descriptions(bank_path, config))
+
+    description_count = 0
+    if bank_path.is_file():
+        try:
+            from src.descriptions import parse_bank
+
+            description_count = len(parse_bank(bank_path.read_text(encoding="utf-8")))
+        except UgcError:
+            description_count = 0
+    report.checks.extend(doctor.check_library(counts, description_count, config))
+    report.checks.append(doctor.check_mode(config))
+
+    print(f"\n  ugc-factory readiness · {config.slug}\n")
+    print(report.render())
+    print(report.next_steps())
+    if report.ready:
+        print("\n  Ready. Dry run:")
+        print(f"    gh workflow run render.yml -f campaign={config.slug} "
+              f"-f dry_run=true\n")
+        return 0
+    print(f"\n  {len(report.blocking)} blocking item(s).\n")
+    return 1
+
+
+def _buffer_channels(api_key: str, log: StructuredLogger) -> list[dict[str, Any]]:
+    """Fetch channels with the metadata the reminder check needs."""
+    publisher = BufferPublisher(api_key, log)
+    query = """
+    query UgcFactorySetupChannels($input: ChannelsInput!) {
+      channels(input: $input) {
+        id name service
+        metadata {
+          __typename
+          ... on InstagramMetadata { defaultToReminders }
+          ... on TiktokMetadata { defaultToReminders }
+          ... on YoutubeMetadata { defaultToReminders }
+        }
+      }
+    }
+    """
+    data = publisher._gql(query, {"input": {"organizationId": publisher._org_id()}})
+    channels: list[dict[str, Any]] = data.get("channels") or []
+    return channels
+
+
 # --------------------------------------------------------------------- command: web
 
 
@@ -817,6 +915,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     common(ingest)
 
+    setup = sub.add_parser("setup", help="readiness check: what is missing and how to fix it")
+    common(setup)
+
     web = sub.add_parser("web", help="local drop-and-upload interface")
     common(web)
     web.add_argument("--port", type=int, default=8765)
@@ -841,6 +942,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "preflight": cmd_preflight,
         "ingest": cmd_ingest,
         "web": cmd_web,
+        "setup": cmd_setup,
         "cleanup": cmd_cleanup,
     }
     try:
