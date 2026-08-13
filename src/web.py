@@ -1,4 +1,4 @@
-"""A local drop-and-upload interface (``python -m src.cli web``).
+"""A local drop-and-upload interface (``./ugc web``).
 
 Responsibility: give a human a browser window where they can drag clips into the
 right bucket, write descriptions, see whether the library is big enough, and

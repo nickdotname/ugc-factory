@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Run the ugc-factory CLI with the right interpreter, always.
+#
+# Why this exists: `python` on a developer machine is frequently some other
+# environment — Anaconda, a system 3.9, a stale virtualenv — and this project
+# needs pydantic 2.x. Running `python -m src.cli ...` against the wrong one
+# fails with an import error that looks like a bug in the project rather than
+# a shell PATH problem. This wrapper removes the choice.
+#
+#   ./ugc web --campaign clubs
+#   ./ugc setup --campaign clubs
+#
+set -euo pipefail
+
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+venv="$here/.venv"
+
+if [[ ! -x "$venv/bin/python" ]]; then
+  echo "No virtualenv at $venv — creating one..." >&2
+  python3 -m venv "$venv"
+  "$venv/bin/pip" install -q --upgrade pip
+  "$venv/bin/pip" install -q -r "$here/requirements.txt"
+  echo "Done." >&2
+fi
+
+# Verify the interpreter actually has what it needs, rather than failing later
+# with a confusing traceback from deep inside a model definition.
+if ! "$venv/bin/python" -c 'import pydantic,sys; sys.exit(0 if pydantic.VERSION.startswith("2.") else 1)' 2>/dev/null; then
+  echo "Dependencies are stale — reinstalling..." >&2
+  "$venv/bin/pip" install -q -r "$here/requirements.txt"
+fi
+
+exec "$venv/bin/python" -m src.cli "$@"

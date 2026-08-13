@@ -144,8 +144,13 @@ mypy src/ && pytest
 ## Start here
 
 ```bash
-python -m src.cli setup --campaign clubs
+./ugc setup --campaign clubs
 ```
+
+Use `./ugc` rather than `python -m src.cli`. Your shell's `python` is often
+some other environment (Anaconda, a system 3.9) whose pydantic is too old, and
+the resulting import error looks like a bug in this project rather than a PATH
+problem. The wrapper always uses `.venv`, and creates it if missing.
 
 Checks all four systems this depends on — git repo, GitHub Secrets, the Buffer
 channel, the assets Release — and prints the exact command to fix each gap. Run
@@ -161,7 +166,7 @@ it any time you are unsure what state things are in.
 
 Next:
   1. secret BUFFER_API_KEY — gh secret set BUFFER_API_KEY --repo owner/repo
-  2. assets release — python -m src.cli web --campaign clubs
+  2. assets release — ./ugc web --campaign clubs
 ```
 
 It never handles secret values: `gh secret set` prompts you for those, so they
@@ -178,7 +183,7 @@ never pass through this tool.
    terminal — same pipeline either way).
 
    ```bash
-   python -m src.cli web --campaign clubs
+   ./ugc web --campaign clubs
    ```
 
    Opens `http://127.0.0.1:8765`: three drop zones for hooks / bodies / music,
@@ -202,7 +207,7 @@ never pass through this tool.
    The *folder* is what assigns the role. Then:
 
    ```bash
-   python -m src.cli ingest --campaign clubs
+   ./ugc ingest --campaign clubs
    ```
 
    It probes every file, rejects what genuinely cannot work, generates correct
@@ -354,10 +359,10 @@ publish before tomorrow.
 ### Commands
 
 ```bash
-python -m src.cli render    --campaign clubs [--dry-run] [--count N]
-python -m src.cli topup     --campaign clubs [--dry-run] [--no-commit]
-python -m src.cli preflight --campaign clubs
-python -m src.cli cleanup   --campaign clubs [--digest]
+./ugc render    --campaign clubs [--dry-run] [--count N]
+./ugc topup     --campaign clubs [--dry-run] [--no-commit]
+./ugc preflight --campaign clubs
+./ugc cleanup   --campaign clubs [--digest]
 ```
 
 ### Why the top-up job exists

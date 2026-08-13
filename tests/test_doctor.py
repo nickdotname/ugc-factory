@@ -102,7 +102,9 @@ class TestAssets:
     def test_empty_release_blocks(self, config: CampaignConfig) -> None:
         checks = check_assets({"hook": 0, "body": 0, "music": 0}, config)
         assert checks[0].status is Status.MISSING
-        assert "src.cli web" in checks[0].fix
+        # The wrapper, not `python -m src.cli`: the operator's `python` is often
+        # a different environment with the wrong pydantic.
+        assert checks[0].fix.startswith("./ugc web")
 
     def test_music_alone_is_not_enough(self, config: CampaignConfig) -> None:
         """Hooks and bodies are required; music is optional."""

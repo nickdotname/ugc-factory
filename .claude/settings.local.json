@@ -58,7 +58,14 @@
       "Bash(.venv/bin/python -m pytest tests/test_web.py --no-header)",
       "Bash(git push *)",
       "Bash(.venv/bin/python -m pytest tests/test_doctor.py --no-header)",
-      "Bash(sed -i '' 's|^| |; s|^ ||' README.md)"
+      "Bash(sed -i '' 's|^| |; s|^ ||' README.md)",
+      "Bash(python -c \"import pydantic; print\\('pydantic', pydantic.VERSION\\)\")",
+      "Bash(.venv/bin/python -m src.cli web --campaign clubs --port 8765)",
+      "Bash(curl -s -o /dev/null -w \"server: status=%{http_code}\\\\n\" http://127.0.0.1:8765/)",
+      "Bash(chmod +x ugc)",
+      "Bash(./ugc setup *)",
+      "Bash(.venv/bin/python -m pytest tests/test_doctor.py tests/test_web.py --no-header)",
+      "Bash(curl -s -o /dev/null -w \"web app still up: %{http_code}\\\\n\" http://127.0.0.1:8765/)"
     ]
   }
 }

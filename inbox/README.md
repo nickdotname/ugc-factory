@@ -16,7 +16,7 @@ the role, and correct names are generated for you on upload.
 Then:
 
 ```bash
-python -m src.cli ingest --campaign clubs
+./ugc ingest --campaign clubs
 ```
 
 That probes every file, tells you what it found, renames them to

@@ -133,7 +133,7 @@ def check_buffer_channel(
         return Check(
             "buffer channel", Status.WARN,
             "not checked (set BUFFER_API_KEY locally to verify)",
-            "export BUFFER_API_KEY=... && python -m src.cli setup "
+            "export BUFFER_API_KEY=... && ./ugc setup "
             f"--campaign {config.slug}",
         )
 
@@ -176,8 +176,7 @@ def check_assets(counts: dict[str, int] | None, config: CampaignConfig) -> list[
         return [
             Check(
                 "assets release", Status.MISSING, "empty",
-                f"python -m src.cli web --campaign {config.slug}  "
-                f"(drop clips in, hit Upload)",
+                f"./ugc web --campaign {config.slug}  (drop clips in, hit Upload)",
             )
         ]
     detail = (
@@ -189,7 +188,7 @@ def check_assets(counts: dict[str, int] | None, config: CampaignConfig) -> list[
         return [
             Check(
                 "assets release", Status.MISSING, f"{detail} — no {', '.join(missing)}",
-                f"python -m src.cli web --campaign {config.slug}",
+                f"./ugc web --campaign {config.slug}",
             )
         ]
     return [Check("assets release", Status.OK, detail)]
@@ -199,7 +198,7 @@ def check_descriptions(bank_path: Path, config: CampaignConfig) -> list[Check]:
     if not bank_path.is_file():
         return [
             Check("descriptions", Status.MISSING, "no bank file",
-                  f"python -m src.cli web --campaign {config.slug}")
+                  f"./ugc web --campaign {config.slug}")
         ]
     text = bank_path.read_text(encoding="utf-8")
     try:
@@ -211,7 +210,7 @@ def check_descriptions(bank_path: Path, config: CampaignConfig) -> list[Check]:
     if not records:
         return [
             Check("descriptions", Status.MISSING, "bank is empty",
-                  f"python -m src.cli web --campaign {config.slug}")
+                  f"./ugc web --campaign {config.slug}")
         ]
 
     errors, _ = validate_bank(records, config.buffer.service)
@@ -227,7 +226,7 @@ def check_descriptions(bank_path: Path, config: CampaignConfig) -> list[Check]:
     if template:
         return [Check("descriptions", Status.MISSING,
                       f"{len(records)} records · still template text",
-                      f"python -m src.cli web --campaign {config.slug}")]
+                      f"./ugc web --campaign {config.slug}")]
     return [Check("descriptions", Status.OK, f"{len(records)} records")]
 
 
