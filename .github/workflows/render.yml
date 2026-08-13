@@ -26,8 +26,11 @@ permissions:
   contents: write   # commits queue.json/history.json and creates Releases
 
 concurrency:
-  # SPEC §12 — two renders for one campaign would double-append history.
-  group: render-${{ github.ref }}
+  # SPEC §12 — two renders for one campaign would double-append history, so the
+  # group is per-campaign. It must include the dispatch input: a single
+  # workflow-level group only ever holds ONE pending run, so dispatching three
+  # campaigns back to back silently cancels the middle one.
+  group: render-${{ github.ref }}-${{ inputs.campaign || 'all' }}
   cancel-in-progress: false
 
 jobs:
