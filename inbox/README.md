@@ -6,7 +6,7 @@ This is the only folder you need to think about.
 inbox/clubs/
   hooks/     ← hook clips (the first 1–2 seconds that stop the scroll)
   bodies/    ← main videos
-  music/     ← tracks
+  music/     ← tracks (upload WHOLE SONGS, not clipped snippets)
 ```
 
 Drop files into the folder that matches what they are. **Names don't matter** —
@@ -42,6 +42,18 @@ The renderer fixes these, so they are notes rather than errors:
   subject centred in frame
 - **no audio track** — silence is added automatically
 - **odd frame rates, non-square pixels** — normalised
+
+## Music: upload whole songs
+
+Don't hand-cut viral snippets. Drop the full track in and each video takes its
+bed from a different point in the song, so one 3-minute track becomes ~12
+distinct beds. Offsets snap to a 15s grid so they stay dedupe-able — a
+continuous offset would make every render trivially "unique" and quietly
+defeat the repeat protection.
+
+A short fade-in covers the mid-phrase start. Tune it under `composition` in
+the campaign config, or set `music_random_start: false` to always start at
+0:00.
 
 ## Accepted formats
 

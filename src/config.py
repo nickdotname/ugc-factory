@@ -216,6 +216,20 @@ class CompositionConfig(StrictModel):
     music_volume: float = Field(default=0.10, ge=0.0, le=1.0)
     music_fade_out_sec: float = Field(default=1.5, ge=0.0, le=10.0)
 
+    # Take the bed from a random point in the track rather than always from
+    # 0:00. Lets a campaign upload whole songs instead of hand-cut snippets,
+    # and turns one track into many distinct beds.
+    music_random_start: bool = True
+    # Offsets are quantised to this grid instead of being continuous. A
+    # continuous offset would make every combination trivially unique, which
+    # would silently defeat the dedupe guarantee in SPEC §10 — the tuple would
+    # never repeat even while the visible content did.
+    music_segment_sec: float = Field(default=15.0, gt=0.0, le=120.0)
+    # Skip a track's intro, which is often sparse or silent.
+    music_skip_intro_sec: float = Field(default=0.0, ge=0.0)
+    # A bed starting mid-phrase pops without this.
+    music_fade_in_sec: float = Field(default=0.5, ge=0.0, le=10.0)
+
 
 class SelectionConfig(StrictModel):
     """Combination picking and dedupe rules (SPEC §9/§10 ``selection``)."""

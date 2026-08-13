@@ -296,3 +296,83 @@ class TestDeterminism:
                         music="music_short", item_id="b")
         )
         assert a.output_path.read_bytes() == b.output_path.read_bytes()
+
+
+class TestMusicRandomStart:
+    """Beds cut from anywhere in a track (upload whole songs, not snippets)."""
+
+    def test_different_offsets_produce_different_audio(
+        self, renderer: FfmpegRenderer, clips: dict[str, Path], tmp_path: Path
+    ) -> None:
+        """The whole feature in one assertion: offset must actually change the bed."""
+        def render_at(offset: float, name: str) -> bytes:
+            req = RenderRequest(
+                item_id=name,
+                hook_path=clips["portrait"],
+                body_paths=(clips["square"],),
+                music_path=clips["music_long"],
+                music_offset_sec=offset,
+                output_path=tmp_path / f"{name}.mp4",
+            )
+            return renderer.render(req).output_path.read_bytes()
+
+        assert render_at(0.0, "a") != render_at(30.0, "b")
+
+    def test_same_offset_is_still_byte_identical(
+        self, renderer: FfmpegRenderer, clips: dict[str, Path], tmp_path: Path
+    ) -> None:
+        """Determinism must survive the new parameter (SPEC §2.2)."""
+        def render_at(offset: float, name: str) -> bytes:
+            req = RenderRequest(
+                item_id=name,
+                hook_path=clips["portrait"],
+                body_paths=(clips["square"],),
+                music_path=clips["music_long"],
+                music_offset_sec=offset,
+                output_path=tmp_path / f"{name}.mp4",
+            )
+            return renderer.render(req).output_path.read_bytes()
+
+        assert render_at(15.0, "a") == render_at(15.0, "b")
+
+    def test_offset_past_the_end_wraps_rather_than_going_silent(
+        self, renderer: FfmpegRenderer, clips: dict[str, Path], tmp_path: Path
+    ) -> None:
+        """-stream_loop means a late offset wraps; it must not yield silence."""
+        req = RenderRequest(
+            item_id="wrap",
+            hook_path=clips["portrait"],
+            body_paths=(clips["square"],),
+            music_path=clips["music_short"],   # 2s track
+            music_offset_sec=90.0,             # far past the end
+            output_path=tmp_path / "wrap.mp4",
+        )
+        result = renderer.render(req)
+        assert result.probe.has_audio
+        assert result.probe.duration_sec == pytest.approx(7.0, abs=0.6)
+
+    def test_offset_does_not_change_video_length(
+        self, renderer: FfmpegRenderer, clips: dict[str, Path], tmp_path: Path
+    ) -> None:
+        req = RenderRequest(
+            item_id="len",
+            hook_path=clips["portrait"],
+            body_paths=(clips["square"],),
+            music_path=clips["music_long"],
+            music_offset_sec=42.0,
+            output_path=tmp_path / "len.mp4",
+        )
+        assert renderer.render(req).probe.duration_sec == pytest.approx(7.0, abs=0.6)
+
+    def test_zero_offset_matches_the_old_behaviour(
+        self, renderer: FfmpegRenderer, clips: dict[str, Path], tmp_path: Path
+    ) -> None:
+        """A campaign with random start off must render exactly as before."""
+        req = RenderRequest(
+            item_id="zero",
+            hook_path=clips["portrait"],
+            body_paths=(clips["square"],),
+            music_path=clips["music_long"],
+            output_path=tmp_path / "zero.mp4",
+        )
+        assert renderer.render(req).probe.has_audio

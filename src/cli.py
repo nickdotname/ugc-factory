@@ -160,8 +160,12 @@ def _build_store(env: dict[str, str], log: StructuredLogger, clock: Clock) -> Me
 
 
 def _library_from(
-    paths: LocalLibrary, descriptions: list[Description]
+    paths: LocalLibrary,
+    descriptions: list[Description],
+    config: CampaignConfig | None = None,
+    durations: dict[str, float] | None = None,
 ) -> AssetLibrary:
+    composition = config.composition if config else None
     return AssetLibrary(
         hooks=tuple(p.name for p in paths.hooks),
         bodies=tuple(p.name for p in paths.bodies),
@@ -169,6 +173,14 @@ def _library_from(
         # The selector dedupes on description *body*; the title rides along
         # via the lookup below and never affects combination identity.
         captions=tuple(d.body for d in descriptions),
+        music_durations=durations or {},
+        music_segment_sec=(
+            composition.music_segment_sec if composition
+            and composition.music_random_start else 0.0
+        ),
+        music_skip_intro_sec=(
+            composition.music_skip_intro_sec if composition else 0.0
+        ),
     )
 
 
@@ -243,7 +255,20 @@ def _render(
         campaign_dir / "captions.txt", config.buffer.service,
         config.buffer.title_strategy,
     )
-    library = _library_from(paths, descriptions)
+    renderer: Renderer = FfmpegRenderer(config, log)
+
+    # Probing every track once up front is what lets the selector cut a long
+    # song into segments; without durations it degrades to one bed per track
+    # starting at 0:00.
+    durations: dict[str, float] = {}
+    if config.composition.music_random_start:
+        for track in paths.music:
+            try:
+                durations[track.name] = renderer.probe(track).duration_sec
+            except UgcError as exc:
+                log.warning("music_probe_failed", track=track.name, error=str(exc))
+
+    library = _library_from(paths, descriptions, config, durations)
 
     history = load_history(campaign_dir / "history.json")
     # Seeded from the render date so a given day is reproducible, while
@@ -265,7 +290,6 @@ def _render(
             f"small for {config.posting.posts_per_day} posts/day.",
         )
 
-    renderer: Renderer = FfmpegRenderer(config, log)
     by_name = paths.by_name()
 
     # Title lookup by description body: Selection carries only the body (that
@@ -290,6 +314,7 @@ def _render(
             hook_path=by_name[selection.hook],
             body_paths=tuple(by_name[b] for b in selection.bodies),
             music_path=by_name[selection.music] if selection.music else None,
+            music_offset_sec=selection.music_offset_sec,
             output_path=out_dir / f"{item_id}.mp4",
         )
         result = renderer.render(request)
@@ -304,6 +329,7 @@ def _render(
                     "hook": selection.hook,
                     "bodies": ",".join(selection.bodies),
                     "music": selection.music or "",
+                    "music_offset_sec": f"{selection.music_offset_sec:.0f}",
                 },
             ),
             selection,
@@ -328,6 +354,7 @@ def _render(
                 hook=sel.hook,
                 bodies=sel.bodies,
                 music=sel.music,
+                music_offset_sec=sel.music_offset_sec,
                 caption=sel.caption,
                 title=item.title,
             )

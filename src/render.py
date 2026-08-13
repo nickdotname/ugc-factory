@@ -244,7 +244,12 @@ class FfmpegRenderer(Renderer):
     # --------------------------------------------------------------- stage two
 
     def _concat_and_mix(
-        self, parts: Sequence[Path], music: Path | None, dest: Path, workdir: Path
+        self,
+        parts: Sequence[Path],
+        music: Path | None,
+        dest: Path,
+        workdir: Path,
+        music_offset_sec: float = 0.0,
     ) -> None:
         """Concatenate normalized parts and lay music under the whole video."""
         listfile = workdir / "concat.txt"
@@ -282,17 +287,26 @@ class FfmpegRenderer(Renderer):
         duration = sum(self.probe(p).duration_sec for p in parts)
         fade_start = max(0.0, duration - c.music_fade_out_sec)
 
-        # atrim cuts the (now infinitely looped) music to the video length;
+        # atrim cuts the (now infinitely looped) music to the video length,
+        # starting at the chosen offset so the bed can come from anywhere in
+        # the track rather than always from 0:00. Because the input is looped,
+        # an offset near the end simply wraps — no need to know the track
+        # length here.
         # asetpts rebases timestamps after the trim, without which the mixed
         # track starts at the wrong offset.
+        # A fade-IN matters once the start is arbitrary: dropping in mid-phrase
+        # at full level pops audibly.
         # amix normalize=0 is essential: with the default normalize=1 ffmpeg
         # divides every input by the number of inputs, which would halve the
         # spoken audio and make music_volume mean something other than what it
         # says. duration=first ties the mix length to the video's own audio.
+        start = max(0.0, music_offset_sec)
+        fade_in = min(c.music_fade_in_sec, duration / 2)
         filter_complex = (
             f"[1:a]volume={c.music_volume},"
-            f"atrim=0:{duration:.3f},"
+            f"atrim={start:.3f}:{start + duration:.3f},"
             f"asetpts=PTS-STARTPTS,"
+            f"afade=t=in:st=0:d={fade_in:.3f},"
             f"afade=t=out:st={fade_start:.3f}:d={c.music_fade_out_sec}[music];"
             f"[0:a][music]amix=inputs=2:duration=first:normalize=0[aout]"
         )
@@ -326,6 +340,7 @@ class FfmpegRenderer(Renderer):
             hook=request.hook_path.name,
             bodies=[p.name for p in request.body_paths],
             music=request.music_path.name if request.music_path else None,
+            music_offset_sec=request.music_offset_sec,
         )
 
         sources = [request.hook_path, *request.body_paths]
@@ -348,7 +363,8 @@ class FfmpegRenderer(Renderer):
                 log.debug("normalized", source=src.name, temp=temp.name)
 
             self._concat_and_mix(
-                normalized, request.music_path, request.output_path, workdir
+                normalized, request.music_path, request.output_path, workdir,
+                request.music_offset_sec,
             )
         finally:
             # Temps are large; leaving them behind fills a CI runner's disk

@@ -75,6 +75,9 @@ class Selection(Model):
     #: Separate short title, for platforms that have one (YouTube: 100 chars).
     #: None everywhere else, where the description is the only text field.
     title: str | None = None
+    #: Where in the track the bed starts, in seconds. Quantised to the
+    #: configured grid so it is a dedupe-able identity, not a free float.
+    music_offset_sec: float = Field(default=0.0, ge=0.0)
 
     @property
     def tuple_key(self) -> tuple[str, ...]:
@@ -92,6 +95,7 @@ class RenderRequest(Model):
     hook_path: Path
     body_paths: tuple[Path, ...] = Field(min_length=1)
     music_path: Path | None
+    music_offset_sec: float = Field(default=0.0, ge=0.0)
     output_path: Path
 
 
@@ -170,6 +174,7 @@ class HistoryEntry(Model):
     hook: str
     bodies: tuple[str, ...]
     music: str | None
+    music_offset_sec: float = 0.0
     caption: str
     title: str | None = None
     buffer_post_id: str | None = None

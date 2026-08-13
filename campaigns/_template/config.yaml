@@ -27,6 +27,14 @@ composition:
   music_volume: 0.10
   music_fade_out_sec: 1.5
 
+  # Upload WHOLE SONGS, not hand-cut viral snippets. Each video takes its bed
+  # from a random point in the track, so one 3-minute song becomes ~12 distinct
+  # beds instead of one.
+  music_random_start: true
+  music_segment_sec: 15        # offsets snap to this grid, so they stay dedupe-able
+  music_skip_intro_sec: 0      # raise to skip sparse intros
+  music_fade_in_sec: 0.5       # stops a mid-phrase start from popping
+
 selection:
   dedupe_on: [hook, body, music, caption]
   caption_cooldown_days: 14

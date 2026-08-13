@@ -67,7 +67,8 @@
       "Bash(.venv/bin/python -m pytest tests/test_doctor.py tests/test_web.py --no-header)",
       "Bash(curl -s -o /dev/null -w \"web app still up: %{http_code}\\\\n\" http://127.0.0.1:8765/)",
       "Bash(curl -s -o /dev/null -w \"http://127.0.0.1:8765 → %{http_code}\\\\n\" http://127.0.0.1:8765/)",
-      "Bash(gh secret *)"
+      "Bash(gh secret *)",
+      "Bash(.venv/bin/python -m mypy src/selector.py)"
     ]
   }
 }

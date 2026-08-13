@@ -342,3 +342,98 @@ class TestCeilingAndRunway:
                        StructuredLogger({}, stream))
         sel.select_batch(make_library(), History(), 3, 1)
         assert "combinatorial_ceiling" in stream.getvalue()
+
+
+class TestMusicSegments:
+    """Whole songs cut into beds, rather than pre-clipped snippets."""
+
+    def lib_with_durations(self, seconds: float = 180.0, segment: float = 15.0):
+        return AssetLibrary(
+            hooks=("h1.mp4", "h2.mp4"),
+            bodies=("b1.mp4", "b2.mp4"),
+            music=("song_a.mp3", "song_b.mp3"),
+            captions=tuple(f"c{i}" for i in range(6)),
+            music_durations={"song_a.mp3": seconds, "song_b.mp3": seconds},
+            music_segment_sec=segment,
+        )
+
+    def test_a_long_track_yields_many_segments(self) -> None:
+        lib = self.lib_with_durations(180.0, 15.0)
+        assert lib.segments_for("song_a.mp3") == 12
+
+    def test_unknown_duration_degrades_to_one_segment(self) -> None:
+        """No probe data must still work — just always from 0:00."""
+        lib = AssetLibrary(hooks=("h",), bodies=("b",), music=("m.mp3",),
+                           captions=("c",))
+        assert lib.segments_for("m.mp3") == 1
+        assert lib.offset_for("m.mp3", 0) == 0.0
+
+    def test_track_shorter_than_one_segment_yields_one(self) -> None:
+        lib = self.lib_with_durations(8.0, 15.0)
+        assert lib.segments_for("song_a.mp3") == 1
+
+    def test_intro_skip_shifts_offsets(self) -> None:
+        lib = AssetLibrary(
+            hooks=("h",), bodies=("b",), music=("m.mp3",), captions=("c",),
+            music_durations={"m.mp3": 100.0},
+            music_segment_sec=10.0, music_skip_intro_sec=20.0,
+        )
+        assert lib.offset_for("m.mp3", 0) == 20.0
+        assert lib.segments_for("m.mp3") == 8   # (100-20)/10
+
+    def test_ceiling_counts_segments_not_tracks(self) -> None:
+        """3 songs x 12 segments is 36 beds, not 3 — the point of the feature."""
+        lib = AssetLibrary(
+            hooks=("h",), bodies=("b",), captions=("c",),
+            music=("a.mp3", "b.mp3", "c.mp3"),
+            music_durations={"a.mp3": 180.0, "b.mp3": 180.0, "c.mp3": 180.0},
+            music_segment_sec=15.0,
+        )
+        assert lib.total_music_options() == 36
+        assert lib.ceiling(1) == 36
+
+    def test_selection_carries_a_quantised_offset(self) -> None:
+        lib = self.lib_with_durations()
+        for _ in range(20):
+            out = make_selector(seed=5).select_one(lib, History(), 1)
+            offset = out.selection.music_offset_sec
+            assert offset % 15.0 == 0, "offsets must snap to the grid"
+            assert 0 <= offset < 180.0
+
+    def test_offsets_actually_vary_across_a_batch(self) -> None:
+        outcomes = make_selector(seed=9).select_batch(
+            self.lib_with_durations(), History(), 20, 1
+        )
+        offsets = {o.selection.music_offset_sec for o in outcomes}
+        assert len(offsets) > 1, "every video got the same bed"
+
+    def test_same_track_different_offset_is_not_a_duplicate(self) -> None:
+        """Two beds cut from one song are different content, not a repeat."""
+        a = Selection(hook="h", bodies=("b",), music="m.mp3", caption="c",
+                      music_offset_sec=0.0)
+        b = Selection(hook="h", bodies=("b",), music="m.mp3", caption="c",
+                      music_offset_sec=30.0)
+        dims = list(DedupeDimension)
+        assert tuple_hash(a, dims) != tuple_hash(b, dims)
+
+    def test_identical_offsets_still_collide(self) -> None:
+        a = Selection(hook="h", bodies=("b",), music="m.mp3", caption="c",
+                      music_offset_sec=30.0)
+        b = Selection(hook="h", bodies=("b",), music="m.mp3", caption="c",
+                      music_offset_sec=30.0)
+        dims = list(DedupeDimension)
+        assert tuple_hash(a, dims) == tuple_hash(b, dims)
+
+    def test_offsets_are_deterministic_under_a_fixed_seed(self) -> None:
+        lib = self.lib_with_durations()
+        a = make_selector(seed=3).select_batch(lib, History(), 10, 1)
+        b = make_selector(seed=3).select_batch(lib, History(), 10, 1)
+        assert [o.selection.music_offset_sec for o in a] == \
+               [o.selection.music_offset_sec for o in b]
+
+    def test_no_music_means_no_offset(self) -> None:
+        lib = AssetLibrary(hooks=("h",), bodies=("b",), music=(),
+                           captions=("c1", "c2"))
+        out = make_selector().select_one(lib, History(), 1)
+        assert out.selection.music is None
+        assert out.selection.music_offset_sec == 0.0

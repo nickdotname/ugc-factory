@@ -12,7 +12,7 @@ is what makes the acceptance tests in SPEC §14 meaningful rather than flaky.
 from __future__ import annotations
 
 import hashlib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
 from typing import Iterable, Mapping, Sequence
@@ -58,6 +58,13 @@ class AssetLibrary:
     bodies: tuple[str, ...]
     music: tuple[str, ...]
     captions: tuple[str, ...]
+    #: Track filename -> duration in seconds. Empty means "unknown", which
+    #: degrades to a single segment per track starting at 0:00 — the old
+    #: behaviour, so a campaign that cannot probe still works.
+    music_durations: Mapping[str, float] = field(default_factory=dict)
+    #: Grid the offsets snap to. Mirrors composition.music_segment_sec.
+    music_segment_sec: float = 15.0
+    music_skip_intro_sec: float = 0.0
 
     def validate(self) -> None:
         """Fail loud on an unusable library rather than picking from nothing."""
@@ -75,6 +82,28 @@ class AssetLibrary:
                 f"asset library is missing required parts: {', '.join(empty)}"
             )
 
+    def segments_for(self, track: str) -> int:
+        """How many distinct beds one track yields.
+
+        Because the renderer loops the track, an offset near the end is fine —
+        it wraps. So this depends only on track length, not on video length.
+        """
+        duration = self.music_durations.get(track, 0.0)
+        usable = duration - self.music_skip_intro_sec
+        if usable <= 0 or self.music_segment_sec <= 0:
+            return 1
+        return max(1, int(usable // self.music_segment_sec))
+
+    def offset_for(self, track: str, segment: int) -> float:
+        """Start time in seconds for a given segment index."""
+        return self.music_skip_intro_sec + segment * self.music_segment_sec
+
+    def total_music_options(self) -> int:
+        """Every (track, segment) pair — the real size of the music dimension."""
+        if not self.music:
+            return 1
+        return sum(self.segments_for(t) for t in self.music)
+
     def ceiling(self, bodies_per_video: int) -> int:
         """Total distinct combinations available.
 
@@ -86,8 +115,9 @@ class AssetLibrary:
         if len(self.bodies) < bodies_per_video:
             return 0
         body_combos = comb(len(self.bodies), bodies_per_video)
-        # A campaign with no music still has one "no music" option.
-        music_options = len(self.music) or 1
+        # Counts (track, segment) pairs, not tracks: three songs cut into
+        # twelve segments each is thirty-six distinct beds, not three.
+        music_options = self.total_music_options()
         return len(self.hooks) * body_combos * music_options * len(self.captions)
 
 
@@ -116,7 +146,11 @@ def tuple_hash(selection: Selection, dimensions: Sequence[DedupeDimension]) -> s
         elif dim is DedupeDimension.BODY:
             parts.append("body=" + ",".join(sorted(selection.bodies)))
         elif dim is DedupeDimension.MUSIC:
-            parts.append(f"music={selection.music or ''}")
+            # The offset is part of the music identity: two beds cut from
+            # different points of one track are genuinely different content,
+            # and hashing only the filename would collapse them into one.
+            offset = f"@{selection.music_offset_sec:.0f}" if selection.music else ""
+            parts.append(f"music={selection.music or ''}{offset}")
         elif dim is DedupeDimension.CAPTION:
             # Captions are free text and can be long; hash rather than embed.
             digest = hashlib.sha256(selection.caption.encode("utf-8")).hexdigest()[:16]
@@ -347,10 +381,19 @@ class Selector:
                 if library.music
                 else None
             )
+            # Segment choice is uniform rather than LRU-weighted: segments of
+            # one track are interchangeable, and tracking recency per segment
+            # would bloat history for no perceptible gain.
+            music_offset = 0.0
+            if music is not None:
+                segments = library.segments_for(music)
+                index = self._rng.choice(tuple(range(segments)))
+                music_offset = library.offset_for(music, index)
             caption = self._rng.weighted_choice(captions, caption_w)
 
             candidate = Selection(
-                hook=hook, bodies=bodies, music=music, caption=caption
+                hook=hook, bodies=bodies, music=music, caption=caption,
+                music_offset_sec=music_offset,
             )
             digest = tuple_hash(candidate, self._config.dedupe_on)
             if digest in exclude:
