@@ -5,8 +5,15 @@
 # source clips before they ever reach this pipeline; the renderer contains no
 # text filters at all.
 #
-# FORMAT: one record per block, blocks separated by a BLANK LINE.
-# A description may span multiple lines — only a blank line ends a record.
+# FORMAT: two options.
+#
+#   1. Separate records with a line of ---   (use this one)
+#      Blank lines then work INSIDE a caption, which is what you want for the
+#      usual hook / blank / CTA / blank / keywords shape.
+#
+#   2. Separate records with a blank line
+#      Simpler, but then a caption cannot contain blank lines of its own.
+#
 # Lines starting with # are ignored, so notes are fine.
 #
 # CHARACTER LIMITS (validated at preflight, not at publish time):

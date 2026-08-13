@@ -418,3 +418,48 @@ class TestTitleStrategy:
         with pytest.raises(ConfigError, match="requires a title"):
             load_bank("no title here", Service.YOUTUBE, source="x",
                       strategy=TitleStrategy.REQUIRE)
+
+
+class TestSeparatorFormat:
+    """Captions need internal blank lines; `---` makes that possible."""
+
+    def test_dashes_separate_records_and_blank_lines_survive(self) -> None:
+        from src.descriptions import parse_bank
+
+        bank = (
+            "hook line\n\ncomment \"create\"\n\n[a, b]\n"
+            "---\n"
+            "second hook\n\nsecond cta\n\n[c, d]\n"
+        )
+        records = parse_bank(bank)
+        assert len(records) == 2, "blank lines must not split records here"
+        assert records[0].body.count("\n\n") == 2
+        assert "[a, b]" in records[0].body
+        assert records[1].body.startswith("second hook")
+
+    def test_blank_line_format_still_works_without_dashes(self) -> None:
+        from src.descriptions import parse_bank
+
+        assert len(parse_bank("one\n\ntwo\n\nthree")) == 3
+
+    def test_longer_dash_runs_are_accepted(self) -> None:
+        from src.descriptions import parse_bank
+
+        assert len(parse_bank("a\n-----\nb")) == 2
+
+    def test_dashes_inside_a_line_are_not_a_separator(self) -> None:
+        from src.descriptions import parse_bank
+
+        records = parse_bank("a caption -- with dashes -- inline")
+        assert len(records) == 1
+
+    def test_trailing_separator_does_not_make_an_empty_record(self) -> None:
+        from src.descriptions import parse_bank
+
+        assert len(parse_bank("only one\n---\n")) == 1
+
+    def test_titles_still_work_with_the_separator_form(self) -> None:
+        from src.descriptions import parse_bank
+
+        records = parse_bank("title: T1\nbody one\n\nmore\n---\ntitle: T2\nbody two")
+        assert [r.title for r in records] == ["T1", "T2"]

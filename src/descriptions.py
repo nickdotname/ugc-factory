@@ -9,8 +9,9 @@ Instagram's caption box, TikTok's caption, YouTube's description. It is never
 drawn onto the video. On-screen subtitles are baked into the source clips before
 they ever reach this pipeline; the renderer contains no text filters at all.
 
-Format — records separated by blank lines, with an optional ``title:`` first
-line for platforms that have a separate title field:
+Format — records separated by a ``---`` line (preferred, because it lets a
+caption contain its own blank lines) or by blank lines, with an optional
+``title:`` first line for platforms that have a separate title field:
 
     title: How I built this in five minutes
     The long description body goes here.
@@ -62,10 +63,30 @@ class Description:
         return self.body
 
 
+#: An explicit record separator: a line of three or more dashes, alone.
+_SEPARATOR = re.compile(r"^-{3,}\s*$", re.MULTILINE)
+
+
+def split_records(text: str) -> list[str]:
+    """Split a bank into raw record blocks.
+
+    Two formats, because real captions need internal blank lines. A caption is
+    routinely written as hook / blank / CTA / blank / keyword list, and if blank
+    lines separated *records* that one caption would parse as three.
+
+    So: if the file contains any ``---`` line, that is the separator and blank
+    lines are ordinary caption content. Otherwise blank lines separate records,
+    which keeps simple banks simple.
+    """
+    if _SEPARATOR.search(text):
+        return _SEPARATOR.split(text)
+    return text.split("\n\n")
+
+
 def parse_bank(text: str) -> list[Description]:
     """Parse a description bank. Raises ``ConfigError`` on a malformed record."""
     records: list[Description] = []
-    for block in text.split("\n\n"):
+    for block in split_records(text):
         stripped = block.strip()
         if not stripped:
             continue
@@ -85,6 +106,8 @@ def parse_bank(text: str) -> list[Description]:
                     "remove the line"
                 )
 
+        # "\n".join keeps internal blank lines intact, which is the whole
+        # point of the --- separator form.
         body = "\n".join(lines).strip()
         if not body:
             raise ConfigError(
