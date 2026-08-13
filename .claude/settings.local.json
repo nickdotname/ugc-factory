@@ -68,7 +68,13 @@
       "Bash(curl -s -o /dev/null -w \"web app still up: %{http_code}\\\\n\" http://127.0.0.1:8765/)",
       "Bash(curl -s -o /dev/null -w \"http://127.0.0.1:8765 → %{http_code}\\\\n\" http://127.0.0.1:8765/)",
       "Bash(gh secret *)",
-      "Bash(.venv/bin/python -m mypy src/selector.py)"
+      "Bash(.venv/bin/python -m mypy src/selector.py)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8765/)",
+      "Bash(ffprobe -v error -show_entries format=duration -of csv=p=0 work/clubs/assets/hook_05.mov work/clubs/assets/body_02.mp4)",
+      "Bash(ffmpeg -y -v error -i work/clubs/assets/body_02.mp4 -vf \"fps=1/2,scale=270:480,tile=4x1\" -frames:v 1 /tmp/src.png)",
+      "Bash(ffmpeg -y -v error -i work/clubs/assets/hook_05.mov -vf \"fps=1/1.2,scale=270:480,tile=5x1\" -frames:v 1 /tmp/hook.png)",
+      "Bash(ffprobe -v error -show_entries format=duration -of csv=p=0 work/clubs/assets/hook_05.mov)",
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'First rendered batch for clubs [skip ci] *)"
     ]
   }
 }

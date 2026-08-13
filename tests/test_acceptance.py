@@ -335,11 +335,21 @@ class TestShippedCampaign:
         )
 
     def test_queue_and_history_files_are_valid_json(self) -> None:
+        """Parse, not emptiness — these files carry real state once live."""
         from src.queue import load_history
 
         d = REPO_ROOT / "campaigns" / "clubs"
-        assert load_queue(d / "queue.json").items == []
-        assert load_history(d / "history.json").entries == []
+        queue = load_queue(d / "queue.json")
+        history = load_history(d / "history.json")
+        # Every queued item must have somewhere to fetch the video from, or the
+        # publisher would hand Buffer an empty URL.
+        for item in queue.items:
+            assert item.video_url.startswith("https://"), item.id
+            assert item.caption.strip(), item.id
+        # History hashes are what dedupe rests on; a blank one would collide
+        # with every other blank one.
+        for entry in history.entries:
+            assert entry.tuple_hash
 
     def test_cli_help_lists_all_four_commands(self) -> None:
         # sys.executable, not "python": the ambient interpreter on a dev machine

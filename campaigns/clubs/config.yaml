@@ -18,7 +18,10 @@ posting:
   start_hour: 9
   end_hour: 22
   max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
-  dry_run: true               # flip to false after a dry run looks right
+  # LIVE. Posts are pushed to Buffer and publish on their scheduled slot.
+  # Set back to true to pause posting without touching the workflows; the
+  # render job keeps building batches either way.
+  dry_run: false
 
 video:
   width: 1080
