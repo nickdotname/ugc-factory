@@ -53,6 +53,14 @@ class StructuredLogger:
             **self._context,
             **fields,
         }
+        # The event name is what every log query filters on, so it must not be
+        # clobberable by a field that happens to be called "event" — a caller
+        # logging event=<something> would otherwise silently erase the line's
+        # identity and make the failure unsearchable. Reassert it last; a
+        # colliding field is surfaced under a suffixed key rather than dropped.
+        if "event" in fields and fields["event"] != event:
+            record["event_field"] = fields["event"]
+        record["event"] = event
         stream = self._stream if self._stream is not None else sys.stdout
         # default=str so a stray Path/datetime/enum never turns a log call into
         # a crash — losing type fidelity in a log beats losing the log.

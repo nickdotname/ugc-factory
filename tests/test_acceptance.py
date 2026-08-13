@@ -418,3 +418,66 @@ class TestDigestIsActuallyEnabled:
         default = NotifyConfig(webhook_secret="DISCORD_WEBHOOK_X")
         assert NotifyEvent.DIGEST in default.on
         assert NotifyEvent.FAILURE in default.on
+
+
+class TestWebhookValidation:
+    """A partial paste must say so, not fail deep inside the HTTP client."""
+
+    def _notifier(self, url):
+        import io as _io
+
+        from src.config import NotifyEvent
+        from src.notify import Notifier
+
+        stream = _io.StringIO()
+        n = Notifier(url, (NotifyEvent.DIGEST,),
+                     StructuredLogger({}, stream), session=FakeSession())
+        return n, stream
+
+    def test_url_without_scheme_is_reported_clearly(self) -> None:
+        from src.config import NotifyEvent
+
+        n, stream = self._notifier("discord.com/api/webhooks/123/abc")
+        assert n.notify(NotifyEvent.DIGEST, "hi") is False
+        out = stream.getvalue()
+        assert "notify_webhook_malformed" in out
+        assert "https://" in out
+
+    def test_the_secret_value_is_never_logged(self) -> None:
+        from src.config import NotifyEvent
+
+        n, stream = self._notifier("discord.com/api/webhooks/SECRETTOKEN")
+        n.notify(NotifyEvent.DIGEST, "hi")
+        assert "SECRETTOKEN" not in stream.getvalue()
+
+    def test_a_proper_url_is_sent(self) -> None:
+        from src.config import NotifyEvent
+        from src.notify import Notifier
+
+        s = FakeSession()
+        s.route("POST", "discord.com", FakeResponse(204))
+        n = Notifier("https://discord.com/api/webhooks/1/x", (NotifyEvent.DIGEST,),
+                     log(), session=s)
+        assert n.notify(NotifyEvent.DIGEST, "hi") is True
+
+
+class TestLogEventIdentity:
+    """A field named `event` must not erase the log line's own event name."""
+
+    def test_event_name_survives_a_colliding_field(self) -> None:
+        import io as _io
+
+        stream = _io.StringIO()
+        StructuredLogger({}, stream).info("real_event_name", event="collision")
+        record = __import__("json").loads(stream.getvalue())
+        assert record["event"] == "real_event_name"
+        assert record["event_field"] == "collision"
+
+    def test_ordinary_fields_are_unaffected(self) -> None:
+        import io as _io
+
+        stream = _io.StringIO()
+        StructuredLogger({}, stream).info("some_event", count=3)
+        record = __import__("json").loads(stream.getvalue())
+        assert record["event"] == "some_event" and record["count"] == 3
+        assert "event_field" not in record

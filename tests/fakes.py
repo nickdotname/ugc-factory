@@ -85,5 +85,9 @@ class FakeSession:
             return self.default
         raise AssertionError(f"unrouted request in test: {method} {url}")
 
+    def post(self, url: str, **kwargs: Any) -> FakeResponse:
+        """requests.Session.post — notify uses this rather than .request."""
+        return self.request("POST", url, **kwargs)
+
     def calls_to(self, fragment: str) -> list[RecordedRequest]:
         return [c for c in self.calls if fragment in c.url]

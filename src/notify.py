@@ -84,13 +84,28 @@ class Notifier:
         failed alert must not become a second failure that hides the first.
         """
         if event not in self._enabled:
-            self._log.debug("notify_skipped_disabled", event=event.value)
+            self._log.debug("notify_skipped_disabled", for_event=event.value)
             return False
         if not self._url:
             # Not an error: a campaign may legitimately run without alerting,
             # and crashing the render over a missing webhook would be worse
             # than the missing alert.
-            self._log.warning("notify_no_webhook", event=event.value)
+            self._log.warning("notify_no_webhook", for_event=event.value)
+            return False
+
+        if not self._url.startswith("https://"):
+            # A secret holding a partial paste fails deep inside requests as
+            # "No scheme supplied", with the URL masked in CI logs — which tells
+            # the operator nothing about which secret or how to fix it. Say it
+            # plainly instead. Length is safe to log; the value is not.
+            self._log.error(
+                "notify_webhook_malformed",
+                for_event=event.value,
+                chars=len(self._url),
+                hint="webhook must be the full URL starting with https:// — "
+                     "re-copy it from Discord (Server Settings -> Integrations "
+                     "-> Webhooks -> Copy Webhook URL)",
+            )
             return False
 
         body = message if len(message) <= MAX_MESSAGE_CHARS else (
@@ -103,15 +118,16 @@ class Notifier:
                 timeout=REQUEST_TIMEOUT_SEC,
             )
         except requests.RequestException as exc:
-            self._log.warning("notify_failed", event=event.value, error=str(exc))
+            self._log.warning("notify_failed", for_event=event.value, error=str(exc))
             return False
 
         if not (200 <= response.status_code < 300):
             self._log.warning(
-                "notify_rejected", event=event.value, status=response.status_code
+                "notify_rejected", for_event=event.value,
+                status=response.status_code
             )
             return False
-        self._log.info("notify_sent", event=event.value)
+        self._log.info("notify_sent", for_event=event.value)
         return True
 
     def failure(self, stage: str, error: BaseException, **context: Any) -> bool:
