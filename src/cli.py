@@ -819,8 +819,11 @@ def cmd_diagnose(args: argparse.Namespace, env: dict[str, str]) -> int:
         sent = str(post.get("sentAt") or "")[:16].replace("T", " ")
         print(f"  {due}  {str(post.get('status')):<10} "
               f"sent={sent or '-':<16} {post.get('schedulingType')}")
-        if post.get("error"):
-            print(f"      ERROR: {post['error']}")
+        err = post.get("error") or {}
+        if err.get("message"):
+            print(f"      ERROR: {err['message']}")
+            if err.get("supportUrl"):
+                print(f"      help:  {err['supportUrl']}")
         if post.get("externalLink"):
             print(f"      live:  {post['externalLink']}")
 

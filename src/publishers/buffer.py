@@ -101,7 +101,8 @@ query UgcFactoryPostsDiagnostic($input: PostsInput!, $first: Int) {
   posts(input: $input, first: $first) {
     edges { node {
       id dueAt sentAt status schedulingType notificationStatus
-      error externalLink channelService
+      error { message supportUrl }
+      externalLink channelService
     } }
   }
 }
