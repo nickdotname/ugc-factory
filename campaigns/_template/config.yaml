@@ -36,6 +36,11 @@ buffer:
   api_key_secret: BUFFER_API_KEY          # name of the env var, never the key
   channel_id_secret: BUFFER_CHANNEL_CHANGEME
   post_type: reel
+  service: instagram          # instagram | tiktok | youtube
+  # Only used by services with a separate title field (youtube).
+  #   derive  = take the description's first line, cut at a word boundary
+  #   require = every record must carry an explicit `title:` line
+  title_strategy: derive
 
 notify:
   webhook_secret: DISCORD_WEBHOOK_CHANGEME

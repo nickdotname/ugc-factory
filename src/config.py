@@ -51,6 +51,21 @@ class NotifyEvent(str, Enum):
     DIGEST = "digest"
 
 
+class TitleStrategy(str, Enum):
+    """How a post title is obtained for platforms that require one.
+
+    Only YouTube has a separate title today. Requiring a hand-written one for
+    every description is real friction — and friction on the cheapest asset to
+    grow is the wrong place to put it — so the default derives a title and
+    shows you exactly what it derived.
+    """
+
+    #: Take the description's first line, trimmed at a word boundary.
+    DERIVE = "derive"
+    #: Every record must carry an explicit `title:` line, or preflight fails.
+    REQUIRE = "require"
+
+
 class PostType(str, Enum):
     """Channel-specific post type.
 
@@ -247,6 +262,8 @@ class BufferConfig(StrictModel):
     # (YouTube's 100-char title cap in particular). Buffer's channel id alone
     # does not tell us the service without an extra API call per run.
     service: Service = Service.INSTAGRAM
+    #: Ignored by services with no separate title field (Instagram, TikTok).
+    title_strategy: TitleStrategy = TitleStrategy.DERIVE
 
     @model_validator(mode="after")
     def _post_type_suits_service(self) -> "BufferConfig":

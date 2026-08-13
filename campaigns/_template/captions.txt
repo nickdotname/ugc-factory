@@ -26,6 +26,11 @@
 # A `title:` line on an Instagram or TikTok campaign is simply ignored, so one
 # bank can serve several campaigns.
 #
+# With the default `title_strategy: derive`, a YouTube record with no `title:`
+# line gets one built from its first line, cut at a word boundary. Run
+# `preflight` to see exactly what each record will post under before it goes
+# live. Set `title_strategy: require` if you would rather write them all.
+#
 # SIZING: a cooldown of N days at P posts/day needs N x P distinct descriptions
 # to never repeat inside the window. Descriptions are the cheapest asset to add
 # — they are just text — so grow this bank before anything else.

@@ -27,9 +27,19 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 from src.errors import ConfigError
-from src.platforms import Service, advice, check_description, check_title
+
+if TYPE_CHECKING:
+    from src.config import TitleStrategy
+from src.platforms import (
+    Service,
+    advice,
+    check_description,
+    check_title,
+    limits_for,
+)
 
 _TITLE_LINE = re.compile(r"^title:\s*(.*)$", re.IGNORECASE)
 
@@ -84,6 +94,65 @@ def parse_bank(text: str) -> list[Description]:
     return records
 
 
+def derive_title(body: str, max_len: int) -> str:
+    """Build a title from a description's first line.
+
+    The first line is the right source: a description's opening line is already
+    written to be the hook, and anything below it — hashtag blocks, CTAs, link
+    text — is exactly what must not end up in a YouTube title.
+
+    Trimmed at a word boundary rather than mid-word, and with no ellipsis: an
+    ellipsis spends three of the hundred characters to tell the reader something
+    the truncation already shows.
+    """
+    first_line = ""
+    for line in body.splitlines():
+        if line.strip():
+            first_line = line.strip()
+            break
+    if not first_line:
+        return ""
+
+    if len(first_line) <= max_len:
+        return first_line
+
+    window = first_line[:max_len]
+    cut = window.rfind(" ")
+    # A single word longer than the whole limit has no boundary to cut on, so
+    # a hard cut is the only option left.
+    return (window[:cut] if cut > 0 else window).rstrip(" ,.;:-—")
+
+
+def resolve_titles(
+    descriptions: list[Description], service: Service, strategy: "TitleStrategy"
+) -> list[Description]:
+    """Fill in missing titles according to the strategy.
+
+    Returns new records; nothing is mutated. For services with no title field
+    this is a no-op, so the same bank can feed an Instagram and a YouTube
+    campaign without either knowing about the other.
+    """
+    from src.config import TitleStrategy
+
+    limits = limits_for(service)
+    if not limits.has_title or strategy is TitleStrategy.REQUIRE:
+        return list(descriptions)
+
+    assert limits.title_max is not None
+    resolved: list[Description] = []
+    for description in descriptions:
+        if description.title:
+            resolved.append(description)
+            continue
+        resolved.append(
+            Description(
+                body=description.body,
+                title=derive_title(description.body, limits.title_max),
+            )
+        )
+    return resolved
+
+
 def validate_bank(
     descriptions: list[Description], service: Service
 ) -> tuple[list[str], list[str]]:
@@ -105,16 +174,27 @@ def validate_bank(
     return errors, notes
 
 
-def load_bank(path_text: str, service: Service, *, source: str) -> list[Description]:
+def load_bank(
+    path_text: str,
+    service: Service,
+    *,
+    source: str,
+    strategy: "TitleStrategy | None" = None,
+) -> list[Description]:
     """Parse and hard-validate a bank, or raise ``ConfigError``.
 
     Called at render time so a bank that would be rejected by the platform can
     never reach the queue — SPEC §2.2's "validate at boundaries, fail loud".
     """
+    from src.config import TitleStrategy
+
     descriptions = parse_bank(path_text)
     if not descriptions:
         raise ConfigError(f"{source} contains no descriptions")
 
+    descriptions = resolve_titles(
+        descriptions, service, strategy or TitleStrategy.DERIVE
+    )
     errors, _ = validate_bank(descriptions, service)
     if errors:
         raise ConfigError(

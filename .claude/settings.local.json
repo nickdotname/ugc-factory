@@ -43,7 +43,8 @@
       "Bash(.venv/bin/python -m mypy src/cli.py)",
       "Bash(.venv/bin/python -m pytest tests/test_platforms.py --no-header)",
       "Bash(cp campaigns/_template/captions.txt campaigns/clubs/captions.txt)",
-      "Bash(.venv/bin/python -c ' *)"
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(.venv/bin/python -m mypy src/config.py)"
     ]
   }
 }

@@ -297,3 +297,124 @@ class TestConfigServiceValidation:
         )
         assert cfg.service is Service.INSTAGRAM
         assert cfg.post_type is PostType.REEL
+
+
+class TestDeriveTitle:
+    """Titles derived from a description's first line."""
+
+    def test_short_first_line_is_used_whole(self) -> None:
+        from src.descriptions import derive_title
+
+        assert derive_title("A punchy hook line\nmore body", 100) == "A punchy hook line"
+
+    def test_only_the_first_line_is_used(self) -> None:
+        """Hashtag blocks and CTAs live below the hook and must not appear."""
+        from src.descriptions import derive_title
+
+        body = "The hook line\n\nComment 'x' for the link\n#one #two #three"
+        assert derive_title(body, 100) == "The hook line"
+
+    def test_long_line_is_cut_at_a_word_boundary(self) -> None:
+        from src.descriptions import derive_title
+
+        body = " ".join(["word"] * 40)  # 199 chars
+        title = derive_title(body, 100)
+        assert len(title) <= 100
+        assert not title.endswith("wor"), "must not cut mid-word"
+        assert title.split()[-1] == "word"
+
+    def test_no_ellipsis_is_added(self) -> None:
+        from src.descriptions import derive_title
+
+        assert "..." not in derive_title(" ".join(["word"] * 40), 100)
+        assert "…" not in derive_title(" ".join(["word"] * 40), 100)
+
+    def test_trailing_punctuation_is_trimmed(self) -> None:
+        from src.descriptions import derive_title
+
+        body = ("x" * 90) + ", and then some more words here"
+        assert not derive_title(body, 100).endswith(",")
+
+    def test_single_giant_word_is_hard_cut(self) -> None:
+        from src.descriptions import derive_title
+
+        assert len(derive_title("x" * 300, 100)) == 100
+
+    def test_leading_blank_lines_are_skipped(self) -> None:
+        from src.descriptions import derive_title
+
+        assert derive_title("\n\n  real first line\nrest", 100) == "real first line"
+
+    def test_empty_body_gives_empty_title(self) -> None:
+        from src.descriptions import derive_title
+
+        assert derive_title("   \n\n  ", 100) == ""
+
+
+class TestTitleStrategy:
+    def test_derive_fills_missing_titles_for_youtube(self) -> None:
+        from src.config import TitleStrategy
+        from src.descriptions import Description, resolve_titles
+
+        out = resolve_titles(
+            [Description(body="My hook line\n#tags")], Service.YOUTUBE,
+            TitleStrategy.DERIVE,
+        )
+        assert out[0].title == "My hook line"
+
+    def test_derive_never_overwrites_an_explicit_title(self) -> None:
+        from src.config import TitleStrategy
+        from src.descriptions import Description, resolve_titles
+
+        out = resolve_titles(
+            [Description(body="hook", title="Hand Written")], Service.YOUTUBE,
+            TitleStrategy.DERIVE,
+        )
+        assert out[0].title == "Hand Written"
+
+    def test_require_leaves_titles_missing_so_validation_fails(self) -> None:
+        from src.config import TitleStrategy
+        from src.descriptions import Description, resolve_titles, validate_bank
+
+        out = resolve_titles(
+            [Description(body="hook")], Service.YOUTUBE, TitleStrategy.REQUIRE
+        )
+        assert out[0].title is None
+        assert validate_bank(out, Service.YOUTUBE)[0] != []
+
+    def test_derive_is_a_noop_for_instagram(self) -> None:
+        """Instagram has no title field, so nothing is invented for it."""
+        from src.config import TitleStrategy
+        from src.descriptions import Description, resolve_titles
+
+        out = resolve_titles(
+            [Description(body="hook")], Service.INSTAGRAM, TitleStrategy.DERIVE
+        )
+        assert out[0].title is None
+
+    def test_derived_titles_always_pass_validation(self) -> None:
+        """Derivation is bounded by the platform limit by construction."""
+        from src.config import TitleStrategy
+        from src.descriptions import Description, resolve_titles, validate_bank
+
+        bank = [Description(body=" ".join(["word"] * 80))]
+        out = resolve_titles(bank, Service.YOUTUBE, TitleStrategy.DERIVE)
+        assert validate_bank(out, Service.YOUTUBE)[0] == []
+
+    def test_load_bank_derives_end_to_end(self) -> None:
+        from src.descriptions import load_bank
+
+        bank = load_bank(
+            "First hook line\nbody text\n\nSecond hook line\nmore body",
+            Service.YOUTUBE, source="captions.txt",
+        )
+        assert [d.title for d in bank] == ["First hook line", "Second hook line"]
+
+    def test_load_bank_under_require_rejects_missing_titles(self) -> None:
+        from src.config import TitleStrategy
+        from src.descriptions import load_bank
+        from src.errors import ConfigError
+
+        with pytest.raises(ConfigError, match="requires a title"):
+            load_bank("no title here", Service.YOUTUBE, source="x",
+                      strategy=TitleStrategy.REQUIRE)

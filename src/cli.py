@@ -34,7 +34,7 @@ from src.assets import (
     check_music_licenses,
     github_token_from_env,
 )
-from src.config import CampaignConfig, NotifyEvent, load_campaign
+from src.config import CampaignConfig, NotifyEvent, TitleStrategy, load_campaign
 from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import ConfigError, SelectionError, UgcError
 from src.ingest import (
@@ -172,7 +172,9 @@ def _library_from(
     )
 
 
-def _load_captions(path: Path, service: Service) -> list[Description]:
+def _load_captions(
+    path: Path, service: Service, strategy: TitleStrategy | None = None
+) -> list[Description]:
     """Read and validate the description bank for the campaign's platform.
 
     Descriptions are the text a video is posted *with* — not anything drawn onto
@@ -182,7 +184,10 @@ def _load_captions(path: Path, service: Service) -> list[Description]:
     """
     if not path.is_file():
         raise ConfigError(f"description bank not found: {path}")
-    return load_bank(path.read_text(encoding="utf-8"), service, source=str(path))
+    return load_bank(
+        path.read_text(encoding="utf-8"), service, source=str(path),
+        strategy=strategy,
+    )
 
 
 # ------------------------------------------------------------------ command: render
@@ -234,7 +239,10 @@ def _render(
             + ", ".join(missing_licenses[:20]),
         )
 
-    descriptions = _load_captions(campaign_dir / "captions.txt", config.buffer.service)
+    descriptions = _load_captions(
+        campaign_dir / "captions.txt", config.buffer.service,
+        config.buffer.title_strategy,
+    )
     library = _library_from(paths, descriptions)
 
     history = load_history(campaign_dir / "history.json")
@@ -535,9 +543,11 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
 
     try:
         descriptions = _load_captions(
-            _campaign_dir(config.slug) / "captions.txt", config.buffer.service
+            _campaign_dir(config.slug) / "captions.txt", config.buffer.service,
+            config.buffer.title_strategy,
         )
         log.info("preflight_descriptions_ok", count=len(descriptions))
+        _print_titles(config, descriptions)
     except ConfigError as exc:
         problems.append(str(exc))
         descriptions = []
@@ -643,7 +653,8 @@ def _print_library_health(
     music = len([n for n in names if n.lower().startswith("music")])
     try:
         captions = len(_load_captions(
-            _campaign_dir(config.slug) / "captions.txt", config.buffer.service
+            _campaign_dir(config.slug) / "captions.txt", config.buffer.service,
+            config.buffer.title_strategy,
         ))
     except ConfigError:
         captions = 0
@@ -678,6 +689,33 @@ def _print_library_health(
         print(f"\n  ! {warning}")
     if not warnings:
         print("\n  ✓ library supports the configured cadence with no relaxation")
+
+
+def _print_titles(config: CampaignConfig, descriptions: list[Description]) -> None:
+    """Show the title each description will post under.
+
+    Only meaningful where the platform has a separate title field. Derived
+    titles are printed rather than silently used: a title generated from a
+    description is a guess, and the whole point is that the guess is visible
+    before it goes live.
+    """
+    from src.platforms import limits_for
+
+    limits = limits_for(config.buffer.service)
+    if not limits.has_title:
+        return
+
+    explicit = {d.body for d in descriptions if d.title}
+    print(f"\n{config.buffer.service.value} titles "
+          f"(strategy: {config.buffer.title_strategy.value}, "
+          f"max {limits.title_max}):")
+    for index, description in enumerate(descriptions, 1):
+        source = "given " if description.body in explicit else "derived"
+        title = description.title or ""
+        print(f"  {index:>2}. [{source}] {title}")
+        if len(title) > limits.visible_chars:
+            print(f"      ^ {len(title)} chars; only ~{limits.visible_chars} "
+                  f"display on Shorts")
 
 
 # ----------------------------------------------------------------- command: cleanup
