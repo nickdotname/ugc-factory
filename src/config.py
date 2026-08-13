@@ -329,11 +329,17 @@ class NotifyConfig(StrictModel):
     """Alerting (SPEC §9 ``notify``)."""
 
     webhook_secret: str = Field(min_length=1)
+    # SPEC §12: "Weekly digest even on success. Silence must never be
+    # ambiguous between 'healthy' and 'dead'." DIGEST belongs in the default
+    # for exactly that reason — a campaign that has to opt in to knowing it is
+    # alive will not.
     on: tuple[NotifyEvent, ...] = (
         NotifyEvent.FAILURE,
         NotifyEvent.QUEUE_EMPTY,
         NotifyEvent.QUOTA_HIGH,
         NotifyEvent.LICENSE_MISSING,
+        NotifyEvent.DEDUPE_RELAXED,
+        NotifyEvent.DIGEST,
     )
 
     @field_validator("webhook_secret")

@@ -71,4 +71,4 @@ buffer:
 
 notify:
   webhook_secret: DISCORD_WEBHOOK_CLUBS
-  on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed]
+  on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed, digest]

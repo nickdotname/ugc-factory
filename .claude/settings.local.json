@@ -93,7 +93,8 @@
       "Bash(curl -s http://127.0.0.1:8767/api/state)",
       "Bash(error)",
       "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Add diagnose command: why a queued post did not publish *)",
-      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Fix diagnose query: error is an object, not a scalar *)"
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Fix diagnose query: error is an object, not a scalar *)",
+      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py tests/test_config.py --no-header)"
     ]
   }
 }

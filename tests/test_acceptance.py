@@ -384,3 +384,37 @@ class TestShippedCampaign:
         assert proc.returncode == 0, proc.stderr
         for command in ("render", "topup", "preflight", "cleanup"):
             assert command in proc.stdout, command
+
+
+class TestDigestIsActuallyEnabled:
+    """SPEC §12 — silence must never be ambiguous between healthy and dead.
+
+    A digest that is implemented but not enabled is worse than none: it looks
+    like monitoring while reporting nothing. This was a real bug — `digest` was
+    missing from every campaign's `on` list and from the schema default, so the
+    weekly digest silently no-opped.
+    """
+
+    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
+    def test_campaign_has_digest_enabled(self, slug: str) -> None:
+        from src.config import NotifyEvent
+
+        cfg = load_campaign(REPO_ROOT / "campaigns", slug)
+        assert NotifyEvent.DIGEST in cfg.notify.on, (
+            f"{slug} would never report that it is alive"
+        )
+
+    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
+    def test_campaign_alerts_on_failure(self, slug: str) -> None:
+        from src.config import NotifyEvent
+
+        cfg = load_campaign(REPO_ROOT / "campaigns", slug)
+        assert NotifyEvent.FAILURE in cfg.notify.on
+
+    def test_schema_default_includes_digest(self) -> None:
+        """A new campaign must not have to opt in to knowing it is alive."""
+        from src.config import NotifyConfig, NotifyEvent
+
+        default = NotifyConfig(webhook_secret="DISCORD_WEBHOOK_X")
+        assert NotifyEvent.DIGEST in default.on
+        assert NotifyEvent.FAILURE in default.on
