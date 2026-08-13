@@ -212,6 +212,12 @@ class SelectionConfig(StrictModel):
     )
     caption_cooldown_days: int = Field(default=14, ge=0)
     hook_cooldown_days: int = Field(default=3, ge=0)
+    # SPEC §10 suggests >=90 days of unique combinations before the first
+    # repeat. That is a judgement call about a campaign's tolerance for
+    # repetition, not a platform limit, so it belongs in config rather than
+    # hardcoded in preflight — a campaign running 1 post/day off a small
+    # library may legitimately accept a shorter runway.
+    min_runway_days: int = Field(default=90, ge=0)
 
     @field_validator("dedupe_on")
     @classmethod

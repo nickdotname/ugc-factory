@@ -11,6 +11,10 @@ The four commands map to the four workflows in SPEC §5/§12:
 * ``topup``    — every 4h: push enough items to fill Buffer's queue to its cap
 * ``preflight``— validate config, secrets and library without changing anything
 * ``cleanup``  — weekly: delete Releases past the retention window
+
+plus ``ingest``, which is the only one a human runs by hand: it takes files from
+the ``inbox/`` drop folders, checks and names them, and uploads them to the
+campaign's assets Release.
 """
 
 from __future__ import annotations
@@ -32,6 +36,13 @@ from src.assets import (
 )
 from src.config import CampaignConfig, NotifyEvent, load_campaign
 from src.errors import ConfigError, SelectionError, UgcError
+from src.ingest import (
+    apply_plan,
+    build_plan,
+    combinations,
+    ensure_inbox,
+    library_health,
+)
 from src.logging import StructuredLogger, get_logger
 from src.models import (
     History,
@@ -76,6 +87,9 @@ CAMPAIGNS_DIR = REPO_ROOT / "campaigns"
 #: Retention for dated render Releases (SPEC §5). Must stay comfortably longer
 #: than the deepest queue, or a video is deleted before Buffer publishes it.
 RENDER_RETENTION_DAYS = 14
+
+#: Drop folders live at the repo root so they are obvious to a human.
+INBOX_ROOT = "inbox"
 
 #: SPEC §3 — alert at 2,400 of the 3,000-request/30-day allowance.
 BUFFER_QUOTA_ALERT_THRESHOLD = 2400
@@ -531,10 +545,12 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
                 music=len(library.music), captions=len(library.captions),
                 combinations=ceiling, runway_days=runway,
             )
-            if runway < 90:
+            if runway < config.selection.min_runway_days:
                 problems.append(
-                    f"library yields only {runway:.0f} days of unique combos "
-                    f"at {config.posting.posts_per_day}/day (SPEC §10 wants >=90)"
+                    f"library yields only {runway:.0f} days of unique combos at "
+                    f"{config.posting.posts_per_day}/day; "
+                    f"selection.min_runway_days is "
+                    f"{config.selection.min_runway_days}"
                 )
         except (UgcError, SelectionError) as exc:
             problems.append(f"library: {exc}")
@@ -547,6 +563,106 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
         return 1
     print(f"OK preflight passed for {config.slug}")
     return 0
+
+
+# ------------------------------------------------------------------ command: ingest
+
+
+def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Upload dropped files to the assets Release under correct names."""
+    clock: Clock = SystemClock()
+    log = get_logger(command="ingest", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+
+    inbox = REPO_ROOT / INBOX_ROOT / config.slug
+    ensure_inbox(inbox)
+
+    try:
+        store = _build_store(env, log, clock)
+    except UgcError as exc:
+        print(f"{exc}", file=sys.stderr)
+        print(
+            "\nSet GITHUB_REPOSITORY=owner/name and GITHUB_TOKEN, or run "
+            "`gh auth token` to get one.",
+            file=sys.stderr,
+        )
+        return 1
+
+    tag = _assets_tag(config.slug)
+    existing = store.list_assets(tag)
+    renderer: Renderer = FfmpegRenderer(config, log)
+
+    plan = build_plan(inbox, existing, renderer, log)
+    print(f"\ninbox: {inbox}")
+    print(plan.render_table())
+
+    if plan.rejected:
+        print(f"\n{len(plan.rejected)} file(s) will be skipped — see notes above.")
+    if not plan.uploadable:
+        print("\nNothing to upload.")
+        return 1 if plan.rejected else 0
+
+    if args.dry_run:
+        print(f"\nDry run — nothing uploaded. Drop --dry-run to upload.")
+        return 0
+
+    uploaded = apply_plan(
+        plan, inbox, store, tag, log,
+        staging=REPO_ROOT / "work" / config.slug / "staging",
+    )
+    print(f"\nUploaded {len(uploaded)} file(s) to release {tag}.")
+
+    _print_library_health(config, store, tag, log)
+    return 0
+
+
+def _print_library_health(
+    config: CampaignConfig, store: MediaStore, tag: str, log: StructuredLogger
+) -> None:
+    """Tell the human, while they are still holding the files, if it is enough.
+
+    The same shortfall would otherwise surface as a dedupe-relaxation alert at
+    5 a.m., long after the moment when adding another clip was easy.
+    """
+    names = store.list_assets(tag)
+    hooks = len([n for n in names if n.lower().startswith("hook")])
+    bodies = len([n for n in names if n.lower().startswith("body")])
+    music = len([n for n in names if n.lower().startswith("music")])
+    try:
+        captions = len(_load_captions(_campaign_dir(config.slug) / "captions.txt"))
+    except ConfigError:
+        captions = 0
+
+    per_video = config.composition.bodies_per_video
+    total = combinations(hooks, bodies, music, captions, per_video)
+    runway = total / max(1, config.posting.posts_per_day)
+
+    print(
+        f"\nlibrary: {hooks} hooks · {bodies} bodies · {music} music · "
+        f"{captions} captions"
+    )
+    print(
+        f"         {total} combinations = {runway:.0f} days at "
+        f"{config.posting.posts_per_day}/day "
+        f"(target {config.selection.min_runway_days})"
+    )
+
+    warnings = library_health(
+        hooks, bodies, music, captions, per_video,
+        config.posting.posts_per_day,
+        config.selection.hook_cooldown_days,
+        config.selection.caption_cooldown_days,
+    )
+    if runway < config.selection.min_runway_days:
+        warnings.insert(
+            0,
+            f"runway is {runway:.0f} days, under the configured "
+            f"{config.selection.min_runway_days}. Preflight will fail.",
+        )
+    for warning in warnings:
+        print(f"\n  ! {warning}")
+    if not warnings:
+        print("\n  ✓ library supports the configured cadence with no relaxation")
 
 
 # ----------------------------------------------------------------- command: cleanup
@@ -619,6 +735,11 @@ def build_parser() -> argparse.ArgumentParser:
     preflight = sub.add_parser("preflight", help="validate config, secrets, library")
     common(preflight)
 
+    ingest = sub.add_parser(
+        "ingest", help="upload files from inbox/ to the assets Release"
+    )
+    common(ingest)
+
     cleanup = sub.add_parser("cleanup", help="delete expired render Releases")
     common(cleanup)
     cleanup.add_argument("--digest", action="store_true",
@@ -635,6 +756,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "render": cmd_render,
         "topup": cmd_topup,
         "preflight": cmd_preflight,
+        "ingest": cmd_ingest,
         "cleanup": cmd_cleanup,
     }
     try:

@@ -148,19 +148,51 @@ mypy src/ && pytest
    which is what Buffer's URL-only media upload requires. Secrets live in
    GitHub Secrets; nothing sensitive is in the tree.
 
-2. **Create the assets Release** for the campaign, tagged `assets-<slug>`
-   (e.g. `assets-clubs`). Upload source clips with these filename prefixes —
-   Release assets are a flat namespace, so the prefix *is* the grouping:
+2. **Put your videos in the inbox and run `ingest`.** You never name a file
+   yourself and never touch the Release by hand.
 
-   | prefix | holds | formats |
-   |---|---|---|
-   | `hook_*` | opening clips | `.mp4 .mov .m4v .webm` |
-   | `body_*` | body clips | same |
-   | `music_*` | tracks | `.mp3 .m4a .wav` |
+   ```
+   inbox/clubs/
+     hooks/     <- hook clips
+     bodies/    <- main videos
+     music/     <- tracks
+   ```
 
-   Also upload `LICENSES.md` listing every track's source and licence
-   (SPEC §4.4). Drop a new file in and the next render picks it up — no config
-   change, no registration step.
+   Filenames do not matter — spaces, capitals, `FINAL_v3 (copy).mp4`, anything.
+   The *folder* is what assigns the role. Then:
+
+   ```bash
+   python -m src.cli ingest --campaign clubs
+   ```
+
+   It probes every file, rejects what genuinely cannot work, generates correct
+   names (continuing the existing sequence, never overwriting), creates the
+   `assets-clubs` Release if needed, uploads, and moves the originals into
+   `inbox/clubs/_uploaded/` so re-running is safe. `--dry-run` shows the plan
+   without uploading.
+
+   ```
+     * My Cool Hook v2 FINAL.mp4  -> hook_03.mp4
+     x broken.mp4                 -> skipped
+         not a readable video file - moov atom not found
+     x wrong place.mp3            -> skipped
+         .mp3 is not accepted here (expected .mp4, .mov, .m4v, .webm)
+     ! main video LANDSCAPE.mov   -> body_01.mov
+         1920x1080 is not vertical - will be centre-cropped to 9:16
+         no audio track - silence will be added automatically
+     * some song.mp3              -> music_01.mp3
+
+   library: 6 hooks - 3 bodies - 5 music - 5 captions
+            450 combinations = 225 days at 2/day (target 90)
+     library supports the configured cadence with no relaxation
+   ```
+
+   Landscape footage and silent clips are **warnings, not rejections** — the
+   renderer centre-crops to 9:16 and adds silence automatically. Only unusable
+   files are skipped, and those stay in the inbox for you to fix. Full rules in
+   [inbox/README.md](inbox/README.md).
+
+   Also upload `LICENSES.md` listing each track's source and licence (SPEC §4.4).
 
 3. **Add repository secrets:**
 
@@ -173,8 +205,8 @@ mypy src/ && pytest
    `GITHUB_TOKEN` is injected by Actions automatically.
 
 4. **Write the caption bank** at `campaigns/clubs/captions.txt` — one caption
-   per record, blank line between records. Preflight fails if the library gives
-   under 90 days of unique combinations at the configured cadence.
+   per record, blank line between records. Captions are the one asset that
+   lives in the repo rather than the Release, because they are text.
 
 5. **Dry run first:**
    ```bash
@@ -184,9 +216,35 @@ mypy src/ && pytest
    Inspect the rendered videos in the dated Release before turning `dry_run`
    off in `campaigns/clubs/config.yaml`.
 
-6. **Leave `posts_per_day` at 6** for two weeks (SPEC §4.5). Buffer's quota
-   permits 24; Instagram's spam classifier is a separate system that does not
-   care what Buffer permits. Watch reach-per-post, then raise.
+6. **Leave the cadence where it is** for two weeks (SPEC §4.5). Buffer's quota
+   permits 24/day; Instagram's spam classifier is a separate system that does
+   not care what Buffer permits. Watch reach-per-post, then raise — see sizing
+   below for what raising it costs.
+
+## Sizing your library
+
+The combination count is rarely what limits you — **cooldowns are**. A cooldown
+of N days at P posts/day needs N x P distinct assets to never repeat inside the
+window. Fall short and the selector relaxes its rules and alerts, every day —
+which is indistinguishable from being broken.
+
+`ingest` computes this for you and warns while you are still holding the files.
+`preflight` fails if the runway drops under `selection.min_runway_days`.
+
+The shipped `clubs` config is tuned for ~6 hooks / ~3 bodies / 5 music /
+5 captions at **2 posts/day**, which clears every cooldown with room to spare:
+
+| | have | 2/day needs | 6/day would need |
+|---|---|---|---|
+| hooks (2-day cooldown) | 6 | 4 | 12 |
+| captions (2-day cooldown) | 5 | 4 | 12 |
+| combinations | 450 | — | — |
+| runway | 225 days | — | 75 days |
+
+Captions are by far the cheapest dimension to grow — they are just text. At
+~25 captions the same clip library comfortably supports 6/day. Body clips are
+the most expensive: at 3 bodies and 6 posts/day each main video goes out twice
+a day, and unique tuples do not make that look different to a viewer.
 
 ---
 

@@ -31,7 +31,12 @@
       "Bash(.venv/bin/python -m pytest --no-header)",
       "Bash(echo \"\\(exit $?\\)\")",
       "Bash(git add *)",
-      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m ' *)"
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m ' *)",
+      "Bash(gh auth *)",
+      "Bash(mkdir -p inbox/clubs/hooks inbox/clubs/bodies inbox/clubs/music)",
+      "Bash(touch inbox/clubs/hooks/.gitkeep inbox/clubs/bodies/.gitkeep inbox/clubs/music/.gitkeep)",
+      "Bash(.venv/bin/python -m pytest tests/test_ingest.py -q --no-header)",
+      "Bash(rm -rf /tmp/ingest-demo)"
     ]
   }
 }

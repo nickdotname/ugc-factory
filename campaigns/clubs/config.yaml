@@ -2,14 +2,23 @@ slug: clubs
 timezone: America/New_York
 
 posting:
-  # SPEC §4.5 — the system works identically at any value up to 24, but 24
-  # Reels/day from one account is far outside normal behaviour for Instagram's
-  # spam classifier. Run 6/day for two weeks, watch reach-per-post, then raise.
-  posts_per_day: 6
+  # Sized to the actual library: ~6 hooks, ~3 bodies, 5 music, 5 captions.
+  #
+  #   6 × 3 × 5 × 5 = 450 combinations = 225 days at 2/day.
+  #
+  # The binding constraint is not the combination count, it is the cooldowns
+  # below — a cooldown of N days at P posts/day needs N×P distinct assets to
+  # never repeat inside the window. At 6/day this library would relax its
+  # dedupe rules on day one and alert every day thereafter (SPEC §10), which
+  # is why the cadence is 2 and not the spec's default 6.
+  #
+  # To raise this: write more captions first. They are plain text and are the
+  # cheapest dimension to grow by far. At 25 captions this supports 6/day.
+  posts_per_day: 2
   start_hour: 9
   end_hour: 22
   max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
-  dry_run: false
+  dry_run: true               # flip to false after a dry run looks right
 
 video:
   width: 1080
@@ -28,8 +37,14 @@ composition:
 
 selection:
   dedupe_on: [hook, body, music, caption]
-  caption_cooldown_days: 14
-  hook_cooldown_days: 3
+  # Both cooldowns are sized so posts_per_day × cooldown stays under the number
+  # of assets available, which is what keeps the selector from ever relaxing.
+  # With 5 captions at 2/day, a 2-day cooldown needs 4 — fits with one spare.
+  # Raise these as the library grows; they are the first thing to tighten once
+  # there are more captions.
+  caption_cooldown_days: 2
+  hook_cooldown_days: 2
+  min_runway_days: 90         # preflight fails under this many days of combos
 
 buffer:
   api_key_secret: BUFFER_API_KEY

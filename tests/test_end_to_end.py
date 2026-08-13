@@ -49,6 +49,9 @@ class LocalMediaStore(MediaStore):
                 out.append(target)
         return out
 
+    def list_assets(self, tag: str) -> list[str]:
+        return [p.name for p in self.source.iterdir() if p.is_file()]
+
     def publish(self, tag: str, files: list[Path]) -> list[RemoteAsset]:
         out = []
         for f in files:

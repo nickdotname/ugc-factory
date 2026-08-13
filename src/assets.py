@@ -63,6 +63,15 @@ class MediaStore(ABC):
         """Fetch every asset from a named collection into ``dest_dir``."""
 
     @abstractmethod
+    def list_assets(self, tag: str) -> list[str]:
+        """Names already in a collection, without downloading them.
+
+        Ingest needs this to continue a numbering sequence rather than
+        clobbering an existing ``hook_03.mp4``; downloading a whole library to
+        answer that would be absurd.
+        """
+
+    @abstractmethod
     def publish(self, tag: str, files: list[Path]) -> list[RemoteAsset]:
         """Upload files and return their public URLs."""
 
@@ -223,6 +232,12 @@ class GitHubReleasesStore(MediaStore):
 
         self._log.info("assets_downloaded", tag=tag, count=len(downloaded))
         return downloaded
+
+    def list_assets(self, tag: str) -> list[str]:
+        release = self._get_release(tag)
+        if release is None:
+            return []
+        return [str(a["name"]) for a in (release.get("assets") or [])]
 
     def _download_one(self, asset_id: int, dest: Path) -> None:
         response = self._request(

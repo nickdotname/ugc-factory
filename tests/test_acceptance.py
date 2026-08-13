@@ -305,8 +305,34 @@ class TestShippedCampaign:
     def test_clubs_loads_and_is_reel_configured(self) -> None:
         cfg = load_campaign(REPO_ROOT / "campaigns", "clubs")
         assert cfg.buffer.post_type is PostType.REEL
-        assert cfg.posting.posts_per_day == 6, "SPEC §4.5 — run at 6, not 24"
         assert cfg.video.min_duration_sec == 5 and cfg.video.max_duration_sec == 90
+        # SPEC §4.5 — well under the 24/day ceiling Instagram's spam classifier
+        # cares about. The exact figure is a library-sizing decision (see the
+        # cooldown check below), not a fixed number.
+        assert 1 <= cfg.posting.posts_per_day <= 6
+
+    def test_clubs_cooldowns_are_satisfiable_by_a_small_library(self) -> None:
+        """A cooldown of N days at P posts/day needs N×P distinct assets.
+
+        Config that cannot be satisfied makes the selector relax and alert every
+        single day, which is indistinguishable from being broken. This asserts
+        the shipped numbers are reachable with the library actually planned:
+        ~6 hooks and 5 captions.
+        """
+        cfg = load_campaign(REPO_ROOT / "campaigns", "clubs")
+        planned_hooks, planned_captions = 6, 5
+        ppd = cfg.posting.posts_per_day
+
+        assert ppd * cfg.selection.hook_cooldown_days <= planned_hooks, (
+            f"hook cooldown needs "
+            f"{ppd * cfg.selection.hook_cooldown_days} hooks, library has "
+            f"{planned_hooks}"
+        )
+        assert ppd * cfg.selection.caption_cooldown_days <= planned_captions, (
+            f"caption cooldown needs "
+            f"{ppd * cfg.selection.caption_cooldown_days} captions, library has "
+            f"{planned_captions}"
+        )
 
     def test_queue_and_history_files_are_valid_json(self) -> None:
         from src.queue import load_history
