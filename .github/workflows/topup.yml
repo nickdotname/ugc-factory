@@ -31,7 +31,11 @@ jobs:
     # SPEC §12 — two top-up jobs racing the same queue would double-push, and a
     # duplicate that reaches Instagram cannot be recalled.
     concurrency:
-      group: topup-${{ matrix.campaign }}
+      # Per campaign, and including the dispatch input: a group only ever holds
+      # one pending run, so three back-to-back single-campaign dispatches would
+      # evict the middle one. Dispatching with a blank campaign runs all three
+      # in this one matrix and is the preferred way to trigger it by hand.
+      group: topup-${{ matrix.campaign }}-${{ inputs.campaign || 'all' }}
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
