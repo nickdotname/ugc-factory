@@ -36,7 +36,14 @@
       "Bash(mkdir -p inbox/clubs/hooks inbox/clubs/bodies inbox/clubs/music)",
       "Bash(touch inbox/clubs/hooks/.gitkeep inbox/clubs/bodies/.gitkeep inbox/clubs/music/.gitkeep)",
       "Bash(.venv/bin/python -m pytest tests/test_ingest.py -q --no-header)",
-      "Bash(rm -rf /tmp/ingest-demo)"
+      "Bash(rm -rf /tmp/ingest-demo)",
+      "WebSearch",
+      "Bash(.venv/bin/python -m mypy src/config.py src/models.py)",
+      "Bash(.venv/bin/python -m mypy src/publishers/base.py)",
+      "Bash(.venv/bin/python -m mypy src/cli.py)",
+      "Bash(.venv/bin/python -m pytest tests/test_platforms.py --no-header)",
+      "Bash(cp campaigns/_template/captions.txt campaigns/clubs/captions.txt)",
+      "Bash(.venv/bin/python -c ' *)"
     ]
   }
 }

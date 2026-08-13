@@ -1,16 +1,39 @@
-# Caption bank — one caption per record, records separated by a BLANK LINE.
-# A caption may span multiple lines; only a blank line ends it.
-# Lines starting with # are ignored, so you can keep notes in here.
+# DESCRIPTION BANK — the text each video is posted WITH.
 #
-# These are human-authored (SPEC §2.2 — AI generation of captions is out of
-# scope). Aim for enough that hooks x bodies x music x captions gives at least
-# 90 days of unique combinations at your cadence — the preflight job checks
-# this and fails if the runway is under 90 days.
+# This is the Instagram caption box / TikTok caption / YouTube description.
+# It is NEVER drawn onto the video. On-screen subtitles are baked into your
+# source clips before they ever reach this pipeline; the renderer contains no
+# text filters at all.
+#
+# FORMAT: one record per block, blocks separated by a BLANK LINE.
+# A description may span multiple lines — only a blank line ends a record.
+# Lines starting with # are ignored, so notes are fine.
+#
+# CHARACTER LIMITS (validated at preflight, not at publish time):
+#
+#   platform    description   separate title
+#   instagram   2,200         none
+#   tiktok      4,000         none
+#   youtube     5,000         100 chars, REQUIRED
+#
+# Only YouTube has a separate title. For a YouTube campaign, start a record
+# with a `title:` line — preflight fails without one:
+#
+#   title: A Short Punchy Title Under 100 Chars
+#   The long description body goes here, and may
+#   run across as many lines as you like.
+#
+# A `title:` line on an Instagram or TikTok campaign is simply ignored, so one
+# bank can serve several campaigns.
+#
+# SIZING: a cooldown of N days at P posts/day needs N x P distinct descriptions
+# to never repeat inside the window. Descriptions are the cheapest asset to add
+# — they are just text — so grow this bank before anything else.
 
-first caption goes here
+first description goes here
 
-second caption goes here
+second description goes here
 
-a caption can run
+a description can run
 across several lines
 like this

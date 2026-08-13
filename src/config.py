@@ -24,6 +24,7 @@ import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from src.errors import ConfigError
+from src.platforms import Service
 
 
 class DedupeDimension(str, Enum):
@@ -241,6 +242,30 @@ class BufferConfig(StrictModel):
     api_key_secret: str = Field(min_length=1)
     channel_id_secret: str = Field(min_length=1)
     post_type: PostType = PostType.REEL
+    # Which network this channel is. Drives both the metadata block the
+    # publisher builds and the text limits descriptions are validated against
+    # (YouTube's 100-char title cap in particular). Buffer's channel id alone
+    # does not tell us the service without an extra API call per run.
+    service: Service = Service.INSTAGRAM
+
+    @model_validator(mode="after")
+    def _post_type_suits_service(self) -> "BufferConfig":
+        # A YouTube channel configured to post `reel`, or an Instagram channel
+        # posting `short`, is a copy-paste error that would otherwise surface as
+        # an opaque Buffer rejection at publish time.
+        allowed: dict[Service, set[PostType]] = {
+            Service.INSTAGRAM: {PostType.REEL, PostType.POST, PostType.STORY},
+            Service.TIKTOK: {PostType.POST},
+            Service.YOUTUBE: {PostType.SHORT, PostType.POST},
+        }
+        permitted = allowed[self.service]
+        if self.post_type not in permitted:
+            raise ValueError(
+                f"post_type {self.post_type.value!r} is not valid for "
+                f"{self.service.value}; expected one of "
+                f"{sorted(p.value for p in permitted)}"
+            )
+        return self
 
     @field_validator("api_key_secret", "channel_id_secret")
     @classmethod

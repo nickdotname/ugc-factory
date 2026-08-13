@@ -204,9 +204,54 @@ mypy src/ && pytest
 
    `GITHUB_TOKEN` is injected by Actions automatically.
 
-4. **Write the caption bank** at `campaigns/clubs/captions.txt` — one caption
-   per record, blank line between records. Captions are the one asset that
-   lives in the repo rather than the Release, because they are text.
+4. **Write the description bank** at `campaigns/clubs/captions.txt` — the text
+   each video is posted *with*. One record per block, blank line between
+   records. It lives in the repo rather than the Release because it is text.
+
+   This is **never drawn onto the video**. On-screen subtitles are baked into
+   your source clips before they reach the pipeline; the renderer has no text
+   filters at all.
+
+## Text limits per platform
+
+Verified August 2026 and held in one table in [src/platforms.py](src/platforms.py),
+not scattered as magic numbers. Descriptions are validated against the
+campaign's `buffer.service` at **preflight**, so an over-long one fails before
+it costs API quota at publish time.
+
+| platform | description | separate title |
+|---|---|---|
+| Instagram | 2,200 | none |
+| TikTok | 4,000 | none |
+| YouTube | 5,000 | **100, required** |
+
+YouTube is the odd one out: it has a short title *in addition to* its
+description, and rejects a post without one. Give a record a title with a
+leading `title:` line:
+
+```
+title: A Short Punchy Title Under 100 Chars
+The long description body goes here, and may
+run across as many lines as you like.
+```
+
+A `title:` line on an Instagram or TikTok campaign is ignored, so one bank can
+serve several campaigns. What you get if you point the same bank at the wrong
+platform:
+
+```
+ instagram: OK
+    tiktok: OK
+   youtube: description #1: youtube requires a title; add a 'title:' line
+
+2500 chars on  instagram: description is 2500 characters, over instagram's 2200 limit
+2500 chars on     tiktok: OK
+```
+
+`buffer.service` also drives which metadata block the publisher builds, and
+config rejects a mismatched `post_type` — a YouTube channel set to post `reel`,
+or an Instagram channel set to `short`, fails at load rather than as an opaque
+Buffer rejection later.
 
 5. **Dry run first:**
    ```bash

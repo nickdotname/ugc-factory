@@ -37,6 +37,7 @@ from src.errors import (
     RateLimitError,
 )
 from src.logging import StructuredLogger
+from src.platforms import Service
 from src.publishers.base import PublishedPost, Publisher, PublishRequest
 
 ENDPOINT = "https://api.buffer.com"
@@ -391,19 +392,42 @@ class BufferPublisher(Publisher):
 
 
 def _metadata_for(request: PublishRequest) -> dict[str, Any] | None:
-    """Build the channel-specific metadata block.
+    """Build the channel-specific metadata block, keyed on the *service*.
 
-    Only Instagram needs one today. ``type`` and ``shouldShareToFeed`` are both
-    NON_NULL in ``InstagramPostMetadataInput``, so both are always sent; omitting
-    either makes Buffer reject the whole mutation.
+    Keyed on service rather than post type: an earlier version branched on
+    ``post_type`` alone, which meant a YouTube channel posting ``short`` fell
+    through to no metadata at all — and YouTube rejects a post with no title.
+
+    The field names match ``PostInputMetaData`` in Buffer's schema, and the
+    NON_NULL members of each input are always sent; omitting one makes Buffer
+    reject the whole mutation rather than defaulting it.
     """
-    if request.post_type in (PostType.REEL, PostType.STORY, PostType.POST):
+    if request.service is Service.INSTAGRAM:
         return {
             "instagram": {
                 "type": request.post_type.value,
                 "shouldShareToFeed": request.share_to_feed,
             }
         }
+    if request.service is Service.YOUTUBE:
+        # YouTube is the one platform with a separate title, capped at 100
+        # characters. PublishRequest has already refused an over-long or missing
+        # one, so reaching here without a title is a programming error.
+        if not request.title:
+            raise InvalidPostError(
+                "YouTube requires a title and none was supplied"
+            )
+        return {
+            "youtube": {
+                "title": request.title,
+                # Both are required by the API. 22 = People & Blogs, the safest
+                # default; made-for-kids must be declared explicitly.
+                "categoryId": "22",
+                "madeForKids": False,
+            }
+        }
+    # TikTok: its metadata input exists but has no required members for a plain
+    # video post — the description rides in `text`, as it does for Instagram.
     return None
 
 

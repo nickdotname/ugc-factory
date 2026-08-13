@@ -69,7 +69,12 @@ class Selection(Model):
     hook: str
     bodies: tuple[str, ...] = Field(min_length=1)
     music: str | None
+    #: The text the video is posted with — Instagram's caption box, TikTok's
+    #: caption, YouTube's description. Never drawn onto the video.
     caption: str
+    #: Separate short title, for platforms that have one (YouTube: 100 chars).
+    #: None everywhere else, where the description is the only text field.
+    title: str | None = None
 
     @property
     def tuple_key(self) -> tuple[str, ...]:
@@ -125,6 +130,7 @@ class QueueItem(Model):
     scheduled_for: datetime
     video_url: str
     caption: str
+    title: str | None = None
     parts: dict[str, str]
     status: QueueStatus = QueueStatus.PENDING
     attempts: int = Field(default=0, ge=0)
@@ -165,6 +171,7 @@ class HistoryEntry(Model):
     bodies: tuple[str, ...]
     music: str | None
     caption: str
+    title: str | None = None
     buffer_post_id: str | None = None
 
 

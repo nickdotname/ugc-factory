@@ -35,6 +35,7 @@ from src.assets import (
     github_token_from_env,
 )
 from src.config import CampaignConfig, NotifyEvent, load_campaign
+from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import ConfigError, SelectionError, UgcError
 from src.ingest import (
     apply_plan,
@@ -54,6 +55,7 @@ from src.models import (
     Selection,
 )
 from src.notify import Digest, Notifier, notifier_for
+from src.platforms import Service
 from src.ports import Clock, Rng, SeededRng, SystemClock
 from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
 from src.publishers.buffer import BufferPublisher
@@ -157,29 +159,30 @@ def _build_store(env: dict[str, str], log: StructuredLogger, clock: Clock) -> Me
     return GitHubReleasesStore(repo, github_token_from_env(env), log, clock)
 
 
-def _library_from(paths: LocalLibrary, captions: list[str]) -> AssetLibrary:
+def _library_from(
+    paths: LocalLibrary, descriptions: list[Description]
+) -> AssetLibrary:
     return AssetLibrary(
         hooks=tuple(p.name for p in paths.hooks),
         bodies=tuple(p.name for p in paths.bodies),
         music=tuple(p.name for p in paths.music),
-        captions=tuple(captions),
+        # The selector dedupes on description *body*; the title rides along
+        # via the lookup below and never affects combination identity.
+        captions=tuple(d.body for d in descriptions),
     )
 
 
-def _load_captions(path: Path) -> list[str]:
-    """Read the caption bank: one caption per entry, blank-line separated.
+def _load_captions(path: Path, service: Service) -> list[Description]:
+    """Read and validate the description bank for the campaign's platform.
 
-    SPEC §8 describes ``captions.txt`` as "one caption per line, blank-line
-    separated", which only makes sense if a caption may itself span lines — so
-    blank lines are the record separator and newlines within a record are kept.
+    Descriptions are the text a video is posted *with* — not anything drawn onto
+    the frame. Validated here against the target platform's limits so an
+    over-long description fails at preflight rather than at publish time, where
+    it would cost API quota to discover.
     """
     if not path.is_file():
-        raise ConfigError(f"caption bank not found: {path}")
-    blocks = [b.strip() for b in path.read_text(encoding="utf-8").split("\n\n")]
-    captions = [b for b in blocks if b and not b.startswith("#")]
-    if not captions:
-        raise ConfigError(f"caption bank {path} contains no captions")
-    return captions
+        raise ConfigError(f"description bank not found: {path}")
+    return load_bank(path.read_text(encoding="utf-8"), service, source=str(path))
 
 
 # ------------------------------------------------------------------ command: render
@@ -231,8 +234,8 @@ def _render(
             + ", ".join(missing_licenses[:20]),
         )
 
-    captions = _load_captions(campaign_dir / "captions.txt")
-    library = _library_from(paths, captions)
+    descriptions = _load_captions(campaign_dir / "captions.txt", config.buffer.service)
+    library = _library_from(paths, descriptions)
 
     history = load_history(campaign_dir / "history.json")
     # Seeded from the render date so a given day is reproducible, while
@@ -256,6 +259,10 @@ def _render(
 
     renderer: Renderer = FfmpegRenderer(config, log)
     by_name = paths.by_name()
+
+    # Title lookup by description body: Selection carries only the body (that
+    # is what dedupe keys on), so the title is re-attached here from the bank.
+    titles = {d.body: d.title for d in descriptions}
 
     local_day = today.astimezone(config.zone)
     slots = spread_schedule(
@@ -284,6 +291,7 @@ def _render(
                 scheduled_for=slot,
                 video_url="",  # filled in after upload
                 caption=selection.caption,
+                title=titles.get(selection.caption),
                 parts={
                     "hook": selection.hook,
                     "bodies": ",".join(selection.bodies),
@@ -313,6 +321,7 @@ def _render(
                 bodies=sel.bodies,
                 music=sel.music,
                 caption=sel.caption,
+                title=item.title,
             )
             for item, sel in rendered
         ],
@@ -421,6 +430,8 @@ def _topup(
                 PublishRequest(
                     channel_id=channel,
                     text=item.caption,
+                    title=item.title,
+                    service=config.buffer.service,
                     video_url=item.video_url,
                     scheduled_for=item.scheduled_for,
                     post_type=config.buffer.post_type,
@@ -523,11 +534,13 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
             problems.append(f"secret {name} is not set")
 
     try:
-        captions = _load_captions(_campaign_dir(config.slug) / "captions.txt")
-        log.info("preflight_captions_ok", count=len(captions))
+        descriptions = _load_captions(
+            _campaign_dir(config.slug) / "captions.txt", config.buffer.service
+        )
+        log.info("preflight_descriptions_ok", count=len(descriptions))
     except ConfigError as exc:
         problems.append(str(exc))
-        captions = []
+        descriptions = []
 
     if env.get("GITHUB_REPOSITORY") and _secret("GITHUB_TOKEN", env):
         try:
@@ -535,7 +548,7 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
             work = REPO_ROOT / "work" / config.slug / "assets"
             store.download_assets(_assets_tag(config.slug), work)
             paths = LocalLibrary.from_directory(work)
-            library = _library_from(paths, captions)
+            library = _library_from(paths, descriptions)
             library.validate()
             ceiling = library.ceiling(config.composition.bodies_per_video)
             runway = ceiling / max(1, config.posting.posts_per_day)
@@ -629,7 +642,9 @@ def _print_library_health(
     bodies = len([n for n in names if n.lower().startswith("body")])
     music = len([n for n in names if n.lower().startswith("music")])
     try:
-        captions = len(_load_captions(_campaign_dir(config.slug) / "captions.txt"))
+        captions = len(_load_captions(
+            _campaign_dir(config.slug) / "captions.txt", config.buffer.service
+        ))
     except ConfigError:
         captions = 0
 
