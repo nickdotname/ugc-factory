@@ -124,16 +124,24 @@ class PostingConfig(StrictModel):
     max_buffer_queue: int = Field(default=10, ge=1, le=100)
     dry_run: bool = False
 
+    @property
+    def window_hours(self) -> int:
+        """Length of the posting window, in hours.
+
+        The window may wrap past midnight: ``start_hour: 15`` with
+        ``end_hour: 15`` is a full 24 hours beginning at 3pm, and
+        ``15`` to ``2`` is the eleven hours from 3pm to 2am. Equal start and end
+        means the whole day rather than a zero-length window, because a
+        zero-length window is never what anyone means.
+        """
+        span = (self.end_hour - self.start_hour) % 24
+        return span or 24
+
     @model_validator(mode="after")
     def _check_window(self) -> "PostingConfig":
-        if self.end_hour <= self.start_hour:
-            raise ValueError(
-                f"posting.end_hour ({self.end_hour}) must be greater than "
-                f"posting.start_hour ({self.start_hour})"
-            )
-        # Slots are spread across a half-open window; one post needs no gap, but
-        # N posts need N-1 gaps of at least a minute to be distinguishable.
-        window_minutes = (self.end_hour - self.start_hour) * 60
+        # Slots are spread across the window; N posts need N gaps of at least a
+        # minute to land on distinguishable times.
+        window_minutes = self.window_hours * 60
         if self.posts_per_day > 1 and window_minutes < self.posts_per_day:
             raise ValueError(
                 f"posting window {self.start_hour}:00-{self.end_hour}:00 is "

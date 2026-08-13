@@ -289,3 +289,37 @@ class TestCrashResume:
         mark_pushed(i, "found-in-buffer-123", log=log)
         assert i.status is QueueStatus.PUSHED
         assert i.buffer_post_id == "found-in-buffer-123"
+
+
+class TestWrappingWindow:
+    """A window may cross midnight — 'hourly from 3pm' needs it."""
+
+    def test_equal_hours_means_a_full_day(self) -> None:
+        slots = spread_schedule(NOW, 24, 15, 15)
+        assert len(slots) == 24
+        assert slots[0].hour == 15
+        gaps = {(b - a) for a, b in zip(slots, slots[1:])}
+        assert gaps == {timedelta(hours=1)}, "should be exactly hourly"
+
+    def test_wrapping_window_rolls_into_the_next_day(self) -> None:
+        slots = spread_schedule(NOW, 24, 15, 15)
+        assert slots[0].day == NOW.day
+        assert slots[-1].day == NOW.day + 1, "later slots land tomorrow"
+        assert slots[-1].hour == 14
+
+    def test_partial_wrap_is_supported(self) -> None:
+        """15:00 -> 02:00 is eleven hours, not a negative window."""
+        slots = spread_schedule(NOW, 11, 15, 2)
+        assert len(slots) == 11
+        assert slots[0].hour == 15
+        assert slots[-1].hour == 1
+
+    def test_non_wrapping_window_is_unchanged(self) -> None:
+        slots = spread_schedule(NOW, 6, 9, 21)
+        assert all(9 <= s.hour < 21 for s in slots)
+        assert all(s.day == NOW.day for s in slots)
+
+    def test_slots_are_always_ordered(self) -> None:
+        for start, end in ((15, 15), (15, 2), (9, 21), (22, 6)):
+            slots = spread_schedule(NOW, 12, start, end)
+            assert slots == sorted(slots), f"{start}->{end}"

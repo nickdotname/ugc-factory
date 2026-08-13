@@ -111,10 +111,15 @@ class TestPostingValidation:
         body = MINIMAL + "\nposting:\n  posts_per_day: 24\n"
         assert load_config(write(tmp_path, body)).posting.posts_per_day == 24
 
-    def test_inverted_window_is_rejected(self, tmp_path: Path) -> None:
+    def test_end_before_start_wraps_past_midnight(self, tmp_path: Path) -> None:
+        """22:00 -> 09:00 is an eleven-hour overnight window, not an error.
+
+        This used to be rejected. Posting hourly from an afternoon start time
+        needs a window that crosses midnight, so an end earlier than the start
+        is now the documented way to express one.
+        """
         body = MINIMAL + "\nposting:\n  start_hour: 22\n  end_hour: 9\n"
-        with pytest.raises(ConfigError, match="end_hour"):
-            load_config(write(tmp_path, body))
+        assert load_config(write(tmp_path, body)).posting.window_hours == 11
 
     def test_window_too_short_for_cadence_is_rejected(self, tmp_path: Path) -> None:
         # 1 hour = 60 minutes cannot hold 61 distinguishable slots.
@@ -259,3 +264,22 @@ class TestShippedCampaigns:
             if "clubs" in path.read_text(encoding="utf-8").lower():
                 offenders.append(str(path.relative_to(REPO_ROOT)))
         assert not offenders, f"campaign slug leaked into src/: {offenders}"
+
+
+class TestWrappingPostingWindow:
+    def test_equal_start_and_end_is_a_full_day(self, tmp_path: Path) -> None:
+        body = MINIMAL + "\nposting:\n  posts_per_day: 24\n  start_hour: 15\n  end_hour: 15\n"
+        cfg = load_config(write(tmp_path, body))
+        assert cfg.posting.window_hours == 24
+
+    def test_window_may_cross_midnight(self, tmp_path: Path) -> None:
+        body = MINIMAL + "\nposting:\n  posts_per_day: 6\n  start_hour: 22\n  end_hour: 6\n"
+        assert load_config(write(tmp_path, body)).posting.window_hours == 8
+
+    def test_ordinary_window_unchanged(self, tmp_path: Path) -> None:
+        body = MINIMAL + "\nposting:\n  start_hour: 9\n  end_hour: 21\n"
+        assert load_config(write(tmp_path, body)).posting.window_hours == 12
+
+    def test_too_many_posts_for_a_short_window_still_rejected(self, tmp_path: Path) -> None:
+        body = MINIMAL + "\nposting:\n  posts_per_day: 24\n  start_hour: 1\n  end_hour: 1\n"
+        load_config(write(tmp_path, body))  # 24h window, fine

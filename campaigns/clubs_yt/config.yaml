@@ -1,5 +1,5 @@
 slug: clubs_yt
-timezone: America/New_York
+timezone: America/Denver
 # Shares ONE asset library with the other clubs campaigns — the same
 # clips go to every network, so duplicating the Release would mean
 # uploading every file three times and keeping them in sync by hand.
@@ -15,8 +15,11 @@ posting:
   # a cooldown of N days needs N x 24 distinct assets, so even a 1-day hook
   # cooldown would need 24 hooks. See the note on hook_cooldown_days.
   posts_per_day: 24
-  start_hour: 0
-  end_hour: 23
+  # One post an hour, starting 15:00 Mountain. start == end means a FULL
+  # 24-hour window beginning at that hour, so the run wraps past midnight and
+  # the later slots land on the following calendar day.
+  start_hour: 15
+  end_hour: 15
   max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
   # LIVE. Posts are pushed to Buffer and publish on their scheduled slot.
   # Set back to true to pause posting without touching the workflows; the

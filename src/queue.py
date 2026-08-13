@@ -143,16 +143,22 @@ def spread_schedule(
 
     Buffer ultimately controls publish timing, but a post still carries a
     ``dueAt``, and clustering them all at one instant would defeat the point of
-    the window. The last slot lands strictly before ``end_hour``.
+    the window. The last slot lands strictly before the window closes.
+
+    The window may wrap past midnight — ``start_hour: 15`` with
+    ``end_hour: 15`` is a full day starting at 3pm — in which case the later
+    slots naturally fall on the following calendar date. Callers must not
+    assume every returned slot shares ``day``'s date.
     """
     if count <= 0:
         return []
     start = day.replace(hour=start_hour, minute=0, second=0, microsecond=0)
-    window = timedelta(hours=end_hour - start_hour)
+    span = (end_hour - start_hour) % 24 or 24
+    window = timedelta(hours=span)
     if count == 1:
         return [start + window / 2]
-    # count-1 gaps across the window leaves the final slot exactly at end_hour,
-    # which belongs to the next window; divide by count instead and offset.
+    # count-1 gaps would put the final slot exactly at the window's close, which
+    # belongs to the next window; divide by count instead and offset.
     step = window / count
     return [start + step * i for i in range(count)]
 
