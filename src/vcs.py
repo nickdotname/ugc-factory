@@ -115,3 +115,40 @@ class NullVcs(Vcs):
         if self._log:
             self._log.info("vcs_commit_skipped", message=message)
         return bool(paths)
+
+
+def detect_repo(repo_root: Path) -> str | None:
+    """Read ``owner/name`` from the git remote.
+
+    A local convenience so the web UI works without the operator exporting
+    GITHUB_REPOSITORY by hand. Returns None rather than raising — a missing
+    remote is a normal state for a fresh clone, not an error.
+    """
+    proc = subprocess.run(
+        ["git", "remote", "get-url", "origin"],
+        cwd=str(repo_root), capture_output=True, text=True, timeout=30, check=False,
+    )
+    if proc.returncode != 0:
+        return None
+    url = proc.stdout.strip()
+    if url.endswith(".git"):
+        url = url[: -len(".git")]
+    for prefix in ("https://github.com/", "git@github.com:", "ssh://git@github.com/"):
+        if url.startswith(prefix):
+            return url[len(prefix):]
+    return None
+
+
+def detect_token() -> str | None:
+    """Borrow the GitHub CLI's token for local runs.
+
+    Only ever used by the local web UI and CLI on a developer machine; CI gets
+    GITHUB_TOKEN injected by Actions and never reaches this.
+    """
+    proc = subprocess.run(
+        ["gh", "auth", "token"],
+        capture_output=True, text=True, timeout=30, check=False,
+    )
+    if proc.returncode != 0:
+        return None
+    return proc.stdout.strip() or None

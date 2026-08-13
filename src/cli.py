@@ -718,6 +718,30 @@ def _print_titles(config: CampaignConfig, descriptions: list[Description]) -> No
                   f"display on Shorts")
 
 
+# --------------------------------------------------------------------- command: web
+
+
+def cmd_web(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Serve the local drop-and-upload interface (SPEC §2.1 said no UI; this is
+    an operator tool that runs on one laptop, not part of the unattended path)."""
+    from src.web import WebApp, serve
+
+    clock: Clock = SystemClock()
+    log = get_logger(command="web", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+
+    app = WebApp(
+        config=config,
+        repo_root=REPO_ROOT,
+        inbox=REPO_ROOT / INBOX_ROOT / config.slug,
+        bank_path=_campaign_dir(config.slug) / "captions.txt",
+        log=log,
+        clock=clock,
+    )
+    serve(app, args.port, open_browser=not args.no_open)
+    return 0
+
+
 # ----------------------------------------------------------------- command: cleanup
 
 
@@ -793,6 +817,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     common(ingest)
 
+    web = sub.add_parser("web", help="local drop-and-upload interface")
+    common(web)
+    web.add_argument("--port", type=int, default=8765)
+    web.add_argument("--no-open", action="store_true",
+                     help="do not open a browser window")
+
     cleanup = sub.add_parser("cleanup", help="delete expired render Releases")
     common(cleanup)
     cleanup.add_argument("--digest", action="store_true",
@@ -810,6 +840,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "topup": cmd_topup,
         "preflight": cmd_preflight,
         "ingest": cmd_ingest,
+        "web": cmd_web,
         "cleanup": cmd_cleanup,
     }
     try:

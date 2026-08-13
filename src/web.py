@@ -1,0 +1,647 @@
+"""A local drop-and-upload interface (``python -m src.cli web``).
+
+Responsibility: give a human a browser window where they can drag clips into the
+right bucket, write descriptions, see whether the library is big enough, and
+upload — without touching a terminal or learning the naming convention.
+
+Deliberately built on ``http.server`` from the standard library. This is a local
+convenience tool, and the unattended pipeline is the thing that has to run for
+years; adding a web framework to ``requirements.txt`` would put a dependency
+with its own CVE cadence into the cron path for the sake of a tool that only
+ever runs on one laptop.
+
+**Binds to 127.0.0.1 only.** It writes files and can upload to GitHub with the
+operator's own credentials, so it must never be reachable from the network.
+There is no authentication, because there is no remote access to authenticate.
+
+Uploads arrive as raw request bodies with the filename in the query string
+rather than as multipart form data — the stdlib's multipart support is
+deprecated, and a single file per request streams to disk without buffering a
+2 GB video in memory.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import shutil
+import threading
+import webbrowser
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from typing import Any, Callable
+from urllib.parse import parse_qs, urlparse
+
+from src.assets import GitHubReleasesStore, LocalLibrary, MediaStore
+from src.config import CampaignConfig
+from src.descriptions import load_bank, parse_bank, validate_bank
+from src.errors import UgcError
+from src.ingest import (
+    ARCHIVE_DIR,
+    INBOX_DIRS,
+    Verdict,
+    apply_plan,
+    build_plan,
+    combinations,
+    ensure_inbox,
+    library_health,
+)
+from src.logging import StructuredLogger
+from src.models import PartKind
+from src.ports import Clock
+from src.render import FfmpegRenderer
+
+#: Filenames are attacker-controlled only in the sense that a browser sends
+#: them, but a path separator or `..` would still escape the inbox.
+_SAFE_NAME = re.compile(r"^[A-Za-z0-9 ._()\[\]#&+,'-]{1,180}$")
+
+#: Refuse absurd uploads outright rather than filling the disk.
+MAX_UPLOAD_BYTES = 2 * 1024 * 1024 * 1024
+
+
+def _safe_name(raw: str) -> str | None:
+    """Reduce a browser-supplied filename to something safe to join."""
+    name = Path(raw).name.strip()  # strips any directory component
+    # A whitespace-only name survives the character class below (space is legal
+    # inside a filename) but is not a filename.
+    if not name or name.startswith("."):
+        return None
+    return name if _SAFE_NAME.match(name) else None
+
+
+def _kind_from(raw: str) -> PartKind | None:
+    for kind, dirname in INBOX_DIRS.items():
+        if raw == dirname:
+            return kind
+    return None
+
+
+class WebApp:
+    """State and operations behind the HTTP endpoints.
+
+    Kept separate from the request handler so every operation is callable — and
+    testable — without a socket.
+    """
+
+    def __init__(
+        self,
+        config: CampaignConfig,
+        repo_root: Path,
+        inbox: Path,
+        bank_path: Path,
+        log: StructuredLogger,
+        clock: Clock,
+        *,
+        store_factory: Callable[[], MediaStore] | None = None,
+    ) -> None:
+        self.config = config
+        self.repo_root = repo_root
+        self.inbox = inbox
+        self.bank_path = bank_path
+        self.log = log
+        self.clock = clock
+        self._store_factory = store_factory
+        ensure_inbox(inbox)
+
+    # ------------------------------------------------------------------ state
+
+    def _staged(self) -> dict[str, list[dict[str, Any]]]:
+        out: dict[str, list[dict[str, Any]]] = {}
+        for kind, dirname in INBOX_DIRS.items():
+            folder = self.inbox / dirname
+            files = []
+            if folder.is_dir():
+                for path in sorted(folder.iterdir()):
+                    if path.is_file() and not path.name.startswith("."):
+                        files.append({"name": path.name, "size": path.stat().st_size})
+            out[dirname] = files
+        return out
+
+    def _uploaded_counts(self) -> dict[str, int]:
+        """What is already in the assets Release, by role."""
+        archive = self.inbox / ARCHIVE_DIR
+        counts = {kind.value: 0 for kind in PartKind}
+        if archive.is_dir():
+            for path in archive.iterdir():
+                for kind in PartKind:
+                    if path.name.lower().startswith(kind.value):
+                        counts[kind.value] += 1
+        return counts
+
+    def state(self) -> dict[str, Any]:
+        bank_text = (
+            self.bank_path.read_text(encoding="utf-8")
+            if self.bank_path.is_file()
+            else ""
+        )
+        try:
+            descriptions = parse_bank(bank_text)
+            errors, notes = validate_bank(descriptions, self.config.buffer.service)
+        except UgcError as exc:
+            descriptions, errors, notes = [], [str(exc)], []
+
+        counts = self._uploaded_counts()
+        hooks = counts["hook"]
+        bodies = counts["body"]
+        music = counts["music"]
+        captions = len(descriptions)
+        per_video = self.config.composition.bodies_per_video
+        ppd = self.config.posting.posts_per_day
+        total = combinations(hooks, bodies, music, captions, per_video)
+
+        return {
+            "campaign": self.config.slug,
+            "service": self.config.buffer.service.value,
+            "posts_per_day": ppd,
+            "dry_run": self.config.posting.dry_run,
+            "staged": self._staged(),
+            "uploaded": counts,
+            "descriptions": {
+                "text": bank_text,
+                "count": captions,
+                "errors": errors,
+                "notes": notes,
+            },
+            "health": {
+                "combinations": total,
+                "runway_days": round(total / max(1, ppd), 1),
+                "min_runway_days": self.config.selection.min_runway_days,
+                "warnings": library_health(
+                    hooks, bodies, music, captions, per_video, ppd,
+                    self.config.selection.hook_cooldown_days,
+                    self.config.selection.caption_cooldown_days,
+                ),
+            },
+        }
+
+    # ------------------------------------------------------------- operations
+
+    def save_file(self, kind: PartKind, name: str, data: bytes) -> dict[str, Any]:
+        target = self.inbox / INBOX_DIRS[kind] / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+        self.log.info("web_file_staged", kind=kind.value, name=name, bytes=len(data))
+        return {"ok": True, "name": name, "size": len(data)}
+
+    def delete_file(self, kind: PartKind, name: str) -> dict[str, Any]:
+        target = self.inbox / INBOX_DIRS[kind] / name
+        if target.is_file():
+            target.unlink()
+            self.log.info("web_file_removed", kind=kind.value, name=name)
+        return {"ok": True}
+
+    def save_descriptions(self, text: str) -> dict[str, Any]:
+        """Write the bank, reporting problems without refusing to save.
+
+        Saving a draft that does not yet validate is normal while writing; the
+        render job is where an invalid bank is actually blocking.
+        """
+        self.bank_path.parent.mkdir(parents=True, exist_ok=True)
+        self.bank_path.write_text(text, encoding="utf-8")
+        try:
+            descriptions = parse_bank(text)
+            errors, notes = validate_bank(descriptions, self.config.buffer.service)
+        except UgcError as exc:
+            return {"ok": True, "count": 0, "errors": [str(exc)], "notes": []}
+        return {
+            "ok": True, "count": len(descriptions), "errors": errors, "notes": notes,
+        }
+
+    def plan(self) -> dict[str, Any]:
+        renderer = FfmpegRenderer(self.config, self.log)
+        store = self._store()
+        existing = store.list_assets(f"assets-{self.config.slug}") if store else []
+        plan = build_plan(self.inbox, existing, renderer, self.log)
+        return {
+            "ok": True,
+            "connected": store is not None,
+            "items": [
+                {
+                    "source": c.source.name,
+                    "kind": c.kind.value,
+                    "target": c.target_name,
+                    "verdict": c.verdict.value,
+                    "notes": c.notes,
+                }
+                for c in plan.candidates
+            ],
+            "uploadable": len(plan.uploadable),
+            "rejected": len(plan.rejected),
+        }
+
+    def upload(self) -> dict[str, Any]:
+        store = self._store()
+        if store is None:
+            return {
+                "ok": False,
+                "error": "No GitHub credentials. Run `gh auth login`, or set "
+                         "GITHUB_TOKEN and GITHUB_REPOSITORY.",
+            }
+        renderer = FfmpegRenderer(self.config, self.log)
+        tag = f"assets-{self.config.slug}"
+        plan = build_plan(self.inbox, store.list_assets(tag), renderer, self.log)
+        if not plan.uploadable:
+            return {"ok": False, "error": "Nothing uploadable in the inbox."}
+
+        uploaded = apply_plan(
+            plan, self.inbox, store, tag, self.log,
+            staging=self.repo_root / "work" / self.config.slug / "staging",
+        )
+        return {"ok": True, "uploaded": uploaded, "skipped": len(plan.rejected)}
+
+    def _store(self) -> MediaStore | None:
+        if self._store_factory is not None:
+            return self._store_factory()
+        # Local convenience: fall back to the gh CLI's token and the git remote
+        # so the operator does not have to export anything to use this.
+        import os
+
+        from src.vcs import detect_repo, detect_token
+
+        repo = os.environ.get("GITHUB_REPOSITORY") or detect_repo(self.repo_root)
+        token = os.environ.get("GITHUB_TOKEN") or detect_token()
+        if not repo or not token:
+            return None
+        return GitHubReleasesStore(repo, token, self.log, self.clock)
+
+
+def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
+    """Build a request handler bound to one app instance."""
+
+    class Handler(BaseHTTPRequestHandler):
+        server_version = "ugc-factory"
+
+        def log_message(self, format: str, *args: Any) -> None:
+            # Silence the default stderr access log; the app logs structurally.
+            return
+
+        # ------------------------------------------------------------ helpers
+
+        def _json(self, payload: Any, status: int = 200) -> None:
+            body = json.dumps(payload, default=str).encode("utf-8")
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def _html(self, text: str) -> None:
+            body = text.encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def _query(self) -> dict[str, list[str]]:
+            return parse_qs(urlparse(self.path).query)
+
+        def _body(self) -> bytes:
+            length = int(self.headers.get("Content-Length") or 0)
+            if length > MAX_UPLOAD_BYTES:
+                raise ValueError(f"upload of {length} bytes is too large")
+            return self.rfile.read(length) if length else b""
+
+        # ------------------------------------------------------------- routes
+
+        def do_GET(self) -> None:  # noqa: N802 - required by BaseHTTPRequestHandler
+            route = urlparse(self.path).path
+            if route == "/":
+                self._html(PAGE)
+            elif route == "/api/state":
+                self._json(app.state())
+            elif route == "/api/plan":
+                try:
+                    self._json(app.plan())
+                except UgcError as exc:
+                    self._json({"ok": False, "error": str(exc)}, 200)
+            else:
+                self._json({"error": "not found"}, 404)
+
+        def do_POST(self) -> None:  # noqa: N802
+            route = urlparse(self.path).path
+            try:
+                if route == "/api/upload":
+                    query = self._query()
+                    kind = _kind_from((query.get("kind") or [""])[0])
+                    name = _safe_name((query.get("name") or [""])[0])
+                    if kind is None or name is None:
+                        self._json({"ok": False, "error": "bad kind or filename"}, 400)
+                        return
+                    self._json(app.save_file(kind, name, self._body()))
+
+                elif route == "/api/descriptions":
+                    payload = json.loads(self._body() or b"{}")
+                    self._json(app.save_descriptions(str(payload.get("text", ""))))
+
+                elif route == "/api/ingest":
+                    self._json(app.upload())
+
+                else:
+                    self._json({"error": "not found"}, 404)
+            except UgcError as exc:
+                self._json({"ok": False, "error": str(exc)}, 200)
+            except (ValueError, OSError) as exc:
+                self._json({"ok": False, "error": str(exc)}, 400)
+
+        def do_DELETE(self) -> None:  # noqa: N802
+            if urlparse(self.path).path != "/api/inbox":
+                self._json({"error": "not found"}, 404)
+                return
+            query = self._query()
+            kind = _kind_from((query.get("kind") or [""])[0])
+            name = _safe_name((query.get("name") or [""])[0])
+            if kind is None or name is None:
+                self._json({"ok": False, "error": "bad kind or filename"}, 400)
+                return
+            self._json(app.delete_file(kind, name))
+
+    return Handler
+
+
+def serve(app: WebApp, port: int, *, open_browser: bool = True) -> None:
+    """Run the local server until interrupted."""
+    # 127.0.0.1, never 0.0.0.0: this writes files and holds the operator's
+    # GitHub token, and has no authentication of its own.
+    server = ThreadingHTTPServer(("127.0.0.1", port), make_handler(app))
+    url = f"http://127.0.0.1:{port}"
+    print(f"\n  ugc-factory · {app.config.slug}")
+    print(f"  {url}\n")
+    print("  Drop clips into the three zones, write descriptions, hit Upload.")
+    print("  Ctrl-C to stop.\n")
+    if open_browser:
+        threading.Timer(0.5, lambda: webbrowser.open(url)).start()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\n  stopped\n")
+    finally:
+        server.server_close()
+
+
+PAGE = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ugc-factory</title>
+<style>
+  :root {
+    --bg:#0e0f12; --panel:#16181d; --line:#262a33; --text:#e6e8ee;
+    --dim:#8b93a5; --accent:#5b8cff; --ok:#3fb950; --warn:#d29922; --bad:#f85149;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg:#f6f7f9; --panel:#fff; --line:#e2e5ea; --text:#14171f;
+      --dim:#666e7d; --accent:#2f6bff; --ok:#1a7f37; --warn:#9a6700; --bad:#cf222e;
+    }
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--text);
+    font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  header {
+    padding:18px 24px; border-bottom:1px solid var(--line);
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+  }
+  h1 { font-size:15px; margin:0; font-weight:600; letter-spacing:-.01em; }
+  .tag {
+    font-size:11px; color:var(--dim); border:1px solid var(--line);
+    padding:2px 8px; border-radius:99px;
+  }
+  main { padding:24px; max-width:1100px; margin:0 auto; }
+  .zones { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:820px) { .zones { grid-template-columns:1fr; } }
+  .zone {
+    background:var(--panel); border:1.5px dashed var(--line); border-radius:12px;
+    padding:18px; min-height:190px; transition:border-color .15s,background .15s;
+  }
+  .zone.over { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 8%,var(--panel)); }
+  .zone h2 { font-size:13px; margin:0 0 2px; font-weight:600; }
+  .zone .sub { font-size:11px; color:var(--dim); margin-bottom:12px; }
+  .files { list-style:none; margin:0; padding:0; font-size:12px; }
+  .files li {
+    display:flex; justify-content:space-between; gap:8px; align-items:center;
+    padding:5px 0; border-top:1px solid var(--line);
+  }
+  .files .nm { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .files button {
+    background:none; border:none; color:var(--dim); cursor:pointer;
+    font-size:14px; padding:0 2px;
+  }
+  .files button:hover { color:var(--bad); }
+  .empty { font-size:12px; color:var(--dim); font-style:italic; }
+  section { margin-top:26px; }
+  h3 { font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+       color:var(--dim); margin:0 0 10px; font-weight:600; }
+  textarea {
+    width:100%; min-height:230px; background:var(--panel); color:var(--text);
+    border:1px solid var(--line); border-radius:10px; padding:14px;
+    font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace; resize:vertical;
+  }
+  textarea:focus { outline:none; border-color:var(--accent); }
+  .row { display:flex; gap:10px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  button.act {
+    background:var(--accent); color:#fff; border:none; padding:9px 16px;
+    border-radius:8px; font-size:13px; font-weight:500; cursor:pointer;
+  }
+  button.act:hover { filter:brightness(1.08); }
+  button.act:disabled { opacity:.5; cursor:default; }
+  button.ghost { background:none; border:1px solid var(--line); color:var(--text); }
+  .stats {
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px;
+  }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:14px; }
+  .stat .n { font-size:21px; font-weight:600; letter-spacing:-.02em; }
+  .stat .l { font-size:11px; color:var(--dim); }
+  .msg { font-size:12px; padding:9px 12px; border-radius:8px; margin-top:9px; }
+  .msg.ok  { color:var(--ok);   background:color-mix(in srgb,var(--ok) 12%,transparent); }
+  .msg.warn{ color:var(--warn); background:color-mix(in srgb,var(--warn) 12%,transparent); }
+  .msg.bad { color:var(--bad);  background:color-mix(in srgb,var(--bad) 12%,transparent); }
+  .plan { font:12px/1.6 ui-monospace,Menlo,monospace; white-space:pre-wrap;
+          background:var(--panel); border:1px solid var(--line);
+          border-radius:10px; padding:14px; margin-top:12px; }
+  .hint { font-size:12px; color:var(--dim); margin-top:6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ugc-factory</h1>
+  <span class="tag" id="t-campaign">…</span>
+  <span class="tag" id="t-service">…</span>
+  <span class="tag" id="t-cadence">…</span>
+  <span class="tag" id="t-dry">…</span>
+</header>
+
+<main>
+  <div class="zones" id="zones"></div>
+  <div class="hint">Drag files in, or click a zone to browse. Names don't matter — correct ones are generated on upload.</div>
+
+  <section>
+    <h3>Descriptions <span style="text-transform:none;font-weight:400">— the text each video is posted with</span></h3>
+    <textarea id="bank" spellcheck="false" placeholder="One description per block, blank line between blocks."></textarea>
+    <div class="row">
+      <button class="act ghost" id="save">Save descriptions</button>
+      <span id="bank-count" style="font-size:12px;color:var(--dim)"></span>
+    </div>
+    <div id="bank-msgs"></div>
+  </section>
+
+  <section>
+    <h3>Library</h3>
+    <div class="stats">
+      <div class="grid" id="stats"></div>
+      <div id="health"></div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Upload</h3>
+    <div class="row">
+      <button class="act ghost" id="preview">Preview plan</button>
+      <button class="act" id="upload">Upload to GitHub</button>
+    </div>
+    <div id="up-msgs"></div>
+    <div class="plan" id="plan" style="display:none"></div>
+  </section>
+</main>
+
+<script>
+const KINDS = [
+  ["hooks",  "Hooks",  "the first 1–2s that stop the scroll", "video/*"],
+  ["bodies", "Bodies", "your main videos",                    "video/*"],
+  ["music",  "Music",  "royalty-free tracks only",            "audio/*"],
+];
+const $ = s => document.querySelector(s);
+let STATE = null;
+
+function bytes(n){ return n > 1e6 ? (n/1e6).toFixed(1)+" MB" : Math.max(1,Math.round(n/1e3))+" KB"; }
+
+function buildZones(){
+  $("#zones").innerHTML = KINDS.map(([k,label,sub,accept]) => `
+    <div class="zone" data-kind="${k}">
+      <h2>${label}</h2>
+      <div class="sub">${sub}</div>
+      <ul class="files" id="f-${k}"></ul>
+      <input type="file" multiple accept="${accept}" id="i-${k}" style="display:none">
+    </div>`).join("");
+
+  KINDS.forEach(([k]) => {
+    const zone = document.querySelector(`.zone[data-kind="${k}"]`);
+    const input = $(`#i-${k}`);
+    zone.addEventListener("click", e => { if (e.target.tagName !== "BUTTON") input.click(); });
+    input.addEventListener("change", () => { send(k, input.files); input.value = ""; });
+    ["dragenter","dragover"].forEach(ev => zone.addEventListener(ev, e => {
+      e.preventDefault(); zone.classList.add("over");
+    }));
+    ["dragleave","drop"].forEach(ev => zone.addEventListener(ev, e => {
+      e.preventDefault(); zone.classList.remove("over");
+    }));
+    zone.addEventListener("drop", e => send(k, e.dataTransfer.files));
+  });
+}
+
+async function send(kind, files){
+  for (const f of files){
+    await fetch(`/api/upload?kind=${kind}&name=${encodeURIComponent(f.name)}`,
+                {method:"POST", body:f});
+  }
+  refresh();
+}
+
+async function remove(kind, name){
+  await fetch(`/api/inbox?kind=${kind}&name=${encodeURIComponent(name)}`, {method:"DELETE"});
+  refresh();
+}
+
+function msg(el, cls, text){
+  el.innerHTML += `<div class="msg ${cls}">${text}</div>`;
+}
+
+function render(s){
+  STATE = s;
+  $("#t-campaign").textContent = s.campaign;
+  $("#t-service").textContent  = s.service;
+  $("#t-cadence").textContent  = s.posts_per_day + "/day";
+  $("#t-dry").textContent      = s.dry_run ? "dry run" : "LIVE";
+  $("#t-dry").style.color      = s.dry_run ? "" : "var(--warn)";
+
+  KINDS.forEach(([k]) => {
+    const list = s.staged[k] || [];
+    $(`#f-${k}`).innerHTML = list.length
+      ? list.map(f => `<li><span class="nm">${f.name}</span>
+          <span style="color:var(--dim);font-size:11px">${bytes(f.size)}</span>
+          <button title="remove" onclick="event.stopPropagation();remove('${k}','${
+            f.name.replace(/'/g,"\\\\'")}')">×</button></li>`).join("")
+      : `<li style="border:none"><span class="empty">nothing staged</span></li>`;
+  });
+
+  const h = s.health, u = s.uploaded;
+  $("#stats").innerHTML = `
+    <div class="stat"><div class="n">${u.hook}</div><div class="l">hooks uploaded</div></div>
+    <div class="stat"><div class="n">${u.body}</div><div class="l">bodies uploaded</div></div>
+    <div class="stat"><div class="n">${u.music}</div><div class="l">music uploaded</div></div>
+    <div class="stat"><div class="n">${s.descriptions.count}</div><div class="l">descriptions</div></div>
+    <div class="stat"><div class="n">${h.combinations}</div><div class="l">combinations</div></div>
+    <div class="stat"><div class="n">${h.runway_days}</div><div class="l">days runway</div></div>`;
+
+  const hv = $("#health"); hv.innerHTML = "";
+  if (h.runway_days < h.min_runway_days)
+    msg(hv,"warn",`Runway ${h.runway_days}d is under the ${h.min_runway_days}d target — preflight will fail.`);
+  h.warnings.forEach(w => msg(hv,"warn",w));
+  if (!h.warnings.length && h.runway_days >= h.min_runway_days && h.combinations > 0)
+    msg(hv,"ok","Library supports the configured cadence with no relaxation.");
+
+  if (document.activeElement !== $("#bank")) $("#bank").value = s.descriptions.text;
+  $("#bank-count").textContent = s.descriptions.count + " descriptions";
+  const bm = $("#bank-msgs"); bm.innerHTML = "";
+  s.descriptions.errors.forEach(e => msg(bm,"bad",e));
+  s.descriptions.notes.slice(0,5).forEach(n => msg(bm,"warn",n));
+}
+
+async function refresh(){ render(await (await fetch("/api/state")).json()); }
+
+$("#save").onclick = async () => {
+  const r = await (await fetch("/api/descriptions",{method:"POST",
+    body: JSON.stringify({text: $("#bank").value})})).json();
+  const bm = $("#bank-msgs"); bm.innerHTML = "";
+  msg(bm,"ok",`Saved — ${r.count} descriptions.`);
+  r.errors.forEach(e => msg(bm,"bad",e));
+  refresh();
+};
+
+$("#preview").onclick = async () => {
+  const r = await (await fetch("/api/plan")).json();
+  const el = $("#plan"); el.style.display = "block";
+  if (!r.ok){ el.textContent = r.error; return; }
+  el.textContent = r.items.length
+    ? r.items.map(i => {
+        const mark = {ok:"OK ", warned:" ! ", rejected:" x "}[i.verdict];
+        const arrow = i.verdict === "rejected" ? "skipped" : i.target;
+        return `${mark} ${i.source}\\n      -> ${arrow}` +
+               (i.notes.length ? "\\n      " + i.notes.join("\\n      ") : "");
+      }).join("\\n")
+    : "inbox is empty";
+};
+
+$("#upload").onclick = async (e) => {
+  e.target.disabled = true; e.target.textContent = "Uploading…";
+  const um = $("#up-msgs"); um.innerHTML = "";
+  try {
+    const r = await (await fetch("/api/ingest",{method:"POST"})).json();
+    if (r.ok){
+      msg(um,"ok",`Uploaded ${r.uploaded.length}: ${r.uploaded.join(", ")}` +
+                  (r.skipped ? ` · ${r.skipped} skipped` : ""));
+    } else msg(um,"bad",r.error);
+  } catch(err){ msg(um,"bad",String(err)); }
+  e.target.disabled = false; e.target.textContent = "Upload to GitHub";
+  refresh();
+};
+
+buildZones(); refresh(); setInterval(refresh, 5000);
+</script>
+</body>
+</html>
+"""

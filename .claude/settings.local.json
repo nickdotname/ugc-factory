@@ -44,7 +44,19 @@
       "Bash(.venv/bin/python -m pytest tests/test_platforms.py --no-header)",
       "Bash(cp campaigns/_template/captions.txt campaigns/clubs/captions.txt)",
       "Bash(.venv/bin/python -c ' *)",
-      "Bash(.venv/bin/python -m mypy src/config.py)"
+      "Bash(.venv/bin/python -m mypy src/config.py)",
+      "Bash(gh repo *)",
+      "Bash(env -i /usr/bin/curl -sSL -o /tmp/fetched.mp4 -w 'http_code=%{http_code}\\\\ncontent_type=%{content_type}\\\\nsize=%{size_download}\\\\nredirects=%{num_redirects}\\\\n' https://github.com/nickdotname/ugc-factory/releases/download/fetch-probe/probe.mp4)",
+      "Bash(ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height -of default=noprint_wrappers=1 /tmp/fetched.mp4)",
+      "Bash(gh release *)",
+      "Bash(.venv/bin/python -m src.cli web --campaign clubs --port 8791 --no-open)",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code} bytes=%{size_download}\\\\n\" http://127.0.0.1:8791/)",
+      "Bash(curl -s http://127.0.0.1:8791/api/state)",
+      "Bash(.venv/bin/python -m json.tool)",
+      "Bash(pkill -f \"src.cli web\")",
+      "Bash(rm -f inbox/clubs/hooks/*.mp4 \"/tmp/My Cool Hook.mp4\")",
+      "Bash(.venv/bin/python -m pytest tests/test_web.py --no-header)",
+      "Bash(git push *)"
     ]
   }
 }

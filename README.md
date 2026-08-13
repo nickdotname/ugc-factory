@@ -148,7 +148,21 @@ mypy src/ && pytest
    which is what Buffer's URL-only media upload requires. Secrets live in
    GitHub Secrets; nothing sensitive is in the tree.
 
-2. **Put your videos in the inbox and run `ingest`.** You never name a file
+2. **Drop your videos in, using the local web app** (or `ingest` from a
+   terminal — same pipeline either way).
+
+   ```bash
+   python -m src.cli web --campaign clubs
+   ```
+
+   Opens `http://127.0.0.1:8765`: three drop zones for hooks / bodies / music,
+   an editor for descriptions, a live library-health panel, and an upload
+   button. It binds to loopback only — it writes files and borrows your `gh`
+   token, so it must never be reachable from the network. It auto-detects the
+   repo from your git remote and the token from `gh auth token`, so there is
+   nothing to export.
+
+   The terminal equivalent: You never name a file
    yourself and never touch the Release by hand.
 
    ```
