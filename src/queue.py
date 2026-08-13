@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import os
 import tempfile
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone, tzinfo
 from pathlib import Path
 
 from src.errors import ValidationError
@@ -134,6 +134,50 @@ def depth_needed(queue_depth: int, max_queue: int) -> int:
     negative count would otherwise become a slice that pushes everything.
     """
     return max(0, max_queue - queue_depth)
+
+
+def upcoming_slots(
+    now: datetime,
+    count: int,
+    start_hour: int,
+    end_hour: int,
+    posts_per_day: int,
+    tz: tzinfo,
+    *,
+    min_lead: timedelta = timedelta(minutes=10),
+) -> list[datetime]:
+    """The next ``count`` posting slots at or after ``now + min_lead``.
+
+    Replaces "schedule everything for tomorrow". A slot that has already passed
+    today is skipped rather than shifting the whole batch a day out, so a render
+    at 14:50 fills the 15:00 slot instead of waiting until tomorrow.
+
+    ``min_lead`` keeps a slot from landing so close to now that Buffer has no
+    time to accept it before it is already due; a post scheduled for thirty
+    seconds' time is a race, not a schedule.
+
+    Cycles are generated from several consecutive days because a wrapping
+    window's slots span two dates, and the current cycle may have started
+    yesterday.
+    """
+    if count <= 0:
+        return []
+    local_now = now.astimezone(tz)
+    earliest = local_now + min_lead
+
+    candidates: list[datetime] = []
+    # Start a day back: with a window that began yesterday afternoon, today's
+    # remaining slots belong to yesterday's cycle.
+    for offset in range(-1, 8):
+        cycle_day = (local_now + timedelta(days=offset)).replace(
+            hour=0, minute=0, second=0, microsecond=0
+        )
+        candidates.extend(
+            spread_schedule(cycle_day, posts_per_day, start_hour, end_hour)
+        )
+
+    future = sorted({s for s in candidates if s >= earliest})
+    return future[:count]
 
 
 def spread_schedule(

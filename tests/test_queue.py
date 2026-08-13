@@ -24,6 +24,7 @@ from src.queue import (
     save_queue,
     spread_schedule,
     stranded,
+    upcoming_slots,
     transition,
 )
 
@@ -323,3 +324,53 @@ class TestWrappingWindow:
         for start, end in ((15, 15), (15, 2), (9, 21), (22, 6)):
             slots = spread_schedule(NOW, 12, start, end)
             assert slots == sorted(slots), f"{start}->{end}"
+
+
+class TestUpcomingSlots:
+    """Slots start from the next real opening, not from tomorrow."""
+
+    TZ = timezone.utc
+
+    def test_todays_remaining_slots_are_used(self) -> None:
+        """A render at 14:50 must fill 15:00 today, not 15:00 tomorrow."""
+        now = datetime(2026, 8, 13, 14, 50, tzinfo=self.TZ)
+        slots = upcoming_slots(now, 3, 15, 15, 24, self.TZ)
+        assert slots[0] == datetime(2026, 8, 13, 15, 0, tzinfo=self.TZ)
+        assert [s.hour for s in slots] == [15, 16, 17]
+
+    def test_passed_slots_are_skipped_not_deferred_a_day(self) -> None:
+        now = datetime(2026, 8, 13, 18, 30, tzinfo=self.TZ)
+        slots = upcoming_slots(now, 2, 15, 15, 24, self.TZ)
+        assert slots[0] == datetime(2026, 8, 13, 19, 0, tzinfo=self.TZ)
+
+    def test_min_lead_prevents_a_slot_landing_immediately(self) -> None:
+        """14:59 must not schedule 15:00 — Buffer needs time to accept it."""
+        now = datetime(2026, 8, 13, 14, 59, tzinfo=self.TZ)
+        slots = upcoming_slots(now, 1, 15, 15, 24, self.TZ)
+        assert slots[0] == datetime(2026, 8, 13, 16, 0, tzinfo=self.TZ)
+
+    def test_slots_roll_into_the_next_day_when_today_is_exhausted(self) -> None:
+        now = datetime(2026, 8, 13, 23, 30, tzinfo=self.TZ)
+        slots = upcoming_slots(now, 3, 15, 15, 24, self.TZ)
+        assert slots[0].day == 14
+        assert [s.hour for s in slots] == [0, 1, 2]
+
+    def test_every_slot_is_in_the_future(self) -> None:
+        now = datetime(2026, 8, 13, 9, 17, tzinfo=self.TZ)
+        for s in upcoming_slots(now, 24, 15, 15, 24, self.TZ):
+            assert s > now
+
+    def test_slots_are_unique_and_ordered(self) -> None:
+        now = datetime(2026, 8, 13, 12, 0, tzinfo=self.TZ)
+        slots = upcoming_slots(now, 48, 15, 15, 24, self.TZ)
+        assert len(slots) == len(set(slots)) == 48
+        assert slots == sorted(slots)
+
+    def test_narrow_window_still_only_yields_its_own_hours(self) -> None:
+        now = datetime(2026, 8, 13, 0, 0, tzinfo=self.TZ)
+        slots = upcoming_slots(now, 12, 9, 17, 6, self.TZ)
+        assert all(9 <= s.hour < 17 for s in slots), [str(s) for s in slots]
+
+    def test_zero_count_returns_nothing(self) -> None:
+        now = datetime(2026, 8, 13, 12, 0, tzinfo=self.TZ)
+        assert upcoming_slots(now, 0, 15, 15, 24, self.TZ) == []

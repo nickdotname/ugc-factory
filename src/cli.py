@@ -71,6 +71,7 @@ from src.queue import (
     save_queue,
     spread_schedule,
     stranded,
+    upcoming_slots,
     transition,
 )
 from src.render import FfmpegRenderer, Renderer
@@ -298,14 +299,23 @@ def _render(
     # is what dedupe keys on), so the title is re-attached here from the bank.
     titles = {d.body: d.title for d in descriptions}
 
-    local_day = today.astimezone(config.zone)
-    slots = spread_schedule(
-        local_day, len(outcomes), config.posting.start_hour, config.posting.end_hour
+    # Fill the next free slots rather than deferring the whole batch a day.
+    # SPEC §4.2 wanted the render->push gap as a review window, but the review
+    # window that actually matters is Buffer's own queue: a pushed post sits
+    # there, visible and deletable, until its slot arrives.
+    slots = upcoming_slots(
+        today,
+        len(outcomes),
+        config.posting.start_hour,
+        config.posting.end_hour,
+        config.posting.posts_per_day,
+        config.zone,
     )
-    # Today's window is mostly gone by the time a 05:00 UTC render finishes, so
-    # the batch is scheduled for tomorrow. This is also the human review window
-    # SPEC §4.2 asks for: nothing rendered tonight can publish before tomorrow.
-    slots = [s + timedelta(days=1) for s in slots]
+    if len(slots) < len(outcomes):
+        raise ConfigError(
+            f"only {len(slots)} slots available for {len(outcomes)} videos; "
+            f"posts_per_day is {config.posting.posts_per_day}"
+        )
 
     rendered: list[tuple[QueueItem, Selection]] = []
     for outcome, slot in zip(outcomes, slots):
