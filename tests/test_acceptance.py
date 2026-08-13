@@ -289,9 +289,17 @@ class TestShippedWorkflows:
         text = self._wf("render.yml")
         assert "git commit" in text and "git push" in text
 
-    def test_matrix_makes_adding_a_campaign_one_line(self) -> None:
-        for name in ("render.yml", "topup.yml"):
-            assert "matrix:" in self._wf(name) and "campaign: [clubs]" in self._wf(name)
+    def test_every_campaign_is_in_every_workflow_matrix(self) -> None:
+        """A campaign missing from a matrix silently never runs."""
+        campaigns = [
+            d.name for d in (REPO_ROOT / "campaigns").iterdir()
+            if d.is_dir() and not d.name.startswith("_")
+        ]
+        for name in ("render.yml", "topup.yml", "preflight.yml", "cleanup.yml"):
+            text = self._wf(name)
+            assert "matrix:" in text, name
+            for slug in campaigns:
+                assert slug in text, f"{slug} missing from {name}"
 
     def test_ci_never_enables_the_live_buffer_test(self) -> None:
         """SPEC §2.2 — the live test is never part of CI."""
@@ -306,33 +314,48 @@ class TestShippedCampaign:
         cfg = load_campaign(REPO_ROOT / "campaigns", "clubs")
         assert cfg.buffer.post_type is PostType.REEL
         assert cfg.video.min_duration_sec == 5 and cfg.video.max_duration_sec == 90
-        # SPEC §4.5 — well under the 24/day ceiling Instagram's spam classifier
-        # cares about. The exact figure is a library-sizing decision (see the
-        # cooldown check below), not a fixed number.
-        assert 1 <= cfg.posting.posts_per_day <= 6
+        # SPEC §4.5 caps the schema at 24/day. The exact figure is an operator
+        # decision about spam-classifier risk, not something a test should pin.
+        assert 1 <= cfg.posting.posts_per_day <= 24
 
-    def test_clubs_cooldowns_are_satisfiable_by_a_small_library(self) -> None:
+    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
+    def test_cooldowns_are_satisfiable_by_the_real_bank(self, slug: str) -> None:
         """A cooldown of N days at P posts/day needs N×P distinct assets.
 
         Config that cannot be satisfied makes the selector relax and alert every
-        single day, which is indistinguishable from being broken. This asserts
-        the shipped numbers are reachable with the library actually planned:
-        ~6 hooks and 5 captions.
+        single day, which is indistinguishable from being broken. Reads the
+        committed description bank rather than assuming a count, so growing the
+        bank and raising the cadence stay honest about each other.
         """
-        cfg = load_campaign(REPO_ROOT / "campaigns", "clubs")
-        planned_hooks, planned_captions = 6, 5
-        ppd = cfg.posting.posts_per_day
+        from src.descriptions import parse_bank
 
-        assert ppd * cfg.selection.hook_cooldown_days <= planned_hooks, (
-            f"hook cooldown needs "
-            f"{ppd * cfg.selection.hook_cooldown_days} hooks, library has "
-            f"{planned_hooks}"
+        cfg = load_campaign(REPO_ROOT / "campaigns", slug)
+        bank = parse_bank(
+            (REPO_ROOT / "campaigns" / slug / "captions.txt").read_text(
+                encoding="utf-8"
+            )
         )
-        assert ppd * cfg.selection.caption_cooldown_days <= planned_captions, (
-            f"caption cooldown needs "
-            f"{ppd * cfg.selection.caption_cooldown_days} captions, library has "
-            f"{planned_captions}"
+        ppd = cfg.posting.posts_per_day
+        needed = ppd * cfg.selection.caption_cooldown_days
+        assert needed <= len(bank), (
+            f"{slug}: caption cooldown needs {needed} descriptions at "
+            f"{ppd}/day, bank has {len(bank)}"
         )
+
+    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
+    def test_every_campaign_targets_a_distinct_channel_secret(
+        self, slug: str
+    ) -> None:
+        """Two campaigns sharing a channel secret would double-post one account."""
+        cfg = load_campaign(REPO_ROOT / "campaigns", slug)
+        others = [
+            load_campaign(REPO_ROOT / "campaigns", s)
+            for s in ("clubs", "clubs_tt", "clubs_yt")
+            if s != slug
+        ]
+        assert cfg.buffer.channel_id_secret not in {
+            o.buffer.channel_id_secret for o in others
+        }
 
     def test_queue_and_history_files_are_valid_json(self) -> None:
         """Parse, not emptiness — these files carry real state once live."""

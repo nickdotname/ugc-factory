@@ -96,11 +96,41 @@ class GitVcs(Vcs):
             "commit", "-m", f"{message} [skip ci]",
         )
         if self._push:
-            # A rejected push means someone else moved the branch; retrying
-            # blindly could clobber it, so surface it rather than force-pushing.
-            self._git("push")
+            self._push_with_rebase(message)
         self._log.info("vcs_committed", message=message, files=len(paths))
         return True
+
+    def _push_with_rebase(self, message: str, attempts: int = 4) -> None:
+        """Push, rebasing onto whatever landed first if the push is rejected.
+
+        With one campaign this never mattered. With several running as parallel
+        matrix jobs they all commit to the same branch, and every one but the
+        winner gets a non-fast-forward rejection. Since each job only ever
+        touches files under its own ``campaigns/<slug>/``, a rebase cannot
+        conflict — it is purely a serialisation problem.
+
+        Never force-pushes: that would discard another campaign's claim commit,
+        which is exactly the record that stops a duplicate post (SPEC §11).
+        """
+        for attempt in range(1, attempts + 1):
+            if self._git("push", check=False).returncode == 0:
+                return
+            if attempt == attempts:
+                raise VcsError(
+                    f"push rejected {attempts}x for {message!r}; another job may "
+                    f"be stuck holding the branch"
+                )
+            self._log.warning("vcs_push_rejected", attempt=attempt, message=message)
+            rebase = self._git("pull", "--rebase", check=False)
+            if rebase.returncode != 0:
+                # A genuine conflict means two jobs touched one file, which
+                # should be impossible given the per-campaign split. Abort the
+                # rebase so the working tree is left clean for the next run.
+                self._git("rebase", "--abort", check=False)
+                raise VcsError(
+                    f"rebase conflict while pushing {message!r}: "
+                    f"{(rebase.stderr or rebase.stdout)[-300:]}"
+                )
 
 
 class NullVcs(Vcs):

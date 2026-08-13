@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        campaign: [clubs]
+        campaign: [clubs, clubs_tt, clubs_yt]
     # SPEC §12 — two top-up jobs racing the same queue would double-push, and a
     # duplicate that reaches Instagram cannot be recalled.
     concurrency:
@@ -53,6 +53,10 @@ jobs:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           BUFFER_CHANNEL_CLUBS: ${{ secrets.BUFFER_CHANNEL_CLUBS }}
           DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+          BUFFER_CHANNEL_CLUBS_TT: ${{ secrets.BUFFER_CHANNEL_CLUBS_TT }}
+          BUFFER_CHANNEL_CLUBS_YT: ${{ secrets.BUFFER_CHANNEL_CLUBS_YT }}
+          DISCORD_WEBHOOK_CLUBS_TT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_TT }}
+          DISCORD_WEBHOOK_CLUBS_YT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_YT }}
         run: |
           git config user.name  "ugc-factory"
           git config user.email "ugc-factory@users.noreply.github.com"

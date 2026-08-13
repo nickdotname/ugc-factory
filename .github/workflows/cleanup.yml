@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        campaign: [clubs]
+        campaign: [clubs, clubs_tt, clubs_yt]
     concurrency:
       group: cleanup-${{ matrix.campaign }}
       cancel-in-progress: false
@@ -46,6 +46,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+          BUFFER_CHANNEL_CLUBS_TT: ${{ secrets.BUFFER_CHANNEL_CLUBS_TT }}
+          BUFFER_CHANNEL_CLUBS_YT: ${{ secrets.BUFFER_CHANNEL_CLUBS_YT }}
+          DISCORD_WEBHOOK_CLUBS_TT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_TT }}
+          DISCORD_WEBHOOK_CLUBS_YT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_YT }}
         run: |
           python -m src.cli cleanup \
             --campaign "${{ matrix.campaign }}" \

@@ -278,6 +278,12 @@ class BufferConfig(StrictModel):
     service: Service = Service.INSTAGRAM
     #: Ignored by services with no separate title field (Instagram, TikTok).
     title_strategy: TitleStrategy = TitleStrategy.DERIVE
+    # Buffer's organization id. Not a secret — it identifies an account but
+    # grants nothing without the API key — so it lives in config rather than
+    # in GitHub Secrets. Setting it matters for QUOTA: without it every top-up
+    # run spends one of the 3,000 monthly requests rediscovering it, which at
+    # 3 campaigns x 6 runs/day is 540 requests a month.
+    organization_id: str | None = None
 
     @model_validator(mode="after")
     def _post_type_suits_service(self) -> "BufferConfig":
@@ -338,6 +344,11 @@ class CampaignConfig(StrictModel):
 
     slug: str = Field(min_length=1, max_length=64)
     timezone: str
+    # Which Release holds the source clips. Defaults to this campaign's own
+    # ``assets-<slug>``, but several campaigns posting the same content to
+    # different networks should point at ONE library rather than each holding
+    # a duplicate copy of every clip.
+    assets_release: str | None = None
     posting: PostingConfig = PostingConfig()
     video: VideoConfig = VideoConfig()
     composition: CompositionConfig = CompositionConfig()
@@ -364,6 +375,11 @@ class CampaignConfig(StrictModel):
         except Exception as exc:
             raise ValueError(f"timezone {v!r} is not a valid IANA zone: {exc}") from exc
         return v
+
+    @property
+    def assets_tag(self) -> str:
+        """Release tag holding this campaign's source clips."""
+        return self.assets_release or f"assets-{self.slug}"
 
     @property
     def zone(self) -> zoneinfo.ZoneInfo:

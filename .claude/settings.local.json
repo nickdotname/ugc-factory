@@ -74,7 +74,9 @@
       "Bash(ffmpeg -y -v error -i work/clubs/assets/body_02.mp4 -vf \"fps=1/2,scale=270:480,tile=4x1\" -frames:v 1 /tmp/src.png)",
       "Bash(ffmpeg -y -v error -i work/clubs/assets/hook_05.mov -vf \"fps=1/1.2,scale=270:480,tile=5x1\" -frames:v 1 /tmp/hook.png)",
       "Bash(ffprobe -v error -show_entries format=duration -of csv=p=0 work/clubs/assets/hook_05.mov)",
-      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'First rendered batch for clubs [skip ci] *)"
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'First rendered batch for clubs [skip ci] *)",
+      "Bash(sed -i '' 's/^  posts_per_day: 2$/  posts_per_day: 24/; s/^  start_hour: 9$/  start_hour: 0/; s/^  end_hour: 22$/  end_hour: 23/; s/^  caption_cooldown_days: 2$/  caption_cooldown_days: 1/; s/^  hook_cooldown_days: 2$/  hook_cooldown_days: 0/' campaigns/clubs/config.yaml)",
+      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py --no-header)"
     ]
   }
 }

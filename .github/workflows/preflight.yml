@@ -57,7 +57,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        campaign: [clubs]
+        campaign: [clubs, clubs_tt, clubs_yt]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -75,4 +75,8 @@ jobs:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           BUFFER_CHANNEL_CLUBS: ${{ secrets.BUFFER_CHANNEL_CLUBS }}
           DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+          BUFFER_CHANNEL_CLUBS_TT: ${{ secrets.BUFFER_CHANNEL_CLUBS_TT }}
+          BUFFER_CHANNEL_CLUBS_YT: ${{ secrets.BUFFER_CHANNEL_CLUBS_YT }}
+          DISCORD_WEBHOOK_CLUBS_TT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_TT }}
+          DISCORD_WEBHOOK_CLUBS_YT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_YT }}
         run: python -m src.cli preflight --campaign "${{ matrix.campaign }}"

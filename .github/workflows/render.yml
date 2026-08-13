@@ -38,7 +38,7 @@ jobs:
       fail-fast: false   # one campaign's failure must not cancel the others
       matrix:
         # SPEC §15 — adding a campaign is one line here.
-        campaign: [clubs]
+        campaign: [clubs, clubs_tt, clubs_yt]
     steps:
       - uses: actions/checkout@v4
 
@@ -64,6 +64,10 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+          BUFFER_CHANNEL_CLUBS_TT: ${{ secrets.BUFFER_CHANNEL_CLUBS_TT }}
+          BUFFER_CHANNEL_CLUBS_YT: ${{ secrets.BUFFER_CHANNEL_CLUBS_YT }}
+          DISCORD_WEBHOOK_CLUBS_TT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_TT }}
+          DISCORD_WEBHOOK_CLUBS_YT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_YT }}
         run: |
           python -m src.cli render \
             --campaign "${{ matrix.campaign }}" \
@@ -83,5 +87,13 @@ jobs:
             echo "nothing to commit"
           else
             git commit -m "render: ${{ matrix.campaign }} $(date -u +%Y-%m-%d) [skip ci]"
-            git push
+            # Campaigns render as parallel matrix jobs and all commit to this
+            # one branch, so every job but the first gets a non-fast-forward
+            # rejection. Each only touches its own campaigns/<slug>/ files, so
+            # rebasing is safe and cannot conflict.
+            for i in 1 2 3 4; do
+              git push && break
+              echo "push rejected, rebasing (attempt $i)"
+              git pull --rebase || { git rebase --abort; exit 1; }
+            done
           fi

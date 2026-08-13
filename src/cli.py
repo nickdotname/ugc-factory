@@ -104,9 +104,9 @@ def _campaign_dir(slug: str) -> Path:
     return CAMPAIGNS_DIR / slug
 
 
-def _assets_tag(slug: str) -> str:
+def _assets_tag(config: CampaignConfig) -> str:
     """The Release holding a campaign's source library (SPEC §7)."""
-    return f"assets-{slug}"
+    return config.assets_tag
 
 
 def _render_tag(slug: str, day: datetime) -> str:
@@ -136,7 +136,9 @@ def _build_publisher(
             f"{config.buffer.api_key_secret} is not set — cannot publish. "
             f"Set the secret, or set posting.dry_run: true."
         )
-    return BufferPublisher(api_key, log)
+    return BufferPublisher(
+        api_key, log, organization_id=config.buffer.organization_id
+    )
 
 
 def _channel_id(config: CampaignConfig, env: dict[str, str]) -> str:
@@ -238,7 +240,7 @@ def _render(
     out_dir.mkdir(parents=True, exist_ok=True)
 
     store = _build_store(env, log, clock)
-    store.download_assets(_assets_tag(config.slug), assets_dir)
+    store.download_assets(_assets_tag(config), assets_dir)
     paths = LocalLibrary.from_directory(assets_dir)
 
     missing_licenses = check_music_licenses(
@@ -583,7 +585,7 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
         try:
             store = _build_store(env, log, clock)
             work = REPO_ROOT / "work" / config.slug / "assets"
-            store.download_assets(_assets_tag(config.slug), work)
+            store.download_assets(_assets_tag(config), work)
             paths = LocalLibrary.from_directory(work)
             library = _library_from(paths, descriptions)
             library.validate()
@@ -638,7 +640,7 @@ def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
         )
         return 1
 
-    tag = _assets_tag(config.slug)
+    tag = _assets_tag(config)
     existing = store.list_assets(tag)
     renderer: Renderer = FfmpegRenderer(config, log)
 
@@ -773,7 +775,9 @@ def cmd_setup(args: argparse.Namespace, env: dict[str, str]) -> int:
     api_key = _secret(config.buffer.api_key_secret, env) or env.get("BUFFER_API_KEY")
     if api_key:
         try:
-            channels = _buffer_channels(api_key, log)
+            channels = _buffer_channels(
+                api_key, log, config.buffer.organization_id
+            )
         except UgcError as exc:
             log.exception("setup_buffer_check_failed", exc)
     report.checks.append(doctor.check_buffer_channel(config, channels))
@@ -787,7 +791,7 @@ def cmd_setup(args: argparse.Namespace, env: dict[str, str]) -> int:
     if repo and token:
         try:
             store = GitHubReleasesStore(repo, token, log, clock)
-            asset_names = store.list_assets(_assets_tag(config.slug))
+            asset_names = store.list_assets(_assets_tag(config))
             counts = {
                 kind: len([n for n in asset_names if n.lower().startswith(kind)])
                 for kind in ("hook", "body", "music")
@@ -822,9 +826,11 @@ def cmd_setup(args: argparse.Namespace, env: dict[str, str]) -> int:
     return 1
 
 
-def _buffer_channels(api_key: str, log: StructuredLogger) -> list[dict[str, Any]]:
+def _buffer_channels(
+    api_key: str, log: StructuredLogger, organization_id: str | None = None
+) -> list[dict[str, Any]]:
     """Fetch channels with the metadata the reminder check needs."""
-    publisher = BufferPublisher(api_key, log)
+    publisher = BufferPublisher(api_key, log, organization_id=organization_id)
     query = """
     query UgcFactorySetupChannels($input: ChannelsInput!) {
       channels(input: $input) {

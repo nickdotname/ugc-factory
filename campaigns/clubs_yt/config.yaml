@@ -1,5 +1,9 @@
-slug: clubs
+slug: clubs_yt
 timezone: America/New_York
+# Shares ONE asset library with the other clubs campaigns — the same
+# clips go to every network, so duplicating the Release would mean
+# uploading every file three times and keeping them in sync by hand.
+assets_release: assets-clubs
 
 posting:
   # 24/day = roughly hourly, the schema ceiling (SPEC §4.5).
@@ -17,7 +21,7 @@ posting:
   # LIVE. Posts are pushed to Buffer and publish on their scheduled slot.
   # Set back to true to pause posting without touching the workflows; the
   # render job keeps building batches either way.
-  dry_run: false
+  dry_run: true               # flip after one dispatch run looks right
 
 video:
   width: 1080
@@ -57,9 +61,9 @@ selection:
 
 buffer:
   api_key_secret: BUFFER_API_KEY
-  channel_id_secret: BUFFER_CHANNEL_CLUBS
-  post_type: reel             # verified against Buffer's PostType enum, README §0
-  service: instagram          # instagram | tiktok | youtube
+  channel_id_secret: BUFFER_CHANNEL_CLUBS_YT
+  post_type: short
+  service: youtube
   organization_id: 6a1dc863e8cbb15ba8fdb4ab   # saves 540 API requests/month
   # Only used by services with a separate title field (youtube).
   #   derive  = take the description's first line, cut at a word boundary
@@ -67,5 +71,5 @@ buffer:
   title_strategy: derive
 
 notify:
-  webhook_secret: DISCORD_WEBHOOK_CLUBS
+  webhook_secret: DISCORD_WEBHOOK_CLUBS_YT
   on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed]
