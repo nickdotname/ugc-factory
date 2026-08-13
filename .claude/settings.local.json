@@ -85,7 +85,12 @@
       "Bash(sed -i '' 's/  dry_run: true               # flip after one dispatch run looks right/  dry_run: false/' campaigns/clubs_tt/config.yaml campaigns/clubs_yt/config.yaml)",
       "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Go live: TikTok and YouTube *)",
       "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Scope render concurrency per campaign *)",
-      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Scope topup concurrency per dispatch too *)"
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Scope topup concurrency per dispatch too *)",
+      "Bash(.venv/bin/python -m pytest tests/test_metrics.py --no-header)",
+      "Bash(rm -f campaigns/*/metrics.json)",
+      "Bash(curl -s http://127.0.0.1:8766/api/metrics)",
+      "Bash(.venv/bin/python -m src.cli web --campaign clubs --port 8767 --no-open)",
+      "Bash(curl -s http://127.0.0.1:8767/api/state)"
     ]
   }
 }

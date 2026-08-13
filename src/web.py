@@ -47,6 +47,7 @@ from src.ingest import (
     library_health,
 )
 from src.logging import StructuredLogger
+from src.metrics import load_metrics
 from src.models import PartKind
 from src.ports import Clock
 from src.render import FfmpegRenderer
@@ -101,6 +102,9 @@ class WebApp:
         self.log = log
         self.clock = clock
         self._store_factory = store_factory
+        # Probed once and cached: the state endpoint is polled every few
+        # seconds, and ffprobing every track on each poll would be absurd.
+        self._music_beds: int | None = None
         ensure_inbox(inbox)
 
     # ------------------------------------------------------------------ state
@@ -128,6 +132,86 @@ class WebApp:
                         counts[kind.value] += 1
         return counts
 
+    def _music_bed_count(self) -> int | None:
+        """How many distinct beds the uploaded music yields.
+
+        Counting tracks instead of beds is what made the library panel report a
+        75-day runway while preflight — which probes durations — reported 825.
+        Returns None when the archive has no tracks to probe.
+        """
+        if self._music_beds is not None:
+            return self._music_beds
+        if not self.config.composition.music_random_start:
+            return None
+
+        archive = self.inbox / ARCHIVE_DIR
+        tracks = [
+            p for p in (archive.iterdir() if archive.is_dir() else [])
+            if p.is_file() and p.name.lower().startswith("music")
+        ]
+        if not tracks:
+            return None
+
+        renderer = FfmpegRenderer(self.config, self.log)
+        durations: dict[str, float] = {}
+        for track in tracks:
+            try:
+                durations[track.name] = renderer.probe(track).duration_sec
+            except UgcError:
+                continue
+
+        from src.selector import AssetLibrary
+
+        library = AssetLibrary(
+            hooks=("h",), bodies=("b",), captions=("c",),
+            music=tuple(durations),
+            music_durations=durations,
+            music_segment_sec=self.config.composition.music_segment_sec,
+            music_skip_intro_sec=self.config.composition.music_skip_intro_sec,
+        )
+        self._music_beds = library.total_music_options()
+        return self._music_beds
+
+    def metrics(self) -> dict[str, Any]:
+        """Cached metrics for every campaign, read from disk.
+
+        Never calls Buffer. The cache is filled by the scheduled metrics job;
+        querying live here would spend the API budget that posting needs.
+        """
+        campaigns_dir = self.bank_path.parent.parent
+        out: list[dict[str, Any]] = []
+        for directory in sorted(campaigns_dir.iterdir()):
+            if not directory.is_dir() or directory.name.startswith("_"):
+                continue
+            history = load_metrics(directory / "metrics.json")
+            latest = history.latest()
+            if latest is None:
+                out.append({
+                    "campaign": directory.name, "service": None,
+                    "has_data": False, "metrics": [], "series": {},
+                })
+                continue
+            out.append({
+                "campaign": directory.name,
+                "service": latest.service,
+                "has_data": True,
+                "date": latest.date,
+                "updated_at": latest.metrics_updated_at,
+                "post_count": latest.post_count,
+                "metrics": [
+                    {
+                        "type": m.type, "name": m.name, "value": m.value,
+                        "unit": m.unit,
+                        "change": history.change(m.type, days=7),
+                    }
+                    for m in latest.metrics
+                ],
+                "series": {
+                    m.type: history.series(m.type) for m in latest.metrics
+                },
+            })
+        return {"campaigns": out}
+
     def state(self) -> dict[str, Any]:
         bank_text = (
             self.bank_path.read_text(encoding="utf-8")
@@ -147,7 +231,10 @@ class WebApp:
         captions = len(descriptions)
         per_video = self.config.composition.bodies_per_video
         ppd = self.config.posting.posts_per_day
-        total = combinations(hooks, bodies, music, captions, per_video)
+        beds = self._music_bed_count()
+        total = combinations(
+            hooks, bodies, music, captions, per_video, music_options=beds
+        )
 
         return {
             "campaign": self.config.slug,
@@ -164,6 +251,7 @@ class WebApp:
             },
             "health": {
                 "combinations": total,
+                "music_beds": beds,
                 "runway_days": round(total / max(1, ppd), 1),
                 "min_runway_days": self.config.selection.min_runway_days,
                 "warnings": library_health(
@@ -310,6 +398,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._html(PAGE)
             elif route == "/api/state":
                 self._json(app.state())
+            elif route == "/api/metrics":
+                self._json(app.metrics())
             elif route == "/api/plan":
                 try:
                     self._json(app.plan())
@@ -464,6 +554,21 @@ PAGE = """<!doctype html>
           background:var(--panel); border:1px solid var(--line);
           border-radius:10px; padding:14px; margin-top:12px; }
   .hint { font-size:12px; color:var(--dim); margin-top:6px; }
+  .perf-card {
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px; margin-bottom:12px;
+  }
+  .perf-head { display:flex; align-items:baseline; gap:10px; margin-bottom:14px; }
+  .perf-head .who { font-size:13px; font-weight:600; }
+  .perf-head .when { font-size:11px; color:var(--dim); }
+  .mrow { display:grid; grid-template-columns:repeat(auto-fit,minmax(108px,1fr)); gap:14px; }
+  .m .v { font-size:19px; font-weight:600; letter-spacing:-.02em; }
+  .m .k { font-size:11px; color:var(--dim); }
+  .m .d { font-size:11px; margin-left:5px; font-weight:500; }
+  .up   { color:var(--ok); }
+  .down { color:var(--bad); }
+  .flat { color:var(--dim); }
+  .spark { display:block; margin-top:6px; }
 </style>
 </head>
 <body>
@@ -495,6 +600,11 @@ PAGE = """<!doctype html>
       <div class="grid" id="stats"></div>
       <div id="health"></div>
     </div>
+  </section>
+
+  <section>
+    <h3>Performance <span style="text-transform:none;font-weight:400" id="perf-note"></span></h3>
+    <div id="perf"></div>
   </section>
 
   <section>
@@ -640,7 +750,69 @@ $("#upload").onclick = async (e) => {
   refresh();
 };
 
-buildZones(); refresh(); setInterval(refresh, 5000);
+function sparkline(points, w, h){
+  if (points.length < 2) return "";
+  const vals = points.map(p => p[1]);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const span = (max - min) || 1;
+  const step = w / (points.length - 1);
+  const d = vals.map((v,i) => `${i===0?"M":"L"}${(i*step).toFixed(1)},${(h - ((v-min)/span)*h).toFixed(1)}`).join("");
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none">
+    <path d="${d}" stroke="var(--accent)" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+}
+
+function fmt(v, unit){
+  if (unit === "percentage") return v.toFixed(1) + "%";
+  if (v >= 1e6) return (v/1e6).toFixed(1) + "M";
+  if (v >= 1e3) return (v/1e3).toFixed(1) + "k";
+  return Math.round(v).toLocaleString();
+}
+
+function delta(change){
+  if (change === null || change === undefined) return "";
+  const cls = change > 1 ? "up" : change < -1 ? "down" : "flat";
+  const sign = change > 0 ? "+" : "";
+  return `<span class="d ${cls}">${sign}${change.toFixed(0)}%</span>`;
+}
+
+async function loadMetrics(){
+  const r = await (await fetch("/api/metrics")).json();
+  const el = $("#perf");
+  const withData = r.campaigns.filter(c => c.has_data);
+
+  if (!withData.length){
+    el.innerHTML = `<div class="msg warn">No metrics cached yet. They are fetched
+      once a day by the <code>metrics</code> workflow — networks also report
+      engagement on a lag, so expect the first numbers a day after your first
+      posts go live.</div>`;
+    $("#perf-note").textContent = "";
+    return;
+  }
+
+  $("#perf-note").textContent = "— cached daily, not live";
+  el.innerHTML = withData.map(c => {
+    const stale = c.updated_at ? new Date(c.updated_at).toLocaleString() : "unknown";
+    return `<div class="perf-card">
+      <div class="perf-head">
+        <span class="who">${c.service || c.campaign}</span>
+        <span class="when">${c.post_count} posts · snapshot ${c.date} · network data as of ${stale}</span>
+      </div>
+      <div class="mrow">
+        ${c.metrics.map(m => `
+          <div class="m">
+            <div class="v">${fmt(m.value, m.unit)}${delta(m.change)}</div>
+            <div class="k">${m.name}</div>
+            ${sparkline(c.series[m.type] || [], 96, 22)}
+          </div>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+buildZones(); refresh(); loadMetrics();
+setInterval(refresh, 5000);
+// Metrics only change once a day; polling them like the inbox would be waste.
+setInterval(loadMetrics, 300000);
 </script>
 </body>
 </html>

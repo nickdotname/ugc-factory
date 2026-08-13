@@ -54,6 +54,14 @@ from src.models import (
     RenderRequest,
     Selection,
 )
+from src.metrics import (
+    Metric,
+    MetricsHistory,
+    Snapshot,
+    default_window,
+    load_metrics,
+    save_metrics,
+)
 from src.notify import Digest, Notifier, notifier_for
 from src.platforms import Service
 from src.ports import Clock, Rng, SeededRng, SystemClock
@@ -774,6 +782,75 @@ def _print_titles(config: CampaignConfig, descriptions: list[Description]) -> No
                   f"display on Shorts")
 
 
+# ----------------------------------------------------------------- command: metrics
+
+
+def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Fetch performance metrics and append today's snapshot to the cache.
+
+    Deliberately a scheduled job rather than something the dashboard calls:
+    Buffer's 3,000-request budget is nearly spent on posting, so metrics are
+    fetched once a day and read from disk thereafter.
+    """
+    clock: Clock = SystemClock()
+    log = get_logger(command="metrics", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    notifier = notifier_for(config, log, env)
+
+    try:
+        if config.posting.dry_run:
+            log.info("metrics_skipped_dry_run", campaign=config.slug)
+            print(f"{config.slug} is in dry run — no metrics to fetch")
+            return 0
+
+        api_key = _secret(config.buffer.api_key_secret, env)
+        if not api_key:
+            raise ConfigError(f"{config.buffer.api_key_secret} is not set")
+        publisher = BufferPublisher(
+            api_key, log, organization_id=config.buffer.organization_id
+        )
+        channel = _channel_id(config, env)
+
+        now = clock.now()
+        start, end = default_window(now, args.days)
+        rows, updated_at = publisher.fetch_metrics(channel, start, end)
+
+        local_date = now.astimezone(config.zone).strftime("%Y-%m-%d")
+        snapshot = Snapshot(
+            date=local_date,
+            fetched_at=now,
+            window_start=start,
+            window_end=end,
+            service=config.buffer.service.value,
+            metrics=[
+                Metric(type=r.type, name=r.name, value=r.value, unit=r.unit)
+                for r in rows
+            ],
+            metrics_updated_at=updated_at,
+        )
+
+        path = _campaign_dir(config.slug) / "metrics.json"
+        history = load_metrics(path)
+        history.upsert(snapshot)
+        save_metrics(path, history)
+
+        log.info(
+            "metrics_saved", campaign=config.slug, date=local_date,
+            metrics=len(snapshot.metrics), snapshots=len(history.snapshots),
+        )
+        print(f"\n  {config.slug} · {config.buffer.service.value} · {local_date}")
+        if not snapshot.metrics:
+            print("  no metrics yet — networks report on a lag after publishing")
+        for metric in snapshot.metrics:
+            suffix = "%" if metric.unit == "percentage" else ""
+            print(f"    {metric.name:<22} {metric.value:>10,.1f}{suffix}")
+        return 0
+    except UgcError as exc:
+        log.exception("metrics_failed", exc)
+        notifier.failure("metrics", exc, campaign=config.slug)
+        return 1
+
+
 # ------------------------------------------------------------------- command: setup
 
 
@@ -975,6 +1052,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     common(ingest)
 
+    metrics = sub.add_parser("metrics", help="fetch performance metrics into the cache")
+    common(metrics)
+    metrics.add_argument("--days", type=int, default=30,
+                         help="aggregation window in days (default 30)")
+
     setup = sub.add_parser("setup", help="readiness check: what is missing and how to fix it")
     common(setup)
 
@@ -1003,6 +1085,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "ingest": cmd_ingest,
         "web": cmd_web,
         "setup": cmd_setup,
+        "metrics": cmd_metrics,
         "cleanup": cmd_cleanup,
     }
     try:

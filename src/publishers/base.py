@@ -76,6 +76,17 @@ class PublishRequest(BaseModel):
         }
 
 
+class MetricRow(BaseModel):
+    """One measured value from a backend, before it is cached."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    type: str
+    name: str
+    value: float
+    unit: str = "count"
+
+
 class PublishedPost(BaseModel):
     """What a backend reports back about a scheduled post."""
 
@@ -111,6 +122,17 @@ class Publisher(ABC):
     def delete_post(self, post_id: str) -> None:
         """Remove a still-queued post. Raises if it has already published."""
 
+    @abstractmethod
+    def fetch_metrics(
+        self, channel_id: str, start: datetime, end: datetime
+    ) -> tuple[list["MetricRow"], datetime | None]:
+        """Aggregated performance for a channel over a window.
+
+        Returns the rows plus the backend's own freshness marker, which is not
+        the same as "now": networks report engagement on a lag of hours to days,
+        so a caller must be able to show how stale the numbers are.
+        """
+
 
 class DryRunPublisher(Publisher):
     """Records what would have been published without contacting anything.
@@ -143,3 +165,8 @@ class DryRunPublisher(Publisher):
 
     def delete_post(self, post_id: str) -> None:
         self._log.info("dry_run_delete", post_id=post_id)
+
+    def fetch_metrics(
+        self, channel_id: str, start: datetime, end: datetime
+    ) -> tuple[list[MetricRow], datetime | None]:
+        return [], None

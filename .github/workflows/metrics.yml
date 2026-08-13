@@ -1,0 +1,82 @@
+name: metrics
+
+# Fetches performance metrics into campaigns/<slug>/metrics.json once a day.
+#
+# Deliberately NOT called from the dashboard. Buffer's free plan allows 3,000
+# API requests per 30 days and posting three campaigns at 24/day already spends
+# ~2,700 of them. One fetch per campaign per day costs 90/month; a dashboard
+# querying live would exhaust the remainder in an afternoon and stop the posting
+# it exists to measure.
+on:
+  workflow_dispatch:
+    inputs:
+      campaign:
+        description: campaign slug (blank = all)
+        required: false
+        default: ""
+      days:
+        description: aggregation window in days
+        required: false
+        default: "30"
+  schedule:
+    # 06:30 UTC — after the nightly render, and late enough that yesterday's
+    # posts have had time for the networks to report on them.
+    - cron: "30 6 * * *"
+
+permissions:
+  contents: write   # commits the metrics cache
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        campaign: [clubs, clubs_tt, clubs_yt]
+      # Serialised so three jobs do not race the same branch. Metrics are not
+      # time-critical, so waiting is cheaper than rebasing.
+      max-parallel: 1
+    concurrency:
+      group: metrics-${{ matrix.campaign }}-${{ inputs.campaign || 'all' }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+
+      - name: Fetch metrics
+        if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_CLUBS: ${{ secrets.BUFFER_CHANNEL_CLUBS }}
+          BUFFER_CHANNEL_CLUBS_TT: ${{ secrets.BUFFER_CHANNEL_CLUBS_TT }}
+          BUFFER_CHANNEL_CLUBS_YT: ${{ secrets.BUFFER_CHANNEL_CLUBS_YT }}
+          DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+          DISCORD_WEBHOOK_CLUBS_TT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_TT }}
+          DISCORD_WEBHOOK_CLUBS_YT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_YT }}
+        run: |
+          python -m src.cli metrics \
+            --campaign "${{ matrix.campaign }}" \
+            --days "${{ inputs.days || '30' }}"
+
+      - name: Commit metrics
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add campaigns/${{ matrix.campaign }}/metrics.json
+          if git diff --cached --quiet; then
+            echo "no metrics change"
+          else
+            git commit -m "metrics: ${{ matrix.campaign }} $(date -u +%Y-%m-%d) [skip ci]"
+            for i in 1 2 3 4; do
+              git push && break
+              git pull --rebase || { git rebase --abort; exit 1; }
+            done
+          fi

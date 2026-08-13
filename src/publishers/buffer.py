@@ -38,7 +38,12 @@ from src.errors import (
 )
 from src.logging import StructuredLogger
 from src.platforms import Service
-from src.publishers.base import PublishedPost, Publisher, PublishRequest
+from src.publishers.base import (
+    MetricRow,
+    PublishedPost,
+    Publisher,
+    PublishRequest,
+)
 
 ENDPOINT = "https://api.buffer.com"
 REQUEST_TIMEOUT_SEC = 60
@@ -375,6 +380,44 @@ class BufferPublisher(Publisher):
         )
         return result
 
+    def fetch_metrics(
+        self, channel_id: str, start: datetime, end: datetime
+    ) -> tuple[list[MetricRow], datetime | None]:
+        """Aggregate this channel's post metrics over a window.
+
+        One request covers the whole window, which is what makes a daily cached
+        snapshot affordable against the 3,000/30-day budget.
+        """
+        data = self._gql(
+            AGGREGATED_METRICS,
+            {
+                "input": {
+                    "organizationId": self._org_id(),
+                    "channelIds": [channel_id],
+                    "startDateTime": start.isoformat(),
+                    "endDateTime": end.isoformat(),
+                }
+            },
+        )
+        payload = data.get("aggregatedPostMetrics") or {}
+        rows = [
+            MetricRow(
+                type=str(m.get("type", "")),
+                name=str(m.get("name", "")),
+                # Buffer defaults a metric a network did not report to 0, so a
+                # missing value is genuinely zero rather than unknown.
+                value=float(m.get("value") or 0),
+                unit=str(m.get("unit") or "count"),
+            )
+            for m in (payload.get("metrics") or [])
+            if m.get("type")
+        ]
+        self._log.info(
+            "buffer_metrics_fetched",
+            channel_id_suffix=channel_id[-4:], rows=len(rows),
+        )
+        return rows, _parse_dt(payload.get("metricsUpdatedAt"))
+
     def delete_post(self, post_id: str) -> None:
         """Remove a still-queued post.
 
@@ -438,3 +481,13 @@ def _parse_dt(value: object) -> datetime | None:
         return datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError:
         return None
+
+
+AGGREGATED_METRICS = """
+query UgcFactoryMetrics($input: AggregatedPostMetricsInput!) {
+  aggregatedPostMetrics(input: $input) {
+    metricsUpdatedAt
+    metrics { type name value unit }
+  }
+}
+"""
