@@ -587,14 +587,31 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
             work = REPO_ROOT / "work" / config.slug / "assets"
             store.download_assets(_assets_tag(config), work)
             paths = LocalLibrary.from_directory(work)
-            library = _library_from(paths, descriptions)
+
+            # Probe music exactly as the render job does. Without durations the
+            # library reports one bed per track and the runway comes out ~12x
+            # short, failing a check the real render would pass.
+            renderer: Renderer = FfmpegRenderer(config, log)
+            durations: dict[str, float] = {}
+            if config.composition.music_random_start:
+                for track in paths.music:
+                    try:
+                        durations[track.name] = renderer.probe(track).duration_sec
+                    except UgcError as exc:
+                        log.warning(
+                            "music_probe_failed", track=track.name, error=str(exc)
+                        )
+
+            library = _library_from(paths, descriptions, config, durations)
             library.validate()
             ceiling = library.ceiling(config.composition.bodies_per_video)
             runway = ceiling / max(1, config.posting.posts_per_day)
             log.info(
                 "preflight_library_ok",
                 hooks=len(library.hooks), bodies=len(library.bodies),
-                music=len(library.music), captions=len(library.captions),
+                music=len(library.music),
+                music_beds=library.total_music_options(),
+                captions=len(library.captions),
                 combinations=ceiling, runway_days=runway,
             )
             if runway < config.selection.min_runway_days:

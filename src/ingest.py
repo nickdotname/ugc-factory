@@ -311,11 +311,33 @@ def library_health(
     return problems
 
 
-def combinations(hooks: int, bodies: int, music: int, captions: int,
-                 bodies_per_video: int) -> int:
-    """Distinct combinations available, mirroring ``AssetLibrary.ceiling``."""
-    from math import comb
+def combinations(
+    hooks: int,
+    bodies: int,
+    music: int,
+    captions: int,
+    bodies_per_video: int,
+    music_options: int | None = None,
+) -> int:
+    """Distinct combinations available.
 
-    if bodies < bodies_per_video:
-        return 0
-    return hooks * comb(bodies, bodies_per_video) * (music or 1) * captions
+    Delegates to ``AssetLibrary.ceiling`` rather than reimplementing the
+    arithmetic. An earlier copy of the formula here drifted the moment music
+    gained segments: this counted three *tracks* while the selector counted
+    thirty-six *beds*, so preflight failed a runway check the selector would
+    have passed. One formula, one answer.
+
+    ``music_options`` is the true count of (track, segment) pairs when the
+    caller has probed durations. Without it this falls back to counting tracks,
+    which under-reports — safe, because it warns early rather than late.
+    """
+    from src.selector import AssetLibrary
+
+    effective_music = music if music_options is None else music_options
+    library = AssetLibrary(
+        hooks=tuple(f"h{i}" for i in range(hooks)),
+        bodies=tuple(f"b{i}" for i in range(bodies)),
+        music=tuple(f"m{i}" for i in range(effective_music)),
+        captions=tuple(f"c{i}" for i in range(captions)),
+    )
+    return library.ceiling(bodies_per_video)
