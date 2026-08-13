@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ffmpeg -version)",
+      "Bash(ffprobe -version)",
+      "Bash(gh --version)",
+      "Bash(git --version)",
+      "Bash(cd ~ && ls -d */ 2>/dev/null | head -40; echo \"=== searching for buffer/telegram integration ===\"; find ~ -maxdepth 4 -iname \"*buffer*\" -not -path \"*/Library/*\" -not -path \"*/.Trash/*\" -not -path \"*/node_modules/*\" 2>/dev/null | head -20)",
+      "Bash(python3 -c ' *)",
+      "Bash(git init *)",
+      "Bash(mkdir -p src/publishers tests/fixtures campaigns/_template campaigns/clubs .github/workflows)",
+      "Bash(python3 -m venv .venv)",
+      "Bash(.venv/bin/python -V)",
+      "Bash(touch src/__init__.py src/publishers/__init__.py tests/__init__.py)",
+      "Bash(.venv/bin/pip install *)",
+      "Bash(.venv/bin/python -m pytest tests/test_config.py -q)",
+      "Bash(.venv/bin/python -m mypy src/)",
+      "Bash(.venv/bin/python -m pytest tests/test_render.py -q)",
+      "Bash(.venv/bin/python -m pytest tests/test_selector.py -q)",
+      "Bash(.venv/bin/python -m pytest tests/test_assets.py -q)",
+      "Bash(python3 -)",
+      "Bash(.venv/bin/python -m mypy src/queue.py)",
+      "Bash(.venv/bin/python -m pytest tests/test_queue.py -q)",
+      "Bash(.venv/bin/python -m pytest tests/test_publisher_buffer.py -q)",
+      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py -q)",
+      "Bash(.venv/bin/python -m pytest -q)",
+      "Bash(.venv/bin/python -m pytest tests/test_end_to_end.py -q)",
+      "Bash(.venv/bin/python -m pytest tests/test_end_to_end.py::TestTopupEndToEnd::test_topup_pushes_pending_items_in_dry_run -q --no-header)",
+      "Bash(.venv/bin/python -m pytest tests/test_end_to_end.py -q --no-header -p no:cacheprovider)",
+      "Bash(.venv/bin/python -m pytest -q --no-header)",
+      "Bash(.venv/bin/python -m pytest --no-header)",
+      "Bash(echo \"\\(exit $?\\)\")",
+      "Bash(git add *)",
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m ' *)"
+    ]
+  }
+}

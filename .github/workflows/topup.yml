@@ -1,0 +1,61 @@
+name: topup
+
+# SPEC §4.1 — Buffer's free plan caps *queue depth* at 10 per channel, not posts
+# per day. This job tops the queue back up to that cap; Buffer's own scheduler
+# decides when each post actually publishes.
+on:
+  workflow_dispatch:
+    inputs:
+      campaign:
+        description: campaign slug (blank = all in the matrix)
+        required: false
+        default: ""
+      dry_run:
+        description: plan the pushes without contacting Buffer
+        type: boolean
+        default: true
+  schedule:
+    - cron: "0 */4 * * *"
+
+permissions:
+  contents: write   # the `claimed` commit is the crash-resume guarantee
+
+jobs:
+  topup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        campaign: [clubs]
+    # SPEC §12 — two top-up jobs racing the same queue would double-push, and a
+    # duplicate that reaches Instagram cannot be recalled.
+    concurrency:
+      group: topup-${{ matrix.campaign }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: pip install -q -r requirements.txt
+
+      - name: Top up Buffer queue
+        if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_CLUBS: ${{ secrets.BUFFER_CHANNEL_CLUBS }}
+          DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          python -m src.cli topup \
+            --campaign "${{ matrix.campaign }}" \
+            ${{ inputs.dry_run == true && '--dry-run' || '' }}

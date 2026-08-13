@@ -1,0 +1,87 @@
+name: render
+
+# SPEC §5 — nightly batch render, ~05:00 UTC.
+# SPEC §12 — cron drift is real: scheduled workflows routinely fire 5-30 minutes
+# late. That is harmless here because Buffer controls actual publish timing, so
+# nothing downstream may assume an exact fire time.
+on:
+  workflow_dispatch:
+    inputs:
+      campaign:
+        description: campaign slug (blank = all in the matrix)
+        required: false
+        default: ""
+      dry_run:
+        description: render and upload but never push to Buffer
+        type: boolean
+        default: true
+      count:
+        description: override posts_per_day for this run
+        required: false
+        default: ""
+  schedule:
+    - cron: "0 5 * * *"
+
+permissions:
+  contents: write   # commits queue.json/history.json and creates Releases
+
+concurrency:
+  # SPEC §12 — two renders for one campaign would double-append history.
+  group: render-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false   # one campaign's failure must not cancel the others
+      matrix:
+        # SPEC §15 — adding a campaign is one line here.
+        campaign: [clubs]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # SPEC §12 — only render.yml installs ffmpeg; the other jobs do not need it.
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Install dependencies
+        run: pip install -q -r requirements.txt
+
+      - name: Render batch
+        if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+        run: |
+          python -m src.cli render \
+            --campaign "${{ matrix.campaign }}" \
+            ${{ inputs.dry_run == true && '--dry-run' || '' }} \
+            ${{ inputs.count != '' && format('--count {0}', inputs.count) || '' }}
+
+      # SPEC §12 — GitHub disables cron after 60 days with no commits. This
+      # nightly commit is what keeps the schedule alive. Do not remove it as an
+      # "optimization"; the pipeline would silently stop about two months later.
+      - name: Commit queue and history
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add campaigns/${{ matrix.campaign }}/queue.json \
+                  campaigns/${{ matrix.campaign }}/history.json
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "render: ${{ matrix.campaign }} $(date -u +%Y-%m-%d) [skip ci]"
+            git push
+          fi

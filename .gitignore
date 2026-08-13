@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+.DS_Store
+
+# Working directories for renders — never committed, always reproducible.
+work/
+dist/
+
+# Assets are hosted in GitHub Releases (SPEC §5), never in the tree.
+campaigns/*/assets/

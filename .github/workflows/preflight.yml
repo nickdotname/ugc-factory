@@ -1,0 +1,78 @@
+name: preflight
+
+# Validates config, secrets and library size without changing anything.
+# Runs on every push so a bad config is caught before the nightly render, and
+# on demand before adding a campaign (SPEC §15 step 7).
+on:
+  workflow_dispatch:
+    inputs:
+      campaign:
+        description: campaign slug (blank = all in the matrix)
+        required: false
+        default: ""
+  push:
+    paths:
+      - "campaigns/**"
+      - "src/**"
+      - "tests/**"
+      - "requirements*.txt"
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      # The render tests exercise real ffmpeg; the concat-corruption failures
+      # they cover are silent in production, so they belong in CI.
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Install dependencies
+        run: pip install -q -r requirements-dev.txt
+
+      - name: Type check
+        run: mypy src/
+
+      # UGC_LIVE_BUFFER is deliberately unset: SPEC §2.2 requires the live
+      # integration test never to be part of CI.
+      - name: Unit tests
+        run: pytest -q
+
+  config:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        campaign: [clubs]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+
+      - name: Preflight campaign
+        if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_CLUBS: ${{ secrets.BUFFER_CHANNEL_CLUBS }}
+          DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+        run: python -m src.cli preflight --campaign "${{ matrix.campaign }}"

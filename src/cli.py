@@ -1,0 +1,650 @@
+"""Command line entry point: ``render | topup | preflight | cleanup``.
+
+Responsibility: the composition root. This is the one module that constructs
+real clocks, real RNGs, real HTTP sessions and real subprocesses and injects
+them into everything else (SPEC §2.2). Every other module takes its
+dependencies as arguments and can therefore be tested without any of them.
+
+The four commands map to the four workflows in SPEC §5/§12:
+
+* ``render``   — nightly: pick, render, upload, write queue.json
+* ``topup``    — every 4h: push enough items to fill Buffer's queue to its cap
+* ``preflight``— validate config, secrets and library without changing anything
+* ``cleanup``  — weekly: delete Releases past the retention window
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+import uuid
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Sequence
+
+from src.assets import (
+    GitHubReleasesStore,
+    LocalLibrary,
+    MediaStore,
+    check_music_licenses,
+    github_token_from_env,
+)
+from src.config import CampaignConfig, NotifyEvent, load_campaign
+from src.errors import ConfigError, SelectionError, UgcError
+from src.logging import StructuredLogger, get_logger
+from src.models import (
+    History,
+    HistoryEntry,
+    Queue,
+    QueueItem,
+    QueueStatus,
+    RenderRequest,
+    Selection,
+)
+from src.notify import Digest, Notifier, notifier_for
+from src.ports import Clock, Rng, SeededRng, SystemClock
+from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
+from src.publishers.buffer import BufferPublisher
+from src.queue import (
+    append_history,
+    backfill_post_id,
+    claimable,
+    depth_needed,
+    load_history,
+    load_queue,
+    mark_failed,
+    mark_pushed,
+    save_queue,
+    spread_schedule,
+    stranded,
+    transition,
+)
+from src.render import FfmpegRenderer, Renderer
+from src.selector import (
+    AssetLibrary,
+    Relaxation,
+    Selector,
+    days_until_first_repeat,
+    tuple_hash,
+)
+from src.vcs import GitVcs, NullVcs, Vcs
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+CAMPAIGNS_DIR = REPO_ROOT / "campaigns"
+
+#: Retention for dated render Releases (SPEC §5). Must stay comfortably longer
+#: than the deepest queue, or a video is deleted before Buffer publishes it.
+RENDER_RETENTION_DAYS = 14
+
+#: SPEC §3 — alert at 2,400 of the 3,000-request/30-day allowance.
+BUFFER_QUOTA_ALERT_THRESHOLD = 2400
+
+
+# ------------------------------------------------------------------- wiring
+
+
+def _campaign_dir(slug: str) -> Path:
+    return CAMPAIGNS_DIR / slug
+
+
+def _assets_tag(slug: str) -> str:
+    """The Release holding a campaign's source library (SPEC §7)."""
+    return f"assets-{slug}"
+
+
+def _render_tag(slug: str, day: datetime) -> str:
+    return f"render-{slug}-{day.strftime('%Y-%m-%d')}"
+
+
+def _secret(name: str, env: dict[str, str]) -> str | None:
+    value = env.get(name)
+    return value if value else None
+
+
+def _build_publisher(
+    config: CampaignConfig, env: dict[str, str], log: StructuredLogger
+) -> Publisher:
+    """Choose the real publisher or the dry-run recorder.
+
+    ``dry_run`` is checked here, once, rather than at each call site — a branch
+    further in would eventually be missed and post something real.
+    """
+    if config.posting.dry_run:
+        log.info("dry_run_enabled", campaign=config.slug)
+        return DryRunPublisher(log)
+
+    api_key = _secret(config.buffer.api_key_secret, env)
+    if not api_key:
+        raise ConfigError(
+            f"{config.buffer.api_key_secret} is not set — cannot publish. "
+            f"Set the secret, or set posting.dry_run: true."
+        )
+    return BufferPublisher(api_key, log)
+
+
+def _channel_id(config: CampaignConfig, env: dict[str, str]) -> str:
+    channel = _secret(config.buffer.channel_id_secret, env)
+    if not channel:
+        raise ConfigError(
+            f"{config.buffer.channel_id_secret} is not set — the campaign has "
+            f"no Buffer channel to post to"
+        )
+    return channel
+
+
+def _build_store(env: dict[str, str], log: StructuredLogger, clock: Clock) -> MediaStore:
+    repo = env.get("GITHUB_REPOSITORY")
+    if not repo:
+        raise ConfigError(
+            "GITHUB_REPOSITORY is not set (expected 'owner/name'); the media "
+            "store cannot tell which repo's Releases to use"
+        )
+    return GitHubReleasesStore(repo, github_token_from_env(env), log, clock)
+
+
+def _library_from(paths: LocalLibrary, captions: list[str]) -> AssetLibrary:
+    return AssetLibrary(
+        hooks=tuple(p.name for p in paths.hooks),
+        bodies=tuple(p.name for p in paths.bodies),
+        music=tuple(p.name for p in paths.music),
+        captions=tuple(captions),
+    )
+
+
+def _load_captions(path: Path) -> list[str]:
+    """Read the caption bank: one caption per entry, blank-line separated.
+
+    SPEC §8 describes ``captions.txt`` as "one caption per line, blank-line
+    separated", which only makes sense if a caption may itself span lines — so
+    blank lines are the record separator and newlines within a record are kept.
+    """
+    if not path.is_file():
+        raise ConfigError(f"caption bank not found: {path}")
+    blocks = [b.strip() for b in path.read_text(encoding="utf-8").split("\n\n")]
+    captions = [b for b in blocks if b and not b.startswith("#")]
+    if not captions:
+        raise ConfigError(f"caption bank {path} contains no captions")
+    return captions
+
+
+# ------------------------------------------------------------------ command: render
+
+
+def cmd_render(args: argparse.Namespace, env: dict[str, str]) -> int:
+    clock: Clock = SystemClock()
+    log = get_logger(command="render", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    if args.dry_run:
+        config = config.model_copy(
+            update={"posting": config.posting.model_copy(update={"dry_run": True})}
+        )
+    notifier = notifier_for(config, log, env)
+
+    try:
+        return _render(args, env, config, log, notifier, clock)
+    except UgcError as exc:
+        log.exception("render_failed", exc)
+        notifier.failure("render", exc, campaign=config.slug)
+        return 1
+
+
+def _render(
+    args: argparse.Namespace,
+    env: dict[str, str],
+    config: CampaignConfig,
+    log: StructuredLogger,
+    notifier: Notifier,
+    clock: Clock,
+) -> int:
+    campaign_dir = _campaign_dir(config.slug)
+    work = REPO_ROOT / "work" / config.slug
+    assets_dir = work / "assets"
+    out_dir = work / "out"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    store = _build_store(env, log, clock)
+    store.download_assets(_assets_tag(config.slug), assets_dir)
+    paths = LocalLibrary.from_directory(assets_dir)
+
+    missing_licenses = check_music_licenses(
+        paths.music, assets_dir / "LICENSES.md", log
+    )
+    if missing_licenses:
+        notifier.notify(
+            NotifyEvent.LICENSE_MISSING,
+            f"⚠️ {config.slug}: music tracks with no LICENSES.md entry: "
+            + ", ".join(missing_licenses[:20]),
+        )
+
+    captions = _load_captions(campaign_dir / "captions.txt")
+    library = _library_from(paths, captions)
+
+    history = load_history(campaign_dir / "history.json")
+    # Seeded from the render date so a given day is reproducible, while
+    # successive days still differ (SPEC §2.2).
+    today = clock.now()
+    rng: Rng = SeededRng(int(today.strftime("%Y%m%d")))
+    selector = Selector(config.selection, clock, rng, log)
+
+    count = args.count or config.posting.posts_per_day
+    outcomes = selector.select_batch(
+        library, history, count, config.composition.bodies_per_video
+    )
+    relaxed = [o for o in outcomes if o.relaxation is not Relaxation.NONE]
+    if relaxed:
+        notifier.notify(
+            NotifyEvent.DEDUPE_RELAXED,
+            f"⚠️ {config.slug}: {len(relaxed)}/{len(outcomes)} selections needed "
+            f"relaxed dedupe ({relaxed[0].relaxation.value}). The library is too "
+            f"small for {config.posting.posts_per_day} posts/day.",
+        )
+
+    renderer: Renderer = FfmpegRenderer(config, log)
+    by_name = paths.by_name()
+
+    local_day = today.astimezone(config.zone)
+    slots = spread_schedule(
+        local_day, len(outcomes), config.posting.start_hour, config.posting.end_hour
+    )
+    # Today's window is mostly gone by the time a 05:00 UTC render finishes, so
+    # the batch is scheduled for tomorrow. This is also the human review window
+    # SPEC §4.2 asks for: nothing rendered tonight can publish before tomorrow.
+    slots = [s + timedelta(days=1) for s in slots]
+
+    rendered: list[tuple[QueueItem, Selection]] = []
+    for outcome, slot in zip(outcomes, slots):
+        selection = outcome.selection
+        item_id = str(uuid.uuid4())
+        request = RenderRequest(
+            item_id=item_id,
+            hook_path=by_name[selection.hook],
+            body_paths=tuple(by_name[b] for b in selection.bodies),
+            music_path=by_name[selection.music] if selection.music else None,
+            output_path=out_dir / f"{item_id}.mp4",
+        )
+        result = renderer.render(request)
+        rendered.append((
+            QueueItem(
+                id=item_id,
+                scheduled_for=slot,
+                video_url="",  # filled in after upload
+                caption=selection.caption,
+                parts={
+                    "hook": selection.hook,
+                    "bodies": ",".join(selection.bodies),
+                    "music": selection.music or "",
+                },
+            ),
+            selection,
+        ))
+        log.info("item_rendered", item_id=item_id, path=str(result.output_path))
+
+    tag = _render_tag(config.slug, today)
+    published = store.publish(tag, [out_dir / f"{i.id}.mp4" for i, _ in rendered])
+    urls = {a.name: a.url for a in published}
+    for item, _ in rendered:
+        item.video_url = urls[f"{item.id}.mp4"]
+
+    queue = Queue(generated_at=today, items=[i for i, _ in rendered])
+    save_queue(campaign_dir / "queue.json", queue)
+    append_history(
+        campaign_dir / "history.json",
+        [
+            HistoryEntry(
+                tuple_hash=tuple_hash(sel, config.selection.dedupe_on),
+                timestamp=today,
+                item_id=item.id,
+                hook=sel.hook,
+                bodies=sel.bodies,
+                music=sel.music,
+                caption=sel.caption,
+            )
+            for item, sel in rendered
+        ],
+    )
+
+    runway = days_until_first_repeat(
+        library, history, config.composition.bodies_per_video,
+        config.posting.posts_per_day,
+    )
+    log.info("render_complete", items=len(rendered), tag=tag, runway_days=runway)
+    if runway < 7:
+        notifier.notify(
+            NotifyEvent.QUEUE_EMPTY,
+            f"⚠️ {config.slug}: only {runway:.0f} days of unique combinations "
+            f"remain. Add hooks, bodies or captions.",
+        )
+    return 0
+
+
+# ------------------------------------------------------------------- command: topup
+
+
+def cmd_topup(args: argparse.Namespace, env: dict[str, str]) -> int:
+    clock: Clock = SystemClock()
+    log = get_logger(command="topup", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    if args.dry_run:
+        config = config.model_copy(
+            update={"posting": config.posting.model_copy(update={"dry_run": True})}
+        )
+    notifier = notifier_for(config, log, env)
+
+    try:
+        return _topup(args, env, config, log, notifier, clock)
+    except UgcError as exc:
+        log.exception("topup_failed", exc)
+        notifier.failure("topup", exc, campaign=config.slug)
+        return 1
+
+
+def _topup(
+    args: argparse.Namespace,
+    env: dict[str, str],
+    config: CampaignConfig,
+    log: StructuredLogger,
+    notifier: Notifier,
+    clock: Clock,
+) -> int:
+    campaign_dir = _campaign_dir(config.slug)
+    queue_path = campaign_dir / "queue.json"
+    history_path = campaign_dir / "history.json"
+
+    queue = load_queue(queue_path)
+    publisher = _build_publisher(config, env, log)
+    channel = (
+        "dry-run-channel"
+        if config.posting.dry_run
+        else _channel_id(config, env)
+    )
+    vcs: Vcs = (
+        NullVcs(log)
+        if config.posting.dry_run or args.no_commit
+        else GitVcs(REPO_ROOT, log)
+    )
+
+    # SPEC §11 — reconcile anything a previous run left mid-flight *before*
+    # considering new work. Pushing first would risk duplicating exactly the
+    # item we are unsure about.
+    _reconcile_stranded(queue, publisher, channel, queue_path, history_path, log, vcs)
+
+    depth = publisher.queue_depth(channel)
+    need = depth_needed(depth, config.posting.max_buffer_queue)
+    ready = claimable(queue)
+    to_push = ready[:need]
+
+    log.info(
+        "topup_plan",
+        buffer_depth=depth,
+        cap=config.posting.max_buffer_queue,
+        need=need,
+        available=len(ready),
+        pushing=len(to_push),
+    )
+    if not to_push:
+        # SPEC §14 — queue already full: push nothing and exit clean.
+        if not ready and depth == 0:
+            notifier.notify(
+                NotifyEvent.QUEUE_EMPTY,
+                f"⚠️ {config.slug}: Buffer queue is empty and queue.json has no "
+                f"pending items. Nothing will publish until the next render.",
+            )
+        save_queue(queue_path, queue)
+        return 0
+
+    pushed = 0
+    for item in to_push:
+        transition(item, QueueStatus.CLAIMED, log=log)
+        save_queue(queue_path, queue)
+        # The commit is the durable claim. A crash after this point leaves the
+        # item `claimed` in git, so the next run reconciles instead of
+        # re-pushing (SPEC §11).
+        vcs.commit([queue_path], f"claim {item.id[:8]} for {config.slug}")
+
+        try:
+            result = publisher.create_post(
+                PublishRequest(
+                    channel_id=channel,
+                    text=item.caption,
+                    video_url=item.video_url,
+                    scheduled_for=item.scheduled_for,
+                    post_type=config.buffer.post_type,
+                )
+            )
+        except UgcError as exc:
+            log.exception("push_failed", exc, item_id=item.id)
+            mark_failed(item, str(exc), log=log)
+            save_queue(queue_path, queue)
+            vcs.commit([queue_path], f"fail {item.id[:8]} for {config.slug}")
+            if not exc.retryable:
+                # SPEC §12 — an auth or validation failure applies to every
+                # remaining item too. Draining the whole queue to `failed`
+                # would turn one fixable problem into a day of lost posts.
+                notifier.failure("topup.push", exc, item_id=item.id)
+                raise
+            continue
+
+        mark_pushed(item, result.post_id, log=log)
+        backfill_post_id(history_path, item.id, result.post_id)
+        save_queue(queue_path, queue)
+        vcs.commit(
+            [queue_path, history_path], f"push {item.id[:8]} for {config.slug}"
+        )
+        pushed += 1
+
+    _report_quota(publisher, notifier, config, log)
+    log.info("topup_complete", pushed=pushed)
+    return 0
+
+
+def _reconcile_stranded(
+    queue: Queue,
+    publisher: Publisher,
+    channel: str,
+    queue_path: Path,
+    history_path: Path,
+    log: StructuredLogger,
+    vcs: Vcs,
+) -> None:
+    """Resolve items left ``claimed`` by a job that died mid-push (SPEC §11)."""
+    for item in stranded(queue):
+        log.warning("stranded_item_found", item_id=item.id)
+        existing = publisher.find_scheduled_post(channel, item.scheduled_for)
+        if existing is not None:
+            # The previous run did reach Buffer. Record it rather than pushing
+            # a duplicate that would then need deleting by hand.
+            log.info(
+                "stranded_item_already_published",
+                item_id=item.id, post_id=existing.post_id,
+            )
+            mark_pushed(item, existing.post_id, log=log)
+            backfill_post_id(history_path, item.id, existing.post_id)
+        else:
+            log.info("stranded_item_released", item_id=item.id)
+            transition(item, QueueStatus.PENDING, log=log)
+        save_queue(queue_path, queue)
+        vcs.commit([queue_path, history_path], f"reconcile {item.id[:8]}")
+
+
+def _report_quota(
+    publisher: Publisher,
+    notifier: Notifier,
+    config: CampaignConfig,
+    log: StructuredLogger,
+) -> None:
+    count = getattr(publisher, "request_count", 0)
+    log.info("buffer_requests_this_run", count=count)
+    if count and count > BUFFER_QUOTA_ALERT_THRESHOLD:
+        notifier.notify(
+            NotifyEvent.QUOTA_HIGH,
+            f"⚠️ {config.slug}: Buffer request count is high ({count}). "
+            f"The free plan allows 3,000 per 30 days.",
+        )
+
+
+# --------------------------------------------------------------- command: preflight
+
+
+def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Validate everything without changing anything (SPEC §13 M8)."""
+    log = get_logger(command="preflight", campaign=args.campaign)
+    problems: list[str] = []
+    clock: Clock = SystemClock()
+
+    try:
+        config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    except ConfigError as exc:
+        log.exception("preflight_config_invalid", exc)
+        print(f"FAIL config: {exc}", file=sys.stderr)
+        return 1
+    log.info("preflight_config_ok", slug=config.slug)
+
+    for name in (
+        config.buffer.api_key_secret,
+        config.buffer.channel_id_secret,
+        config.notify.webhook_secret,
+    ):
+        if not _secret(name, env):
+            problems.append(f"secret {name} is not set")
+
+    try:
+        captions = _load_captions(_campaign_dir(config.slug) / "captions.txt")
+        log.info("preflight_captions_ok", count=len(captions))
+    except ConfigError as exc:
+        problems.append(str(exc))
+        captions = []
+
+    if env.get("GITHUB_REPOSITORY") and _secret("GITHUB_TOKEN", env):
+        try:
+            store = _build_store(env, log, clock)
+            work = REPO_ROOT / "work" / config.slug / "assets"
+            store.download_assets(_assets_tag(config.slug), work)
+            paths = LocalLibrary.from_directory(work)
+            library = _library_from(paths, captions)
+            library.validate()
+            ceiling = library.ceiling(config.composition.bodies_per_video)
+            runway = ceiling / max(1, config.posting.posts_per_day)
+            log.info(
+                "preflight_library_ok",
+                hooks=len(library.hooks), bodies=len(library.bodies),
+                music=len(library.music), captions=len(library.captions),
+                combinations=ceiling, runway_days=runway,
+            )
+            if runway < 90:
+                problems.append(
+                    f"library yields only {runway:.0f} days of unique combos "
+                    f"at {config.posting.posts_per_day}/day (SPEC §10 wants >=90)"
+                )
+        except (UgcError, SelectionError) as exc:
+            problems.append(f"library: {exc}")
+    else:
+        log.warning("preflight_library_skipped", reason="no GitHub credentials")
+
+    for problem in problems:
+        print(f"FAIL {problem}", file=sys.stderr)
+    if problems:
+        return 1
+    print(f"OK preflight passed for {config.slug}")
+    return 0
+
+
+# ----------------------------------------------------------------- command: cleanup
+
+
+def cmd_cleanup(args: argparse.Namespace, env: dict[str, str]) -> int:
+    clock: Clock = SystemClock()
+    log = get_logger(command="cleanup", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    notifier = notifier_for(config, log, env)
+    try:
+        store = _build_store(env, log, clock)
+        # Scoped to this campaign's render tags so a shared repo cannot delete
+        # another campaign's videos — and never matches `assets-<slug>`.
+        deleted = store.cleanup(f"render-{config.slug}-", RENDER_RETENTION_DAYS)
+        log.info("cleanup_complete", deleted=len(deleted), tags=deleted)
+
+        if args.digest:
+            queue = load_queue(_campaign_dir(config.slug) / "queue.json")
+            history = load_history(_campaign_dir(config.slug) / "history.json")
+            notifier.digest(_build_digest(config, queue, history))
+        return 0
+    except UgcError as exc:
+        log.exception("cleanup_failed", exc)
+        notifier.failure("cleanup", exc, campaign=config.slug)
+        return 1
+
+
+def _build_digest(config: CampaignConfig, queue: Queue, history: History) -> Digest:
+    pending = [i for i in queue.items if i.status is QueueStatus.PENDING]
+    return Digest(
+        campaign=config.slug,
+        posted=len([i for i in queue.items if i.status is QueueStatus.PUSHED]),
+        failed=len([i for i in queue.items if i.status is QueueStatus.FAILED]),
+        queue_depth=len(pending),
+        queue_runway_hours=len(pending) * (24 / max(1, config.posting.posts_per_day)),
+        days_until_first_repeat=0.0,
+    )
+
+
+# --------------------------------------------------------------------------- main
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="ugc-factory",
+        description="Assemble and schedule short vertical videos.",
+    )
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    def common(p: argparse.ArgumentParser) -> None:
+        p.add_argument("--campaign", required=True, help="campaign slug")
+        p.add_argument(
+            "--dry-run",
+            action="store_true",
+            help="never contact the publisher; overrides config",
+        )
+
+    render = sub.add_parser("render", help="render tonight's batch")
+    common(render)
+    render.add_argument("--count", type=int, default=None,
+                        help="override posts_per_day for this run")
+
+    topup = sub.add_parser("topup", help="fill Buffer's queue to its cap")
+    common(topup)
+    topup.add_argument("--no-commit", action="store_true",
+                       help="skip git commits (local testing only — removes the "
+                            "crash-resume guarantee)")
+
+    preflight = sub.add_parser("preflight", help="validate config, secrets, library")
+    common(preflight)
+
+    cleanup = sub.add_parser("cleanup", help="delete expired render Releases")
+    common(cleanup)
+    cleanup.add_argument("--digest", action="store_true",
+                         help="also post the weekly digest")
+    return parser
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    env = dict(os.environ)
+
+    handlers = {
+        "render": cmd_render,
+        "topup": cmd_topup,
+        "preflight": cmd_preflight,
+        "cleanup": cmd_cleanup,
+    }
+    try:
+        return handlers[args.command](args, env)
+    except UgcError as exc:
+        # Anything that escaped a command's own handling. Printed as well as
+        # logged so a failed Actions run shows the reason in its summary.
+        print(f"{type(exc).__name__}: {exc}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

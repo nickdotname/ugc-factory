@@ -1,0 +1,16 @@
+# Caption bank — one caption per record, records separated by a BLANK LINE.
+# A caption may span multiple lines; only a blank line ends it.
+# Lines starting with # are ignored, so you can keep notes in here.
+#
+# These are human-authored (SPEC §2.2 — AI generation of captions is out of
+# scope). Aim for enough that hooks x bodies x music x captions gives at least
+# 90 days of unique combinations at your cadence — the preflight job checks
+# this and fails if the runway is under 90 days.
+
+first caption goes here
+
+second caption goes here
+
+a caption can run
+across several lines
+like this

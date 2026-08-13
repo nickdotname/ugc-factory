@@ -1,0 +1,41 @@
+slug: clubs
+timezone: America/New_York
+
+posting:
+  # SPEC §4.5 — the system works identically at any value up to 24, but 24
+  # Reels/day from one account is far outside normal behaviour for Instagram's
+  # spam classifier. Run 6/day for two weeks, watch reach-per-post, then raise.
+  posts_per_day: 6
+  start_hour: 9
+  end_hour: 22
+  max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
+  dry_run: false
+
+video:
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 23
+  preset: veryfast
+  min_duration_sec: 5         # SPEC §4.3 — Reels-tab eligibility floor
+  max_duration_sec: 90        # SPEC §4.3 — Reels-tab eligibility ceiling
+  max_file_mb: 100
+
+composition:
+  bodies_per_video: 1
+  music_volume: 0.10          # flat across the whole video, no ducking
+  music_fade_out_sec: 1.5
+
+selection:
+  dedupe_on: [hook, body, music, caption]
+  caption_cooldown_days: 14
+  hook_cooldown_days: 3
+
+buffer:
+  api_key_secret: BUFFER_API_KEY
+  channel_id_secret: BUFFER_CHANNEL_CLUBS
+  post_type: reel             # verified against Buffer's PostType enum, README §0
+
+notify:
+  webhook_secret: DISCORD_WEBHOOK_CLUBS
+  on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed]

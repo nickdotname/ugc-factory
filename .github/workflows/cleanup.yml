@@ -1,0 +1,52 @@
+name: cleanup
+
+# SPEC §5 — delete render Releases older than 14 days.
+# SPEC §12 — also posts the weekly digest, which is what keeps silence from
+# being ambiguous between "healthy" and "dead".
+on:
+  workflow_dispatch:
+    inputs:
+      campaign:
+        description: campaign slug (blank = all in the matrix)
+        required: false
+        default: ""
+      digest:
+        description: also post the weekly digest
+        type: boolean
+        default: true
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays, after the nightly render has settled
+
+permissions:
+  contents: write   # deleting Releases requires write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        campaign: [clubs]
+    concurrency:
+      group: cleanup-${{ matrix.campaign }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+
+      - name: Delete expired releases and post digest
+        if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
+        run: |
+          python -m src.cli cleanup \
+            --campaign "${{ matrix.campaign }}" \
+            ${{ (inputs.digest == true || github.event_name == 'schedule') && '--digest' || '' }}

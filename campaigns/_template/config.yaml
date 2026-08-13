@@ -1,0 +1,42 @@
+# Campaign template — copy this folder to campaigns/<slug>/ and fill it in.
+# See SPEC §15. If adding a campaign requires touching src/, the abstraction
+# failed; extend the schema in src/config.py instead of branching on slug.
+
+slug: CHANGEME                # must match the directory name exactly
+timezone: America/New_York    # IANA zone; drives local posting times
+
+posting:
+  posts_per_day: 6            # 1-24. Start at 6 (SPEC §4.5).
+  start_hour: 9               # local hour of the first slot
+  end_hour: 22                # local hour after the last slot
+  max_buffer_queue: 10        # Buffer free plan allows 10 queued per channel
+  dry_run: true               # leave true until a dispatch run looks correct
+
+video:
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 23
+  preset: veryfast
+  min_duration_sec: 5         # cannot go below 5 — Instagram Reels floor
+  max_duration_sec: 90        # cannot go above 90 — Instagram Reels ceiling
+  max_file_mb: 100
+
+composition:
+  bodies_per_video: 1
+  music_volume: 0.10
+  music_fade_out_sec: 1.5
+
+selection:
+  dedupe_on: [hook, body, music, caption]
+  caption_cooldown_days: 14
+  hook_cooldown_days: 3
+
+buffer:
+  api_key_secret: BUFFER_API_KEY          # name of the env var, never the key
+  channel_id_secret: BUFFER_CHANNEL_CHANGEME
+  post_type: reel
+
+notify:
+  webhook_secret: DISCORD_WEBHOOK_CHANGEME
+  on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed]
