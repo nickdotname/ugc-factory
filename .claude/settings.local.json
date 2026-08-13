@@ -79,7 +79,11 @@
       "Bash(.venv/bin/python -m pytest tests/test_acceptance.py --no-header)",
       "Bash(gh run *)",
       "Bash(grep -vE \"^\\\\s*$\")",
-      "Bash(gh workflow *)"
+      "Bash(gh workflow *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(sed -i '' 's/  dry_run: true               # flip after one dispatch run looks right/  dry_run: false/' campaigns/clubs_tt/config.yaml campaigns/clubs_yt/config.yaml)",
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Go live: TikTok and YouTube *)"
     ]
   }
 }

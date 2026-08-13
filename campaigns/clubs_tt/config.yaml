@@ -21,7 +21,7 @@ posting:
   # LIVE. Posts are pushed to Buffer and publish on their scheduled slot.
   # Set back to true to pause posting without touching the workflows; the
   # render job keeps building batches either way.
-  dry_run: true               # flip after one dispatch run looks right
+  dry_run: false
 
 video:
   width: 1080
