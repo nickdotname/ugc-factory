@@ -1,3 +1,88 @@
 {
-  "entries": []
+  "entries": [
+    {
+      "tuple_hash": "260ce51e63849a40d5ad9b312de4813565f13ecb84f017a787b8d25ea081495c",
+      "timestamp": "2026-08-13T19:36:06.293390Z",
+      "item_id": "adc00a61-32a0-46dd-87c4-fad9ef065829",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 210.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "d9ee17763fc2d29f6073e9abc47c6c6bbea084b63b71f7cc6bf61e48d360eb1b",
+      "timestamp": "2026-08-13T19:36:06.293390Z",
+      "item_id": "52c2035d-a040-4b35-ac98-4abb66024d7f",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "wish I knew about this before scrolling for hours looking for auditions\n\ncomment \"create\" and I'll send it over\n\n[casting calls, open casting, actors, aspiring actors, creative projects]",
+      "title": null,
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "6ef03ff86139864003337cba86b8ecfc2d099b1a52763c05deb525ebdd439db7",
+      "timestamp": "2026-08-13T19:36:06.293390Z",
+      "item_id": "32bcf58b-7f12-4ce9-8625-aba4530bcd66",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "aspiring actors and emerging artists — bookmark this one\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, emerging artists, actors, casting calls, creative community]",
+      "title": null,
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "8895657b9bad2c55752bb1504a39bc26f6208191a7669aa1935c7c8958888ced",
+      "timestamp": "2026-08-13T19:37:15.592962Z",
+      "item_id": "f9853427-0d54-4fdc-a45e-8204c54e5164",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 210.0,
+      "caption": "how I found casting calls, student films, and music collabs without knowing anyone\n\ncomment \"create\" and I'll send it your way\n\n[casting calls, student films, music collabs, creative networking, film students]",
+      "title": null,
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "fac4fb4b58258e6d0d1993606dbbf5dfcec6f3daf36655c8261f90cb197af6c6",
+      "timestamp": "2026-08-13T19:37:15.592962Z",
+      "item_id": "2267c9e3-9e6f-4faa-ba89-37844ea488d9",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
+      "title": null,
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "f86e6d23249473a535de59abf3e9b40abf60bf226c38775eaf00da3c66c8f804",
+      "timestamp": "2026-08-13T19:37:15.592962Z",
+      "item_id": "0707ff62-4755-4963-937b-087732931cf2",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, creative community, get involved, artists, creative projects]",
+      "title": null,
+      "buffer_post_id": null
+    }
+  ]
 }
