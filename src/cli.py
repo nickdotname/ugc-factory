@@ -782,6 +782,58 @@ def _print_titles(config: CampaignConfig, descriptions: list[Description]) -> No
                   f"display on Shorts")
 
 
+# --------------------------------------------------------------- command: diagnose
+
+
+def cmd_diagnose(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Show what Buffer actually did with recent posts.
+
+    Answers the question "it is in the queue but nothing published" by printing
+    each post's status and, crucially, the ``error`` Buffer received back from
+    the network.
+    """
+    log = get_logger(command="diagnose", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+
+    api_key = _secret(config.buffer.api_key_secret, env)
+    if not api_key:
+        print(f"{config.buffer.api_key_secret} is not set", file=sys.stderr)
+        return 1
+    publisher = BufferPublisher(
+        api_key, log, organization_id=config.buffer.organization_id
+    )
+    posts = publisher.diagnose_posts(_channel_id(config, env), limit=args.limit)
+
+    print(f"\n  {config.slug} · {config.buffer.service.value} · {len(posts)} posts\n")
+    if not posts:
+        print("  Buffer has no posts for this channel at all.")
+        return 0
+
+    counts: dict[str, int] = {}
+    for post in posts:
+        status = str(post.get("status"))
+        counts[status] = counts.get(status, 0) + 1
+
+    for post in sorted(posts, key=lambda p: str(p.get("dueAt") or "")):
+        due = str(post.get("dueAt") or "")[:16].replace("T", " ")
+        sent = str(post.get("sentAt") or "")[:16].replace("T", " ")
+        print(f"  {due}  {str(post.get('status')):<10} "
+              f"sent={sent or '-':<16} {post.get('schedulingType')}")
+        if post.get("error"):
+            print(f"      ERROR: {post['error']}")
+        if post.get("externalLink"):
+            print(f"      live:  {post['externalLink']}")
+
+    print(f"\n  totals: {counts}")
+    if counts.get("error"):
+        print("\n  Posts in `error` carry the network's own refusal above.")
+    if counts.get("scheduled") and not counts.get("sent"):
+        print("\n  Nothing has published yet. If a due time has passed with no")
+        print("  error, Buffer has accepted the post but not dispatched it —")
+        print("  usually the channel needs reconnecting in Buffer.")
+    return 0
+
+
 # ----------------------------------------------------------------- command: metrics
 
 
@@ -1052,6 +1104,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     common(ingest)
 
+    diagnose = sub.add_parser("diagnose", help="why did a queued post not publish")
+    common(diagnose)
+    diagnose.add_argument("--limit", type=int, default=20)
+
     metrics = sub.add_parser("metrics", help="fetch performance metrics into the cache")
     common(metrics)
     metrics.add_argument("--days", type=int, default=30,
@@ -1086,6 +1142,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "web": cmd_web,
         "setup": cmd_setup,
         "metrics": cmd_metrics,
+        "diagnose": cmd_diagnose,
         "cleanup": cmd_cleanup,
     }
     try:

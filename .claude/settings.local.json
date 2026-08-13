@@ -90,7 +90,9 @@
       "Bash(rm -f campaigns/*/metrics.json)",
       "Bash(curl -s http://127.0.0.1:8766/api/metrics)",
       "Bash(.venv/bin/python -m src.cli web --campaign clubs --port 8767 --no-open)",
-      "Bash(curl -s http://127.0.0.1:8767/api/state)"
+      "Bash(curl -s http://127.0.0.1:8767/api/state)",
+      "Bash(error)",
+      "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Add diagnose command: why a queued post did not publish *)"
     ]
   }
 }

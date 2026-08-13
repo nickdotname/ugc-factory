@@ -93,6 +93,20 @@ query UgcFactoryPosts($input: PostsInput!, $first: Int) {
 }
 """
 
+# Diagnostic only: adds the fields that explain a post that did not publish.
+# `error` is where Buffer surfaces the network's own refusal, which is the
+# single most useful field when something sits in the queue past its slot.
+POSTS_DIAGNOSTIC = """
+query UgcFactoryPostsDiagnostic($input: PostsInput!, $first: Int) {
+  posts(input: $input, first: $first) {
+    edges { node {
+      id dueAt sentAt status schedulingType notificationStatus
+      error externalLink channelService
+    } }
+  }
+}
+"""
+
 #: Union members that mean "this will never succeed as sent". Mapping by
 #: ``__typename`` — not by message text — is what SPEC §2.2 requires: Buffer can
 #: reword every one of these without inverting our retry logic.
@@ -417,6 +431,30 @@ class BufferPublisher(Publisher):
             channel_id_suffix=channel_id[-4:], rows=len(rows),
         )
         return rows, _parse_dt(payload.get("metricsUpdatedAt"))
+
+    def diagnose_posts(
+        self, channel_id: str, limit: int = 20
+    ) -> list[dict[str, Any]]:
+        """Recent posts with the fields that explain a failure to publish.
+
+        Not part of the ``Publisher`` contract: this exists for a human staring
+        at a queue that did not drain, not for the pipeline.
+        """
+        data = self._gql(
+            POSTS_DIAGNOSTIC,
+            {
+                "input": {
+                    "organizationId": self._org_id(),
+                    "filter": {
+                        "channelIds": [channel_id],
+                        "status": ["scheduled", "sending", "sent", "error"],
+                    },
+                },
+                "first": limit,
+            },
+        )
+        edges = ((data.get("posts") or {}).get("edges")) or []
+        return [e["node"] for e in edges if e.get("node")]
 
     def delete_post(self, post_id: str) -> None:
         """Remove a still-queued post.
