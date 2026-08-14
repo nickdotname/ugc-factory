@@ -1,0 +1,44 @@
+{
+  "snapshots": [
+    {
+      "date": "2026-08-14",
+      "fetched_at": "2026-08-14T07:58:29.671305Z",
+      "window_start": "2026-07-15T00:00:00Z",
+      "window_end": "2026-08-14T00:00:00Z",
+      "service": "youtube",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 7.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 1.28,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 703.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-14T01:12:36.921000Z"
+    }
+  ]
+}
