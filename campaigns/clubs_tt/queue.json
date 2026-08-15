@@ -81,10 +81,10 @@
         "music": "music_02.mp3",
         "music_offset_sec": "45"
       },
-      "status": "claimed",
-      "attempts": 0,
+      "status": "failed",
+      "attempts": 1,
       "buffer_post_id": null,
-      "last_error": null
+      "last_error": "Buffer createPost failed (InvalidInputError): Scheduled time must be in the future"
     },
     {
       "id": "4324c2a5-b74a-4a22-a6be-5792daf51388",
