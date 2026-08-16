@@ -79,6 +79,46 @@
         }
       ],
       "metrics_updated_at": "2026-08-15T00:13:38.308000Z"
+    },
+    {
+      "date": "2026-08-16",
+      "fetched_at": "2026-08-16T07:10:11.420225Z",
+      "window_start": "2026-07-17T00:00:00Z",
+      "window_end": "2026-08-16T00:00:00Z",
+      "service": "youtube",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 12.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 31.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.76,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 4492.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-15T23:15:17.716000Z"
     }
   ]
 }
