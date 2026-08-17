@@ -28,6 +28,12 @@ jobs:
       fail-fast: false
       matrix:
         campaign: [clubs, clubs_tt, clubs_yt]
+      # Serialised. Each campaign commits TWICE PER ITEM — claim before the
+      # push, result after — which is the crash-resume guarantee and cannot be
+      # batched away. Three parallel jobs therefore put ~60 pushes on one
+      # branch and starve each other out even with rebase-retry. The jobs take
+      # about a minute each, so waiting is far cheaper than contending.
+      max-parallel: 1
     # SPEC §12 — two top-up jobs racing the same queue would double-push, and a
     # duplicate that reaches Instagram cannot be recalled.
     concurrency:

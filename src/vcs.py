@@ -15,10 +15,12 @@ tests can assert the ordering of claim-commit-publish without a git repository.
 
 from __future__ import annotations
 
+import random
 import subprocess
+import time
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Sequence
+from typing import Callable, Sequence
 
 from src.errors import UgcError
 from src.logging import StructuredLogger
@@ -53,12 +55,14 @@ class GitVcs(Vcs):
         author_name: str = "ugc-factory",
         author_email: str = "ugc-factory@users.noreply.github.com",
         push: bool = True,
+        sleep: Callable[[float], None] = time.sleep,
     ) -> None:
         self._root = repo_root
         self._log = log
         self._author_name = author_name
         self._author_email = author_email
         self._push = push
+        self._sleep = sleep
 
     def _git(self, *args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
         proc = subprocess.run(
@@ -100,7 +104,7 @@ class GitVcs(Vcs):
         self._log.info("vcs_committed", message=message, files=len(paths))
         return True
 
-    def _push_with_rebase(self, message: str, attempts: int = 4) -> None:
+    def _push_with_rebase(self, message: str, attempts: int = 8) -> None:
         """Push, rebasing onto whatever landed first if the push is rejected.
 
         With one campaign this never mattered. With several running as parallel
@@ -121,6 +125,9 @@ class GitVcs(Vcs):
                     f"be stuck holding the branch"
                 )
             self._log.warning("vcs_push_rejected", attempt=attempt, message=message)
+            # Brief jittered backoff: two jobs retrying in lockstep would keep
+            # colliding on the same rebase-then-push cycle indefinitely.
+            self._sleep(0.4 * attempt + random.random() * 0.6)
             rebase = self._git("pull", "--rebase", check=False)
             if rebase.returncode != 0:
                 # A genuine conflict means two jobs touched one file, which

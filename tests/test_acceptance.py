@@ -38,11 +38,30 @@ def log() -> StructuredLogger:
 class TestAbstractionBoundaries:
     """SPEC §2.2 — boundaries are interfaces, and only they touch the outside."""
 
+    # vcs.py may use `random` only for retry jitter. The rule protects the
+    # determinism of *output* — given a seed, the selector must pick the same
+    # combinations — and how long a rejected git push waits before retrying has
+    # no bearing on that. Anything that influences what gets rendered or posted
+    # must still take an injected Rng.
     FORBIDDEN = {
         "requests": {"assets.py", "notify.py", "buffer.py"},
         "subprocess": {"render.py", "vcs.py"},
-        "random": {"ports.py"},
+        "random": {"ports.py", "vcs.py"},
     }
+
+    def test_vcs_uses_random_only_for_backoff(self) -> None:
+        """Guards the exemption above from being quietly widened."""
+        text = (REPO_ROOT / "src" / "vcs.py").read_text(encoding="utf-8")
+        uses = [
+            line.strip()
+            for line in text.splitlines()
+            if "random." in line and not line.strip().startswith("#")
+        ]
+        assert uses, "exemption is now unused — remove vcs.py from the allowlist"
+        for line in uses:
+            assert "self._sleep" in line, (
+                f"random used outside backoff in vcs.py: {line}"
+            )
 
     @pytest.mark.parametrize("module", ["requests", "subprocess", "random"])
     def test_only_boundary_modules_import_it(self, module: str) -> None:
