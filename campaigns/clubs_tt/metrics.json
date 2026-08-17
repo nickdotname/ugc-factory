@@ -155,6 +155,58 @@
         }
       ],
       "metrics_updated_at": "2026-08-16T06:38:05.127000Z"
+    },
+    {
+      "date": "2026-08-17",
+      "fetched_at": "2026-08-17T07:34:14.193640Z",
+      "window_start": "2026-07-18T00:00:00Z",
+      "window_end": "2026-08-17T00:00:00Z",
+      "service": "tiktok",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 13.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 8.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 1.99,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 554.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 490.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-16T10:12:31.026000Z"
     }
   ]
 }
