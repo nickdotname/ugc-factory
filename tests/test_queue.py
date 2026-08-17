@@ -374,3 +374,29 @@ class TestUpcomingSlots:
     def test_zero_count_returns_nothing(self) -> None:
         now = datetime(2026, 8, 13, 12, 0, tzinfo=self.TZ)
         assert upcoming_slots(now, 0, 15, 15, 24, self.TZ) == []
+
+
+class TestStaleSlotHandling:
+    """A slot chosen at render time may have passed by the time it is pushed.
+
+    The batch is laid out at ~23:30 covering 24 hours, but the top-up runs
+    every four hours and pushes at most `max_buffer_queue`. By mid-morning the
+    early slots are behind us, and Buffer rejects a post dated in the past with
+    a non-retryable error — which used to fail the whole run.
+    """
+
+    def test_a_past_slot_is_detectable(self) -> None:
+        past = item("a", when=NOW - timedelta(hours=3))
+        assert past.scheduled_for < NOW
+
+    def test_upcoming_slots_never_returns_a_past_time(self) -> None:
+        for hour in (0, 6, 11, 17, 23):
+            now = datetime(2026, 8, 17, hour, 30, tzinfo=timezone.utc)
+            for slot in upcoming_slots(now, 10, 15, 15, 24, timezone.utc):
+                assert slot > now, f"{slot} is not after {now}"
+
+    def test_reslotting_preserves_ordering_and_uniqueness(self) -> None:
+        now = datetime(2026, 8, 17, 11, 30, tzinfo=timezone.utc)
+        slots = upcoming_slots(now, 12, 15, 15, 24, timezone.utc)
+        assert slots == sorted(slots)
+        assert len(set(slots)) == len(slots)

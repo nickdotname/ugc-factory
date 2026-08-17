@@ -269,3 +269,66 @@ class TestFailurePaths:
         args.campaign = "nope"
         with pytest.raises(Exception):
             cli.cmd_render(args, {})
+
+
+@needs_ffmpeg
+class TestStaleSlotRecovery:
+    """The failure that stopped posting for days: slots that aged out."""
+
+    def test_topup_reslots_items_whose_time_has_passed(
+        self, campaign: Path, monkeypatch
+    ) -> None:
+        from datetime import datetime, timedelta, timezone
+
+        cli.cmd_render(render_args(), {})
+
+        # Age every slot into the past, as happens between render and top-up.
+        q = load_queue(campaign / "queue.json")
+        past = datetime.now(timezone.utc) - timedelta(hours=6)
+        for i in q.items:
+            i.scheduled_for = past
+        from src.queue import save_queue
+
+        save_queue(campaign / "queue.json", q)
+
+        assert cli.cmd_topup(topup_args(), {}) == 0
+
+        after = load_queue(campaign / "queue.json")
+        assert all(i.status is QueueStatus.PUSHED for i in after.items)
+        now = datetime.now(timezone.utc)
+        for i in after.items:
+            assert i.scheduled_for > now, "pushed with a slot Buffer would reject"
+
+    def test_reslotted_items_do_not_collide(
+        self, campaign: Path
+    ) -> None:
+        from datetime import datetime, timedelta, timezone
+
+        from src.queue import save_queue
+
+        cli.cmd_render(render_args(), {})
+        q = load_queue(campaign / "queue.json")
+        past = datetime.now(timezone.utc) - timedelta(hours=6)
+        for i in q.items:
+            i.scheduled_for = past
+        save_queue(campaign / "queue.json", q)
+
+        cli.cmd_topup(topup_args(), {})
+        times = [i.scheduled_for for i in load_queue(campaign / "queue.json").items]
+        assert len(set(times)) == len(times), "two posts landed on one slot"
+
+    def test_failed_items_with_attempts_left_are_retried(
+        self, campaign: Path
+    ) -> None:
+        """A systemic failure must not permanently drain a batch."""
+        from src.queue import mark_failed, save_queue
+
+        cli.cmd_render(render_args(), {})
+        q = load_queue(campaign / "queue.json")
+        for i in q.items:
+            mark_failed(i, "transient", log=cli.get_logger())
+        save_queue(campaign / "queue.json", q)
+
+        cli.cmd_topup(topup_args(), {})
+        after = load_queue(campaign / "queue.json")
+        assert all(i.status is QueueStatus.PUSHED for i in after.items)

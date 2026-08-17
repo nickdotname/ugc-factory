@@ -36,7 +36,7 @@ from src.assets import (
 )
 from src.config import CampaignConfig, NotifyEvent, TitleStrategy, load_campaign
 from src.descriptions import Description, load_bank, parse_bank, validate_bank
-from src.errors import ConfigError, SelectionError, UgcError
+from src.errors import AuthError, ConfigError, QuotaError, SelectionError, UgcError
 from src.ingest import (
     apply_plan,
     build_plan,
@@ -76,6 +76,7 @@ from src.queue import (
     load_queue,
     mark_failed,
     mark_pushed,
+    reset_for_retry,
     save_queue,
     spread_schedule,
     stranded,
@@ -447,6 +448,18 @@ def _topup(
     # item we are unsure about.
     _reconcile_stranded(queue, publisher, channel, queue_path, history_path, log, vcs)
 
+    # Items that failed with attempts left are eligible again. Without this a
+    # transient failure parks a video forever, and a systemic one (a stale slot
+    # rejected for every item) permanently drains a whole batch.
+    revived = 0
+    for item in queue.items:
+        if item.status is QueueStatus.FAILED and item.attempts < QueueItem.MAX_ATTEMPTS:
+            reset_for_retry(item, log=log)
+            revived += 1
+    if revived:
+        log.info("revived_failed_items", count=revived, campaign=config.slug)
+        save_queue(queue_path, queue)
+
     depth = publisher.queue_depth(channel)
     need = depth_needed(depth, config.posting.max_buffer_queue)
     ready = claimable(queue)
@@ -470,6 +483,14 @@ def _topup(
             )
         save_queue(queue_path, queue)
         return 0
+
+    # The slot chosen at render time may already have passed: a batch is laid
+    # out at ~23:30 local covering the next 24 hours, but the top-up runs only
+    # every four hours and can push at most `max_buffer_queue` at a time, so by
+    # mid-morning the early slots are behind us. Buffer rejects any post dated
+    # in the past, so the slot is reassigned at push time — it is a scheduling
+    # detail, not part of the item's identity.
+    _reslot_stale(to_push, queue, config, clock.now(), log)
 
     pushed = 0
     for item in to_push:
@@ -497,12 +518,17 @@ def _topup(
             mark_failed(item, str(exc), log=log)
             save_queue(queue_path, queue)
             vcs.commit([queue_path], f"fail {item.id[:8]} for {config.slug}")
-            if not exc.retryable:
-                # SPEC §12 — an auth or validation failure applies to every
-                # remaining item too. Draining the whole queue to `failed`
-                # would turn one fixable problem into a day of lost posts.
+            if isinstance(exc, (AuthError, QuotaError)):
+                # These are properties of the ACCOUNT, not of this item: a bad
+                # key or an exhausted quota will reject everything behind it
+                # too. Stop rather than marching the whole queue into `failed`.
                 notifier.failure("topup.push", exc, item_id=item.id)
                 raise
+            # Anything else — a malformed payload, a rejected schedule — is
+            # specific to this item. Failing the batch on it would let one bad
+            # post block every good one behind it, which is exactly what a
+            # stale slot used to do.
+            notifier.failure("topup.push", exc, item_id=item.id)
             continue
 
         mark_pushed(item, result.post_id, log=log)
@@ -516,6 +542,64 @@ def _topup(
     _report_quota(publisher, notifier, config, log)
     log.info("topup_complete", pushed=pushed)
     return 0
+
+
+def _reslot_stale(
+    items: list[QueueItem],
+    queue: Queue,
+    config: CampaignConfig,
+    now: datetime,
+    log: StructuredLogger,
+) -> None:
+    """Move items whose scheduled slot has passed onto the next free ones.
+
+    Buffer rejects a post dated in the past outright, and that rejection is not
+    retryable, so a stale slot is fatal to the item and — before this — to every
+    item queued behind it.
+
+    Slots already spoken for by pushed or claimed items are skipped so two posts
+    never land on the same minute.
+    """
+    lead = timedelta(minutes=10)
+    if not any(i.scheduled_for <= now + lead for i in items):
+        return
+
+    taken = {
+        i.scheduled_for
+        for i in queue.items
+        if i.status in (QueueStatus.PUSHED, QueueStatus.CLAIMED)
+    }
+    candidates = [
+        slot
+        for slot in upcoming_slots(
+            now,
+            len(items) + len(taken) + 8,
+            config.posting.start_hour,
+            config.posting.end_hour,
+            config.posting.posts_per_day,
+            config.zone,
+        )
+        if slot not in taken
+    ]
+
+    moved = 0
+    for item in items:
+        if item.scheduled_for > now + lead:
+            continue
+        if not candidates:
+            log.warning("reslot_exhausted", item_id=item.id)
+            break
+        was = item.scheduled_for
+        item.scheduled_for = candidates.pop(0)
+        moved += 1
+        log.info(
+            "reslot_stale_item",
+            item_id=item.id,
+            was=was.isoformat(),
+            now_at=item.scheduled_for.isoformat(),
+        )
+    if moved:
+        log.info("reslot_complete", moved=moved, campaign=config.slug)
 
 
 def _reconcile_stranded(
