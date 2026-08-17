@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "80ca258c-6049-471e-99fc-4588a3374376",
-      "scheduled_for": "2026-08-17T00:00:00-06:00",
+      "scheduled_for": "2026-08-17T18:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/80ca258c-6049-471e-99fc-4588a3374376.mp4",
       "caption": "this site has been the cheat code to getting involved creatively 🎬🎤\n\ncomment \"create\" and I'll send it over\n\n[creative collaboration, actors, singers, filmmakers, creative community, get involved]",
       "title": null,
@@ -13,14 +13,14 @@
         "music": "music_02.mp3",
         "music_offset_sec": "75"
       },
-      "status": "failed",
+      "status": "claimed",
       "attempts": 1,
       "buffer_post_id": null,
       "last_error": "Buffer createPost failed (InvalidInputError): Scheduled time must be in the future"
     },
     {
       "id": "7f6afa2c-dca0-42c5-84be-4160766f279c",
-      "scheduled_for": "2026-08-17T01:00:00-06:00",
+      "scheduled_for": "2026-08-17T19:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/7f6afa2c-dca0-42c5-84be-4160766f279c.mp4",
       "caption": "how film students are finding real projects (not just group chats)\n\ncomment \"create\" and I'll send it over\n\n[film students, creative projects, student films, nyu tisch, creative networking]",
       "title": null,
@@ -30,14 +30,14 @@
         "music": "music_01.mp3",
         "music_offset_sec": "75"
       },
-      "status": "failed",
+      "status": "pending",
       "attempts": 1,
       "buffer_post_id": null,
       "last_error": "Buffer createPost failed (InvalidInputError): Scheduled time must be in the future"
     },
     {
       "id": "cb6e880c-0da2-4ed4-9d77-4aff5f360198",
-      "scheduled_for": "2026-08-17T02:00:00-06:00",
+      "scheduled_for": "2026-08-17T20:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/cb6e880c-0da2-4ed4-9d77-4aff5f360198.mp4",
       "caption": "how I got cast in my first student film with zero connections\n\ncomment \"create\" and I'll send you the site\n\n[student films, casting calls, actors, aspiring actors, creative networking]",
       "title": null,
@@ -47,14 +47,14 @@
         "music": "music_01.mp3",
         "music_offset_sec": "60"
       },
-      "status": "failed",
+      "status": "pending",
       "attempts": 1,
       "buffer_post_id": null,
       "last_error": "Buffer createPost failed (InvalidInputError): Scheduled time must be in the future"
     },
     {
       "id": "d483d694-d218-4f65-9290-fc62deea75e4",
-      "scheduled_for": "2026-08-17T03:00:00-06:00",
+      "scheduled_for": "2026-08-17T21:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/d483d694-d218-4f65-9290-fc62deea75e4.mp4",
       "caption": "the cheat code for anyone trying to break into film, music, or performing arts\n\ncomment \"create\"\n\n[filmmakers, indie music, performers, artists, get involved, creative community]",
       "title": null,
@@ -71,7 +71,7 @@
     },
     {
       "id": "c2269f17-d3a5-453e-8bc3-4af42988694f",
-      "scheduled_for": "2026-08-17T04:00:00-06:00",
+      "scheduled_for": "2026-08-17T22:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/c2269f17-d3a5-453e-8bc3-4af42988694f.mp4",
       "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
       "title": null,
@@ -88,7 +88,7 @@
     },
     {
       "id": "7a1944df-13f3-4f07-9661-787fd23bf42a",
-      "scheduled_for": "2026-08-17T05:00:00-06:00",
+      "scheduled_for": "2026-08-17T23:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/7a1944df-13f3-4f07-9661-787fd23bf42a.mp4",
       "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
       "title": null,
@@ -105,7 +105,7 @@
     },
     {
       "id": "3c9a535b-f4b5-40f6-882b-cc853f74c941",
-      "scheduled_for": "2026-08-17T06:00:00-06:00",
+      "scheduled_for": "2026-08-18T00:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/3c9a535b-f4b5-40f6-882b-cc853f74c941.mp4",
       "caption": "i wish someone told me about this before film school\n\ncomment \"create\" and I'll send it over\n\n[film students, student films, filmmakers, nyu tisch, creative community]",
       "title": null,
@@ -122,7 +122,7 @@
     },
     {
       "id": "7927ea07-7add-41b9-b697-72abe54a3e3b",
-      "scheduled_for": "2026-08-17T07:00:00-06:00",
+      "scheduled_for": "2026-08-18T01:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/7927ea07-7add-41b9-b697-72abe54a3e3b.mp4",
       "caption": "the cheat code for anyone trying to break into film, music, or performing arts\n\ncomment \"create\"\n\n[filmmakers, indie music, performers, artists, get involved, creative community]",
       "title": null,
@@ -139,7 +139,7 @@
     },
     {
       "id": "f75a5af2-08c3-4dca-ae81-2ddeeb415c2b",
-      "scheduled_for": "2026-08-17T08:00:00-06:00",
+      "scheduled_for": "2026-08-18T02:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/f75a5af2-08c3-4dca-ae81-2ddeeb415c2b.mp4",
       "caption": "open casting calls, short films, indie music — all in one place\n\ncomment \"create\" and I'll DM it\n\n[open casting, short films, indie music, casting calls, creative projects]",
       "title": null,
@@ -156,7 +156,7 @@
     },
     {
       "id": "e15b3010-9d3d-4346-a453-b268874f9c50",
-      "scheduled_for": "2026-08-17T09:00:00-06:00",
+      "scheduled_for": "2026-08-18T03:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/e15b3010-9d3d-4346-a453-b268874f9c50.mp4",
       "caption": "every performer and artist should have this bookmarked\n\ncomment \"create\" and I'll drop it below\n\n[performers, artists, dancers, singers, creative community]",
       "title": null,
