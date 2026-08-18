@@ -295,13 +295,34 @@ class TestCrashReconciliation:
 
     def test_matches_within_a_tolerance_window(self) -> None:
         """Buffer normalises dueAt; an exact match would cause a double-push."""
+        near = (DUE + timedelta(seconds=40)).isoformat()
+        s = FakeSession().route("POST", "api.buffer.com", gql_ok({"posts": {"edges": [
+            {"node": {"id": "close-enough", "dueAt": near,
+                      "status": "scheduled", "schedulingType": "automatic"}}
+        ]}}))
+        found = make_publisher(s).find_scheduled_post("chan-1", DUE)
+        assert found is not None and found.post_id == "close-enough"
+
+    def test_a_post_at_a_different_hour_is_not_a_match(self) -> None:
+        far = (DUE + timedelta(hours=2)).isoformat()
+        s = FakeSession().route("POST", "api.buffer.com", gql_ok({"posts": {"edges": [
+            {"node": {"id": "other-slot", "dueAt": far,
+                      "status": "scheduled", "schedulingType": "automatic"}}
+        ]}}))
+        assert make_publisher(s).find_scheduled_post("chan-1", DUE) is None
+
+    def test_no_unsupported_dueat_filter_is_sent(self) -> None:
+        """`{gte, lte}` is not Buffer's DateTimeComparator shape; matching is
+        done client-side so the query cannot be rejected."""
         s = FakeSession().route("POST", "api.buffer.com", gql_ok({"posts": {"edges": []}}))
         make_publisher(s).find_scheduled_post("chan-1", DUE)
-        due_filter = s.calls[0].json_body["variables"]["input"]["filter"]["dueAt"]
-        gte = datetime.fromisoformat(due_filter["gte"])
-        lte = datetime.fromisoformat(due_filter["lte"])
-        assert gte < DUE < lte
-        assert (lte - gte) <= timedelta(minutes=3)
+        assert "dueAt" not in s.calls[0].json_body["variables"]["input"]["filter"]
+
+    def test_posts_without_a_due_date_are_skipped(self) -> None:
+        s = FakeSession().route("POST", "api.buffer.com", gql_ok({"posts": {"edges": [
+            {"node": {"id": "draft", "dueAt": None, "status": "scheduled"}}
+        ]}}))
+        assert make_publisher(s).find_scheduled_post("chan-1", DUE) is None
 
     def test_includes_sent_posts_in_reconciliation(self) -> None:
         """A post that already published still means: do not push again."""

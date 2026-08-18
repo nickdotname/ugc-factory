@@ -95,7 +95,10 @@
       "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Add diagnose command: why a queued post did not publish *)",
       "Bash(git -c user.name=ugc-factory -c user.email=ugc-factory@users.noreply.github.com commit -q -m 'Fix diagnose query: error is an object, not a scalar *)",
       "Bash(.venv/bin/python -m pytest tests/test_acceptance.py tests/test_config.py --no-header)",
-      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py -k \"Webhook or LogEvent\" --no-header)"
+      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py -k \"Webhook or LogEvent\" --no-header)",
+      "Bash(git rebase *)",
+      "Bash(git config *)",
+      "Bash(.venv/bin/python -m pytest tests/test_publisher_buffer.py --no-header)"
     ]
   }
 }

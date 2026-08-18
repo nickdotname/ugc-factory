@@ -295,10 +295,16 @@ class BufferPublisher(Publisher):
     ) -> PublishedPost | None:
         """Look for a post already occupying this slot (SPEC §11 crash resume).
 
-        Matches within a one-minute window rather than on an exact timestamp:
-        Buffer normalises ``dueAt`` to its own schedule granularity, so an exact
-        comparison would report "not found" and cause the double-push this
-        function exists to prevent.
+        Matching happens here rather than in a server-side ``dueAt`` filter.
+        An earlier version passed ``{gte, lte}``, which is not the shape of
+        Buffer's ``DateTimeComparator`` — and because this path only runs after
+        a crash, the mistake sat undiscovered until the first real stranded
+        item, then broke the whole top-up. Comparing client-side costs the same
+        single request and depends on nothing but ``dueAt`` itself.
+
+        A one-minute tolerance, because Buffer normalises ``dueAt`` to its own
+        granularity; an exact match would report "not found" and cause the
+        double-push this function exists to prevent.
         """
         window = timedelta(minutes=1)
         data = self._gql(
@@ -309,24 +315,26 @@ class BufferPublisher(Publisher):
                     "filter": {
                         "channelIds": [channel_id],
                         "status": ["scheduled", "sending", "sent"],
-                        "dueAt": {
-                            "gte": (scheduled_for - window).isoformat(),
-                            "lte": (scheduled_for + window).isoformat(),
-                        },
                     },
                 },
-                "first": 20,
+                "first": 100,
             },
         )
         edges = ((data.get("posts") or {}).get("edges")) or []
-        if not edges:
-            return None
-        node = edges[0]["node"]
-        return PublishedPost(
-            post_id=str(node["id"]),
-            scheduled_for=_parse_dt(node.get("dueAt")),
-            will_publish_automatically=node.get("schedulingType") == "automatic",
-        )
+        for edge in edges:
+            node = edge.get("node") or {}
+            due = _parse_dt(node.get("dueAt"))
+            if due is None:
+                continue
+            if abs((due - scheduled_for).total_seconds()) <= window.total_seconds():
+                return PublishedPost(
+                    post_id=str(node["id"]),
+                    scheduled_for=due,
+                    will_publish_automatically=(
+                        node.get("schedulingType") == "automatic"
+                    ),
+                )
+        return None
 
     # ------------------------------------------------------------------ writes
 
