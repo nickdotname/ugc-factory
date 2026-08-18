@@ -207,7 +207,7 @@
     },
     {
       "id": "f362e7e7-5d05-42d8-91e6-af22c87d9dd4",
-      "scheduled_for": "2026-08-17T12:00:00-06:00",
+      "scheduled_for": "2026-08-18T06:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-08-17/f362e7e7-5d05-42d8-91e6-af22c87d9dd4.mp4",
       "caption": "aspiring actors and emerging artists — bookmark this one\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, emerging artists, actors, casting calls, creative community]",
       "title": null,
@@ -217,7 +217,7 @@
         "music": "music_01.mp3",
         "music_offset_sec": "60"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
