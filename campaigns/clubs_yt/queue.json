@@ -404,9 +404,9 @@
         "music": "music_03.mp3",
         "music_offset_sec": "105"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
-      "buffer_post_id": null,
+      "buffer_post_id": "6a84c14b7aefb3601557fed7",
       "last_error": null
     }
   ]
