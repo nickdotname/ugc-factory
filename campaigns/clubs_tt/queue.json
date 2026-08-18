@@ -1,269 +1,337 @@
 {
-  "generated_at": "2026-08-17T05:33:22.141307Z",
+  "generated_at": "2026-08-18T05:27:24.227305Z",
   "items": [
     {
-      "id": "80ca258c-6049-471e-99fc-4588a3374376",
-      "scheduled_for": "2026-08-17T18:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/80ca258c-6049-471e-99fc-4588a3374376.mp4",
-      "caption": "this site has been the cheat code to getting involved creatively 🎬🎤\n\ncomment \"create\" and I'll send it over\n\n[creative collaboration, actors, singers, filmmakers, creative community, get involved]",
+      "id": "269ff43c-b599-44be-b8f8-237354a2e73f",
+      "scheduled_for": "2026-08-18T00:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/269ff43c-b599-44be-b8f8-237354a2e73f.mp4",
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
       "title": null,
       "parts": {
-        "hook": "hook_06.mov",
+        "hook": "hook_03.mov",
         "bodies": "body_03.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "90"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "418ab36a-029a-423c-b721-82d0c7ef2df8",
+      "scheduled_for": "2026-08-18T01:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/418ab36a-029a-423c-b721-82d0c7ef2df8.mp4",
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mov",
+        "bodies": "body_03.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "165"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7f7a51a0-0854-4570-a175-5b9e5ca4068b",
+      "scheduled_for": "2026-08-18T02:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/7f7a51a0-0854-4570-a175-5b9e5ca4068b.mp4",
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mov",
+        "bodies": "body_02.mp4",
+        "music": "music_02.mp3",
+        "music_offset_sec": "0"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "499e294f-34ce-4b4d-bf04-f64a0fb9cd4a",
+      "scheduled_for": "2026-08-18T03:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/499e294f-34ce-4b4d-bf04-f64a0fb9cd4a.mp4",
+      "caption": "for every aspiring actor, singer, or filmmaker still trying to figure out where to start\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, singers, filmmakers, emerging artists, get involved, creative community]",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mov",
+        "bodies": "body_01.mp4",
+        "music": "music_01.mp3",
+        "music_offset_sec": "15"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "6e6a16a5-eb07-4db0-9b7b-0c7ddc13074f",
+      "scheduled_for": "2026-08-18T04:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/6e6a16a5-eb07-4db0-9b7b-0c7ddc13074f.mp4",
+      "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, creative community, get involved, artists, creative projects]",
+      "title": null,
+      "parts": {
+        "hook": "hook_05.mov",
+        "bodies": "body_01.mp4",
         "music": "music_02.mp3",
         "music_offset_sec": "75"
       },
-      "status": "pushed",
-      "attempts": 1,
-      "buffer_post_id": "6a839cba521d59579154b098",
-      "last_error": null
-    },
-    {
-      "id": "7f6afa2c-dca0-42c5-84be-4160766f279c",
-      "scheduled_for": "2026-08-17T19:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/7f6afa2c-dca0-42c5-84be-4160766f279c.mp4",
-      "caption": "how film students are finding real projects (not just group chats)\n\ncomment \"create\" and I'll send it over\n\n[film students, creative projects, student films, nyu tisch, creative networking]",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mov",
-        "bodies": "body_01.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "75"
-      },
-      "status": "pushed",
-      "attempts": 1,
-      "buffer_post_id": "6a839cbd6fc89d4364fe6a86",
-      "last_error": null
-    },
-    {
-      "id": "cb6e880c-0da2-4ed4-9d77-4aff5f360198",
-      "scheduled_for": "2026-08-17T20:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/cb6e880c-0da2-4ed4-9d77-4aff5f360198.mp4",
-      "caption": "how I got cast in my first student film with zero connections\n\ncomment \"create\" and I'll send you the site\n\n[student films, casting calls, actors, aspiring actors, creative networking]",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mov",
-        "bodies": "body_04.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "60"
-      },
-      "status": "pushed",
-      "attempts": 1,
-      "buffer_post_id": "6a839cc16fc89d4364fe6aac",
-      "last_error": null
-    },
-    {
-      "id": "d483d694-d218-4f65-9290-fc62deea75e4",
-      "scheduled_for": "2026-08-17T21:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/d483d694-d218-4f65-9290-fc62deea75e4.mp4",
-      "caption": "the cheat code for anyone trying to break into film, music, or performing arts\n\ncomment \"create\"\n\n[filmmakers, indie music, performers, artists, get involved, creative community]",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_03.mp3",
-        "music_offset_sec": "225"
-      },
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
-      "buffer_post_id": "6a839cc56fc89d4364fe6af4",
+      "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "c2269f17-d3a5-453e-8bc3-4af42988694f",
-      "scheduled_for": "2026-08-17T22:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/c2269f17-d3a5-453e-8bc3-4af42988694f.mp4",
-      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
+      "id": "3a4ce6cb-092a-456a-9c2e-0eb319784f44",
+      "scheduled_for": "2026-08-18T05:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/3a4ce6cb-092a-456a-9c2e-0eb319784f44.mp4",
+      "caption": "this is how directors, producers, and screenwriters actually find each other\n\ncomment \"create\" and it's yours\n\n[directors, producers, screenwriters, creative collaboration, creative networking]",
       "title": null,
       "parts": {
-        "hook": "hook_01.mov",
-        "bodies": "body_02.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "75"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": "6a839cc8a6afcff0dbbf2de3",
-      "last_error": null
-    },
-    {
-      "id": "7a1944df-13f3-4f07-9661-787fd23bf42a",
-      "scheduled_for": "2026-08-17T23:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/7a1944df-13f3-4f07-9661-787fd23bf42a.mp4",
-      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mov",
+        "hook": "hook_03.mov",
         "bodies": "body_03.mp4",
         "music": "music_01.mp3",
         "music_offset_sec": "15"
       },
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
-      "buffer_post_id": "6a839ccc33ec6735e90eb463",
+      "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "3c9a535b-f4b5-40f6-882b-cc853f74c941",
-      "scheduled_for": "2026-08-18T00:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/3c9a535b-f4b5-40f6-882b-cc853f74c941.mp4",
-      "caption": "i wish someone told me about this before film school\n\ncomment \"create\" and I'll send it over\n\n[film students, student films, filmmakers, nyu tisch, creative community]",
-      "title": null,
-      "parts": {
-        "hook": "hook_04.mov",
-        "bodies": "body_01.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "60"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": "6a839ccf2485bd5f3ffdaf56",
-      "last_error": null
-    },
-    {
-      "id": "7927ea07-7add-41b9-b697-72abe54a3e3b",
-      "scheduled_for": "2026-08-18T01:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/7927ea07-7add-41b9-b697-72abe54a3e3b.mp4",
-      "caption": "the cheat code for anyone trying to break into film, music, or performing arts\n\ncomment \"create\"\n\n[filmmakers, indie music, performers, artists, get involved, creative community]",
+      "id": "40c0e8a2-afe8-4e75-90de-1b0d801d95fa",
+      "scheduled_for": "2026-08-18T06:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/40c0e8a2-afe8-4e75-90de-1b0d801d95fa.mp4",
+      "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, creative community, get involved, artists, creative projects]",
       "title": null,
       "parts": {
         "hook": "hook_02.mov",
+        "bodies": "body_04.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "150"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "b4d8ba43-9876-47cf-bb5e-52718744f93b",
+      "scheduled_for": "2026-08-18T07:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/b4d8ba43-9876-47cf-bb5e-52718744f93b.mp4",
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mov",
+        "bodies": "body_03.mp4",
+        "music": "music_01.mp3",
+        "music_offset_sec": "60"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ad6f0769-fe08-404a-a52b-04b8a22b56cf",
+      "scheduled_for": "2026-08-18T08:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/ad6f0769-fe08-404a-a52b-04b8a22b56cf.mp4",
+      "caption": "for every aspiring actor, singer, or filmmaker still trying to figure out where to start\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, singers, filmmakers, emerging artists, get involved, creative community]",
+      "title": null,
+      "parts": {
+        "hook": "hook_05.mov",
+        "bodies": "body_04.mp4",
+        "music": "music_01.mp3",
+        "music_offset_sec": "90"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "52585b65-f0ce-45af-bbc2-359dee15165f",
+      "scheduled_for": "2026-08-18T09:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/52585b65-f0ce-45af-bbc2-359dee15165f.mp4",
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mov",
+        "bodies": "body_01.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "180"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "43287ca8-b8a0-444b-bb9d-43cc72b87562",
+      "scheduled_for": "2026-08-18T10:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/43287ca8-b8a0-444b-bb9d-43cc72b87562.mp4",
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mov",
         "bodies": "body_02.mp4",
         "music": "music_01.mp3",
         "music_offset_sec": "30"
       },
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
-      "buffer_post_id": "6a839cd2521d59579154b127",
+      "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "f75a5af2-08c3-4dca-ae81-2ddeeb415c2b",
-      "scheduled_for": "2026-08-18T02:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/f75a5af2-08c3-4dca-ae81-2ddeeb415c2b.mp4",
-      "caption": "open casting calls, short films, indie music — all in one place\n\ncomment \"create\" and I'll DM it\n\n[open casting, short films, indie music, casting calls, creative projects]",
+      "id": "beee7ad3-aac9-4a14-a8ff-cad785366179",
+      "scheduled_for": "2026-08-18T11:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/beee7ad3-aac9-4a14-a8ff-cad785366179.mp4",
+      "caption": "dancers, singers, actors — stop waiting for an invite\n\ncomment \"create\" and I'll send you the link\n\n[dancers, singers, actors, performers, get involved, emerging artists]",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mov",
+        "bodies": "body_02.mp4",
+        "music": "music_02.mp3",
+        "music_offset_sec": "45"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ee4fc680-d108-49e2-a69e-1aab069664af",
+      "scheduled_for": "2026-08-18T12:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/ee4fc680-d108-49e2-a69e-1aab069664af.mp4",
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mov",
+        "bodies": "body_01.mp4",
+        "music": "music_01.mp3",
+        "music_offset_sec": "45"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "eb2923a0-05f1-49fc-aac5-880d4605ccb7",
+      "scheduled_for": "2026-08-18T13:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/eb2923a0-05f1-49fc-aac5-880d4605ccb7.mp4",
+      "caption": "dancers, singers, actors — stop waiting for an invite\n\ncomment \"create\" and I'll send you the link\n\n[dancers, singers, actors, performers, get involved, emerging artists]",
+      "title": null,
+      "parts": {
+        "hook": "hook_05.mov",
+        "bodies": "body_01.mp4",
+        "music": "music_01.mp3",
+        "music_offset_sec": "75"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7cdacdef-895a-4fe6-b1a2-00be3fc1398d",
+      "scheduled_for": "2026-08-18T14:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/7cdacdef-895a-4fe6-b1a2-00be3fc1398d.mp4",
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mov",
+        "bodies": "body_01.mp4",
+        "music": "music_02.mp3",
+        "music_offset_sec": "30"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "df4b560c-e153-4e37-a34c-e2c15466edd8",
+      "scheduled_for": "2026-08-18T15:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/df4b560c-e153-4e37-a34c-e2c15466edd8.mp4",
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mov",
+        "bodies": "body_03.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "225"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "1aa228b1-d6f1-4cc5-914c-5d9183431ec0",
+      "scheduled_for": "2026-08-18T16:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/1aa228b1-d6f1-4cc5-914c-5d9183431ec0.mp4",
+      "caption": "dancers, singers, actors — stop waiting for an invite\n\ncomment \"create\" and I'll send you the link\n\n[dancers, singers, actors, performers, get involved, emerging artists]",
       "title": null,
       "parts": {
         "hook": "hook_02.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "45"
+        "bodies": "body_01.mp4",
+        "music": "music_02.mp3",
+        "music_offset_sec": "30"
       },
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
-      "buffer_post_id": "6a839cd6a6afcff0dbbf2e25",
+      "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "e15b3010-9d3d-4346-a453-b268874f9c50",
-      "scheduled_for": "2026-08-18T03:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/e15b3010-9d3d-4346-a453-b268874f9c50.mp4",
-      "caption": "every performer and artist should have this bookmarked\n\ncomment \"create\" and I'll drop it below\n\n[performers, artists, dancers, singers, creative community]",
-      "title": null,
-      "parts": {
-        "hook": "hook_05.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_03.mp3",
-        "music_offset_sec": "240"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": "6a839cd96b1b823c0f9ea0c0",
-      "last_error": null
-    },
-    {
-      "id": "0ef0b989-cd78-4e28-aff3-141be101aaa8",
-      "scheduled_for": "2026-08-18T04:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/0ef0b989-cd78-4e28-aff3-141be101aaa8.mp4",
-      "caption": "NYU Tisch kids have been using this to find creative projects all semester\n\ncomment \"create\" for the site\n\n[nyu tisch, film students, creative projects, student films, creative community]",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "0"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": "6a83b7f833ec6735e910426e",
-      "last_error": null
-    },
-    {
-      "id": "29308fba-e2af-4e55-9603-f9622d027db7",
-      "scheduled_for": "2026-08-18T05:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/29308fba-e2af-4e55-9603-f9622d027db7.mp4",
-      "caption": "calling all screenwriters, directors, and producers — you need this\n\ncomment \"create\" for the link\n\n[screenwriters, directors, producers, filmmakers, creative collaboration]",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mov",
-        "bodies": "body_02.mp4",
-        "music": "music_03.mp3",
-        "music_offset_sec": "150"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": "6a83b7fb521d595791563b12",
-      "last_error": null
-    },
-    {
-      "id": "253bcd0e-f8c6-444c-af80-d8cfbd2e252c",
-      "scheduled_for": "2026-08-18T06:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/253bcd0e-f8c6-444c-af80-d8cfbd2e252c.mp4",
-      "caption": "aspiring actors and emerging artists — bookmark this one\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, emerging artists, actors, casting calls, creative community]",
+      "id": "fc42401a-08cd-4c82-b1d6-ff538ab4ba80",
+      "scheduled_for": "2026-08-18T17:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/fc42401a-08cd-4c82-b1d6-ff538ab4ba80.mp4",
+      "caption": "this is how directors, producers, and screenwriters actually find each other\n\ncomment \"create\" and it's yours\n\n[directors, producers, screenwriters, creative collaboration, creative networking]",
       "title": null,
       "parts": {
         "hook": "hook_04.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "60"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": "6a83c1cf33ec6735e910c022",
-      "last_error": null
-    },
-    {
-      "id": "960605a4-1bc2-4545-bf22-90218d488592",
-      "scheduled_for": "2026-08-18T07:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/960605a4-1bc2-4545-bf22-90218d488592.mp4",
-      "caption": "this is how indie filmmakers and musicians are finding collaborators right now\n\ncomment \"create\"\n\n[indie music, filmmakers, creative collaboration, music collabs, songwriters]",
-      "title": null,
-      "parts": {
-        "hook": "hook_06.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_03.mp3",
-        "music_offset_sec": "270"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": "6a83e2b233ec6735e91261f8",
-      "last_error": null
-    },
-    {
-      "id": "da3300b0-6c13-4b6a-a133-d6634e9c697d",
-      "scheduled_for": "2026-08-18T08:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/da3300b0-6c13-4b6a-a133-d6634e9c697d.mp4",
-      "caption": "filmmakers + songwriters + dancers — this one's for you\n\ncomment \"create\" for the link\n\n[filmmakers, songwriters, dancers, performers, creative collaboration]",
-      "title": null,
-      "parts": {
-        "hook": "hook_05.mov",
         "bodies": "body_02.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "60"
+        "music": "music_02.mp3",
+        "music_offset_sec": "75"
       },
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
-      "buffer_post_id": "6a83e2b5521d595791585c05",
+      "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "a50f9201-84d0-4650-aae2-0af6f30e0b3e",
-      "scheduled_for": "2026-08-17T15:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/a50f9201-84d0-4650-aae2-0af6f30e0b3e.mp4",
-      "caption": "wish I knew about this before scrolling for hours looking for auditions\n\ncomment \"create\" and I'll send it over\n\n[casting calls, open casting, actors, aspiring actors, creative projects]",
+      "id": "b1a3543f-c93c-4319-bf8b-fbef0446c822",
+      "scheduled_for": "2026-08-18T18:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/b1a3543f-c93c-4319-bf8b-fbef0446c822.mp4",
+      "caption": "actors + singers + creators — this is your sign to get involved\n\ncomment \"create\" and I'll send it your way\n\n[actors, singers, artists, get involved, creative community, emerging artists]",
       "title": null,
       "parts": {
-        "hook": "hook_05.mov",
+        "hook": "hook_04.mov",
+        "bodies": "body_02.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "75"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "306bf98a-8c20-46d3-930b-97fc91be8183",
+      "scheduled_for": "2026-08-18T19:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/306bf98a-8c20-46d3-930b-97fc91be8183.mp4",
+      "caption": "dancers, singers, actors — stop waiting for an invite\n\ncomment \"create\" and I'll send you the link\n\n[dancers, singers, actors, performers, get involved, emerging artists]",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mov",
         "bodies": "body_03.mp4",
         "music": "music_02.mp3",
         "music_offset_sec": "45"
@@ -274,135 +342,67 @@
       "last_error": null
     },
     {
-      "id": "833a2195-0801-4284-a16d-0777e99bc7a2",
-      "scheduled_for": "2026-08-17T16:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/833a2195-0801-4284-a16d-0777e99bc7a2.mp4",
-      "caption": "this site made \"getting involved creatively\" actually possible\n\ncomment \"create\" and it's yours\n\n[get involved, creative projects, creative community, creative collaboration]",
+      "id": "a678cf53-148e-40ad-b351-0c52d55570e3",
+      "scheduled_for": "2026-08-18T20:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/a678cf53-148e-40ad-b351-0c52d55570e3.mp4",
+      "caption": "for every aspiring actor, singer, or filmmaker still trying to figure out where to start\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, singers, filmmakers, emerging artists, get involved, creative community]",
+      "title": null,
+      "parts": {
+        "hook": "hook_06.mov",
+        "bodies": "body_01.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "240"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "00f980f8-018b-4460-9d26-23abf52d7159",
+      "scheduled_for": "2026-08-18T21:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/00f980f8-018b-4460-9d26-23abf52d7159.mp4",
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
       "title": null,
       "parts": {
         "hook": "hook_01.mov",
+        "bodies": "body_02.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "135"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "afef468b-5a2b-4a56-837d-271c6ea13e04",
+      "scheduled_for": "2026-08-18T22:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/afef468b-5a2b-4a56-837d-271c6ea13e04.mp4",
+      "caption": "dancers, singers, actors — stop waiting for an invite\n\ncomment \"create\" and I'll send you the link\n\n[dancers, singers, actors, performers, get involved, emerging artists]",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mov",
+        "bodies": "body_03.mp4",
+        "music": "music_03.mp3",
+        "music_offset_sec": "165"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "9d94e995-6069-4f6a-bfb4-50b2944aba75",
+      "scheduled_for": "2026-08-18T23:00:00-06:00",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-18/9d94e995-6069-4f6a-bfb4-50b2944aba75.mp4",
+      "caption": "this is how directors, producers, and screenwriters actually find each other\n\ncomment \"create\" and it's yours\n\n[directors, producers, screenwriters, creative collaboration, creative networking]",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mov",
         "bodies": "body_04.mp4",
-        "music": "music_02.mp3",
-        "music_offset_sec": "45"
-      },
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "5da79445-ec55-452c-be57-f31c722aa751",
-      "scheduled_for": "2026-08-17T17:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/5da79445-ec55-452c-be57-f31c722aa751.mp4",
-      "caption": "open casting calls, short films, indie music — all in one place\n\ncomment \"create\" and I'll DM it\n\n[open casting, short films, indie music, casting calls, creative projects]",
-      "title": null,
-      "parts": {
-        "hook": "hook_04.mov",
-        "bodies": "body_02.mp4",
         "music": "music_03.mp3",
-        "music_offset_sec": "75"
-      },
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "4504e754-1f17-482d-aae7-2119e51b7f6d",
-      "scheduled_for": "2026-08-17T18:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/4504e754-1f17-482d-aae7-2119e51b7f6d.mp4",
-      "caption": "every performer and artist should have this bookmarked\n\ncomment \"create\" and I'll drop it below\n\n[performers, artists, dancers, singers, creative community]",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_02.mp3",
-        "music_offset_sec": "60"
-      },
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "f7e7ff46-dc3b-4d2e-b554-7591c90fbff5",
-      "scheduled_for": "2026-08-17T19:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/f7e7ff46-dc3b-4d2e-b554-7591c90fbff5.mp4",
-      "caption": "the creative community I didn't know I needed\n\ncomment \"create\" and I'll send the site\n\n[creative community, creative networking, get involved, artists, emerging artists]",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mov",
-        "bodies": "body_01.mp4",
-        "music": "music_03.mp3",
-        "music_offset_sec": "240"
-      },
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "4f00bfd8-bbeb-4b02-815d-a125a6be7016",
-      "scheduled_for": "2026-08-17T20:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/4f00bfd8-bbeb-4b02-815d-a125a6be7016.mp4",
-      "caption": "calling all screenwriters, directors, and producers — you need this\n\ncomment \"create\" for the link\n\n[screenwriters, directors, producers, filmmakers, creative collaboration]",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mov",
-        "bodies": "body_01.mp4",
-        "music": "music_02.mp3",
-        "music_offset_sec": "15"
-      },
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "c6449954-65ae-4093-967c-0e583006c462",
-      "scheduled_for": "2026-08-17T21:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/c6449954-65ae-4093-967c-0e583006c462.mp4",
-      "caption": "how I found casting calls, student films, and music collabs without knowing anyone\n\ncomment \"create\" and I'll send it your way\n\n[casting calls, student films, music collabs, creative networking, film students]",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_02.mp3",
-        "music_offset_sec": "45"
-      },
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "457854c1-004d-458c-976a-c3a89b23aa49",
-      "scheduled_for": "2026-08-17T22:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/457854c1-004d-458c-976a-c3a89b23aa49.mp4",
-      "caption": "filmmakers + songwriters + dancers — this one's for you\n\ncomment \"create\" for the link\n\n[filmmakers, songwriters, dancers, performers, creative collaboration]",
-      "title": null,
-      "parts": {
-        "hook": "hook_06.mov",
-        "bodies": "body_03.mp4",
-        "music": "music_03.mp3",
-        "music_offset_sec": "75"
-      },
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "079f3854-abc9-4a97-beb3-63ba845d64ea",
-      "scheduled_for": "2026-08-17T23:00:00-06:00",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-17/079f3854-abc9-4a97-beb3-63ba845d64ea.mp4",
-      "caption": "this site made \"getting involved creatively\" actually possible\n\ncomment \"create\" and it's yours\n\n[get involved, creative projects, creative community, creative collaboration]",
-      "title": null,
-      "parts": {
-        "hook": "hook_06.mov",
-        "bodies": "body_01.mp4",
-        "music": "music_01.mp3",
-        "music_offset_sec": "60"
+        "music_offset_sec": "105"
       },
       "status": "pending",
       "attempts": 0,
