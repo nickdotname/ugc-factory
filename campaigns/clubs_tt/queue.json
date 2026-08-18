@@ -251,9 +251,9 @@
         "music": "music_02.mp3",
         "music_offset_sec": "30"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
-      "buffer_post_id": null,
+      "buffer_post_id": "6a848ac56723dcd0cf485800",
       "last_error": null
     },
     {
