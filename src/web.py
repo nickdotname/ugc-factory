@@ -110,6 +110,10 @@ class WebApp:
         # Probed once and cached: the state endpoint is polled every few
         # seconds, and ffprobing every track on each poll would be absurd.
         self._music_beds: int | None = None
+        # Buffer channels change rarely and every fetch costs one of the
+        # 3,000 monthly requests, so they are pulled once per session rather
+        # than on each page load.
+        self._channels: list[dict[str, Any]] | None = None
         ensure_inbox(inbox)
 
     # ------------------------------------------------------------------ state
@@ -202,6 +206,10 @@ class WebApp:
                     else self.config.assets_tag
                 ),
                 organization_id=self.config.buffer.organization_id,
+                channel_id=(
+                    str(payload.get("channel_id"))
+                    if payload.get("channel_id") else None
+                ),
                 descriptions=(
                     self.bank_path.read_text(encoding="utf-8")
                     if payload.get("copy_descriptions") and self.bank_path.is_file()
@@ -218,6 +226,103 @@ class WebApp:
             "required_secrets": list(created.required_secrets),
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
+
+    def buffer_key(self) -> str | None:
+        """The Buffer API key, from the environment or a local .env.
+
+        A local .env is a convenience for this tool only — it is gitignored and
+        never read by the workflows, which get the key from GitHub Secrets.
+        """
+        import os
+
+        name = self.config.buffer.api_key_secret
+        for key in (name, "BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN"):
+            if os.environ.get(key):
+                return os.environ[key]
+
+        env_file = self.repo_root / ".env"
+        if env_file.is_file():
+            for line in env_file.read_text(encoding="utf-8").splitlines():
+                if "=" not in line or line.lstrip().startswith("#"):
+                    continue
+                k, _, v = line.partition("=")
+                if k.strip() in (name, "BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN"):
+                    return v.strip().strip("'\"")
+        return None
+
+    def channels(self, refresh: bool = False) -> dict[str, Any]:
+        """Buffer channels available to connect, and which are already taken.
+
+        Marks channels that default to reminder-based publishing: those cannot
+        post unattended (SPEC §0), so offering one without saying so would set
+        up a campaign that silently never publishes.
+        """
+        from src.campaigns import list_campaigns
+        from src.publishers.buffer import BufferPublisher
+
+        key = self.buffer_key()
+        if not key:
+            return {
+                "ok": False,
+                "error": "No Buffer API key available locally.",
+                "hint": "export BUFFER_API_KEY=... before starting the dashboard, "
+                        "or put BUFFER_API_KEY=... in a .env file at the repo root "
+                        "(gitignored).",
+                "channels": [],
+            }
+
+        if self._channels is None or refresh:
+            publisher = BufferPublisher(
+                key, self.log,
+                organization_id=self.config.buffer.organization_id,
+            )
+            query = """
+            query UgcFactoryWebChannels($input: ChannelsInput!) {
+              channels(input: $input) {
+                id name service type isDisconnected isLocked
+                metadata {
+                  __typename
+                  ... on InstagramMetadata { defaultToReminders }
+                  ... on TiktokMetadata { defaultToReminders }
+                  ... on YoutubeMetadata { defaultToReminders }
+                }
+              }
+            }
+            """
+            try:
+                data = publisher._gql(
+                    query, {"input": {"organizationId": publisher._org_id()}}
+                )
+            except UgcError as exc:
+                return {"ok": False, "error": str(exc), "channels": []}
+            self._channels = list(data.get("channels") or [])
+
+        # Which channels a campaign already points at.
+        taken: dict[str, str] = {}
+        for summary in list_campaigns(self.campaigns_dir):
+            try:
+                cfg = load_campaign(self.campaigns_dir, summary.slug)
+            except UgcError:
+                continue
+            if cfg.buffer.channel_id:
+                taken[cfg.buffer.channel_id] = summary.slug
+
+        out = []
+        for channel in self._channels:
+            meta = channel.get("metadata") or {}
+            reminders = (
+                meta.get("defaultToReminders") if isinstance(meta, dict) else None
+            )
+            out.append({
+                "id": channel["id"],
+                "name": channel.get("name"),
+                "service": channel.get("service"),
+                "taken_by": taken.get(str(channel["id"])),
+                "reminders": bool(reminders),
+                "disconnected": bool(channel.get("isDisconnected")),
+                "locked": bool(channel.get("isLocked")),
+            })
+        return {"ok": True, "channels": out}
 
     def pending_changes(self) -> dict[str, Any]:
         """Campaign files changed locally but not yet on GitHub.
@@ -536,6 +641,9 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.state())
             elif route == "/api/campaigns":
                 self._json(app.campaigns())
+            elif route == "/api/channels":
+                refresh = "refresh" in self._query()
+                self._json(app.channels(refresh=refresh))
             elif route == "/api/pending":
                 self._json(app.pending_changes())
             elif route == "/api/metrics":
@@ -770,12 +878,8 @@ PAGE = """<!doctype html>
   <div class="newc">
     <h3>New campaign</h3>
     <div class="frow">
+      <label>Buffer channel<select id="f-channel"><option value="">loading…</option></select></label>
       <label>Slug<input id="f-slug" placeholder="brand_tiktok" autocomplete="off"></label>
-      <label>Platform<select id="f-service">
-        <option value="instagram">Instagram</option>
-        <option value="tiktok">TikTok</option>
-        <option value="youtube">YouTube</option>
-      </select></label>
       <label>Posts/day<input id="f-ppd" type="number" min="1" max="24" value="12"></label>
       <label>Start hour<input id="f-start" type="number" min="0" max="23" value="15"></label>
     </div>
@@ -962,18 +1066,70 @@ $("#switcher").onchange = async (e) => {
   await refresh(); await loadMetrics();
 };
 
+let CHANNELS = [];
+
+async function loadChannels(){
+  const sel = $("#f-channel");
+  const r = await (await fetch("/api/channels")).json();
+  if (!r.ok){
+    sel.innerHTML = `<option value="">unavailable</option>`;
+    msg($("#new-msgs"), "warn",
+        `${r.error}<br><span style="opacity:.8">${r.hint||""}</span>`);
+    return;
+  }
+  CHANNELS = r.channels;
+  const usable = CHANNELS.filter(c => !c.taken_by && !c.disconnected && !c.locked);
+  sel.innerHTML =
+    (usable.length ? "" : `<option value="">no free channels</option>`) +
+    usable.map(c =>
+      `<option value="${c.id}" data-service="${c.service}">` +
+      `${c.service} · ${c.name}${c.reminders?"  (reminder mode)":""}</option>`).join("") +
+    CHANNELS.filter(c => c.taken_by).map(c =>
+      `<option value="" disabled>${c.service} · ${c.name} — used by ${c.taken_by}</option>`
+    ).join("");
+  syncChannel();
+}
+
+function syncChannel(){
+  const opt = $("#f-channel").selectedOptions[0];
+  if (!opt || !opt.value) return;
+  const c = CHANNELS.find(x => x.id === opt.value);
+  if (!c) return;
+  // The slug is a suggestion, not a lock — it stays editable.
+  if (!$("#f-slug").value) $("#f-slug").value =
+    (c.name || "campaign").toLowerCase().replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "").slice(0, 20) + "_" + c.service.slice(0, 2);
+  const nm = $("#new-msgs"); nm.innerHTML = "";
+  if (c.reminders){
+    msg(nm, "bad",
+      "This channel defaults to <b>reminder mode</b> — Buffer will only send a " +
+      "push notification instead of publishing. Turn reminders off in Buffer, " +
+      "or it will never post unattended.");
+  }
+}
+$("#f-channel").onchange = syncChannel;
+
 $("#new-btn").onclick = () => {
   const p = $("#new-panel");
-  p.style.display = p.style.display === "none" ? "block" : "none";
+  const opening = p.style.display === "none";
+  p.style.display = opening ? "block" : "none";
+  if (opening) loadChannels();
 };
 $("#cancel-btn").onclick = () => { $("#new-panel").style.display = "none"; };
 
 $("#create-btn").onclick = async (e) => {
   const nm = $("#new-msgs"); nm.innerHTML = "";
   e.target.disabled = true;
+  const opt = $("#f-channel").selectedOptions[0];
+  const chan = CHANNELS.find(x => x.id === (opt && opt.value));
+  if (!chan){
+    msg(nm, "bad", "Pick a Buffer channel first.");
+    e.target.disabled = false; return;
+  }
   const body = {
     slug: $("#f-slug").value.trim().toLowerCase(),
-    service: $("#f-service").value,
+    service: chan.service,
+    channel_id: chan.id,
     posts_per_day: +$("#f-ppd").value,
     start_hour: +$("#f-start").value,
     copy_descriptions: $("#f-copy").checked,
@@ -985,13 +1141,13 @@ $("#create-btn").onclick = async (e) => {
 
   if (!r.ok){ msg(nm, "bad", r.error); return; }
   msg(nm, "ok", `Created <b>${r.slug}</b> — ${r.files.length} files written.`);
-  msg(nm, "warn",
-    "Two things only you can do:<br>" +
-    "1. Connect the channel in Buffer.<br>" +
-    "2. Set these secrets, then commit and push so Actions picks it up:<br>" +
-    r.required_secrets.map(s =>
-      `<code>gh secret set ${s} --repo &lt;owner/repo&gt;</code>`).join("<br>"));
-  await loadCampaigns();
+  if (r.required_secrets.length){
+    msg(nm, "warn", "Still needs: " + r.required_secrets.map(s =>
+      `<code>${s}</code>`).join(", "));
+  }
+  msg(nm, "warn", "It starts paused (<code>dry_run</code>). " +
+      "Hit <b>Publish to GitHub</b> above so the workflows can see it.");
+  await loadCampaigns(); await loadPending(); await loadChannels();
 };
 
 $("#save").onclick = async () => {

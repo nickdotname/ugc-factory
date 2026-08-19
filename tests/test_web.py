@@ -254,3 +254,61 @@ class TestServerBinding:
         for line in bind_lines:
             assert '"127.0.0.1"' in line, line
             assert "0.0.0.0" not in line, line
+
+
+class TestChannelPicker:
+    """Connecting a new Buffer channel without hunting for its id."""
+
+    def _app(self, tmp_path: Path, config: CampaignConfig) -> WebApp:
+        campaigns = tmp_path / "campaigns" / "demo"
+        campaigns.mkdir(parents=True)
+        bank = campaigns / "captions.txt"
+        bank.write_text("one", encoding="utf-8")
+        return WebApp(
+            config=config, repo_root=tmp_path, inbox=tmp_path / "inbox",
+            bank_path=bank, log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW),
+        )
+
+    def test_missing_key_explains_how_to_supply_one(
+        self, tmp_path: Path, config: CampaignConfig, monkeypatch
+    ) -> None:
+        for var in ("BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN",
+                    config.buffer.api_key_secret):
+            monkeypatch.delenv(var, raising=False)
+        result = self._app(tmp_path, config).channels()
+        assert result["ok"] is False
+        assert ".env" in result["hint"]
+        assert result["channels"] == []
+
+    def test_key_is_read_from_a_local_env_file(
+        self, tmp_path: Path, config: CampaignConfig, monkeypatch
+    ) -> None:
+        for var in ("BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN",
+                    config.buffer.api_key_secret):
+            monkeypatch.delenv(var, raising=False)
+        (tmp_path / ".env").write_text(
+            "# a comment\nBUFFER_API_KEY=from-dotenv\n", encoding="utf-8"
+        )
+        assert self._app(tmp_path, config).buffer_key() == "from-dotenv"
+
+    def test_environment_takes_precedence_over_the_file(
+        self, tmp_path: Path, config: CampaignConfig, monkeypatch
+    ) -> None:
+        (tmp_path / ".env").write_text("BUFFER_API_KEY=from-file\n", encoding="utf-8")
+        monkeypatch.setenv("BUFFER_API_KEY", "from-env")
+        assert self._app(tmp_path, config).buffer_key() == "from-env"
+
+    def test_quotes_are_stripped_from_the_file_value(
+        self, tmp_path: Path, config: CampaignConfig, monkeypatch
+    ) -> None:
+        for var in ("BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN",
+                    config.buffer.api_key_secret):
+            monkeypatch.delenv(var, raising=False)
+        (tmp_path / ".env").write_text('BUFFER_API_KEY="quoted"\n', encoding="utf-8")
+        assert self._app(tmp_path, config).buffer_key() == "quoted"
+
+    def test_a_local_env_file_is_gitignored(self) -> None:
+        """It would hold a live API key; committing one is the failure mode."""
+        root = Path(__file__).resolve().parents[1]
+        assert ".env" in (root / ".gitignore").read_text(encoding="utf-8")

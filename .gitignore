@@ -11,3 +11,7 @@ dist/
 
 # Assets are hosted in GitHub Releases (SPEC §5), never in the tree.
 campaigns/*/assets/
+
+# Local Buffer key for the dashboard's channel picker. Never committed;
+# the workflows read the key from GitHub Secrets, not from here.
+.env
