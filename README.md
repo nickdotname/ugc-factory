@@ -336,6 +336,40 @@ Captions are by far the cheapest dimension to grow — they are just text. At
 the most expensive: at 3 bodies and 6 posts/day each main video goes out twice
 a day, and unique tuples do not make that look different to a viewer.
 
+### Taking a clip out of the mix
+
+A clip that stops working does not have to be deleted. Every campaign has a
+roster — `campaigns/<slug>/clips.json` — listing the assets held back from the
+randomizer:
+
+```json
+{ "disabled": ["hook_04.mov", "body_02.mp4"] }
+```
+
+Anything not listed is live, so a freshly uploaded clip needs no switching on.
+Muted clips are removed from the library *before* the selector sees it, which
+is what keeps the numbers honest: combinations, runway and the cooldown
+warnings all describe the clips actually in rotation.
+
+The dashboard (`./ugc web`) has a **Randomizer** panel — one card per clip with
+a thumbnail you can play, a switch, and a live combination count that moves as
+you flip them. The same thing from a terminal:
+
+```bash
+./ugc clips --campaign clubs                      # list, with on/off state
+./ugc clips --campaign clubs --off hook_04.mov    # hold it back
+./ugc clips --campaign clubs --on  hook_04.mov    # put it back
+./ugc clips --campaign clubs --all-on --kind body # whole role at once
+```
+
+`clips.json` is campaign state like `history.json`: the change reaches the
+render job when it is committed and pushed, not when it is saved.
+
+Deleting a clip for good is a separate, irreversible action — the × on a clip
+card removes it from the assets Release, behind a confirmation, and a re-upload
+comes back under the next free number. Muting is the reversible one, and is what you usually
+want.
+
 ---
 
 ## How it runs
@@ -363,6 +397,7 @@ publish before tomorrow.
 ./ugc topup     --campaign clubs [--dry-run] [--no-commit]
 ./ugc preflight --campaign clubs
 ./ugc cleanup   --campaign clubs [--digest]
+./ugc clips     --campaign clubs [--on NAME…] [--off NAME…] [--all-on|--all-off]
 ```
 
 ### Why the top-up job exists
@@ -415,6 +450,7 @@ src/
   models.py         typed shapes crossing module boundaries
   render.py         ffmpeg two-stage pipeline  ← only module using subprocess for media
   selector.py       combination picking, LRU weighting, relaxation ladder
+  clips.py          the per-campaign roster: which clips the randomizer may use
   assets.py         MediaStore ABC + GitHub Releases
   queue.py          state machine + atomic persistence
   vcs.py            git boundary — the durable claim

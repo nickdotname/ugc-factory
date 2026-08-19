@@ -76,6 +76,14 @@ class MediaStore(ABC):
         """Upload files and return their public URLs."""
 
     @abstractmethod
+    def delete_assets(self, tag: str, names: list[str]) -> list[str]:
+        """Remove named files from a collection. Returns what was actually gone.
+
+        Distinct from ``cleanup``, which drops whole expired Releases: this is
+        an operator retiring one clip from a library that stays.
+        """
+
+    @abstractmethod
     def cleanup(self, prefix: str, older_than_days: int) -> list[str]:
         """Delete collections older than the retention window. Returns names."""
 
@@ -313,6 +321,26 @@ class GitHubReleasesStore(MediaStore):
         self._request(
             "DELETE", f"{GITHUB_API}/repos/{self._repo}/releases/assets/{asset_id}"
         )
+
+    def delete_assets(self, tag: str, names: list[str]) -> list[str]:
+        """Delete named assets from one Release, ignoring ones already gone.
+
+        A name that is not there is not an error: the caller's intent is "this
+        should not exist", and it does not.
+        """
+        release = self._get_release(tag)
+        if release is None:
+            return []
+        wanted = set(names)
+        deleted: list[str] = []
+        for asset in release.get("assets") or []:
+            name = str(asset["name"])
+            if name not in wanted:
+                continue
+            self._delete_asset(int(asset["id"]))
+            deleted.append(name)
+            self._log.info("asset_deleted", tag=tag, name=name)
+        return deleted
 
     # --------------------------------------------------------------- cleanup
 

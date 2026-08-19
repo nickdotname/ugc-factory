@@ -64,6 +64,15 @@ class LocalMediaStore(MediaStore):
             ))
         return out
 
+    def delete_assets(self, tag: str, names: list[str]) -> list[str]:
+        gone = []
+        for name in names:
+            target = self.source / name
+            if target.is_file():
+                target.unlink()
+                gone.append(name)
+        return gone
+
     def cleanup(self, prefix: str, older_than_days: int) -> list[str]:
         return []
 

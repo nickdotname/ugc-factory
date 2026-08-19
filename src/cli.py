@@ -34,10 +34,13 @@ from src.assets import (
     check_music_licenses,
     github_token_from_env,
 )
+from src.clips import filter_library, kind_of, load_roster, roster_path, save_roster
 from src.config import CampaignConfig, NotifyEvent, TitleStrategy, load_campaign
 from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import AuthError, ConfigError, QuotaError, SelectionError, UgcError
 from src.ingest import (
+    ARCHIVE_DIR,
+    INBOX_DIRS,
     apply_plan,
     build_plan,
     combinations,
@@ -48,6 +51,7 @@ from src.logging import StructuredLogger, get_logger
 from src.models import (
     History,
     HistoryEntry,
+    PartKind,
     Queue,
     QueueItem,
     QueueStatus,
@@ -257,7 +261,13 @@ def _render(
 
     store = _build_store(env, log, clock)
     store.download_assets(_assets_tag(config), assets_dir)
-    paths = LocalLibrary.from_directory(assets_dir)
+    # Muted clips are removed before anything downstream counts them, so the
+    # ceiling logged below is the ceiling of what is actually in rotation.
+    paths = filter_library(
+        LocalLibrary.from_directory(assets_dir),
+        load_roster(roster_path(campaign_dir)),
+        log,
+    )
 
     missing_licenses = check_music_licenses(
         paths.music, assets_dir / "LICENSES.md", log
@@ -700,7 +710,11 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
             store = _build_store(env, log, clock)
             work = REPO_ROOT / "work" / config.slug / "assets"
             store.download_assets(_assets_tag(config), work)
-            paths = LocalLibrary.from_directory(work)
+            paths = filter_library(
+                LocalLibrary.from_directory(work),
+                load_roster(roster_path(_campaign_dir(config.slug))),
+                log,
+            )
 
             # Probe music exactly as the render job does. Without durations the
             # library reports one bed per track and the runway comes out ~12x
@@ -1074,10 +1088,19 @@ def cmd_setup(args: argparse.Namespace, env: dict[str, str]) -> int:
         try:
             store = GitHubReleasesStore(repo, token, log, clock)
             asset_names = store.list_assets(_assets_tag(config))
+            # Muted clips are excluded, so this readiness report describes the
+            # library the render will actually have rather than the one on the
+            # Release. Counting both would make a half-muted library look fine.
+            roster = load_roster(roster_path(_campaign_dir(config.slug)))
+            live = [n for n in asset_names if roster.is_enabled(n)]
             counts = {
-                kind: len([n for n in asset_names if n.lower().startswith(kind)])
+                kind: len([n for n in live if n.lower().startswith(kind)])
                 for kind in ("hook", "body", "music")
             }
+            held = len(asset_names) - len(live)
+            if held:
+                print(f"note: {held} clip(s) switched off in the randomizer "
+                      f"(see `ugc clips --campaign {config.slug}`)")
         except UgcError as exc:
             log.exception("setup_assets_check_failed", exc)
 
@@ -1132,6 +1155,93 @@ def _buffer_channels(
 
 
 # --------------------------------------------------------------------- command: web
+
+
+# ------------------------------------------------------------------ command: clips
+
+
+def known_clip_names(
+    config: CampaignConfig,
+    repo_root: Path,
+    store: MediaStore | None,
+    roster_names: Sequence[str] = (),
+) -> list[str]:
+    """Every asset name this campaign knows about, best source first.
+
+    The Release is the truth about what the randomizer can reach, but it costs
+    an API call and credentials. The local ``_uploaded`` archive is a free
+    mirror of everything ingested from this machine, so it stands in when
+    offline. Roster names are folded in last so a clip muted from another
+    machine still shows up instead of silently vanishing from the list.
+    """
+    names: set[str] = set(roster_names)
+    if store is not None:
+        names.update(store.list_assets(_assets_tag(config)))
+    archive = repo_root / INBOX_ROOT / config.slug / ARCHIVE_DIR
+    if archive.is_dir():
+        names.update(p.name for p in archive.iterdir() if p.is_file())
+    return sorted(n for n in names if kind_of(n) is not None)
+
+
+def cmd_clips(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Show the randomizer roster, and mute or unmute clips by name.
+
+    The dashboard is the comfortable way to do this; this exists so the same
+    operation is scriptable and works over SSH.
+    """
+    if args.all_on and args.all_off:
+        raise ConfigError("--all-on and --all-off cannot both be given")
+    log = get_logger(command="clips", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    path = roster_path(_campaign_dir(config.slug))
+    roster = load_roster(path)
+
+    changed = False
+    for names, enabled in ((args.on, True), (args.off, False)):
+        if names:
+            roster = roster.with_(names, enabled)
+            changed = True
+
+    store: MediaStore | None = None
+    if env.get("GITHUB_REPOSITORY") and env.get("GITHUB_TOKEN"):
+        store = _build_store(env, log, SystemClock())
+    known = known_clip_names(config, REPO_ROOT, store, roster.disabled)
+
+    if args.all_on or args.all_off:
+        targets = [
+            n for n in known
+            if args.kind is None or (kind_of(n) or PartKind.HOOK).value == args.kind
+        ]
+        roster = roster.with_(targets, args.all_on)
+        changed = True
+
+    if changed:
+        # Muting a name that no longer exists is harmless and is kept: the clip
+        # may live in a Release this machine cannot see, and dropping the entry
+        # would quietly un-mute it the next time credentials are present.
+        save_roster(path, roster)
+        unknown = [n for n in roster.disabled if n not in known]
+        print(f"Wrote {path.relative_to(REPO_ROOT)}")
+        if unknown:
+            print(f"  note: {', '.join(unknown)} not found in the library (kept anyway)")
+
+    for kind in PartKind:
+        group = [n for n in known if kind_of(n) is kind]
+        if not group:
+            continue
+        live = sum(1 for n in group if roster.is_enabled(n))
+        # INBOX_DIRS already holds the human plural for each role ("bodies",
+        # not "bodys"), so the label and the drop folder stay in agreement.
+        print(f"\n{INBOX_DIRS[kind]} — {live}/{len(group)} in the randomizer")
+        for name in group:
+            mark = "on " if roster.is_enabled(name) else "off"
+            print(f"  [{mark}] {name}")
+
+    if not known:
+        print("No clips found. Upload some with `ugc ingest` or the dashboard.")
+    elif changed:
+        print("\nCommit and push campaigns/ for the change to reach the workflows.")
+    return 0
 
 
 def cmd_web(args: argparse.Namespace, env: dict[str, str]) -> int:
@@ -1248,6 +1358,21 @@ def build_parser() -> argparse.ArgumentParser:
     web.add_argument("--no-open", action="store_true",
                      help="do not open a browser window")
 
+    clips = sub.add_parser(
+        "clips", help="list, mute or unmute the clips the randomizer draws from"
+    )
+    common(clips)
+    clips.add_argument("--on", nargs="+", metavar="NAME", default=[],
+                       help="put these clips back into the randomizer")
+    clips.add_argument("--off", nargs="+", metavar="NAME", default=[],
+                       help="hold these clips out of the randomizer")
+    clips.add_argument("--all-on", action="store_true",
+                       help="unmute everything (optionally narrowed by --kind)")
+    clips.add_argument("--all-off", action="store_true",
+                       help="mute everything (optionally narrowed by --kind)")
+    clips.add_argument("--kind", choices=[k.value for k in PartKind],
+                       help="limit --all-on/--all-off to one role")
+
     cleanup = sub.add_parser("cleanup", help="delete expired render Releases")
     common(cleanup)
     cleanup.add_argument("--digest", action="store_true",
@@ -1266,6 +1391,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "preflight": cmd_preflight,
         "ingest": cmd_ingest,
         "web": cmd_web,
+        "clips": cmd_clips,
         "setup": cmd_setup,
         "metrics": cmd_metrics,
         "diagnose": cmd_diagnose,

@@ -23,6 +23,7 @@ deprecated, and a single file per request streams to disk without buffering a
 from __future__ import annotations
 
 import json
+import mimetypes
 import re
 import shutil
 import threading
@@ -34,8 +35,9 @@ from urllib.parse import parse_qs, urlparse
 
 from src.assets import GitHubReleasesStore, LocalLibrary, MediaStore
 from src.campaigns import create_campaign, list_campaigns, slug_error
+from src.clips import ClipRoster, kind_of, load_roster, roster_path, save_roster
 from src.config import CampaignConfig, load_campaign
-from src.descriptions import load_bank, parse_bank, validate_bank
+from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import UgcError
 from src.ingest import (
     ARCHIVE_DIR,
@@ -116,6 +118,10 @@ class WebApp:
         # Keyed by slot: each Buffer account has its own channels, and mixing
         # them would offer a channel the campaign's key cannot post to.
         self._channels: dict[str, list[dict[str, Any]]] | None = None
+        # Names in the assets Release. Fetched once per campaign rather than on
+        # every state poll — the archive below answers the same question for
+        # free, and this only adds the clips ingested from another machine.
+        self._remote_clips: list[str] | None = None
         ensure_inbox(inbox)
 
     # ------------------------------------------------------------------ state
@@ -132,15 +138,81 @@ class WebApp:
             out[dirname] = files
         return out
 
-    def _uploaded_counts(self) -> dict[str, int]:
-        """What is already in the assets Release, by role."""
+    # -------------------------------------------------------------- the roster
+
+    @property
+    def roster_file(self) -> Path:
+        """Where this campaign's mute list lives — beside its history."""
+        return roster_path(self.bank_path.parent)
+
+    def _roster(self) -> ClipRoster:
+        # Read per call rather than cached: it is a few hundred bytes, and the
+        # CLI can rewrite it under a running dashboard.
+        return load_roster(self.roster_file)
+
+    def _archive_paths(self) -> dict[str, Path]:
+        """Local copies of ingested clips, by Release name.
+
+        These are what ``ingest`` moved aside after uploading, so they are the
+        same bytes the randomizer will use — which is what makes an honest
+        in-page preview possible without downloading from the Release.
+        """
         archive = self.inbox / ARCHIVE_DIR
+        if not archive.is_dir():
+            return {}
+        return {
+            path.name: path
+            for path in sorted(archive.iterdir())
+            if path.is_file() and not path.name.startswith(".")
+        }
+
+    def _library_names(self, refresh: bool = False) -> list[str]:
+        """Every clip the randomizer could draw from, whatever its source.
+
+        Union of the local archive, the Release listing (once per session), and
+        anything named in the roster — so a clip muted on another machine is
+        still shown as muted rather than disappearing from the list.
+        """
+        names: set[str] = set(self._archive_paths())
+        names.update(self._roster().disabled)
+        if refresh:
+            self._remote_clips = None
+        if self._remote_clips is None:
+            store = self._store()
+            if store is not None:
+                try:
+                    self._remote_clips = store.list_assets(
+                        f"assets-{self.config.slug}"
+                    )
+                except UgcError as exc:
+                    self.log.warning("clip_listing_failed", error=str(exc))
+                    self._remote_clips = []
+        names.update(self._remote_clips or [])
+        return sorted(n for n in names if kind_of(n) is not None)
+
+    def _uploaded_counts(self) -> dict[str, int]:
+        """Clips in the assets Release *and* in rotation, by role.
+
+        Muted clips are excluded on purpose: every number downstream of this —
+        combinations, runway, the cooldown warnings — is a claim about what
+        tonight's render can actually pick, and counting a muted clip would
+        overstate all of them.
+        """
+        roster = self._roster()
         counts = {kind.value: 0 for kind in PartKind}
-        if archive.is_dir():
-            for path in archive.iterdir():
-                for kind in PartKind:
-                    if path.name.lower().startswith(kind.value):
-                        counts[kind.value] += 1
+        for name in self._library_names():
+            kind = kind_of(name)
+            if kind is not None and roster.is_enabled(name):
+                counts[kind.value] += 1
+        return counts
+
+    def _muted_counts(self) -> dict[str, int]:
+        roster = self._roster()
+        counts = {kind.value: 0 for kind in PartKind}
+        for name in roster.disabled:
+            kind = kind_of(name)
+            if kind is not None:
+                counts[kind.value] += 1
         return counts
 
     def select(self, slug: str) -> dict[str, Any]:
@@ -154,6 +226,7 @@ class WebApp:
         self.bank_path = self.campaigns_dir / slug / "captions.txt"
         self.inbox = self.repo_root / "inbox" / slug
         self._music_beds = None
+        self._remote_clips = None
         ensure_inbox(self.inbox)
         self.log = self.log.bind(campaign=slug)
         return {"ok": True, "campaign": slug}
@@ -530,10 +603,10 @@ class WebApp:
         if not self.config.composition.music_random_start:
             return None
 
-        archive = self.inbox / ARCHIVE_DIR
+        roster = self._roster()
         tracks = [
-            p for p in (archive.iterdir() if archive.is_dir() else [])
-            if p.is_file() and p.name.lower().startswith("music")
+            path for name, path in self._archive_paths().items()
+            if kind_of(name) is PartKind.MUSIC and roster.is_enabled(name)
         ]
         if not tracks:
             return None
@@ -662,6 +735,7 @@ class WebApp:
             descriptions, errors, notes = [], [str(exc)], []
 
         counts = self._uploaded_counts()
+        muted = self._muted_counts()
         hooks = counts["hook"]
         bodies = counts["body"]
         music = counts["music"]
@@ -680,6 +754,7 @@ class WebApp:
             "dry_run": self.config.posting.dry_run,
             "staged": self._staged(),
             "uploaded": counts,
+            "muted": muted,
             "descriptions": {
                 "text": bank_text,
                 "count": captions,
@@ -714,6 +789,128 @@ class WebApp:
             target.unlink()
             self.log.info("web_file_removed", kind=kind.value, name=name)
         return {"ok": True}
+
+    # ------------------------------------------------------------------ clips
+
+    #: Copy shown above each group in the dashboard.
+    CLIP_GROUPS: tuple[tuple[PartKind, str, str], ...] = (
+        (PartKind.HOOK, "Hooks", "the first 1–2s that stop the scroll"),
+        (PartKind.BODY, "Bodies", "your main videos"),
+        (PartKind.MUSIC, "Music", "beds, cut into segments automatically"),
+    )
+
+    def clips(self, refresh: bool = False) -> dict[str, Any]:
+        """The randomizer roster: every clip, grouped, with its on/off state.
+
+        Also carries what the current selection *costs* — combinations and
+        runway — so muting a clip shows its consequence in the same view
+        instead of sending someone to a different panel to find out.
+        """
+        roster = self._roster()
+        names = self._library_names(refresh=refresh)
+        local = self._archive_paths()
+
+        groups: list[dict[str, Any]] = []
+        for kind, label, sub in self.CLIP_GROUPS:
+            items = []
+            for name in names:
+                if kind_of(name) is not kind:
+                    continue
+                path = local.get(name)
+                items.append({
+                    "name": name,
+                    "enabled": roster.is_enabled(name),
+                    "size": path.stat().st_size if path else None,
+                    # Preview streams the local copy; a clip ingested from
+                    # another machine has none, and the card says so rather
+                    # than showing a broken player.
+                    "preview": path is not None,
+                })
+            groups.append({
+                "kind": kind.value,
+                "label": label,
+                "sub": sub,
+                "clips": items,
+                "enabled": sum(1 for c in items if c["enabled"]),
+                "total": len(items),
+            })
+
+        counts = self._uploaded_counts()
+        captions = len(self._descriptions())
+        total = combinations(
+            counts["hook"], counts["body"], counts["music"], captions,
+            self.config.composition.bodies_per_video,
+            music_options=self._music_bed_count(),
+        )
+        ppd = self.config.posting.posts_per_day
+        # Switching a whole role off is one click away, and the render only
+        # fails at 05:00 the next morning. Name it here instead.
+        blocking = [
+            g["label"] for g in groups
+            if g["kind"] != PartKind.MUSIC.value and g["total"] and not g["enabled"]
+        ]
+        return {
+            "groups": groups,
+            "blocking": blocking,
+            "muted": len(roster.disabled),
+            "combinations": total,
+            "runway_days": round(total / max(1, ppd), 1),
+            "min_runway_days": self.config.selection.min_runway_days,
+        }
+
+    def set_clips(self, names: list[str], enabled: bool) -> dict[str, Any]:
+        """Mute or unmute clips. Nothing is deleted and nothing is uploaded."""
+        clean = [n for n in (_safe_name(raw) or "" for raw in names) if n]
+        if not clean:
+            return {"ok": False, "error": "no valid clip names given"}
+        save_roster(self.roster_file, self._roster().with_(clean, enabled))
+        # A muted track must stop contributing beds, and that number is cached.
+        self._music_beds = None
+        self.log.info(
+            "clips_toggled", enabled=enabled, count=len(clean), names=clean
+        )
+        return {"ok": True, "changed": clean, "enabled": enabled}
+
+    def delete_clip(self, name: str) -> dict[str, Any]:
+        """Remove a clip from the Release for good, plus its local copy.
+
+        Separate from muting on purpose, and the irreversible one of the two:
+        the file is gone from the media store, and a re-upload comes back under
+        the next free number rather than the old one. The dashboard asks before
+        calling this; muting is what the toggle does.
+        """
+        store = self._store()
+        if store is None:
+            return {
+                "ok": False,
+                "error": "No GitHub credentials, so the Release copy cannot be "
+                         "removed. Mute the clip instead — it has the same "
+                         "effect on the randomizer.",
+            }
+        removed = store.delete_assets(f"assets-{self.config.slug}", [name])
+        local = self._archive_paths().get(name)
+        if local is not None:
+            local.unlink()
+        # The roster entry goes too, so a future clip cannot inherit a mute
+        # from a name that was recycled.
+        save_roster(self.roster_file, self._roster().with_([name], True))
+        self._remote_clips = None
+        self._music_beds = None
+        self.log.info("clip_deleted", name=name, from_release=bool(removed))
+        return {"ok": True, "name": name, "from_release": bool(removed)}
+
+    def clip_file(self, name: str) -> Path | None:
+        """Local path for an in-page preview, or None if this machine has none."""
+        return self._archive_paths().get(name)
+
+    def _descriptions(self) -> list[Description]:
+        """Parsed description bank, or empty when it does not yet validate."""
+        if not self.bank_path.is_file():
+            return []
+        try:
+            return parse_bank(self.bank_path.read_text(encoding="utf-8"))
+        except UgcError:
+            return []
 
     def save_descriptions(self, text: str) -> dict[str, Any]:
         """Write the bank, reporting problems without refusing to save.
@@ -821,6 +1018,58 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
         def _query(self) -> dict[str, list[str]]:
             return parse_qs(urlparse(self.path).query)
 
+        def _serve_clip(self, raw_name: str) -> None:
+            """Stream a local clip so the dashboard can show what it is.
+
+            Honours Range because <video> asks for one when the user scrubs;
+            answering 200 to a range request makes seeking silently fail in
+            Safari. The name goes through the same sanitiser as uploads, and
+            the path is then looked up in a dictionary of real files rather
+            than joined — so nothing outside the archive is reachable.
+            """
+            name = _safe_name(raw_name)
+            path = app.clip_file(name) if name else None
+            if path is None or not path.is_file():
+                self._json({"error": "no local copy of that clip"}, 404)
+                return
+
+            size = path.stat().st_size
+            ctype = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
+            start, end = 0, size - 1
+            status = 200
+            match = re.match(r"bytes=(\d*)-(\d*)", self.headers.get("Range") or "")
+            if match and size:
+                if match.group(1):
+                    start = min(int(match.group(1)), size - 1)
+                    if match.group(2):
+                        end = min(int(match.group(2)), size - 1)
+                else:  # suffix range: the last N bytes
+                    start = max(0, size - int(match.group(2) or 0))
+                status = 206
+
+            length = max(0, end - start + 1)
+            self.send_response(status)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(length))
+            self.send_header("Accept-Ranges", "bytes")
+            if status == 206:
+                self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+            self.end_headers()
+            with path.open("rb") as handle:
+                handle.seek(start)
+                remaining = length
+                while remaining > 0:
+                    chunk = handle.read(min(1024 * 256, remaining))
+                    if not chunk:
+                        break
+                    # A closed player socket is normal (the user navigated
+                    # away); it is not worth a traceback in the log.
+                    try:
+                        self.wfile.write(chunk)
+                    except (BrokenPipeError, ConnectionResetError):
+                        return
+                    remaining -= len(chunk)
+
         def _body(self) -> bytes:
             length = int(self.headers.get("Content-Length") or 0)
             if length > MAX_UPLOAD_BYTES:
@@ -852,6 +1101,10 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.pending_changes())
             elif route == "/api/metrics":
                 self._json(app.metrics())
+            elif route == "/api/clips":
+                self._json(app.clips(refresh="refresh" in self._query()))
+            elif route == "/api/clip":
+                self._serve_clip((self._query().get("name") or [""])[0])
             elif route == "/api/plan":
                 try:
                     self._json(app.plan())
@@ -887,6 +1140,16 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                     payload = json.loads(self._body() or b"{}")
                     self._json(app.publish(str(payload.get("message", ""))))
 
+                elif route == "/api/clips":
+                    payload = json.loads(self._body() or b"{}")
+                    names = payload.get("names") or []
+                    if not isinstance(names, list):
+                        self._json({"ok": False, "error": "names must be a list"}, 400)
+                        return
+                    self._json(app.set_clips(
+                        [str(n) for n in names], bool(payload.get("enabled"))
+                    ))
+
                 elif route == "/api/ingest":
                     self._json(app.upload())
 
@@ -898,7 +1161,18 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json({"ok": False, "error": str(exc)}, 400)
 
         def do_DELETE(self) -> None:  # noqa: N802
-            if urlparse(self.path).path != "/api/inbox":
+            route = urlparse(self.path).path
+            if route == "/api/clips":
+                name = _safe_name((self._query().get("name") or [""])[0])
+                if name is None:
+                    self._json({"ok": False, "error": "bad filename"}, 400)
+                    return
+                try:
+                    self._json(app.delete_clip(name))
+                except UgcError as exc:
+                    self._json({"ok": False, "error": str(exc)}, 200)
+                return
+            if route != "/api/inbox":
                 self._json({"error": "not found"}, 404)
                 return
             query = self._query()
@@ -1142,6 +1416,91 @@ PAGE = """<!doctype html>
   .files button:hover { color:var(--down); filter:none; }
   .empty { color:var(--ink-3); font-style:italic; font-size:12px; }
 
+  /* ── Randomizer ────────────────────────────────────────────────────────
+     One card per clip, because a filename like hook_04.mov tells nobody
+     which clip it is. The thumbnail is the identifier; the switch is the
+     only control that matters, so it is the only one always visible.     */
+  .mixhead {
+    display:flex; align-items:center; gap:12px; margin:0 0 11px;
+  }
+  .mixhead .t { font-size:13px; font-weight:650; letter-spacing:-.01em; }
+  .mixhead .n {
+    font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums;
+  }
+  .mixgroup { margin-bottom:26px; }
+  .mixgroup:last-child { margin-bottom:0; }
+  .mixgrid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(132px,1fr));
+    gap:13px;
+  }
+  .clip {
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); overflow:hidden; position:relative;
+    transition:border-color .16s, opacity .18s, transform .16s;
+  }
+  .clip:hover { border-color:var(--line-2); }
+  /* Muted clips stay in place and stay legible — they are coming back. A
+     removed-looking card would suggest the file is gone, which it is not. */
+  .clip.off { opacity:.44; }
+  .clip.off:hover { opacity:.7; }
+  .clip .thumb {
+    position:relative; aspect-ratio:9/16; background:var(--panel-2);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .clip .thumb video { width:100%; height:100%; object-fit:cover; display:block; }
+  .clip .thumb:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+  .clip.off .thumb video { filter:grayscale(1); }
+  .clip .glyph { font-size:26px; opacity:.5; }
+  .clip .nolocal {
+    font-size:10.5px; color:var(--ink-3); text-align:center; padding:0 10px;
+    line-height:1.45;
+  }
+  .clip .play {
+    position:absolute; inset:0; display:flex; align-items:center;
+    justify-content:center; opacity:0; transition:opacity .16s;
+    background:color-mix(in srgb,#000 34%,transparent); color:#fff;
+    font-size:20px; pointer-events:none;
+  }
+  .clip .thumb:hover .play { opacity:1; }
+  .clip .bar {
+    display:flex; align-items:center; gap:8px; padding:9px 10px;
+    border-top:1px solid var(--line);
+  }
+  .clip .nm {
+    flex:1; font-size:11.5px; overflow:hidden; text-overflow:ellipsis;
+    white-space:nowrap; font-family:"IBM Plex Mono", monospace;
+  }
+  .clip .sz {
+    position:absolute; top:7px; left:7px; font-size:10px; color:#fff;
+    background:color-mix(in srgb,#000 55%,transparent); padding:2px 6px;
+    border-radius:999px; font-variant-numeric:tabular-nums;
+  }
+  .clip .kill {
+    position:absolute; top:6px; right:6px; opacity:0; transition:opacity .14s;
+    background:color-mix(in srgb,#000 55%,transparent); color:#fff;
+    border:none; border-radius:50%; width:22px; height:22px; padding:0;
+    font-size:14px; line-height:1;
+  }
+  .clip:hover .kill, .clip .kill:focus-visible { opacity:1; }
+  .clip .kill:hover { background:var(--down); filter:none; }
+
+  /* Switch: the whole feature in one control, so it gets a real one.
+     Named .tgl, not .sw — the charts already own .sw for legend swatches. */
+  .tgl {
+    position:relative; flex:none; width:32px; height:18px; padding:0;
+    border:none; border-radius:999px; background:var(--line-2);
+    transition:background .16s;
+  }
+  .tgl::after {
+    content:""; position:absolute; top:2px; left:2px; width:14px; height:14px;
+    border-radius:50%; background:var(--ink-2);
+    transition:transform .16s cubic-bezier(.2,.8,.3,1), background .16s;
+  }
+  .tgl[aria-checked="true"] { background:var(--accent); }
+  .tgl[aria-checked="true"]::after { transform:translateX(14px); background:#fff; }
+  .tgl:hover { filter:none; }
+  .tgl:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
   /* ── Messages ──────────────────────────────────────────────────────── */
   .msg {
     font-size:12.5px; line-height:1.5; padding:10px 13px;
@@ -1344,6 +1703,19 @@ PAGE = """<!doctype html>
   </section>
 
   <section>
+    <h2>Randomizer <small>switch a clip off to hold it back — nothing is deleted</small></h2>
+    <div class="card pad" style="margin-bottom:14px">
+      <div class="row" style="margin:0;align-items:baseline">
+        <div id="mix-summary" style="font-size:13px;color:var(--ink-2)">loading…</div>
+        <span class="spacer"></span>
+        <button class="ghost sm" id="mix-refresh" title="Re-read the assets Release">Refresh</button>
+      </div>
+      <div id="mix-note"></div>
+    </div>
+    <div id="mix"></div>
+  </section>
+
+  <section>
     <h2>Descriptions <small>the text each video is posted with</small></h2>
     <textarea id="bank" spellcheck="false"
       placeholder="One description per record, separated by a line of ---"></textarea>
@@ -1483,6 +1855,10 @@ function render(s){
   const notes = [];
   if (h.runway_days < h.min_runway_days)
     notes.push(["warn", `Runway ${Math.round(h.runway_days)}d is under the ${h.min_runway_days}d target — preflight will fail.`]);
+  const held = Object.values(s.muted || {}).reduce((a,b) => a+b, 0);
+  if (held)
+    notes.push(["ok", `${held} clip${held>1?"s":""} switched off in the ` +
+      `randomizer — not counted above.`]);
   h.warnings.forEach(w => notes.push(["warn", w]));
   if (!notes.length && h.combinations > 0)
     notes.push(["ok", "Library supports the configured cadence with no relaxation."]);
@@ -1498,6 +1874,178 @@ function render(s){
   s.descriptions.errors.forEach(e => msg(bm,"bad",e));
   s.descriptions.notes.slice(0,5).forEach(n => msg(bm,"warn",n));
 }
+
+/* ── Randomizer ───────────────────────────────────────────────────────────
+   The roster is rendered from a single fetch and mutated optimistically: a
+   toggle repaints instantly and the POST catches up, because a switch that
+   waits on a round trip before moving feels broken even when it is not.    */
+let CLIPS = null;
+
+function clipCard(c, kind){
+  const q = encodeURIComponent(c.name);
+  const esc = c.name.replace(/'/g, "\\'");
+  const thumb = !c.preview
+    ? `<div class="nolocal">uploaded from another machine — no preview here</div>`
+    : kind === "music"
+      ? `<span class="glyph">♪</span><audio preload="none" src="/api/clip?name=${q}"></audio>
+         <span class="play">▶</span>`
+      : `<video preload="metadata" muted playsinline
+                src="/api/clip?name=${q}#t=0.1"></video><span class="play">▶</span>`;
+  return `<div class="clip ${c.enabled ? "" : "off"}" data-name="${c.name}">
+    <div class="thumb" onclick="peek(this)" tabindex="0" role="button"
+         aria-label="Play ${c.name}"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();peek(this)}">${thumb}
+      ${c.size ? `<span class="sz num">${bytes(c.size)}</span>` : ""}
+    </div>
+    <button class="kill" title="Delete ${c.name} for good"
+      aria-label="Delete ${c.name} permanently"
+      onclick="killClip('${esc}')">×</button>
+    <div class="bar">
+      <span class="nm" title="${c.name}">${c.name}</span>
+      <button class="tgl" role="switch" aria-checked="${c.enabled}"
+        aria-label="${c.name} in the randomizer"
+        onclick="flip('${esc}', ${!c.enabled})"></button>
+    </div>
+  </div>`;
+}
+
+/* Everything above the grid: counts, warnings, and which bulk buttons apply. */
+function paintMixHeader(){
+  const r = CLIPS;
+  const live = r.groups.reduce((n,g) => n + g.enabled, 0);
+  const all  = r.groups.reduce((n,g) => n + g.total, 0);
+  $("#mix-summary").innerHTML = all
+    ? `<b>${live}</b> of ${all} clips in the mix · <b>${
+         r.combinations.toLocaleString()}</b> combinations · <b>${
+         Math.round(r.runway_days).toLocaleString()}</b> days runway`
+    : `Nothing uploaded yet.`;
+
+  const note = $("#mix-note"); note.innerHTML = "";
+  (r.blocking || []).forEach(label => msg(note, "bad",
+    `Every clip under <b>${label}</b> is switched off — the next render will ` +
+    `fail. Switch at least one back on.`));
+  if (all && !(r.blocking || []).length && r.runway_days < r.min_runway_days)
+    msg(note, "warn", `Runway is under the ${r.min_runway_days}-day target — ` +
+        `switch some clips back on, or add more.`);
+  if (r.muted)
+    msg(note, "ok", `${r.muted} clip${r.muted>1?"s":""} held back. They stay ` +
+        `uploaded and come straight back when you switch them on.`);
+
+  r.groups.forEach(g => {
+    const head = document.querySelector(`.mixgroup[data-kind="${g.kind}"] .mixhead`);
+    if (!head) return;
+    head.querySelector(".n").textContent = `${g.enabled}/${g.total} on`;
+    const [on, off] = head.querySelectorAll("button");
+    on.disabled = g.enabled === g.total;
+    off.disabled = g.enabled === 0;
+  });
+}
+
+/* Flip the switches without touching the cards themselves — rebuilding the
+   grid would tear down every <video> and restart the one that is playing. */
+function paintMixStates(){
+  CLIPS.groups.forEach(g => g.clips.forEach(c => {
+    const card = document.querySelector(`.clip[data-name="${CSS.escape(c.name)}"]`);
+    if (!card) return;
+    card.classList.toggle("off", !c.enabled);
+    card.querySelector(".tgl").setAttribute("aria-checked", String(c.enabled));
+  }));
+  paintMixHeader();
+}
+
+function mixSignature(r){
+  return r.groups.map(g => g.clips.map(c => c.name).join(",")).join("|");
+}
+
+function renderClips(){
+  const r = CLIPS;
+  if (!r) return;
+  const all = r.groups.reduce((n,g) => n + g.total, 0);
+
+  // Same cards as are already on screen: patch, do not rebuild.
+  if ($("#mix").dataset.sig === mixSignature(r) && all){ paintMixStates(); return; }
+  $("#mix").dataset.sig = mixSignature(r);
+
+  $("#mix").innerHTML = all ? r.groups.map(g => `
+    <div class="mixgroup" data-kind="${g.kind}">
+      <div class="mixhead">
+        <span class="t">${g.label}</span>
+        <span class="n"></span>
+        <span class="spacer"></span>
+        <button class="ghost sm" onclick="flipGroup('${g.kind}', true)">All on</button>
+        <button class="ghost sm" onclick="flipGroup('${g.kind}', false)">All off</button>
+      </div>
+      ${g.total
+        ? `<div class="mixgrid">${g.clips.map(c => clipCard(c, g.kind)).join("")}</div>`
+        : `<div class="empty">no ${g.label.toLowerCase()} uploaded yet</div>`}
+    </div>`).join("")
+    : `<div class="card pad"><span class="empty">Drop clips into the zones above
+         and hit Upload — they appear here, switched on.</span></div>`;
+  paintMixHeader();
+}
+
+/* Click a thumbnail to check which clip it actually is. */
+function peek(thumb){
+  const media = thumb.querySelector("video, audio");
+  if (!media) return;
+  document.querySelectorAll("#mix video, #mix audio").forEach(m => {
+    if (m !== media) m.pause();
+  });
+  if (media.paused){ media.currentTime = media.currentTime || 0; media.play(); }
+  else media.pause();
+}
+
+async function push(names, enabled){
+  await fetch("/api/clips", {method:"POST",
+    body: JSON.stringify({names, enabled})});
+  await loadClips();
+  await refresh();
+}
+
+async function flip(name, enabled){
+  for (const g of CLIPS.groups)
+    for (const c of g.clips)
+      if (c.name === name) c.enabled = enabled;
+  CLIPS.groups.forEach(g => g.enabled = g.clips.filter(c => c.enabled).length);
+  CLIPS.muted = CLIPS.groups.reduce((n,g) => n + (g.total - g.enabled), 0);
+  paintMixStates();
+  await push([name], enabled);
+}
+
+async function flipGroup(kind, enabled){
+  const g = CLIPS.groups.find(g => g.kind === kind);
+  const names = g.clips.filter(c => c.enabled !== enabled).map(c => c.name);
+  if (!names.length) return;
+  g.clips.forEach(c => c.enabled = enabled);
+  g.enabled = enabled ? g.total : 0;
+  CLIPS.muted = CLIPS.groups.reduce((n,g) => n + (g.total - g.enabled), 0);
+  paintMixStates();
+  await push(names, enabled);
+}
+
+/* Deletion is the irreversible half, so it asks — and says what the reversible
+   alternative is, because muting is what people usually mean. */
+async function killClip(name){
+  if (!confirm(`Delete ${name} from GitHub permanently?\n\n` +
+               `This cannot be undone. To take it out of the randomizer ` +
+               `without losing it, switch it off instead.`)) return;
+  const r = await (await fetch(`/api/clips?name=${encodeURIComponent(name)}`,
+                               {method:"DELETE"})).json();
+  if (!r.ok){ msg($("#mix-note"), "bad", r.error); return; }
+  await loadClips();
+  await refresh();
+}
+
+async function loadClips(refresh){
+  CLIPS = await (await fetch("/api/clips" + (refresh ? "?refresh=1" : ""))).json();
+  renderClips();
+}
+
+$("#mix-refresh").onclick = async (e) => {
+  e.target.disabled = true;
+  await loadClips(true);
+  e.target.disabled = false;
+};
 
 function renderOverall(r){
   const el = $("#overall");
@@ -1602,7 +2150,7 @@ async function loadCampaigns(){
 
 $("#switcher").onchange = async (e) => {
   await fetch("/api/select", {method:"POST", body: JSON.stringify({slug: e.target.value})});
-  await refresh(); await loadMetrics();
+  await refresh(); await loadClips(); await loadMetrics();
 };
 
 async function loadKeys(){
@@ -1735,7 +2283,9 @@ $("#upload").onclick = async (e) => {
     } else msg(um,"bad",r.error);
   } catch(err){ msg(um,"bad",String(err)); }
   e.target.disabled = false; e.target.textContent = "Upload to GitHub";
-  refresh();
+  // Refresh past the cached Release listing: the clips that just landed are
+  // the ones the operator wants to see in the mix.
+  refresh(); loadClips(true); loadPending();
 };
 
 
@@ -2053,7 +2603,8 @@ $("#c-table").onclick = e => {
 addEventListener("resize", () => { clearTimeout(window._cr);
   window._cr = setTimeout(drawCharts, 180); });
 
-buildZones(); loadCampaigns(); refresh(); loadMetrics(); loadPending(); loadCharts();
+buildZones(); loadCampaigns(); refresh(); loadClips(); loadMetrics();
+loadPending(); loadCharts();
 setInterval(() => { refresh(); loadPending(); }, 5000);
 setInterval(() => { loadMetrics(); loadCharts(); }, 300000);
 </script>

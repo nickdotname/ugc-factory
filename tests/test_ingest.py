@@ -46,6 +46,11 @@ class RecordingStore(MediaStore):
         return [RemoteAsset(name=f.name, url=f"https://x/{f.name}", size_bytes=1)
                 for f in files]
 
+    def delete_assets(self, tag: str, names: list[str]) -> list[str]:
+        gone = [n for n in names if n in self.existing]
+        self.existing = [n for n in self.existing if n not in names]
+        return gone
+
     def cleanup(self, prefix: str, older_than_days: int) -> list[str]:
         return []
 

@@ -28,6 +28,7 @@ class FakeStore(MediaStore):
     def __init__(self) -> None:
         self.existing: list[str] = []
         self.published: list[str] = []
+        self.deleted: list[str] = []
 
     def download_assets(self, tag: str, dest_dir: Path) -> list[Path]:
         return []
@@ -41,6 +42,12 @@ class FakeStore(MediaStore):
             self.existing.append(f.name)
         return [RemoteAsset(name=f.name, url=f"https://x/{f.name}", size_bytes=1)
                 for f in files]
+
+    def delete_assets(self, tag: str, names: list[str]) -> list[str]:
+        gone = [n for n in names if n in self.existing]
+        self.existing = [n for n in self.existing if n not in names]
+        self.deleted.extend(gone)
+        return gone
 
     def cleanup(self, prefix: str, older_than_days: int) -> list[str]:
         return []
@@ -232,6 +239,143 @@ class TestPlanAndUpload:
         app.save_file(PartKind.HOOK, "a.mp4", clips["portrait"].read_bytes())
         app.upload()
         assert app.state()["uploaded"]["hook"] == 1
+
+
+class TestRandomizerRoster:
+    """Switching a clip off must change what the pipeline can pick, not just
+    what the page looks like."""
+
+    def stage(self, app: WebApp, *names: str) -> None:
+        """Put files where ``ingest`` leaves them after a successful upload."""
+        archive = app.inbox / "_uploaded"
+        archive.mkdir(parents=True, exist_ok=True)
+        for name in names:
+            (archive / name).write_bytes(b"x" * 32)
+
+    def test_clips_are_grouped_by_role_and_start_enabled(self, app: WebApp) -> None:
+        self.stage(app, "hook_01.mp4", "body_01.mp4", "music_01.mp3")
+        groups = {g["kind"]: g for g in app.clips()["groups"]}
+        assert [c["name"] for c in groups["hook"]["clips"]] == ["hook_01.mp4"]
+        assert groups["body"]["enabled"] == 1
+        assert all(c["enabled"] for g in groups.values() for c in g["clips"])
+
+    def test_switching_a_clip_off_drops_it_from_the_counts(
+        self, app: WebApp
+    ) -> None:
+        self.stage(app, "hook_01.mp4", "hook_02.mp4")
+        app.set_clips(["hook_02.mp4"], False)
+        assert app.state()["uploaded"]["hook"] == 1
+        assert app.state()["muted"]["hook"] == 1
+
+    def test_a_muted_clip_is_still_listed_so_it_can_be_switched_back(
+        self, app: WebApp
+    ) -> None:
+        self.stage(app, "hook_01.mp4")
+        app.set_clips(["hook_01.mp4"], False)
+        group = app.clips()["groups"][0]
+        assert group["total"] == 1 and group["enabled"] == 0
+        assert group["clips"][0]["enabled"] is False
+
+    def test_muting_lowers_the_reported_combinations(self, app: WebApp) -> None:
+        self.stage(app, "hook_01.mp4", "hook_02.mp4", "body_01.mp4")
+        before = app.clips()["combinations"]
+        app.set_clips(["hook_02.mp4"], False)
+        after = app.clips()["combinations"]
+        assert 0 < after < before
+
+    def test_switching_back_on_restores_it(self, app: WebApp) -> None:
+        self.stage(app, "hook_01.mp4")
+        app.set_clips(["hook_01.mp4"], False)
+        app.set_clips(["hook_01.mp4"], True)
+        assert app.state()["uploaded"]["hook"] == 1
+        assert app.roster_file.exists()
+
+    def test_the_roster_survives_a_restart(
+        self, app: WebApp, tmp_path: Path, config: CampaignConfig
+    ) -> None:
+        self.stage(app, "hook_01.mp4")
+        app.set_clips(["hook_01.mp4"], False)
+        fresh = WebApp(
+            config=config, repo_root=tmp_path, inbox=tmp_path / "inbox",
+            bank_path=app.bank_path, log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=FakeStore,
+        )
+        assert fresh.state()["uploaded"]["hook"] == 0
+
+    def test_a_name_that_escapes_the_campaign_is_refused(self, app: WebApp) -> None:
+        assert app.set_clips(["../../etc/passwd"], False)["ok"] is True
+        # Reduced to a basename before it is written, never a path.
+        assert app.roster_file.read_text().count("passwd") == 1
+        assert ".." not in app.roster_file.read_text()
+
+    def test_an_empty_request_changes_nothing(self, app: WebApp) -> None:
+        assert app.set_clips([], False)["ok"] is False
+        assert not app.roster_file.exists()
+
+    def test_clips_from_the_release_appear_without_a_local_copy(
+        self, app: WebApp
+    ) -> None:
+        store = FakeStore()
+        store.existing = ["hook_09.mp4"]
+        app._store_factory = lambda: store
+        clip = app.clips()["groups"][0]["clips"][0]
+        assert clip["name"] == "hook_09.mp4" and clip["preview"] is False
+
+    def test_non_asset_files_are_not_listed_as_clips(self, app: WebApp) -> None:
+        self.stage(app, "LICENSES.md", "hook_01.mp4")
+        names = [c["name"] for g in app.clips()["groups"] for c in g["clips"]]
+        assert names == ["hook_01.mp4"]
+
+    def test_preview_is_served_only_for_clips_that_exist_locally(
+        self, app: WebApp
+    ) -> None:
+        self.stage(app, "hook_01.mp4")
+        assert app.clip_file("hook_01.mp4") is not None
+        assert app.clip_file("hook_02.mp4") is None
+
+
+class TestClipDeletion:
+    """The irreversible half — it must reach the Release, not just the disk."""
+
+    def test_delete_removes_the_release_asset_and_the_local_copy(
+        self, app: WebApp
+    ) -> None:
+        store = FakeStore()
+        store.existing = ["hook_01.mp4"]
+        app._store_factory = lambda: store
+        archive = app.inbox / "_uploaded"
+        archive.mkdir(parents=True, exist_ok=True)
+        (archive / "hook_01.mp4").write_bytes(b"x")
+
+        result = app.delete_clip("hook_01.mp4")
+        assert result["ok"] and store.deleted == ["hook_01.mp4"]
+        assert not (archive / "hook_01.mp4").exists()
+        assert app.clips()["groups"][0]["clips"] == []
+
+    def test_deleting_clears_any_mute_so_a_reused_name_is_not_born_muted(
+        self, app: WebApp
+    ) -> None:
+        store = FakeStore()
+        store.existing = ["hook_01.mp4"]
+        app._store_factory = lambda: store
+        app.set_clips(["hook_01.mp4"], False)
+        app.delete_clip("hook_01.mp4")
+        from src.clips import load_roster
+
+        assert load_roster(app.roster_file).disabled == ()
+
+    def test_delete_without_credentials_points_at_muting_instead(
+        self, tmp_path: Path, config: CampaignConfig
+    ) -> None:
+        bank = tmp_path / "b.txt"
+        bank.write_text("one", encoding="utf-8")
+        app = WebApp(
+            config=config, repo_root=tmp_path, inbox=tmp_path / "inbox",
+            bank_path=bank, log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=lambda: None,  # type: ignore[arg-type,return-value]
+        )
+        result = app.delete_clip("hook_01.mp4")
+        assert result["ok"] is False and "Mute the clip instead" in result["error"]
 
 
 class TestServerBinding:
