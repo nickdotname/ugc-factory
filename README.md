@@ -336,6 +336,27 @@ Captions are by far the cheapest dimension to grow — they are just text. At
 the most expensive: at 3 bodies and 6 posts/day each main video goes out twice
 a day, and unique tuples do not make that look different to a viewer.
 
+### Where credentials live
+
+Two stores, and confusing them is the usual cause of "posting works but the
+dashboard cannot see my channels", or its mirror image:
+
+| | read by | holds |
+|---|---|---|
+| `.env` at the repo root | the dashboard only | gitignored, `0600`, this machine |
+| GitHub Actions secrets | the workflows only | what actually posts |
+
+The dashboard's **Keys** panel writes both. Paste a value once and it lands in
+`.env` and, via `gh secret set`, in the repository's Actions secrets. It shows
+which campaigns need each name and which store currently has it; neither store
+can be read back, so a value is replaced by pasting a new one, never edited.
+The value goes to `gh` on stdin rather than as an argument, since arguments are
+visible to every process on the machine.
+
+"Forget locally" drops the `.env` copy only. Deleting the GitHub copy would
+silently stop a campaign, so it is not offered here — do that in the
+repository's settings, deliberately.
+
 ### One library, several campaigns
 
 Campaigns posting the same content to different networks point at one assets

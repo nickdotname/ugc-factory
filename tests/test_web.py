@@ -7,13 +7,16 @@ starting a server. The handler is a thin translation layer over it.
 from __future__ import annotations
 
 import io
+import json
 from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
 
 from src.assets import MediaStore, RemoteAsset
-from src.config import CampaignConfig
+from src.config import CampaignConfig, load_campaign
+from src.errors import UgcError
+from src.keys import mask, read_env
 from src.logging import StructuredLogger
 from src.models import PartKind
 from src.ports import FrozenClock
@@ -413,6 +416,126 @@ class TestClipDeletion:
         )
         result = app.delete_clip("hook_01.mp4")
         assert result["ok"] is False and "Mute the clip instead" in result["error"]
+
+
+class TestSecretsPanel:
+    """Pasting a credential must reach both stores, and leak from neither."""
+
+    @pytest.fixture
+    def wired(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> WebApp:
+        """A dashboard over a real campaign directory, with gh stubbed out."""
+        from src.campaigns import create_campaign
+        from src.platforms import Service
+
+        campaigns = tmp_path / "campaigns"
+        campaigns.mkdir()
+        create_campaign(campaigns, "demo", Service.TIKTOK, channel_id="c1")
+
+        self.pushed: list[tuple[str, str]] = []
+        monkeypatch.setattr(
+            "src.web.set_github_secret",
+            lambda root, name, value: self.pushed.append((name, value)),
+        )
+        monkeypatch.setattr("src.web.list_github_secrets", lambda root: [])
+        monkeypatch.delenv("DISCORD_WEBHOOK", raising=False)
+        return WebApp(
+            config=load_campaign(campaigns, "demo"),
+            repo_root=tmp_path, inbox=tmp_path / "inbox",
+            bank_path=campaigns / "demo" / "captions.txt",
+            log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=FakeStore,
+        )
+
+    def test_it_lists_the_secrets_the_campaigns_actually_need(
+        self, wired: WebApp
+    ) -> None:
+        names = {s["name"] for s in wired.secrets()["secrets"]}
+        # The channel id is written inline for this campaign, so no channel
+        # secret should be demanded.
+        assert names == {"BUFFER_API_KEY", "DISCORD_WEBHOOK"}
+
+    def test_each_secret_names_the_campaigns_waiting_on_it(
+        self, wired: WebApp
+    ) -> None:
+        entry = next(s for s in wired.secrets()["secrets"]
+                     if s["name"] == "BUFFER_API_KEY")
+        assert entry["campaigns"] == ["demo"]
+        assert entry["local"] is False and entry["github"] is False
+
+    def test_saving_writes_locally_and_pushes_to_github(
+        self, wired: WebApp
+    ) -> None:
+        result = wired.save_secret("BUFFER_API_KEY", "abc123xyz789")
+        assert result["ok"] and result["local"] and result["github"]
+        assert self.pushed == [("BUFFER_API_KEY", "abc123xyz789")]
+        assert read_env(wired.env_file)["BUFFER_API_KEY"] == "abc123xyz789"
+
+    def test_the_value_is_never_returned_to_the_browser(
+        self, wired: WebApp
+    ) -> None:
+        wired.save_secret("BUFFER_API_KEY", "abc123xyz789")
+        payload = wired.secrets()
+        assert "abc123xyz789" not in json.dumps(payload)
+        entry = next(x for x in payload["secrets"] if x["name"] == "BUFFER_API_KEY")
+        assert entry["hint"] == mask("abc123xyz789")  # only the masked tail
+
+    def test_the_value_is_never_logged(self, tmp_path: Path, wired: WebApp) -> None:
+        stream = io.StringIO()
+        wired.log = StructuredLogger({}, stream)
+        wired.save_secret("BUFFER_API_KEY", "abc123xyz789")
+        assert "abc123xyz789" not in stream.getvalue()
+        assert "secret_saved" in stream.getvalue()
+
+    def test_a_name_no_campaign_uses_is_refused(self, wired: WebApp) -> None:
+        # A typo would otherwise write a credential to a key nothing reads
+        # and report success.
+        result = wired.save_secret("BUFFER_API_KEY_7", "abc123xyz789")
+        assert result["ok"] is False and "no campaign" in result["error"]
+        assert self.pushed == []
+
+    def test_a_github_failure_still_keeps_the_local_copy(
+        self, wired: WebApp, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        from src.keys import SecretError
+
+        def boom(root: Path, name: str, value: str) -> None:
+            raise SecretError("gh exploded")
+
+        monkeypatch.setattr("src.web.set_github_secret", boom)
+        result = wired.save_secret("BUFFER_API_KEY", "abc123xyz789")
+        assert result["ok"] and result["local"] and result["github"] is False
+        assert "gh exploded" in result["github_error"]
+        assert read_env(wired.env_file)["BUFFER_API_KEY"] == "abc123xyz789"
+
+    def test_opting_out_of_github_writes_only_the_local_copy(
+        self, wired: WebApp
+    ) -> None:
+        wired.save_secret("BUFFER_API_KEY", "abc123xyz789", to_github=False)
+        assert self.pushed == []
+        assert read_env(wired.env_file)["BUFFER_API_KEY"] == "abc123xyz789"
+
+    def test_a_pasted_line_with_a_space_is_rejected_before_anything_is_written(
+        self, wired: WebApp
+    ) -> None:
+        with pytest.raises(UgcError):
+            wired.save_secret("BUFFER_API_KEY", "BUFFER_API_KEY = abc")
+        assert not wired.env_file.exists()
+        assert self.pushed == []
+
+    def test_forgetting_drops_the_local_copy_only(self, wired: WebApp) -> None:
+        wired.save_secret("BUFFER_API_KEY", "abc123xyz789")
+        assert wired.forget_secret("BUFFER_API_KEY")["removed"] is True
+        assert read_env(wired.env_file) == {}
+        # Never touches GitHub: deleting the copy that posts, from a settings
+        # panel, is a way to silently stop a campaign.
+        assert self.pushed == [("BUFFER_API_KEY", "abc123xyz789")]
+
+    def test_a_saved_key_is_visible_to_the_running_process(
+        self, wired: WebApp
+    ) -> None:
+        # Otherwise the channel list stays broken until the server restarts.
+        wired.save_secret("BUFFER_API_KEY", "abc123xyz789")
+        assert wired.buffer_key("BUFFER_API_KEY") == "abc123xyz789"
 
 
 class TestServerBinding:

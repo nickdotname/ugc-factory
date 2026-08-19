@@ -43,9 +43,14 @@ class TestAbstractionBoundaries:
     # combinations — and how long a rejected git push waits before retrying has
     # no bearing on that. Anything that influences what gets rendered or posted
     # must still take an injected Rng.
+    # keys.py shells out to the GitHub CLI to store an Actions secret. Doing it
+    # over the API instead would mean sealing the value with libsodium, i.e. a
+    # crypto dependency in the cron path to save one subprocess in an operator
+    # tool — so this is a boundary module by the same logic as vcs.py, and is
+    # listed rather than exempted case-by-case.
     FORBIDDEN = {
         "requests": {"assets.py", "notify.py", "buffer.py"},
-        "subprocess": {"render.py", "vcs.py"},
+        "subprocess": {"render.py", "vcs.py", "keys.py"},
         "random": {"ports.py", "vcs.py"},
     }
 

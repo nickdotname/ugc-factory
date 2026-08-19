@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import json
 import mimetypes
+import os
 import re
 import shutil
 import threading
@@ -39,6 +40,16 @@ from src.clips import ClipRoster, kind_of, load_roster, roster_path, save_roster
 from src.config import CampaignConfig, load_campaign
 from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import UgcError
+from src.keys import (
+    delete_env_value,
+    clean_value,
+    check_name,
+    list_github_secrets,
+    mask,
+    read_env,
+    set_github_secret,
+    write_env_value,
+)
 from src.ingest import (
     ARCHIVE_DIR,
     INBOX_DIRS,
@@ -336,6 +347,119 @@ class WebApp:
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
 
+    # ---------------------------------------------------------------- secrets
+
+    @property
+    def env_file(self) -> Path:
+        return self.repo_root / ".env"
+
+    def _required_secrets(self) -> dict[str, list[str]]:
+        """Secret name -> the campaigns that need it.
+
+        Read from the configs rather than a fixed list, so a campaign pointing
+        at BUFFER_API_KEY_3 shows that slot and a campaign with its channel id
+        written inline does not ask for a channel secret it never reads.
+        """
+        needed: dict[str, list[str]] = {}
+        for summary in list_campaigns(self.campaigns_dir):
+            if not summary.valid:
+                continue
+            try:
+                config = load_campaign(self.campaigns_dir, summary.slug)
+            except UgcError:
+                continue
+            for name in (
+                config.buffer.api_key_secret,
+                config.buffer.channel_id_secret,
+                config.notify.webhook_secret,
+            ):
+                if name:
+                    needed.setdefault(name, []).append(config.slug)
+        return needed
+
+    def secrets(self) -> dict[str, Any]:
+        """What each campaign needs, and which of the two stores has it.
+
+        Values are never returned — only whether one is present and its last
+        four characters, which is enough to tell two keys apart and useless to
+        anyone who intercepts it.
+        """
+        local = read_env(self.env_file)
+        remote = {g.name: g.updated_at for g in list_github_secrets(self.repo_root)}
+        env = os.environ
+
+        items = []
+        for name, slugs in sorted(self._required_secrets().items()):
+            value = local.get(name) or env.get(name) or ""
+            items.append({
+                "name": name,
+                "kind": "buffer" if name.startswith("BUFFER_API_KEY")
+                        else "channel" if name.startswith("BUFFER_CHANNEL")
+                        else "webhook",
+                "campaigns": sorted(slugs),
+                "local": bool(value),
+                "hint": mask(value) if value else "",
+                "from_environment": not local.get(name) and bool(env.get(name)),
+                "github": name in remote,
+                "github_updated": remote.get(name, ""),
+            })
+        return {
+            "secrets": items,
+            "env_file": str(self.env_file.relative_to(self.repo_root)),
+            "github_ready": bool(remote),
+        }
+
+    def save_secret(
+        self, name: str, value: str, to_github: bool = True
+    ) -> dict[str, Any]:
+        """Store a pasted credential locally, and optionally on the repo.
+
+        Both stores by default, because storing only one is the thing that
+        produced the confusing half-working state this panel exists to fix:
+        local-only means the workflows still cannot post, and GitHub-only means
+        the dashboard still cannot list channels.
+        """
+        check_name(name)
+        if name not in self._required_secrets():
+            # Refuse names no campaign asks for: a typo would otherwise write a
+            # credential to a key nothing reads and report success.
+            return {"ok": False, "error": f"no campaign uses a secret named {name}"}
+        cleaned = clean_value(value)
+
+        write_env_value(self.env_file, name, cleaned)
+        # Make it live for this process too, so the channel list works on the
+        # very next click rather than after a restart.
+        os.environ[name] = cleaned
+        self._channels = None
+
+        pushed, problem = False, ""
+        if to_github:
+            try:
+                set_github_secret(self.repo_root, name, cleaned)
+                pushed = True
+            except UgcError as exc:
+                problem = str(exc)
+
+        # Deliberately logs the name and never the value.
+        self.log.info("secret_saved", name=name, to_github=pushed)
+        return {
+            "ok": True, "name": name, "local": True, "github": pushed,
+            "github_error": problem,
+        }
+
+    def forget_secret(self, name: str) -> dict[str, Any]:
+        """Remove the local copy only.
+
+        The GitHub copy is what posts; deleting that from a settings panel is
+        a way to silently stop a campaign, so it is not offered here.
+        """
+        check_name(name)
+        removed = delete_env_value(self.env_file, name)
+        os.environ.pop(name, None)
+        self._channels = None
+        self.log.info("secret_forgotten", name=name, existed=removed)
+        return {"ok": True, "name": name, "removed": removed}
+
     def key_slots(self) -> dict[str, Any]:
         """Which Buffer accounts are reachable from this machine.
 
@@ -372,8 +496,6 @@ class WebApp:
         A local .env is a convenience for this tool only — it is gitignored and
         never read by the workflows, which get the key from GitHub Secrets.
         """
-        import os
-
         name = slot or self.config.buffer.api_key_secret
         # Only fall back to the generic names when no specific slot was asked
         # for; otherwise a campaign on account 2 would silently authenticate as
@@ -1008,8 +1130,6 @@ class WebApp:
             return self._store_factory()
         # Local convenience: fall back to the gh CLI's token and the git remote
         # so the operator does not have to export anything to use this.
-        import os
-
         from src.vcs import detect_repo, detect_token
 
         repo = os.environ.get("GITHUB_REPOSITORY") or detect_repo(self.repo_root)
@@ -1125,6 +1245,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                     refresh="refresh" in query,
                     slot=slots[0] if slots else None,
                 ))
+            elif route == "/api/secrets":
+                self._json(app.secrets())
             elif route == "/api/keys":
                 self._json(app.key_slots())
             elif route == "/api/charts":
@@ -1172,6 +1294,14 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                     payload = json.loads(self._body() or b"{}")
                     self._json(app.publish(str(payload.get("message", ""))))
 
+                elif route == "/api/secrets":
+                    payload = json.loads(self._body() or b"{}")
+                    self._json(app.save_secret(
+                        str(payload.get("name", "")),
+                        str(payload.get("value", "")),
+                        to_github=bool(payload.get("to_github", True)),
+                    ))
+
                 elif route == "/api/clips":
                     payload = json.loads(self._body() or b"{}")
                     names = payload.get("names") or []
@@ -1194,6 +1324,14 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
 
         def do_DELETE(self) -> None:  # noqa: N802
             route = urlparse(self.path).path
+            if route == "/api/secrets":
+                try:
+                    self._json(app.forget_secret(
+                        (self._query().get("name") or [""])[0]
+                    ))
+                except UgcError as exc:
+                    self._json({"ok": False, "error": str(exc)}, 200)
+                return
             if route == "/api/clips":
                 name = _safe_name((self._query().get("name") or [""])[0])
                 if name is None:
@@ -1541,6 +1679,24 @@ PAGE = """<!doctype html>
   .shared b { color:var(--ink); font-weight:600; }
   .shared .pill { font-family:"IBM Plex Mono", monospace; font-size:10.5px; }
 
+  /* ── Keys ──────────────────────────────────────────────────────────────
+     Two stores per secret and no way to read either back, so the row is
+     mostly status: who needs it, and where it currently exists.          */
+  .sec { border-bottom:1px solid var(--line); padding:15px 20px; }
+  .sec:last-child { border-bottom:none; }
+  .sec-top { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .sec-name {
+    font-family:"IBM Plex Mono", monospace; font-size:12.5px; font-weight:500;
+  }
+  .sec-for { font-size:11px; color:var(--ink-3); }
+  .sec-row { display:flex; gap:9px; margin-top:11px; flex-wrap:wrap; }
+  .sec-row input {
+    flex:1; min-width:210px;
+    font-family:"IBM Plex Mono", monospace; font-size:12.5px;
+  }
+  .tick { color:var(--up); }
+  .cross { color:var(--ink-3); }
+
   /* ── Messages ──────────────────────────────────────────────────────── */
   .msg {
     font-size:12.5px; line-height:1.5; padding:10px 13px;
@@ -1753,6 +1909,11 @@ PAGE = """<!doctype html>
   </section>
 
   <section>
+    <h2>Keys <small>paste once — stored on this laptop and on GitHub</small></h2>
+    <div id="secrets"></div>
+  </section>
+
+  <section>
     <h2>Randomizer <small>switch a clip off to hold it back — nothing is deleted</small></h2>
     <div class="card pad" style="margin-bottom:14px">
       <div class="row" style="margin:0;align-items:baseline">
@@ -1931,6 +2092,84 @@ function render(s){
   const bm = $("#bank-msgs"); bm.innerHTML = "";
   s.descriptions.errors.forEach(e => msg(bm,"bad",e));
   s.descriptions.notes.slice(0,5).forEach(n => msg(bm,"warn",n));
+}
+
+/* ── Keys ─────────────────────────────────────────────────────────────────
+   Neither store can be read back — GitHub never returns a secret value, and
+   the local file is deliberately write-only from here — so this panel deals
+   in presence, not content. The input is emptied the moment it is sent.   */
+async function loadSecrets(){
+  const r = await (await fetch("/api/secrets")).json();
+  const el = $("#secrets");
+  if (!r.secrets.length){ el.innerHTML = ""; return; }
+
+  el.innerHTML = `<div class="card">` + r.secrets.map(sx => {
+    const here = sx.local
+      ? `<span class="tick">● on this laptop</span> <span class="sec-for">${sx.hint}${
+           sx.from_environment ? " (from your shell)" : ""}</span>`
+      : `<span class="cross">○ not on this laptop</span>`;
+    const gh = sx.github
+      ? `<span class="tick">● on GitHub</span>`
+      : `<span class="cross">○ not on GitHub</span>`;
+    return `<div class="sec" data-name="${sx.name}">
+      <div class="sec-top">
+        <span class="sec-name">${sx.name}</span>
+        <span class="sec-for">${sx.campaigns.join(", ")}</span>
+        <span class="spacer"></span>
+        <span class="sec-for">${here} &nbsp; ${gh}</span>
+      </div>
+      <div class="sec-row">
+        <input type="password" autocomplete="off" spellcheck="false"
+          placeholder="${sx.local || sx.github ? "paste a new value to replace it" : "paste the value"}"
+          aria-label="New value for ${sx.name}">
+        <button onclick="saveSecret('${sx.name}', this)">Save</button>
+        ${sx.local ? `<button class="ghost" onclick="forgetSecret('${sx.name}')"
+          title="Remove the copy on this laptop. The GitHub copy, which is what
+                 posts, is left alone.">Forget locally</button>` : ""}
+      </div>
+      <div class="msgs"></div>
+    </div>`;
+  }).join("") + `</div>
+  <div class="hint">Saved to <code>${r.env_file}</code> (gitignored, this laptop
+    only) and to the repository's Actions secrets, which is what the posting
+    workflows read. Neither copy can be read back — replace a value by pasting
+    a new one.</div>`;
+}
+
+async function saveSecret(name, btn){
+  const row = btn.closest(".sec");
+  const input = row.querySelector("input");
+  const out = row.querySelector(".msgs");
+  out.innerHTML = "";
+  const value = input.value;
+  if (!value.trim()){ msg(out, "bad", "Nothing pasted."); return; }
+
+  btn.disabled = true; btn.textContent = "Saving…";
+  let r;
+  try {
+    r = await (await fetch("/api/secrets", {method:"POST",
+      body: JSON.stringify({name, value, to_github: true})})).json();
+  } catch (err) { r = {ok:false, error:String(err)}; }
+  // Cleared whatever happened, so a failed save does not leave the credential
+  // sitting in a DOM node for the rest of the session.
+  input.value = "";
+  btn.disabled = false; btn.textContent = "Save";
+
+  if (!r.ok){ msg(out, "bad", r.error); return; }
+  if (r.github) msg(out, "ok", "Saved here and on GitHub.");
+  else msg(out, "warn", `Saved on this laptop. GitHub was not updated: ${
+    r.github_error || "unknown reason"} — set it in the repository's
+    Settings → Secrets and variables → Actions.`);
+  await loadSecrets(); await loadChannels().catch(() => {});
+}
+
+async function forgetSecret(name){
+  if (!confirm(`Remove the local copy of ${name}?\n\n` +
+               `The GitHub copy — the one the posting workflows use — is left ` +
+               `alone. The dashboard will stop being able to list your Buffer ` +
+               `channels until you paste it again.`)) return;
+  await fetch(`/api/secrets?name=${encodeURIComponent(name)}`, {method:"DELETE"});
+  await loadSecrets();
 }
 
 /* ── Randomizer ───────────────────────────────────────────────────────────
@@ -2704,7 +2943,8 @@ $("#c-table").onclick = e => {
 addEventListener("resize", () => { clearTimeout(window._cr);
   window._cr = setTimeout(drawCharts, 180); });
 
-buildZones(); loadCampaigns(); refresh(); loadClips(); loadMetrics();
+buildZones(); loadCampaigns(); refresh(); loadClips(); loadSecrets();
+loadMetrics();
 loadPending(); loadCharts();
 setInterval(() => { refresh(); loadPending(); }, 5000);
 setInterval(() => { loadMetrics(); loadCharts(); }, 300000);
