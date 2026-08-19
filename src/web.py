@@ -219,6 +219,55 @@ class WebApp:
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
 
+    def pending_changes(self) -> dict[str, Any]:
+        """Campaign files changed locally but not yet on GitHub.
+
+        The dashboard writes to disk; the workflows read from the repo. Until a
+        change is pushed it has no effect on anything that actually posts, and
+        that gap is invisible without saying so.
+        """
+        from src.vcs import GitVcs
+
+        vcs = GitVcs(self.repo_root, self.log, push=False)
+        proc = vcs._git("status", "--porcelain", "--", "campaigns", check=False)
+        changed = [
+            line[3:].strip()
+            for line in (proc.stdout or "").splitlines()
+            if line.strip()
+        ]
+        ahead = vcs._git(
+            "rev-list", "--count", "@{upstream}..HEAD", check=False
+        )
+        try:
+            unpushed = int((ahead.stdout or "0").strip() or 0)
+        except ValueError:
+            unpushed = 0
+        return {"changed": changed, "unpushed_commits": unpushed}
+
+    def publish(self, message: str = "") -> dict[str, Any]:
+        """Commit and push campaign changes so the workflows can see them."""
+        from src.vcs import GitVcs, VcsError
+
+        state = self.pending_changes()
+        if not state["changed"] and not state["unpushed_commits"]:
+            return {"ok": True, "nothing_to_do": True}
+
+        vcs = GitVcs(self.repo_root, self.log)
+        try:
+            if state["changed"]:
+                vcs.commit(
+                    [self.campaigns_dir],
+                    message or f"dashboard: update {self.config.slug}",
+                )
+            else:
+                # Already committed, just never pushed.
+                vcs._push_with_rebase("dashboard publish")
+        except VcsError as exc:
+            return {"ok": False, "error": str(exc)}
+
+        self.log.info("dashboard_published", campaign=self.config.slug)
+        return {"ok": True, "pushed": state["changed"] or ["(existing commits)"]}
+
     def _music_bed_count(self) -> int | None:
         """How many distinct beds the uploaded music yields.
 
@@ -487,6 +536,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.state())
             elif route == "/api/campaigns":
                 self._json(app.campaigns())
+            elif route == "/api/pending":
+                self._json(app.pending_changes())
             elif route == "/api/metrics":
                 self._json(app.metrics())
             elif route == "/api/plan":
@@ -519,6 +570,10 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
 
                 elif route == "/api/campaigns":
                     self._json(app.create(json.loads(self._body() or b"{}")))
+
+                elif route == "/api/publish":
+                    payload = json.loads(self._body() or b"{}")
+                    self._json(app.publish(str(payload.get("message", ""))))
 
                 elif route == "/api/ingest":
                     self._json(app.upload())
@@ -670,6 +725,13 @@ PAGE = """<!doctype html>
   .chk { display:flex; align-items:center; gap:7px; font-size:12px;
          color:var(--dim); margin-bottom:6px; }
   .dead { color:var(--bad); }
+  .sync {
+    margin:0 24px 4px; padding:11px 16px; border-radius:10px;
+    background:color-mix(in srgb,var(--warn) 14%,var(--panel));
+    border:1px solid color-mix(in srgb,var(--warn) 35%,var(--line));
+    display:flex; align-items:center; gap:14px; font-size:13px;
+  }
+  .sync span { flex:1; }
   .perf-card {
     background:var(--panel); border:1px solid var(--line); border-radius:12px;
     padding:16px 18px; margin-bottom:12px;
@@ -696,6 +758,13 @@ PAGE = """<!doctype html>
   <span class="tag" id="t-dry">…</span>
   <button class="act ghost" id="new-btn" style="margin-left:auto">+ New campaign</button>
 </header>
+
+<div id="sync-bar" style="display:none">
+  <div class="sync">
+    <span id="sync-text"></span>
+    <button class="act" id="publish-btn">Publish to GitHub</button>
+  </div>
+</div>
 
 <div id="new-panel" style="display:none">
   <div class="newc">
@@ -854,6 +923,26 @@ function render(s){
 
 async function refresh(){ render(await (await fetch("/api/state")).json()); }
 
+async function loadPending(){
+  const r = await (await fetch("/api/pending")).json();
+  const bar = $("#sync-bar");
+  const n = r.changed.length, c = r.unpushed_commits;
+  if (!n && !c){ bar.style.display = "none"; return; }
+  bar.style.display = "block";
+  $("#sync-text").innerHTML = n
+    ? `<b>${n} local change${n>1?"s":""}</b> not on GitHub yet — the workflows read from the repo, so nothing here affects posting until you publish.`
+    : `<b>${c} commit${c>1?"s":""}</b> not pushed yet.`;
+}
+
+$("#publish-btn").onclick = async (e) => {
+  e.target.disabled = true; e.target.textContent = "Publishing…";
+  const r = await (await fetch("/api/publish", {method:"POST",
+    body: JSON.stringify({})})).json();
+  e.target.disabled = false; e.target.textContent = "Publish to GitHub";
+  if (!r.ok){ $("#sync-text").innerHTML = `<b class="dead">${r.error}</b>`; return; }
+  await loadPending();
+};
+
 async function loadCampaigns(){
   const r = await (await fetch("/api/campaigns")).json();
   const sel = $("#switcher");
@@ -1001,8 +1090,8 @@ async function loadMetrics(){
   }).join("");
 }
 
-buildZones(); loadCampaigns(); refresh(); loadMetrics();
-setInterval(refresh, 5000);
+buildZones(); loadCampaigns(); refresh(); loadMetrics(); loadPending();
+setInterval(() => { refresh(); loadPending(); }, 5000);
 // Metrics only change once a day; polling them like the inbox would be waste.
 setInterval(loadMetrics, 300000);
 </script>

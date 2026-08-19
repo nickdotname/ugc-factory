@@ -113,7 +113,10 @@
       "Bash(.venv/bin/python -c \"import json,sys; print\\(' ', json.load\\(sys.stdin\\)['error']\\)\")",
       "Bash(rm -rf campaigns/demo_fb inbox/demo_fb)",
       "Bash(gh api *)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(git commit -q -m 'Add publish-to-GitHub to the dashboard *)",
+      "Bash(nohup .venv/bin/python -m src.cli web --campaign clubs --port 8765 --no-open)",
+      "Bash(curl -s -o /dev/null -w \"web app: HTTP %{http_code}\\\\n\" http://127.0.0.1:8765/)"
     ]
   }
 }
