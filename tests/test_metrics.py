@@ -257,3 +257,97 @@ class TestDashboardData:
         assert card["series"]["reach"] == [
             ("2026-08-12", 100.0), ("2026-08-13", 150.0)
         ]
+
+
+class TestLifetimeScope:
+    """All-time totals need their own query, not arithmetic over the series."""
+
+    def lifesnap(self, date: str, **values: float) -> Snapshot:
+        from src.metrics import Scope
+
+        return Snapshot(
+            date=date, scope=Scope.LIFETIME, fetched_at=NOW,
+            window_start=NOW - timedelta(days=200), window_end=NOW,
+            service="instagram",
+            metrics=[Metric(type=k, name=k.title(), value=v)
+                     for k, v in values.items()],
+        )
+
+    def test_rolling_and_lifetime_coexist_on_one_day(self) -> None:
+        """Same date, different measurement — neither may overwrite the other."""
+        from src.metrics import Scope
+
+        h = MetricsHistory()
+        h.upsert(snap("2026-08-18", reach=100))
+        h.upsert(self.lifesnap("2026-08-18", reach=5000))
+        assert len(h.snapshots) == 2
+        assert h.latest(Scope.ROLLING).get("reach") == 100
+        assert h.lifetime().get("reach") == 5000
+
+    def test_lifetime_upsert_replaces_only_its_own_scope(self) -> None:
+        h = MetricsHistory()
+        h.upsert(snap("2026-08-18", reach=100))
+        h.upsert(self.lifesnap("2026-08-18", reach=5000))
+        h.upsert(self.lifesnap("2026-08-18", reach=5200))
+        assert len(h.snapshots) == 2
+        assert h.lifetime().get("reach") == 5200
+
+    def test_lifetime_is_none_before_it_is_ever_fetched(self) -> None:
+        h = MetricsHistory()
+        h.upsert(snap("2026-08-18", reach=100))
+        assert h.lifetime() is None
+
+    def test_series_is_scoped(self) -> None:
+        from src.metrics import Scope
+
+        h = MetricsHistory()
+        h.upsert(snap("2026-08-17", reach=90))
+        h.upsert(snap("2026-08-18", reach=100))
+        h.upsert(self.lifesnap("2026-08-18", reach=5000))
+        assert h.series("reach") == [("2026-08-17", 90.0), ("2026-08-18", 100.0)]
+        assert h.series("reach", Scope.LIFETIME) == [("2026-08-18", 5000.0)]
+
+    def test_change_only_compares_within_a_scope(self) -> None:
+        """Mixing a 30-day figure with a lifetime one would report nonsense."""
+        h = MetricsHistory()
+        h.upsert(snap("2026-08-17", reach=100))
+        h.upsert(self.lifesnap("2026-08-17", reach=9000))
+        h.upsert(snap("2026-08-18", reach=150))
+        h.upsert(self.lifesnap("2026-08-18", reach=9500))
+        assert h.change("reach") == pytest.approx(50.0)
+
+    def test_old_files_without_a_scope_load_as_rolling(self) -> None:
+        """Metrics written before scopes existed were 30-day windows."""
+        raw = (
+            '{"snapshots":[{"date":"2026-08-01","fetched_at":"2026-08-01T00:00:00Z",'
+            '"window_start":"2026-07-02T00:00:00Z","window_end":"2026-08-01T00:00:00Z",'
+            '"service":"instagram","metrics":[]}]}'
+        )
+        h = MetricsHistory.model_validate_json(raw)
+        from src.metrics import Scope
+
+        assert h.snapshots[0].scope is Scope.ROLLING
+        assert h.lifetime() is None
+
+
+class TestLifetimeWindow:
+    def test_starts_before_the_first_post(self) -> None:
+        from src.metrics import lifetime_window
+
+        first = datetime(2026, 8, 13, 21, 0, tzinfo=timezone.utc)
+        start, end = lifetime_window(NOW, first)
+        assert start < first, "a post on the boundary would be clipped"
+        assert end > NOW
+
+    def test_falls_back_to_a_year_without_history(self) -> None:
+        from src.metrics import lifetime_window
+
+        start, end = lifetime_window(NOW, None)
+        assert (end - start).days >= 365
+
+    def test_window_covers_more_than_the_rolling_one(self) -> None:
+        from src.metrics import default_window, lifetime_window
+
+        r_start, _ = default_window(NOW, 30)
+        l_start, _ = lifetime_window(NOW, datetime(2026, 1, 1, tzinfo=timezone.utc))
+        assert l_start < r_start

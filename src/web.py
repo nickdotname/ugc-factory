@@ -48,7 +48,7 @@ from src.ingest import (
     library_health,
 )
 from src.logging import StructuredLogger
-from src.metrics import load_metrics
+from src.metrics import Scope, load_metrics
 from src.models import PartKind
 from src.platforms import Service
 from src.ports import Clock
@@ -475,10 +475,20 @@ class WebApp:
                 continue
             history = load_metrics(directory / "metrics.json")
             latest = history.latest()
+            life = history.lifetime()
+            # Posts ever published, straight from the append-only history —
+            # true all-time regardless of what any metrics window covers.
+            try:
+                from src.queue import load_history
+
+                ever_posted = len(load_history(directory / "history.json").entries)
+            except UgcError:
+                ever_posted = 0
             if latest is None:
                 out.append({
                     "campaign": directory.name, "service": None,
                     "has_data": False, "metrics": [], "series": {},
+                    "lifetime": None, "ever_posted": ever_posted,
                 })
                 continue
             out.append({
@@ -499,8 +509,49 @@ class WebApp:
                 "series": {
                     m.type: history.series(m.type) for m in latest.metrics
                 },
+                "ever_posted": ever_posted,
+                "lifetime": None if life is None else {
+                    "since": life.window_start,
+                    "post_count": life.post_count,
+                    "metrics": [
+                        {"type": m.type, "name": m.name, "value": m.value,
+                         "unit": m.unit}
+                        for m in life.metrics
+                    ],
+                    "series": {
+                        m.type: history.series(m.type, Scope.LIFETIME)
+                        for m in life.metrics
+                    },
+                },
             })
-        return {"campaigns": out}
+
+        # Totals across every campaign. Percentages are deliberately excluded:
+        # an engagement RATE cannot be summed, and averaging rates weighted by
+        # nothing would be a different lie.
+        totals: dict[str, dict[str, Any]] = {}
+        for card in out:
+            life = card.get("lifetime")
+            if not life:
+                continue
+            for m in life["metrics"]:
+                if m["unit"] == "percentage":
+                    continue
+                slot = totals.setdefault(
+                    m["type"], {"name": m["name"], "value": 0.0}
+                )
+                slot["value"] += m["value"]
+        return {
+            "campaigns": out,
+            "overall": {
+                "metrics": [
+                    {"type": k, "name": v["name"], "value": v["value"]}
+                    for k, v in sorted(
+                        totals.items(), key=lambda kv: -kv[1]["value"]
+                    )
+                ],
+                "ever_posted": sum(c.get("ever_posted", 0) for c in out),
+            },
+        }
 
     def state(self) -> dict[str, Any]:
         bank_text = (
@@ -910,6 +961,14 @@ PAGE = """<!doctype html>
   .down { color:var(--bad); }
   .flat { color:var(--dim); }
   .spark { display:block; margin-top:6px; }
+  .total-card {
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px;
+  }
+  .totals { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:18px; }
+  .t .v { font-size:27px; font-weight:650; letter-spacing:-.025em; }
+  .t .k { font-size:11px; color:var(--dim); margin-top:1px; }
+  .life { font-size:11px; color:var(--dim); margin-top:4px; }
 </style>
 </head>
 <body>
@@ -974,7 +1033,12 @@ PAGE = """<!doctype html>
   </section>
 
   <section>
-    <h3>Performance <span style="text-transform:none;font-weight:400" id="perf-note"></span></h3>
+    <h3>All time <span style="text-transform:none;font-weight:400">— every campaign, since the first post</span></h3>
+    <div id="overall"></div>
+  </section>
+
+  <section>
+    <h3>By platform <span style="text-transform:none;font-weight:400" id="perf-note"></span></h3>
     <div id="perf"></div>
   </section>
 
@@ -1285,8 +1349,41 @@ function delta(change){
   return `<span class="d ${cls}">${sign}${change.toFixed(0)}%</span>`;
 }
 
+function renderOverall(r){
+  const el = $("#overall");
+  const o = r.overall || {metrics: [], ever_posted: 0};
+  const haveLifetime = r.campaigns.some(c => c.lifetime);
+
+  if (!haveLifetime){
+    el.innerHTML = `<div class="total-card"><div class="totals">
+      <div class="t"><div class="v">${o.ever_posted||0}</div>
+        <div class="k">videos published</div></div>
+    </div>
+    <div class="life">All-time engagement totals appear after the next metrics
+      run — they are a separate query from the rolling window, so the first one
+      lands tomorrow at 06:30 UTC.</div></div>`;
+    return;
+  }
+
+  const cells = [`<div class="t"><div class="v">${o.ever_posted}</div>
+    <div class="k">videos published</div></div>`]
+    .concat(o.metrics.slice(0, 7).map(m =>
+      `<div class="t"><div class="v">${fmt(m.value, "count")}</div>
+        <div class="k">${m.name}</div></div>`));
+
+  const since = r.campaigns.map(c => c.lifetime && c.lifetime.since)
+                  .filter(Boolean).sort()[0];
+  el.innerHTML = `<div class="total-card">
+    <div class="totals">${cells.join("")}</div>
+    <div class="life">Summed across ${r.campaigns.filter(c=>c.lifetime).length}
+      campaigns${since ? ` since ${new Date(since).toLocaleDateString()}` : ""}.
+      Rates are excluded — an engagement rate cannot be added up.</div>
+  </div>`;
+}
+
 async function loadMetrics(){
   const r = await (await fetch("/api/metrics")).json();
+  renderOverall(r);
   const el = $("#perf");
   const withData = r.campaigns.filter(c => c.has_data);
 
@@ -1305,7 +1402,7 @@ async function loadMetrics(){
     return `<div class="perf-card">
       <div class="perf-head">
         <span class="who">${c.service || c.campaign}</span>
-        <span class="when">${c.post_count} posts · snapshot ${c.date} · network data as of ${stale}</span>
+        <span class="when">${c.post_count} posts (30d) · ${c.ever_posted} all time · snapshot ${c.date} · network data as of ${stale}</span>
       </div>
       <div class="mrow">
         ${c.metrics.map(m => `

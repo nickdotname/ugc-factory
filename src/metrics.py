@@ -18,6 +18,7 @@ into a trend the API itself does not offer.
 from __future__ import annotations
 
 from datetime import datetime, timedelta
+from enum import Enum
 from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -42,6 +43,22 @@ class Metric(BaseModel):
         return self.unit == "percentage"
 
 
+class Scope(str, Enum):
+    """What window a snapshot covers.
+
+    The distinction matters more than it looks: snapshots are *aggregates over
+    a window*, not daily increments. Two rolling snapshots taken a day apart
+    overlap by 29 days, so adding them up would count almost everything twice.
+    Lifetime totals therefore need their own query, not arithmetic over the
+    rolling series.
+    """
+
+    #: A trailing window — good for "how are we doing lately".
+    ROLLING = "rolling"
+    #: Everything since the campaign began.
+    LIFETIME = "lifetime"
+
+
 class Snapshot(BaseModel):
     """Metrics for one campaign over one window, as of one moment."""
 
@@ -49,6 +66,9 @@ class Snapshot(BaseModel):
 
     #: Local date the snapshot was taken; one snapshot per campaign per day.
     date: str
+    # Defaulted so metrics files written before scopes existed still load;
+    # everything recorded then was a 30-day rolling window.
+    scope: Scope = Scope.ROLLING
     fetched_at: datetime
     window_start: datetime
     window_end: datetime
@@ -77,38 +97,51 @@ class MetricsHistory(BaseModel):
     snapshots: list[Snapshot] = Field(default_factory=list)
 
     def upsert(self, snapshot: Snapshot) -> None:
-        """Replace today's snapshot, or append it.
+        """Replace today's snapshot for this scope, or append it.
 
-        Re-running on the same day refreshes rather than duplicating, which
-        matters because network metrics keep moving for days after a post.
+        Keyed on (date, scope): a lifetime and a rolling snapshot from the same
+        day are different measurements and must not overwrite each other.
         """
         for index, existing in enumerate(self.snapshots):
-            if existing.date == snapshot.date:
+            if existing.date == snapshot.date and existing.scope is snapshot.scope:
                 self.snapshots[index] = snapshot
                 break
         else:
             self.snapshots.append(snapshot)
-        self.snapshots.sort(key=lambda s: s.date)
+        self.snapshots.sort(key=lambda s: (s.date, s.scope.value))
 
-    def latest(self) -> Snapshot | None:
-        return self.snapshots[-1] if self.snapshots else None
+    def of(self, scope: Scope) -> list[Snapshot]:
+        return [s for s in self.snapshots if s.scope is scope]
 
-    def series(self, metric_type: str) -> list[tuple[str, float]]:
+    def latest(self, scope: Scope = Scope.ROLLING) -> Snapshot | None:
+        snaps = self.of(scope)
+        return snaps[-1] if snaps else None
+
+    def lifetime(self) -> Snapshot | None:
+        """Totals since the campaign began, or None if never fetched."""
+        return self.latest(Scope.LIFETIME)
+
+    def series(
+        self, metric_type: str, scope: Scope = Scope.ROLLING
+    ) -> list[tuple[str, float]]:
         """(date, value) pairs for one metric, for charting."""
-        return [(s.date, s.get(metric_type)) for s in self.snapshots]
+        return [(s.date, s.get(metric_type)) for s in self.of(scope)]
 
-    def change(self, metric_type: str, days: int = 7) -> float | None:
+    def change(
+        self, metric_type: str, days: int = 7, scope: Scope = Scope.ROLLING
+    ) -> float | None:
         """Percent change over the last ``days`` snapshots, or None.
 
         Returns None rather than 0 when there is no baseline — "no data yet"
         and "no change" are different claims and a dashboard must not conflate
         them.
         """
-        if len(self.snapshots) < 2:
+        snaps = self.of(scope)
+        if len(snaps) < 2:
             return None
-        recent = self.snapshots[-1].get(metric_type)
-        index = max(0, len(self.snapshots) - 1 - days)
-        baseline = self.snapshots[index].get(metric_type)
+        recent = snaps[-1].get(metric_type)
+        index = max(0, len(snaps) - 1 - days)
+        baseline = snaps[index].get(metric_type)
         if baseline == 0:
             return None
         return (recent - baseline) / baseline * 100.0
@@ -131,6 +164,22 @@ def save_metrics(path: Path, history: MetricsHistory) -> None:
     from src.queue import _atomic_write
 
     _atomic_write(path, history.model_dump_json(indent=2) + "\n")
+
+
+def lifetime_window(
+    now: datetime, first_post: datetime | None = None
+) -> tuple[datetime, datetime]:
+    """The window covering everything the campaign has ever posted.
+
+    Starts a day before the first recorded post so nothing is clipped by
+    timezone rounding, and falls back to a year when there is no history yet.
+    """
+    end = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+    if first_post is None:
+        return end - timedelta(days=365), end
+    return first_post.replace(
+        hour=0, minute=0, second=0, microsecond=0
+    ) - timedelta(days=1), end
 
 
 def default_window(now: datetime, days: int = 30) -> tuple[datetime, datetime]:

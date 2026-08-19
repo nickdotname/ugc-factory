@@ -57,8 +57,10 @@ from src.models import (
 from src.metrics import (
     Metric,
     MetricsHistory,
+    Scope,
     Snapshot,
     default_window,
+    lifetime_window,
     load_metrics,
     save_metrics,
 )
@@ -961,33 +963,60 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         channel = _channel_id(config, env)
 
         now = clock.now()
-        start, end = default_window(now, args.days)
-        rows, updated_at = publisher.fetch_metrics(channel, start, end)
-
         local_date = now.astimezone(config.zone).strftime("%Y-%m-%d")
-        snapshot = Snapshot(
-            date=local_date,
-            fetched_at=now,
-            window_start=start,
-            window_end=end,
-            service=config.buffer.service.value,
-            metrics=[
-                Metric(type=r.type, name=r.name, value=r.value, unit=r.unit)
-                for r in rows
-            ],
-            metrics_updated_at=updated_at,
-        )
-
         path = _campaign_dir(config.slug) / "metrics.json"
         history = load_metrics(path)
-        history.upsert(snapshot)
+
+        # The first post ever recorded bounds the lifetime window. history.json
+        # is append-only and never pruned, so it is the authoritative record of
+        # when this campaign started — and reading it costs no API calls.
+        posted = load_history(_campaign_dir(config.slug) / "history.json")
+        first_post = min((e.timestamp for e in posted.entries), default=None)
+
+        # Two windows, two requests. Rolling answers "how are we doing lately";
+        # lifetime answers "what has this produced in total". Lifetime cannot be
+        # summed from the rolling series — consecutive 30-day windows overlap by
+        # 29 days, so adding them would count almost everything twice.
+        windows = [
+            (Scope.ROLLING, *default_window(now, args.days)),
+            (Scope.LIFETIME, *lifetime_window(now, first_post)),
+        ]
+
+        snapshots: list[Snapshot] = []
+        for scope, start, end in windows:
+            rows, updated_at = publisher.fetch_metrics(channel, start, end)
+            snapshot = Snapshot(
+                date=local_date,
+                scope=scope,
+                fetched_at=now,
+                window_start=start,
+                window_end=end,
+                service=config.buffer.service.value,
+                metrics=[
+                    Metric(type=r.type, name=r.name, value=r.value, unit=r.unit)
+                    for r in rows
+                ],
+                metrics_updated_at=updated_at,
+            )
+            history.upsert(snapshot)
+            snapshots.append(snapshot)
         save_metrics(path, history)
+        snapshot = snapshots[0]
 
         log.info(
             "metrics_saved", campaign=config.slug, date=local_date,
             metrics=len(snapshot.metrics), snapshots=len(history.snapshots),
         )
+        lifetime = history.lifetime()
         print(f"\n  {config.slug} · {config.buffer.service.value} · {local_date}")
+        if lifetime:
+            print(f"  all time ({lifetime.window_start:%d %b} onwards): "
+                  f"{lifetime.post_count} posts")
+            for metric in lifetime.metrics:
+                if metric.type == "postCount" or metric.unit == "percentage":
+                    continue
+                print(f"    {metric.name:<22} {metric.value:>10,.0f}")
+            print(f"\n  last {args.days} days:")
         if not snapshot.metrics:
             print("  no metrics yet — networks report on a lag after publishing")
         for metric in snapshot.metrics:
