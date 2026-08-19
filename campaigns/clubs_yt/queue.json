@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "138df748-8d4a-4a75-91aa-1eb80a0be334",
-      "scheduled_for": "2026-08-19T01:00:00-06:00",
+      "scheduled_for": "2026-08-20T01:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-08-19/138df748-8d4a-4a75-91aa-1eb80a0be334.mp4",
       "caption": "every performer and artist should have this bookmarked\n\ncomment \"create\" and I'll drop it below\n\n[performers, artists, dancers, singers, creative community]",
       "title": "every performer and artist should have this bookmarked",
@@ -13,7 +13,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "30"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
