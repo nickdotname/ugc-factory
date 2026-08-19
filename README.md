@@ -336,6 +336,18 @@ Captions are by far the cheapest dimension to grow — they are just text. At
 the most expensive: at 3 bodies and 6 posts/day each main video goes out twice
 a day, and unique tuples do not make that look different to a viewer.
 
+### One library, several campaigns
+
+Campaigns posting the same content to different networks point at one assets
+Release via `assets_release`, and the drop folder follows the Release rather
+than the slug. `clubs`, `clubs_tt` and `clubs_yt` all read `assets-clubs`, so
+they all share `inbox/clubs`: three more hooks go in once, upload once, and are
+live in all three on the next render. A campaign with its own Release keeps its
+own folder, since `assets-<slug>` reduces to the slug.
+
+The roster below stays per-campaign, which is the useful half of the split — a
+clip can run on TikTok and sit out on YouTube.
+
 ### Taking a clip out of the mix
 
 A clip that stops working does not have to be deleted. Every campaign has a

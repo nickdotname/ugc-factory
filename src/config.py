@@ -441,6 +441,20 @@ class CampaignConfig(StrictModel):
         return self.assets_release or f"assets-{self.slug}"
 
     @property
+    def library_key(self) -> str:
+        """Name of the drop folder feeding this campaign's clip library.
+
+        Keyed off the Release, not the slug, so campaigns sharing one library
+        share one inbox. Three campaigns posting the same clips to Instagram,
+        TikTok and YouTube should be one folder you drop into — not three that
+        each need the same three files, uploaded three times.
+
+        Falls back to the slug for a campaign with its own Release, which is
+        what ``assets-<slug>`` reduces to, so nothing moves for those.
+        """
+        return self.assets_tag.removeprefix("assets-") or self.slug
+
+    @property
     def zone(self) -> zoneinfo.ZoneInfo:
         """The campaign's timezone as a usable object."""
         return zoneinfo.ZoneInfo(self.timezone)

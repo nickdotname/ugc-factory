@@ -334,6 +334,17 @@ class TestRandomizerRoster:
         assert app.clip_file("hook_02.mp4") is None
 
 
+    def test_the_library_scope_names_the_campaigns_it_feeds(
+        self, app: WebApp
+    ) -> None:
+        # With no sibling campaigns on disk it must still name this one, so
+        # the dashboard never renders "shared across (nothing)".
+        scope = app.clips()["library"]
+        assert scope["campaigns"] == [app.config.slug]
+        assert scope["tag"] == app.config.assets_tag
+        assert scope["inbox"] == app.config.library_key
+
+
 class TestClipDeletion:
     """The irreversible half — it must reach the Release, not just the disk."""
 

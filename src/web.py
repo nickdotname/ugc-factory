@@ -138,6 +138,32 @@ class WebApp:
             out[dirname] = files
         return out
 
+    def _sharing_campaigns(self) -> list[str]:
+        """Every campaign fed by this library, the selected one included.
+
+        Campaigns posting the same content to different networks point at one
+        assets Release (``assets_release`` in their config), so a clip dropped
+        in once is live in all of them. The dashboard has to say so — otherwise
+        the obvious reading of a per-campaign page is that you upload three
+        times.
+        """
+        try:
+            summaries = list_campaigns(self.campaigns_dir)
+        except UgcError:
+            return [self.config.slug]
+        shared = [
+            c.slug for c in summaries
+            if c.valid and c.assets_tag == self.config.assets_tag
+        ]
+        return shared or [self.config.slug]
+
+    def library_scope(self) -> dict[str, Any]:
+        return {
+            "tag": self.config.assets_tag,
+            "inbox": self.config.library_key,
+            "campaigns": self._sharing_campaigns(),
+        }
+
     # -------------------------------------------------------------- the roster
 
     @property
@@ -224,7 +250,7 @@ class WebApp:
         config = load_campaign(self.campaigns_dir, slug)
         self.config = config
         self.bank_path = self.campaigns_dir / slug / "captions.txt"
-        self.inbox = self.repo_root / "inbox" / slug
+        self.inbox = self.repo_root / "inbox" / config.library_key
         self._music_beds = None
         self._remote_clips = None
         ensure_inbox(self.inbox)
@@ -753,6 +779,7 @@ class WebApp:
             "posts_per_day": ppd,
             "dry_run": self.config.posting.dry_run,
             "staged": self._staged(),
+            "library": self.library_scope(),
             "uploaded": counts,
             "muted": muted,
             "descriptions": {
@@ -851,6 +878,11 @@ class WebApp:
         ]
         return {
             "groups": groups,
+            # Named here rather than read from the state poll: the two
+            # endpoints load independently, and the panel must not render
+            # "applies to <blank>" whenever it wins the race.
+            "campaign": self.config.slug,
+            "library": self.library_scope(),
             "blocking": blocking,
             "muted": len(roster.disabled),
             "combinations": total,
@@ -1501,6 +1533,14 @@ PAGE = """<!doctype html>
   .tgl:hover { filter:none; }
   .tgl:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 
+  /* One clip library can feed several campaigns; this is where that is said. */
+  .shared {
+    display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+    font-size:12.5px; color:var(--ink-2); margin:0 0 13px;
+  }
+  .shared b { color:var(--ink); font-weight:600; }
+  .shared .pill { font-family:"IBM Plex Mono", monospace; font-size:10.5px; }
+
   /* ── Messages ──────────────────────────────────────────────────────── */
   .msg {
     font-size:12.5px; line-height:1.5; padding:10px 13px;
@@ -1692,6 +1732,7 @@ PAGE = """<!doctype html>
 
   <section>
     <h2>Assets <small>drag files in — names don't matter</small></h2>
+    <div id="shared-note"></div>
     <div class="zones" id="zones"></div>
     <div class="row">
       <button class="ghost" id="preview">Preview plan</button>
@@ -1710,6 +1751,7 @@ PAGE = """<!doctype html>
         <span class="spacer"></span>
         <button class="ghost sm" id="mix-refresh" title="Re-read the assets Release">Refresh</button>
       </div>
+      <div id="mix-scope" class="hint"></div>
       <div id="mix-note"></div>
     </div>
     <div id="mix"></div>
@@ -1831,6 +1873,13 @@ function render(s){
   dry.textContent = s.dry_run ? "paused" : "live";
   dry.className = "pill " + (s.dry_run ? "paused" : "live");
 
+  const lib = s.library || {campaigns: [s.campaign]};
+  $("#shared-note").innerHTML = lib.campaigns.length > 1
+    ? `<div class="shared">One library, <b>${lib.campaigns.length} campaigns</b> —
+         drop a clip in once and it is live in all of them:
+         ${lib.campaigns.map(c => `<span class="pill">${c}</span>`).join("")}</div>`
+    : "";
+
   KINDS.forEach(([k]) => {
     const list = s.staged[k] || [];
     $(`#f-${k}`).innerHTML = list.length
@@ -1919,6 +1968,16 @@ function paintMixHeader(){
          r.combinations.toLocaleString()}</b> combinations · <b>${
          Math.round(r.runway_days).toLocaleString()}</b> days runway`
     : `Nothing uploaded yet.`;
+
+  const scope = $("#mix-scope");
+  const fed = (r.library && r.library.campaigns) || [];
+  // The clips are shared; the switches are not. That distinction is the one
+  // thing about this panel that is not self-evident.
+  scope.innerHTML = fed.length > 1
+    ? `Clips are shared across ${fed.join(", ")}. These switches apply to
+       <b>${r.campaign}</b> only — a clip can run on one
+       network and sit out on another.`
+    : "";
 
   const note = $("#mix-note"); note.innerHTML = "";
   (r.blocking || []).forEach(label => msg(note, "bad",
@@ -2278,8 +2337,12 @@ $("#upload").onclick = async (e) => {
   try {
     const r = await (await fetch("/api/ingest",{method:"POST"})).json();
     if (r.ok){
+      const fed = (STATE && STATE.library && STATE.library.campaigns) || [];
       msg(um,"ok",`Uploaded ${r.uploaded.length}: ${r.uploaded.join(", ")}` +
-                  (r.skipped ? ` · ${r.skipped} skipped` : ""));
+                  (r.skipped ? ` · ${r.skipped} skipped` : "") +
+                  (fed.length > 1
+                    ? ` — now in the mix for ${fed.join(", ")}.`
+                    : ` — now in the mix.`));
     } else msg(um,"bad",r.error);
   } catch(err){ msg(um,"bad",String(err)); }
   e.target.disabled = false; e.target.textContent = "Upload to GitHub";

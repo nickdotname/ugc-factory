@@ -148,3 +148,49 @@ class TestFiltering:
         full = library(tmp_path)
         muted = filter_library(full, ClipRoster(disabled=("hook_02.mov",)), log())
         assert ceiling(muted) < ceiling(full)
+
+
+class TestSharedLibraries:
+    """Campaigns pointing at one assets Release must share one drop folder.
+
+    Without this, "I filmed three more hooks" means dropping the same three
+    files into three folders and uploading them three times — and the clip
+    cards on two of the three campaigns have no local copy to preview.
+    """
+
+    def config_for(self, slug: str, release: str | None):
+        from src.config import CampaignConfig
+
+        raw = {
+            "slug": slug,
+            "timezone": "UTC",
+            "buffer": {
+                "api_key_secret": "BUFFER_API_KEY",
+                "channel_id_secret": "BUFFER_CHANNEL_X",
+            },
+            "notify": {"webhook_secret": "DISCORD_WEBHOOK_X"},
+        }
+        if release is not None:
+            raw["assets_release"] = release
+        return CampaignConfig.model_validate(raw)
+
+    def test_a_campaign_with_its_own_release_uses_its_slug(self) -> None:
+        config = self.config_for("clubs", None)
+        assert config.assets_tag == "assets-clubs"
+        assert config.library_key == "clubs"
+
+    def test_campaigns_sharing_a_release_share_the_folder(self) -> None:
+        keys = {
+            self.config_for(slug, "assets-clubs").library_key
+            for slug in ("clubs_tt", "clubs_yt")
+        }
+        assert keys == {"clubs"}
+
+    def test_a_release_named_without_the_prefix_still_yields_a_folder(self) -> None:
+        # Nothing forces the "assets-" convention on a hand-written config.
+        assert self.config_for("x", "shared-library").library_key == "shared-library"
+
+    def test_an_empty_derived_key_falls_back_to_the_slug(self) -> None:
+        # "assets-" with nothing after it would otherwise name the inbox root
+        # itself, putting one campaign's clips beside every other campaign.
+        assert self.config_for("solo", "assets-").library_key == "solo"

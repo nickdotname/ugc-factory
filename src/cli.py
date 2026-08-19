@@ -771,7 +771,7 @@ def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
     log = get_logger(command="ingest", campaign=args.campaign)
     config = load_campaign(CAMPAIGNS_DIR, args.campaign)
 
-    inbox = REPO_ROOT / INBOX_ROOT / config.slug
+    inbox = REPO_ROOT / INBOX_ROOT / config.library_key
     ensure_inbox(inbox)
 
     try:
@@ -1177,7 +1177,7 @@ def known_clip_names(
     names: set[str] = set(roster_names)
     if store is not None:
         names.update(store.list_assets(_assets_tag(config)))
-    archive = repo_root / INBOX_ROOT / config.slug / ARCHIVE_DIR
+    archive = repo_root / INBOX_ROOT / config.library_key / ARCHIVE_DIR
     if archive.is_dir():
         names.update(p.name for p in archive.iterdir() if p.is_file())
     return sorted(n for n in names if kind_of(n) is not None)
@@ -1256,7 +1256,7 @@ def cmd_web(args: argparse.Namespace, env: dict[str, str]) -> int:
     app = WebApp(
         config=config,
         repo_root=REPO_ROOT,
-        inbox=REPO_ROOT / INBOX_ROOT / config.slug,
+        inbox=REPO_ROOT / INBOX_ROOT / config.library_key,
         bank_path=_campaign_dir(config.slug) / "captions.txt",
         log=log,
         clock=clock,
