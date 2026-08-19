@@ -26,4 +26,9 @@ jobs:
       matrix:
         campaign: ${{ fromJson(needs.discover.outputs.campaigns) }}
     steps:
+      - name: Export campaign secrets
+        env:
+          ALL_SECRETS: ${{ toJSON(secrets) }}
+        run: |
+          echo "$ALL_SECRETS" | jq -r 'to_entries[] | select(.key|test("^(BUFFER|DISCORD)_")) | "\(.key)=\(.value)"' >> "$GITHUB_ENV"
       - run: echo "campaign is ${{ matrix.campaign }}"
