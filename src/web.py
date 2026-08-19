@@ -1223,7 +1223,9 @@ PAGE = """<!doctype html>
   .segs button[aria-pressed="true"] { background:var(--panel-2); color:var(--ink); }
   svg.chart { display:block; width:100%; overflow:visible; }
   .axis { font-size:10px; fill:var(--ink-3); font-family:"IBM Plex Mono",monospace; }
-  .gridline { stroke:var(--line); stroke-width:1; }
+  .gridline { stroke:var(--line); stroke-width:1; opacity:.7; }
+  rect.bar { transition:opacity .14s; }
+  rect.bar:hover { opacity:.82; }
   .tip {
     position:fixed; pointer-events:none; z-index:60; opacity:0;
     background:var(--panel); border:1px solid var(--line-2);
@@ -1763,6 +1765,59 @@ function niceMax(v){
 }
 const shortDate = d => d.slice(5).replace("-", "/");
 
+/* Monotone cubic interpolation (Fritsch–Carlson).
+
+   A plain cubic bezier through data points OVERSHOOTS between them — it draws
+   peaks and dips that are not in the data, which on an analytics chart is a
+   lie rather than a flourish. Monotone cubic constrains the tangents so the
+   curve can never leave the interval between two adjacent values: it is smooth
+   AND it only ever shows numbers that exist. */
+function monotonePath(pts){
+  const n = pts.length;
+  if (n < 2) return "";
+  if (n === 2) return `M${pts[0][0]},${pts[0][1]}L${pts[1][0]},${pts[1][1]}`;
+
+  const dx = [], dy = [], slope = [];
+  for (let i = 0; i < n-1; i++){
+    dx[i] = pts[i+1][0] - pts[i][0];
+    dy[i] = pts[i+1][1] - pts[i][1];
+    slope[i] = dy[i] / (dx[i] || 1);
+  }
+  const m = [slope[0]];
+  for (let i = 1; i < n-1; i++){
+    // A sign change means a local extremum: flatten the tangent so the curve
+    // turns exactly at the data point instead of sailing past it.
+    m[i] = slope[i-1] * slope[i] <= 0 ? 0 : (slope[i-1] + slope[i]) / 2;
+  }
+  m[n-1] = slope[n-2];
+  for (let i = 0; i < n-1; i++){
+    if (slope[i] === 0){ m[i] = m[i+1] = 0; continue; }
+    const a = m[i]/slope[i], b = m[i+1]/slope[i], h = Math.hypot(a,b);
+    if (h > 3){ m[i] = 3*a/h*slope[i]; m[i+1] = 3*b/h*slope[i]; }
+  }
+
+  let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for (let i = 0; i < n-1; i++){
+    const t = dx[i] / 3;
+    d += `C${(pts[i][0]+t).toFixed(1)},${(pts[i][1]+m[i]*t).toFixed(1)}` +
+         ` ${(pts[i+1][0]-t).toFixed(1)},${(pts[i+1][1]-m[i+1]*t).toFixed(1)}` +
+         ` ${pts[i+1][0].toFixed(1)},${pts[i+1][1].toFixed(1)}`;
+  }
+  return d;
+}
+
+let GID = 0;
+/* Vertical fade from a mark's own colour to nothing. Kept low-opacity so three
+   overlapping series stay individually readable — a heavy fill would turn the
+   topmost series into a mask over the others. */
+function fadeDef(color, from, to){
+  const id = "fade" + (++GID);
+  return [id, `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="${color}" stop-opacity="${from}"/>
+    <stop offset="100%" stop-color="${color}" stop-opacity="${to}"/>
+  </linearGradient>`];
+}
+
 /* Multi-series line. 2px strokes, 8px hover markers, crosshair + shared
    tooltip — the default interaction for a time series. */
 function lineChart(el, seriesMap, opts){
@@ -1791,18 +1846,28 @@ function lineChart(el, seriesMap, opts){
     g += `<text class="axis" x="${x(i)}" y="${H-8}" text-anchor="middle">${shortDate(d)}</text>`;
   });
 
+  let defs = "";
   names.forEach(n => {
     const byDate = Object.fromEntries(seriesMap[n]);
     const pts = dates.map((d,i) => byDate[d] === undefined ? null : [x(i), y(byDate[d])])
                      .filter(Boolean);
     if (pts.length < 2) return;
-    const path = pts.map((p,i) => `${i?"L":"M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join("");
-    g += `<path d="${path}" fill="none" stroke="${svar(n)}" stroke-width="2"
+    const col = svar(n);
+    const path = monotonePath(pts);
+    const [fid, fdef] = fadeDef(col, 0.22, 0);
+    defs += fdef;
+    // Area first, line over it, so the stroke stays crisp against the fill.
+    g += `<path d="${path}L${pts[pts.length-1][0].toFixed(1)},${H-P.b}L${
+            pts[0][0].toFixed(1)},${H-P.b}Z" fill="url(#${fid})"/>`;
+    g += `<path d="${path}" fill="none" stroke="${col}" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round"/>`;
     const last = pts[pts.length-1];
-    g += `<circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="${svar(n)}"
+    // Halo then dot: reads as a lit endpoint without adding a second mark.
+    g += `<circle cx="${last[0]}" cy="${last[1]}" r="7" fill="${col}" opacity=".18"/>
+          <circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="${col}"
             stroke="var(--panel)" stroke-width="2"/>`;
   });
+  g = `<defs>${defs}</defs>` + g;
 
   g += `<line id="cross" y1="${P.t}" y2="${H-P.b}" stroke="var(--line-2)"
           stroke-width="1" style="opacity:0"/><g id="dots"></g>`;
@@ -1845,10 +1910,18 @@ function barsH(el, rows, opts){
   const W = el.clientWidth || 420, rowH = opts.rowH || 26, L = opts.labelW || 108;
   const H = rows.length * rowH;
   const max = Math.max(...rows.map(r => r.value)) || 1;
+  let hdefs = "";
   const g = rows.map((r,i) => {
     const w = Math.max(2, (r.value / max) * (W - L - 56));
     const yy = i * rowH;
-    const col = r.color || "var(--bar)";
+    const base = r.color || "var(--bar)";
+    const hid = "hb" + (++GID);
+    // Horizontal fade: full strength at the axis, softening toward the tip, so
+    // the eye lands on the baseline the bars are actually measured from.
+    hdefs += `<linearGradient id="${hid}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${base}" stop-opacity="1"/>
+      <stop offset="100%" stop-color="${base}" stop-opacity=".62"/></linearGradient>`;
+    const col = `url(#${hid})`;
     return `<text class="axis" x="0" y="${yy + rowH/2 + 3.5}"
               style="font-size:11px;fill:var(--ink-2)">${esc(r.label)}</text>
       <rect class="bar" x="${L}" y="${yy + 4}" width="${w}" height="${rowH - 10}"
@@ -1857,7 +1930,7 @@ function barsH(el, rows, opts){
         style="fill:var(--ink-2)">${fmt(r.value, opts.unit)}</text>`;
   }).join("");
   el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
-      aria-label="${esc(opts.label||"bars")}">${g}</svg>`;
+      aria-label="${esc(opts.label||"bars")}"><defs>${hdefs}</defs>${g}</svg>`;
   el.querySelectorAll("rect.bar").forEach(rect => {
     rect.addEventListener("mousemove", ev => {
       const r = rows[+rect.dataset.i];
@@ -1882,17 +1955,23 @@ function barsV(el, rows, opts){
     g += `<line class="gridline" x1="${P.l}" y1="${yy}" x2="${W-P.r}" y2="${yy}"/>
           <text class="axis" x="${P.l-6}" y="${yy+3.5}" text-anchor="end">${fmt(v,"count")}</text>`;
   }
+  let vdefs = "";
   g += rows.map((r,i) => {
     const h = (r.value/max) * (H-P.t-P.b);
     const xx = P.l + i*bw, yy = H - P.b - h;
+    const base = r.color || "var(--bar)";
+    const vid = "vb" + (++GID);
+    vdefs += `<linearGradient id="${vid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${base}" stop-opacity="1"/>
+      <stop offset="100%" stop-color="${base}" stop-opacity=".55"/></linearGradient>`;
     return `<rect class="bar" x="${xx+1}" y="${yy}" width="${Math.max(1,bw-2)}"
         height="${Math.max(r.value?2:0,h)}" rx="3"
-        fill="${r.color||"var(--bar)"}" data-i="${i}"/>` +
+        fill="url(#${vid})" data-i="${i}"/>` +
       (r.tick ? `<text class="axis" x="${xx+bw/2}" y="${H-7}"
         text-anchor="middle">${esc(r.tick)}</text>` : "");
   }).join("");
   el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
-      aria-label="${esc(opts.label||"bars")}">${g}</svg>`;
+      aria-label="${esc(opts.label||"bars")}"><defs>${vdefs}</defs>${g}</svg>`;
   el.querySelectorAll("rect.bar").forEach(rect => {
     rect.addEventListener("mousemove", ev => {
       const r = rows[+rect.dataset.i];
