@@ -840,216 +840,335 @@ PAGE = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ugc-factory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* ── Palette ────────────────────────────────────────────────────────────
+     Warm charcoal + terracotta. Deliberately not the default SaaS blue on
+     white: the neutrals carry a warm cast so the single saturated accent
+     reads as intentional rather than decorative. Mint marks growth, rose
+     marks loss — never the accent, which is reserved for actions.          */
+  /* Every foreground/background pair here clears WCAG AA (4.5:1) for normal
+     text — including the 11px dim labels and the button text, which is 13px
+     semibold and therefore does NOT qualify for the 3:1 large-text
+     allowance. Values were solved for, not eyeballed; nudging them lighter
+     will quietly drop below the line. */
   :root {
-    --bg:#0e0f12; --panel:#16181d; --line:#262a33; --text:#e6e8ee;
-    --dim:#8b93a5; --accent:#5b8cff; --ok:#3fb950; --warn:#d29922; --bad:#f85149;
+    --bg:#100f0e; --panel:#191715; --panel-2:#201d1b;
+    --line:#2b2724; --line-2:#3a3531;
+    --ink:#f4efe9; --ink-2:#b3a99f; --ink-3:#897f76;
+    --accent:#ce491f; --accent-ink:#fff;
+    --up:#5fce9f; --down:#e2647a; --warn:#e0a44a;
+    --radius:14px; --radius-sm:9px;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
   }
   @media (prefers-color-scheme: light) {
     :root {
-      --bg:#f6f7f9; --panel:#fff; --line:#e2e5ea; --text:#14171f;
-      --dim:#666e7d; --accent:#2f6bff; --ok:#1a7f37; --warn:#9a6700; --bad:#cf222e;
+      --bg:#faf7f4; --panel:#fff; --panel-2:#f6f2ee;
+      --line:#e8e0d8; --line-2:#d9cfc4;
+      --ink:#1b1815; --ink-2:#6b625a; --ink-3:#7f746a;
+      --accent:#c9502a; --accent-ink:#fff;
+      --up:#1e855f; --down:#c2374f; --warn:#9a6a12;
+      --shadow:0 1px 2px rgba(60,40,25,.06), 0 10px 30px -18px rgba(60,40,25,.35);
     }
   }
+  :root[data-theme="light"] {
+    --bg:#faf7f4; --panel:#fff; --panel-2:#f6f2ee;
+    --line:#e8e0d8; --line-2:#d9cfc4;
+    --ink:#1b1815; --ink-2:#6b625a; --ink-3:#7f746a;
+    --accent:#c9502a; --up:#1e855f; --down:#c2374f; --warn:#9a6a12;
+  }
+  :root[data-theme="dark"] {
+    --bg:#100f0e; --panel:#191715; --panel-2:#201d1b;
+    --line:#2b2724; --line-2:#3a3531;
+    --ink:#f4efe9; --ink-2:#b3a99f; --ink-3:#897f76;
+    --accent:#ce491f; --up:#5fce9f; --down:#e2647a; --warn:#e0a44a;
+  }
+
   * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
   body {
-    margin:0; background:var(--bg); color:var(--text);
-    font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Instrument Sans", ui-sans-serif, -apple-system, sans-serif;
+    font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    /* Faint grain keeps the large flat panels from looking plastic. */
+    background-image:
+      radial-gradient(1200px 600px at 12% -8%, color-mix(in srgb,var(--accent) 7%,transparent), transparent 60%),
+      radial-gradient(900px 500px at 92% 0%, color-mix(in srgb,var(--up) 5%,transparent), transparent 55%);
+    background-attachment:fixed;
   }
+  .num { font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+
+  /* ── Shell ─────────────────────────────────────────────────────────── */
   header {
-    padding:18px 24px; border-bottom:1px solid var(--line);
-    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb,var(--bg) 88%, transparent);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+    padding:0 28px; height:60px;
+    display:flex; align-items:center; gap:14px;
   }
-  h1 { font-size:15px; margin:0; font-weight:600; letter-spacing:-.01em; }
-  .tag {
-    font-size:11px; color:var(--dim); border:1px solid var(--line);
-    padding:2px 8px; border-radius:99px;
+  .brand {
+    font-size:14px; font-weight:700; letter-spacing:-.02em;
+    display:flex; align-items:center; gap:9px; margin-right:4px;
   }
-  main { padding:24px; max-width:1100px; margin:0 auto; }
+  .dot {
+    width:9px; height:9px; border-radius:50%; background:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent);
+  }
+  main { padding:28px; max-width:1220px; margin:0 auto 80px; }
+  section { margin-top:34px; }
+  section:first-of-type { margin-top:4px; }
+  h2 {
+    font-size:12px; font-weight:600; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--ink-3); margin:0 0 14px;
+    display:flex; align-items:baseline; gap:10px;
+  }
+  h2 small { font-size:12px; letter-spacing:0; text-transform:none;
+             font-weight:400; color:var(--ink-3); }
+
+  /* ── Controls ──────────────────────────────────────────────────────── */
+  select, input[type=text], input[type=number], textarea {
+    background:var(--panel); color:var(--ink);
+    border:1px solid var(--line-2); border-radius:var(--radius-sm);
+    padding:8px 11px; font:inherit; font-size:14px;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  select:focus, input:focus, textarea:focus {
+    outline:none; border-color:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent);
+  }
+  #switcher { font-weight:600; padding-right:26px; }
+  button {
+    font:inherit; font-size:13px; font-weight:600; cursor:pointer;
+    border-radius:var(--radius-sm); padding:8px 15px;
+    border:1px solid transparent; background:var(--accent); color:var(--accent-ink);
+    transition:transform .12s cubic-bezier(.2,.8,.3,1), filter .15s, background .15s;
+  }
+  button:hover { filter:brightness(1.07); }
+  button:active { transform:translateY(1px); }
+  button:disabled { opacity:.45; cursor:default; transform:none; filter:none; }
+  button.ghost { background:transparent; color:var(--ink); border-color:var(--line-2); }
+  button.ghost:hover { background:var(--panel-2); filter:none; }
+  button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .spacer { flex:1; }
+
+  .pill {
+    font-size:11px; font-weight:500; color:var(--ink-2);
+    border:1px solid var(--line); border-radius:999px; padding:3px 10px;
+    white-space:nowrap;
+  }
+  .pill.live { color:var(--up); border-color:color-mix(in srgb,var(--up) 40%,transparent);
+               background:color-mix(in srgb,var(--up) 10%,transparent); }
+  .pill.paused { color:var(--warn); border-color:color-mix(in srgb,var(--warn) 40%,transparent);
+                 background:color-mix(in srgb,var(--warn) 10%,transparent); }
+
+  /* ── Cards ─────────────────────────────────────────────────────────── */
+  .card {
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow);
+    /* Clips the metric grid's trailing cell borders at the rounded edge. */
+    overflow:hidden;
+  }
+  /* Platform cards sit in a grid and are stretched to the tallest, so the
+     footer is pushed down rather than stranded mid-card when a network
+     reports fewer metrics than its neighbours. */
+  .grid .card { display:flex; flex-direction:column; }
+  .grid .metrics { flex:1; align-content:start; }
+  .grid .foot { margin-top:auto; }
+  .pad { padding:20px 22px; }
+
+  /* Hero stat strip — the one place with real typographic scale. */
+  .hero { display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); }
+  .hero .stat { padding:18px 22px; border-right:1px solid var(--line); }
+  .hero .stat:last-child { border-right:none; }
+  @media (max-width:900px){ .hero .stat { border-right:none; border-bottom:1px solid var(--line); } }
+  .stat .v {
+    font-size:29px; font-weight:600; letter-spacing:-.035em; line-height:1.1;
+  }
+  .stat .k {
+    font-size:11px; color:var(--ink-3); margin-top:5px;
+    letter-spacing:.03em;
+  }
+  .stat.lead .v { color:var(--accent); }
+  .foot {
+    padding:12px 22px; border-top:1px solid var(--line);
+    font-size:12px; color:var(--ink-3);
+  }
+
+  /* Platform grid */
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:16px; }
+  .plat-head {
+    display:flex; align-items:center; gap:10px;
+    padding:16px 20px; border-bottom:1px solid var(--line);
+  }
+  .plat-name { font-size:14px; font-weight:650; letter-spacing:-.01em; text-transform:capitalize; }
+  .plat-sub { font-size:11px; color:var(--ink-3); }
+  .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(96px,1fr)); }
+  .m { padding:14px 20px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .m .v { font-size:18px; font-weight:600; letter-spacing:-.02em; display:flex; align-items:baseline; gap:6px; }
+  .m .k { font-size:11px; color:var(--ink-3); margin-top:2px; }
+  .d { font-size:11px; font-weight:600; }
+  .up { color:var(--up); } .down { color:var(--down); } .flat { color:var(--ink-3); }
+  .spark { display:block; margin-top:8px; opacity:.9; }
+
+  /* ── Drop zones ────────────────────────────────────────────────────── */
   .zones { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-  @media (max-width:820px) { .zones { grid-template-columns:1fr; } }
+  @media (max-width:860px){ .zones { grid-template-columns:1fr; } }
   .zone {
-    background:var(--panel); border:1.5px dashed var(--line); border-radius:12px;
-    padding:18px; min-height:190px; transition:border-color .15s,background .15s;
+    background:var(--panel); border:1.5px dashed var(--line-2);
+    border-radius:var(--radius); padding:18px 20px; min-height:184px;
+    cursor:pointer; transition:border-color .16s, background .16s, transform .16s;
   }
-  .zone.over { border-color:var(--accent); background:color-mix(in srgb,var(--accent) 8%,var(--panel)); }
-  .zone h2 { font-size:13px; margin:0 0 2px; font-weight:600; }
-  .zone .sub { font-size:11px; color:var(--dim); margin-bottom:12px; }
+  .zone:hover { border-color:var(--ink-3); }
+  .zone.over {
+    border-color:var(--accent); border-style:solid;
+    background:color-mix(in srgb,var(--accent) 7%,var(--panel));
+    transform:translateY(-2px);
+  }
+  .zone h3 { margin:0; font-size:13px; font-weight:650; letter-spacing:-.01em; }
+  .zone .sub { font-size:11px; color:var(--ink-3); margin:3px 0 13px; }
   .files { list-style:none; margin:0; padding:0; font-size:12px; }
   .files li {
-    display:flex; justify-content:space-between; gap:8px; align-items:center;
-    padding:5px 0; border-top:1px solid var(--line);
+    display:flex; align-items:center; gap:9px; padding:6px 0;
+    border-top:1px solid var(--line);
   }
-  .files .nm { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .files .nm { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .files .sz { color:var(--ink-3); font-size:11px; }
   .files button {
-    background:none; border:none; color:var(--dim); cursor:pointer;
-    font-size:14px; padding:0 2px;
+    background:none; border:none; color:var(--ink-3); padding:0 2px;
+    font-size:15px; line-height:1;
   }
-  .files button:hover { color:var(--bad); }
-  .empty { font-size:12px; color:var(--dim); font-style:italic; }
-  section { margin-top:26px; }
-  h3 { font-size:12px; text-transform:uppercase; letter-spacing:.06em;
-       color:var(--dim); margin:0 0 10px; font-weight:600; }
-  textarea {
-    width:100%; min-height:230px; background:var(--panel); color:var(--text);
-    border:1px solid var(--line); border-radius:10px; padding:14px;
-    font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace; resize:vertical;
+  .files button:hover { color:var(--down); filter:none; }
+  .empty { color:var(--ink-3); font-style:italic; font-size:12px; }
+
+  /* ── Messages ──────────────────────────────────────────────────────── */
+  .msg {
+    font-size:12.5px; line-height:1.5; padding:10px 13px;
+    border-radius:var(--radius-sm); margin-top:9px;
+    border:1px solid transparent;
   }
-  textarea:focus { outline:none; border-color:var(--accent); }
-  .row { display:flex; gap:10px; align-items:center; margin-top:10px; flex-wrap:wrap; }
-  button.act {
-    background:var(--accent); color:#fff; border:none; padding:9px 16px;
-    border-radius:8px; font-size:13px; font-weight:500; cursor:pointer;
+  .msg.ok   { color:var(--up);   background:color-mix(in srgb,var(--up) 11%,transparent);
+              border-color:color-mix(in srgb,var(--up) 26%,transparent); }
+  .msg.warn { color:var(--warn); background:color-mix(in srgb,var(--warn) 11%,transparent);
+              border-color:color-mix(in srgb,var(--warn) 26%,transparent); }
+  .msg.bad  { color:var(--down); background:color-mix(in srgb,var(--down) 11%,transparent);
+              border-color:color-mix(in srgb,var(--down) 26%,transparent); }
+  .msg code {
+    font-family:"IBM Plex Mono", monospace; font-size:11.5px;
+    background:color-mix(in srgb,var(--ink) 9%,transparent);
+    padding:1px 5px; border-radius:4px;
   }
-  button.act:hover { filter:brightness(1.08); }
-  button.act:disabled { opacity:.5; cursor:default; }
-  button.ghost { background:none; border:1px solid var(--line); color:var(--text); }
-  .stats {
-    background:var(--panel); border:1px solid var(--line); border-radius:12px;
-    padding:16px 18px;
-  }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:14px; }
-  .stat .n { font-size:21px; font-weight:600; letter-spacing:-.02em; }
-  .stat .l { font-size:11px; color:var(--dim); }
-  .msg { font-size:12px; padding:9px 12px; border-radius:8px; margin-top:9px; }
-  .msg.ok  { color:var(--ok);   background:color-mix(in srgb,var(--ok) 12%,transparent); }
-  .msg.warn{ color:var(--warn); background:color-mix(in srgb,var(--warn) 12%,transparent); }
-  .msg.bad { color:var(--bad);  background:color-mix(in srgb,var(--bad) 12%,transparent); }
-  .plan { font:12px/1.6 ui-monospace,Menlo,monospace; white-space:pre-wrap;
-          background:var(--panel); border:1px solid var(--line);
-          border-radius:10px; padding:14px; margin-top:12px; }
-  .hint { font-size:12px; color:var(--dim); margin-top:6px; }
-  header select {
-    background:var(--panel); color:var(--text); border:1px solid var(--line);
-    border-radius:8px; padding:5px 9px; font-size:13px; font-weight:600;
-  }
-  .newc {
-    background:var(--panel); border:1px solid var(--line); border-radius:12px;
-    padding:18px; margin:0 24px 4px;
-  }
-  .newc h3 { margin-top:0; }
-  .frow { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-          gap:12px; margin-bottom:10px; }
-  .frow label { display:flex; flex-direction:column; gap:4px;
-                font-size:11px; color:var(--dim); }
-  .frow input, .frow select {
-    background:var(--bg); color:var(--text); border:1px solid var(--line);
-    border-radius:8px; padding:7px 9px; font-size:13px;
-  }
-  .chk { display:flex; align-items:center; gap:7px; font-size:12px;
-         color:var(--dim); margin-bottom:6px; }
-  .dead { color:var(--bad); }
+
+  /* ── Sync bar ──────────────────────────────────────────────────────── */
   .sync {
-    margin:0 24px 4px; padding:11px 16px; border-radius:10px;
-    background:color-mix(in srgb,var(--warn) 14%,var(--panel));
-    border:1px solid color-mix(in srgb,var(--warn) 35%,var(--line));
-    display:flex; align-items:center; gap:14px; font-size:13px;
+    display:flex; align-items:center; gap:16px;
+    padding:13px 18px; border-radius:var(--radius); margin-bottom:16px;
+    background:color-mix(in srgb,var(--warn) 10%,var(--panel));
+    border:1px solid color-mix(in srgb,var(--warn) 30%,var(--line));
+    font-size:13px;
   }
   .sync span { flex:1; }
-  .perf-card {
-    background:var(--panel); border:1px solid var(--line); border-radius:12px;
-    padding:16px 18px; margin-bottom:12px;
+
+  /* ── New campaign ──────────────────────────────────────────────────── */
+  .frow { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:13px; }
+  .frow label { display:flex; flex-direction:column; gap:5px;
+                font-size:11px; color:var(--ink-3); letter-spacing:.03em; }
+  .chk { display:flex; align-items:center; gap:8px; font-size:12.5px;
+         color:var(--ink-2); margin-top:11px; cursor:pointer; }
+  .chk input { accent-color:var(--accent); width:15px; height:15px; }
+  .row { display:flex; gap:10px; align-items:center; margin-top:15px; flex-wrap:wrap; }
+
+  textarea {
+    width:100%; min-height:230px; resize:vertical;
+    font-family:"IBM Plex Mono", monospace; font-size:12.5px; line-height:1.65;
   }
-  .perf-head { display:flex; align-items:baseline; gap:10px; margin-bottom:14px; }
-  .perf-head .who { font-size:13px; font-weight:600; }
-  .perf-head .when { font-size:11px; color:var(--dim); }
-  .mrow { display:grid; grid-template-columns:repeat(auto-fit,minmax(108px,1fr)); gap:14px; }
-  .m .v { font-size:19px; font-weight:600; letter-spacing:-.02em; }
-  .m .k { font-size:11px; color:var(--dim); }
-  .m .d { font-size:11px; margin-left:5px; font-weight:500; }
-  .up   { color:var(--ok); }
-  .down { color:var(--bad); }
-  .flat { color:var(--dim); }
-  .spark { display:block; margin-top:6px; }
-  .total-card {
-    background:var(--panel); border:1px solid var(--line); border-radius:12px;
-    padding:20px 22px;
-  }
-  .totals { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:18px; }
-  .t .v { font-size:27px; font-weight:650; letter-spacing:-.025em; }
-  .t .k { font-size:11px; color:var(--dim); margin-top:1px; }
-  .life { font-size:11px; color:var(--dim); margin-top:4px; }
+  .hint { font-size:12px; color:var(--ink-3); margin-top:9px; }
+  .dead { color:var(--down); }
 </style>
 </head>
 <body>
 <header>
-  <h1>ugc-factory</h1>
-  <select id="switcher" title="switch campaign"></select>
-  <span class="tag" id="t-service">…</span>
-  <span class="tag" id="t-cadence">…</span>
-  <span class="tag" id="t-dry">…</span>
-  <button class="act ghost" id="new-btn" style="margin-left:auto">+ New campaign</button>
+  <span class="brand"><span class="dot"></span>ugc-factory</span>
+  <select id="switcher" aria-label="Switch campaign"></select>
+  <span class="pill" id="t-service">—</span>
+  <span class="pill" id="t-cadence">—</span>
+  <span class="pill" id="t-dry">—</span>
+  <span class="spacer"></span>
+  <button class="ghost" id="new-btn">New campaign</button>
 </header>
 
-<div id="sync-bar" style="display:none">
-  <div class="sync">
-    <span id="sync-text"></span>
-    <button class="act" id="publish-btn">Publish to GitHub</button>
-  </div>
-</div>
-
-<div id="new-panel" style="display:none">
-  <div class="newc">
-    <h3>New campaign</h3>
-    <div class="frow">
-      <label>Buffer account<select id="f-key"></select></label>
-      <label>Channel<select id="f-channel"><option value="">loading…</option></select></label>
-      <label>Slug<input id="f-slug" placeholder="brand_tiktok" autocomplete="off"></label>
-      <label>Posts/day<input id="f-ppd" type="number" min="1" max="24" value="12"></label>
-      <label>Start hour<input id="f-start" type="number" min="0" max="23" value="15"></label>
-    </div>
-    <label class="chk"><input type="checkbox" id="f-share" checked>
-      Share this campaign's asset library (no re-uploading clips)</label>
-    <label class="chk"><input type="checkbox" id="f-copy" checked>
-      Copy the current descriptions</label>
-    <div class="row">
-      <button class="act" id="create-btn">Create</button>
-      <button class="act ghost" id="cancel-btn">Cancel</button>
-    </div>
-    <div id="new-msgs"></div>
-  </div>
-</div>
-
 <main>
-  <div class="zones" id="zones"></div>
-  <div class="hint">Drag files in, or click a zone to browse. Names don't matter — correct ones are generated on upload.</div>
+  <div id="sync-bar" style="display:none">
+    <div class="sync">
+      <span id="sync-text"></span>
+      <button id="publish-btn">Publish to GitHub</button>
+    </div>
+  </div>
+
+  <div id="new-panel" style="display:none">
+    <div class="card pad" style="margin-bottom:16px">
+      <h2 style="margin-bottom:15px">New campaign</h2>
+      <div class="frow">
+        <label>Buffer account<select id="f-key"></select></label>
+        <label>Channel<select id="f-channel"><option value="">loading…</option></select></label>
+        <label>Slug<input type="text" id="f-slug" placeholder="brand_tiktok" autocomplete="off"></label>
+        <label>Posts / day<input type="number" id="f-ppd" min="1" max="24" value="12"></label>
+        <label>Start hour<input type="number" id="f-start" min="0" max="23" value="15"></label>
+      </div>
+      <label class="chk"><input type="checkbox" id="f-share" checked>
+        Share this campaign's asset library — no re-uploading clips</label>
+      <label class="chk"><input type="checkbox" id="f-copy" checked>
+        Copy the current descriptions</label>
+      <div class="row">
+        <button id="create-btn">Create campaign</button>
+        <button class="ghost" id="cancel-btn">Cancel</button>
+      </div>
+      <div id="new-msgs"></div>
+    </div>
+  </div>
 
   <section>
-    <h3>Descriptions <span style="text-transform:none;font-weight:400">— the text each video is posted with</span></h3>
-    <textarea id="bank" spellcheck="false" placeholder="One description per block, blank line between blocks."></textarea>
+    <h2>All time <small>every campaign, since the first post</small></h2>
+    <div id="overall"></div>
+  </section>
+
+  <section>
+    <h2>By platform <small id="perf-note"></small></h2>
+    <div id="perf"></div>
+  </section>
+
+  <section>
+    <h2>Assets <small>drag files in — names don't matter</small></h2>
+    <div class="zones" id="zones"></div>
     <div class="row">
-      <button class="act ghost" id="save">Save descriptions</button>
-      <span id="bank-count" style="font-size:12px;color:var(--dim)"></span>
+      <button class="ghost" id="preview">Preview plan</button>
+      <button id="upload">Upload to GitHub</button>
+    </div>
+    <div id="up-msgs"></div>
+    <div class="card pad" id="plan" style="display:none;margin-top:12px;
+      font-family:'IBM Plex Mono',monospace;font-size:12px;white-space:pre-wrap"></div>
+  </section>
+
+  <section>
+    <h2>Descriptions <small>the text each video is posted with</small></h2>
+    <textarea id="bank" spellcheck="false"
+      placeholder="One description per record, separated by a line of ---"></textarea>
+    <div class="row">
+      <button class="ghost" id="save">Save descriptions</button>
+      <span class="hint" id="bank-count" style="margin:0"></span>
     </div>
     <div id="bank-msgs"></div>
   </section>
 
   <section>
-    <h3>Library</h3>
-    <div class="stats">
-      <div class="grid" id="stats"></div>
+    <h2>Library</h2>
+    <div class="card">
+      <div class="hero" id="stats"></div>
       <div id="health"></div>
     </div>
-  </section>
-
-  <section>
-    <h3>All time <span style="text-transform:none;font-weight:400">— every campaign, since the first post</span></h3>
-    <div id="overall"></div>
-  </section>
-
-  <section>
-    <h3>By platform <span style="text-transform:none;font-weight:400" id="perf-note"></span></h3>
-    <div id="perf"></div>
-  </section>
-
-  <section>
-    <h3>Upload</h3>
-    <div class="row">
-      <button class="act ghost" id="preview">Preview plan</button>
-      <button class="act" id="upload">Upload to GitHub</button>
-    </div>
-    <div id="up-msgs"></div>
-    <div class="plan" id="plan" style="display:none"></div>
   </section>
 </main>
 
@@ -1057,26 +1176,67 @@ PAGE = """<!doctype html>
 const KINDS = [
   ["hooks",  "Hooks",  "the first 1–2s that stop the scroll", "video/*"],
   ["bodies", "Bodies", "your main videos",                    "video/*"],
-  ["music",  "Music",  "royalty-free tracks only",            "audio/*"],
+  ["music",  "Music",  "whole songs, royalty-free",           "audio/*"],
 ];
 const $ = s => document.querySelector(s);
-let STATE = null;
+let STATE = null, CHANNELS = [];
 
 function bytes(n){ return n > 1e6 ? (n/1e6).toFixed(1)+" MB" : Math.max(1,Math.round(n/1e3))+" KB"; }
+function fmt(v, unit){
+  if (unit === "percentage") return v.toFixed(1) + "%";
+  if (v >= 1e6) return (v/1e6).toFixed(1) + "M";
+  if (v >= 1e3) return (v/1e3).toFixed(1) + "k";
+  return Math.round(v).toLocaleString();
+}
+function delta(change){
+  if (change === null || change === undefined) return "";
+  const cls = change > 1 ? "up" : change < -1 ? "down" : "flat";
+  const sign = change > 0 ? "+" : "";
+  return `<span class="d ${cls}">${sign}${change.toFixed(0)}%</span>`;
+}
+function msg(el, cls, text){ el.innerHTML += `<div class="msg ${cls}">${text}</div>`; }
+
+/* Area sparkline: the fill is what makes a 90px chart readable at a glance. */
+function sparkline(points, w, h){
+  if (points.length < 2) return "";
+  const vals = points.map(p => p[1]);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const span = (max - min) || 1;
+  const step = w / (points.length - 1);
+  const xy = vals.map((v,i) => [i*step, h - ((v-min)/span)*(h-3) - 1.5]);
+  const line = xy.map(([x,y],i) => `${i?"L":"M"}${x.toFixed(1)},${y.toFixed(1)}`).join("");
+  const id = "g" + Math.random().toString(36).slice(2,8);
+  const rising = vals[vals.length-1] >= vals[0];
+  const c = rising ? "var(--up)" : "var(--down)";
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${c}" stop-opacity=".28"/>
+      <stop offset="100%" stop-color="${c}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="${line}L${w},${h}L0,${h}Z" fill="url(#${id})"/>
+    <path d="${line}" stroke="${c}" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
 
 function buildZones(){
   $("#zones").innerHTML = KINDS.map(([k,label,sub,accept]) => `
-    <div class="zone" data-kind="${k}">
-      <h2>${label}</h2>
+    <div class="zone" data-kind="${k}" tabindex="0" role="button"
+         aria-label="Add ${label}">
+      <h3>${label}</h3>
       <div class="sub">${sub}</div>
       <ul class="files" id="f-${k}"></ul>
-      <input type="file" multiple accept="${accept}" id="i-${k}" style="display:none">
+      <input type="file" multiple accept="${accept}" id="i-${k}" hidden>
     </div>`).join("");
 
   KINDS.forEach(([k]) => {
     const zone = document.querySelector(`.zone[data-kind="${k}"]`);
     const input = $(`#i-${k}`);
-    zone.addEventListener("click", e => { if (e.target.tagName !== "BUTTON") input.click(); });
+    const open = e => { if (e.target.tagName !== "BUTTON") input.click(); };
+    zone.addEventListener("click", open);
+    zone.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); }
+    });
     input.addEventListener("change", () => { send(k, input.files); input.value = ""; });
     ["dragenter","dragover"].forEach(ev => zone.addEventListener(ev, e => {
       e.preventDefault(); zone.classList.add("over");
@@ -1095,54 +1255,125 @@ async function send(kind, files){
   }
   refresh();
 }
-
 async function remove(kind, name){
   await fetch(`/api/inbox?kind=${kind}&name=${encodeURIComponent(name)}`, {method:"DELETE"});
   refresh();
 }
 
-function msg(el, cls, text){
-  el.innerHTML += `<div class="msg ${cls}">${text}</div>`;
-}
-
 function render(s){
   STATE = s;
-  $("#t-service").textContent  = s.service;
-  $("#t-cadence").textContent  = s.posts_per_day + "/day";
-  $("#t-dry").textContent      = s.dry_run ? "dry run" : "LIVE";
-  $("#t-dry").style.color      = s.dry_run ? "" : "var(--warn)";
+  $("#t-service").textContent = s.service;
+  $("#t-cadence").textContent = s.posts_per_day + "/day";
+  const dry = $("#t-dry");
+  dry.textContent = s.dry_run ? "paused" : "live";
+  dry.className = "pill " + (s.dry_run ? "paused" : "live");
 
   KINDS.forEach(([k]) => {
     const list = s.staged[k] || [];
     $(`#f-${k}`).innerHTML = list.length
       ? list.map(f => `<li><span class="nm">${f.name}</span>
-          <span style="color:var(--dim);font-size:11px">${bytes(f.size)}</span>
-          <button title="remove" onclick="event.stopPropagation();remove('${k}','${
-            f.name.replace(/'/g,"\\\\'")}')">×</button></li>`).join("")
+          <span class="sz num">${bytes(f.size)}</span>
+          <button title="Remove" aria-label="Remove ${f.name}"
+            onclick="event.stopPropagation();remove('${k}','${
+              f.name.replace(/'/g,"\\\\'")}')">×</button></li>`).join("")
       : `<li style="border:none"><span class="empty">nothing staged</span></li>`;
   });
 
   const h = s.health, u = s.uploaded;
-  $("#stats").innerHTML = `
-    <div class="stat"><div class="n">${u.hook}</div><div class="l">hooks uploaded</div></div>
-    <div class="stat"><div class="n">${u.body}</div><div class="l">bodies uploaded</div></div>
-    <div class="stat"><div class="n">${u.music}</div><div class="l">music uploaded</div></div>
-    <div class="stat"><div class="n">${s.descriptions.count}</div><div class="l">descriptions</div></div>
-    <div class="stat"><div class="n">${h.combinations}</div><div class="l">combinations</div></div>
-    <div class="stat"><div class="n">${h.runway_days}</div><div class="l">days runway</div></div>`;
+  $("#stats").innerHTML = [
+    [u.hook, "hooks"], [u.body, "bodies"], [u.music, "tracks"],
+    [s.descriptions.count, "descriptions"],
+    [h.combinations.toLocaleString(), "combinations"],
+    [Math.round(h.runway_days).toLocaleString(), "days runway"],
+  ].map(([v,k]) => `<div class="stat"><div class="v num">${v}</div>
+       <div class="k">${k}</div></div>`).join("");
 
   const hv = $("#health"); hv.innerHTML = "";
+  const notes = [];
   if (h.runway_days < h.min_runway_days)
-    msg(hv,"warn",`Runway ${h.runway_days}d is under the ${h.min_runway_days}d target — preflight will fail.`);
-  h.warnings.forEach(w => msg(hv,"warn",w));
-  if (!h.warnings.length && h.runway_days >= h.min_runway_days && h.combinations > 0)
-    msg(hv,"ok","Library supports the configured cadence with no relaxation.");
+    notes.push(["warn", `Runway ${Math.round(h.runway_days)}d is under the ${h.min_runway_days}d target — preflight will fail.`]);
+  h.warnings.forEach(w => notes.push(["warn", w]));
+  if (!notes.length && h.combinations > 0)
+    notes.push(["ok", "Library supports the configured cadence with no relaxation."]);
+  if (notes.length){
+    hv.innerHTML = `<div class="foot" style="padding:14px 22px">` +
+      notes.map(([c,t]) => `<div class="msg ${c}" style="margin-top:0;margin-bottom:8px">${t}</div>`).join("") +
+      `</div>`;
+  }
 
   if (document.activeElement !== $("#bank")) $("#bank").value = s.descriptions.text;
   $("#bank-count").textContent = s.descriptions.count + " descriptions";
   const bm = $("#bank-msgs"); bm.innerHTML = "";
   s.descriptions.errors.forEach(e => msg(bm,"bad",e));
   s.descriptions.notes.slice(0,5).forEach(n => msg(bm,"warn",n));
+}
+
+function renderOverall(r){
+  const el = $("#overall");
+  const o = r.overall || {metrics: [], ever_posted: 0};
+  const haveLifetime = r.campaigns.some(c => c.lifetime);
+
+  if (!haveLifetime){
+    el.innerHTML = `<div class="card">
+      <div class="hero"><div class="stat lead"><div class="v num">${o.ever_posted||0}</div>
+        <div class="k">videos published</div></div></div>
+      <div class="foot">All-time engagement totals appear after the next metrics run —
+        a separate query from the rolling window, so the first lands at 06:30 UTC.</div>
+    </div>`;
+    return;
+  }
+
+  const cells = [`<div class="stat lead"><div class="v num">${o.ever_posted}</div>
+      <div class="k">videos published</div></div>`]
+    .concat(o.metrics.slice(0, 6).map(m =>
+      `<div class="stat"><div class="v num">${fmt(m.value,"count")}</div>
+        <div class="k">${m.name.toLowerCase()}</div></div>`));
+
+  const since = r.campaigns.map(c => c.lifetime && c.lifetime.since)
+                  .filter(Boolean).sort()[0];
+  const n = r.campaigns.filter(c=>c.lifetime).length;
+  el.innerHTML = `<div class="card">
+    <div class="hero">${cells.join("")}</div>
+    <div class="foot">Summed across ${n} campaign${n>1?"s":""}${
+      since ? ` since ${new Date(since).toLocaleDateString()}` : ""}.
+      Rates are excluded — an engagement rate cannot be added up.</div>
+  </div>`;
+}
+
+async function loadMetrics(){
+  const r = await (await fetch("/api/metrics")).json();
+  renderOverall(r);
+  const el = $("#perf");
+  const withData = r.campaigns.filter(c => c.has_data);
+
+  if (!withData.length){
+    el.innerHTML = `<div class="card pad"><div class="msg warn" style="margin:0">
+      No metrics cached yet. They are fetched once a day by the metrics workflow —
+      networks also report on a lag, so expect the first numbers a day after your
+      first posts go live.</div></div>`;
+    $("#perf-note").textContent = "";
+    return;
+  }
+  $("#perf-note").textContent = "cached daily, not live";
+  el.innerHTML = `<div class="grid">` + withData.map(c => {
+    const stale = c.updated_at ? new Date(c.updated_at).toLocaleString() : "unknown";
+    return `<div class="card">
+      <div class="plat-head">
+        <span class="plat-name">${c.service || c.campaign}</span>
+        <span class="spacer"></span>
+        <span class="plat-sub">${c.ever_posted} all time · ${c.post_count} in 30d</span>
+      </div>
+      <div class="metrics">
+        ${c.metrics.filter(m => m.type !== "postCount").map(m => `
+          <div class="m">
+            <div class="v num">${fmt(m.value, m.unit)}${delta(m.change)}</div>
+            <div class="k">${m.name.toLowerCase()}</div>
+            ${sparkline(c.series[m.type] || [], 92, 20)}
+          </div>`).join("")}
+      </div>
+      <div class="foot">network data as of ${stale}</div>
+    </div>`;
+  }).join("") + `</div>`;
 }
 
 async function refresh(){ render(await (await fetch("/api/state")).json()); }
@@ -1160,8 +1391,7 @@ async function loadPending(){
 
 $("#publish-btn").onclick = async (e) => {
   e.target.disabled = true; e.target.textContent = "Publishing…";
-  const r = await (await fetch("/api/publish", {method:"POST",
-    body: JSON.stringify({})})).json();
+  const r = await (await fetch("/api/publish", {method:"POST", body:"{}"})).json();
   e.target.disabled = false; e.target.textContent = "Publish to GitHub";
   if (!r.ok){ $("#sync-text").innerHTML = `<b class="dead">${r.error}</b>`; return; }
   await loadPending();
@@ -1169,8 +1399,7 @@ $("#publish-btn").onclick = async (e) => {
 
 async function loadCampaigns(){
   const r = await (await fetch("/api/campaigns")).json();
-  const sel = $("#switcher");
-  sel.innerHTML = r.campaigns.map(c =>
+  $("#switcher").innerHTML = r.campaigns.map(c =>
     `<option value="${c.slug}" ${c.slug===r.selected?"selected":""}>` +
     `${c.slug}${c.valid?"":" (broken)"}</option>`).join("");
   const broken = r.campaigns.filter(c => !c.valid);
@@ -1181,12 +1410,9 @@ async function loadCampaigns(){
 }
 
 $("#switcher").onchange = async (e) => {
-  await fetch("/api/select", {method:"POST",
-    body: JSON.stringify({slug: e.target.value})});
+  await fetch("/api/select", {method:"POST", body: JSON.stringify({slug: e.target.value})});
   await refresh(); await loadMetrics();
 };
-
-let CHANNELS = [];
 
 async function loadKeys(){
   const r = await (await fetch("/api/keys")).json();
@@ -1194,10 +1420,8 @@ async function loadKeys(){
   sel.innerHTML = r.slots.map(s => {
     const note = s.used_by.length ? ` — ${s.used_by.join(", ")}`
                : s.available ? " — ready" : " — no key set";
-    return `<option value="${s.name}" ${s.available?"":"data-missing=1"}>` +
-           `${s.name}${note}</option>`;
+    return `<option value="${s.name}">${s.name}${note}</option>`;
   }).join("");
-  // Default to an account that actually has a key on this machine.
   const firstReady = r.slots.find(s => s.available);
   if (firstReady) sel.value = firstReady.name;
 }
@@ -1210,7 +1434,7 @@ async function loadChannels(){
   if (!r.ok){
     sel.innerHTML = `<option value="">unavailable</option>`;
     msg($("#new-msgs"), "warn",
-        `${r.error}<br><span style="opacity:.8">${r.hint||""}</span>`);
+        `${r.error}<br><span style="opacity:.85">${r.hint||""}</span>`);
     return;
   }
   CHANNELS = r.channels;
@@ -1218,8 +1442,8 @@ async function loadChannels(){
   sel.innerHTML =
     (usable.length ? "" : `<option value="">no free channels</option>`) +
     usable.map(c =>
-      `<option value="${c.id}" data-service="${c.service}">` +
-      `${c.service} · ${c.name}${c.reminders?"  (reminder mode)":""}</option>`).join("") +
+      `<option value="${c.id}">${c.service} · ${c.name}${
+        c.reminders?"  (reminder mode)":""}</option>`).join("") +
     CHANNELS.filter(c => c.taken_by).map(c =>
       `<option value="" disabled>${c.service} · ${c.name} — used by ${c.taken_by}</option>`
     ).join("");
@@ -1231,7 +1455,6 @@ function syncChannel(){
   if (!opt || !opt.value) return;
   const c = CHANNELS.find(x => x.id === opt.value);
   if (!c) return;
-  // The slug is a suggestion, not a lock — it stays editable.
   if (!$("#f-slug").value) $("#f-slug").value =
     (c.name || "campaign").toLowerCase().replace(/[^a-z0-9]+/g, "_")
       .replace(/^_+|_+$/g, "").slice(0, 20) + "_" + c.service.slice(0, 2);
@@ -1293,7 +1516,7 @@ $("#save").onclick = async () => {
   const bm = $("#bank-msgs"); bm.innerHTML = "";
   msg(bm,"ok",`Saved — ${r.count} descriptions.`);
   r.errors.forEach(e => msg(bm,"bad",e));
-  refresh();
+  refresh(); loadPending();
 };
 
 $("#preview").onclick = async () => {
@@ -1324,101 +1547,8 @@ $("#upload").onclick = async (e) => {
   refresh();
 };
 
-function sparkline(points, w, h){
-  if (points.length < 2) return "";
-  const vals = points.map(p => p[1]);
-  const min = Math.min(...vals), max = Math.max(...vals);
-  const span = (max - min) || 1;
-  const step = w / (points.length - 1);
-  const d = vals.map((v,i) => `${i===0?"M":"L"}${(i*step).toFixed(1)},${(h - ((v-min)/span)*h).toFixed(1)}`).join("");
-  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none">
-    <path d="${d}" stroke="var(--accent)" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
-}
-
-function fmt(v, unit){
-  if (unit === "percentage") return v.toFixed(1) + "%";
-  if (v >= 1e6) return (v/1e6).toFixed(1) + "M";
-  if (v >= 1e3) return (v/1e3).toFixed(1) + "k";
-  return Math.round(v).toLocaleString();
-}
-
-function delta(change){
-  if (change === null || change === undefined) return "";
-  const cls = change > 1 ? "up" : change < -1 ? "down" : "flat";
-  const sign = change > 0 ? "+" : "";
-  return `<span class="d ${cls}">${sign}${change.toFixed(0)}%</span>`;
-}
-
-function renderOverall(r){
-  const el = $("#overall");
-  const o = r.overall || {metrics: [], ever_posted: 0};
-  const haveLifetime = r.campaigns.some(c => c.lifetime);
-
-  if (!haveLifetime){
-    el.innerHTML = `<div class="total-card"><div class="totals">
-      <div class="t"><div class="v">${o.ever_posted||0}</div>
-        <div class="k">videos published</div></div>
-    </div>
-    <div class="life">All-time engagement totals appear after the next metrics
-      run — they are a separate query from the rolling window, so the first one
-      lands tomorrow at 06:30 UTC.</div></div>`;
-    return;
-  }
-
-  const cells = [`<div class="t"><div class="v">${o.ever_posted}</div>
-    <div class="k">videos published</div></div>`]
-    .concat(o.metrics.slice(0, 7).map(m =>
-      `<div class="t"><div class="v">${fmt(m.value, "count")}</div>
-        <div class="k">${m.name}</div></div>`));
-
-  const since = r.campaigns.map(c => c.lifetime && c.lifetime.since)
-                  .filter(Boolean).sort()[0];
-  el.innerHTML = `<div class="total-card">
-    <div class="totals">${cells.join("")}</div>
-    <div class="life">Summed across ${r.campaigns.filter(c=>c.lifetime).length}
-      campaigns${since ? ` since ${new Date(since).toLocaleDateString()}` : ""}.
-      Rates are excluded — an engagement rate cannot be added up.</div>
-  </div>`;
-}
-
-async function loadMetrics(){
-  const r = await (await fetch("/api/metrics")).json();
-  renderOverall(r);
-  const el = $("#perf");
-  const withData = r.campaigns.filter(c => c.has_data);
-
-  if (!withData.length){
-    el.innerHTML = `<div class="msg warn">No metrics cached yet. They are fetched
-      once a day by the <code>metrics</code> workflow — networks also report
-      engagement on a lag, so expect the first numbers a day after your first
-      posts go live.</div>`;
-    $("#perf-note").textContent = "";
-    return;
-  }
-
-  $("#perf-note").textContent = "— cached daily, not live";
-  el.innerHTML = withData.map(c => {
-    const stale = c.updated_at ? new Date(c.updated_at).toLocaleString() : "unknown";
-    return `<div class="perf-card">
-      <div class="perf-head">
-        <span class="who">${c.service || c.campaign}</span>
-        <span class="when">${c.post_count} posts (30d) · ${c.ever_posted} all time · snapshot ${c.date} · network data as of ${stale}</span>
-      </div>
-      <div class="mrow">
-        ${c.metrics.map(m => `
-          <div class="m">
-            <div class="v">${fmt(m.value, m.unit)}${delta(m.change)}</div>
-            <div class="k">${m.name}</div>
-            ${sparkline(c.series[m.type] || [], 96, 22)}
-          </div>`).join("")}
-      </div>
-    </div>`;
-  }).join("");
-}
-
 buildZones(); loadCampaigns(); refresh(); loadMetrics(); loadPending();
 setInterval(() => { refresh(); loadPending(); }, 5000);
-// Metrics only change once a day; polling them like the inbox would be waste.
 setInterval(loadMetrics, 300000);
 </script>
 </body>

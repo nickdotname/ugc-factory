@@ -117,7 +117,10 @@
       "Bash(git commit -q -m 'Add publish-to-GitHub to the dashboard *)",
       "Bash(nohup .venv/bin/python -m src.cli web --campaign clubs --port 8765 --no-open)",
       "Bash(curl -s -o /dev/null -w \"web app: HTTP %{http_code}\\\\n\" http://127.0.0.1:8765/)",
-      "Bash(.venv/bin/python -m mypy src/metrics.py)"
+      "Bash(.venv/bin/python -m mypy src/metrics.py)",
+      "Bash(curl -s http://127.0.0.1:8765/api/metrics)",
+      "Bash(.venv/bin/python -)",
+      "Bash(curl -s -o /dev/null -w \"page: HTTP %{http_code} %{size_download} bytes\\\\n\" http://127.0.0.1:8765/)"
     ]
   }
 }
