@@ -2,15 +2,15 @@ slug: clubs
 timezone: America/Denver
 
 posting:
-  # 24/day = roughly hourly, the schema ceiling (SPEC §4.5).
+  # 12/day = one post every two hours across the 24-hour window below.
   #
-  # 6 hooks x 4 bodies x 36 music beds x 25 captions = 21,600 combinations,
-  # which is ~900 days before the tuple dedupe has to repeat anything.
+  # 6 hooks x 4 bodies x 33 music beds x 25 captions = 19,800 combinations,
+  # which is well over a thousand days before dedupe has to repeat anything.
   #
-  # The cooldowns below are 0 and 1 because at 24/day nothing larger fits:
-  # a cooldown of N days needs N x 24 distinct assets, so even a 1-day hook
-  # cooldown would need 24 hooks. See the note on hook_cooldown_days.
-  posts_per_day: 24
+  # Halving the cadence from 24 also halves API spend (1,620 of Buffer's
+  # 3,000/30 days, against 2,700 before) and halves how often a viewer sees
+  # the same hook.
+  posts_per_day: 12
   # One post an hour, starting 15:00 Mountain. start == end means a FULL
   # 24-hour window beginning at that hour, so the run wraps past midnight and
   # the later slots land on the following calendar day.
@@ -49,12 +49,12 @@ selection:
   dedupe_on: [hook, body, music, caption]
   # A cooldown of N days at P posts/day needs N x P distinct assets or the
   # selector relaxes and alerts daily. At 24/day:
-  #   captions: 1 day needs 24, and there are 25 — fits with one spare.
-  #   hooks:    1 day would need 24, and there are 6 — so it must be 0.
+  #   captions: 2 days needs 24, and there are 25 — fits with one spare.
+  #   hooks:    1 day would need 12, and there are 6 — so it must still be 0.
   # Hook cooldown 0 does not mean hooks repeat back to back; full-tuple dedupe
   # still applies. It means the selector will not additionally space them out.
   # Raise both as the hook library grows.
-  caption_cooldown_days: 1
+  caption_cooldown_days: 2
   hook_cooldown_days: 0
   min_runway_days: 90         # preflight fails under this many days of combos
 
