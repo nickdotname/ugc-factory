@@ -185,3 +185,53 @@ class TestShippedRepoStillWorks:
         assert len(summaries) >= 3
         for s in summaries:
             assert s.valid, f"{s.slug}: {s.error}"
+
+
+class TestMultipleBufferAccounts:
+    """One Buffer account per campaign means one API key per campaign."""
+
+    def test_campaign_can_target_a_second_account(self, tmp_path: Path) -> None:
+        create_campaign(tmp_path, "brand_ig", Service.INSTAGRAM,
+                        api_key_secret="BUFFER_API_KEY_2")
+        cfg = load_campaign(tmp_path, "brand_ig")
+        assert cfg.buffer.api_key_secret == "BUFFER_API_KEY_2"
+
+    def test_default_is_the_first_account(self, tmp_path: Path) -> None:
+        create_campaign(tmp_path, "brand_ig", Service.INSTAGRAM)
+        assert load_campaign(tmp_path, "brand_ig").buffer.api_key_secret == \
+            "BUFFER_API_KEY"
+
+    def test_campaigns_on_different_accounts_coexist(self, tmp_path: Path) -> None:
+        create_campaign(tmp_path, "a_ig", Service.INSTAGRAM,
+                        api_key_secret="BUFFER_API_KEY")
+        create_campaign(tmp_path, "b_ig", Service.INSTAGRAM,
+                        api_key_secret="BUFFER_API_KEY_3", channel_id="chan-b")
+        keys = {
+            c.slug: load_campaign(tmp_path, c.slug).buffer.api_key_secret
+            for c in list_campaigns(tmp_path)
+        }
+        assert keys == {"a_ig": "BUFFER_API_KEY", "b_ig": "BUFFER_API_KEY_3"}
+
+    def test_an_unwired_slot_cannot_be_created(self, tmp_path: Path) -> None:
+        """Creation must not produce a config that fails at 05:00."""
+        with pytest.raises(ConfigError, match="must be one of"):
+            create_campaign(tmp_path, "brand_ig", Service.INSTAGRAM,
+                            api_key_secret="BUFFER_API_KEY_MYBRAND")
+
+    def test_every_slot_is_passed_by_every_workflow(self) -> None:
+        """A slot config accepts but no workflow exports is a 5am failure."""
+        import yaml
+
+        from src.config import BUFFER_KEY_SLOTS
+
+        root = Path(__file__).resolve().parents[1] / ".github" / "workflows"
+        for name in ("render.yml", "topup.yml", "metrics.yml", "cleanup.yml",
+                     "diagnose.yml", "preflight.yml"):
+            doc = yaml.safe_load((root / name).read_text(encoding="utf-8"))
+            exported: set[str] = set()
+            for job in doc["jobs"].values():
+                for step in (job.get("steps") or []):
+                    if "src.cli" in str(step.get("run", "")):
+                        exported |= set((step.get("env") or {}).keys())
+            missing = set(BUFFER_KEY_SLOTS) - exported
+            assert not missing, f"{name} does not pass {sorted(missing)}"

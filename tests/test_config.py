@@ -175,10 +175,25 @@ class TestVideoValidation:
 class TestSecretsAreNamesNotValues:
     """A committed public repo must never contain a real token (SPEC §3)."""
 
-    def test_lowercase_secret_name_rejected(self, tmp_path: Path) -> None:
+    def test_a_raw_token_as_the_key_name_is_rejected(self, tmp_path: Path) -> None:
+        """Now caught by the slot check, which is stricter than the name check:
+        the key must be one of the slots the workflows actually pass through."""
         body = MINIMAL.replace("BUFFER_API_KEY", "1/abc-real-looking-token")
-        with pytest.raises(ConfigError, match="NAME of an environment variable"):
+        with pytest.raises(ConfigError, match="must be one of"):
             load_config(write(tmp_path, body))
+
+    def test_an_unwired_key_slot_is_rejected(self, tmp_path: Path) -> None:
+        """A name no workflow exports would load here and fail at 05:00."""
+        body = MINIMAL.replace("BUFFER_API_KEY", "BUFFER_API_KEY_MYBRAND")
+        with pytest.raises(ConfigError, match="must be one of"):
+            load_config(write(tmp_path, body))
+
+    def test_every_wired_slot_is_accepted(self, tmp_path: Path) -> None:
+        from src.config import BUFFER_KEY_SLOTS
+
+        for slot in BUFFER_KEY_SLOTS:
+            body = MINIMAL.replace("BUFFER_API_KEY", slot)
+            assert load_config(write(tmp_path, body)).buffer.api_key_secret == slot
 
     def test_webhook_url_rejected(self, tmp_path: Path) -> None:
         body = MINIMAL.replace(

@@ -61,6 +61,13 @@ jobs:
         if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_API_KEY_2: ${{ secrets.BUFFER_API_KEY_2 }}
+          BUFFER_API_KEY_3: ${{ secrets.BUFFER_API_KEY_3 }}
+          BUFFER_API_KEY_4: ${{ secrets.BUFFER_API_KEY_4 }}
+          BUFFER_API_KEY_5: ${{ secrets.BUFFER_API_KEY_5 }}
+          BUFFER_API_KEY_6: ${{ secrets.BUFFER_API_KEY_6 }}
+          BUFFER_API_KEY_7: ${{ secrets.BUFFER_API_KEY_7 }}
+          BUFFER_API_KEY_8: ${{ secrets.BUFFER_API_KEY_8 }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}

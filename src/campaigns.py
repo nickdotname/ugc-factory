@@ -115,6 +115,7 @@ def render_config(
     assets_release: str | None = None,
     organization_id: str | None = None,
     channel_id: str | None = None,
+    api_key_secret: str = "BUFFER_API_KEY",
 ) -> str:
     """Build a campaign's config.yaml.
 
@@ -174,7 +175,7 @@ selection:
   min_runway_days: 90
 
 buffer:
-  api_key_secret: BUFFER_API_KEY
+  api_key_secret: {api_key_secret}
 {channel}  post_type: {post_type.value}
   service: {service.value}
 {org}  title_strategy: derive
@@ -205,6 +206,7 @@ def create_campaign(
     assets_release: str | None = None,
     organization_id: str | None = None,
     channel_id: str | None = None,
+    api_key_secret: str = "BUFFER_API_KEY",
     descriptions: str | None = None,
 ) -> CreatedCampaign:
     """Create a campaign folder, or raise ``ConfigError``.
@@ -227,6 +229,7 @@ def create_campaign(
             timezone=timezone, posts_per_day=posts_per_day,
             start_hour=start_hour, assets_release=assets_release,
             organization_id=organization_id, channel_id=channel_id,
+            api_key_secret=api_key_secret,
         ),
         encoding="utf-8",
     )

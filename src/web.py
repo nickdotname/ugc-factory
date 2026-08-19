@@ -113,7 +113,9 @@ class WebApp:
         # Buffer channels change rarely and every fetch costs one of the
         # 3,000 monthly requests, so they are pulled once per session rather
         # than on each page load.
-        self._channels: list[dict[str, Any]] | None = None
+        # Keyed by slot: each Buffer account has its own channels, and mixing
+        # them would offer a channel the campaign's key cannot post to.
+        self._channels: dict[str, list[dict[str, Any]]] | None = None
         ensure_inbox(inbox)
 
     # ------------------------------------------------------------------ state
@@ -205,10 +207,18 @@ class WebApp:
                     if payload.get("assets_release")
                     else self.config.assets_tag
                 ),
-                organization_id=self.config.buffer.organization_id,
+                organization_id=(
+                    self.config.buffer.organization_id
+                    if str(payload.get("api_key_secret") or "BUFFER_API_KEY")
+                    == self.config.buffer.api_key_secret
+                    else None
+                ),
                 channel_id=(
                     str(payload.get("channel_id"))
                     if payload.get("channel_id") else None
+                ),
+                api_key_secret=str(
+                    payload.get("api_key_secret") or "BUFFER_API_KEY"
                 ),
                 descriptions=(
                     self.bank_path.read_text(encoding="utf-8")
@@ -227,7 +237,37 @@ class WebApp:
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
 
-    def buffer_key(self) -> str | None:
+    def key_slots(self) -> dict[str, Any]:
+        """Which Buffer accounts are reachable from this machine.
+
+        One campaign per Buffer account means one key per account. The slots
+        are fixed because the workflows must name them statically — a dynamic
+        campaign list cannot discover secret names (GitHub blocks dumping the
+        secrets context).
+        """
+        from src.config import BUFFER_KEY_SLOTS
+
+        return {
+            "slots": [
+                {
+                    "name": name,
+                    "available": self.buffer_key(name) is not None,
+                    "used_by": [
+                        c.slug for c in list_campaigns(self.campaigns_dir)
+                        if self._key_of(c.slug) == name
+                    ],
+                }
+                for name in BUFFER_KEY_SLOTS
+            ]
+        }
+
+    def _key_of(self, slug: str) -> str | None:
+        try:
+            return load_campaign(self.campaigns_dir, slug).buffer.api_key_secret
+        except UgcError:
+            return None
+
+    def buffer_key(self, slot: str | None = None) -> str | None:
         """The Buffer API key, from the environment or a local .env.
 
         A local .env is a convenience for this tool only — it is gitignored and
@@ -235,8 +275,12 @@ class WebApp:
         """
         import os
 
-        name = self.config.buffer.api_key_secret
-        for key in (name, "BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN"):
+        name = slot or self.config.buffer.api_key_secret
+        # Only fall back to the generic names when no specific slot was asked
+        # for; otherwise a campaign on account 2 would silently authenticate as
+        # account 1 and post to the wrong place.
+        candidates = (name,) if slot else (name, "BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN")
+        for key in candidates:
             if os.environ.get(key):
                 return os.environ[key]
 
@@ -246,11 +290,12 @@ class WebApp:
                 if "=" not in line or line.lstrip().startswith("#"):
                     continue
                 k, _, v = line.partition("=")
-                if k.strip() in (name, "BUFFER_API_KEY", "BUFFER_ACCESS_TOKEN"):
+                if k.strip() in candidates:
                     return v.strip().strip("'\"")
         return None
 
-    def channels(self, refresh: bool = False) -> dict[str, Any]:
+    def channels(self, refresh: bool = False, slot: str | None = None
+                 ) -> dict[str, Any]:
         """Buffer channels available to connect, and which are already taken.
 
         Marks channels that default to reminder-based publishing: those cannot
@@ -260,18 +305,19 @@ class WebApp:
         from src.campaigns import list_campaigns
         from src.publishers.buffer import BufferPublisher
 
-        key = self.buffer_key()
+        slot = slot or self.config.buffer.api_key_secret
+        key = self.buffer_key(slot)
         if not key:
             return {
                 "ok": False,
-                "error": "No Buffer API key available locally.",
-                "hint": "export BUFFER_API_KEY=... before starting the dashboard, "
-                        "or put BUFFER_API_KEY=... in a .env file at the repo root "
-                        "(gitignored).",
+                "error": f"No key for {slot} available locally.",
+                "hint": f"add {slot}=... to a .env file at the repo root "
+                        f"(gitignored), then reopen this panel.",
                 "channels": [],
             }
 
-        if self._channels is None or refresh:
+        cached = (self._channels or {}).get(slot) if isinstance(self._channels, dict) else None
+        if cached is None or refresh:
             publisher = BufferPublisher(
                 key, self.log,
                 organization_id=self.config.buffer.organization_id,
@@ -295,7 +341,10 @@ class WebApp:
                 )
             except UgcError as exc:
                 return {"ok": False, "error": str(exc), "channels": []}
-            self._channels = list(data.get("channels") or [])
+            if not isinstance(self._channels, dict):
+                self._channels = {}
+            self._channels[slot] = list(data.get("channels") or [])
+            cached = self._channels[slot]
 
         # Which channels a campaign already points at.
         taken: dict[str, str] = {}
@@ -308,7 +357,7 @@ class WebApp:
                 taken[cfg.buffer.channel_id] = summary.slug
 
         out = []
-        for channel in self._channels:
+        for channel in (cached or []):
             meta = channel.get("metadata") or {}
             reminders = (
                 meta.get("defaultToReminders") if isinstance(meta, dict) else None
@@ -642,8 +691,14 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
             elif route == "/api/campaigns":
                 self._json(app.campaigns())
             elif route == "/api/channels":
-                refresh = "refresh" in self._query()
-                self._json(app.channels(refresh=refresh))
+                query = self._query()
+                slots = query.get("slot") or []
+                self._json(app.channels(
+                    refresh="refresh" in query,
+                    slot=slots[0] if slots else None,
+                ))
+            elif route == "/api/keys":
+                self._json(app.key_slots())
             elif route == "/api/pending":
                 self._json(app.pending_changes())
             elif route == "/api/metrics":
@@ -878,7 +933,8 @@ PAGE = """<!doctype html>
   <div class="newc">
     <h3>New campaign</h3>
     <div class="frow">
-      <label>Buffer channel<select id="f-channel"><option value="">loading…</option></select></label>
+      <label>Buffer account<select id="f-key"></select></label>
+      <label>Channel<select id="f-channel"><option value="">loading…</option></select></label>
       <label>Slug<input id="f-slug" placeholder="brand_tiktok" autocomplete="off"></label>
       <label>Posts/day<input id="f-ppd" type="number" min="1" max="24" value="12"></label>
       <label>Start hour<input id="f-start" type="number" min="0" max="23" value="15"></label>
@@ -1068,9 +1124,25 @@ $("#switcher").onchange = async (e) => {
 
 let CHANNELS = [];
 
+async function loadKeys(){
+  const r = await (await fetch("/api/keys")).json();
+  const sel = $("#f-key");
+  sel.innerHTML = r.slots.map(s => {
+    const note = s.used_by.length ? ` — ${s.used_by.join(", ")}`
+               : s.available ? " — ready" : " — no key set";
+    return `<option value="${s.name}" ${s.available?"":"data-missing=1"}>` +
+           `${s.name}${note}</option>`;
+  }).join("");
+  // Default to an account that actually has a key on this machine.
+  const firstReady = r.slots.find(s => s.available);
+  if (firstReady) sel.value = firstReady.name;
+}
+$("#f-key").onchange = () => { loadChannels(); };
+
 async function loadChannels(){
   const sel = $("#f-channel");
-  const r = await (await fetch("/api/channels")).json();
+  const slot = $("#f-key").value || "BUFFER_API_KEY";
+  const r = await (await fetch("/api/channels?slot=" + encodeURIComponent(slot))).json();
   if (!r.ok){
     sel.innerHTML = `<option value="">unavailable</option>`;
     msg($("#new-msgs"), "warn",
@@ -1113,7 +1185,7 @@ $("#new-btn").onclick = () => {
   const p = $("#new-panel");
   const opening = p.style.display === "none";
   p.style.display = opening ? "block" : "none";
-  if (opening) loadChannels();
+  if (opening) loadKeys().then(loadChannels);
 };
 $("#cancel-btn").onclick = () => { $("#new-panel").style.display = "none"; };
 
@@ -1130,6 +1202,7 @@ $("#create-btn").onclick = async (e) => {
     slug: $("#f-slug").value.trim().toLowerCase(),
     service: chan.service,
     channel_id: chan.id,
+    api_key_secret: $("#f-key").value || "BUFFER_API_KEY",
     posts_per_day: +$("#f-ppd").value,
     start_hour: +$("#f-start").value,
     copy_descriptions: $("#f-copy").checked,

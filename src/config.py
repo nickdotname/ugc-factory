@@ -269,6 +269,18 @@ class SelectionConfig(StrictModel):
         return v
 
 
+#: How many separate Buffer accounts the workflows are wired for.
+#: GitHub refuses to run a workflow that dumps the secrets context, so a
+#: dynamic campaign list cannot discover per-campaign secret names. Fixed
+#: SLOTS solve it: the workflows name these statically and forever, and adding
+#: an account is `gh secret set BUFFER_API_KEY_3` plus one line of config —
+#: never a workflow edit.
+BUFFER_KEY_SLOTS: tuple[str, ...] = (
+    "BUFFER_API_KEY",
+    *(f"BUFFER_API_KEY_{n}" for n in range(2, 9)),
+)
+
+
 class BufferConfig(StrictModel):
     """Buffer channel binding (SPEC §9 ``buffer``).
 
@@ -326,6 +338,22 @@ class BufferConfig(StrictModel):
                 f"{sorted(p.value for p in permitted)}"
             )
         return self
+
+    @field_validator("api_key_secret")
+    @classmethod
+    def _key_slot_is_wired(cls, v: str) -> str:
+        """Reject a key name the workflows do not pass through.
+
+        A campaign referencing BUFFER_API_KEY_MYBRAND would load fine and then
+        fail at 05:00 with "not set", because no workflow exports that name.
+        Failing here says so while someone is looking.
+        """
+        if v not in BUFFER_KEY_SLOTS:
+            raise ValueError(
+                f"buffer.api_key_secret must be one of {list(BUFFER_KEY_SLOTS)} — "
+                f"these are the slots the workflows pass through. Got {v!r}."
+            )
+        return v
 
     @field_validator("api_key_secret", "channel_id_secret")
     @classmethod
