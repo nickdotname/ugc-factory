@@ -277,7 +277,13 @@ class BufferConfig(StrictModel):
     """
 
     api_key_secret: str = Field(min_length=1)
-    channel_id_secret: str = Field(min_length=1)
+    # The channel id may live directly in config: it identifies a channel but
+    # grants nothing without the API key. Keeping it out of Secrets is what
+    # lets the workflows name a FIXED set of secrets no matter how many
+    # campaigns exist — GitHub refuses to run a workflow that dumps the whole
+    # secrets context, so per-campaign secret names cannot be discovered.
+    channel_id: str | None = None
+    channel_id_secret: str | None = None
     post_type: PostType = PostType.REEL
     # Which network this channel is. Drives both the metadata block the
     # publisher builds and the text limits descriptions are validated against
@@ -292,6 +298,15 @@ class BufferConfig(StrictModel):
     # run spends one of the 3,000 monthly requests rediscovering it, which at
     # 3 campaigns x 6 runs/day is 540 requests a month.
     organization_id: str | None = None
+
+    @model_validator(mode="after")
+    def _exactly_one_channel_source(self) -> "BufferConfig":
+        if bool(self.channel_id) == bool(self.channel_id_secret):
+            raise ValueError(
+                "set exactly one of buffer.channel_id (the id itself) or "
+                "buffer.channel_id_secret (the name of an env var holding it)"
+            )
+        return self
 
     @model_validator(mode="after")
     def _post_type_suits_service(self) -> "BufferConfig":
@@ -314,7 +329,9 @@ class BufferConfig(StrictModel):
 
     @field_validator("api_key_secret", "channel_id_secret")
     @classmethod
-    def _looks_like_a_secret_name(cls, v: str) -> str:
+    def _looks_like_a_secret_name(cls, v: str | None) -> str | None:
+        if v is None:
+            return v
         # A value that looks like an actual token rather than an env var name is
         # the failure mode that leaks credentials into git. Catch it at load.
         if not v.replace("_", "").isalnum() or not v.isupper():

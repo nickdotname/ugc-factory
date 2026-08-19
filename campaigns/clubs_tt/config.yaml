@@ -64,7 +64,10 @@ selection:
 
 buffer:
   api_key_secret: BUFFER_API_KEY
-  channel_id_secret: BUFFER_CHANNEL_CLUBS_TT
+  # Not a secret: identifies the channel but grants nothing without
+  # the API key. In config so the workflows can name a fixed set of
+  # secrets regardless of how many campaigns exist.
+  channel_id: 6a1dc9e4c687a22dd44c7e3d
   post_type: post
   service: tiktok
   organization_id: 6a1dc863e8cbb15ba8fdb4ab   # saves 540 API requests/month
@@ -74,5 +77,5 @@ buffer:
   title_strategy: derive
 
 notify:
-  webhook_secret: DISCORD_WEBHOOK_CLUBS_TT
+  webhook_secret: DISCORD_WEBHOOK
   on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed, digest]

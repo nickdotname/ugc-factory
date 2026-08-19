@@ -69,17 +69,6 @@ jobs:
           cache-dependency-path: requirements.txt
 
       # SPEC §12 — only render.yml installs ffmpeg; the other jobs do not need it.
-      # A dynamic campaign list cannot name its secrets in YAML, so the
-      # relevant ones are exported by prefix. Values stay masked in logs; this
-      # only widens which STEP can see them, not who can.
-      - name: Export campaign secrets
-        env:
-          ALL_SECRETS: ${{ toJSON(secrets) }}
-        run: |
-          echo "$ALL_SECRETS" \
-            | jq -r 'to_entries[] | select(.key|test("^(BUFFER|DISCORD)_")) | "\(.key)=\(.value)"' \
-            >> "$GITHUB_ENV"
-
       - name: Install ffmpeg
         run: |
           sudo apt-get update -qq
@@ -91,6 +80,8 @@ jobs:
       - name: Render batch
         if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
         env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |

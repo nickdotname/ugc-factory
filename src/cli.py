@@ -152,6 +152,10 @@ def _build_publisher(
 
 
 def _channel_id(config: CampaignConfig, env: dict[str, str]) -> str:
+    """Resolve the channel id from config, or from a secret if one is named."""
+    if config.buffer.channel_id:
+        return config.buffer.channel_id
+    assert config.buffer.channel_id_secret is not None  # enforced by config
     channel = _secret(config.buffer.channel_id_secret, env)
     if not channel:
         raise ConfigError(
@@ -668,9 +672,12 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
     log.info("preflight_config_ok", slug=config.slug)
 
     for name in (
-        config.buffer.api_key_secret,
-        config.buffer.channel_id_secret,
-        config.notify.webhook_secret,
+        n for n in (
+            config.buffer.api_key_secret,
+            config.buffer.channel_id_secret,
+            config.notify.webhook_secret,
+        )
+        if n
     ):
         if not _secret(name, env):
             problems.append(f"secret {name} is not set")

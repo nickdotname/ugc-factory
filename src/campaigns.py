@@ -114,6 +114,7 @@ def render_config(
     start_hour: int = 15,
     assets_release: str | None = None,
     organization_id: str | None = None,
+    channel_id: str | None = None,
 ) -> str:
     """Build a campaign's config.yaml.
 
@@ -127,6 +128,10 @@ def render_config(
     )
     org = (
         f"  organization_id: {organization_id}\n" if organization_id else ""
+    )
+    channel = (
+        f"  channel_id: {channel_id}\n" if channel_id
+        else f"  channel_id_secret: BUFFER_CHANNEL_{upper}\n"
     )
     return f"""slug: {slug}
 timezone: {timezone}
@@ -170,13 +175,12 @@ selection:
 
 buffer:
   api_key_secret: BUFFER_API_KEY
-  channel_id_secret: BUFFER_CHANNEL_{upper}
-  post_type: {post_type.value}
+{channel}  post_type: {post_type.value}
   service: {service.value}
 {org}  title_strategy: derive
 
 notify:
-  webhook_secret: DISCORD_WEBHOOK_{upper}
+  webhook_secret: DISCORD_WEBHOOK
   on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed, digest]
 """
 
@@ -200,6 +204,7 @@ def create_campaign(
     start_hour: int = 15,
     assets_release: str | None = None,
     organization_id: str | None = None,
+    channel_id: str | None = None,
     descriptions: str | None = None,
 ) -> CreatedCampaign:
     """Create a campaign folder, or raise ``ConfigError``.
@@ -221,7 +226,7 @@ def create_campaign(
             slug, service,
             timezone=timezone, posts_per_day=posts_per_day,
             start_hour=start_hour, assets_release=assets_release,
-            organization_id=organization_id,
+            organization_id=organization_id, channel_id=channel_id,
         ),
         encoding="utf-8",
     )
@@ -248,8 +253,13 @@ def create_campaign(
     return CreatedCampaign(
         slug=slug,
         paths=(config_path, bank, queue, history),
-        required_secrets=(
-            config.buffer.channel_id_secret,
-            config.notify.webhook_secret,
+        # Only names an actual secret. A channel id written straight into
+        # config is not one, so it is not listed as something to go and set.
+        required_secrets=tuple(
+            name for name in (
+                config.buffer.channel_id_secret,
+                config.notify.webhook_secret,
+            )
+            if name
         ),
     )

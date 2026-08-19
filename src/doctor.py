@@ -89,10 +89,14 @@ def check_secrets(
     config: CampaignConfig, repo: str | None, names: list[str] | None
 ) -> list[Check]:
     """Verify the three secrets a campaign needs are present by name."""
+    # A channel id kept in config is not a secret and has nothing to check.
     required = [
-        (config.buffer.api_key_secret, "Buffer personal API key"),
-        (config.buffer.channel_id_secret, "Buffer channel id"),
-        (config.notify.webhook_secret, "Discord webhook for alerts"),
+        pair for pair in (
+            (config.buffer.api_key_secret, "Buffer personal API key"),
+            (config.buffer.channel_id_secret, "Buffer channel id"),
+            (config.notify.webhook_secret, "Discord webhook for alerts"),
+        )
+        if pair[0]
     ]
     if names is None:
         return [

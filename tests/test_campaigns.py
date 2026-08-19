@@ -52,10 +52,23 @@ class TestRenderConfig:
         ):
             assert f"post_type: {expected}" in render_config("x", service)
 
-    def test_secret_names_derive_from_the_slug(self) -> None:
+    def test_channel_secret_name_derives_from_the_slug(self) -> None:
+        """Only when the id is not supplied directly."""
         text = render_config("brand_yt", Service.YOUTUBE)
         assert "BUFFER_CHANNEL_BRAND_YT" in text
-        assert "DISCORD_WEBHOOK_BRAND_YT" in text
+
+    def test_a_supplied_channel_id_goes_in_config_not_secrets(self) -> None:
+        """Channel ids are identifiers, and keeping them out of Secrets is what
+        lets the workflows name a fixed secret set for any number of campaigns."""
+        text = render_config("brand_yt", Service.YOUTUBE, channel_id="abc123")
+        assert "channel_id: abc123" in text
+        assert "BUFFER_CHANNEL_BRAND_YT" not in text
+
+    def test_webhook_secret_is_shared(self) -> None:
+        """A per-campaign webhook name would be a new secret per campaign."""
+        assert "webhook_secret: DISCORD_WEBHOOK\n" in render_config(
+            "brand_yt", Service.YOUTUBE
+        )
 
     def test_starts_in_dry_run(self) -> None:
         assert "dry_run: true" in render_config("x", Service.INSTAGRAM)
@@ -91,8 +104,13 @@ class TestCreateCampaign:
     def test_reports_the_secrets_the_operator_must_set(self, tmp_path: Path) -> None:
         created = create_campaign(tmp_path, "brand_tt", Service.TIKTOK)
         assert created.required_secrets == (
-            "BUFFER_CHANNEL_BRAND_TT", "DISCORD_WEBHOOK_BRAND_TT"
+            "BUFFER_CHANNEL_BRAND_TT", "DISCORD_WEBHOOK"
         )
+
+    def test_a_supplied_channel_id_removes_that_secret(self, tmp_path: Path) -> None:
+        created = create_campaign(tmp_path, "brand_tt", Service.TIKTOK,
+                                  channel_id="chan-123")
+        assert "BUFFER_CHANNEL_BRAND_TT" not in created.required_secrets
 
     def test_new_campaign_starts_paused(self, tmp_path: Path) -> None:
         """SPEC §15 step 7 — look at a dispatch run before anything goes live."""

@@ -392,20 +392,23 @@ class TestShippedCampaign:
             f"{ppd}/day, bank has {len(bank)}"
         )
 
-    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
-    def test_every_campaign_targets_a_distinct_channel_secret(
-        self, slug: str
-    ) -> None:
-        """Two campaigns sharing a channel secret would double-post one account."""
-        cfg = load_campaign(REPO_ROOT / "campaigns", slug)
-        others = [
-            load_campaign(REPO_ROOT / "campaigns", s)
-            for s in ("clubs", "clubs_tt", "clubs_yt")
-            if s != slug
-        ]
-        assert cfg.buffer.channel_id_secret not in {
-            o.buffer.channel_id_secret for o in others
-        }
+    def test_every_campaign_targets_a_distinct_channel(self) -> None:
+        """Two campaigns pointing at one channel would double-post that account.
+
+        Compares the resolved identity — a literal id or the name of the secret
+        holding one — since either may carry it.
+        """
+        from src.campaigns import list_campaigns
+
+        identities: dict[str, str] = {}
+        for summary in list_campaigns(REPO_ROOT / "campaigns"):
+            cfg = load_campaign(REPO_ROOT / "campaigns", summary.slug)
+            identity = cfg.buffer.channel_id or f"secret:{cfg.buffer.channel_id_secret}"
+            assert identity not in identities, (
+                f"{summary.slug} and {identities[identity]} both target {identity}"
+            )
+            identities[identity] = summary.slug
+        assert len(identities) >= 3
 
     def test_queue_and_history_files_are_valid_json(self) -> None:
         """Parse, not emptiness — these files carry real state once live."""

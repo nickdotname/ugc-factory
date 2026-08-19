@@ -112,7 +112,8 @@
       "Bash(curl -s -X POST -d '{\"slug\":\"bad-slug\",\"service\":\"tiktok\"}' http://127.0.0.1:8770/api/campaigns)",
       "Bash(.venv/bin/python -c \"import json,sys; print\\(' ', json.load\\(sys.stdin\\)['error']\\)\")",
       "Bash(rm -rf campaigns/demo_fb inbox/demo_fb)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(git checkout *)"
     ]
   }
 }
