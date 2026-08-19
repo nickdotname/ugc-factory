@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "380841c1-30b6-4c91-83e9-dbb660c95080",
-      "scheduled_for": "2026-08-19T01:00:00-06:00",
+      "scheduled_for": "2026-08-20T01:00:00-06:00",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-19/380841c1-30b6-4c91-83e9-dbb660c95080.mp4",
       "caption": "how film students are finding real projects (not just group chats)\n\ncomment \"create\" and I'll send it over\n\n[film students, creative projects, student films, nyu tisch, creative networking]",
       "title": null,
@@ -13,7 +13,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "30"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
