@@ -120,7 +120,8 @@
       "Bash(.venv/bin/python -m mypy src/metrics.py)",
       "Bash(curl -s http://127.0.0.1:8765/api/metrics)",
       "Bash(.venv/bin/python -)",
-      "Bash(curl -s -o /dev/null -w \"page: HTTP %{http_code} %{size_download} bytes\\\\n\" http://127.0.0.1:8765/)"
+      "Bash(curl -s -o /dev/null -w \"page: HTTP %{http_code} %{size_download} bytes\\\\n\" http://127.0.0.1:8765/)",
+      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py -k Webhook --no-header)"
     ]
   }
 }

@@ -473,6 +473,10 @@ class TestDigestIsActuallyEnabled:
         assert NotifyEvent.FAILURE in default.on
 
 
+def not_sent(stream) -> bool:
+    return "notify_sent" not in stream.getvalue()
+
+
 class TestWebhookValidation:
     """A partial paste must say so, not fail deep inside the HTTP client."""
 
@@ -487,21 +491,43 @@ class TestWebhookValidation:
                      StructuredLogger({}, stream), session=FakeSession())
         return n, stream
 
-    def test_url_without_scheme_is_reported_clearly(self) -> None:
+    def test_a_pasted_json_blob_still_works(self) -> None:
+        """Discord's API returns the webhook as JSON and its UI offers a copy
+        button, so the secret reliably ends up as one shape or the other."""
+        from src.config import NotifyEvent
+        from src.notify import Notifier
+
+        blob = ('{"id":"1","name":"Spidey Bot","token":"tok",'
+                '"url":"https://discord.com/api/webhooks/1/tok"}')
+        s = FakeSession()
+        s.route("POST", "discord.com", FakeResponse(204))
+        n = Notifier(blob, (NotifyEvent.DIGEST,), log(), session=s)
+        assert n.notify(NotifyEvent.DIGEST, "hi") is True
+        assert s.calls[0].url == "https://discord.com/api/webhooks/1/tok"
+
+    def test_value_with_no_url_at_all_sends_nothing(self) -> None:
         from src.config import NotifyEvent
 
-        n, stream = self._notifier("discord.com/api/webhooks/123/abc")
+        n, stream = self._notifier("just-a-token-no-url")
         assert n.notify(NotifyEvent.DIGEST, "hi") is False
-        out = stream.getvalue()
-        assert "notify_webhook_malformed" in out
-        assert "https://" in out
+        assert not_sent(stream)
 
     def test_the_secret_value_is_never_logged(self) -> None:
         from src.config import NotifyEvent
 
-        n, stream = self._notifier("discord.com/api/webhooks/SECRETTOKEN")
+        n, stream = self._notifier("nonsense-SECRETTOKEN")
         n.notify(NotifyEvent.DIGEST, "hi")
         assert "SECRETTOKEN" not in stream.getvalue()
+
+    def test_surrounding_whitespace_and_quotes_are_tolerated(self) -> None:
+        from src.config import NotifyEvent
+        from src.notify import Notifier
+
+        s = FakeSession()
+        s.route("POST", "discord.com", FakeResponse(204))
+        n = Notifier('  "https://discord.com/api/webhooks/1/t"  ',
+                     (NotifyEvent.DIGEST,), log(), session=s)
+        assert n.notify(NotifyEvent.DIGEST, "hi") is True
 
     def test_a_proper_url_is_sent(self) -> None:
         from src.config import NotifyEvent

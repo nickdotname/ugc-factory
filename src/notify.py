@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -23,6 +24,43 @@ from src.config import CampaignConfig, NotifyEvent
 from src.logging import StructuredLogger
 
 REQUEST_TIMEOUT_SEC = 20
+
+#: Any https URL inside a larger blob of text.
+_URL_IN_TEXT = re.compile(r"https://\S+")
+
+
+def extract_webhook_url(raw: str) -> str | None:
+    """Pull a usable webhook URL out of whatever was pasted.
+
+    Discord's API hands back a JSON object with the URL as one field, and its
+    UI offers a "Copy Webhook URL" button — so the value that lands in a secret
+    is reliably one of: the bare URL, that whole JSON object, or a fragment
+    with stray whitespace or quotes. Accepting all three costs a few lines and
+    removes an entire class of "alerting was silently off" incident.
+
+    Returns None when nothing URL-shaped is present, so the caller can still
+    say so plainly rather than posting into the void.
+    """
+    text = (raw or "").strip().strip("'\"")
+    if not text:
+        return None
+    if text.startswith("https://"):
+        return text.split()[0]
+
+    # A pasted API response: {"id": ..., "url": "https://discord.com/..."}
+    if text.startswith("{"):
+        try:
+            parsed = json.loads(text)
+        except ValueError:
+            parsed = None
+        if isinstance(parsed, dict):
+            candidate = parsed.get("url")
+            if isinstance(candidate, str) and candidate.startswith("https://"):
+                return candidate
+
+    # Last resort: anything URL-shaped anywhere in the text.
+    found = _URL_IN_TEXT.search(text)
+    return found.group(0).rstrip('",') if found else None
 
 #: Discord truncates at 2000 characters; anything longer is rejected outright.
 MAX_MESSAGE_CHARS = 1900
@@ -72,7 +110,9 @@ class Notifier:
         *,
         session: requests.Session | None = None,
     ) -> None:
-        self._url = webhook_url
+        # Normalised once, here, so every caller benefits and the raw value is
+        # never used by accident.
+        self._url = extract_webhook_url(webhook_url or "")
         self._enabled = set(enabled_events)
         self._log = log
         self._session = session or requests.Session()
@@ -91,21 +131,6 @@ class Notifier:
             # and crashing the render over a missing webhook would be worse
             # than the missing alert.
             self._log.warning("notify_no_webhook", for_event=event.value)
-            return False
-
-        if not self._url.startswith("https://"):
-            # A secret holding a partial paste fails deep inside requests as
-            # "No scheme supplied", with the URL masked in CI logs — which tells
-            # the operator nothing about which secret or how to fix it. Say it
-            # plainly instead. Length is safe to log; the value is not.
-            self._log.error(
-                "notify_webhook_malformed",
-                for_event=event.value,
-                chars=len(self._url),
-                hint="webhook must be the full URL starting with https:// — "
-                     "re-copy it from Discord (Server Settings -> Integrations "
-                     "-> Webhooks -> Copy Webhook URL)",
-            )
             return False
 
         body = message if len(message) <= MAX_MESSAGE_CHARS else (
