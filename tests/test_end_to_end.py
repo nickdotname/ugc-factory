@@ -332,3 +332,25 @@ class TestStaleSlotRecovery:
         cli.cmd_topup(topup_args(), {})
         after = load_queue(campaign / "queue.json")
         assert all(i.status is QueueStatus.PUSHED for i in after.items)
+
+    def test_reslotting_avoids_slots_held_by_pending_items(
+        self, campaign: Path
+    ) -> None:
+        """A stale item must not be handed a time another item still owns.
+
+        Only pushed/claimed slots were excluded originally, so a reslotted item
+        could collide with a pending one and both went out on the same minute.
+        """
+        from datetime import datetime, timedelta, timezone
+
+        from src.queue import save_queue
+
+        cli.cmd_render(render_args(), {})
+        q = load_queue(campaign / "queue.json")
+        # Age only the first item; the rest keep their future slots.
+        q.items[0].scheduled_for = datetime.now(timezone.utc) - timedelta(hours=4)
+        save_queue(campaign / "queue.json", q)
+
+        cli.cmd_topup(topup_args(), {})
+        times = [i.scheduled_for for i in load_queue(campaign / "queue.json").items]
+        assert len(set(times)) == len(times), "reslot collided with a pending slot"

@@ -564,10 +564,13 @@ def _reslot_stale(
     if not any(i.scheduled_for <= now + lead for i in items):
         return
 
+    # Every OTHER item's slot is spoken for — not just the pushed ones. An
+    # earlier version only excluded pushed/claimed slots, so a stale item could
+    # be handed a time a still-pending item already held, and the two went out
+    # on the same minute.
+    moving = {id(i) for i in items if i.scheduled_for <= now + lead}
     taken = {
-        i.scheduled_for
-        for i in queue.items
-        if i.status in (QueueStatus.PUSHED, QueueStatus.CLAIMED)
+        i.scheduled_for for i in queue.items if id(i) not in moving
     }
     candidates = [
         slot

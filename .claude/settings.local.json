@@ -98,7 +98,9 @@
       "Bash(.venv/bin/python -m pytest tests/test_acceptance.py -k \"Webhook or LogEvent\" --no-header)",
       "Bash(git rebase *)",
       "Bash(git config *)",
-      "Bash(.venv/bin/python -m pytest tests/test_publisher_buffer.py --no-header)"
+      "Bash(.venv/bin/python -m pytest tests/test_publisher_buffer.py --no-header)",
+      "Bash(.venv/bin/python -m pytest tests/test_end_to_end.py --no-header)",
+      "Bash(git commit -q -m ' *)"
     ]
   }
 }
