@@ -208,7 +208,7 @@ class WebApp:
             if store is not None:
                 try:
                     self._remote_clips = store.list_assets(
-                        f"assets-{self.config.slug}"
+                        self.config.assets_tag
                     )
                 except UgcError as exc:
                     self.log.warning("clip_listing_failed", error=str(exc))
@@ -919,7 +919,7 @@ class WebApp:
                          "removed. Mute the clip instead — it has the same "
                          "effect on the randomizer.",
             }
-        removed = store.delete_assets(f"assets-{self.config.slug}", [name])
+        removed = store.delete_assets(self.config.assets_tag, [name])
         local = self._archive_paths().get(name)
         if local is not None:
             local.unlink()
@@ -964,7 +964,7 @@ class WebApp:
     def plan(self) -> dict[str, Any]:
         renderer = FfmpegRenderer(self.config, self.log)
         store = self._store()
-        existing = store.list_assets(f"assets-{self.config.slug}") if store else []
+        existing = store.list_assets(self.config.assets_tag) if store else []
         plan = build_plan(self.inbox, existing, renderer, self.log)
         return {
             "ok": True,
@@ -992,7 +992,7 @@ class WebApp:
                          "GITHUB_TOKEN and GITHUB_REPOSITORY.",
             }
         renderer = FfmpegRenderer(self.config, self.log)
-        tag = f"assets-{self.config.slug}"
+        tag = self.config.assets_tag
         plan = build_plan(self.inbox, store.list_assets(tag), renderer, self.log)
         if not plan.uploadable:
             return {"ok": False, "error": "Nothing uploadable in the inbox."}
@@ -1665,6 +1665,15 @@ PAGE = """<!doctype html>
       <div class="frow">
         <label>Buffer account<select id="f-key"></select></label>
         <label>Channel<select id="f-channel"><option value="">loading…</option></select></label>
+      </div>
+      <div class="frow" id="manual-row" style="display:none;margin-top:13px">
+        <label>Network<select id="f-service">
+          <option value="instagram">instagram</option>
+          <option value="tiktok">tiktok</option>
+          <option value="youtube">youtube</option>
+        </select></label>
+        <label>Buffer channel ID<input type="text" id="f-channel-id"
+          placeholder="paste from Buffer" autocomplete="off"></label>
         <label>Slug<input type="text" id="f-slug" placeholder="brand_tiktok" autocomplete="off"></label>
         <label>Posts / day<input type="number" id="f-ppd" min="1" max="24" value="12"></label>
         <label>Start hour<input type="number" id="f-start" min="0" max="23" value="15"></label>
@@ -1784,7 +1793,7 @@ const KINDS = [
   ["music",  "Music",  "whole songs, royalty-free",           "audio/*"],
 ];
 const $ = s => document.querySelector(s);
-let STATE = null, CHANNELS = [];
+let STATE = null, CHANNELS = [], MANUAL = false;
 
 function bytes(n){ return n > 1e6 ? (n/1e6).toFixed(1)+" MB" : Math.max(1,Math.round(n/1e3))+" KB"; }
 function fmt(v, unit){
@@ -2227,14 +2236,31 @@ $("#f-key").onchange = () => { loadChannels(); };
 
 async function loadChannels(){
   const sel = $("#f-channel");
+  // Reopening the panel or switching key slot re-runs this, so drop the
+  // warning from the previous run — but only that one. Clearing the whole
+  // panel here would wipe the "Created <slug>" confirmation, since creating
+  // reloads the channel list on its way out.
+  $("#new-msgs").querySelectorAll(".chan-msg").forEach(n => n.remove());
   const slot = $("#f-key").value || "BUFFER_API_KEY";
   const r = await (await fetch("/api/channels?slot=" + encodeURIComponent(slot))).json();
   if (!r.ok){
+    // No key on this machine is the normal case — the workflows read it from
+    // GitHub Secrets, not from here. Say what to do, and leave a path that
+    // does not need Buffer at all rather than a dead Create button.
     sel.innerHTML = `<option value="">unavailable</option>`;
-    msg($("#new-msgs"), "warn",
-        `${r.error}<br><span style="opacity:.85">${r.hint||""}</span>`);
+    $("#f-channel").closest("label").style.display = "none";
+    $("#manual-row").style.display = "";
+    MANUAL = true;
+    msg($("#new-msgs"), "warn chan-msg",
+        `Can't list your Buffer channels: ${r.error}<br>
+         <span style="opacity:.85">${r.hint||""}</span><br>
+         Until then, pick the network and paste the channel ID from Buffer's
+         URL — everything else works the same.`);
     return;
   }
+  MANUAL = false;
+  $("#f-channel").closest("label").style.display = "";
+  $("#manual-row").style.display = "none";
   CHANNELS = r.channels;
   const usable = CHANNELS.filter(c => !c.taken_by && !c.disconnected && !c.locked);
   sel.innerHTML =
@@ -2277,16 +2303,28 @@ $("#cancel-btn").onclick = () => { $("#new-panel").style.display = "none"; };
 $("#create-btn").onclick = async (e) => {
   const nm = $("#new-msgs"); nm.innerHTML = "";
   e.target.disabled = true;
-  const opt = $("#f-channel").selectedOptions[0];
-  const chan = CHANNELS.find(x => x.id === (opt && opt.value));
-  if (!chan){
-    msg(nm, "bad", "Pick a Buffer channel first.");
-    e.target.disabled = false; return;
+  let service, channelId;
+  if (MANUAL){
+    service = $("#f-service").value;
+    channelId = $("#f-channel-id").value.trim();
+    if (!channelId){
+      msg(nm, "bad", "Paste the Buffer channel ID, or add your Buffer key to " +
+                     "<code>.env</code> to pick from a list.");
+      e.target.disabled = false; return;
+    }
+  } else {
+    const opt = $("#f-channel").selectedOptions[0];
+    const chan = CHANNELS.find(x => x.id === (opt && opt.value));
+    if (!chan){
+      msg(nm, "bad", "Pick a Buffer channel first.");
+      e.target.disabled = false; return;
+    }
+    service = chan.service; channelId = chan.id;
   }
   const body = {
     slug: $("#f-slug").value.trim().toLowerCase(),
-    service: chan.service,
-    channel_id: chan.id,
+    service: service,
+    channel_id: channelId,
     api_key_secret: $("#f-key").value || "BUFFER_API_KEY",
     posts_per_day: +$("#f-ppd").value,
     start_hour: +$("#f-start").value,

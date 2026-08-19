@@ -345,6 +345,32 @@ class TestRandomizerRoster:
         assert scope["inbox"] == app.config.library_key
 
 
+    def test_a_shared_library_reads_the_shared_release_not_the_slug(
+        self, tmp_path: Path, config: CampaignConfig
+    ) -> None:
+        """Deriving the tag from the slug sends a shared-library campaign at a
+        Release nobody reads — and an upload there would silently strand the
+        clips in a new one."""
+        bank = tmp_path / "b.txt"
+        bank.write_text("one", encoding="utf-8")
+        shared = config.model_copy(update={"assets_release": "assets-brand"})
+        asked: list[str] = []
+
+        class Watcher(FakeStore):
+            def list_assets(self, tag: str) -> list[str]:
+                asked.append(tag)
+                return []
+
+        app = WebApp(
+            config=shared, repo_root=tmp_path, inbox=tmp_path / "inbox",
+            bank_path=bank, log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=Watcher,
+        )
+        app.clips()
+        assert asked == ["assets-brand"]
+        assert shared.library_key == "brand"
+
+
 class TestClipDeletion:
     """The irreversible half — it must reach the Release, not just the disk."""
 
