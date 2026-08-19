@@ -100,7 +100,18 @@
       "Bash(git config *)",
       "Bash(.venv/bin/python -m pytest tests/test_publisher_buffer.py --no-header)",
       "Bash(.venv/bin/python -m pytest tests/test_end_to_end.py --no-header)",
-      "Bash(git commit -q -m ' *)"
+      "Bash(git commit -q -m ' *)",
+      "Bash(.venv/bin/python -m pytest tests/test_campaigns.py --no-header)",
+      "Bash(.venv/bin/python -m src.cli web --campaign clubs --port 8770 --no-open)",
+      "Bash(curl -s http://127.0.0.1:8770/api/campaigns)",
+      "Bash(curl -s -X POST -d '{\"slug\":\"clubs_yt\"}' http://127.0.0.1:8770/api/select)",
+      "Bash(curl -s http://127.0.0.1:8770/api/state)",
+      "Bash(.venv/bin/python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f\\\\\"  now showing: {d['campaign']} \\({d['service']}\\)\\\\\"\\)\")",
+      "Bash(curl -s -X POST -d '{\"slug\":\"demo_fb\",\"service\":\"instagram\",\"posts_per_day\":6,\"start_hour\":9,\"copy_descriptions\":true}' http://127.0.0.1:8770/api/campaigns)",
+      "Bash(curl -s -X POST -d '{\"slug\":\"demo_fb\",\"service\":\"tiktok\"}' http://127.0.0.1:8770/api/campaigns)",
+      "Bash(curl -s -X POST -d '{\"slug\":\"bad-slug\",\"service\":\"tiktok\"}' http://127.0.0.1:8770/api/campaigns)",
+      "Bash(.venv/bin/python -c \"import json,sys; print\\(' ', json.load\\(sys.stdin\\)['error']\\)\")",
+      "Bash(rm -rf campaigns/demo_fb inbox/demo_fb)"
     ]
   }
 }

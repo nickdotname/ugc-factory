@@ -15,13 +15,30 @@ permissions:
   contents: read
 
 jobs:
+  # Campaigns are discovered from the repo rather than listed here, so adding
+  # one is a matter of creating campaigns/<slug>/ — no workflow edit, which is
+  # what lets the dashboard create campaigns that actually run (SPEC §15).
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      campaigns: ${{ steps.list.outputs.campaigns }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          slugs=$(find campaigns -mindepth 1 -maxdepth 1 -type d \
+                    -not -name '_*' -exec basename {} \; | sort)
+          echo "found: $slugs"
+          echo "campaigns=$(printf '%s\n' $slugs | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+
   diagnose:
+    needs: discover
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
-        campaign: [clubs, clubs_tt, clubs_yt]
+        campaign: ${{ fromJson(needs.discover.outputs.campaigns) }}
       max-parallel: 1
     steps:
       - uses: actions/checkout@v4
@@ -32,11 +49,17 @@ jobs:
           cache-dependency-path: requirements.txt
       - run: pip install -q -r requirements.txt
 
+      # A dynamic campaign list cannot name its secrets in YAML, so the
+      # relevant ones are exported by prefix. Values stay masked in logs; this
+      # only widens which STEP can see them, not who can.
+      - name: Export campaign secrets
+        env:
+          ALL_SECRETS: ${{ toJSON(secrets) }}
+        run: |
+          echo "$ALL_SECRETS" \
+            | jq -r 'to_entries[] | select(.key|test("^(BUFFER|DISCORD)_")) | "\(.key)=\(.value)"' \
+            >> "$GITHUB_ENV"
+
       - name: Diagnose
         if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
-        env:
-          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
-          BUFFER_CHANNEL_CLUBS: ${{ secrets.BUFFER_CHANNEL_CLUBS }}
-          BUFFER_CHANNEL_CLUBS_TT: ${{ secrets.BUFFER_CHANNEL_CLUBS_TT }}
-          BUFFER_CHANNEL_CLUBS_YT: ${{ secrets.BUFFER_CHANNEL_CLUBS_YT }}
         run: python -m src.cli diagnose --campaign "${{ matrix.campaign }}"

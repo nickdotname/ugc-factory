@@ -33,7 +33,8 @@ from typing import Any, Callable
 from urllib.parse import parse_qs, urlparse
 
 from src.assets import GitHubReleasesStore, LocalLibrary, MediaStore
-from src.config import CampaignConfig
+from src.campaigns import create_campaign, list_campaigns, slug_error
+from src.config import CampaignConfig, load_campaign
 from src.descriptions import load_bank, parse_bank, validate_bank
 from src.errors import UgcError
 from src.ingest import (
@@ -49,6 +50,7 @@ from src.ingest import (
 from src.logging import StructuredLogger
 from src.metrics import load_metrics
 from src.models import PartKind
+from src.platforms import Service
 from src.ports import Clock
 from src.render import FfmpegRenderer
 
@@ -102,6 +104,9 @@ class WebApp:
         self.log = log
         self.clock = clock
         self._store_factory = store_factory
+        # The campaigns directory is the unit the dashboard operates over; a
+        # single campaign is just the one currently selected.
+        self.campaigns_dir = bank_path.parent.parent
         # Probed once and cached: the state endpoint is polled every few
         # seconds, and ffprobing every track on each poll would be absurd.
         self._music_beds: int | None = None
@@ -131,6 +136,88 @@ class WebApp:
                     if path.name.lower().startswith(kind.value):
                         counts[kind.value] += 1
         return counts
+
+    def select(self, slug: str) -> dict[str, Any]:
+        """Switch the dashboard to another campaign.
+
+        Rebinds the per-campaign paths and drops the cached probe, because bed
+        counts belong to whichever asset library the new campaign points at.
+        """
+        config = load_campaign(self.campaigns_dir, slug)
+        self.config = config
+        self.bank_path = self.campaigns_dir / slug / "captions.txt"
+        self.inbox = self.repo_root / "inbox" / slug
+        self._music_beds = None
+        ensure_inbox(self.inbox)
+        self.log = self.log.bind(campaign=slug)
+        return {"ok": True, "campaign": slug}
+
+    def campaigns(self) -> dict[str, Any]:
+        """Every campaign, plus which one the dashboard is showing."""
+        return {
+            "selected": self.config.slug,
+            "campaigns": [
+                {
+                    "slug": c.slug, "service": c.service, "post_type": c.post_type,
+                    "posts_per_day": c.posts_per_day, "dry_run": c.dry_run,
+                    "timezone": c.timezone, "assets_tag": c.assets_tag,
+                    "valid": c.valid, "error": c.error,
+                }
+                for c in list_campaigns(self.campaigns_dir)
+            ],
+        }
+
+    def create(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Create a campaign and report what the operator must still do.
+
+        The two steps deliberately left to a human are the credential ones:
+        connecting the channel in Buffer, and setting the secrets. Everything
+        that is just files happens here.
+        """
+        slug = str(payload.get("slug", "")).strip().lower()
+        existing = [c.slug for c in list_campaigns(self.campaigns_dir)]
+        problem = slug_error(slug, existing)
+        if problem:
+            return {"ok": False, "error": problem}
+
+        try:
+            service = Service(str(payload.get("service", "instagram")))
+        except ValueError:
+            return {"ok": False, "error": "unknown service"}
+
+        try:
+            created = create_campaign(
+                self.campaigns_dir,
+                slug,
+                service,
+                timezone=str(payload.get("timezone") or self.config.timezone),
+                posts_per_day=int(payload.get("posts_per_day") or 12),
+                start_hour=int(payload.get("start_hour") or 15),
+                # Default to sharing this campaign's library: a new campaign for
+                # the same brand on another network should not need the clips
+                # uploaded a second time.
+                assets_release=(
+                    str(payload.get("assets_release"))
+                    if payload.get("assets_release")
+                    else self.config.assets_tag
+                ),
+                organization_id=self.config.buffer.organization_id,
+                descriptions=(
+                    self.bank_path.read_text(encoding="utf-8")
+                    if payload.get("copy_descriptions") and self.bank_path.is_file()
+                    else None
+                ),
+            )
+        except UgcError as exc:
+            return {"ok": False, "error": str(exc)}
+
+        self.log.info("campaign_created", slug=slug, service=service.value)
+        return {
+            "ok": True,
+            "slug": created.slug,
+            "required_secrets": list(created.required_secrets),
+            "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
+        }
 
     def _music_bed_count(self) -> int | None:
         """How many distinct beds the uploaded music yields.
@@ -398,6 +485,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._html(PAGE)
             elif route == "/api/state":
                 self._json(app.state())
+            elif route == "/api/campaigns":
+                self._json(app.campaigns())
             elif route == "/api/metrics":
                 self._json(app.metrics())
             elif route == "/api/plan":
@@ -423,6 +512,13 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 elif route == "/api/descriptions":
                     payload = json.loads(self._body() or b"{}")
                     self._json(app.save_descriptions(str(payload.get("text", ""))))
+
+                elif route == "/api/select":
+                    payload = json.loads(self._body() or b"{}")
+                    self._json(app.select(str(payload.get("slug", ""))))
+
+                elif route == "/api/campaigns":
+                    self._json(app.create(json.loads(self._body() or b"{}")))
 
                 elif route == "/api/ingest":
                     self._json(app.upload())
@@ -554,6 +650,26 @@ PAGE = """<!doctype html>
           background:var(--panel); border:1px solid var(--line);
           border-radius:10px; padding:14px; margin-top:12px; }
   .hint { font-size:12px; color:var(--dim); margin-top:6px; }
+  header select {
+    background:var(--panel); color:var(--text); border:1px solid var(--line);
+    border-radius:8px; padding:5px 9px; font-size:13px; font-weight:600;
+  }
+  .newc {
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:18px; margin:0 24px 4px;
+  }
+  .newc h3 { margin-top:0; }
+  .frow { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+          gap:12px; margin-bottom:10px; }
+  .frow label { display:flex; flex-direction:column; gap:4px;
+                font-size:11px; color:var(--dim); }
+  .frow input, .frow select {
+    background:var(--bg); color:var(--text); border:1px solid var(--line);
+    border-radius:8px; padding:7px 9px; font-size:13px;
+  }
+  .chk { display:flex; align-items:center; gap:7px; font-size:12px;
+         color:var(--dim); margin-bottom:6px; }
+  .dead { color:var(--bad); }
   .perf-card {
     background:var(--panel); border:1px solid var(--line); border-radius:12px;
     padding:16px 18px; margin-bottom:12px;
@@ -574,11 +690,37 @@ PAGE = """<!doctype html>
 <body>
 <header>
   <h1>ugc-factory</h1>
-  <span class="tag" id="t-campaign">…</span>
+  <select id="switcher" title="switch campaign"></select>
   <span class="tag" id="t-service">…</span>
   <span class="tag" id="t-cadence">…</span>
   <span class="tag" id="t-dry">…</span>
+  <button class="act ghost" id="new-btn" style="margin-left:auto">+ New campaign</button>
 </header>
+
+<div id="new-panel" style="display:none">
+  <div class="newc">
+    <h3>New campaign</h3>
+    <div class="frow">
+      <label>Slug<input id="f-slug" placeholder="brand_tiktok" autocomplete="off"></label>
+      <label>Platform<select id="f-service">
+        <option value="instagram">Instagram</option>
+        <option value="tiktok">TikTok</option>
+        <option value="youtube">YouTube</option>
+      </select></label>
+      <label>Posts/day<input id="f-ppd" type="number" min="1" max="24" value="12"></label>
+      <label>Start hour<input id="f-start" type="number" min="0" max="23" value="15"></label>
+    </div>
+    <label class="chk"><input type="checkbox" id="f-share" checked>
+      Share this campaign's asset library (no re-uploading clips)</label>
+    <label class="chk"><input type="checkbox" id="f-copy" checked>
+      Copy the current descriptions</label>
+    <div class="row">
+      <button class="act" id="create-btn">Create</button>
+      <button class="act ghost" id="cancel-btn">Cancel</button>
+    </div>
+    <div id="new-msgs"></div>
+  </div>
+</div>
 
 <main>
   <div class="zones" id="zones"></div>
@@ -672,7 +814,6 @@ function msg(el, cls, text){
 
 function render(s){
   STATE = s;
-  $("#t-campaign").textContent = s.campaign;
   $("#t-service").textContent  = s.service;
   $("#t-cadence").textContent  = s.posts_per_day + "/day";
   $("#t-dry").textContent      = s.dry_run ? "dry run" : "LIVE";
@@ -712,6 +853,57 @@ function render(s){
 }
 
 async function refresh(){ render(await (await fetch("/api/state")).json()); }
+
+async function loadCampaigns(){
+  const r = await (await fetch("/api/campaigns")).json();
+  const sel = $("#switcher");
+  sel.innerHTML = r.campaigns.map(c =>
+    `<option value="${c.slug}" ${c.slug===r.selected?"selected":""}>` +
+    `${c.slug}${c.valid?"":" (broken)"}</option>`).join("");
+  const broken = r.campaigns.filter(c => !c.valid);
+  if (broken.length){
+    const el = $("#perf");
+    broken.forEach(c => msg(el, "bad", `${c.slug}: ${c.error}`));
+  }
+}
+
+$("#switcher").onchange = async (e) => {
+  await fetch("/api/select", {method:"POST",
+    body: JSON.stringify({slug: e.target.value})});
+  await refresh(); await loadMetrics();
+};
+
+$("#new-btn").onclick = () => {
+  const p = $("#new-panel");
+  p.style.display = p.style.display === "none" ? "block" : "none";
+};
+$("#cancel-btn").onclick = () => { $("#new-panel").style.display = "none"; };
+
+$("#create-btn").onclick = async (e) => {
+  const nm = $("#new-msgs"); nm.innerHTML = "";
+  e.target.disabled = true;
+  const body = {
+    slug: $("#f-slug").value.trim().toLowerCase(),
+    service: $("#f-service").value,
+    posts_per_day: +$("#f-ppd").value,
+    start_hour: +$("#f-start").value,
+    copy_descriptions: $("#f-copy").checked,
+  };
+  if (!$("#f-share").checked) body.assets_release = "";
+  const r = await (await fetch("/api/campaigns", {method:"POST",
+    body: JSON.stringify(body)})).json();
+  e.target.disabled = false;
+
+  if (!r.ok){ msg(nm, "bad", r.error); return; }
+  msg(nm, "ok", `Created <b>${r.slug}</b> — ${r.files.length} files written.`);
+  msg(nm, "warn",
+    "Two things only you can do:<br>" +
+    "1. Connect the channel in Buffer.<br>" +
+    "2. Set these secrets, then commit and push so Actions picks it up:<br>" +
+    r.required_secrets.map(s =>
+      `<code>gh secret set ${s} --repo &lt;owner/repo&gt;</code>`).join("<br>"));
+  await loadCampaigns();
+};
 
 $("#save").onclick = async () => {
   const r = await (await fetch("/api/descriptions",{method:"POST",
@@ -809,7 +1001,7 @@ async function loadMetrics(){
   }).join("");
 }
 
-buildZones(); refresh(); loadMetrics();
+buildZones(); loadCampaigns(); refresh(); loadMetrics();
 setInterval(refresh, 5000);
 // Metrics only change once a day; polling them like the inbox would be waste.
 setInterval(loadMetrics, 300000);

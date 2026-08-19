@@ -308,17 +308,48 @@ class TestShippedWorkflows:
         text = self._wf("render.yml")
         assert "git commit" in text and "git push" in text
 
-    def test_every_campaign_is_in_every_workflow_matrix(self) -> None:
-        """A campaign missing from a matrix silently never runs."""
-        campaigns = [
+    def test_campaign_matrices_are_discovered_not_hardcoded(self) -> None:
+        """A hardcoded matrix means a new campaign silently never runs.
+
+        Replaces an older test that asserted every slug appeared literally in
+        every workflow. That was the right check while the list was static, but
+        it is precisely the coupling that stopped the dashboard from creating a
+        campaign that works — so now the requirement is the opposite.
+        """
+        import yaml
+
+        for name in ("render.yml", "topup.yml", "preflight.yml", "cleanup.yml",
+                     "metrics.yml", "diagnose.yml"):
+            doc = yaml.safe_load(self._wf(name))
+            jobs = doc["jobs"]
+            assert "discover" in jobs, f"{name} has no discover job"
+
+            matrixed = [
+                (n, j) for n, j in jobs.items()
+                if isinstance((j.get("strategy") or {}).get("matrix"), dict)
+                and "campaign" in j["strategy"]["matrix"]
+            ]
+            assert matrixed, f"{name} has no campaign matrix"
+            for job_name, job in matrixed:
+                spec = str(job["strategy"]["matrix"]["campaign"])
+                assert "fromJson" in spec and "discover" in spec, (
+                    f"{name}:{job_name} still hardcodes its campaigns: {spec}"
+                )
+                assert "discover" in str(job.get("needs")), (
+                    f"{name}:{job_name} uses discover output without needing it"
+                )
+
+    def test_no_workflow_hardcodes_a_campaign_slug(self) -> None:
+        """Slugs in a workflow are the coupling dynamic discovery removed."""
+        slugs = [
             d.name for d in (REPO_ROOT / "campaigns").iterdir()
             if d.is_dir() and not d.name.startswith("_")
         ]
-        for name in ("render.yml", "topup.yml", "preflight.yml", "cleanup.yml"):
+        for name in ("render.yml", "topup.yml", "preflight.yml", "cleanup.yml",
+                     "metrics.yml", "diagnose.yml"):
             text = self._wf(name)
-            assert "matrix:" in text, name
-            for slug in campaigns:
-                assert slug in text, f"{slug} missing from {name}"
+            for slug in slugs:
+                assert slug not in text, f"{name} still names {slug}"
 
     def test_ci_never_enables_the_live_buffer_test(self) -> None:
         """SPEC §2.2 — the live test is never part of CI."""

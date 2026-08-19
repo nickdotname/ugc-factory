@@ -27,13 +27,30 @@ permissions:
   contents: write   # commits the metrics cache
 
 jobs:
+  # Campaigns are discovered from the repo rather than listed here, so adding
+  # one is a matter of creating campaigns/<slug>/ — no workflow edit, which is
+  # what lets the dashboard create campaigns that actually run (SPEC §15).
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      campaigns: ${{ steps.list.outputs.campaigns }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          slugs=$(find campaigns -mindepth 1 -maxdepth 1 -type d \
+                    -not -name '_*' -exec basename {} \; | sort)
+          echo "found: $slugs"
+          echo "campaigns=$(printf '%s\n' $slugs | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+
   metrics:
+    needs: discover
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        campaign: [clubs, clubs_tt, clubs_yt]
+        campaign: ${{ fromJson(needs.discover.outputs.campaigns) }}
       # Serialised so three jobs do not race the same branch. Metrics are not
       # time-critical, so waiting is cheaper than rebasing.
       max-parallel: 1
@@ -49,18 +66,22 @@ jobs:
           cache-dependency-path: requirements.txt
       - run: pip install -q -r requirements.txt
 
+      # A dynamic campaign list cannot name its secrets in YAML, so the
+      # relevant ones are exported by prefix. Values stay masked in logs; this
+      # only widens which STEP can see them, not who can.
+      - name: Export campaign secrets
+        env:
+          ALL_SECRETS: ${{ toJSON(secrets) }}
+        run: |
+          echo "$ALL_SECRETS" \
+            | jq -r 'to_entries[] | select(.key|test("^(BUFFER|DISCORD)_")) | "\(.key)=\(.value)"' \
+            >> "$GITHUB_ENV"
+
       - name: Fetch metrics
         if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
-          BUFFER_CHANNEL_CLUBS: ${{ secrets.BUFFER_CHANNEL_CLUBS }}
-          BUFFER_CHANNEL_CLUBS_TT: ${{ secrets.BUFFER_CHANNEL_CLUBS_TT }}
-          BUFFER_CHANNEL_CLUBS_YT: ${{ secrets.BUFFER_CHANNEL_CLUBS_YT }}
-          DISCORD_WEBHOOK_CLUBS: ${{ secrets.DISCORD_WEBHOOK_CLUBS }}
-          DISCORD_WEBHOOK_CLUBS_TT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_TT }}
-          DISCORD_WEBHOOK_CLUBS_YT: ${{ secrets.DISCORD_WEBHOOK_CLUBS_YT }}
         run: |
           python -m src.cli metrics \
             --campaign "${{ matrix.campaign }}" \
