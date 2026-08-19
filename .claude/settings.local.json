@@ -121,7 +121,10 @@
       "Bash(curl -s http://127.0.0.1:8765/api/metrics)",
       "Bash(.venv/bin/python -)",
       "Bash(curl -s -o /dev/null -w \"page: HTTP %{http_code} %{size_download} bytes\\\\n\" http://127.0.0.1:8765/)",
-      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py -k Webhook --no-header)"
+      "Bash(.venv/bin/python -m pytest tests/test_acceptance.py -k Webhook --no-header)",
+      "Bash(node scripts/validate_palette.js \"#d4593a,#2f9e83,#c9922a\" --mode dark --surface \"#191715\")",
+      "Bash(curl -s http://127.0.0.1:8765/api/charts)",
+      "Bash(grep -E '^#{2,3} ' /private/tmp/claude-501/bundled-skills/2.1.222/845cbf8fe3696d9d807bca8b7cf54db2/dataviz/references/anti-patterns.md)"
     ]
   }
 }

@@ -373,6 +373,102 @@ class WebApp:
             })
         return {"ok": True, "channels": out}
 
+    def charts(self) -> dict[str, Any]:
+        """Every series the analytics section plots, read from disk only.
+
+        Two sources, deliberately: metrics.json for what the networks report,
+        and history.json for what this system did. The second is complete and
+        free — it records every render ever — so posting volume, asset usage
+        and time-of-day come from it rather than from an API window.
+        """
+        from collections import Counter
+
+        from src.campaigns import list_campaigns
+        from src.metrics import Scope
+        from src.queue import load_history, load_queue
+
+        series: dict[str, dict[str, list[list[Any]]]] = {}
+        share: dict[str, list[dict[str, Any]]] = {}
+        volume: dict[str, list[list[Any]]] = {}
+        hours: dict[str, list[int]] = {}
+        assets: dict[str, list[list[Any]]] = {}
+        services: list[str] = []
+        asset_counts: dict[str, Counter[str]] = {
+            "hooks": Counter(), "bodies": Counter(), "music": Counter()
+        }
+        hour_counts: Counter[int] = Counter()
+
+        for summary in list_campaigns(self.campaigns_dir):
+            directory = self.campaigns_dir / summary.slug
+            try:
+                config = load_campaign(self.campaigns_dir, summary.slug)
+            except UgcError:
+                continue
+            service = config.buffer.service.value
+            if service not in services:
+                services.append(service)
+
+            history = load_metrics(directory / "metrics.json")
+            for snapshot in history.of(Scope.ROLLING):
+                for metric in snapshot.metrics:
+                    if metric.type == "postCount":
+                        continue
+                    series.setdefault(metric.type, {}).setdefault(
+                        service, []
+                    ).append([snapshot.date, metric.value])
+
+            life = history.lifetime()
+            if life:
+                for metric in life.metrics:
+                    if metric.unit == "percentage" or metric.type == "postCount":
+                        continue
+                    share.setdefault(metric.type, []).append(
+                        {"service": service, "value": metric.value}
+                    )
+
+            # history.json is append-only and complete — no API window to miss.
+            posted = load_history(directory / "history.json")
+            per_day: Counter[str] = Counter()
+            for entry in posted.entries:
+                # entry.timestamp is when the video was RENDERED, not when it
+                # published — the nightly job stamps them all within a minute
+                # of each other. Fine for volume-per-day, meaningless for
+                # time-of-day, which comes from the queue's slots below.
+                local = entry.timestamp.astimezone(config.zone)
+                per_day[local.strftime("%Y-%m-%d")] += 1
+                asset_counts["hooks"][entry.hook] += 1
+                for body in entry.bodies:
+                    asset_counts["bodies"][body] += 1
+                if entry.music:
+                    asset_counts["music"][entry.music] += 1
+            volume[service] = [[d, n] for d, n in sorted(per_day.items())]
+
+            # Publish times come from the queue, which carries the real slots.
+            # History has no publish timestamp, so an all-time distribution is
+            # not available — this is the schedule as it currently stands.
+            for item in load_queue(directory / "queue.json").items:
+                hour_counts[item.scheduled_for.astimezone(config.zone).hour] += 1
+
+        hours["all"] = [hour_counts.get(h, 0) for h in range(24)]
+        for kind, counter in asset_counts.items():
+            assets[kind] = [[name, n] for name, n in counter.most_common(12)]
+
+        # Metrics worth offering in the selector, most complete first, so the
+        # default view is one every platform actually reports.
+        ranked = sorted(
+            series.keys(),
+            key=lambda t: (-len(series[t]), -sum(len(v) for v in series[t].values())),
+        )
+        return {
+            "services": services,
+            "metrics": ranked,
+            "series": series,
+            "share": share,
+            "volume": volume,
+            "hours": hours["all"],
+            "assets": assets,
+        }
+
     def pending_changes(self) -> dict[str, Any]:
         """Campaign files changed locally but not yet on GitHub.
 
@@ -479,7 +575,7 @@ class WebApp:
             # Posts ever published, straight from the append-only history —
             # true all-time regardless of what any metrics window covers.
             try:
-                from src.queue import load_history
+                from src.queue import load_history, load_queue
 
                 ever_posted = len(load_history(directory / "history.json").entries)
             except UgcError:
@@ -750,6 +846,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 ))
             elif route == "/api/keys":
                 self._json(app.key_slots())
+            elif route == "/api/charts":
+                self._json(app.charts())
             elif route == "/api/pending":
                 self._json(app.pending_changes())
             elif route == "/api/metrics":
@@ -1087,6 +1185,58 @@ PAGE = """<!doctype html>
   }
   .hint { font-size:12px; color:var(--ink-3); margin-top:9px; }
   .dead { color:var(--down); }
+
+  /* ── Charts ────────────────────────────────────────────────────────────
+     Palette validated with the data-viz checker against both surfaces:
+     0 failures on all pairs, worst CVD ΔE 10.7 dark / 8.4 light. Gold was
+     the obvious warm third hue and had to be dropped — terracotta↔gold is
+     ΔE 2.6 under deutan, i.e. one colour to a red-green colourblind reader. */
+  :root { --s1:#dd5f3c; --s2:#2f9e83; --s3:#a878e6; }
+  /* Bars that are NOT a platform series (totals, schedule, asset counts) wear
+     a neutral, never a series hue — terracotta has to keep meaning Instagram
+     and nothing else. */
+  :root { --bar:#6f655d; }
+  @media (prefers-color-scheme: light) { :root { --bar:#9c9088; } }
+  :root[data-theme="light"] { --bar:#9c9088; }
+  :root[data-theme="dark"]  { --bar:#6f655d; }
+  @media (prefers-color-scheme: light) {
+    :root { --s1:#c9502a; --s2:#1e855f; --s3:#8a5cd6; }
+  }
+  :root[data-theme="light"] { --s1:#c9502a; --s2:#1e855f; --s3:#8a5cd6; }
+  :root[data-theme="dark"]  { --s1:#dd5f3c; --s2:#2f9e83; --s3:#a878e6; }
+
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+           gap:16px; margin-top:16px; }
+  .chead { font-size:13px; font-weight:650; margin-bottom:14px;
+           display:flex; align-items:baseline; gap:8px; }
+  .chead small { font-weight:400; color:var(--ink-3); font-size:11px; }
+  .chartbar { display:flex; align-items:center; gap:12px; margin-bottom:14px;
+              flex-wrap:wrap; }
+  button.sm { padding:5px 11px; font-size:12px; }
+  .legend { display:flex; gap:14px; flex-wrap:wrap; }
+  .lg { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--ink-2); }
+  .sw { width:9px; height:9px; border-radius:2px; flex:none; }
+  .segs { display:inline-flex; border:1px solid var(--line-2);
+          border-radius:var(--radius-sm); overflow:hidden; }
+  .segs button { background:transparent; color:var(--ink-2); border:none;
+                 border-radius:0; padding:5px 12px; font-size:12px; }
+  .segs button[aria-pressed="true"] { background:var(--panel-2); color:var(--ink); }
+  svg.chart { display:block; width:100%; overflow:visible; }
+  .axis { font-size:10px; fill:var(--ink-3); font-family:"IBM Plex Mono",monospace; }
+  .gridline { stroke:var(--line); stroke-width:1; }
+  .tip {
+    position:fixed; pointer-events:none; z-index:60; opacity:0;
+    background:var(--panel); border:1px solid var(--line-2);
+    border-radius:8px; padding:8px 11px; font-size:12px;
+    box-shadow:var(--shadow); transition:opacity .1s;
+  }
+  .tip .tr { display:flex; align-items:center; gap:7px; white-space:nowrap; }
+  .tip .tt { font-weight:650; margin-bottom:5px; font-size:11px; color:var(--ink-3); }
+  table.dv { width:100%; border-collapse:collapse; font-size:12px; }
+  table.dv th, table.dv td { padding:6px 10px; text-align:right;
+    border-bottom:1px solid var(--line); }
+  table.dv th:first-child, table.dv td:first-child { text-align:left; }
+  table.dv th { color:var(--ink-3); font-weight:600; font-size:11px; }
 </style>
 </head>
 <body>
@@ -1133,6 +1283,45 @@ PAGE = """<!doctype html>
   <section>
     <h2>All time <small>every campaign, since the first post</small></h2>
     <div id="overall"></div>
+  </section>
+
+  <section>
+    <h2>Trend
+      <small>validated palette · terracotta Instagram · teal TikTok · violet YouTube</small>
+    </h2>
+    <div class="card pad">
+      <div class="chartbar">
+        <select id="c-metric" aria-label="Metric to plot"></select>
+        <div class="legend" id="c-legend"></div>
+        <span class="spacer"></span>
+        <button class="ghost sm" id="c-table" aria-pressed="false">Table</button>
+      </div>
+      <div id="c-main"></div>
+      <div id="c-tablewrap" style="display:none"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card pad">
+        <div class="chead">Share of <span id="c-share-metric">views</span>
+          <small>all time</small></div>
+        <div id="c-share"></div>
+      </div>
+      <div class="card pad">
+        <div class="chead">Videos rendered <small>per day, from history</small></div>
+        <div id="c-volume"></div>
+      </div>
+      <div class="card pad">
+        <div class="chead">Publish schedule <small>slots in the current queue</small></div>
+        <div id="c-hours"></div>
+      </div>
+      <div class="card pad">
+        <div class="chead">Asset usage <small>times each clip has been used</small></div>
+        <div class="chartbar" style="margin-bottom:8px">
+          <div class="segs" id="c-asset-kind"></div>
+        </div>
+        <div id="c-assets"></div>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -1547,9 +1736,247 @@ $("#upload").onclick = async (e) => {
   refresh();
 };
 
-buildZones(); loadCampaigns(); refresh(); loadMetrics(); loadPending();
+
+/* ── Charts ───────────────────────────────────────────────────────────────
+   Inline SVG, no libraries. Colour is assigned by ENTITY (platform), fixed
+   order, never by rank — a filter that drops a series must not repaint the
+   survivors. Text always wears ink tokens; the swatch beside it carries
+   identity, never the text itself.                                        */
+let CHARTS = null, CMETRIC = null, CASSET = "hooks";
+const SERIES_VAR = {instagram:"--s1", tiktok:"--s2", youtube:"--s3"};
+const svar = s => getComputedStyle(document.documentElement)
+                    .getPropertyValue(SERIES_VAR[s] || "--s1").trim() || "#888";
+const esc = t => String(t).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const TIP = document.createElement("div"); TIP.className = "tip"; document.body.appendChild(TIP);
+function tipShow(x, y, html){
+  TIP.innerHTML = html; TIP.style.opacity = "1";
+  const r = TIP.getBoundingClientRect();
+  TIP.style.left = Math.min(x + 14, innerWidth - r.width - 10) + "px";
+  TIP.style.top  = Math.max(8, y - r.height - 12) + "px";
+}
+function tipHide(){ TIP.style.opacity = "0"; }
+
+function niceMax(v){
+  if (v <= 0) return 1;
+  const mag = Math.pow(10, Math.floor(Math.log10(v)));
+  return Math.ceil(v / mag * 2) / 2 * mag;
+}
+const shortDate = d => d.slice(5).replace("-", "/");
+
+/* Multi-series line. 2px strokes, 8px hover markers, crosshair + shared
+   tooltip — the default interaction for a time series. */
+function lineChart(el, seriesMap, opts){
+  const names = Object.keys(seriesMap).filter(n => seriesMap[n].length);
+  if (!names.length){ el.innerHTML = `<div class="hint">No data yet.</div>`; return; }
+  const dates = [...new Set(names.flatMap(n => seriesMap[n].map(p => p[0])))].sort();
+  if (dates.length < 2){
+    el.innerHTML = `<div class="hint">Only one snapshot so far — the line
+      appears once the metrics job has run twice (daily at 06:30 UTC).</div>`;
+    return;
+  }
+  const W = el.clientWidth || 900, H = opts.h || 240;
+  const P = {t:12, r:14, b:26, l:46};
+  const max = niceMax(Math.max(...names.flatMap(n => seriesMap[n].map(p => p[1]))));
+  const x = i => P.l + (i / (dates.length - 1)) * (W - P.l - P.r);
+  const y = v => H - P.b - (v / max) * (H - P.t - P.b);
+
+  let g = "";
+  for (let t = 0; t <= 4; t++){
+    const v = max * t / 4, yy = y(v);
+    g += `<line class="gridline" x1="${P.l}" y1="${yy}" x2="${W-P.r}" y2="${yy}"/>
+          <text class="axis" x="${P.l-8}" y="${yy+3.5}" text-anchor="end">${fmt(v,"count")}</text>`;
+  }
+  dates.forEach((d,i) => {
+    if (dates.length > 8 && i % 2) return;
+    g += `<text class="axis" x="${x(i)}" y="${H-8}" text-anchor="middle">${shortDate(d)}</text>`;
+  });
+
+  names.forEach(n => {
+    const byDate = Object.fromEntries(seriesMap[n]);
+    const pts = dates.map((d,i) => byDate[d] === undefined ? null : [x(i), y(byDate[d])])
+                     .filter(Boolean);
+    if (pts.length < 2) return;
+    const path = pts.map((p,i) => `${i?"L":"M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join("");
+    g += `<path d="${path}" fill="none" stroke="${svar(n)}" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"/>`;
+    const last = pts[pts.length-1];
+    g += `<circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="${svar(n)}"
+            stroke="var(--panel)" stroke-width="2"/>`;
+  });
+
+  g += `<line id="cross" y1="${P.t}" y2="${H-P.b}" stroke="var(--line-2)"
+          stroke-width="1" style="opacity:0"/><g id="dots"></g>`;
+  el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="${esc(opts.label||"time series")}">${g}
+      <rect x="${P.l}" y="0" width="${W-P.l-P.r}" height="${H}" fill="transparent"/></svg>`;
+
+  const svg = el.querySelector("svg");
+  const cross = svg.querySelector("#cross"), dots = svg.querySelector("#dots");
+  svg.addEventListener("mousemove", ev => {
+    const bb = svg.getBoundingClientRect();
+    const px = (ev.clientX - bb.left) / bb.width * W;
+    let i = Math.round((px - P.l) / ((W-P.l-P.r) / (dates.length-1)));
+    i = Math.max(0, Math.min(dates.length-1, i));
+    const d = dates[i];
+    cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i));
+    cross.style.opacity = "1";
+    dots.innerHTML = names.map(n => {
+      const v = Object.fromEntries(seriesMap[n])[d];
+      return v === undefined ? "" :
+        `<circle cx="${x(i)}" cy="${y(v)}" r="4.5" fill="${svar(n)}"
+           stroke="var(--panel)" stroke-width="2"/>`;
+    }).join("");
+    tipShow(ev.clientX, ev.clientY,
+      `<div class="tt">${d}</div>` + names.map(n => {
+        const v = Object.fromEntries(seriesMap[n])[d];
+        return v === undefined ? "" :
+          `<div class="tr"><span class="sw" style="background:${svar(n)}"></span>
+             ${n} <b class="num">${fmt(v, opts.unit)}</b></div>`;
+      }).join(""));
+  });
+  svg.addEventListener("mouseleave", () => {
+    cross.style.opacity = "0"; dots.innerHTML = ""; tipHide();
+  });
+}
+
+/* Horizontal bars: magnitude across identity. 4px rounded data-end, 2px gap. */
+function barsH(el, rows, opts){
+  if (!rows.length){ el.innerHTML = `<div class="hint">No data yet.</div>`; return; }
+  const W = el.clientWidth || 420, rowH = opts.rowH || 26, L = opts.labelW || 108;
+  const H = rows.length * rowH;
+  const max = Math.max(...rows.map(r => r.value)) || 1;
+  const g = rows.map((r,i) => {
+    const w = Math.max(2, (r.value / max) * (W - L - 56));
+    const yy = i * rowH;
+    const col = r.color || "var(--bar)";
+    return `<text class="axis" x="0" y="${yy + rowH/2 + 3.5}"
+              style="font-size:11px;fill:var(--ink-2)">${esc(r.label)}</text>
+      <rect class="bar" x="${L}" y="${yy + 4}" width="${w}" height="${rowH - 10}"
+        rx="4" fill="${col}" data-i="${i}"/>
+      <text class="axis" x="${L + w + 8}" y="${yy + rowH/2 + 3.5}"
+        style="fill:var(--ink-2)">${fmt(r.value, opts.unit)}</text>`;
+  }).join("");
+  el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="${esc(opts.label||"bars")}">${g}</svg>`;
+  el.querySelectorAll("rect.bar").forEach(rect => {
+    rect.addEventListener("mousemove", ev => {
+      const r = rows[+rect.dataset.i];
+      tipShow(ev.clientX, ev.clientY,
+        `<div class="tr"><span class="sw" style="background:${r.color||"var(--bar)"}"></span>
+           ${esc(r.label)} <b class="num">${fmt(r.value, opts.unit)}</b></div>` +
+        (r.note ? `<div class="tt" style="margin:5px 0 0">${esc(r.note)}</div>` : ""));
+    });
+    rect.addEventListener("mouseleave", tipHide);
+  });
+}
+
+/* Vertical bars: magnitude over an ordered domain (days, hours). */
+function barsV(el, rows, opts){
+  if (!rows.length){ el.innerHTML = `<div class="hint">No data yet.</div>`; return; }
+  const W = el.clientWidth || 420, H = opts.h || 150, P = {t:10,r:6,b:22,l:30};
+  const max = niceMax(Math.max(...rows.map(r => r.value)));
+  const bw = (W - P.l - P.r) / rows.length;
+  let g = "";
+  for (let t = 0; t <= 2; t++){
+    const v = max*t/2, yy = H - P.b - (v/max)*(H-P.t-P.b);
+    g += `<line class="gridline" x1="${P.l}" y1="${yy}" x2="${W-P.r}" y2="${yy}"/>
+          <text class="axis" x="${P.l-6}" y="${yy+3.5}" text-anchor="end">${fmt(v,"count")}</text>`;
+  }
+  g += rows.map((r,i) => {
+    const h = (r.value/max) * (H-P.t-P.b);
+    const xx = P.l + i*bw, yy = H - P.b - h;
+    return `<rect class="bar" x="${xx+1}" y="${yy}" width="${Math.max(1,bw-2)}"
+        height="${Math.max(r.value?2:0,h)}" rx="3"
+        fill="${r.color||"var(--bar)"}" data-i="${i}"/>` +
+      (r.tick ? `<text class="axis" x="${xx+bw/2}" y="${H-7}"
+        text-anchor="middle">${esc(r.tick)}</text>` : "");
+  }).join("");
+  el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="${esc(opts.label||"bars")}">${g}</svg>`;
+  el.querySelectorAll("rect.bar").forEach(rect => {
+    rect.addEventListener("mousemove", ev => {
+      const r = rows[+rect.dataset.i];
+      tipShow(ev.clientX, ev.clientY,
+        `<div class="tt">${esc(r.label)}</div>
+         <div class="tr"><b class="num">${fmt(r.value,"count")}</b> ${esc(opts.noun||"")}</div>`);
+    });
+    rect.addEventListener("mouseleave", tipHide);
+  });
+}
+
+function drawTable(el, seriesMap){
+  const names = Object.keys(seriesMap).filter(n => seriesMap[n].length);
+  const dates = [...new Set(names.flatMap(n => seriesMap[n].map(p => p[0])))].sort();
+  el.innerHTML = `<table class="dv"><thead><tr><th>date</th>` +
+    names.map(n => `<th>${n}</th>`).join("") + `</tr></thead><tbody>` +
+    dates.map(d => `<tr><td>${d}</td>` + names.map(n => {
+      const v = Object.fromEntries(seriesMap[n])[d];
+      return `<td class="num">${v === undefined ? "—" : fmt(v,"count")}</td>`;
+    }).join("") + `</tr>`).join("") + `</tbody></table>`;
+}
+
+function drawCharts(){
+  if (!CHARTS) return;
+  const c = CHARTS;
+  const isRate = CMETRIC === "engagementRate";
+
+  $("#c-legend").innerHTML = c.services.map(s =>
+    `<span class="lg"><span class="sw" style="background:${svar(s)}"></span>${s}</span>`
+  ).join("");
+
+  lineChart($("#c-main"), c.series[CMETRIC] || {},
+            {h:250, unit:isRate?"percentage":"count", label:CMETRIC+" over time"});
+  drawTable($("#c-tablewrap"), c.series[CMETRIC] || {});
+
+  // Share: a rate cannot be shared out, so fall back to views.
+  const shareMetric = isRate ? "views" : CMETRIC;
+  $("#c-share-metric").textContent = shareMetric;
+  const sh = (c.share[shareMetric] || []).slice().sort((a,b) => b.value - a.value);
+  const tot = sh.reduce((a,b) => a + b.value, 0) || 1;
+  barsH($("#c-share"), sh.map(r => ({
+    label: r.service, value: r.value, color: svar(r.service),
+    note: `${(r.value/tot*100).toFixed(0)}% of all ${shareMetric}`,
+  })), {unit:"count", label:"share by platform"});
+
+  const days = [...new Set(Object.values(c.volume).flat().map(p => p[0]))].sort();
+  barsV($("#c-volume"), days.map(d => ({
+    label: d, tick: shortDate(d), value: c.services.reduce((a,s) =>
+      a + (Object.fromEntries(c.volume[s]||[])[d] || 0), 0),
+  })), {h:150, noun:"videos", label:"videos rendered per day"});
+
+  barsV($("#c-hours"), c.hours.map((n,h) => ({
+    label: `${String(h).padStart(2,"0")}:00`,
+    tick: h % 6 === 0 ? String(h).padStart(2,"0") : "", value: n,
+  })), {h:150, noun:"posts scheduled", label:"publish hour distribution"});
+
+  $("#c-asset-kind").innerHTML = ["hooks","bodies","music"].map(k =>
+    `<button data-k="${k}" aria-pressed="${k===CASSET}">${k}</button>`).join("");
+  $("#c-asset-kind").querySelectorAll("button").forEach(b =>
+    b.onclick = () => { CASSET = b.dataset.k; drawCharts(); });
+  barsH($("#c-assets"), (c.assets[CASSET]||[]).map(([n,v]) =>
+    ({label:n, value:v})), {unit:"count", labelW:124, label:"asset usage"});
+}
+
+async function loadCharts(){
+  CHARTS = await (await fetch("/api/charts")).json();
+  if (!CMETRIC || !CHARTS.series[CMETRIC]) CMETRIC = CHARTS.metrics[0] || null;
+  $("#c-metric").innerHTML = CHARTS.metrics.map(m =>
+    `<option value="${m}" ${m===CMETRIC?"selected":""}>${m}</option>`).join("");
+  drawCharts();
+}
+$("#c-metric").onchange = e => { CMETRIC = e.target.value; drawCharts(); };
+$("#c-table").onclick = e => {
+  const showing = $("#c-tablewrap").style.display !== "none";
+  $("#c-tablewrap").style.display = showing ? "none" : "block";
+  $("#c-main").style.display = showing ? "block" : "none";
+  e.target.setAttribute("aria-pressed", String(!showing));
+};
+addEventListener("resize", () => { clearTimeout(window._cr);
+  window._cr = setTimeout(drawCharts, 180); });
+
+buildZones(); loadCampaigns(); refresh(); loadMetrics(); loadPending(); loadCharts();
 setInterval(() => { refresh(); loadPending(); }, 5000);
-setInterval(loadMetrics, 300000);
+setInterval(() => { loadMetrics(); loadCharts(); }, 300000);
 </script>
 </body>
 </html>
