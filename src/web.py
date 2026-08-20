@@ -2030,6 +2030,43 @@ PAGE = """<!doctype html>
     --accent:#ce491f; --up:#5fce9f; --down:#e2647a; --warn:#e0a44a;
   }
 
+  /* ── Depth layer ────────────────────────────────────────────────────────
+     Every gradient is derived from the palette above with color-mix rather
+     than hand-picked per theme, so light and dark stay in step and there is
+     one place to change the character of the whole page.
+
+     The rule they all obey: gradients carry *depth*, never meaning, and no
+     surface holding text varies by more than a few percent of luminance.
+     Contrast was solved for above and a decorative wash must not spend it. */
+  :root {
+    /* Accent fill for actions. It may only ever go DARKER than --accent.
+       The accent was solved to land at exactly 4.50:1 against white, which
+       is the floor for the 13px semibold text on these buttons — so any
+       stop lighter than it fails AA. A first attempt here brightened the
+       near stop by 14% toward peach and took the button to 4.00:1, which
+       looks like nothing and is a real regression. Darkening is free:
+       white text only gains contrast. */
+    --grad-accent: linear-gradient(135deg,
+      var(--accent) 0%,
+      color-mix(in srgb, var(--accent) 93%, #000) 45%,
+      color-mix(in srgb, var(--accent) 84%, #000) 100%);
+    /* Card surfaces: a few percent of ink at the top, which reads as a light
+       source above the page rather than as a colour. */
+    --grad-panel: linear-gradient(180deg,
+      color-mix(in srgb, var(--panel) 96%, var(--ink)) 0%,
+      var(--panel) 62%);
+    --grad-sunk: linear-gradient(180deg,
+      var(--panel-2) 0%,
+      color-mix(in srgb, var(--panel-2) 96%, var(--bg)) 100%);
+    /* The hairline that sells the light source — brighter than the border,
+       one pixel, top edge only. */
+    --edge: inset 0 1px 0 color-mix(in srgb, var(--ink) 7%, transparent);
+    --glow: 0 0 0 1px color-mix(in srgb, var(--accent) 26%, transparent),
+            0 8px 30px -10px color-mix(in srgb, var(--accent) 40%, transparent);
+    --grad-up: linear-gradient(90deg,
+      color-mix(in srgb, var(--up) 78%, var(--accent)) 0%, var(--up) 100%);
+  }
+
   * { box-sizing:border-box; }
   html { -webkit-text-size-adjust:100%; }
   body {
@@ -2050,7 +2087,10 @@ PAGE = """<!doctype html>
     position:sticky; top:0; z-index:20;
     background:color-mix(in srgb,var(--bg) 88%, transparent);
     backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--line);
+    border-bottom:1px solid transparent;
+    border-image:linear-gradient(90deg,
+      color-mix(in srgb,var(--accent) 55%,transparent) 0%,
+      var(--line) 38%, var(--line) 100%) 1;
     padding:0 28px; height:60px;
     display:flex; align-items:center; gap:14px;
   }
@@ -2059,8 +2099,11 @@ PAGE = """<!doctype html>
     display:flex; align-items:center; gap:9px; margin-right:4px;
   }
   .dot {
-    width:9px; height:9px; border-radius:50%; background:var(--accent);
-    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent);
+    width:9px; height:9px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,
+      color-mix(in srgb,var(--accent) 70%,#fff) 0%, var(--accent) 70%);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent),
+               0 0 14px color-mix(in srgb,var(--accent) 55%,transparent);
   }
   main { padding:28px; max-width:1220px; margin:0 auto 80px; }
   section { margin-top:34px; }
@@ -2088,14 +2131,23 @@ PAGE = """<!doctype html>
   button {
     font:inherit; font-size:13px; font-weight:600; cursor:pointer;
     border-radius:var(--radius-sm); padding:8px 15px;
-    border:1px solid transparent; background:var(--accent); color:var(--accent-ink);
-    transition:transform .12s cubic-bezier(.2,.8,.3,1), filter .15s, background .15s;
+    border:1px solid transparent; background:var(--grad-accent);
+    color:var(--accent-ink); box-shadow:var(--edge);
+    transition:transform .12s cubic-bezier(.2,.8,.3,1), filter .15s,
+               box-shadow .2s ease;
   }
-  button:hover { filter:brightness(1.07); }
+  button:hover { filter:brightness(1.07); box-shadow:var(--glow), var(--edge); }
   button:active { transform:translateY(1px); }
   button:disabled { opacity:.45; cursor:default; transform:none; filter:none; }
-  button.ghost { background:transparent; color:var(--ink); border-color:var(--line-2); }
-  button.ghost:hover { background:var(--panel-2); filter:none; }
+  button.ghost {
+    background:transparent; color:var(--ink); border-color:var(--line-2);
+    box-shadow:none;
+  }
+  button.ghost:hover {
+    background:var(--grad-sunk); filter:none;
+    border-color:color-mix(in srgb,var(--accent) 45%,var(--line-2));
+    box-shadow:none;
+  }
   button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
   .spacer { flex:1; }
 
@@ -2116,7 +2168,7 @@ PAGE = """<!doctype html>
      lists every campaign with the one you are on marked.               */
   .switch { position:relative; }
   .switch-btn {
-    background:var(--panel); color:var(--ink); border:1px solid var(--line-2);
+    background:var(--grad-panel); color:var(--ink); border:1px solid var(--line-2);
     font-weight:650; font-size:14px; padding:7px 12px;
     display:flex; align-items:center; gap:8px;
   }
@@ -2125,8 +2177,8 @@ PAGE = """<!doctype html>
   .switch-menu {
     position:absolute; top:calc(100% + 6px); left:0; z-index:40;
     min-width:270px; padding:5px;
-    background:var(--panel); border:1px solid var(--line-2);
-    border-radius:var(--radius); box-shadow:var(--shadow);
+    background:var(--grad-panel); border:1px solid var(--line-2);
+    border-radius:var(--radius); box-shadow:var(--shadow), var(--edge);
   }
   .switch-menu[hidden] { display:none; }
   .sw-item {
@@ -2148,8 +2200,9 @@ PAGE = """<!doctype html>
 
   /* ── Cards ─────────────────────────────────────────────────────────── */
   .card {
-    background:var(--panel); border:1px solid var(--line);
-    border-radius:var(--radius); box-shadow:var(--shadow);
+    background:var(--grad-panel); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow), var(--edge);
+    transition:box-shadow .22s ease, border-color .22s ease;
     /* Clips the metric grid's trailing cell borders at the rounded edge. */
     overflow:hidden;
   }
@@ -2173,7 +2226,16 @@ PAGE = """<!doctype html>
     font-size:11px; color:var(--ink-3); margin-top:5px;
     letter-spacing:.03em;
   }
-  .stat.lead .v { color:var(--accent); }
+  .stat.lead .v {
+    background:var(--grad-accent);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:var(--accent);
+  }
+  /* Printing and forced-colours both lose background-clip, which would leave
+     the number invisible. Give it back a solid colour there. */
+  @media (forced-colors: active), print {
+    .stat.lead .v { -webkit-text-fill-color:currentColor; color:var(--accent); }
+  }
   .foot {
     padding:12px 22px; border-top:1px solid var(--line);
     font-size:12px; color:var(--ink-3);
@@ -2305,7 +2367,10 @@ PAGE = """<!doctype html>
     border-radius:50%; background:var(--ink-2);
     transition:transform .16s cubic-bezier(.2,.8,.3,1), background .16s;
   }
-  .tgl[aria-checked="true"] { background:var(--accent); }
+  .tgl[aria-checked="true"] {
+    background:var(--grad-accent);
+    box-shadow:0 0 10px -2px color-mix(in srgb,var(--accent) 60%,transparent);
+  }
   .tgl[aria-checked="true"]::after { transform:translateX(14px); background:#fff; }
   .tgl:hover { filter:none; }
   .tgl:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
@@ -2336,7 +2401,19 @@ PAGE = """<!doctype html>
   /* ── Findings ──────────────────────────────────────────────────────────
      Severity is carried by a stripe as well as by words, so the one that
      matters is visible before anything is read.                          */
-  .find { border-left:3px solid var(--line-2); }
+  .find { border-left:3px solid var(--line-2); position:relative; overflow:hidden; }
+  /* The severity stripe fades out down the card instead of ruling a hard bar
+     the full height of a long table. */
+  .find::before {
+    content:""; position:absolute; inset:0 auto 0 -3px; width:3px;
+    background:linear-gradient(180deg, var(--stripe) 0%,
+               color-mix(in srgb, var(--stripe) 15%, transparent) 100%);
+  }
+  /* A custom property, not `color` — setting the text colour on the card
+     would tint every word inside it, not just the stripe. */
+  .find.critical { --stripe:var(--down); }
+  .find.warn     { --stripe:var(--warn); }
+  .find.info     { --stripe:var(--accent); }
   .find + .find { margin-top:14px; }
   .find.critical { border-left-color:var(--down); }
   .find.warn     { border-left-color:var(--warn); }
@@ -2417,9 +2494,14 @@ PAGE = """<!doctype html>
     flex:1; height:8px; border-radius:99px; background:var(--panel-2);
     overflow:hidden; min-width:90px;
   }
-  .quota .qbar i { display:block; height:100%; background:var(--up); }
-  .quota.warn .qbar i { background:var(--warn); }
-  .quota.over .qbar i { background:var(--down); }
+  .quota .qbar i {
+    display:block; height:100%; background:var(--grad-up);
+    transition:width .5s cubic-bezier(.2,.8,.3,1);
+  }
+  .quota.warn .qbar i { background:linear-gradient(90deg,
+    color-mix(in srgb,var(--warn) 75%,var(--up)) 0%, var(--warn) 100%); }
+  .quota.over .qbar i { background:linear-gradient(90deg,
+    var(--warn) 0%, var(--down) 100%); }
   .quota .qsub { font-size:11.5px; color:var(--ink-3); white-space:nowrap; }
 
   /* ── Revenue ───────────────────────────────────────────────────────── */

@@ -728,6 +728,25 @@ nothing in the codebase establishes whether Buffer exposes one:
 metrics at all. The script introspects the schema — reading types, touching no
 posts — and prints either the candidate fields or a definitive no.
 
+### Colour, and why it is a test
+
+The dashboard's accent sits at **exactly 4.50:1** against white — the AA floor
+for the 13px semibold text on its buttons. That is not a coincidence; it was
+solved for. It also means the accent has no headroom: any colour lighter than
+it fails.
+
+Adding gradients walked straight into that. Brightening the button fill 14%
+toward peach looked like nothing and took it to 4.00:1. So `--grad-accent` may
+only ever darken, and `tests/test_contrast.py` enforces it — parsing the
+palette out of the served stylesheet, checking every stop against white in
+both themes, and rejecting any `color-mix` of the accent toward anything but
+black.
+
+The other gradients are derived from the palette with `color-mix` rather than
+hand-picked per theme, so light and dark cannot drift apart. They carry depth
+and never meaning: no surface holding text varies by more than a few percent
+of luminance.
+
 ### Checking the dashboard's JavaScript
 
 `scripts/check_page_js.sh` syntax-checks the page as a browser receives it,
