@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "4dcc37d8-43ea-4ad9-b312-0cb349d20147",
-      "scheduled_for": "2026-08-20T01:00:00-06:00",
+      "scheduled_for": "2026-08-22T01:00:00-06:00",
       "rendered_at": "2026-08-20T05:28:22.762983Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-20/4dcc37d8-43ea-4ad9-b312-0cb349d20147.mp4",
       "caption": "wish I knew about this before scrolling for hours looking for auditions\n\ncomment \"create\" and I'll send it over\n\n[casting calls, open casting, actors, aspiring actors, creative projects]",
@@ -14,7 +14,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "195"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
