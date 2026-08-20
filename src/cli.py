@@ -328,7 +328,7 @@ def _render(
             reason="media Release deleted past retention",
         )
         notifier.notify(
-            NotifyEvent.DEDUPE_RELAXED,
+            NotifyEvent.QUEUE_STALE,
             f"⚠️ {config.slug}: {len(expired)} queued video(s) aged out before "
             f"they could publish. The channel is not draining the queue as fast "
             f"as it is being filled — consider lowering posts_per_day.",
@@ -343,6 +343,25 @@ def _render(
         carried=len(carried), expired=len(expired), target=target,
         rendering=count, posts_per_day=config.posting.posts_per_day,
     )
+    if getattr(args, "plan", False):
+        # Everything above is read-only: the library is cached, the queue was
+        # loaded, nothing has been rendered, uploaded or written. Stopping here
+        # answers "what would tonight do" without doing it.
+        print(f"\n  {config.slug} · render plan")
+        print(f"    carried forward     {len(carried)}")
+        print(f"    expired, dropped    {len(expired)}")
+        print(f"    backlog target      {target}"
+              f"  ({config.posting.posts_per_day}/day x "
+              f"{config.posting.max_backlog_days} days)")
+        print(f"    would render        {count}")
+        if count == 0:
+            print("\n  Backlog is full — tonight would render nothing.")
+        else:
+            ceiling = library.ceiling(config.composition.bodies_per_video)
+            print(f"\n  {ceiling:,} combinations available, "
+                  f"{len(history.entries):,} already used.")
+        return 0
+
     if count == 0:
         # Still rewrite the queue: terminal and expired items were pruned above,
         # and leaving them in place would re-report yesterday's finished work
@@ -1002,6 +1021,7 @@ def cmd_diagnose(args: argparse.Namespace, env: dict[str, str]) -> int:
     """
     log = get_logger(command="diagnose", campaign=args.campaign)
     config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    clock: Clock = SystemClock()
 
     api_key = _secret(config.buffer.api_key_secret, env)
     if not api_key:
@@ -1011,6 +1031,13 @@ def cmd_diagnose(args: argparse.Namespace, env: dict[str, str]) -> int:
         api_key, log, organization_id=config.buffer.organization_id
     )
     posts = publisher.diagnose_posts(_channel_id(config, env), limit=args.limit)
+    # Diagnose is run by hand and rarely, but its requests come out of the same
+    # allowance; a tally that only counts scheduled jobs drifts low over time.
+    record_run(
+        quota_path(_campaign_dir(config.slug)),
+        clock.now().astimezone(config.zone).date(),
+        getattr(publisher, "request_count", 0),
+    )
 
     print(f"\n  {config.slug} · {config.buffer.service.value} · {len(posts)} posts\n")
     if not posts:
@@ -1119,6 +1146,10 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
             "metrics_saved", campaign=config.slug, date=local_date,
             metrics=len(snapshot.metrics), snapshots=len(history.snapshots),
         )
+        # Metrics runs daily per campaign and spends two requests each time.
+        # Leaving it out understated the tally by ~90/month — the same silent
+        # inaccuracy the rolling counter was added to remove.
+        _report_quota(publisher, notifier, config, log, clock)
         lifetime = history.lifetime()
         print(f"\n  {config.slug} · {config.buffer.service.value} · {local_date}")
         if lifetime:
@@ -1423,6 +1454,9 @@ def build_parser() -> argparse.ArgumentParser:
     common(render)
     render.add_argument("--count", type=int, default=None,
                         help="override posts_per_day for this run")
+    render.add_argument("--plan", action="store_true",
+                        help="show what would be rendered and exit, changing "
+                             "nothing")
 
     topup = sub.add_parser("topup", help="fill Buffer's queue to its cap")
     common(topup)

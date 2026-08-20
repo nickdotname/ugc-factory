@@ -321,20 +321,25 @@ which is indistinguishable from being broken.
 `ingest` computes this for you and warns while you are still holding the files.
 `preflight` fails if the runway drops under `selection.min_runway_days`.
 
-The shipped `clubs` config is tuned for ~6 hooks / ~3 bodies / 5 music /
-5 captions at **2 posts/day**, which clears every cooldown with room to spare:
+The live `clubs` library is 6 hooks / 4 bodies / 3 music tracks (66 beds, since
+each track is cut into segments) / 25 captions, at **12 posts/day**:
 
-| | have | 2/day needs | 6/day would need |
-|---|---|---|---|
-| hooks (2-day cooldown) | 6 | 4 | 12 |
-| captions (2-day cooldown) | 5 | 4 | 12 |
-| combinations | 450 | — | — |
-| runway | 225 days | — | 75 days |
+| | have | 12/day needs |
+|---|---|---|
+| captions (2-day cooldown) | 25 | 24 |
+| hooks (cooldown disabled) | 6 | — |
+| combinations | 39,600 | — |
+| runway | 3,300 days | 90 (`min_runway_days`) |
 
-Captions are by far the cheapest dimension to grow — they are just text. At
-~25 captions the same clip library comfortably supports 6/day. Body clips are
-the most expensive: at 3 bodies and 6 posts/day each main video goes out twice
-a day, and unique tuples do not make that look different to a viewer.
+The runway number is not the useful one. 3,300 days of unique tuples says
+nothing about whether a viewer can tell two of them apart: with 4 body clips at
+12 posts/day, each one goes out three times a day whatever the combinatorics
+say. **Body clips are the binding constraint, and no amount of unique hashes
+fixes it.**
+
+Captions are the cheapest dimension to grow — they are text — and 25 is only
+just over the 24 the cooldown needs. One caption removed and the selector starts
+relaxing.
 
 ### Where credentials live
 
@@ -476,6 +481,17 @@ lower `posts_per_day`.
 New items are allocated slots that exclude the ones carried items already hold,
 since two videos in one slot publish minutes apart.
 
+`./ugc render --campaign <slug> --plan` prints the decision — carried, expired,
+target, and how many it would render — and exits without rendering, uploading
+or writing anything.
+
+Expect one larger batch the first time: an empty backlog fills to the full
+target, then settles at whatever the channel actually publishes. On the live
+campaigns that is roughly 6/day (Instagram), 3/day (TikTok) and 5/day
+(YouTube) against a configured 12, so over ten days it renders about 78, 52 and
+66 videos instead of 120 each — and all of them publish rather than 22% of
+them.
+
 ---
 
 ## Reviewing what goes out
@@ -571,6 +587,7 @@ publish before tomorrow.
 ./ugc preflight --campaign clubs
 ./ugc cleanup   --campaign clubs [--digest]
 ./ugc clips     --campaign clubs [--on NAME…] [--off NAME…] [--all-on|--all-off]
+./ugc render    --campaign clubs --plan          # what tonight would do, changing nothing
 ```
 
 ### Why the top-up job exists

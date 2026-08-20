@@ -137,7 +137,8 @@ notify:
 
 def render_args(**kw) -> argparse.Namespace:
     return argparse.Namespace(
-        command="render", campaign="e2e", dry_run=True, count=None, **kw
+        command="render", campaign="e2e", dry_run=True, count=None,
+        **{"plan": False, **kw}
     )
 
 
@@ -244,6 +245,25 @@ class TestRenderEndToEnd:
         cli.cmd_render(render_args(), {})
         times = [i.scheduled_for for i in load_queue(campaign / "queue.json").items]
         assert len(set(times)) == len(times), "two videos landed in one slot"
+
+    def test_plan_changes_nothing_at_all(self, campaign: Path) -> None:
+        """A dry look at tonight's decision must not spend or write anything."""
+        args = render_args(plan=True)
+        assert cli.cmd_render(args, {}) == 0
+
+        assert not (campaign / "queue.json").exists()
+        assert not (campaign / "history.json").exists()
+
+    def test_plan_does_not_disturb_an_existing_queue(self, campaign: Path) -> None:
+        cli.cmd_render(render_args(), {})
+        before = (campaign / "queue.json").read_bytes()
+        history_before = (campaign / "history.json").read_bytes()
+
+        args = render_args(plan=True)
+        assert cli.cmd_render(args, {}) == 0
+
+        assert (campaign / "queue.json").read_bytes() == before
+        assert (campaign / "history.json").read_bytes() == history_before
 
     def test_count_override_is_honoured(self, campaign: Path) -> None:
         args = render_args()

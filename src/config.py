@@ -48,6 +48,10 @@ class NotifyEvent(str, Enum):
     QUOTA_HIGH = "quota_high"
     LICENSE_MISSING = "license_missing"
     DEDUPE_RELAXED = "dedupe_relaxed"
+    #: A rendered video aged out before the channel got round to publishing it.
+    #: Distinct from QUEUE_EMPTY, which is the opposite problem: this means the
+    #: queue is filling faster than it drains, and posts_per_day is too high.
+    QUEUE_STALE = "queue_stale"
     DIGEST = "digest"
 
 
@@ -395,6 +399,7 @@ class NotifyConfig(StrictModel):
         NotifyEvent.QUOTA_HIGH,
         NotifyEvent.LICENSE_MISSING,
         NotifyEvent.DEDUPE_RELAXED,
+        NotifyEvent.QUEUE_STALE,
         NotifyEvent.DIGEST,
     )
 
