@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 .mypy_cache/
 .pytest_cache/
+.coverage
+htmlcov/
 .DS_Store
 
 # Working directories for renders — never committed, always reproducible.
