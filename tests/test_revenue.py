@@ -155,3 +155,61 @@ class TestPersistence:
         led = RevenueLedger().with_entry(first).with_entry(
             entry("2026-08-02", "2026-08-02", 2))
         assert led.without(first.id).total() == pytest.approx(2)
+
+
+class TestLedgerSummaries:
+    def test_span_covers_earliest_to_latest(self) -> None:
+        led = (RevenueLedger()
+               .with_entry(entry("2026-08-05", "2026-08-05", 500))
+               .with_entry(entry("2026-07-01", "2026-07-31", 300)))
+        assert led.span() == (date(2026, 7, 1), date(2026, 8, 5))
+
+    def test_an_empty_ledger_has_no_span(self) -> None:
+        assert RevenueLedger().span() is None
+
+    def test_by_source_totals_and_ranks(self) -> None:
+        led = (RevenueLedger()
+               .with_entry(entry("2026-08-01", "2026-08-01", 100, "affiliate"))
+               .with_entry(entry("2026-08-02", "2026-08-02", 500, "brand deal"))
+               .with_entry(entry("2026-08-03", "2026-08-03", 50, "affiliate")))
+        assert led.by_source() == [("brand deal", 500.0), ("affiliate", 150.0)]
+
+    def test_by_source_on_an_empty_ledger(self) -> None:
+        assert RevenueLedger().by_source() == []
+
+    def test_currencies_reports_every_code_present(self) -> None:
+        led = RevenueLedger(entries=(
+            RevenueEntry(period_start=date(2026, 8, 1), period_end=date(2026, 8, 1),
+                         amount=1, currency="USD"),
+            RevenueEntry(period_start=date(2026, 8, 2), period_end=date(2026, 8, 2),
+                         amount=1, currency="eur"),
+        ))
+        assert led.currencies == {"USD", "EUR"}
+
+
+class TestSaveFailure:
+    def test_a_failed_save_leaves_no_temp_file(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setattr(
+            "src.revenue.os.replace",
+            lambda s, d: (_ for _ in ()).throw(OSError("disk full")),
+        )
+        with pytest.raises(OSError):
+            save_ledger(ledger_path(tmp_path),
+                        RevenueLedger().with_entry(entry("2026-08-01", "2026-08-01", 1)))
+        assert list(tmp_path.iterdir()) == []
+
+    def test_a_failed_save_does_not_destroy_the_previous_ledger(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Money records are the last thing that should be lost to a half-write."""
+        path = ledger_path(tmp_path)
+        save_ledger(path, RevenueLedger().with_entry(entry("2026-08-01", "2026-08-01", 310)))
+        monkeypatch.setattr(
+            "src.revenue.os.replace",
+            lambda s, d: (_ for _ in ()).throw(OSError("disk full")),
+        )
+        with pytest.raises(OSError):
+            save_ledger(path, RevenueLedger())
+        assert load_ledger(path).total() == pytest.approx(310)

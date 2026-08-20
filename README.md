@@ -676,8 +676,12 @@ src/
   ports.py          Clock and Rng — injected, never called directly elsewhere
   logging.py        structured JSON to stdout, correlation id per item
   models.py         typed shapes crossing module boundaries
+  platforms.py      per-network limits — caption length, title rules
   render.py         ffmpeg two-stage pipeline  ← only module using subprocess for media
   selector.py       combination picking, LRU weighting, relaxation ladder
+  descriptions.py   the caption bank: parsing, validation, title strategy
+  ingest.py         the drop folder — probe, name, reject, upload
+  campaigns.py      creating and listing campaigns from disk
   clips.py          the per-campaign roster: which clips the randomizer may use
   revenue.py        dated money ledger + the ratios against reach
   quota.py          rolling Buffer request tally, summed per API key
@@ -687,6 +691,9 @@ src/
   queue.py          state machine + atomic persistence
   vcs.py            git boundary — the durable claim
   notify.py         alerts + weekly digest
+  metrics.py        cached performance snapshots, rolling and lifetime
+  doctor.py         readiness checks behind `ugc setup`
+  web.py            the local dashboard — every panel, one stdlib HTTP server
   publishers/
     base.py         Publisher ABC — TikTok/Graph API slot in here
     buffer.py       Buffer GraphQL

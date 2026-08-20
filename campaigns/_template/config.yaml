@@ -10,6 +10,7 @@ posting:
   start_hour: 9               # local hour of the first slot
   end_hour: 22                # local hour after the last slot
   max_buffer_queue: 10        # Buffer free plan allows 10 queued per channel
+  max_backlog_days: 2         # render tops the backlog up to this many days
   dry_run: true               # leave true until a dispatch run looks correct
 
 video:

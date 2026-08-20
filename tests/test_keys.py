@@ -15,7 +15,9 @@ import pytest
 
 from src.errors import ValidationError
 from src.keys import (
+    GithubSecret,
     SecretError,
+    list_github_secrets,
     check_name,
     clean_value,
     delete_env_value,
@@ -122,6 +124,12 @@ class TestEnvFile:
     def test_forgetting_something_absent_is_not_an_error(self, tmp_path: Path) -> None:
         assert delete_env_value(tmp_path / ".env", "BUFFER_API_KEY") is False
 
+    def test_forgetting_a_name_not_in_an_existing_file(self, tmp_path: Path) -> None:
+        env = tmp_path / ".env"
+        write_env_value(env, "DISCORD_WEBHOOK", "hook")
+        assert delete_env_value(env, "BUFFER_API_KEY") is False
+        assert read_env(env) == {"DISCORD_WEBHOOK": "hook"}
+
     def test_no_readable_temp_file_is_left_behind(self, tmp_path: Path) -> None:
         write_env_value(tmp_path / ".env", "BUFFER_API_KEY", "abc")
         assert [p.name for p in tmp_path.iterdir()] == [".env"]
@@ -176,3 +184,96 @@ class TestGithubSecret:
         with pytest.raises(SecretError) as exc:
             set_github_secret(tmp_path, "BUFFER_API_KEY", "x")
         assert "Settings" in str(exc.value)
+
+
+class TestListingGithubSecrets:
+    """Parsing `gh secret list`. Untested parsing quietly returns wrong data,
+    and this drives whether the panel claims a secret exists on GitHub."""
+
+    def canned(self, monkeypatch: pytest.MonkeyPatch, stdout: str, code: int = 0):
+        class Result:
+            returncode = code
+            stderr = ""
+        Result.stdout = stdout
+        monkeypatch.setattr("src.keys.shutil.which", lambda _: "/usr/bin/gh")
+        monkeypatch.setattr("src.keys.subprocess.run", lambda *a, **k: Result())
+
+    def test_names_and_timestamps_are_parsed(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        self.canned(monkeypatch,
+                    "BUFFER_API_KEY\t2026-08-13T20:30:33Z\n"
+                    "DISCORD_WEBHOOK\t2026-08-19T04:52:34Z\n")
+        out = list_github_secrets(tmp_path)
+        assert [s.name for s in out] == ["BUFFER_API_KEY", "DISCORD_WEBHOOK"]
+        assert out[0].updated_at == "2026-08-13T20:30:33Z"
+
+    def test_a_row_without_a_timestamp_still_yields_the_name(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        # Whether a secret exists is the load-bearing half; the date is a nicety.
+        self.canned(monkeypatch, "BUFFER_API_KEY\n")
+        out = list_github_secrets(tmp_path)
+        assert out == [GithubSecret("BUFFER_API_KEY", "")]
+
+    def test_blank_lines_are_skipped(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        self.canned(monkeypatch, "\nBUFFER_API_KEY\tx\n\n")
+        assert len(list_github_secrets(tmp_path)) == 1
+
+    def test_a_gh_failure_reads_as_no_secrets_rather_than_raising(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Not being able to ask is not the same as knowing there are none —
+        but the panel degrades to 'unknown' rather than breaking the page."""
+        self.canned(monkeypatch, "", code=1)
+        assert list_github_secrets(tmp_path) == []
+
+    def test_no_gh_installed_is_not_an_error(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setattr("src.keys.shutil.which", lambda _: None)
+        assert list_github_secrets(tmp_path) == []
+
+    def test_no_value_is_ever_returned(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """GitHub does not expose secret values to anyone, and neither does
+        this — the type has no field that could hold one."""
+        self.canned(monkeypatch, "BUFFER_API_KEY\t2026-08-13T20:30:33Z\n")
+        entry = list_github_secrets(tmp_path)[0]
+        assert set(vars(entry)) == {"name", "updated_at"}
+
+
+class TestWriteFailureLeavesNothingReadable:
+    def test_a_failed_write_removes_the_temp_file(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """A leftover temp file would hold the credential at whatever mode the
+        failure left it — the one outcome worse than not writing at all."""
+        real_replace = os.replace
+
+        def boom(src: str, dst: str) -> None:
+            raise OSError("disk full")
+
+        monkeypatch.setattr("src.keys.os.replace", boom)
+        with pytest.raises(OSError):
+            write_env_value(tmp_path / ".env", "BUFFER_API_KEY", "s3cr3t")
+
+        leftovers = list(tmp_path.iterdir())
+        assert leftovers == [], f"temp file survived: {leftovers}"
+        monkeypatch.setattr("src.keys.os.replace", real_replace)
+
+    def test_a_failed_write_does_not_damage_the_existing_file(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        env = tmp_path / ".env"
+        write_env_value(env, "BUFFER_API_KEY", "original")
+        monkeypatch.setattr(
+            "src.keys.os.replace",
+            lambda s, d: (_ for _ in ()).throw(OSError("disk full")),
+        )
+        with pytest.raises(OSError):
+            write_env_value(env, "BUFFER_API_KEY", "replacement")
+        assert read_env(env)["BUFFER_API_KEY"] == "original"

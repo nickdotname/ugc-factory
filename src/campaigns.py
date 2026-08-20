@@ -144,6 +144,9 @@ posting:
   start_hour: {start_hour}
   end_hour: {start_hour}
   max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
+  # Render tops the backlog up to posts_per_day x this, then stops. It is what
+  # keeps rendering from outrunning what the channel actually publishes.
+  max_backlog_days: 2
   dry_run: true               # flip to false once a dispatch run looks right
 
 video:
