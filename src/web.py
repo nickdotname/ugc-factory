@@ -2109,6 +2109,43 @@ PAGE = """<!doctype html>
   .pill.paused { color:var(--warn); border-color:color-mix(in srgb,var(--warn) 40%,transparent);
                  background:color-mix(in srgb,var(--warn) 10%,transparent); }
 
+  /* ── Campaign switcher ─────────────────────────────────────────────────
+     A native <select> was the wrong control here: macOS drops the popup
+     with the *current* item under the cursor, so the campaign you are on
+     is hidden behind the button and only the others look selectable. This
+     lists every campaign with the one you are on marked.               */
+  .switch { position:relative; }
+  .switch-btn {
+    background:var(--panel); color:var(--ink); border:1px solid var(--line-2);
+    font-weight:650; font-size:14px; padding:7px 12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .switch-btn:hover { background:var(--panel-2); filter:none; }
+  .switch-btn .chev { color:var(--ink-3); font-size:10px; }
+  .switch-menu {
+    position:absolute; top:calc(100% + 6px); left:0; z-index:40;
+    min-width:270px; padding:5px;
+    background:var(--panel); border:1px solid var(--line-2);
+    border-radius:var(--radius); box-shadow:var(--shadow);
+  }
+  .switch-menu[hidden] { display:none; }
+  .sw-item {
+    display:flex; align-items:center; gap:10px; width:100%;
+    padding:9px 10px; border-radius:var(--radius-sm);
+    background:transparent; border:none; color:var(--ink);
+    font-size:13px; font-weight:500; text-align:left;
+  }
+  .sw-item:hover { background:var(--panel-2); filter:none; }
+  .sw-item[aria-selected="true"] { background:var(--panel-2); }
+  .sw-item .tick { color:var(--accent); width:12px; flex:none; font-size:11px; }
+  .sw-item .slug { flex:1; font-weight:600; }
+  .sw-item .meta { font-size:11px; color:var(--ink-3); white-space:nowrap; }
+  .sw-item.broken .slug { color:var(--down); }
+  .sw-new {
+    border-top:1px solid var(--line); margin-top:5px; padding-top:5px;
+  }
+  .sw-new .sw-item { color:var(--accent); font-weight:600; }
+
   /* ── Cards ─────────────────────────────────────────────────────────── */
   .card {
     background:var(--panel); border:1px solid var(--line);
@@ -2524,7 +2561,13 @@ PAGE = """<!doctype html>
 <body>
 <header>
   <span class="brand"><span class="dot"></span>ugc-factory</span>
-  <select id="switcher" aria-label="Switch campaign"></select>
+  <div class="switch">
+    <button id="switch-btn" class="switch-btn" aria-haspopup="listbox"
+            aria-expanded="false">
+      <span id="switch-name">—</span><span class="chev">&#9662;</span>
+    </button>
+    <div id="switch-menu" class="switch-menu" role="listbox" hidden></div>
+  </div>
   <span class="pill" id="t-service">—</span>
   <span class="pill" id="t-cadence">—</span>
   <span class="pill" id="t-dry">—</span>
@@ -3547,9 +3590,21 @@ $("#publish-btn").onclick = async (e) => {
 
 async function loadCampaigns(){
   const r = await (await fetch("/api/campaigns")).json();
-  $("#switcher").innerHTML = r.campaigns.map(c =>
-    `<option value="${c.slug}" ${c.slug===r.selected?"selected":""}>` +
-    `${c.slug}${c.valid?"":" (broken)"}</option>`).join("");
+  $("#switch-name").textContent = r.selected;
+  $("#switch-menu").innerHTML = r.campaigns.map(c => `
+    <button class="sw-item ${c.valid ? "" : "broken"}" role="option"
+            aria-selected="${c.slug === r.selected}"
+            onclick="pickCampaign('${c.slug}')">
+      <span class="tick">${c.slug === r.selected ? "&#10003;" : ""}</span>
+      <span class="slug">${esc(c.slug)}</span>
+      <span class="meta">${c.valid
+        ? `${esc(c.service)} · ${c.posts_per_day}/day · ${c.dry_run ? "paused" : "live"}`
+        : "broken"}</span>
+    </button>`).join("") + `
+    <div class="sw-new"><button class="sw-item" onclick="newCampaign()">
+      <span class="tick">+</span><span class="slug">New campaign</span>
+    </button></div>`;
+
   const broken = r.campaigns.filter(c => !c.valid);
   if (broken.length){
     const el = $("#perf");
@@ -3557,11 +3612,40 @@ async function loadCampaigns(){
   }
 }
 
-$("#switcher").onchange = async (e) => {
-  await fetch("/api/select", {method:"POST", body: JSON.stringify({slug: e.target.value})});
-  await refresh(); await loadClips(); await loadQueue(); await loadQuota();
-  await loadRevenue(); await loadMetrics();
-};
+function toggleSwitch(open){
+  const menu = $("#switch-menu");
+  const show = open === undefined ? menu.hidden : open;
+  menu.hidden = !show;
+  $("#switch-btn").setAttribute("aria-expanded", String(show));
+}
+$("#switch-btn").onclick = (e) => { e.stopPropagation(); toggleSwitch(); };
+document.addEventListener("click", () => toggleSwitch(false));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") toggleSwitch(false);
+});
+
+/* Every panel, so nothing from the previous campaign survives the switch.
+   The old handler refreshed six of them and left findings, keys and charts
+   showing the campaign you had just navigated away from. */
+async function refreshAll(){
+  await Promise.all([
+    refresh(), loadClips(), loadQueue(), loadQuota(), loadInsights(),
+    loadRevenue(), loadSecrets(), loadMetrics(), loadCharts(), loadPending(),
+  ]);
+}
+
+async function pickCampaign(slug){
+  toggleSwitch(false);
+  $("#switch-name").textContent = slug;
+  await fetch("/api/select", {method:"POST", body: JSON.stringify({slug})});
+  await loadCampaigns();
+  await refreshAll();
+}
+
+function newCampaign(){
+  toggleSwitch(false);
+  $("#new-btn").click();
+}
 
 async function loadKeys(){
   const r = await (await fetch("/api/keys")).json();
@@ -3685,7 +3769,15 @@ $("#create-btn").onclick = async (e) => {
   }
   msg(nm, "warn", "It starts paused (<code>dry_run</code>). " +
       "Hit <b>Publish to GitHub</b> above so the workflows can see it.");
-  await loadCampaigns(); await loadPending(); await loadChannels();
+
+  // Land on the campaign that was just created. Staying on the old one meant
+  // filling in a form, being told it worked, and seeing nothing change.
+  await pickCampaign(r.slug);
+  await loadChannels();
+  $("#new-panel").style.display = "none";
+  const done = $("#up-msgs"); done.innerHTML = "";
+  msg(done, "ok", `Now showing <b>${esc(r.slug)}</b>. Drop its clips in below —
+    or if it shares a library, they are already here.`);
 };
 
 $("#save").onclick = async () => {

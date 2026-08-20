@@ -645,6 +645,23 @@ duplicate.
 
 ---
 
+## Switching between campaigns
+
+The header control lists every campaign with its network, cadence and whether
+it is live, and marks the one you are on. It replaced a native `<select>`,
+which was the wrong control for the job: macOS opens the popup with the
+*current* item under the cursor, so the campaign you were already on sat
+hidden behind the button and only the others looked selectable.
+
+Switching reloads every panel. The previous handler refreshed six of them and
+left findings, keys and charts showing the campaign you had just navigated
+away from.
+
+Creating a campaign now lands on it. Before, the form told you it had worked
+and nothing on the page changed.
+
+---
+
 ## Adding a campaign
 
 No code changes (SPEC §15). If any step needs a `src/` edit, the abstraction

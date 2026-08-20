@@ -478,6 +478,70 @@ class TestRevenuePanel:
         assert app.revenue()["mixed_currencies"] == ["USD"]
 
 
+class TestSwitchingCampaigns:
+    """Creating a campaign and then looking at it are one action, not two."""
+
+    @pytest.fixture
+    def two(self, tmp_path: Path) -> WebApp:
+        from src.campaigns import create_campaign
+        from src.platforms import Service
+
+        campaigns = tmp_path / "campaigns"
+        campaigns.mkdir()
+        create_campaign(campaigns, "first", Service.INSTAGRAM, channel_id="c1")
+        return WebApp(
+            config=load_campaign(campaigns, "first"),
+            repo_root=tmp_path, inbox=tmp_path / "inbox",
+            bank_path=campaigns / "first" / "captions.txt",
+            log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=FakeStore,
+        )
+
+    def test_a_new_campaign_can_be_selected_immediately(self, two: WebApp) -> None:
+        result = two.create({
+            "slug": "second", "service": "tiktok", "channel_id": "c2",
+            "posts_per_day": 6,
+        })
+        assert result["ok"], result.get("error")
+        assert two.select(result["slug"])["ok"]
+        assert two.state()["campaign"] == "second"
+
+    def test_selecting_rebinds_every_per_campaign_path(self, two: WebApp) -> None:
+        two.create({"slug": "second", "service": "tiktok", "channel_id": "c2"})
+        two.select("second")
+        assert two.bank_path.parent.name == "second"
+        assert two.roster_file.parent.name == "second"
+        # A per-campaign mute must not leak across the switch.
+        assert two.state()["campaign"] == "second"
+
+    def test_the_switcher_lists_both_and_marks_the_selected_one(
+        self, two: WebApp
+    ) -> None:
+        two.create({"slug": "second", "service": "tiktok", "channel_id": "c2"})
+        two.select("second")
+        listing = two.campaigns()
+        assert listing["selected"] == "second"
+        assert {c["slug"] for c in listing["campaigns"]} == {"first", "second"}
+        # The menu needs these to label each row.
+        row = next(c for c in listing["campaigns"] if c["slug"] == "second")
+        assert row["service"] and row["posts_per_day"] and "dry_run" in row
+
+    def test_a_new_campaign_starts_paused(self, two: WebApp) -> None:
+        """SPEC §15 — a brand new channel is looked at once before it posts."""
+        two.create({"slug": "second", "service": "tiktok", "channel_id": "c2"})
+        row = next(c for c in two.campaigns()["campaigns"] if c["slug"] == "second")
+        assert row["dry_run"] is True
+
+    def test_a_new_campaign_shares_the_current_library_by_default(
+        self, two: WebApp
+    ) -> None:
+        """Same brand on another network should not need the clips twice."""
+        two.create({"slug": "second", "service": "tiktok", "channel_id": "c2"})
+        two.select("second")
+        assert two.config.assets_tag == "assets-first"
+        assert two.library_scope()["campaigns"] == ["first", "second"]
+
+
 class TestLibraryHeadline:
     """The panel must lead with the number that actually constrains variety."""
 
