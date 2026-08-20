@@ -7,12 +7,16 @@ all, and about the total covering the right set of campaigns.
 
 from __future__ import annotations
 
-from datetime import date
+import io
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import pytest
 
+from src.config import CampaignConfig
 from src.errors import ValidationError
+from src.logging import StructuredLogger
+from src.ports import FrozenClock
 from src.quota import (
     MONTHLY_ALLOWANCE,
     RETAIN_DAYS,
@@ -26,6 +30,15 @@ from src.quota import (
 )
 
 TODAY = date(2026, 8, 19)
+
+
+def _config() -> CampaignConfig:
+    return CampaignConfig.model_validate({
+        "slug": "demo", "timezone": "UTC",
+        "buffer": {"api_key_secret": "BUFFER_API_KEY",
+                   "channel_id_secret": "BUFFER_CHANNEL_X"},
+        "notify": {"webhook_secret": "DISCORD_WEBHOOK_X"},
+    })
 
 
 class TestLedger:
@@ -112,3 +125,96 @@ class TestPersistence:
     def test_the_window_is_shorter_than_what_is_retained(self) -> None:
         # Otherwise a late-running job could drop a day still inside the window.
         assert RETAIN_DAYS > WINDOW_DAYS
+
+
+class TestTheLedgerIsPersisted:
+    """The bug this guards: the ledger was written faithfully on an ephemeral
+    runner and never committed, so every run began from an empty file and the
+    rolling tally sat at zero for ever. Writing it is only half the job."""
+
+    def test_a_run_with_requests_commits_the_ledger(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        import src.cli as cli
+        from src.vcs import Vcs
+
+        committed: list[tuple[list[str], str]] = []
+
+        class RecordingVcs(Vcs):
+            def commit(self, paths, message):  # type: ignore[no-untyped-def]
+                committed.append(([Path(p).name for p in paths], message))
+                return True
+
+        campaign = tmp_path / "campaigns" / "demo"
+        campaign.mkdir(parents=True)
+        monkeypatch.setattr(cli, "CAMPAIGNS_DIR", tmp_path / "campaigns")
+
+        class Publisher:
+            request_count = 37
+
+        class Notifier:
+            def notify(self, *a, **k): pass
+
+        config = _config()
+        cli._report_quota(
+            Publisher(), Notifier(), config,  # type: ignore[arg-type]
+            StructuredLogger({}, io.StringIO()),
+            FrozenClock(datetime(2026, 8, 20, 12, tzinfo=timezone.utc)),
+            RecordingVcs(),
+        )
+        assert committed, "the ledger was written but never committed"
+        paths, message = committed[0]
+        assert "quota.json" in paths and "demo" in message
+
+    def test_a_run_that_spent_nothing_commits_nothing(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Topup runs every four hours; an empty commit each time is noise."""
+        import src.cli as cli
+        from src.vcs import Vcs
+
+        committed: list[str] = []
+
+        class RecordingVcs(Vcs):
+            def commit(self, paths, message):  # type: ignore[no-untyped-def]
+                committed.append(message)
+                return True
+
+        (tmp_path / "campaigns" / "demo").mkdir(parents=True)
+        monkeypatch.setattr(cli, "CAMPAIGNS_DIR", tmp_path / "campaigns")
+
+        class Idle:
+            request_count = 0
+
+        class Notifier:
+            def notify(self, *a, **k): pass
+
+        cli._report_quota(
+            Idle(), Notifier(), _config(),  # type: ignore[arg-type]
+            StructuredLogger({}, io.StringIO()),
+            FrozenClock(datetime(2026, 8, 20, 12, tzinfo=timezone.utc)),
+            RecordingVcs(),
+        )
+        assert committed == []
+
+    def test_it_still_works_without_a_vcs(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """The metrics job commits through the workflow, not through GitVcs."""
+        import src.cli as cli
+
+        (tmp_path / "campaigns" / "demo").mkdir(parents=True)
+        monkeypatch.setattr(cli, "CAMPAIGNS_DIR", tmp_path / "campaigns")
+
+        class Publisher:
+            request_count = 5
+
+        class Notifier:
+            def notify(self, *a, **k): pass
+
+        cli._report_quota(
+            Publisher(), Notifier(), _config(),  # type: ignore[arg-type]
+            StructuredLogger({}, io.StringIO()),
+            FrozenClock(datetime(2026, 8, 20, 12, tzinfo=timezone.utc)),
+        )
+        assert load_quota(tmp_path / "campaigns" / "demo" / "quota.json").days

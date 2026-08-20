@@ -644,7 +644,7 @@ def _topup(
         )
         pushed += 1
 
-    _report_quota(publisher, notifier, config, log)
+    _report_quota(publisher, notifier, config, log, clock, vcs)
     log.info("topup_complete", pushed=pushed)
     return 0
 
@@ -745,6 +745,7 @@ def _report_quota(
     config: CampaignConfig,
     log: StructuredLogger,
     clock: Clock | None = None,
+    vcs: Vcs | None = None,
 ) -> None:
     """Fold this run into the rolling tally and alert on the *30-day* total.
 
@@ -760,7 +761,14 @@ def _report_quota(
     today = (clock.now() if clock else SystemClock().now()).astimezone(
         config.zone
     ).date()
-    record_run(quota_path(_campaign_dir(config.slug)), today, count)
+    ledger = quota_path(_campaign_dir(config.slug))
+    record_run(ledger, today, count)
+    # Runners are ephemeral: a ledger written and not committed is gone before
+    # the next run reads it, and a rolling tally that resets every four hours
+    # is not a tally. This was exactly the bug — the file was being written
+    # faithfully and thrown away, so the counter sat at zero for ever.
+    if vcs is not None and count > 0:
+        vcs.commit([ledger], f"quota {config.slug}")
 
     slot = config.buffer.api_key_secret
     ledgers: list[QuotaLedger] = []

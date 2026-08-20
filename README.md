@@ -564,8 +564,11 @@ to the **Buffer account**, not to a campaign — three campaigns on one key spen
 one pot. The strip above the queue shows the rolling total across every campaign
 sharing the key.
 
-Each campaign writes only its own `quota.json` and the total is summed when
-read. A single shared counter would race: campaign workflows have separate
+Each campaign writes only its own `quota.json`, **commits it**, and the total
+is summed when read. The commit is not incidental: runners are ephemeral, so a
+ledger written and left behind is gone before the next run reads it — which is
+how the counter sat at zero through a full day of posting while the file was
+being written correctly every time. A single shared counter would race: campaign workflows have separate
 concurrency groups, so two can run at once and a read-modify-write from both
 loses one.
 
