@@ -423,6 +423,112 @@
         }
       ],
       "metrics_updated_at": "2026-08-18T08:21:07.146000Z"
+    },
+    {
+      "date": "2026-08-20",
+      "scope": "lifetime",
+      "fetched_at": "2026-08-20T07:25:19.291802Z",
+      "window_start": "2026-08-12T00:00:00Z",
+      "window_end": "2026-08-21T00:00:00Z",
+      "service": "tiktok",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 44.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 19.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 2.19,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 1139.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 955.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-20T06:23:30.481000Z"
+    },
+    {
+      "date": "2026-08-20",
+      "scope": "rolling",
+      "fetched_at": "2026-08-20T07:25:19.291802Z",
+      "window_start": "2026-07-21T00:00:00Z",
+      "window_end": "2026-08-20T00:00:00Z",
+      "service": "tiktok",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 41.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 19.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 2.19,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 1139.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 955.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-20T06:23:30.481000Z"
     }
   ]
 }
