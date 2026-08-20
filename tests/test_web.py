@@ -18,6 +18,7 @@ from src.config import CampaignConfig, load_campaign
 from src.errors import UgcError
 from src.keys import mask, read_env
 from src.logging import StructuredLogger
+from src.render import FfmpegRenderer
 from src.models import PartKind
 from src.ports import FrozenClock
 from src.web import MAX_UPLOAD_BYTES, WebApp, _kind_from, _safe_name
@@ -598,6 +599,93 @@ class TestQueuePanel:
 
     def test_no_queue_file_is_an_empty_panel_not_an_error(self, app: WebApp) -> None:
         assert app.queue()["items"] == []
+
+
+class TestSampleRender:
+    """A sample must show the truth and cost nothing."""
+
+    def stage_library(self, app: WebApp, clips: dict, count: int = 2) -> None:
+        """Put real clips where the sample renderer looks for them."""
+        import shutil
+
+        assets = app.repo_root / "work" / app.config.slug / "assets"
+        assets.mkdir(parents=True, exist_ok=True)
+        for i in range(count):
+            shutil.copy2(clips["portrait"], assets / f"hook_{i + 1:02d}.mp4")
+            shutil.copy2(clips["portrait"], assets / f"body_{i + 1:02d}.mp4")
+
+    def test_no_descriptions_is_reported_not_raised(
+        self, app: WebApp, clips: dict
+    ) -> None:
+        self.stage_library(app, clips)
+        app.bank_path.write_text("", encoding="utf-8")
+        assert app.sample()["ok"] is False
+
+    def test_an_empty_library_says_so_rather_than_crashing(
+        self, app: WebApp
+    ) -> None:
+        # Iterating a directory that download_assets never created would
+        # otherwise raise FileNotFoundError out of a button click.
+        result = app.sample()
+        assert result["ok"] is False and "upload some" in result["error"]
+
+    def test_no_credentials_and_no_cache_explains_itself(
+        self, tmp_path: Path, config: CampaignConfig
+    ) -> None:
+        bank = tmp_path / "captions.txt"
+        bank.write_text("one\n", encoding="utf-8")
+        app = WebApp(
+            config=config, repo_root=tmp_path, inbox=tmp_path / "inbox",
+            bank_path=bank, log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=lambda: None,  # type: ignore[arg-type,return-value]
+        )
+        result = app.sample()
+        assert result["ok"] is False and "gh auth login" in result["error"]
+
+    @needs_ffmpeg
+    def test_it_renders_without_touching_history_or_the_queue(
+        self, app: WebApp, clips: dict
+    ) -> None:
+        """The load-bearing property.
+
+        Recording a sample in history would mean looking at your own library
+        cost a unique combination of runway, and the dedupe record would claim
+        a video was used that nobody ever saw.
+        """
+        self.stage_library(app, clips)
+        app.bank_path.write_text("first caption\n\nsecond caption\n", encoding="utf-8")
+
+        result = app.sample()
+        assert result["ok"], result.get("error")
+        assert not (app.bank_path.parent / "history.json").exists()
+        assert not (app.bank_path.parent / "queue.json").exists()
+
+    @needs_ffmpeg
+    def test_the_rendered_file_is_actually_playable(
+        self, app: WebApp, clips: dict
+    ) -> None:
+        self.stage_library(app, clips)
+        app.bank_path.write_text("a caption\n", encoding="utf-8")
+        assert app.sample()["ok"]
+
+        path = app.sample_file()
+        assert path is not None and path.stat().st_size > 0
+        probe = FfmpegRenderer(app.config, StructuredLogger({}, io.StringIO())).probe(path)
+        assert probe.has_video and probe.duration_sec > 0
+
+    @needs_ffmpeg
+    def test_a_muted_clip_never_appears_in_a_sample(
+        self, app: WebApp, clips: dict
+    ) -> None:
+        """Otherwise the preview would not be showing what the render does."""
+        self.stage_library(app, clips, count=2)
+        app.bank_path.write_text("a caption\n", encoding="utf-8")
+        app.set_clips(["hook_02.mp4"], False)
+
+        for _ in range(4):
+            result = app.sample()
+            assert result["ok"], result.get("error")
+            assert result["hook"] == "hook_01.mp4"
 
 
 class TestSecretsPanel:

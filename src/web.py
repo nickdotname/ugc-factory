@@ -355,6 +355,150 @@ class WebApp:
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
 
+    # ----------------------------------------------------------------- sample
+
+    def sample(self) -> dict[str, Any]:
+        """Render one video from the current library, and publish nothing.
+
+        Deliberately writes to neither ``queue.json`` nor ``history.json``. A
+        sample must not consume a combination: doing so would mean looking at
+        your own library cost you a unique tuple of runway, and the dedupe
+        record would claim a video was used that nobody ever saw.
+
+        History is still *read*, so the sample avoids combinations already
+        spent — it shows what tonight would actually produce, not a repeat.
+        """
+        import uuid
+
+        from src.assets import LocalLibrary
+        from src.clips import filter_library
+        from src.descriptions import load_bank
+        from src.models import RenderRequest
+        from src.ports import SeededRng
+        from src.queue import load_history
+        from src.selector import Selector
+
+        work = self.repo_root / "work" / self.config.slug
+        assets = work / "assets"
+        if not assets.is_dir() or not any(assets.iterdir()):
+            store = self._store()
+            if store is None:
+                return {
+                    "ok": False,
+                    "error": "No clips cached locally and no GitHub credentials "
+                             "to fetch them. Run `gh auth login`, or render once "
+                             "from the CLI to populate work/.",
+                }
+            store.download_assets(self.config.assets_tag, assets)
+
+        if not assets.is_dir() or not any(assets.iterdir()):
+            # download_assets succeeding with nothing to download is normal for
+            # a campaign whose Release is empty; iterating a missing directory
+            # below would crash instead of saying so.
+            return {
+                "ok": False,
+                "error": "No clips in the library yet — upload some in Assets "
+                         "first.",
+            }
+
+        paths = filter_library(
+            LocalLibrary.from_directory(assets), self._roster(), self.log
+        )
+        try:
+            descriptions = load_bank(
+                self.bank_path.read_text(encoding="utf-8"),
+                self.config.buffer.service,
+                source=str(self.bank_path),
+                strategy=self.config.buffer.title_strategy,
+            )
+        except UgcError as exc:
+            return {"ok": False, "error": f"descriptions: {exc}"}
+        if not descriptions:
+            return {"ok": False, "error": "no descriptions written yet"}
+
+        renderer = FfmpegRenderer(self.config, self.log)
+        durations: dict[str, float] = {}
+        if self.config.composition.music_random_start:
+            for track in paths.music:
+                try:
+                    durations[track.name] = renderer.probe(track).duration_sec
+                except UgcError:
+                    continue
+
+        from src.selector import AssetLibrary
+
+        composition = self.config.composition
+        library = AssetLibrary(
+            hooks=tuple(p.name for p in paths.hooks),
+            bodies=tuple(p.name for p in paths.bodies),
+            music=tuple(p.name for p in paths.music),
+            captions=tuple(d.body for d in descriptions),
+            music_durations=durations,
+            music_segment_sec=(
+                composition.music_segment_sec
+                if composition.music_random_start else 0.0
+            ),
+            music_skip_intro_sec=composition.music_skip_intro_sec,
+        )
+
+        history = load_history(self.bank_path.parent / "history.json")
+        # Seeded from the clock rather than fixed: two clicks in a row should
+        # show two different combinations, which is the point of the button.
+        rng = SeededRng(int(self.clock.now().timestamp() * 1000) % (2**32))
+        selector = Selector(self.config.selection, self.clock, rng, self.log)
+        try:
+            outcome = selector.select_one(
+                library, history, composition.bodies_per_video
+            )
+        except UgcError as exc:
+            return {"ok": False, "error": str(exc)}
+
+        by_name = paths.by_name()
+        selection = outcome.selection
+        missing = [
+            n for n in (selection.hook, *selection.bodies)
+            if n not in by_name
+        ]
+        if missing:
+            return {"ok": False,
+                    "error": f"library is missing {', '.join(missing)}"}
+        samples = work / "samples"
+        samples.mkdir(parents=True, exist_ok=True)
+        # One file, reused: samples are disposable and an unbounded pile of
+        # 100 MB videos in work/ is not.
+        output = samples / "sample.mp4"
+        try:
+            renderer.render(RenderRequest(
+                item_id=f"sample-{uuid.uuid4().hex[:8]}",
+                hook_path=by_name[selection.hook],
+                body_paths=tuple(by_name[b] for b in selection.bodies),
+                music_path=by_name[selection.music] if selection.music else None,
+                music_offset_sec=selection.music_offset_sec,
+                output_path=output,
+            ))
+        except UgcError as exc:
+            return {"ok": False, "error": f"render failed: {exc}"}
+
+        titles = {d.body: d.title for d in descriptions}
+        self.log.info("sample_rendered", campaign=self.config.slug)
+        return {
+            "ok": True,
+            # Cache-busted so the player does not show the previous sample.
+            "url": f"/api/sample.mp4?v={uuid.uuid4().hex[:8]}",
+            "hook": selection.hook,
+            "bodies": list(selection.bodies),
+            "music": selection.music,
+            "music_offset_sec": selection.music_offset_sec,
+            "caption": selection.caption,
+            "title": titles.get(selection.caption),
+            "relaxation": outcome.relaxation.value,
+            "size": output.stat().st_size,
+        }
+
+    def sample_file(self) -> Path | None:
+        path = self.repo_root / "work" / self.config.slug / "samples" / "sample.mp4"
+        return path if path.is_file() else None
+
     # --------------------------------------------------------------- insights
 
     def insights(self) -> dict[str, Any]:
@@ -1597,6 +1741,19 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
             if path is None or not path.is_file():
                 self._json({"error": "no local copy of that clip"}, 404)
                 return
+            self._serve_path(path)
+
+        def _serve_path(self, path: Path | None) -> None:
+            """Stream a file the app has already resolved to a real path.
+
+            Takes a path rather than a name on purpose: resolution — and the
+            sanitising that goes with it — belongs to whichever caller knows
+            what it is looking up, so nothing here joins user input onto a
+            directory.
+            """
+            if path is None or not path.is_file():
+                self._json({"error": "not found"}, 404)
+                return
 
             size = path.stat().st_size
             ctype = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
@@ -1664,6 +1821,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.quota())
             elif route == "/api/insights":
                 self._json(app.insights())
+            elif route == "/api/sample.mp4":
+                self._serve_path(app.sample_file())
             elif route == "/api/revenue":
                 self._json(app.revenue())
             elif route == "/api/secrets":
@@ -1714,6 +1873,9 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 elif route == "/api/publish":
                     payload = json.loads(self._body() or b"{}")
                     self._json(app.publish(str(payload.get("message", ""))))
+
+                elif route == "/api/sample":
+                    self._json(app.sample())
 
                 elif route == "/api/queue/pull":
                     payload = json.loads(self._body() or b"{}")
@@ -2111,6 +2273,21 @@ PAGE = """<!doctype html>
   }
   .shared b { color:var(--ink); font-weight:600; }
   .shared .pill { font-family:"IBM Plex Mono", monospace; font-size:10.5px; }
+
+  /* A sample render, shown at a size you can actually judge a hook by. */
+  .sample { display:flex; gap:18px; margin-top:14px; flex-wrap:wrap; }
+  .sample video {
+    width:200px; aspect-ratio:9/16; border-radius:8px; background:#000;
+    border:1px solid var(--line-2); flex:none;
+  }
+  .sample .smeta { flex:1; min-width:220px; font-size:12.5px; line-height:1.6; }
+  .sample .smeta b { font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+                     color:var(--ink-3); display:block; margin-bottom:3px; }
+  .sample .scap {
+    white-space:pre-wrap; margin-top:11px; padding-top:11px;
+    border-top:1px solid var(--line); color:var(--ink-2);
+  }
+  .sample .sparts { font-family:"IBM Plex Mono", monospace; font-size:11.5px; }
 
   /* ── Findings ──────────────────────────────────────────────────────────
      Severity is carried by a stripe as well as by words, so the one that
@@ -2514,6 +2691,12 @@ PAGE = """<!doctype html>
         <button class="ghost sm" id="mix-refresh" title="Re-read the assets Release">Refresh</button>
       </div>
       <div id="mix-scope" class="hint"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="ghost" id="sample-btn">Render a sample</button>
+        <span class="hint" style="margin:0">Builds one video from the clips
+          switched on. Queues nothing, posts nothing.</span>
+      </div>
+      <div id="sample"></div>
       <div id="mix-note"></div>
     </div>
     <div id="mix"></div>
@@ -2699,6 +2882,39 @@ function slotTime(iso){
   };
 }
 
+/* ── Sample render ────────────────────────────────────────────────────────
+   Reads history so it never shows a combination already spent, and writes
+   neither history nor the queue — looking at your library must not cost a
+   tuple of runway.                                                       */
+$("#sample-btn").onclick = async (e) => {
+  const out = $("#sample");
+  out.innerHTML = "";
+  e.target.disabled = true; e.target.textContent = "Rendering…";
+  let r;
+  try {
+    r = await (await fetch("/api/sample", {method:"POST"})).json();
+  } catch (err) { r = {ok:false, error:String(err)}; }
+  e.target.disabled = false; e.target.textContent = "Render another";
+
+  if (!r.ok){ msg(out, "bad", r.error); return; }
+  const music = r.music
+    ? `${r.music} from ${Math.round(r.music_offset_sec)}s`
+    : "no music";
+  out.innerHTML = `<div class="sample">
+    <video src="${r.url}" controls playsinline preload="metadata"></video>
+    <div class="smeta">
+      <b>Built from</b>
+      <span class="sparts">${esc(r.hook)}<br>${
+        r.bodies.map(esc).join("<br>")}<br>${esc(music)}</span>
+      ${r.title ? `<div class="scap"><b>Title</b>${esc(r.title)}</div>` : ""}
+      <div class="scap">${esc(r.caption)}</div>
+    </div>
+  </div>`;
+  if (r.relaxation !== "none")
+    msg(out, "warn", `This one needed relaxed dedupe (${r.relaxation}) — the
+      library is small for the configured cadence.`);
+};
+
 /* ── Findings ─────────────────────────────────────────────────────────────
    Derived entirely from files already on disk — no API calls, so this is
    free to recompute whenever the page loads.                            */
@@ -2797,7 +3013,7 @@ function renderQueue(){
         </div>
         <div class="qcap">
           ${i.title ? `<b>${esc(i.title)}</b><br>` : ""}
-          ${esc((i.caption || "").replace(/\s+/g, " ").slice(0, 160))}${
+          ${esc((i.caption || "").replace(/\\s+/g, " ").slice(0, 160))}${
             (i.caption || "").length > 160 ? "…" : ""}
           <span class="parts">${esc(parts)}</span>
           ${i.last_error

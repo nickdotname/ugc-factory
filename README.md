@@ -405,6 +405,24 @@ want.
 
 ---
 
+## Seeing a video before it exists
+
+The **Render a sample** button in the Randomizer panel builds one video from the
+clips currently switched on and plays it in the page. It queues nothing, uploads
+nothing and posts nothing.
+
+It writes to neither `queue.json` nor `history.json`, which is the point:
+recording a sample would mean looking at your own library cost you a unique
+combination of runway, and the dedupe record would claim a video was used that
+nobody ever saw. History is still *read*, so a sample never shows a combination
+already spent — it is what tonight would actually produce.
+
+Renders take a few seconds and reuse one file at
+`work/<slug>/samples/sample.mp4`, since samples are disposable and a pile of
+100 MB videos is not.
+
+---
+
 ## Findings
 
 The dashboard's **Findings** panel derives what can honestly be concluded from
@@ -590,6 +608,22 @@ src/
     base.py         Publisher ABC — TikTok/Graph API slot in here
     buffer.py       Buffer GraphQL
 ```
+
+### Checking the dashboard's JavaScript
+
+`scripts/check_page_js.sh` syntax-checks the page as a browser receives it,
+by fetching from a running dashboard rather than extracting from `src/web.py`.
+Two reasons it is worth a script:
+
+- A duplicate `const` kills the entire `<script>` with **no console output** —
+  the page renders as an empty shell and every panel silently disappears.
+- Reading the source text is misleading: a backslash is still Python-escaped
+  there, so `\\s` in the file is the `\s` the browser gets.
+
+That second point has its own trap. `PAGE` is a plain triple-quoted string, so
+an unescaped `\s` inside it is an invalid Python escape sequence. Bytecode
+caching hides it — the warning fires at compile time, so an already-cached
+module stays quiet and only a fresh checkout fails.
 
 ### Things that look arbitrary and are not
 
