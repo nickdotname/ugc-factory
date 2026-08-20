@@ -2067,6 +2067,21 @@ PAGE = """<!doctype html>
       color-mix(in srgb, var(--up) 78%, var(--accent)) 0%, var(--up) 100%);
   }
 
+  /* Motion is decoration here: a card lifting on hover, the toggle knob
+     sliding, the quota bar easing to its width. None of it carries meaning,
+     so for anyone who has asked their system to reduce motion it can all go.
+     Colour and shadow still change — those are state, not movement. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration:.01ms !important;
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      scroll-behavior:auto !important;
+    }
+    /* The lifts would otherwise still jump, just instantly. */
+    .zone.over, .card:hover, button:active { transform:none !important; }
+  }
+
   * { box-sizing:border-box; }
   html { -webkit-text-size-adjust:100%; }
   body {
@@ -3699,8 +3714,31 @@ function toggleSwitch(open){
   const show = open === undefined ? menu.hidden : open;
   menu.hidden = !show;
   $("#switch-btn").setAttribute("aria-expanded", String(show));
+  if (show){
+    // Land on the campaign you are already on, not the top of the list.
+    const current = menu.querySelector('.sw-item[aria-selected="true"]');
+    (current || menu.querySelector(".sw-item"))?.focus();
+  } else if (document.activeElement && menu.contains(document.activeElement)){
+    // Closing with Escape must not strand focus on a hidden button.
+    $("#switch-btn").focus();
+  }
 }
 $("#switch-btn").onclick = (e) => { e.stopPropagation(); toggleSwitch(); };
+
+/* role="listbox" is a promise that arrow keys work. Tab alone would walk out
+   of the menu and on through the page, which is not what a dropdown does. */
+$("#switch-menu").addEventListener("keydown", (e) => {
+  const items = [...$("#switch-menu").querySelectorAll(".sw-item")];
+  const at = items.indexOf(document.activeElement);
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    e.preventDefault();
+    const step = e.key === "ArrowDown" ? 1 : -1;
+    items[(at + step + items.length) % items.length].focus();
+  } else if (e.key === "Home" || e.key === "End"){
+    e.preventDefault();
+    items[e.key === "Home" ? 0 : items.length - 1].focus();
+  }
+});
 document.addEventListener("click", () => toggleSwitch(false));
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") toggleSwitch(false);

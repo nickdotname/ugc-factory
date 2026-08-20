@@ -139,3 +139,51 @@ class TestAccentGradient:
                 f"--grad-accent mixes the accent toward {other!r}; only black "
                 f"is safe, since the accent already sits at the AA floor"
             )
+
+
+class TestMotion:
+    """Motion here is decoration — a card lifting, a knob sliding, a bar
+    easing to width. None of it carries meaning, so it must yield to a
+    reduced-motion preference. Twelve transitions accumulated before any
+    guard existed."""
+
+    def test_a_reduced_motion_guard_exists(self) -> None:
+        assert "prefers-reduced-motion: reduce" in PAGE
+
+    def test_the_guard_neutralises_transitions_and_animations(self) -> None:
+        block = re.search(
+            r"@media \(prefers-reduced-motion: reduce\)\s*\{(.*?)\n  \}",
+            PAGE, re.S,
+        )
+        assert block, "no reduced-motion block"
+        body = block.group(1)
+        for prop in ("transition-duration", "animation-duration",
+                     "animation-iteration-count"):
+            assert prop in body, f"{prop} is not neutralised"
+        assert "!important" in body, "the guard must outrank the rules it undoes"
+
+    def test_transform_lifts_are_cancelled_not_merely_shortened(self) -> None:
+        """A zero-duration transform still jumps; it has to be removed."""
+        block = re.search(
+            r"@media \(prefers-reduced-motion: reduce\)\s*\{(.*?)\n  \}",
+            PAGE, re.S,
+        )
+        assert block and "transform:none" in block.group(1).replace(" ", "")
+
+
+class TestSwitcherKeyboard:
+    """role="listbox" is a promise. These check the promise is kept, since a
+    dropdown you can only tab out of is not a dropdown."""
+
+    def test_the_menu_declares_itself_a_listbox(self) -> None:
+        assert 'id="switch-menu" class="switch-menu" role="listbox"' in PAGE
+
+    def test_the_trigger_reports_expansion(self) -> None:
+        assert 'aria-haspopup="listbox"' in PAGE
+        assert 'aria-expanded' in PAGE
+
+    def test_arrow_keys_are_handled(self) -> None:
+        assert "ArrowDown" in PAGE and "ArrowUp" in PAGE
+
+    def test_escape_does_not_strand_focus_on_a_hidden_control(self) -> None:
+        assert 'switch-btn").focus()' in PAGE

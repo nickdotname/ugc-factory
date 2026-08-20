@@ -742,6 +742,17 @@ palette out of the served stylesheet, checking every stop against white in
 both themes, and rejecting any `color-mix` of the accent toward anything but
 black.
 
+Motion gets the same treatment. The transitions are decoration — a card
+lifting, the toggle knob sliding, the quota bar easing to width — so they
+yield to `prefers-reduced-motion`, and the transform lifts are cancelled
+outright rather than merely shortened, since a zero-duration transform still
+jumps. Twelve transitions had accumulated before any guard existed.
+
+The campaign switcher declares `role="listbox"`, which is a promise that arrow
+keys work: up and down move, Home and End jump, opening lands on the campaign
+you are already on, and Escape closes and returns focus to the trigger rather
+than stranding it on a hidden button.
+
 The other gradients are derived from the palette with `color-mix` rather than
 hand-picked per theme, so light and dark cannot drift apart. They carry depth
 and never meaning: no surface holding text varies by more than a few percent
