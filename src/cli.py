@@ -365,7 +365,14 @@ def _render(
     if count == 0:
         # Still rewrite the queue: terminal and expired items were pruned above,
         # and leaving them in place would re-report yesterday's finished work
-        # as pending. The workflow commits whatever changed.
+        # as pending.
+        #
+        # This write must also always *change* the file, and ``generated_at``
+        # is what guarantees it. GitHub disables a cron schedule after 60 days
+        # with no commits, and render.yml's nightly commit is what keeps it
+        # alive (SPEC §12). A no-op night that wrote a byte-identical queue
+        # would commit nothing; sixty of them in a row and the whole pipeline
+        # stops on a timer nobody is watching.
         log.info("render_skipped", reason="backlog already at target",
                  carried=len(carried))
         save_queue(

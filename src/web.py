@@ -2898,7 +2898,7 @@ $("#sample-btn").onclick = async (e) => {
 
   if (!r.ok){ msg(out, "bad", r.error); return; }
   const music = r.music
-    ? `${r.music} from ${Math.round(r.music_offset_sec)}s`
+    ? `${esc(r.music)} from ${Math.round(r.music_offset_sec)}s`
     : "no music";
   out.innerHTML = `<div class="sample">
     <video src="${r.url}" controls playsinline preload="metadata"></video>
@@ -3132,8 +3132,8 @@ function renderRevenue(){
       <td>${e.period_start}${e.period_end !== e.period_start
              ? ` → ${e.period_end}` : ""}
           <span class="sec-for">${e.days}d</span></td>
-      <td><span class="src">${e.source}</span>${
-        e.note ? ` <span class="sec-for">${e.note}</span>` : ""}</td>
+      <td><span class="src">${esc(e.source)}</span>${
+        e.note ? ` <span class="sec-for">${esc(e.note)}</span>` : ""}</td>
       <td class="num">${money(e.amount, e.currency)}</td>
       <td class="num sec-for">${money(e.amount / e.days, e.currency)}</td>
       <td class="num"><button title="Remove" aria-label="Remove entry"
@@ -3252,7 +3252,10 @@ let CLIPS = null;
 
 function clipCard(c, kind){
   const q = encodeURIComponent(c.name);
-  const esc = c.name.replace(/'/g, "\\'");
+  // Named for its job, not "esc": there is a global esc() for HTML escaping,
+  // and shadowing it here made every escaped interpolation below a call on a
+  // string. This one quotes a name for a JS string literal in an onclick.
+  const jsName = c.name.replace(/'/g, "\\'");
   const thumb = !c.preview
     ? `<div class="nolocal">uploaded from another machine — no preview here</div>`
     : kind === "music"
@@ -3260,20 +3263,21 @@ function clipCard(c, kind){
          <span class="play">▶</span>`
       : `<video preload="metadata" muted playsinline
                 src="/api/clip?name=${q}#t=0.1"></video><span class="play">▶</span>`;
-  return `<div class="clip ${c.enabled ? "" : "off"}" data-name="${c.name}">
+  const shown = esc(c.name);
+  return `<div class="clip ${c.enabled ? "" : "off"}" data-name="${shown}">
     <div class="thumb" onclick="peek(this)" tabindex="0" role="button"
-         aria-label="Play ${c.name}"
+         aria-label="Play ${shown}"
          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();peek(this)}">${thumb}
       ${c.size ? `<span class="sz num">${bytes(c.size)}</span>` : ""}
     </div>
-    <button class="kill" title="Delete ${c.name} for good"
-      aria-label="Delete ${c.name} permanently"
-      onclick="killClip('${esc}')">×</button>
+    <button class="kill" title="Delete ${shown} for good"
+      aria-label="Delete ${shown} permanently"
+      onclick="killClip('${jsName}')">×</button>
     <div class="bar">
-      <span class="nm" title="${c.name}">${c.name}</span>
+      <span class="nm" title="${shown}">${shown}</span>
       <button class="tgl" role="switch" aria-checked="${c.enabled}"
-        aria-label="${c.name} in the randomizer"
-        onclick="flip('${esc}', ${!c.enabled})"></button>
+        aria-label="${shown} in the randomizer"
+        onclick="flip('${jsName}')"></button>
     </div>
   </div>`;
 }
@@ -3381,7 +3385,15 @@ async function push(names, enabled){
   await refresh();
 }
 
-async function flip(name, enabled){
+async function flip(name){
+  // Reads the live state rather than taking it as an argument. The card is
+  // patched in place rather than rebuilt, so an argument baked into the
+  // onclick when the card was created would still hold the original value and
+  // every later click would repeat the first one.
+  const current = CLIPS.groups
+    .flatMap(g => g.clips).find(c => c.name === name);
+  if (!current) return;
+  const enabled = !current.enabled;
   for (const g of CLIPS.groups)
     for (const c of g.clips)
       if (c.name === name) c.enabled = enabled;

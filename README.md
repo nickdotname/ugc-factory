@@ -321,17 +321,20 @@ which is indistinguishable from being broken.
 `ingest` computes this for you and warns while you are still holding the files.
 `preflight` fails if the runway drops under `selection.min_runway_days`.
 
-The live `clubs` library is 6 hooks / 4 bodies / 3 music tracks (66 beds, since
+The live `clubs` library is 6 hooks / 4 bodies / 3 music tracks (33 beds, since
 each track is cut into segments) / 25 captions, at **12 posts/day**:
 
 | | have | 12/day needs |
 |---|---|---|
 | captions (2-day cooldown) | 25 | 24 |
 | hooks (cooldown disabled) | 6 | — |
-| combinations | 39,600 | — |
-| runway | 3,300 days | 90 (`min_runway_days`) |
+| combinations | 19,800 | — |
+| runway | 1,650 days | 90 (`min_runway_days`) |
 
-The runway number is not the useful one. 3,300 days of unique tuples says
+Those figures come from `./ugc preflight`, which probes every track to count
+beds rather than assuming a number.
+
+The runway number is not the useful one. 1,650 days of unique tuples says
 nothing about whether a viewer can tell two of them apart: with 4 body clips at
 12 posts/day, each one goes out three times a day whatever the combinatorics
 say. **Body clips are the binding constraint, and no amount of unique hashes
