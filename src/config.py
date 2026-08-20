@@ -122,6 +122,17 @@ class PostingConfig(StrictModel):
     end_hour: int = Field(default=22, ge=0, le=23)
     # SPEC §4.1: free-plan cap is queue *depth*, not a daily cap.
     max_buffer_queue: int = Field(default=10, ge=1, le=100)
+    #: How many days of unpublished videos to keep rendered and waiting.
+    #:
+    #: Render is demand-driven rather than fixed: it tops the local backlog up
+    #: to this many days' worth and stops. Rendering ``posts_per_day`` every
+    #: night regardless is what produced a backlog the channels could never
+    #: drain — and since the old queue was replaced wholesale, the surplus was
+    #: discarded unseen while still consuming unique combinations.
+    #:
+    #: Two days leaves room for a missed render without starving the queue,
+    #: and converges on the channel's real publish rate within a week.
+    max_backlog_days: int = Field(default=2, ge=1, le=14)
     dry_run: bool = False
 
     @property

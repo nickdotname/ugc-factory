@@ -154,32 +154,42 @@ class TestRenderEndToEnd:
         assert cli.cmd_render(render_args(), {}) == 0
 
         queue = load_queue(campaign / "queue.json")
-        assert len(queue.items) == 3
+        # Render tops the backlog up to posts_per_day * max_backlog_days, so a
+        # first run against an empty queue fills two days rather than one.
+        assert len(queue.items) == 6
         assert all(i.status is QueueStatus.PENDING for i in queue.items)
         assert all(i.video_url.startswith("https://example.test/") for i in queue.items)
         assert all(i.caption for i in queue.items)
 
         # The rendered files really exist and really are videos.
         published = sorted((tmp_path / "published").glob("*.mp4"))
-        assert len(published) == 3
+        assert len(published) == 6
         for path in published:
             assert path.stat().st_size > 1000
 
     def test_render_records_history_for_dedupe(self, campaign: Path) -> None:
         cli.cmd_render(render_args(), {})
         history = load_history(campaign / "history.json")
-        assert len(history.entries) == 3
-        assert len({e.tuple_hash for e in history.entries}) == 3
+        assert len(history.entries) == 6
+        assert len({e.tuple_hash for e in history.entries}) == 6
 
     def test_second_render_does_not_repeat_the_first(self, campaign: Path) -> None:
         """The whole point of history: tomorrow's batch avoids today's."""
         cli.cmd_render(render_args(), {})
         first = {e.tuple_hash for e in load_history(campaign / "history.json").entries}
 
+        # The backlog is full after the first run, so a second render with
+        # nothing published in between correctly adds nothing.
         cli.cmd_render(render_args(), {})
+        assert len(load_history(campaign / "history.json").entries) == len(first)
+
+        # Force a batch to prove dedupe still holds when it does render.
+        forced = render_args()
+        forced.count = 2
+        cli.cmd_render(forced, {})
         entries = load_history(campaign / "history.json").entries
-        assert len(entries) == 6
         second = {e.tuple_hash for e in entries} - first
+        assert len(second) == 2
         assert not (first & second), "second render repeated a used combination"
 
     def test_scheduled_slots_are_in_the_future_and_spread(self, campaign: Path) -> None:
@@ -189,7 +199,51 @@ class TestRenderEndToEnd:
                        key=lambda i: i.scheduled_for)
         times = [i.scheduled_for for i in items]
         assert times == sorted(times)
-        assert len(set(times)) == 3, "slots must not collide"
+        assert len(set(times)) == 6, "slots must not collide"
+
+    def test_a_full_backlog_renders_nothing(self, campaign: Path) -> None:
+        """The fix for renders outrunning what the channel publishes.
+
+        Previously every night added a fresh batch and replaced the queue, so
+        anything not yet pushed was discarded — most of the output, at a render
+        rate above the real publish rate.
+        """
+        assert cli.cmd_render(render_args(), {}) == 0
+        first = load_queue(campaign / "queue.json").items
+
+        assert cli.cmd_render(render_args(), {}) == 0
+        second = load_queue(campaign / "queue.json").items
+        assert [i.id for i in second] == [i.id for i in first]
+
+    def test_unpushed_items_survive_the_next_render(self, campaign: Path) -> None:
+        from src.queue import save_queue
+
+        cli.cmd_render(render_args(), {})
+        queue = load_queue(campaign / "queue.json")
+        # Drain most of it, as the top-up job would.
+        for item in queue.items[:5]:
+            item.status = QueueStatus.PUSHED
+        survivor = queue.items[5].id
+        save_queue(campaign / "queue.json", queue)
+
+        cli.cmd_render(render_args(), {})
+        after = load_queue(campaign / "queue.json").items
+        assert survivor in {i.id for i in after}, "an unpushed video was discarded"
+        # Pushed items are finished business and are not carried.
+        assert len(after) == 6
+
+    def test_carried_and_new_items_never_share_a_slot(self, campaign: Path) -> None:
+        from src.queue import save_queue
+
+        cli.cmd_render(render_args(), {})
+        queue = load_queue(campaign / "queue.json")
+        for item in queue.items[:4]:
+            item.status = QueueStatus.PUSHED
+        save_queue(campaign / "queue.json", queue)
+
+        cli.cmd_render(render_args(), {})
+        times = [i.scheduled_for for i in load_queue(campaign / "queue.json").items]
+        assert len(set(times)) == len(times), "two videos landed in one slot"
 
     def test_count_override_is_honoured(self, campaign: Path) -> None:
         args = render_args()

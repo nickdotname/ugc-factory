@@ -138,6 +138,11 @@ class QueueItem(Model):
 
     id: str
     scheduled_for: datetime
+    #: When the video was rendered and uploaded. Media Releases are deleted
+    #: after a retention window, so a carried-forward item outlives its own
+    #: video eventually; this is what makes that detectable. Optional so queue
+    #: files written before it existed still load.
+    rendered_at: datetime | None = None
     video_url: str
     caption: str
     title: str | None = None

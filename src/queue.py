@@ -121,6 +121,39 @@ def mark_pushed(
     return item
 
 
+def carry_forward(
+    queue: Queue, now: datetime, retention_days: int
+) -> tuple[list[QueueItem], list[QueueItem]]:
+    """Split last night's queue into what is still worth keeping, and what is not.
+
+    Replacing the queue wholesale each night — which is what render used to do —
+    silently discarded everything the top-up had not pushed yet. At a render
+    rate above the channel's real publish rate that is most of the output: the
+    videos were made, uploaded, and thrown away unseen.
+
+    Two reasons an item is dropped rather than carried:
+
+    * it is finished (pushed, cancelled, or failed past its retries), or
+    * its media has aged out. Render Releases are deleted after the retention
+      window, so an older item's ``video_url`` is a link to nothing and pushing
+      it would fail at Buffer with a confusing fetch error.
+
+    Returns ``(kept, dropped)`` so the caller can report the second rather than
+    lose it quietly a second time.
+    """
+    horizon = now - timedelta(days=retention_days)
+    kept: list[QueueItem] = []
+    dropped: list[QueueItem] = []
+    for item in queue.items:
+        if item.is_terminal:
+            continue  # finished business, not a loss
+        # Without rendered_at (a queue file predating the field) fall back to
+        # the slot, which is close enough: slots are always near the render.
+        stamp = item.rendered_at or item.scheduled_for
+        (dropped if stamp < horizon else kept).append(item)
+    return kept, dropped
+
+
 def cancel(item: QueueItem, *, log: StructuredLogger) -> QueueItem:
     """Withdraw an item on a human's say-so.
 
@@ -173,6 +206,7 @@ def upcoming_slots(
     tz: tzinfo,
     *,
     min_lead: timedelta = timedelta(minutes=10),
+    exclude: set[datetime] | None = None,
 ) -> list[datetime]:
     """The next ``count`` posting slots at or after ``now + min_lead``.
 
@@ -204,7 +238,8 @@ def upcoming_slots(
             spread_schedule(cycle_day, posts_per_day, start_hour, end_hour)
         )
 
-    future = sorted({s for s in candidates if s >= earliest})
+    taken = exclude or set()
+    future = sorted({s for s in candidates if s >= earliest} - taken)
     return future[:count]
 
 

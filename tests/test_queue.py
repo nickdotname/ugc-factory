@@ -15,6 +15,7 @@ from src.queue import (
     IllegalTransition,
     append_history,
     cancel,
+    carry_forward,
     claimable,
     depth_needed,
     load_history,
@@ -434,3 +435,86 @@ class TestStaleSlotHandling:
         slots = upcoming_slots(now, 12, 15, 15, 24, timezone.utc)
         assert slots == sorted(slots)
         assert len(set(slots)) == len(slots)
+
+
+class TestCarryForward:
+    """Keeping what the top-up has not pushed yet.
+
+    Replacing the queue wholesale each night is what discarded most of the
+    output: videos rendered, uploaded, and thrown away unseen because the
+    channel drains slower than the render fills.
+    """
+
+    def test_unpushed_items_are_kept(self, log: StructuredLogger) -> None:
+        q = Queue(generated_at=NOW, items=[item(status=QueueStatus.PENDING)])
+        kept, dropped = carry_forward(q, NOW, 14)
+        assert len(kept) == 1 and dropped == []
+
+    def test_finished_items_are_not_carried(self, log: StructuredLogger) -> None:
+        # Pushed and cancelled are done, not lost — they belong in neither list.
+        q = Queue(generated_at=NOW, items=[
+            item(status=QueueStatus.PUSHED),
+            item(status=QueueStatus.CANCELLED),
+        ])
+        kept, dropped = carry_forward(q, NOW, 14)
+        assert kept == [] and dropped == []
+
+    def test_an_item_out_of_retries_is_not_carried(self) -> None:
+        q = Queue(generated_at=NOW, items=[
+            item(status=QueueStatus.FAILED, attempts=QueueItem.MAX_ATTEMPTS),
+        ])
+        kept, dropped = carry_forward(q, NOW, 14)
+        assert kept == [] and dropped == []
+
+    def test_a_retryable_failure_is_carried(self) -> None:
+        q = Queue(generated_at=NOW, items=[
+            item(status=QueueStatus.FAILED, attempts=1),
+        ])
+        kept, _ = carry_forward(q, NOW, 14)
+        assert len(kept) == 1
+
+    def test_items_whose_media_expired_are_dropped_and_reported(self) -> None:
+        """Its Release is deleted, so its video_url points at nothing.
+
+        Pushing it would fail at Buffer with a confusing fetch error, and
+        dropping it silently is what this whole change exists to stop.
+        """
+        stale = item(status=QueueStatus.PENDING)
+        stale.rendered_at = NOW - timedelta(days=20)
+        q = Queue(generated_at=NOW, items=[stale])
+        kept, dropped = carry_forward(q, NOW, 14)
+        assert kept == [] and len(dropped) == 1
+
+    def test_an_item_inside_the_retention_window_survives(self) -> None:
+        fresh = item(status=QueueStatus.PENDING)
+        fresh.rendered_at = NOW - timedelta(days=13)
+        kept, dropped = carry_forward(Queue(generated_at=NOW, items=[fresh]), NOW, 14)
+        assert len(kept) == 1 and dropped == []
+
+    def test_an_old_file_without_a_render_stamp_falls_back_to_the_slot(self) -> None:
+        # Queue files written before rendered_at existed still have to age out.
+        legacy = item(status=QueueStatus.PENDING,
+                      when=NOW - timedelta(days=30))
+        kept, dropped = carry_forward(Queue(generated_at=NOW, items=[legacy]), NOW, 14)
+        assert kept == [] and len(dropped) == 1
+
+    def test_an_empty_queue_is_not_an_error(self) -> None:
+        assert carry_forward(Queue(generated_at=NOW, items=[]), NOW, 14) == ([], [])
+
+
+class TestSlotExclusion:
+    def test_taken_slots_are_skipped(self) -> None:
+        """Two videos in one slot publish minutes apart."""
+        from zoneinfo import ZoneInfo
+
+        tz = ZoneInfo("UTC")
+        first = upcoming_slots(NOW, 3, 9, 21, 3, tz)
+        second = upcoming_slots(NOW, 3, 9, 21, 3, tz, exclude=set(first))
+        assert not (set(first) & set(second))
+
+    def test_without_exclusion_the_same_slots_come_back(self) -> None:
+        from zoneinfo import ZoneInfo
+
+        tz = ZoneInfo("UTC")
+        assert upcoming_slots(NOW, 3, 9, 21, 3, tz) == \
+               upcoming_slots(NOW, 3, 9, 21, 3, tz)

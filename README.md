@@ -450,6 +450,34 @@ reports no reach; treating that as zero would imply nobody saw it.
 
 ---
 
+## Rendering only what can actually publish
+
+Render is **demand-driven**: it tops the local backlog up to
+`posting.posts_per_day x posting.max_backlog_days` (default 2 days) and stops.
+If the backlog is already full it renders nothing.
+
+This replaced a fixed nightly batch that rebuilt `queue.json` from scratch. At a
+render rate above what the channel really publishes — which is where these
+campaigns were — the surplus was discarded unseen every night, having already
+been rendered, uploaded, and charged against the library's unique combinations.
+78% of all output was being thrown away.
+
+Carrying items forward has two exclusions:
+
+| dropped | why |
+|---|---|
+| finished (pushed, cancelled, failed past retries) | done, not lost |
+| rendered longer ago than `RENDER_RETENTION_DAYS` | its media Release is deleted, so `video_url` points at nothing |
+
+The second is reported rather than silent — an aged-out video is the signal that
+the channel cannot drain the queue as fast as it is filled, and the fix is a
+lower `posts_per_day`.
+
+New items are allocated slots that exclude the ones carried items already hold,
+since two videos in one slot publish minutes apart.
+
+---
+
 ## Reviewing what goes out
 
 The render-to-push gap is the human review window, and the dashboard's **Queue**
@@ -608,6 +636,15 @@ src/
     base.py         Publisher ABC — TikTok/Graph API slot in here
     buffer.py       Buffer GraphQL
 ```
+
+### Is per-post performance even possible?
+
+`scripts/check_post_metrics.py` answers it in one request. Clip- and
+caption-level ranking needs a metric attached to an individual post, and
+nothing in the codebase establishes whether Buffer exposes one:
+`aggregatedPostMetrics` is channel-level, and the `posts` query asks for no
+metrics at all. The script introspects the schema — reading types, touching no
+posts — and prints either the candidate fields or a definitive no.
 
 ### Checking the dashboard's JavaScript
 

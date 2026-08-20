@@ -86,6 +86,7 @@ from src.publishers.buffer import BufferPublisher
 from src.queue import (
     append_history,
     backfill_post_id,
+    carry_forward,
     claimable,
     depth_needed,
     load_history,
@@ -315,7 +316,49 @@ def _render(
     rng: Rng = SeededRng(int(today.strftime("%Y%m%d")))
     selector = Selector(config.selection, clock, rng, log)
 
-    count = args.count or config.posting.posts_per_day
+    # Carry over whatever last night produced and the top-up has not pushed.
+    # Replacing the queue here is what threw away most of the output.
+    previous = load_queue(campaign_dir / "queue.json")
+    carried, expired = carry_forward(previous, today, RENDER_RETENTION_DAYS)
+    if expired:
+        log.warning(
+            "queue_items_expired",
+            count=len(expired),
+            oldest=min(i.scheduled_for for i in expired).isoformat(),
+            reason="media Release deleted past retention",
+        )
+        notifier.notify(
+            NotifyEvent.DEDUPE_RELAXED,
+            f"⚠️ {config.slug}: {len(expired)} queued video(s) aged out before "
+            f"they could publish. The channel is not draining the queue as fast "
+            f"as it is being filled — consider lowering posts_per_day.",
+        )
+
+    # Demand-driven: top the backlog up to the configured depth rather than
+    # adding a fixed batch every night regardless of what is still waiting.
+    target = config.posting.posts_per_day * config.posting.max_backlog_days
+    count = args.count if args.count else max(0, target - len(carried))
+    log.info(
+        "render_demand",
+        carried=len(carried), expired=len(expired), target=target,
+        rendering=count, posts_per_day=config.posting.posts_per_day,
+    )
+    if count == 0:
+        # Still rewrite the queue: terminal and expired items were pruned above,
+        # and leaving them in place would re-report yesterday's finished work
+        # as pending. The workflow commits whatever changed.
+        log.info("render_skipped", reason="backlog already at target",
+                 carried=len(carried))
+        save_queue(
+            campaign_dir / "queue.json",
+            Queue(generated_at=today, items=carried),
+        )
+        print(
+            f"OK {config.slug}: backlog already holds {len(carried)} unpublished "
+            f"videos (target {target}); rendered nothing."
+        )
+        return 0
+
     outcomes = selector.select_batch(
         library, history, count, config.composition.bodies_per_video
     )
@@ -345,6 +388,9 @@ def _render(
         config.posting.end_hour,
         config.posting.posts_per_day,
         config.zone,
+        # Carried items already hold slots; two videos in one slot would be
+        # published minutes apart, which is the failure the schedule prevents.
+        exclude={i.scheduled_for for i in carried},
     )
     if len(slots) < len(outcomes):
         raise ConfigError(
@@ -369,6 +415,7 @@ def _render(
             QueueItem(
                 id=item_id,
                 scheduled_for=slot,
+                rendered_at=today,
                 video_url="",  # filled in after upload
                 caption=selection.caption,
                 title=titles.get(selection.caption),
@@ -389,7 +436,13 @@ def _render(
     for item, _ in rendered:
         item.video_url = urls[f"{item.id}.mp4"]
 
-    queue = Queue(generated_at=today, items=[i for i, _ in rendered])
+    queue = Queue(
+        generated_at=today,
+        items=sorted(
+            [*carried, *(i for i, _ in rendered)],
+            key=lambda i: i.scheduled_for,
+        ),
+    )
     save_queue(campaign_dir / "queue.json", queue)
     append_history(
         campaign_dir / "history.json",
