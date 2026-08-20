@@ -64,6 +64,14 @@ from src.logging import StructuredLogger
 from src.metrics import Scope, load_metrics
 from src.models import PartKind
 from src.platforms import Service
+from src.revenue import (
+    RevenueEntry,
+    RevenueLedger,
+    ledger_path,
+    load_ledger,
+    per_thousand,
+    save_ledger,
+)
 from src.ports import Clock
 from src.render import FfmpegRenderer
 
@@ -346,6 +354,176 @@ class WebApp:
             "required_secrets": list(created.required_secrets),
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
+
+    # ---------------------------------------------------------------- revenue
+
+    @property
+    def ledger_file(self) -> Path:
+        return ledger_path(self.bank_path.parent)
+
+    def _ledger(self, slug: str | None = None) -> RevenueLedger:
+        # The selected campaign resolves through ``ledger_file`` rather than by
+        # rebuilding the path from the slug: the two must not be able to drift,
+        # and writing to one while reading the other loses money silently.
+        if slug is None or slug == self.config.slug:
+            return load_ledger(self.ledger_file)
+        return load_ledger(ledger_path(self.campaigns_dir / slug))
+
+    def _views_windows(self, slug: str) -> list[dict[str, Any]]:
+        """Each rolling snapshot's window and the views inside it.
+
+        Uses the snapshot's own window rather than its date, because a snapshot
+        is a trailing aggregate: pairing 30 days of views with one week of
+        revenue would understate the ratio roughly fourfold.
+        """
+        path = self.campaigns_dir / slug / "metrics.json"
+        if not path.is_file():
+            return []
+        try:
+            history = load_metrics(path)
+        except UgcError:
+            return []
+        out: list[dict[str, Any]] = []
+        for snap in history.snapshots:
+            if snap.scope is not Scope.ROLLING:
+                continue
+            views = next(
+                (m.value for m in snap.metrics if m.type == "views"), None
+            )
+            if views is None:
+                continue
+            out.append({
+                "date": snap.date,
+                "service": snap.service,
+                "start": snap.window_start.date(),
+                "end": snap.window_end.date(),
+                "views": views,
+            })
+        return sorted(out, key=lambda w: w["date"])
+
+    def revenue(self) -> dict[str, Any]:
+        """The ledger, plus every ratio worth plotting against reach."""
+        ledger = self._ledger()
+        span = ledger.span()
+
+        # Revenue per 1k views, one point per snapshot, revenue taken from that
+        # snapshot's own window.
+        rpm: list[list[Any]] = []
+        paired: list[dict[str, Any]] = []
+        for window in self._views_windows(self.config.slug):
+            money = ledger.total_in(window["start"], window["end"])
+            ratio = per_thousand(money, window["views"])
+            if ratio is None:
+                continue
+            rpm.append([window["date"], round(ratio, 4)])
+            paired.append({
+                "date": window["date"],
+                "views": window["views"],
+                "revenue": round(money, 2),
+                "rpm": round(ratio, 4),
+            })
+
+        # Every campaign's ledger, so one business posting to three networks can
+        # see the whole number rather than a third of it.
+        totals = []
+        combined_revenue = 0.0
+        combined_views = 0.0
+        for summary in list_campaigns(self.campaigns_dir):
+            if not summary.valid:
+                continue
+            other = self._ledger(summary.slug)
+            windows = self._views_windows(summary.slug)
+            latest = windows[-1] if windows else None
+            money = other.total()
+            combined_revenue += money
+            if latest:
+                combined_views += latest["views"]
+            totals.append({
+                "campaign": summary.slug,
+                "service": summary.service,
+                "revenue": round(money, 2),
+                "views": latest["views"] if latest else None,
+                "rpm": (
+                    round(per_thousand(
+                        other.total_in(latest["start"], latest["end"]), latest["views"]
+                    ) or 0.0, 4)
+                    if latest else None
+                ),
+            })
+
+        currencies = sorted(ledger.currencies)
+        return {
+            "campaign": self.config.slug,
+            "currency": currencies[0] if currencies else "USD",
+            "mixed_currencies": currencies[1:],
+            "entries": [
+                {
+                    "id": e.id,
+                    "period_start": e.period_start.isoformat(),
+                    "period_end": e.period_end.isoformat(),
+                    "days": e.days,
+                    "amount": e.amount,
+                    "currency": e.currency,
+                    "source": e.source,
+                    "note": e.note,
+                }
+                for e in reversed(ledger.entries)
+            ],
+            "total": round(ledger.total(), 2),
+            "span": [span[0].isoformat(), span[1].isoformat()] if span else None,
+            "by_source": [[k, round(v, 2)] for k, v in ledger.by_source()],
+            "daily": ledger.daily(),
+            "rpm_series": rpm,
+            "paired": paired,
+            "warnings": ledger.double_counting(),
+            "overall": {
+                "campaigns": totals,
+                "revenue": round(combined_revenue, 2),
+                "rpm": (
+                    round(per_thousand(combined_revenue, combined_views) or 0.0, 4)
+                    if combined_views else None
+                ),
+            },
+        }
+
+    def add_revenue(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Record one payment. Validation lives in the model, not here."""
+        try:
+            entry = RevenueEntry(
+                period_start=str(payload.get("period_start", "")),  # type: ignore[arg-type]
+                period_end=str(
+                    payload.get("period_end") or payload.get("period_start") or ""
+                ),  # type: ignore[arg-type]
+                amount=float(payload.get("amount") or 0),
+                currency=str(payload.get("currency") or "USD"),
+                source=str(payload.get("source") or "manual").strip() or "manual",
+                note=(str(payload.get("note")).strip() or None
+                      if payload.get("note") else None),
+                entered_at=self.clock.now(),
+            )
+        except (ValueError, TypeError) as exc:
+            # Pydantic's message names the field and the reason, which is more
+            # use to whoever is typing than a generic "bad input".
+            first = str(exc).splitlines()
+            return {"ok": False, "error": " ".join(first[-2:]).strip() or str(exc)}
+        if entry.amount <= 0:
+            return {"ok": False, "error": "amount must be more than zero"}
+
+        save_ledger(self.ledger_file, self._ledger().with_entry(entry))
+        self.log.info(
+            "revenue_recorded", campaign=self.config.slug, source=entry.source,
+            days=entry.days, currency=entry.currency,
+        )
+        return {"ok": True, "id": entry.id}
+
+    def remove_revenue(self, entry_id: str) -> dict[str, Any]:
+        ledger = self._ledger()
+        trimmed = ledger.without(entry_id)
+        if len(trimmed.entries) == len(ledger.entries):
+            return {"ok": False, "error": "no such entry"}
+        save_ledger(self.ledger_file, trimmed)
+        self.log.info("revenue_removed", campaign=self.config.slug, id=entry_id)
+        return {"ok": True}
 
     # ---------------------------------------------------------------- secrets
 
@@ -1245,6 +1423,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                     refresh="refresh" in query,
                     slot=slots[0] if slots else None,
                 ))
+            elif route == "/api/revenue":
+                self._json(app.revenue())
             elif route == "/api/secrets":
                 self._json(app.secrets())
             elif route == "/api/keys":
@@ -1294,6 +1474,9 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                     payload = json.loads(self._body() or b"{}")
                     self._json(app.publish(str(payload.get("message", ""))))
 
+                elif route == "/api/revenue":
+                    self._json(app.add_revenue(json.loads(self._body() or b"{}")))
+
                 elif route == "/api/secrets":
                     payload = json.loads(self._body() or b"{}")
                     self._json(app.save_secret(
@@ -1324,6 +1507,11 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
 
         def do_DELETE(self) -> None:  # noqa: N802
             route = urlparse(self.path).path
+            if route == "/api/revenue":
+                self._json(app.remove_revenue(
+                    (self._query().get("id") or [""])[0]
+                ))
+                return
             if route == "/api/secrets":
                 try:
                     self._json(app.forget_secret(
@@ -1679,6 +1867,25 @@ PAGE = """<!doctype html>
   .shared b { color:var(--ink); font-weight:600; }
   .shared .pill { font-family:"IBM Plex Mono", monospace; font-size:10.5px; }
 
+  /* ── Revenue ───────────────────────────────────────────────────────── */
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:900px){ .grid2 { grid-template-columns:1fr; } }
+  .ledger { width:100%; border-collapse:collapse; margin-top:14px; font-size:12.5px; }
+  .ledger th {
+    text-align:left; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; padding:0 10px 7px 0;
+  }
+  .ledger td { padding:7px 10px 7px 0; border-top:1px solid var(--line); }
+  .ledger td.num, .ledger th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .ledger .src {
+    font-size:11px; color:var(--ink-2); border:1px solid var(--line-2);
+    border-radius:999px; padding:2px 9px; white-space:nowrap;
+  }
+  .ledger button {
+    background:none; border:none; color:var(--ink-3); padding:0 2px; font-size:15px;
+  }
+  .ledger button:hover { color:var(--down); filter:none; }
+
   /* ── Keys ──────────────────────────────────────────────────────────────
      Two stores per secret and no way to read either back, so the row is
      mostly status: who needs it, and where it currently exists.          */
@@ -1909,6 +2116,46 @@ PAGE = """<!doctype html>
   </section>
 
   <section>
+    <h2>Revenue <small>what it earned, against what it reached</small></h2>
+    <div id="rev-top"></div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card pad">
+        <div class="chead">Revenue per 1,000 views
+          <small>each point pairs money with the same 30 days of reach</small></div>
+        <div id="rev-rpm"></div>
+      </div>
+      <div class="card pad">
+        <div class="chead">Revenue over time <small>payouts spread across the days they cover</small></div>
+        <div id="rev-daily"></div>
+      </div>
+    </div>
+    <div class="card pad" style="margin-top:16px">
+      <div class="chead">Record a payment</div>
+      <div class="frow" style="margin-top:12px">
+        <label>From<input type="date" id="r-start"></label>
+        <label>To<input type="date" id="r-end"></label>
+        <label>Amount<input type="number" id="r-amount" min="0" step="0.01"
+          placeholder="0.00"></label>
+        <label>Source<input type="text" id="r-source" list="r-sources"
+          placeholder="brand deal" autocomplete="off"></label>
+        <label>Note<input type="text" id="r-note" placeholder="optional"
+          autocomplete="off"></label>
+      </div>
+      <datalist id="r-sources">
+        <option value="brand deal"><option value="affiliate">
+        <option value="creator fund"><option value="app revenue">
+      </datalist>
+      <div class="row">
+        <button id="r-add">Add</button>
+        <span class="hint" style="margin:0">A single date? Put the same day in
+          both boxes.</span>
+      </div>
+      <div id="rev-msgs"></div>
+      <div id="rev-list"></div>
+    </div>
+  </section>
+
+  <section>
     <h2>Keys <small>paste once — stored on this laptop and on GitHub</small></h2>
     <div id="secrets"></div>
   </section>
@@ -2092,6 +2339,112 @@ function render(s){
   const bm = $("#bank-msgs"); bm.innerHTML = "";
   s.descriptions.errors.forEach(e => msg(bm,"bad",e));
   s.descriptions.notes.slice(0,5).forEach(n => msg(bm,"warn",n));
+}
+
+/* ── Revenue ──────────────────────────────────────────────────────────────
+   Every ratio here pairs money with the reach from the SAME window, which
+   the server does — the client only draws what it is handed.            */
+let REV = null;
+
+function money(v, cur){
+  const c = cur === "USD" ? "$" : "";
+  const n = Math.abs(v) >= 1000 ? v.toLocaleString(undefined,{maximumFractionDigits:0})
+                                : v.toFixed(2);
+  return c + n + (c ? "" : " " + (cur||""));
+}
+
+async function loadRevenue(){
+  REV = await (await fetch("/api/revenue")).json();
+  renderRevenue();
+}
+
+function renderRevenue(){
+  const r = REV; if (!r) return;
+  const cur = r.currency;
+  const latest = r.rpm_series.length ? r.rpm_series[r.rpm_series.length-1][1] : null;
+  const o = r.overall;
+
+  $("#rev-top").innerHTML = `<div class="card"><div class="hero">
+    <div class="stat lead"><div class="v num">${money(r.total, cur)}</div>
+      <div class="k">${r.campaign} · all time</div></div>
+    <div class="stat"><div class="v num">${
+      latest === null ? "—" : money(latest, cur)}</div>
+      <div class="k">per 1,000 views</div></div>
+    <div class="stat"><div class="v num">${money(o.revenue, cur)}</div>
+      <div class="k">every campaign</div></div>
+    <div class="stat"><div class="v num">${
+      o.rpm === null ? "—" : money(o.rpm, cur)}</div>
+      <div class="k">blended per 1,000</div></div>
+  </div>${
+    o.campaigns.length > 1 ? `<div class="foot">` + o.campaigns.map(c =>
+      `${c.campaign} ${money(c.revenue, cur)}${
+        c.rpm !== null && c.rpm !== undefined ? ` · ${money(c.rpm, cur)}/1k` : ""}`
+    ).join(" &nbsp;·&nbsp; ") + `</div>` : ""
+  }</div>`;
+
+  const notes = [];
+  if (r.mixed_currencies.length)
+    notes.push(["warn", `This ledger mixes ${cur} with ${
+      r.mixed_currencies.join(", ")}. The totals above add them as if they were
+      the same currency — they are not.`]);
+  r.warnings.forEach(w => notes.push(["bad", w]));
+  if (!r.entries.length)
+    notes.push(["ok", `No revenue recorded yet. Add a payment below and the
+      ratios fill in against the views already cached.`]);
+  const nm = $("#rev-msgs"); nm.innerHTML = "";
+  notes.forEach(([c,t]) => msg(nm, c, t));
+
+  if (r.rpm_series.length)
+    lineChart($("#rev-rpm"), {[cur + " / 1k views"]: r.rpm_series}, {h:200});
+  else
+    $("#rev-rpm").innerHTML = `<div class="hint">Needs both a recorded payment
+      and a cached metrics snapshot. Metrics land daily at 06:30 UTC.</div>`;
+
+  barsV($("#rev-daily"), r.daily.slice(-60).map(([d,v],i,a) => ({
+    value: v, tick: (i === 0 || i === a.length-1) ? d.slice(5) : "",
+    label: `${d} · ${money(v, cur)}`,
+  })), {h:200});
+
+  $("#rev-list").innerHTML = !r.entries.length ? "" :
+    `<table class="ledger"><thead><tr>
+      <th>Period</th><th>Source</th><th class="num">Amount</th>
+      <th class="num">Per day</th><th></th></tr></thead><tbody>` +
+    r.entries.map(e => `<tr>
+      <td>${e.period_start}${e.period_end !== e.period_start
+             ? ` → ${e.period_end}` : ""}
+          <span class="sec-for">${e.days}d</span></td>
+      <td><span class="src">${e.source}</span>${
+        e.note ? ` <span class="sec-for">${e.note}</span>` : ""}</td>
+      <td class="num">${money(e.amount, e.currency)}</td>
+      <td class="num sec-for">${money(e.amount / e.days, e.currency)}</td>
+      <td class="num"><button title="Remove" aria-label="Remove entry"
+        onclick="dropRevenue('${e.id}')">×</button></td>
+    </tr>`).join("") + `</tbody></table>`;
+}
+
+$("#r-add").onclick = async (e) => {
+  const nm = $("#rev-msgs");
+  const body = {
+    period_start: $("#r-start").value,
+    period_end: $("#r-end").value || $("#r-start").value,
+    amount: $("#r-amount").value,
+    source: $("#r-source").value.trim() || "manual",
+    note: $("#r-note").value.trim(),
+  };
+  if (!body.period_start){ nm.innerHTML=""; msg(nm,"bad","Pick a start date."); return; }
+  e.target.disabled = true;
+  const r = await (await fetch("/api/revenue", {method:"POST",
+    body: JSON.stringify(body)})).json();
+  e.target.disabled = false;
+  if (!r.ok){ nm.innerHTML=""; msg(nm,"bad",r.error); return; }
+  $("#r-amount").value = ""; $("#r-note").value = "";
+  await loadRevenue(); loadPending();
+};
+
+async function dropRevenue(id){
+  if (!confirm("Remove this revenue entry?")) return;
+  await fetch(`/api/revenue?id=${encodeURIComponent(id)}`, {method:"DELETE"});
+  await loadRevenue(); loadPending();
 }
 
 /* ── Keys ─────────────────────────────────────────────────────────────────
@@ -2457,7 +2810,7 @@ async function loadCampaigns(){
 
 $("#switcher").onchange = async (e) => {
   await fetch("/api/select", {method:"POST", body: JSON.stringify({slug: e.target.value})});
-  await refresh(); await loadClips(); await loadMetrics();
+  await refresh(); await loadClips(); await loadRevenue(); await loadMetrics();
 };
 
 async function loadKeys(){
@@ -2944,6 +3297,7 @@ addEventListener("resize", () => { clearTimeout(window._cr);
   window._cr = setTimeout(drawCharts, 180); });
 
 buildZones(); loadCampaigns(); refresh(); loadClips(); loadSecrets();
+loadRevenue();
 loadMetrics();
 loadPending(); loadCharts();
 setInterval(() => { refresh(); loadPending(); }, 5000);

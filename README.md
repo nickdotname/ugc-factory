@@ -405,6 +405,34 @@ want.
 
 ---
 
+## Revenue
+
+Buffer reports reach, never money, so revenue enters from outside — typed into
+the dashboard's Revenue panel, or eventually through a `RevenueFetcher`. It
+lands in `campaigns/<slug>/revenue.json` as a ledger of *periods*, because
+money does not arrive daily: a brand deal is one date, an affiliate payout a
+week, an app payment a month.
+
+Any query pro-rates an entry across the days it covers, which is what makes
+"revenue over this window" well defined. That matters because `metrics.json`
+stores **trailing aggregates, not daily increments** — views on 2026-08-19
+means the 30 days ending then. Pairing that with one week's revenue would
+understate the ratio roughly fourfold, so every ratio pulls revenue from the
+snapshot's own window.
+
+| shown | what it means |
+|---|---|
+| revenue per 1,000 views | that window's money ÷ that window's views |
+| revenue over time | payouts spread evenly across the days they cover |
+| blended per 1,000 | every campaign's money against every campaign's views |
+
+Two entries from *different* sources overlapping is normal — a brand deal
+during an affiliate week is two real payments. The same source twice over one
+day is a duplicate, and it is reported rather than merged, because every total
+is wrong until it is fixed.
+
+---
+
 ## How it runs
 
 ```
@@ -484,6 +512,8 @@ src/
   render.py         ffmpeg two-stage pipeline  ← only module using subprocess for media
   selector.py       combination picking, LRU weighting, relaxation ladder
   clips.py          the per-campaign roster: which clips the randomizer may use
+  revenue.py        dated money ledger + the ratios against reach
+  keys.py           credentials: local .env and GitHub Actions secrets
   assets.py         MediaStore ABC + GitHub Releases
   queue.py          state machine + atomic persistence
   vcs.py            git boundary — the durable claim

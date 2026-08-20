@@ -418,6 +418,65 @@ class TestClipDeletion:
         assert result["ok"] is False and "Mute the clip instead" in result["error"]
 
 
+class TestRevenuePanel:
+    """The window pairing is the part that can be silently wrong."""
+
+    def test_an_empty_ledger_reports_zero_without_failing(self, app: WebApp) -> None:
+        r = app.revenue()
+        assert r["total"] == 0 and r["entries"] == []
+
+    def test_a_recorded_payment_comes_back(self, app: WebApp) -> None:
+        result = app.add_revenue({
+            "period_start": "2026-08-01", "period_end": "2026-08-31",
+            "amount": "310", "source": "app revenue",
+        })
+        assert result["ok"]
+        r = app.revenue()
+        assert r["total"] == 310 and len(r["entries"]) == 1
+        assert r["entries"][0]["days"] == 31
+
+    def test_a_missing_end_date_means_a_single_day(self, app: WebApp) -> None:
+        app.add_revenue({"period_start": "2026-08-05", "amount": "500"})
+        assert app.revenue()["entries"][0]["days"] == 1
+
+    def test_a_zero_amount_is_refused(self, app: WebApp) -> None:
+        result = app.add_revenue({"period_start": "2026-08-01", "amount": "0"})
+        assert result["ok"] is False and "more than zero" in result["error"]
+
+    def test_a_malformed_date_is_reported_not_raised(self, app: WebApp) -> None:
+        result = app.add_revenue({"period_start": "not-a-date", "amount": "10"})
+        assert result["ok"] is False and result["error"]
+
+    def test_removing_an_unknown_entry_is_reported(self, app: WebApp) -> None:
+        assert app.remove_revenue("nope")["ok"] is False
+
+    def test_removing_takes_the_row_out(self, app: WebApp) -> None:
+        app.add_revenue({"period_start": "2026-08-01", "amount": "10"})
+        entry_id = app.revenue()["entries"][0]["id"]
+        assert app.remove_revenue(entry_id)["ok"]
+        assert app.revenue()["total"] == 0
+
+    def test_the_ledger_lands_beside_the_campaign_config(self, app: WebApp) -> None:
+        app.add_revenue({"period_start": "2026-08-01", "amount": "10"})
+        assert app.ledger_file.name == "revenue.json"
+        assert app.ledger_file.parent == app.bank_path.parent
+
+    def test_double_counting_is_surfaced(self, app: WebApp) -> None:
+        for start, end in (("2026-08-01", "2026-08-31"), ("2026-08-15", "2026-09-05")):
+            app.add_revenue({
+                "period_start": start, "period_end": end,
+                "amount": "100", "source": "app",
+            })
+        assert app.revenue()["warnings"]
+
+    def test_a_mixed_currency_ledger_says_so(self, app: WebApp) -> None:
+        app.add_revenue({"period_start": "2026-08-01", "amount": "10"})
+        app.add_revenue({
+            "period_start": "2026-08-02", "amount": "10", "currency": "eur",
+        })
+        assert app.revenue()["mixed_currencies"] == ["USD"]
+
+
 class TestSecretsPanel:
     """Pasting a credential must reach both stores, and leak from neither."""
 
