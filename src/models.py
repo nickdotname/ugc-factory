@@ -113,6 +113,11 @@ class QueueStatus(str, Enum):
     ``pending -> claimed -> pushed``, with ``-> failed`` from any state and
     ``failed -> pending`` on retry while ``attempts < 3``.
 
+    ``cancelled`` is the operator's own verdict, reachable from any state a
+    human can act on. It is deliberately not ``failed``: nothing went wrong,
+    somebody decided this video should not go out, and conflating the two would
+    put a deliberate choice into the failure alerts.
+
     ``claimed`` exists solely to make a crash mid-push detectable: the top-up
     job writes and commits ``claimed`` *before* calling the publisher, so a job
     that dies between the two leaves evidence rather than an ambiguous
@@ -123,6 +128,7 @@ class QueueStatus(str, Enum):
     CLAIMED = "claimed"
     PUSHED = "pushed"
     FAILED = "failed"
+    CANCELLED = "cancelled"
 
 
 class QueueItem(Model):
@@ -148,7 +154,7 @@ class QueueItem(Model):
     @property
     def is_terminal(self) -> bool:
         """True when no further action will be taken on this item."""
-        return self.status is QueueStatus.PUSHED or (
+        return self.status in (QueueStatus.PUSHED, QueueStatus.CANCELLED) or (
             self.status is QueueStatus.FAILED and self.attempts >= self.MAX_ATTEMPTS
         )
 

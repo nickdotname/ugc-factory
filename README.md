@@ -405,6 +405,45 @@ want.
 
 ---
 
+## Reviewing what goes out
+
+The render-to-push gap is the human review window, and the dashboard's **Queue**
+panel is where you use it. Every scheduled item shows its slot time, caption,
+the clips it was built from, and the actual rendered video — played straight
+from its public Release URL, so what you preview is byte-for-byte what Buffer
+fetches.
+
+**Pull** withdraws one item. What that means depends on where it is:
+
+| state | what pulling does |
+|---|---|
+| `pending` | records the decision; the top-up job skips it. No API call. |
+| `pushed` | asks Buffer to delete the post, *then* records it. |
+| `claimed` | refused — it may be mid-push right now. Reconcile first. |
+
+Cancelling is deliberately not `failed`: nothing went wrong, somebody decided.
+Conflating them would put a normal editorial choice into the failure alerts.
+
+A `pushed` item can only be withdrawn while Buffer is still holding it. Once the
+network has published, Buffer's `deletePost` no longer helps and the panel says
+so rather than reporting a success it did not achieve. For the same reason a
+pushed item is never marked cancelled when the key is missing — a queue file
+claiming "stopped" while the post goes out anyway is worse than a refusal.
+
+### The request allowance
+
+Buffer's free plan allows 3,000 requests per 30 days, and that allowance belongs
+to the **Buffer account**, not to a campaign — three campaigns on one key spend
+one pot. The strip above the queue shows the rolling total across every campaign
+sharing the key.
+
+Each campaign writes only its own `quota.json` and the total is summed when
+read. A single shared counter would race: campaign workflows have separate
+concurrency groups, so two can run at once and a read-modify-write from both
+loses one.
+
+---
+
 ## Revenue
 
 Buffer reports reach, never money, so revenue enters from outside — typed into
@@ -513,6 +552,7 @@ src/
   selector.py       combination picking, LRU weighting, relaxation ladder
   clips.py          the per-campaign roster: which clips the randomizer may use
   revenue.py        dated money ledger + the ratios against reach
+  quota.py          rolling Buffer request tally, summed per API key
   keys.py           credentials: local .env and GitHub Actions secrets
   assets.py         MediaStore ABC + GitHub Releases
   queue.py          state machine + atomic persistence

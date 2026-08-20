@@ -14,6 +14,7 @@ from src.models import History, HistoryEntry, Queue, QueueItem, QueueStatus
 from src.queue import (
     IllegalTransition,
     append_history,
+    cancel,
     claimable,
     depth_needed,
     load_history,
@@ -66,11 +67,44 @@ class TestTransitions:
         with pytest.raises(IllegalTransition, match="pending -> pushed"):
             transition(item(), QueueStatus.PUSHED, log=log)
 
-    def test_pushed_is_terminal(self, log: StructuredLogger) -> None:
+    def test_pushed_never_re_enters_the_pipeline(self, log: StructuredLogger) -> None:
+        """A published item must never be pushed a second time.
+
+        ``cancelled`` is the one exception and is tested separately: it takes
+        the item *out*, it does not put it back in.
+        """
+        for target in (QueueStatus.PENDING, QueueStatus.CLAIMED,
+                       QueueStatus.PUSHED, QueueStatus.FAILED):
+            with pytest.raises(IllegalTransition):
+                transition(item(status=QueueStatus.PUSHED), target, log=log)
+
+    def test_a_pushed_item_can_still_be_withdrawn(self, log: StructuredLogger) -> None:
+        # Buffer holds the post until its slot comes up, so there is a real
+        # window in which a human can still stop it.
         i = item(status=QueueStatus.PUSHED)
+        assert cancel(i, log=log).status is QueueStatus.CANCELLED
+
+    def test_a_pending_item_can_be_withdrawn(self, log: StructuredLogger) -> None:
+        assert cancel(item(), log=log).status is QueueStatus.CANCELLED
+
+    def test_a_claimed_item_cannot_be_withdrawn(self, log: StructuredLogger) -> None:
+        """It may be mid-push right now — cancelling is a race with a publish."""
+        with pytest.raises(IllegalTransition, match="reconciled"):
+            cancel(item(status=QueueStatus.CLAIMED), log=log)
+
+    def test_cancelled_is_terminal(self, log: StructuredLogger) -> None:
         for target in QueueStatus:
             with pytest.raises(IllegalTransition):
-                transition(i, target, log=log)
+                transition(item(status=QueueStatus.CANCELLED), target, log=log)
+
+    def test_a_cancelled_item_is_never_claimed_again(self, log: StructuredLogger) -> None:
+        q = Queue(generated_at=NOW, items=[
+            item(status=QueueStatus.CANCELLED), item(status=QueueStatus.PENDING),
+        ])
+        assert [i.status for i in claimable(q)] == [QueueStatus.PENDING]
+
+    def test_cancelled_counts_as_finished(self) -> None:
+        assert item(status=QueueStatus.CANCELLED).is_terminal
 
     def test_illegal_transition_is_a_validation_error(self, log: StructuredLogger) -> None:
         """Callers catching ValidationError must catch this too."""

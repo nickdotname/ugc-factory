@@ -477,6 +477,129 @@ class TestRevenuePanel:
         assert app.revenue()["mixed_currencies"] == ["USD"]
 
 
+class TestQueuePanel:
+    """Pulling a post. The dangerous half is the one that talks to Buffer."""
+
+    @pytest.fixture
+    def queued(self, app: WebApp, monkeypatch: pytest.MonkeyPatch):
+        """A queue on disk plus a Buffer stand-in that records deletions."""
+        from src.models import Queue, QueueItem, QueueStatus
+        from src.queue import save_queue
+
+        items = [
+            QueueItem(
+                id="pend-1", scheduled_for=NOW, video_url="https://x/1.mp4",
+                caption="not sent yet", parts={"hook": "hook_01.mov"},
+                status=QueueStatus.PENDING,
+            ),
+            QueueItem(
+                id="sent-1", scheduled_for=NOW, video_url="https://x/2.mp4",
+                caption="already in buffer", parts={"hook": "hook_02.mov"},
+                status=QueueStatus.PUSHED, buffer_post_id="bp-99",
+            ),
+            QueueItem(
+                id="mid-1", scheduled_for=NOW, video_url="https://x/3.mp4",
+                caption="mid push", parts={"hook": "hook_03.mov"},
+                status=QueueStatus.CLAIMED,
+            ),
+        ]
+        save_queue(app.bank_path.parent / "queue.json",
+                   Queue(generated_at=NOW, items=items))
+
+        deleted: list[str] = []
+
+        class FakePublisher:
+            def __init__(self, key, log, organization_id=None):
+                pass
+
+            def delete_post(self, post_id: str) -> None:
+                deleted.append(post_id)
+
+        monkeypatch.setattr("src.publishers.buffer.BufferPublisher", FakePublisher)
+        monkeypatch.setattr(app, "buffer_key", lambda slot=None: "a-key")
+        self.deleted = deleted
+        return app
+
+    def test_the_queue_lists_every_item_with_its_state(self, queued: WebApp) -> None:
+        q = queued.queue()
+        assert len(q["items"]) == 3
+        assert q["counts"] == {"pending": 1, "pushed": 1, "claimed": 1}
+
+    def test_a_claimed_item_is_not_offered_a_pull_button(
+        self, queued: WebApp
+    ) -> None:
+        # It may be mid-push; the UI must not offer what the model refuses.
+        states = {i["id"]: i["cancellable"] for i in queued.queue()["items"]}
+        assert states == {"pend-1": True, "sent-1": True, "mid-1": False}
+
+    def test_pulling_an_unsent_item_never_calls_buffer(
+        self, queued: WebApp
+    ) -> None:
+        result = queued.pull_item("pend-1")
+        assert result["ok"] and result["from_buffer"] is False
+        assert self.deleted == []
+
+    def test_a_pulled_item_stops_being_claimable(self, queued: WebApp) -> None:
+        from src.queue import claimable, load_queue
+
+        queued.pull_item("pend-1")
+        queue = load_queue(queued.bank_path.parent / "queue.json")
+        assert [i.id for i in claimable(queue)] == []
+
+    def test_pulling_a_sent_item_tells_buffer(self, queued: WebApp) -> None:
+        result = queued.pull_item("sent-1")
+        assert result["ok"] and result["from_buffer"] is True
+        assert self.deleted == ["bp-99"]
+
+    def test_a_claimed_item_is_refused(self, queued: WebApp) -> None:
+        result = queued.pull_item("mid-1")
+        assert result["ok"] is False and "reconciled" in result["error"]
+
+    def test_an_unknown_id_is_reported(self, queued: WebApp) -> None:
+        assert queued.pull_item("nope")["ok"] is False
+
+    def test_a_buffer_refusal_still_records_the_cancellation_and_warns(
+        self, queued: WebApp, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Most often this means the network already published it."""
+        from src.errors import PublishError
+        from src.models import QueueStatus
+        from src.queue import load_queue
+
+        class Exploding:
+            def __init__(self, *a, **k): pass
+            def delete_post(self, post_id: str) -> None:
+                raise PublishError("post not found")
+
+        monkeypatch.setattr("src.publishers.buffer.BufferPublisher", Exploding)
+        result = queued.pull_item("sent-1")
+        assert result["ok"] and "already published" in result["warning"]
+        queue = load_queue(queued.bank_path.parent / "queue.json")
+        item = next(i for i in queue.items if i.id == "sent-1")
+        assert item.status is QueueStatus.CANCELLED
+
+    def test_without_a_key_a_sent_item_is_not_silently_cancelled(
+        self, queued: WebApp, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Marking it cancelled locally would not stop Buffer publishing it.
+
+        Recording a cancellation we could not enact is the one outcome worse
+        than refusing: the queue would say stopped while the post went out.
+        """
+        from src.models import QueueStatus
+        from src.queue import load_queue
+
+        monkeypatch.setattr(queued, "buffer_key", lambda slot=None: None)
+        result = queued.pull_item("sent-1")
+        assert result["ok"] is False and "Keys panel" in result["error"]
+        queue = load_queue(queued.bank_path.parent / "queue.json")
+        item = next(i for i in queue.items if i.id == "sent-1")
+        assert item.status is QueueStatus.PUSHED
+
+    def test_no_queue_file_is_an_empty_panel_not_an_error(self, app: WebApp) -> None:
+        assert app.queue()["items"] == []
+
+
 class TestSecretsPanel:
     """Pasting a credential must reach both stores, and leak from neither."""
 

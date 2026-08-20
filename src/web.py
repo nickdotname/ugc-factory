@@ -355,6 +355,174 @@ class WebApp:
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
 
+    # ------------------------------------------------------------------ queue
+
+    def queue(self) -> dict[str, Any]:
+        """What is scheduled, newest slot last, with everything needed to judge it.
+
+        The video URL is a public Release asset — the same one Buffer fetches —
+        so the panel plays exactly the file that will be published, with no
+        extra hosting and no proxying through this server.
+        """
+        from src.queue import CANCELLABLE, load_queue
+
+        path = self.bank_path.parent / "queue.json"
+        if not path.is_file():
+            return {"campaign": self.config.slug, "items": [], "counts": {}}
+
+        try:
+            queue = load_queue(path)
+        except UgcError as exc:
+            return {"campaign": self.config.slug, "items": [], "counts": {},
+                    "error": str(exc)}
+
+        now = self.clock.now()
+        counts: dict[str, int] = {}
+        items = []
+        for item in sorted(queue.items, key=lambda i: i.scheduled_for):
+            counts[item.status.value] = counts.get(item.status.value, 0) + 1
+            items.append({
+                "id": item.id,
+                "scheduled_for": item.scheduled_for.astimezone(
+                    self.config.zone
+                ).isoformat(),
+                "past_due": item.scheduled_for <= now,
+                "status": item.status.value,
+                "caption": item.caption,
+                "title": item.title,
+                "parts": item.parts,
+                "video_url": item.video_url,
+                "buffer_post_id": item.buffer_post_id,
+                "last_error": item.last_error,
+                "attempts": item.attempts,
+                # Whether the button should be live, decided by the same
+                # frozenset the state machine enforces — so the UI cannot offer
+                # an action the model will refuse.
+                "cancellable": item.status in CANCELLABLE,
+            })
+        return {
+            "campaign": self.config.slug,
+            "timezone": self.config.timezone,
+            "generated_at": queue.generated_at.isoformat(),
+            "items": items,
+            "counts": counts,
+        }
+
+    def quota(self) -> dict[str, Any]:
+        """Buffer requests spent over the rolling window, for the shared key.
+
+        Summed across every campaign on the same key, because that is the unit
+        the allowance is granted in.
+        """
+        from src.quota import (
+            MONTHLY_ALLOWANCE,
+            WINDOW_DAYS,
+            load_quota,
+            quota_path,
+            rolling_total,
+        )
+
+        slot = self.config.buffer.api_key_secret
+        sharing: list[str] = []
+        ledgers = []
+        for summary in list_campaigns(self.campaigns_dir):
+            if not summary.valid:
+                continue
+            try:
+                other = load_campaign(self.campaigns_dir, summary.slug)
+            except UgcError:
+                continue
+            if other.buffer.api_key_secret != slot:
+                continue
+            sharing.append(other.slug)
+            ledgers.append(load_quota(quota_path(self.campaigns_dir / other.slug)))
+
+        today = self.clock.now().astimezone(self.config.zone).date()
+        used = rolling_total(ledgers, today)
+        recorded = any(l.days for l in ledgers)
+        return {
+            "slot": slot,
+            "used": used,
+            "allowance": MONTHLY_ALLOWANCE,
+            "window_days": WINDOW_DAYS,
+            "campaigns": sorted(sharing),
+            # Nothing has been counted until a posting job has run since this
+            # started tracking; showing 0/3000 then would read as "barely used"
+            # when it means "not yet measured".
+            "measured": recorded,
+        }
+
+    def pull_item(self, item_id: str) -> dict[str, Any]:
+        """Stop one video going out, and tell Buffer too if it already has it.
+
+        Two genuinely different situations behind one button:
+
+        * not yet pushed — nothing exists remotely, so recording the decision is
+          the whole job and the top-up run simply skips it;
+        * already pushed — Buffer is holding it, and it has to be told, because
+          a queue file saying "cancelled" does not stop Buffer publishing.
+
+        Once a network has actually published, nothing here can help; that is
+        reported plainly rather than dressed up as success.
+        """
+        from src.queue import cancel, load_queue, save_queue
+
+        path = self.bank_path.parent / "queue.json"
+        try:
+            queue = load_queue(path)
+        except UgcError as exc:
+            return {"ok": False, "error": str(exc)}
+
+        item = next((i for i in queue.items if i.id == item_id), None)
+        if item is None:
+            return {"ok": False, "error": "no such queued item"}
+
+        removed_remotely = False
+        warning = ""
+        if item.buffer_post_id:
+            key = self.buffer_key()
+            if not key:
+                return {
+                    "ok": False,
+                    "error": f"This post is already in Buffer, and removing it "
+                             f"needs the {self.config.buffer.api_key_secret} key. "
+                             f"Paste it in the Keys panel first — cancelling "
+                             f"here alone would not stop Buffer publishing it.",
+                }
+            from src.publishers.buffer import BufferPublisher
+
+            publisher = BufferPublisher(
+                key, self.log,
+                organization_id=self.config.buffer.organization_id,
+            )
+            try:
+                publisher.delete_post(item.buffer_post_id)
+                removed_remotely = True
+            except UgcError as exc:
+                # Most often: the network already published it, so Buffer no
+                # longer has a post to delete. Recording the cancellation is
+                # still right — it stops any retry — but the operator must know
+                # the video is live.
+                warning = (
+                    f"Buffer would not remove it: {exc}. If it has already "
+                    f"published, take it down on the network itself."
+                )
+
+        try:
+            cancel(item, log=self.log)
+        except UgcError as exc:
+            return {"ok": False, "error": str(exc)}
+        save_queue(path, queue)
+
+        self.log.info(
+            "queue_item_pulled", item_id=item_id, campaign=self.config.slug,
+            from_buffer=removed_remotely,
+        )
+        return {
+            "ok": True, "id": item_id, "from_buffer": removed_remotely,
+            "warning": warning,
+        }
+
     # ---------------------------------------------------------------- revenue
 
     @property
@@ -1423,6 +1591,10 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                     refresh="refresh" in query,
                     slot=slots[0] if slots else None,
                 ))
+            elif route == "/api/queue":
+                self._json(app.queue())
+            elif route == "/api/quota":
+                self._json(app.quota())
             elif route == "/api/revenue":
                 self._json(app.revenue())
             elif route == "/api/secrets":
@@ -1473,6 +1645,10 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 elif route == "/api/publish":
                     payload = json.loads(self._body() or b"{}")
                     self._json(app.publish(str(payload.get("message", ""))))
+
+                elif route == "/api/queue/pull":
+                    payload = json.loads(self._body() or b"{}")
+                    self._json(app.pull_item(str(payload.get("id", ""))))
 
                 elif route == "/api/revenue":
                     self._json(app.add_revenue(json.loads(self._body() or b"{}")))
@@ -1867,6 +2043,63 @@ PAGE = """<!doctype html>
   .shared b { color:var(--ink); font-weight:600; }
   .shared .pill { font-family:"IBM Plex Mono", monospace; font-size:10.5px; }
 
+  /* ── Queue ─────────────────────────────────────────────────────────────
+     Scanned, not read: the slot time leads, state is a colour as well as a
+     word, and the video is right there so "is this any good" is answerable
+     without leaving the row.                                            */
+  .qrow {
+    display:grid; grid-template-columns:74px 62px 1fr auto;
+    gap:14px; align-items:start;
+    padding:13px 18px; border-bottom:1px solid var(--line);
+  }
+  .qrow:last-child { border-bottom:none; }
+  .qrow.done { opacity:.5; }
+  @media (max-width:720px){
+    .qrow { grid-template-columns:62px 1fr; }
+    .qrow .qvid { display:none; }
+  }
+  .qtime {
+    font-family:"IBM Plex Mono", monospace; font-size:12.5px; font-weight:500;
+    font-variant-numeric:tabular-nums; padding-top:2px;
+  }
+  .qtime .d { display:block; font-size:10.5px; color:var(--ink-3); margin-top:2px; }
+  .qvid {
+    width:62px; aspect-ratio:9/16; border-radius:5px; overflow:hidden;
+    background:var(--panel-2); cursor:pointer; border:1px solid var(--line);
+  }
+  .qvid video { width:100%; height:100%; object-fit:cover; display:block; }
+  .qcap { font-size:12.5px; line-height:1.5; }
+  .qcap .parts {
+    font-family:"IBM Plex Mono", monospace; font-size:10.5px; color:var(--ink-3);
+    margin-top:5px; display:block;
+  }
+  .qstate {
+    font-size:10px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
+    padding:3px 8px; border-radius:3px; white-space:nowrap;
+  }
+  .qstate.pending   { background:color-mix(in srgb,var(--accent) 15%,transparent); color:var(--accent); }
+  .qstate.pushed    { background:color-mix(in srgb,var(--up) 15%,transparent); color:var(--up); }
+  .qstate.claimed   { background:color-mix(in srgb,var(--warn) 15%,transparent); color:var(--warn); }
+  .qstate.failed    { background:color-mix(in srgb,var(--down) 15%,transparent); color:var(--down); }
+  .qstate.cancelled { background:var(--panel-2); color:var(--ink-3); }
+  .qact { display:flex; align-items:center; gap:9px; }
+
+  /* Buffer's allowance, spent. A bar because "2,790 of 3,000" only lands
+     once you can see how little is left. */
+  .quota { display:flex; align-items:center; gap:14px; padding:14px 18px; }
+  .quota .qfig {
+    font-size:15px; font-weight:600; font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+  }
+  .quota .qbar {
+    flex:1; height:8px; border-radius:99px; background:var(--panel-2);
+    overflow:hidden; min-width:90px;
+  }
+  .quota .qbar i { display:block; height:100%; background:var(--up); }
+  .quota.warn .qbar i { background:var(--warn); }
+  .quota.over .qbar i { background:var(--down); }
+  .quota .qsub { font-size:11.5px; color:var(--ink-3); white-space:nowrap; }
+
   /* ── Revenue ───────────────────────────────────────────────────────── */
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   @media (max-width:900px){ .grid2 { grid-template-columns:1fr; } }
@@ -2100,6 +2333,12 @@ PAGE = """<!doctype html>
   <section>
     <h2>By platform <small id="perf-note"></small></h2>
     <div id="perf"></div>
+  </section>
+
+  <section>
+    <h2>Queue <small>what goes out next — pull anything before it publishes</small></h2>
+    <div id="quota"></div>
+    <div id="queue"></div>
   </section>
 
   <section>
@@ -2339,6 +2578,133 @@ function render(s){
   const bm = $("#bank-msgs"); bm.innerHTML = "";
   s.descriptions.errors.forEach(e => msg(bm,"bad",e));
   s.descriptions.notes.slice(0,5).forEach(n => msg(bm,"warn",n));
+}
+
+/* ── Queue ────────────────────────────────────────────────────────────────
+   The video in each row is the exact file Buffer will fetch, straight from
+   its public Release URL — so what you preview is what publishes.       */
+let QUEUE = null;
+
+function slotTime(iso){
+  const d = new Date(iso);
+  return {
+    t: d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"}),
+    d: d.toLocaleDateString([], {month:"short", day:"numeric"}),
+  };
+}
+
+async function loadQuota(){
+  const q = await (await fetch("/api/quota")).json();
+  const el = $("#quota");
+  const pct = Math.min(100, Math.round(q.used / q.allowance * 100));
+  const cls = pct >= 90 ? "over" : pct >= 75 ? "warn" : "";
+  el.innerHTML = `<div class="card" style="margin-bottom:14px">
+    <div class="quota ${cls}">
+      <span class="qfig">${q.used.toLocaleString()} <span class="qsub">of ${
+        q.allowance.toLocaleString()}</span></span>
+      <span class="qbar"><i style="width:${pct}%"></i></span>
+      <span class="qsub">${q.measured
+        ? `Buffer requests · last ${q.window_days} days · ${
+            q.campaigns.join(", ")}`
+        : `not measured yet — counting starts at the next posting run`}</span>
+    </div>
+  </div>`;
+}
+
+async function loadQueue(){
+  QUEUE = await (await fetch("/api/queue")).json();
+  renderQueue();
+}
+
+function renderQueue(){
+  const q = QUEUE, el = $("#queue");
+  if (!q) return;
+  if (q.error){
+    el.innerHTML = `<div class="card pad"><div class="msg bad" style="margin:0">
+      ${q.error}</div></div>`;
+    return;
+  }
+  if (!q.items.length){
+    el.innerHTML = `<div class="card pad"><span class="empty">Nothing queued.
+      The nightly render fills this at 05:00 UTC.</span></div>`;
+    return;
+  }
+
+  const live = q.items.filter(i => i.status === "pending" || i.status === "claimed");
+  const order = {claimed:0, pending:1, failed:2, pushed:3, cancelled:4};
+  const counts = Object.entries(q.counts)
+    .sort((a,b) => (order[a[0]] ?? 9) - (order[b[0]] ?? 9))
+    .map(([k,n]) => `${n} ${k}`).join(" · ");
+
+  el.innerHTML = `<div class="card">
+    <div class="plat-head">
+      <span class="plat-name">${live.length} still to go</span>
+      <span class="plat-sub">${counts}</span>
+      <span class="spacer"></span>
+      <span class="plat-sub">times in ${q.timezone}</span>
+    </div>
+    ${q.items.map(i => {
+      const s = slotTime(i.scheduled_for);
+      const done = i.status === "pushed" || i.status === "cancelled";
+      // Only the media, in composition order. parts also carries the music
+      // offset, which is a number of seconds and not a clip.
+      const parts = ["hook", "bodies", "music"]
+        .map(k => (i.parts || {})[k]).filter(Boolean).join(" + ");
+      return `<div class="qrow ${done ? "done" : ""}" data-id="${i.id}">
+        <div class="qtime">${s.t}<span class="d">${s.d}</span></div>
+        <div class="qvid" onclick="peek(this)" tabindex="0" role="button"
+             aria-label="Play the video scheduled for ${s.d} ${s.t}"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();peek(this)}">
+          <video preload="none" muted playsinline
+                 poster="" src="${i.video_url}#t=0.1"></video>
+        </div>
+        <div class="qcap">
+          ${i.title ? `<b>${esc(i.title)}</b><br>` : ""}
+          ${esc((i.caption || "").replace(/\s+/g, " ").slice(0, 160))}${
+            (i.caption || "").length > 160 ? "…" : ""}
+          <span class="parts">${esc(parts)}</span>
+          ${i.last_error
+            ? `<span class="parts dead">${esc(i.last_error.slice(0,140))}</span>`
+            : ""}
+        </div>
+        <div class="qact">
+          <span class="qstate ${i.status}">${i.status}</span>
+          ${i.cancellable
+            ? `<button class="ghost sm" onclick="pullItem('${i.id}')">Pull</button>`
+            : ""}
+        </div>
+      </div>`;
+    }).join("")}
+  </div>
+  <div id="queue-msgs"></div>`;
+}
+
+async function pullItem(id){
+  const row = document.querySelector(`.qrow[data-id="${id}"]`);
+  const item = QUEUE.items.find(i => i.id === id);
+  const sent = item && item.buffer_post_id;
+  if (!confirm(sent
+      ? `This one is already in Buffer.\n\nPulling it asks Buffer to delete the ` +
+        `post. That works while Buffer is still holding it — if the network has ` +
+        `already published, you will have to take it down there yourself.\n\nPull it?`
+      : `Stop this video going out?\n\nIt has not been sent to Buffer yet, so ` +
+        `nothing is published. The top-up job will skip it from now on.`)) return;
+
+  const btn = row && row.querySelector("button");
+  if (btn){ btn.disabled = true; btn.textContent = "Pulling…"; }
+  const r = await (await fetch("/api/queue/pull", {method:"POST",
+    body: JSON.stringify({id})})).json();
+  await loadQueue();
+
+  const out = $("#queue-msgs");
+  if (out){
+    if (!r.ok) msg(out, "bad", r.error);
+    else if (r.warning) msg(out, "warn", r.warning);
+    else msg(out, "ok", r.from_buffer
+      ? "Pulled, and removed from Buffer."
+      : "Pulled — it had not been sent to Buffer, so nothing was published.");
+  }
+  loadPending();
 }
 
 /* ── Revenue ──────────────────────────────────────────────────────────────
@@ -2810,7 +3176,8 @@ async function loadCampaigns(){
 
 $("#switcher").onchange = async (e) => {
   await fetch("/api/select", {method:"POST", body: JSON.stringify({slug: e.target.value})});
-  await refresh(); await loadClips(); await loadRevenue(); await loadMetrics();
+  await refresh(); await loadClips(); await loadQueue(); await loadQuota();
+  await loadRevenue(); await loadMetrics();
 };
 
 async function loadKeys(){
@@ -3296,7 +3663,8 @@ $("#c-table").onclick = e => {
 addEventListener("resize", () => { clearTimeout(window._cr);
   window._cr = setTimeout(drawCharts, 180); });
 
-buildZones(); loadCampaigns(); refresh(); loadClips(); loadSecrets();
+buildZones(); loadCampaigns(); refresh(); loadClips(); loadQueue(); loadQuota();
+loadSecrets();
 loadRevenue();
 loadMetrics();
 loadPending(); loadCharts();

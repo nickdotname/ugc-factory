@@ -69,7 +69,17 @@ from src.metrics import (
     save_metrics,
 )
 from src.notify import Digest, Notifier, notifier_for
+from src.campaigns import list_campaigns
 from src.platforms import Service
+from src.quota import (
+    MONTHLY_ALLOWANCE,
+    WINDOW_DAYS,
+    QuotaLedger,
+    load_quota,
+    quota_path,
+    record_run,
+    rolling_total,
+)
 from src.ports import Clock, Rng, SeededRng, SystemClock
 from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
 from src.publishers.buffer import BufferPublisher
@@ -655,14 +665,49 @@ def _report_quota(
     notifier: Notifier,
     config: CampaignConfig,
     log: StructuredLogger,
+    clock: Clock | None = None,
 ) -> None:
+    """Fold this run into the rolling tally and alert on the *30-day* total.
+
+    Comparing one run against a 30-day threshold — which this used to do — made
+    the alarm unreachable: a top-up run spends tens of requests and the
+    threshold is 2,400. The tally has to persist across runs and add up every
+    campaign sharing the key, because the allowance belongs to the Buffer
+    account rather than to any one campaign.
+    """
     count = getattr(publisher, "request_count", 0)
     log.info("buffer_requests_this_run", count=count)
-    if count and count > BUFFER_QUOTA_ALERT_THRESHOLD:
+
+    today = (clock.now() if clock else SystemClock().now()).astimezone(
+        config.zone
+    ).date()
+    record_run(quota_path(_campaign_dir(config.slug)), today, count)
+
+    slot = config.buffer.api_key_secret
+    ledgers: list[QuotaLedger] = []
+    for summary in list_campaigns(CAMPAIGNS_DIR):
+        if not summary.valid:
+            continue
+        try:
+            other = load_campaign(CAMPAIGNS_DIR, summary.slug)
+        except UgcError:
+            continue
+        if other.buffer.api_key_secret != slot:
+            continue
+        ledgers.append(load_quota(quota_path(_campaign_dir(other.slug))))
+
+    used = rolling_total(ledgers, today)
+    log.info(
+        "buffer_quota_rolling", slot=slot, used=used,
+        allowance=MONTHLY_ALLOWANCE, campaigns=len(ledgers),
+    )
+    if used > BUFFER_QUOTA_ALERT_THRESHOLD:
         notifier.notify(
             NotifyEvent.QUOTA_HIGH,
-            f"⚠️ {config.slug}: Buffer request count is high ({count}). "
-            f"The free plan allows 3,000 per 30 days.",
+            f"⚠️ {slot}: {used} of {MONTHLY_ALLOWANCE} Buffer requests used in "
+            f"the last {WINDOW_DAYS} days, across {len(ledgers)} campaign(s) "
+            f"sharing that key. "
+            f"Posting stops when the allowance runs out.",
         )
 
 

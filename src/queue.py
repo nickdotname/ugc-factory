@@ -36,13 +36,26 @@ from src.models import (
 #: Legal transitions. Anything not listed here is a bug, and raising on it is
 #: what keeps a partially-understood failure from corrupting the queue further.
 ALLOWED_TRANSITIONS: dict[QueueStatus, frozenset[QueueStatus]] = {
-    QueueStatus.PENDING: frozenset({QueueStatus.CLAIMED, QueueStatus.FAILED}),
+    QueueStatus.PENDING: frozenset(
+        {QueueStatus.CLAIMED, QueueStatus.FAILED, QueueStatus.CANCELLED}
+    ),
     QueueStatus.CLAIMED: frozenset(
         {QueueStatus.PUSHED, QueueStatus.FAILED, QueueStatus.PENDING}
     ),
-    QueueStatus.PUSHED: frozenset(),  # terminal
-    QueueStatus.FAILED: frozenset({QueueStatus.PENDING}),
+    # Reachable from pushed on purpose: a post already sitting in Buffer can
+    # still be withdrawn before Buffer publishes it, and the queue has to be
+    # able to record that rather than keep claiming the post exists.
+    QueueStatus.PUSHED: frozenset({QueueStatus.CANCELLED}),
+    QueueStatus.FAILED: frozenset({QueueStatus.PENDING, QueueStatus.CANCELLED}),
+    QueueStatus.CANCELLED: frozenset(),  # terminal — a human decided
 }
+
+#: ``claimed`` is deliberately absent above. An item in that state may be
+#: mid-push right now: the top-up job commits ``claimed`` *before* calling
+#: Buffer, so cancelling one is a race against a publish already in flight.
+CANCELLABLE: frozenset[QueueStatus] = frozenset(
+    {QueueStatus.PENDING, QueueStatus.PUSHED, QueueStatus.FAILED}
+)
 
 
 class IllegalTransition(ValidationError):
@@ -106,6 +119,21 @@ def mark_pushed(
     item.buffer_post_id = post_id
     item.last_error = None
     return item
+
+
+def cancel(item: QueueItem, *, log: StructuredLogger) -> QueueItem:
+    """Withdraw an item on a human's say-so.
+
+    Does not touch the publisher — whether Buffer also has to be told is the
+    caller's problem, because only the caller knows if the push already
+    happened. This records the decision; it does not enact it remotely.
+    """
+    if item.status not in CANCELLABLE:
+        raise IllegalTransition(
+            f"item {item.id} is {item.status.value} and cannot be cancelled; "
+            f"a claimed item may be mid-push, so it must be reconciled first"
+        )
+    return transition(item, QueueStatus.CANCELLED, log=log)
 
 
 def claimable(queue: Queue) -> list[QueueItem]:
