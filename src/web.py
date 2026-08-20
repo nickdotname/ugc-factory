@@ -1469,6 +1469,13 @@ class WebApp:
             },
             "health": {
                 "combinations": total,
+                # How often a viewer sees the same body clip. This is the
+                # number that actually bounds how varied the output looks:
+                # unique tuple hashes do not make two videos built from the
+                # same body clip look different to a person.
+                "body_repeats_per_day": (
+                    round(ppd / bodies, 1) if bodies else None
+                ),
                 "music_beds": beds,
                 "runway_days": round(total / max(1, ppd), 1),
                 "min_runway_days": self.config.selection.min_runway_days,
@@ -2837,13 +2844,21 @@ function render(s){
   });
 
   const h = s.health, u = s.uploaded;
-  $("#stats").innerHTML = [
+  // The repeat rate leads because it is the one that constrains how varied
+  // the output looks. Runway is the reassuring number and the least useful:
+  // thousands of days of unique tuples says nothing about whether a viewer
+  // can tell two of them apart.
+  const cells = [
     [u.hook, "hooks"], [u.body, "bodies"], [u.music, "tracks"],
     [s.descriptions.count, "descriptions"],
     [h.combinations.toLocaleString(), "combinations"],
-    [Math.round(h.runway_days).toLocaleString(), "days runway"],
   ].map(([v,k]) => `<div class="stat"><div class="v num">${v}</div>
-       <div class="k">${k}</div></div>`).join("");
+       <div class="k">${k}</div></div>`);
+  if (h.body_repeats_per_day)
+    cells.unshift(`<div class="stat lead">
+      <div class="v num">${h.body_repeats_per_day}x</div>
+      <div class="k">each body clip, per day</div></div>`);
+  $("#stats").innerHTML = cells.join("");
 
   const hv = $("#health"); hv.innerHTML = "";
   const notes = [];
@@ -2856,11 +2871,14 @@ function render(s){
   h.warnings.forEach(w => notes.push(["warn", w]));
   if (!notes.length && h.combinations > 0)
     notes.push(["ok", "Library supports the configured cadence with no relaxation."]);
-  if (notes.length){
-    hv.innerHTML = `<div class="foot" style="padding:14px 22px">` +
-      notes.map(([c,t]) => `<div class="msg ${c}" style="margin-top:0;margin-bottom:8px">${t}</div>`).join("") +
-      `</div>`;
-  }
+  const runway = `${Math.round(h.runway_days).toLocaleString()} days before the
+    first exact repeat, at ${s.posts_per_day}/day. That is a count of unique
+    tuples, not a measure of variety.`;
+  hv.innerHTML = `<div class="foot" style="padding:14px 22px">` +
+    notes.map(([c,t]) =>
+      `<div class="msg ${c}" style="margin-top:0;margin-bottom:8px">${t}</div>`
+    ).join("") +
+    `<div style="color:var(--ink-3)">${runway}</div></div>`;
 
   if (document.activeElement !== $("#bank")) $("#bank").value = s.descriptions.text;
   $("#bank-count").textContent = s.descriptions.count + " descriptions";

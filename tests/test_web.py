@@ -478,6 +478,38 @@ class TestRevenuePanel:
         assert app.revenue()["mixed_currencies"] == ["USD"]
 
 
+class TestLibraryHeadline:
+    """The panel must lead with the number that actually constrains variety."""
+
+    def test_the_repeat_rate_is_reported(self, app: WebApp) -> None:
+        health = app.state()["health"]
+        # posts_per_day / bodies — how often a viewer sees the same clip.
+        assert "body_repeats_per_day" in health
+
+    def test_no_bodies_yields_no_rate_rather_than_a_division_error(
+        self, app: WebApp
+    ) -> None:
+        assert app.state()["health"]["body_repeats_per_day"] is None
+
+    def test_the_rate_matches_the_cadence(
+        self, tmp_path: Path, config: CampaignConfig
+    ) -> None:
+        bank = tmp_path / "b.txt"
+        bank.write_text("one\n", encoding="utf-8")
+        posting = config.posting.model_copy(update={"posts_per_day": 12})
+        app = WebApp(
+            config=config.model_copy(update={"posting": posting}),
+            repo_root=tmp_path, inbox=tmp_path / "inbox", bank_path=bank,
+            log=StructuredLogger({}, io.StringIO()), clock=FrozenClock(NOW),
+            store_factory=FakeStore,
+        )
+        archive = app.inbox / "_uploaded"
+        archive.mkdir(parents=True, exist_ok=True)
+        for i in range(4):
+            (archive / f"body_{i:02d}.mp4").write_bytes(b"x")
+        assert app.state()["health"]["body_repeats_per_day"] == 3.0
+
+
 class TestQueuePanel:
     """Pulling a post. The dangerous half is the one that talks to Buffer."""
 

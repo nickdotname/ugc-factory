@@ -334,7 +334,8 @@ each track is cut into segments) / 25 captions, at **12 posts/day**:
 Those figures come from `./ugc preflight`, which probes every track to count
 beds rather than assuming a number.
 
-The runway number is not the useful one. 1,650 days of unique tuples says
+The dashboard's Library panel leads with the repeat rate for this reason, and
+keeps runway as a quiet footnote. The runway number is not the useful one. 1,650 days of unique tuples says
 nothing about whether a viewer can tell two of them apart: with 4 body clips at
 12 posts/day, each one goes out three times a day whatever the combinatorics
 say. **Body clips are the binding constraint, and no amount of unique hashes
