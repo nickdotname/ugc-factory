@@ -405,6 +405,33 @@ want.
 
 ---
 
+## Findings
+
+The dashboard's **Findings** panel derives what can honestly be concluded from
+files already on disk — no API calls, so it costs nothing against the request
+allowance. Three properties of the data shape all of it:
+
+**Metrics are channel aggregates, not per-post.** `aggregatedPostMetrics`
+returns window totals. Nothing links a view to a video, so clip-level ranking
+cannot be derived at any sample size — the panel says so rather than omitting
+the question.
+
+**Six daily snapshots is not a trend.** Correlation over that many points is
+noise with a decimal point, so none is computed until there are meaningfully
+more.
+
+**The cross-platform comparison is unusually strong.** The three campaigns post
+*the same clips with the same captions* to three networks: content is held
+constant by design and each side aggregates ~145 posts, so differences are
+about the platform rather than the content. Everything is normalised per post
+before comparison — raw totals mostly measure how often each channel was posted
+to.
+
+A metric a network does not report is shown as `n/r`, never as zero. YouTube
+reports no reach; treating that as zero would imply nobody saw it.
+
+---
+
 ## Reviewing what goes out
 
 The render-to-push gap is the human review window, and the dashboard's **Queue**
@@ -553,6 +580,7 @@ src/
   clips.py          the per-campaign roster: which clips the randomizer may use
   revenue.py        dated money ledger + the ratios against reach
   quota.py          rolling Buffer request tally, summed per API key
+  insights.py       cross-campaign findings, and what cannot be concluded
   keys.py           credentials: local .env and GitHub Actions secrets
   assets.py         MediaStore ABC + GitHub Releases
   queue.py          state machine + atomic persistence

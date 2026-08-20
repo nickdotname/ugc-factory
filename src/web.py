@@ -355,6 +355,73 @@ class WebApp:
             "files": [str(p.relative_to(self.repo_root)) for p in created.paths],
         }
 
+    # --------------------------------------------------------------- insights
+
+    def insights(self) -> dict[str, Any]:
+        """Cross-campaign findings from data already on disk. No API calls."""
+        from src.insights import CampaignFacts, build
+        from src.queue import load_history
+
+        facts: list[CampaignFacts] = []
+        for summary in list_campaigns(self.campaigns_dir):
+            if not summary.valid:
+                continue
+            directory = self.campaigns_dir / summary.slug
+            try:
+                config = load_campaign(self.campaigns_dir, summary.slug)
+            except UgcError:
+                continue
+
+            rendered = 0
+            history_path = directory / "history.json"
+            if history_path.is_file():
+                try:
+                    rendered = len(load_history(history_path).entries)
+                except UgcError:
+                    rendered = 0
+
+            metrics_path = directory / "metrics.json"
+            if not metrics_path.is_file():
+                continue
+            try:
+                history = load_metrics(metrics_path)
+            except UgcError:
+                continue
+
+            # Lifetime is the right scope for a yield question: a 30-day
+            # rolling window would compare all-time renders against a month of
+            # posts and invent a shortfall that is really just the window.
+            lifetime = [s for s in history.snapshots if s.scope is Scope.LIFETIME]
+            rolling = [s for s in history.snapshots if s.scope is Scope.ROLLING]
+            if not lifetime:
+                continue
+            latest = lifetime[-1]
+            values = {m.type: m.value for m in latest.metrics}
+
+            facts.append(CampaignFacts(
+                slug=summary.slug,
+                service=latest.service or config.buffer.service.value,
+                rendered=rendered,
+                published=values.get("postCount", 0.0),
+                views=values.get("views", 0.0),
+                reach=values.get("reach", 0.0),
+                post_count=values.get("postCount", 0.0),
+                engagement_rate=values.get("engagementRate", 0.0),
+                reactions=values.get("reactions", 0.0),
+                comments=values.get("comments", 0.0),
+                shares=values.get("shares", 0.0),
+                saves=values.get("saves", 0.0),
+                snapshots=len(rolling),
+                # Which metrics the network reports at all. A missing metric is
+                # not a zero, and the difference changes every rate below it.
+                reported=frozenset(values),
+            ))
+
+        return {
+            "findings": [f.as_dict() for f in build(facts)],
+            "campaigns": len(facts),
+        }
+
     # ------------------------------------------------------------------ queue
 
     def queue(self) -> dict[str, Any]:
@@ -1595,6 +1662,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.queue())
             elif route == "/api/quota":
                 self._json(app.quota())
+            elif route == "/api/insights":
+                self._json(app.insights())
             elif route == "/api/revenue":
                 self._json(app.revenue())
             elif route == "/api/secrets":
@@ -2043,6 +2112,38 @@ PAGE = """<!doctype html>
   .shared b { color:var(--ink); font-weight:600; }
   .shared .pill { font-family:"IBM Plex Mono", monospace; font-size:10.5px; }
 
+  /* ── Findings ──────────────────────────────────────────────────────────
+     Severity is carried by a stripe as well as by words, so the one that
+     matters is visible before anything is read.                          */
+  .find { border-left:3px solid var(--line-2); }
+  .find + .find { margin-top:14px; }
+  .find.critical { border-left-color:var(--down); }
+  .find.warn     { border-left-color:var(--warn); }
+  .find.info     { border-left-color:var(--accent); }
+  .find .fhead { padding:16px 20px 0; }
+  .find h3 {
+    margin:0 0 7px; font-size:16px; font-weight:650; letter-spacing:-.015em;
+    line-height:1.3;
+  }
+  .find.critical h3 { color:var(--down); }
+  .find .fdetail { font-size:13px; line-height:1.6; color:var(--ink-2); margin:0; }
+  .find table {
+    width:100%; border-collapse:collapse; font-size:12.5px; margin-top:14px;
+  }
+  .find th {
+    text-align:left; font-size:10px; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; padding:0 16px 7px;
+    border-bottom:1px solid var(--line);
+  }
+  .find th:first-child, .find td:first-child { padding-left:20px; }
+  .find td {
+    padding:8px 16px; border-bottom:1px solid var(--line); vertical-align:top;
+  }
+  .find tr:last-child td { border-bottom:none; }
+  .find td.n { font-variant-numeric:tabular-nums; font-family:"IBM Plex Mono",monospace; }
+  .find.limits td:last-child { color:var(--ink-3); font-size:12px; }
+  .fscroll { overflow-x:auto; }
+
   /* ── Queue ─────────────────────────────────────────────────────────────
      Scanned, not read: the slot time leads, state is a colour as well as a
      word, and the video is right there so "is this any good" is answerable
@@ -2336,6 +2437,11 @@ PAGE = """<!doctype html>
   </section>
 
   <section>
+    <h2>Findings <small>what the data on disk already says</small></h2>
+    <div id="insights"></div>
+  </section>
+
+  <section>
     <h2>Queue <small>what goes out next — pull anything before it publishes</small></h2>
     <div id="quota"></div>
     <div id="queue"></div>
@@ -2591,6 +2697,37 @@ function slotTime(iso){
     t: d.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"}),
     d: d.toLocaleDateString([], {month:"short", day:"numeric"}),
   };
+}
+
+/* ── Findings ─────────────────────────────────────────────────────────────
+   Derived entirely from files already on disk — no API calls, so this is
+   free to recompute whenever the page loads.                            */
+async function loadInsights(){
+  const r = await (await fetch("/api/insights")).json();
+  const el = $("#insights");
+  if (!r.findings.length){
+    el.innerHTML = `<div class="card pad"><span class="empty">Nothing to
+      compare yet — findings appear once the metrics job has cached a
+      snapshot.</span></div>`;
+    return;
+  }
+  el.innerHTML = r.findings.map(f => {
+    // The first column is a label; the rest are figures and get tabular
+    // numerals so columns of digits line up.
+    const body = f.rows.map(row => `<tr>${row.map((cell,i) =>
+      `<td class="${i && f.id !== "limits" ? "n" : ""}">${esc(cell)}</td>`
+    ).join("")}</tr>`).join("");
+    return `<div class="card find ${f.severity} ${f.id === "limits" ? "limits" : ""}">
+      <div class="fhead">
+        <h3>${esc(f.headline)}</h3>
+        <p class="fdetail">${esc(f.detail)}</p>
+      </div>
+      <div class="fscroll"><table>
+        <thead><tr>${f.columns.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+        <tbody>${body}</tbody>
+      </table></div>
+    </div>`;
+  }).join("");
 }
 
 async function loadQuota(){
@@ -3663,7 +3800,8 @@ $("#c-table").onclick = e => {
 addEventListener("resize", () => { clearTimeout(window._cr);
   window._cr = setTimeout(drawCharts, 180); });
 
-buildZones(); loadCampaigns(); refresh(); loadClips(); loadQueue(); loadQuota();
+buildZones(); loadCampaigns(); refresh(); loadClips(); loadInsights();
+loadQueue(); loadQuota();
 loadSecrets();
 loadRevenue();
 loadMetrics();
