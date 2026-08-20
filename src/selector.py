@@ -183,30 +183,38 @@ def _last_used(
 def _lru_weights(
     pool: Sequence[str], last_used: Mapping[str, datetime], now: datetime
 ) -> list[float]:
-    """Weight each asset by how long since it was last used.
+    """Weight each asset by its position in the recency order.
 
     SPEC §10: "Weight toward least-recently-used assets, not uniform random —
     uniform random clusters repeats visibly."
 
-    Never-used assets get the maximum weight so a freshly added clip is picked
-    up promptly (SPEC §7: drop a file in and it is live next render). The +1
-    floor keeps a just-used asset reachable rather than banned outright — that
-    is what cooldowns are for.
-    """
-    weights: list[float] = []
-    max_age_days = 0.0
-    ages: list[float] = []
-    for name in pool:
-        used = last_used.get(name)
-        if used is None:
-            ages.append(-1.0)  # sentinel: never used
-        else:
-            age = max(0.0, (now - used).total_seconds() / 86400.0)
-            ages.append(age)
-            max_age_days = max(max_age_days, age)
+    **Rank, not elapsed time.** An earlier version used ``age_in_days + 1``,
+    which has no resolution below a day — and a night's batch is picked in one
+    instant, so every asset chosen that evening collapsed to the same weight.
+    Once each clip had been used once, the remaining twenty-odd picks were
+    uniform random, which is precisely what the weighting exists to avoid. It
+    showed up in the output as a near-2x spread between the most and least used
+    body clip over 148 renders.
 
-    for age in ages:
-        weights.append(max_age_days + 1.0 if age < 0 else age + 1.0)
+    Ranking is scale-free: it discriminates identically whether two uses are a
+    month apart or a microsecond apart, so the same function serves the
+    across-days case and the within-batch case.
+
+    Never-used assets sort oldest and so carry the maximum weight, which keeps
+    SPEC §7's promise that a clip dropped in is picked up promptly. The
+    least-weighted asset still has weight 1 rather than 0 — a just-used clip
+    stays reachable, because banning it outright is what cooldowns are for.
+    """
+    if not pool:
+        return []
+    # Never used sorts first: no timestamp is older than any timestamp.
+    floor = datetime.min.replace(tzinfo=now.tzinfo)
+    order = sorted(range(len(pool)), key=lambda i: (last_used.get(pool[i]) or floor))
+
+    weights = [0.0] * len(pool)
+    for rank, index in enumerate(order):
+        # rank 0 is the least recently used and gets the largest weight.
+        weights[index] = float(len(pool) - rank)
     return weights
 
 
@@ -266,11 +274,49 @@ class Selector:
 
         outcomes: list[SelectionOutcome] = []
         batch_hashes: set[str] = set()
+
+        # Each pick becomes history for the picks that follow it.
+        #
+        # Without this the whole batch saw identical last-used data, because
+        # ``history`` does not change while the batch is being built. LRU
+        # weighting then does nothing *within* a night: whichever clip started
+        # the evening with the highest age stayed the heaviest-weighted choice
+        # for all of it, so the batch clustered on it — the exact failure the
+        # weighting exists to prevent, and measurable in the output as a
+        # near-2x spread between the most and least used body clip.
+        #
+        # Kept separate from ``history`` rather than appended to a copy of it:
+        # these picks must not count as committed history for cooldowns or
+        # tuple dedupe, only for recency.
+        recent: list[HistoryEntry] = []
+        now = self._clock.now()
+
         for _ in range(count):
             outcome = self.select_one(
-                library, history, bodies_per_video, exclude=batch_hashes
+                library, history, bodies_per_video,
+                exclude=batch_hashes, recent=recent,
             )
-            batch_hashes.add(tuple_hash(outcome.selection, self._config.dedupe_on))
+            selection = outcome.selection
+            digest = tuple_hash(selection, self._config.dedupe_on)
+            batch_hashes.add(digest)
+            recent.append(
+                HistoryEntry(
+                    tuple_hash=digest,
+                    # Spaced by a microsecond each so the recency ranking can
+                    # order picks made within this batch. Identical stamps
+                    # would tie, and ties are what made the weighting inert
+                    # here in the first place.
+                    timestamp=now + timedelta(microseconds=len(recent)),
+                    # No id exists yet — the render has not run. This entry
+                    # never leaves this method.
+                    item_id="",
+                    hook=selection.hook,
+                    bodies=selection.bodies,
+                    music=selection.music,
+                    music_offset_sec=selection.music_offset_sec,
+                    caption=selection.caption,
+                )
+            )
             outcomes.append(outcome)
         return outcomes
 
@@ -281,17 +327,37 @@ class Selector:
         bodies_per_video: int,
         *,
         exclude: set[str] | None = None,
+        recent: Sequence[HistoryEntry] = (),
     ) -> SelectionOutcome:
-        """Pick one combination, relaxing rules in SPEC §10's documented order."""
+        """Pick one combination, relaxing rules in SPEC §10's documented order.
+
+        ``recent`` carries picks already made in the current batch. They feed
+        the LRU *weighting* only, never the cooldown filter or tuple dedupe.
+
+        The distinction is deliberate. Weighting is about spreading choices
+        evenly, and a clip chosen ninety seconds ago is plainly the most
+        recently used one — ignoring that is what let a batch cluster. Cooldown
+        is a different claim: that a library can sustain a cadence. Applying it
+        inside a batch would mean six hooks could not fill thirty videos under
+        a three-day cooldown — true, but a statement about library size that
+        belongs in ``library_health`` and preflight, not something to discover
+        by relaxing dedupe mid-render every single night.
+        """
         library.validate()
         exclude = exclude or set()
         now = self._clock.now()
 
         used_hashes = {e.tuple_hash for e in history.entries}
-        hook_last = _last_used(history.entries, "hook")
-        caption_last = _last_used(history.entries, "caption")
-        music_last = _last_used(history.entries, "music")
-        body_last = _last_used(history.entries, "body")
+        # Cooldowns judge the committed history only.
+        hook_cooldown_last = _last_used(history.entries, "hook")
+        caption_cooldown_last = _last_used(history.entries, "caption")
+        # Weighting also sees this batch, so each pick pushes its own parts
+        # down the order for the picks that follow.
+        weighted = [*history.entries, *recent]
+        hook_last = _last_used(weighted, "hook")
+        caption_last = _last_used(weighted, "caption")
+        music_last = _last_used(weighted, "music")
+        body_last = _last_used(weighted, "body")
 
         for level in RELAXATION_ORDER:
             candidate = self._try_level(
@@ -301,6 +367,8 @@ class Selector:
                 now=now,
                 used_hashes=used_hashes,
                 exclude=exclude,
+                hook_cooldown_last=hook_cooldown_last,
+                caption_cooldown_last=caption_cooldown_last,
                 hook_last=hook_last,
                 caption_last=caption_last,
                 music_last=music_last,
@@ -337,6 +405,8 @@ class Selector:
         now: datetime,
         used_hashes: set[str],
         exclude: set[str],
+        hook_cooldown_last: Mapping[str, datetime],
+        caption_cooldown_last: Mapping[str, datetime],
         hook_last: Mapping[str, datetime],
         caption_last: Mapping[str, datetime],
         music_last: Mapping[str, datetime],
@@ -354,14 +424,14 @@ class Selector:
         hooks = list(library.hooks)
         if enforce_hook_cooldown:
             hooks = [
-                h for h in hooks if hook_last.get(h, datetime.min.replace(
+                h for h in hooks if hook_cooldown_last.get(h, datetime.min.replace(
                     tzinfo=now.tzinfo)) <= hook_cutoff
             ]
         captions = list(library.captions)
         if enforce_caption_cooldown:
             captions = [
-                c for c in captions if caption_last.get(c, datetime.min.replace(
-                    tzinfo=now.tzinfo)) <= caption_cutoff
+                c for c in captions if caption_cooldown_last.get(
+                    c, datetime.min.replace(tzinfo=now.tzinfo)) <= caption_cutoff
             ]
         if not hooks or not captions:
             return None

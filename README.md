@@ -340,6 +340,40 @@ nothing about whether a viewer can tell two of them apart: with 4 body clips at
 say. **Body clips are the binding constraint, and no amount of unique hashes
 fixes it.**
 
+### How evenly clips are actually used
+
+Selection is LRU-weighted so a night does not cluster on one clip. Two details
+make that work, both of which were once wrong:
+
+**Weights are by rank, not elapsed days.** `age_in_days + 1` has no resolution
+below a day, and a night's batch is picked in a single instant — so every clip
+chosen that evening collapsed to the same weight, and once each had been used
+once the rest of the batch was uniform random. Ranking is scale-free and
+discriminates identically at any timescale.
+
+**A pick counts as recent for the picks that follow it.** `history` does not
+change while a batch is built, so the whole night used to see identical
+last-used data.
+
+Those picks feed the *weighting* only — never the cooldown filter or tuple
+dedupe. Applying a cooldown inside a batch would mean six hooks cannot fill
+thirty videos under a three-day cooldown, which is true but is a statement
+about library size. It belongs in `library_health` and preflight, not in
+relaxing dedupe mid-render every night.
+
+Measured over 20 seeds, this cuts how often a single body clip repeats within
+one night by 10–19%:
+
+| posts/night | even split | before | after |
+|---|---|---|---|
+| 6 | 1.5 | 2.94 | 2.38 |
+| 12 | 3.0 | 4.95 | 4.31 |
+| 24 | 6.0 | 8.66 | 7.84 |
+
+Cumulative distribution over a fortnight barely moves — across-night LRU was
+already self-correcting. The gain is in what a viewer experiences, which is a
+day rather than a fortnight.
+
 Captions are the cheapest dimension to grow — they are text — and 25 is only
 just over the 24 the cooldown needs. One caption removed and the selector starts
 relaxing.

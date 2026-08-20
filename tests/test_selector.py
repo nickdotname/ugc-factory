@@ -16,6 +16,7 @@ from src.models import History, HistoryEntry, Selection
 from src.ports import FrozenClock, SeededRng
 from src.selector import (
     AssetLibrary,
+    _lru_weights,
     Relaxation,
     Selector,
     days_until_first_repeat,
@@ -437,3 +438,107 @@ class TestMusicSegments:
         out = make_selector().select_one(lib, History(), 1)
         assert out.selection.music is None
         assert out.selection.music_offset_sec == 0.0
+
+
+class TestWithinBatchRecency:
+    """The batch must not pick as if none of its own choices had happened.
+
+    Before this, ``history`` did not change while a batch was built, so every
+    pick in a night saw identical last-used data. Whichever clip started the
+    evening least-recently-used stayed the heaviest-weighted choice for the
+    whole batch and the night clustered on it — the exact failure LRU
+    weighting exists to prevent.
+    """
+
+    def library(self, bodies: int = 4) -> AssetLibrary:
+        return AssetLibrary(
+            hooks=("h1.mp4", "h2.mp4", "h3.mp4"),
+            bodies=tuple(f"b{i}.mp4" for i in range(bodies)),
+            music=(),
+            captions=tuple(f"c{i}" for i in range(40)),
+        )
+
+    def test_a_batch_spreads_across_the_pool(self) -> None:
+        sel = make_selector(seed=7, hook_cooldown_days=0, caption_cooldown_days=0)
+        outcomes = sel.select_batch(self.library(), History(), 8, 1)
+        used = {o.selection.bodies[0] for o in outcomes}
+        # Eight picks over four bodies must touch every one of them.
+        assert used == set(self.library().bodies)
+
+    def test_no_body_dominates_a_batch(self) -> None:
+        from collections import Counter
+
+        sel = make_selector(seed=3, hook_cooldown_days=0, caption_cooldown_days=0)
+        outcomes = sel.select_batch(self.library(), History(), 12, 1)
+        counts = Counter(o.selection.bodies[0] for o in outcomes)
+        # An even split is 3 each. Allow slack for rejection sampling, but a
+        # run of the old behaviour regularly put 6+ on one clip.
+        assert max(counts.values()) <= 5, counts
+
+    def test_the_batch_is_still_deterministic(self) -> None:
+        """Same seed, same history, same picks — the acceptance tests rely on it."""
+        first = make_selector(seed=99).select_batch(self.library(), History(), 6, 1)
+        second = make_selector(seed=99).select_batch(self.library(), History(), 6, 1)
+        assert [o.selection for o in first] == [o.selection for o in second]
+
+    def test_cooldowns_are_not_applied_inside_a_batch(self) -> None:
+        """Deliberate: a cooldown is a claim about library size, not a
+        within-render rule.
+
+        Three hooks cannot fill twelve videos under a 3-day cooldown. Enforcing
+        it inside the batch would relax dedupe on every render of every night
+        and bury the signal; ``library_health`` and preflight are where a
+        too-small library is reported.
+        """
+        sel = make_selector(seed=5, hook_cooldown_days=3, caption_cooldown_days=14)
+        outcomes = sel.select_batch(self.library(), History(), 12, 1)
+        assert all(o.relaxation is Relaxation.NONE for o in outcomes)
+
+    def test_history_is_not_mutated_by_selection(self) -> None:
+        """Picks are not committed history — the caller writes that after the
+        videos actually render."""
+        history = History()
+        make_selector(seed=1).select_batch(self.library(), history, 5, 1)
+        assert history.entries == []
+
+
+class TestRankWeighting:
+    def test_never_used_outranks_everything(self) -> None:
+        weights = _lru_weights(
+            ("used", "fresh"),
+            {"used": NOW - timedelta(days=1)},
+            NOW,
+        )
+        assert weights[1] > weights[0]
+
+    def test_order_is_by_recency_not_elapsed_time(self) -> None:
+        """Scale-free: a microsecond apart ranks the same as a month apart.
+
+        This is the whole point — within one batch every pick shares a moment,
+        and an elapsed-days formula rounded them all to the same weight.
+        """
+        close = _lru_weights(
+            ("a", "b"),
+            {"a": NOW - timedelta(microseconds=2), "b": NOW - timedelta(microseconds=1)},
+            NOW,
+        )
+        far = _lru_weights(
+            ("a", "b"),
+            {"a": NOW - timedelta(days=60), "b": NOW - timedelta(days=1)},
+            NOW,
+        )
+        assert close == far
+        assert close[0] > close[1]  # 'a' is older in both
+
+    def test_the_most_recent_asset_stays_reachable(self) -> None:
+        """Weight 0 would ban it outright; that is what cooldowns are for."""
+        weights = _lru_weights(
+            ("a", "b", "c"),
+            {"a": NOW - timedelta(days=3), "b": NOW - timedelta(days=2),
+             "c": NOW - timedelta(days=1)},
+            NOW,
+        )
+        assert min(weights) >= 1.0
+
+    def test_an_empty_pool_is_not_an_error(self) -> None:
+        assert _lru_weights((), {}, NOW) == []
