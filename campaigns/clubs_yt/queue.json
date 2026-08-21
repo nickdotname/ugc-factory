@@ -14,6 +14,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "120"
       },
+      "treatment": null,
       "status": "pushed",
       "attempts": 0,
       "buffer_post_id": "6a88114c7cc943e710b3baf2",
@@ -32,6 +33,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "75"
       },
+      "treatment": null,
       "status": "pushed",
       "attempts": 0,
       "buffer_post_id": "6a88114f5d32580681ee4592",
@@ -50,6 +52,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "165"
       },
+      "treatment": null,
       "status": "pushed",
       "attempts": 0,
       "buffer_post_id": "6a884c221b38003a90cc4e15",
@@ -68,6 +71,7 @@
         "music": "music_01.mp3",
         "music_offset_sec": "15"
       },
+      "treatment": null,
       "status": "pushed",
       "attempts": 0,
       "buffer_post_id": "6a884c253869cf66588f0e7a",
@@ -86,6 +90,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "75"
       },
+      "treatment": null,
       "status": "pushed",
       "attempts": 0,
       "buffer_post_id": "6a884c285b4a6e681b2975da",
@@ -104,7 +109,8 @@
         "music": "music_01.mp3",
         "music_offset_sec": "90"
       },
-      "status": "pending",
+      "treatment": null,
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -122,6 +128,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "60"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -140,6 +147,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "90"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -158,6 +166,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "120"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -176,6 +185,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "15"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -194,6 +204,7 @@
         "music": "music_01.mp3",
         "music_offset_sec": "45"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -212,6 +223,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "165"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -230,6 +242,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "75"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -248,6 +261,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "45"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -266,6 +280,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "240"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -284,6 +299,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "75"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -302,6 +318,7 @@
         "music": "music_01.mp3",
         "music_offset_sec": "60"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -320,6 +337,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "105"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -338,6 +356,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "0"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -356,6 +375,7 @@
         "music": "music_01.mp3",
         "music_offset_sec": "90"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -374,6 +394,7 @@
         "music": "music_02.mp3",
         "music_offset_sec": "90"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -392,6 +413,7 @@
         "music": "music_01.mp3",
         "music_offset_sec": "0"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -410,6 +432,7 @@
         "music": "music_01.mp3",
         "music_offset_sec": "15"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
@@ -428,6 +451,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "255"
       },
+      "treatment": null,
       "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
