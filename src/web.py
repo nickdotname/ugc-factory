@@ -4133,6 +4133,8 @@ function describeShare(){
 }
 $("#f-share").addEventListener("change", describeShare);
 
+let NEW_PANEL_OPEN = false;
+
 $("#new-btn").onclick = () => {
   const p = $("#new-panel");
   const opening = p.style.display === "none";
@@ -4143,15 +4145,20 @@ $("#new-btn").onclick = () => {
     // so the slug from the last campaign comes back on its own and Create
     // rejects it as a duplicate — which reads as the form being broken. Only
     // a slug that is already taken is cleared, so a half-typed one survives.
-    const taken = new Set(
-      (GROUPS ? GROUPS.campaigns : []).map(c => c.slug)
-    );
-    if (taken.has($("#f-slug").value.trim())) $("#f-slug").value = "";
+    // Clearing only a *taken* slug was not enough: renaming a campaign frees
+    // its old name, so the browser-restored value then looks legitimate and
+    // gets reused for the next channel. The panel is a create form — it
+    // starts empty, and a slug is only preserved while the panel stays open.
+    if (!NEW_PANEL_OPEN) $("#f-slug").value = "";
+    NEW_PANEL_OPEN = true;
     describeShare();
     loadKeys().then(loadChannels);
   }
 };
-$("#cancel-btn").onclick = () => { $("#new-panel").style.display = "none"; };
+$("#cancel-btn").onclick = () => {
+  $("#new-panel").style.display = "none";
+  NEW_PANEL_OPEN = false;
+};
 
 $("#create-btn").onclick = async (e) => {
   const nm = $("#new-msgs"); nm.innerHTML = "";
@@ -4215,6 +4222,7 @@ $("#create-btn").onclick = async (e) => {
   // a duplicate, which reads as the form being broken rather than stale.
   $("#f-slug").value = "";
   $("#new-panel").style.display = "none";
+  NEW_PANEL_OPEN = false;
   const done = $("#up-msgs"); done.innerHTML = "";
   msg(done, "ok", `Now showing <b>${esc(r.slug)}</b>. Drop its clips in below —
     or if it shares a library, they are already here.`);
