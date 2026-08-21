@@ -76,6 +76,28 @@ class PublishRequest(BaseModel):
         }
 
 
+class PostMetrics(BaseModel):
+    """Everything a backend reports about one published post.
+
+    Distinct from ``MetricRow``, which is a single figure aggregated over a
+    window. This is the per-post record, and it is what makes attribution
+    possible at all: a window total cannot say which hook earned it.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    post_id: str
+    service: str
+    sent_at: datetime | None = None
+    metrics: tuple["MetricRow", ...] = ()
+
+    def value(self, metric_type: str) -> float | None:
+        for row in self.metrics:
+            if row.type == metric_type:
+                return row.value
+        return None
+
+
 class MetricRow(BaseModel):
     """One measured value from a backend, before it is cached."""
 

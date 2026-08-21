@@ -366,6 +366,77 @@ def caption_diversity_finding(captions: Sequence[str]) -> Finding | None:
     )
 
 
+def attribution_finding(
+    reports: Sequence[Any], matched: int, rendered: int, metric: str = "views"
+) -> Finding | None:
+    """Which clip actually earned the views.
+
+    The question the system existed to answer and could not, because window
+    totals cannot be attributed. Reported with its caveats attached rather
+    than beneath: sample size per option, the range each median hides, and
+    what share of the output is measured at all.
+    """
+    rankable = [r for r in reports if r.rankable]
+    if not rankable:
+        thin = sum(len(r.ignored) for r in reports)
+        if not thin:
+            return None
+        return Finding(
+            id="attribution",
+            severity="info",
+            headline="Not enough published posts to rank clips yet",
+            detail=(
+                f"{matched} of {rendered} rendered videos have metrics so far. "
+                f"Ranking needs a handful of posts per clip before a median "
+                f"means anything — a confident order drawn from two posts is "
+                f"worse than none, because it gets acted on."
+            ),
+            columns=("Dimension", "Options waiting", "Posts each"),
+            rows=tuple(
+                (r.dimension, str(len(r.ignored)),
+                 ", ".join(str(c) for _, c in r.ignored[:6]))
+                for r in reports if r.ignored
+            ),
+        )
+
+    rows: list[tuple[str, ...]] = []
+    for report in rankable:
+        for option in report.options:
+            rows.append((
+                report.dimension,
+                option.option,
+                f"{option.median:,.0f}",
+                str(option.posts),
+                f"{option.worst:,.0f}–{option.best:,.0f}",
+            ))
+
+    top = rankable[0]
+    best, worst = top.options[0], top.options[-1]
+    ratio = top.ratio or 1.0
+    # A wide range inside one option means the option is not what moved the
+    # number, and saying so is the difference between data and a horoscope.
+    noisy = best.spread > ratio
+    detail = (
+        f"Median {metric} per post, joined from {matched} of {rendered} "
+        f"rendered videos. {best.option} leads its {top.dimension} field at "
+        f"{best.median:,.0f} against {worst.median:,.0f} — {ratio:.1f}x."
+    )
+    if noisy:
+        detail += (
+            f" Treat that carefully: {best.option}'s own posts range "
+            f"{best.worst:,.0f}–{best.best:,.0f}, a wider spread than the gap "
+            f"between clips, so something other than the clip is driving it."
+        )
+    return Finding(
+        id="attribution",
+        severity="info",
+        headline=f"{best.option} leads on median {metric}",
+        detail=detail,
+        columns=("Dimension", "Clip", f"Median {metric}", "Posts", "Range"),
+        rows=tuple(rows),
+    )
+
+
 def limits_finding(facts: list[CampaignFacts]) -> Finding:
     """State plainly what this data cannot answer, and why.
 
@@ -413,11 +484,14 @@ def limits_finding(facts: list[CampaignFacts]) -> Finding:
 
 
 def build(
-    facts: list[CampaignFacts], captions: Sequence[str] = ()
+    facts: list[CampaignFacts],
+    captions: Sequence[str] = (),
+    attribution: Finding | None = None,
 ) -> list[Finding]:
     """Every finding worth showing, most consequential first."""
     found = [
         delivery_finding(facts),
+        attribution,
         platform_finding(facts),
         caption_diversity_finding(captions),
         engagement_mix_finding(facts),

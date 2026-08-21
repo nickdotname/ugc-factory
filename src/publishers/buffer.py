@@ -40,6 +40,7 @@ from src.logging import StructuredLogger
 from src.platforms import Service
 from src.publishers.base import (
     MetricRow,
+    PostMetrics,
     PublishedPost,
     Publisher,
     PublishRequest,
@@ -103,6 +104,22 @@ query UgcFactoryPostsDiagnostic($input: PostsInput!, $first: Int) {
       id dueAt sentAt status schedulingType notificationStatus
       error { message supportUrl }
       externalLink channelService
+    } }
+  }
+}
+"""
+
+#: Per-post metrics. ``metrics`` takes no arguments and travels with the post,
+#: so this costs the same handful of paginated requests as listing posts alone
+#: — attribution is close to free, which was not obvious until the schema was
+#: actually introspected.
+POST_METRICS = """
+query UgcFactoryPostMetrics($input: PostsInput!, $first: Int, $after: String) {
+  posts(input: $input, first: $first, after: $after) {
+    pageInfo { hasNextPage endCursor }
+    edges { node {
+      id sentAt channelService
+      metrics { type name value unit }
     } }
   }
 }
@@ -464,6 +481,69 @@ class BufferPublisher(Publisher):
         )
         edges = ((data.get("posts") or {}).get("edges")) or []
         return [e["node"] for e in edges if e.get("node")]
+
+    def fetch_post_metrics(
+        self, channel_id: str, limit: int = 200
+    ) -> list[PostMetrics]:
+        """Per-post figures for everything this channel has published.
+
+        Paginated because a channel accumulates posts indefinitely and the
+        default page is small; capped by ``limit`` so a long-running campaign
+        cannot spend the whole request allowance in one call.
+
+        Only ``sent`` posts are asked for. A scheduled post has no metrics and
+        would only dilute the join with rows that can never be attributed.
+        """
+        collected: list[PostMetrics] = []
+        cursor: str | None = None
+
+        while len(collected) < limit:
+            data = self._gql(
+                POST_METRICS,
+                {
+                    "input": {
+                        "organizationId": self._org_id(),
+                        "filter": {
+                            "channelIds": [channel_id],
+                            "status": ["sent"],
+                        },
+                    },
+                    "first": min(100, limit - len(collected)),
+                    "after": cursor,
+                },
+            )
+            posts = data.get("posts") or {}
+            for edge in posts.get("edges") or []:
+                node = edge.get("node") or {}
+                collected.append(
+                    PostMetrics(
+                        post_id=str(node.get("id") or ""),
+                        service=str(node.get("channelService") or ""),
+                        sent_at=_parse_dt(node.get("sentAt")),
+                        metrics=tuple(
+                            MetricRow(
+                                type=str(m.get("type") or ""),
+                                name=str(m.get("name") or ""),
+                                value=float(m.get("value") or 0.0),
+                                unit=str(m.get("unit") or "count"),
+                            )
+                            for m in (node.get("metrics") or [])
+                        ),
+                    )
+                )
+            page = posts.get("pageInfo") or {}
+            if not page.get("hasNextPage"):
+                break
+            cursor = page.get("endCursor")
+            if not cursor:
+                break
+
+        self._log.info(
+            "buffer_post_metrics_fetched",
+            channel_id=channel_id, posts=len(collected),
+            requests=self.request_count,
+        )
+        return collected
 
     def delete_post(self, post_id: str) -> None:
         """Remove a still-queued post.

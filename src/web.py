@@ -50,6 +50,7 @@ from src.keys import (
     set_github_secret,
     write_env_value,
 )
+from src.insights import Finding
 from src.ingest import (
     ARCHIVE_DIR,
     INBOX_DIRS,
@@ -623,9 +624,44 @@ class WebApp:
         # looked at rather than an average across three.
         captions = [d.body for d in self._descriptions()]
         return {
-            "findings": [f.as_dict() for f in build(facts, captions)],
+            "findings": [
+                f.as_dict() for f in build(facts, captions, self._attribution())
+            ],
             "campaigns": len(facts),
         }
+
+    def _attribution(self) -> "Finding | None":
+        """Rank this brand's clips against cached per-post metrics.
+
+        Reads only files on disk. The cache is filled by the metrics job, so
+        an unpublished or freshly created brand simply has nothing to join
+        against and the finding stays absent rather than empty.
+        """
+        from src.attribution import attribute, coverage, load_posts, posts_path
+        from src.insights import attribution_finding
+        from src.queue import load_history
+
+        entries = []
+        posts: dict[str, Any] = {}
+        for slug in self._group_slugs():
+            directory = self.campaigns_dir / slug
+            history_path = directory / "history.json"
+            if history_path.is_file():
+                try:
+                    entries.extend(load_history(history_path).entries)
+                except UgcError:
+                    continue
+            try:
+                posts.update(load_posts(posts_path(directory)).posts)
+            except UgcError:
+                continue
+
+        if not posts:
+            return None
+        matched, rendered = coverage(entries, posts)
+        return attribution_finding(
+            attribute(entries, posts), matched, rendered
+        )
 
     # ------------------------------------------------------------------ queue
 

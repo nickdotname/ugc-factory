@@ -95,6 +95,11 @@ jobs:
           # keeps the step working on a run that never got as far as writing it.
           git add --ignore-removal campaigns/${{ matrix.campaign }}/metrics.json
           git add campaigns/${{ matrix.campaign }}/quota.json || true
+          # posts.json is the per-post metric cache that attribution joins
+          # against. It accumulates — Buffer stops returning a post once it
+          # falls off the paginated window — so losing it on the runner would
+          # quietly shrink the evidence base as the campaign ages.
+          git add campaigns/${{ matrix.campaign }}/posts.json || true
           if git diff --cached --quiet; then
             echo "no metrics change"
           else

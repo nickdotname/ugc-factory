@@ -70,6 +70,7 @@ from src.metrics import (
 )
 from src.notify import Digest, Notifier, notifier_for
 from src.campaigns import list_campaigns
+from src.attribution import load_posts, posts_path, save_posts
 from src.platforms import Service, config_conflicts, effective_video_limits
 from src.quota import (
     MONTHLY_ALLOWANCE,
@@ -1246,6 +1247,24 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
             snapshots.append(snapshot)
         save_metrics(path, history)
         snapshot = snapshots[0]
+
+        # Per-post figures, in the same breath. `metrics` rides along inside
+        # the posts query and takes no arguments, so this costs a handful of
+        # paginated requests rather than one per post — which is what makes
+        # attribution affordable at all.
+        try:
+            fresh = publisher.fetch_post_metrics(channel)
+            cache_path = posts_path(_campaign_dir(config.slug))
+            cache = load_posts(cache_path).merged_with(fresh)
+            save_posts(cache_path, cache)
+            log.info(
+                "post_metrics_cached",
+                fetched=len(fresh), total=len(cache.posts), campaign=config.slug,
+            )
+        except UgcError as exc:
+            # Never fail the metrics run over attribution: the window snapshot
+            # above is what preflight and the digest depend on.
+            log.warning("post_metrics_failed", error=str(exc))
 
         log.info(
             "metrics_saved", campaign=config.slug, date=local_date,

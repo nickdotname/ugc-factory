@@ -687,6 +687,41 @@ make silence unambiguous.
 
 ---
 
+## Which clip actually wins
+
+For most of this project that question was unanswerable. `metrics.json` holds
+window totals per channel, and a window total cannot say which hook earned it,
+so the library grew on taste alone.
+
+It turns out Buffer exposes `Post.metrics`, and the field takes no arguments —
+per-post figures ride along inside the posts query. Thirteen posts came back
+in **two requests**, so attribution costs essentially nothing, against an
+earlier estimate of ~240 requests a month that talked me out of building it.
+
+`history.json` has always recorded `buffer_post_id` beside the exact hook,
+bodies, music offset, caption and now the treatment. The metrics job caches
+per-post figures into `posts.json`, and `attribution.py` joins the two.
+
+The statistics are the hard part, not the join. Four body clips over a
+fortnight is a handful of posts each, and social metrics are wildly
+overdispersed — one video catching an algorithm outranks a hundred others. So:
+
+- **Medians, not means.** A mean hands the win to whichever clip was in the
+  viral post.
+- **A floor before ranking.** Below four posts an option is not ranked at all;
+  a confident order drawn from two posts is worse than none, because it gets
+  acted on.
+- **The range is shown beside every median.** When an option's own posts vary
+  more than the gap between options, the panel says so — something other than
+  the clip is driving the number.
+- **Coverage is stated.** A ranking drawn from a fifth of the output is a
+  ranking of that fifth.
+
+A post with no figures yet contributes nothing rather than a zero, since a
+zero would punish whichever clip was in a video published an hour ago.
+
+---
+
 ## Findings
 
 The dashboard's **Findings** panel derives what can honestly be concluded from
@@ -967,6 +1002,7 @@ src/
   revenue.py        dated money ledger + the ratios against reach
   quota.py          rolling Buffer request tally, summed per API key
   insights.py       cross-campaign findings, and what cannot be concluded
+  attribution.py    per-post metrics joined back to the clips that earned them
   variation.py      per-variant treatment, seeded so a winner is reproducible
   settings.py       one-line config edits that keep the comments
   keys.py           credentials: local .env and GitHub Actions secrets
