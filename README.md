@@ -566,6 +566,29 @@ trimming first would leave the bed short of the video.
 
 ---
 
+## Brands and channels
+
+A campaign is one channel, because the pipeline needs it to be: YouTube
+demands a title and caps a Short at 60s, TikTok uses a different post type,
+Instagram is a Reel. Those differences are real and they belong in config.
+
+They do not belong in the interface. The unit worth looking at is the
+**brand** — one set of clips going out across its networks — so the dashboard
+groups campaigns by the assets Release they share, which is by construction
+the same brand posting the same material to different places. Selecting a
+brand scopes everything to it: all-time totals, the trend chart, the platform
+cards, findings and revenue. A second row appears underneath for moving
+between that brand's networks, and is hidden when a brand has only one.
+
+The quota panel is deliberately *not* brand-scoped. The request allowance
+belongs to the Buffer account, and several brands can share one key.
+
+Before this, selecting a brand changed the tab and the queue while "all time"
+carried on summing every campaign in the repo — so a brand created a minute
+ago appeared to have already published 569 videos.
+
+---
+
 ## Switching campaigns
 
 The header is a tab per campaign, showing its network underneath and marking

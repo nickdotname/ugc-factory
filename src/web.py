@@ -276,10 +276,61 @@ class WebApp:
         self.log = self.log.bind(campaign=slug)
         return {"ok": True, "campaign": slug}
 
+    def _group_slugs(self) -> list[str]:
+        """The campaigns in the selected brand.
+
+        Everything the analytics panels show is scoped through this. Without
+        it the stats were global: selecting a brand changed the tab and the
+        queue, while "all time" and the trend chart carried on summing every
+        campaign in the repo — so a new brand appeared to already have 569
+        videos and 17.9k views on its first day.
+        """
+        mine = self.config.library_key
+        slugs = []
+        for summary in list_campaigns(self.campaigns_dir):
+            if not summary.valid:
+                continue
+            if (summary.assets_tag.removeprefix("assets-") or summary.slug) == mine:
+                slugs.append(summary.slug)
+        return slugs or [self.config.slug]
+
     def campaigns(self) -> dict[str, Any]:
-        """Every campaign, plus which one the dashboard is showing."""
+        """Every campaign, grouped by brand, plus which one is showing.
+
+        A campaign is one channel, because the pipeline genuinely needs it to
+        be: YouTube demands a title and caps a Short at 60s, TikTok uses a
+        different post type, Instagram is a Reel. But that is a pipeline
+        concern and it had leaked into the interface, where the useful unit is
+        the brand — one set of clips going out across its networks.
+
+        Grouping is by clip library rather than by anything new: campaigns
+        sharing an assets Release are, by construction, the same brand posting
+        the same material to different places.
+        """
+        summaries = [
+            {
+                "slug": c.slug, "service": c.service, "post_type": c.post_type,
+                "posts_per_day": c.posts_per_day, "dry_run": c.dry_run,
+                "timezone": c.timezone, "assets_tag": c.assets_tag,
+                "valid": c.valid, "error": c.error,
+                "group": c.assets_tag.removeprefix("assets-") or c.slug,
+            }
+            for c in list_campaigns(self.campaigns_dir)
+        ]
+
+        groups: list[dict[str, Any]] = []
+        for row in summaries:
+            key = row["group"]
+            existing = next((g for g in groups if g["key"] == key), None)
+            if existing is None:
+                existing = {"key": key, "campaigns": []}
+                groups.append(existing)
+            existing["campaigns"].append(row)
+
         return {
             "selected": self.config.slug,
+            "selected_group": self.config.library_key,
+            "groups": groups,
             "campaigns": [
                 {
                     "slug": c.slug, "service": c.service, "post_type": c.post_type,
@@ -513,8 +564,9 @@ class WebApp:
         from src.queue import load_history
 
         facts: list[CampaignFacts] = []
+        mine = set(self._group_slugs())
         for summary in list_campaigns(self.campaigns_dir):
-            if not summary.valid:
+            if not summary.valid or summary.slug not in mine:
                 continue
             directory = self.campaigns_dir / summary.slug
             try:
@@ -817,8 +869,9 @@ class WebApp:
         totals = []
         combined_revenue = 0.0
         combined_views = 0.0
+        mine = set(self._group_slugs())
         for summary in list_campaigns(self.campaigns_dir):
-            if not summary.valid:
+            if not summary.valid or summary.slug not in mine:
                 continue
             other = self._ledger(summary.slug)
             windows = self._views_windows(summary.slug)
@@ -1153,9 +1206,20 @@ class WebApp:
 
         cached = (self._channels or {}).get(slot) if isinstance(self._channels, dict) else None
         if cached is None or refresh:
+            # The pinned organization id belongs to *this* campaign's Buffer
+            # account. Reusing it while authenticating as a different account
+            # asks that account for an organization it does not own, and
+            # Buffer correctly answers with nothing — which reads as "you have
+            # no channels connected" when in fact all of them are.
+            #
+            # Passing None makes the publisher resolve the organization the
+            # token actually belongs to.
+            own_account = slot == self.config.buffer.api_key_secret
             publisher = BufferPublisher(
                 key, self.log,
-                organization_id=self.config.buffer.organization_id,
+                organization_id=(
+                    self.config.buffer.organization_id if own_account else None
+                ),
             )
             query = """
             query UgcFactoryWebChannels($input: ChannelsInput!) {
@@ -1233,7 +1297,10 @@ class WebApp:
         }
         hour_counts: Counter[int] = Counter()
 
+        mine = set(self._group_slugs())
         for summary in list_campaigns(self.campaigns_dir):
+            if summary.slug not in mine:
+                continue
             directory = self.campaigns_dir / summary.slug
             try:
                 config = load_campaign(self.campaigns_dir, summary.slug)
@@ -1400,9 +1467,12 @@ class WebApp:
         querying live here would spend the API budget that posting needs.
         """
         campaigns_dir = self.bank_path.parent.parent
+        mine = set(self._group_slugs())
         out: list[dict[str, Any]] = []
         for directory in sorted(campaigns_dir.iterdir()):
             if not directory.is_dir() or directory.name.startswith("_"):
+                continue
+            if directory.name not in mine:
                 continue
             history = load_metrics(directory / "metrics.json")
             latest = history.latest()
@@ -2277,6 +2347,40 @@ PAGE = """<!doctype html>
   .tab.paused .svc { color:var(--warn); }
   .tab.broken { color:var(--down); }
 
+  /* The networks inside the selected brand. A second row rather than more
+     tabs: they are a different kind of choice, and stacking them in one
+     strip made "which brand" and "which network" look interchangeable. */
+  .nets {
+    position:sticky; top:60px; z-index:19;
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    padding:9px 28px; max-width:1220px; margin:0 auto;
+    background:color-mix(in srgb,var(--bg) 88%, transparent);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nets:empty { display:none; }
+  .nets .lbl {
+    font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--ink-3); margin-right:2px;
+  }
+  .net {
+    display:flex; align-items:center; gap:7px;
+    padding:5px 12px; border-radius:999px; font-size:12.5px; font-weight:600;
+    background:transparent; color:var(--ink-2);
+    border:1px solid var(--line-2); box-shadow:none;
+  }
+  .net:hover { background:var(--panel-2); color:var(--ink); filter:none;
+               box-shadow:none; }
+  .net[aria-selected="true"] {
+    background:var(--grad-accent); color:var(--accent-ink);
+    border-color:transparent;
+  }
+  .net .n { font-size:10.5px; opacity:.8; font-variant-numeric:tabular-nums; }
+  .net.paused::after {
+    content:"paused"; font-size:9.5px; letter-spacing:.05em;
+    text-transform:uppercase; opacity:.85;
+  }
+
   /* ── Cards ─────────────────────────────────────────────────────────── */
   .card {
     background:var(--grad-panel); border:1px solid var(--line);
@@ -2749,12 +2853,14 @@ PAGE = """<!doctype html>
 <body>
 <header>
   <span class="brand"><span class="dot"></span>ugc-factory</span>
-  <nav id="tabs" class="tabs" role="tablist" aria-label="Campaign"></nav>
+  <nav id="tabs" class="tabs" role="tablist" aria-label="Brand"></nav>
   <span class="spacer"></span>
   <span class="pill" id="t-cadence">—</span>
   <span class="pill" id="t-dry">—</span>
   <button class="ghost" id="new-btn">New campaign</button>
 </header>
+
+<div id="nets" class="nets" role="tablist" aria-label="Network"></div>
 
 <main>
   <div id="sync-bar" style="display:none">
@@ -3851,21 +3957,35 @@ $("#publish-btn").onclick = async (e) => {
   await loadPending();
 };
 
+let GROUPS = null;
+
 async function loadCampaigns(){
   const r = await (await fetch("/api/campaigns")).json();
+  GROUPS = r;
 
-  // One tab per campaign. The service sits under the name so the strip is
-  // scannable without reading slugs, and a paused campaign says so where you
-  // are already looking rather than in a pill somewhere else.
-  $("#tabs").innerHTML = r.campaigns.map(c => `
-    <button class="tab ${c.valid ? "" : "broken"} ${c.dry_run ? "paused" : ""}"
-            role="tab" aria-selected="${c.slug === r.selected}"
-            onclick="pickCampaign('${c.slug}')">
-      <span>${esc(c.slug)}</span>
-      <span class="svc">${c.valid
-        ? esc(c.service) + (c.dry_run ? " · paused" : "")
-        : "broken"}</span>
-    </button>`).join("");
+  // Top level is the brand — one set of clips going out across its networks.
+  // That is the unit worth comparing; which network it went to is a detail
+  // inside it.
+  $("#tabs").innerHTML = r.groups.map(g => {
+    const live = g.campaigns.filter(c => c.valid && !c.dry_run).length;
+    const broken = g.campaigns.some(c => !c.valid);
+    return `<button class="tab ${broken ? "broken" : ""}"
+            role="tab" aria-selected="${g.key === r.selected_group}"
+            onclick="pickGroup('${g.key}')">
+      <span>${esc(g.key)}</span>
+      <span class="svc">${g.campaigns.length} channel${
+        g.campaigns.length === 1 ? "" : "s"}${live ? "" : " · paused"}</span>
+    </button>`;
+  }).join("");
+
+  const group = r.groups.find(g => g.key === r.selected_group);
+  $("#nets").innerHTML = !group || group.campaigns.length < 2 ? "" :
+    `<span class="lbl">network</span>` + group.campaigns.map(c => `
+      <button class="net ${c.dry_run ? "paused" : ""}" role="tab"
+              aria-selected="${c.slug === r.selected}"
+              onclick="pickCampaign('${c.slug}')">
+        ${esc(c.service)}<span class="n">${c.posts_per_day}/day</span>
+      </button>`).join("");
 
   const broken = r.campaigns.filter(c => !c.valid);
   if (broken.length){
@@ -3874,15 +3994,28 @@ async function loadCampaigns(){
   }
 }
 
-/* Every panel, so nothing from the previous campaign survives the switch.
-   An earlier version refreshed six of them and left findings, keys and
-   charts showing the campaign you had just navigated away from. */
+/* Every panel, so nothing from the previous campaign survives the switch. */
 async function refreshAll(){
   await Promise.all([
     refresh(), loadClips(), loadQueue(), loadQuota(), loadInsights(),
     loadRevenue(), loadSecrets(), loadSettings(), loadMetrics(), loadCharts(),
     loadPending(),
   ]);
+}
+
+/* Selecting a brand lands on its first channel; the network row then lets
+   you move between them without leaving the brand. */
+async function pickGroup(key){
+  const group = GROUPS && GROUPS.groups.find(g => g.key === key);
+  if (!group || !group.campaigns.length) return;
+  const valid = group.campaigns.find(c => c.valid) || group.campaigns[0];
+  await pickCampaign(valid.slug);
+}
+
+async function pickCampaign(slug){
+  await fetch("/api/select", {method:"POST", body: JSON.stringify({slug})});
+  await loadCampaigns();
+  await refreshAll();
 }
 
 /* role="tablist" promises arrow keys, the same way role="listbox" did for the

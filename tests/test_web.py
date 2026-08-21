@@ -542,6 +542,79 @@ class TestSwitchingCampaigns:
         assert two.library_scope()["campaigns"] == ["first", "second"]
 
 
+class TestBrandGrouping:
+    """A campaign is one channel because the pipeline needs it to be — YouTube
+    wants a title and a 60s cap, TikTok a different post type. That is a
+    pipeline concern, and it had leaked into the interface, where the useful
+    unit is the brand."""
+
+    @pytest.fixture
+    def two_brands(self, tmp_path: Path) -> WebApp:
+        from src.campaigns import create_campaign
+        from src.platforms import Service
+
+        campaigns = tmp_path / "campaigns"
+        campaigns.mkdir()
+        # One brand, three networks, sharing a library.
+        create_campaign(campaigns, "acme", Service.INSTAGRAM, channel_id="a1")
+        create_campaign(campaigns, "acme_tt", Service.TIKTOK, channel_id="a2",
+                        assets_release="assets-acme")
+        create_campaign(campaigns, "acme_yt", Service.YOUTUBE, channel_id="a3",
+                        assets_release="assets-acme")
+        # A separate brand with its own library.
+        create_campaign(campaigns, "other", Service.TIKTOK, channel_id="b1")
+        return WebApp(
+            config=load_campaign(campaigns, "acme"), repo_root=tmp_path,
+            inbox=tmp_path / "inbox",
+            bank_path=campaigns / "acme" / "captions.txt",
+            log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=FakeStore,
+        )
+
+    def test_channels_sharing_a_library_are_one_brand(
+        self, two_brands: WebApp
+    ) -> None:
+        groups = {g["key"]: [c["slug"] for c in g["campaigns"]]
+                  for g in two_brands.campaigns()["groups"]}
+        assert groups == {
+            "acme": ["acme", "acme_tt", "acme_yt"],
+            "other": ["other"],
+        }
+
+    def test_the_selected_brand_is_reported(self, two_brands: WebApp) -> None:
+        assert two_brands.campaigns()["selected_group"] == "acme"
+        two_brands.select("other")
+        assert two_brands.campaigns()["selected_group"] == "other"
+
+    def test_stats_are_scoped_to_the_brand(self, two_brands: WebApp) -> None:
+        """The bug this fixes: selecting a brand changed the tab and the queue
+        while 'all time' carried on summing every campaign in the repo, so a
+        brand-new brand appeared to already have hundreds of videos."""
+        assert set(two_brands._group_slugs()) == {"acme", "acme_tt", "acme_yt"}
+        two_brands.select("other")
+        assert two_brands._group_slugs() == ["other"]
+
+    def test_metrics_only_cover_the_selected_brand(
+        self, two_brands: WebApp
+    ) -> None:
+        assert len(two_brands.metrics()["campaigns"]) == 3
+        two_brands.select("other")
+        assert len(two_brands.metrics()["campaigns"]) == 1
+
+    def test_findings_only_compare_within_the_brand(
+        self, two_brands: WebApp
+    ) -> None:
+        """Comparing one brand's three networks is a fair test — same clips,
+        same captions. Mixing a second brand in is not."""
+        two_brands.select("other")
+        assert two_brands._group_slugs() == ["other"]
+
+    def test_the_quota_stays_account_wide(self, two_brands: WebApp) -> None:
+        """Deliberately *not* brand-scoped: the request allowance belongs to
+        the Buffer account, and these four campaigns share one key."""
+        assert len(two_brands.quota()["campaigns"]) == 4
+
+
 class TestOwnVersusSharedLibrary:
     """Unticking "share the clip library" has to actually give the campaign
     its own — a new brand with new footage should not silently inherit

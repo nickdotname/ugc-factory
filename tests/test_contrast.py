@@ -183,7 +183,7 @@ class TestCampaignTabsKeyboard:
         assert 'role="tab" aria-selected=' in PAGE
 
     def test_the_strip_is_labelled(self) -> None:
-        assert 'aria-label="Campaign"' in PAGE
+        assert 'aria-label="Brand"' in PAGE  # top level is the brand now
 
     def test_arrow_keys_move_between_tabs(self) -> None:
         assert "ArrowRight" in PAGE and "ArrowLeft" in PAGE

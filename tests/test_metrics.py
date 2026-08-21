@@ -215,7 +215,7 @@ class TestDashboardData:
     ) -> None:
         from src.web import WebApp
 
-        campaigns = tmp_path / "campaigns" / "demo"
+        campaigns = tmp_path / "campaigns" / config.slug
         campaigns.mkdir(parents=True)
         bank = campaigns / "captions.txt"
         bank.write_text("one", encoding="utf-8")
@@ -234,7 +234,7 @@ class TestDashboardData:
         from src.ports import FrozenClock
         from src.web import WebApp
 
-        campaigns = tmp_path / "campaigns" / "demo"
+        campaigns = tmp_path / "campaigns" / config.slug
         campaigns.mkdir(parents=True)
         bank = campaigns / "captions.txt"
         bank.write_text("one", encoding="utf-8")
