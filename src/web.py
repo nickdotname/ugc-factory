@@ -904,6 +904,53 @@ class WebApp:
         self.log.info("revenue_removed", campaign=self.config.slug, id=entry_id)
         return {"ok": True}
 
+    # --------------------------------------------------------------- settings
+
+    @property
+    def config_file(self) -> Path:
+        return self.campaigns_dir / self.config.slug / "config.yaml"
+
+    def settings(self) -> dict[str, Any]:
+        """The editable knobs and their current values."""
+        from src.settings import EDITABLE
+
+        rows = []
+        for setting in EDITABLE:
+            section = getattr(self.config, setting.section, None)
+            value = getattr(section, setting.key, None) if section else None
+            if isinstance(value, tuple):
+                value = list(value)
+            rows.append({
+                "path": setting.path,
+                "kind": setting.kind,
+                "label": setting.label,
+                "help": setting.help,
+                "value": value,
+            })
+        return {
+            "campaign": self.config.slug,
+            "file": str(self.config_file.relative_to(self.repo_root)),
+            "settings": rows,
+        }
+
+    def save_setting(self, path: str, value: Any) -> dict[str, Any]:
+        """Change one setting and reload the campaign it belongs to."""
+        from src.settings import write_setting
+
+        try:
+            written = write_setting(self.config_file, path, value)
+        except UgcError as exc:
+            return {"ok": False, "error": str(exc)}
+
+        # Re-read so every panel reflects the change without a restart. The
+        # file already parsed inside write_setting, so this cannot fail here.
+        self.config = load_campaign(self.campaigns_dir, self.config.slug)
+        self._music_beds = None
+        if isinstance(written, list):
+            written = list(written)
+        self.log.info("setting_changed", path=path, value=written)
+        return {"ok": True, "path": path, "value": written}
+
     # ---------------------------------------------------------------- secrets
 
     @property
@@ -1840,6 +1887,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.revenue())
             elif route == "/api/secrets":
                 self._json(app.secrets())
+            elif route == "/api/settings":
+                self._json(app.settings())
             elif route == "/api/keys":
                 self._json(app.key_slots())
             elif route == "/api/charts":
@@ -1896,6 +1945,12 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
 
                 elif route == "/api/revenue":
                     self._json(app.add_revenue(json.loads(self._body() or b"{}")))
+
+                elif route == "/api/settings":
+                    payload = json.loads(self._body() or b"{}")
+                    self._json(app.save_setting(
+                        str(payload.get("path", "")), payload.get("value")
+                    ))
 
                 elif route == "/api/secrets":
                     payload = json.loads(self._body() or b"{}")
@@ -2544,6 +2599,32 @@ PAGE = """<!doctype html>
   }
   .ledger button:hover { color:var(--down); filter:none; }
 
+  /* ── Settings ──────────────────────────────────────────────────────────
+     One row per knob. The value sits on the right where the eye already is
+     after reading the label, and the explanation under it — these change
+     what the pipeline does, so none of them should need guessing at.     */
+  .setrow {
+    display:flex; align-items:flex-start; gap:16px;
+    padding:14px 20px; border-bottom:1px solid var(--line);
+  }
+  .setrow:last-child { border-bottom:none; }
+  .setrow .sl { flex:1; min-width:0; }
+  .setrow .sname { font-size:13.5px; font-weight:600; }
+  .setrow .shelp {
+    font-size:11.5px; color:var(--ink-3); margin-top:3px; line-height:1.5;
+  }
+  .setrow .sv { flex:none; display:flex; align-items:center; gap:8px; }
+  .setrow input[type=number] { width:84px; }
+  .setrow input[type=text] { width:260px; }
+  @media (max-width:700px){
+    .setrow { flex-direction:column; gap:9px; }
+    .setrow input[type=text] { width:100%; }
+  }
+  .saved {
+    font-size:11px; color:var(--up); opacity:0; transition:opacity .2s;
+  }
+  .saved.show { opacity:1; }
+
   /* ── Keys ──────────────────────────────────────────────────────────────
      Two stores per secret and no way to read either back, so the row is
      mostly status: who needs it, and where it currently exists.          */
@@ -2828,6 +2909,11 @@ PAGE = """<!doctype html>
       <div id="rev-msgs"></div>
       <div id="rev-list"></div>
     </div>
+  </section>
+
+  <section>
+    <h2>Settings <small>writes to this campaign's config.yaml</small></h2>
+    <div id="settings"></div>
   </section>
 
   <section>
@@ -3330,6 +3416,66 @@ async function dropRevenue(id){
   await loadRevenue(); loadPending();
 }
 
+/* ── Settings ─────────────────────────────────────────────────────────────
+   Each control writes one line of config.yaml and nothing else. The server
+   re-parses the file after every edit and puts the original back if it will
+   not load, so a bad value cannot stop the nightly render.              */
+async function loadSettings(){
+  const r = await (await fetch("/api/settings")).json();
+  $("#settings").innerHTML = `<div class="card">` + r.settings.map(s => {
+    const id = "set-" + s.path.replace(/\./g, "-");
+    let control;
+    if (s.kind === "bool"){
+      control = `<button class="tgl" role="switch" id="${id}"
+        aria-checked="${!!s.value}" aria-label="${esc(s.label)}"
+        onclick="flipSetting('${s.path}')"></button>`;
+    } else if (s.kind === "str_list"){
+      control = `<input type="text" id="${id}" value="${esc((s.value||[]).join(', '))}"
+        placeholder="comma separated" onchange="saveSetting('${s.path}', this.value)">`;
+    } else {
+      control = `<input type="number" id="${id}" value="${s.value ?? ""}"
+        ${s.kind === "int_or_null" ? 'placeholder="off"' : 'min="1"'}
+        onchange="saveSetting('${s.path}', this.value)">`;
+    }
+    return `<div class="setrow" data-path="${s.path}">
+      <div class="sl">
+        <div class="sname">${esc(s.label)}</div>
+        <div class="shelp">${esc(s.help)}</div>
+      </div>
+      <div class="sv">${control}<span class="saved">saved</span></div>
+    </div>`;
+  }).join("") + `</div>
+  <div class="hint">Writes <code>${esc(r.file)}</code>, one line at a time —
+    comments and every other setting are left alone. Push before the change
+    reaches the workflows.</div>
+  <div id="set-msgs"></div>`;
+}
+
+async function saveSetting(path, value){
+  const row = document.querySelector(`.setrow[data-path="${path}"]`);
+  const out = $("#set-msgs"); out.innerHTML = "";
+  const r = await (await fetch("/api/settings", {method:"POST",
+    body: JSON.stringify({path, value})})).json();
+
+  if (!r.ok){
+    msg(out, "bad", r.error);
+    await loadSettings();          // put the control back to the real value
+    return;
+  }
+  const flag = row && row.querySelector(".saved");
+  if (flag){ flag.classList.add("show"); setTimeout(() => flag.classList.remove("show"), 1400); }
+  // Cadence and composition change the numbers every other panel reports.
+  await refresh(); await loadPending();
+  if (path.startsWith("seo.")) await refresh();
+}
+
+async function flipSetting(path){
+  const el = $("#set-" + path.replace(/\./g, "-"));
+  const next = el.getAttribute("aria-checked") !== "true";
+  el.setAttribute("aria-checked", String(next));   // optimistic, like the clips
+  await saveSetting(path, next);
+}
+
 /* ── Keys ─────────────────────────────────────────────────────────────────
    Neither store can be read back — GitHub never returns a secret value, and
    the local file is deliberately write-only from here — so this panel deals
@@ -3756,7 +3902,8 @@ document.addEventListener("keydown", (e) => {
 async function refreshAll(){
   await Promise.all([
     refresh(), loadClips(), loadQueue(), loadQuota(), loadInsights(),
-    loadRevenue(), loadSecrets(), loadMetrics(), loadCharts(), loadPending(),
+    loadRevenue(), loadSecrets(), loadSettings(), loadMetrics(), loadCharts(),
+    loadPending(),
   ]);
 }
 
@@ -4264,7 +4411,8 @@ $("#c-table").onclick = e => {
 addEventListener("resize", () => { clearTimeout(window._cr);
   window._cr = setTimeout(drawCharts, 180); });
 
-buildZones(); loadCampaigns(); refresh(); loadClips(); loadInsights();
+buildZones(); loadCampaigns(); refresh(); loadClips(); loadSettings();
+loadInsights();
 loadQueue(); loadQuota();
 loadSecrets();
 loadRevenue();

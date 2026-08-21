@@ -521,6 +521,25 @@ trimming first would leave the bed short of the video.
 
 ---
 
+## Changing settings without opening the file
+
+The dashboard's **Settings** panel edits `campaigns/<slug>/config.yaml`
+directly — cadence, backlog depth, the body-clip range, creative variation,
+mirroring, target keywords, and the pause switch.
+
+It edits **one line** and leaves the rest byte-identical. A campaign config is
+roughly a third comments and they carry the reasoning behind the numbers;
+`yaml.safe_dump` would discard every one of them and reorder the keys as well.
+So the write is surgical, and then it is proved: the file is re-parsed through
+the real loader, and if that fails for any reason the original text goes back.
+A config the pipeline cannot parse would stop the nightly render, which is far
+worse than a setting not sticking.
+
+Only an allowlist is editable. Credentials and channel bindings are not on it.
+Pushing is still what makes a change reach the workflows.
+
+---
+
 ## Being found in search
 
 Both TikTok and YouTube index text and serve it through search, which is the
@@ -805,6 +824,7 @@ src/
   quota.py          rolling Buffer request tally, summed per API key
   insights.py       cross-campaign findings, and what cannot be concluded
   variation.py      per-variant treatment, seeded so a winner is reproducible
+  settings.py       one-line config edits that keep the comments
   keys.py           credentials: local .env and GitHub Actions secrets
   assets.py         MediaStore ABC + GitHub Releases
   queue.py          state machine + atomic persistence
