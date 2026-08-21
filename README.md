@@ -718,6 +718,13 @@ clubs_yt  16:20  18:20  20:20  22:20
 The re-slotting path uses the same offset, or an item moved off a stale slot
 would land between its campaign's own slots and drift out of the stagger.
 
+New campaigns pick their own offset rather than defaulting to zero and
+recreating the problem: `free_slot_offset` takes the midpoint of the widest
+unclaimed gap among siblings on the same cadence and start hour, so two end up
+half an interval apart, three at thirds, without anyone choosing numbers. A
+campaign on a different cadence has a different grid, so it has nothing to
+avoid and stays on the hour.
+
 ---
 
 ## Reviewing what goes out

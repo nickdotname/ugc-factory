@@ -47,6 +47,9 @@ class CampaignSummary:
     timezone: str
     assets_tag: str
     valid: bool
+    #: Needed to tell whether two campaigns share a posting grid.
+    start_hour: int = 0
+    slot_offset_min: int = 0
     error: str = ""
 
 
@@ -97,6 +100,8 @@ def list_campaigns(campaigns_dir: Path) -> list[CampaignSummary]:
             service=config.buffer.service.value,
             post_type=config.buffer.post_type.value,
             posts_per_day=config.posting.posts_per_day,
+            start_hour=config.posting.start_hour,
+            slot_offset_min=config.posting.slot_offset_min,
             dry_run=config.posting.dry_run,
             timezone=config.timezone,
             assets_tag=config.assets_tag,
@@ -116,6 +121,7 @@ def render_config(
     organization_id: str | None = None,
     channel_id: str | None = None,
     api_key_secret: str = "BUFFER_API_KEY",
+    slot_offset_min: int = 0,
 ) -> str:
     """Build a campaign's config.yaml.
 
@@ -144,6 +150,10 @@ posting:
   start_hour: {start_hour}
   end_hour: {start_hour}
   max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
+  # Chosen to avoid the slots the existing campaigns already occupy: same
+  # cadence and start hour means an identical grid, and every network firing
+  # on the same minute.
+  slot_offset_min: {slot_offset_min}
   # Render tops the backlog up to posts_per_day x this, then stops. It is what
   # keeps rendering from outrunning what the channel actually publishes.
   max_backlog_days: 2
@@ -206,6 +216,43 @@ class CreatedCampaign:
     required_secrets: tuple[str, ...]
 
 
+def free_slot_offset(
+    campaigns_dir: Path, posts_per_day: int, start_hour: int
+) -> int:
+    """A stagger that does not land on an existing campaign's slots.
+
+    Campaigns sharing a cadence and a start hour generate *identical* slot
+    times, so a new one created with the default offset fires on the same
+    minute as every sibling — the whole content day collapsing into a few
+    instants. That happened here and took a while to notice, because nothing
+    collides in the sense the queue cares about: they are separate channels.
+
+    Picks the midpoint of the largest unclaimed gap in the posting interval,
+    so two campaigns end up half an interval apart, three at thirds, and so on
+    without anyone choosing numbers.
+    """
+    interval = max(1, round(24 * 60 / max(1, posts_per_day)))
+    taken = sorted(
+        {
+            c.slot_offset_min % interval
+            for c in list_campaigns(campaigns_dir)
+            if c.valid
+            and c.posts_per_day == posts_per_day
+            and c.start_hour == start_hour
+        }
+    )
+    if not taken:
+        return 0
+
+    # Widest gap between consecutive claimed offsets, wrapping at the interval.
+    best_gap, best_at = -1, 0
+    for current, following in zip(taken, taken[1:] + [taken[0] + interval]):
+        gap = following - current
+        if gap > best_gap:
+            best_gap, best_at = gap, current + gap // 2
+    return best_at % interval
+
+
 def create_campaign(
     campaigns_dir: Path,
     slug: str,
@@ -219,6 +266,7 @@ def create_campaign(
     channel_id: str | None = None,
     api_key_secret: str = "BUFFER_API_KEY",
     descriptions: str | None = None,
+    slot_offset_min: int | None = None,
 ) -> CreatedCampaign:
     """Create a campaign folder, or raise ``ConfigError``.
 
@@ -229,6 +277,9 @@ def create_campaign(
     problem = slug_error(slug, existing)
     if problem:
         raise ConfigError(problem)
+
+    if slot_offset_min is None:
+        slot_offset_min = free_slot_offset(campaigns_dir, posts_per_day, start_hour)
 
     directory = campaigns_dir / slug
     directory.mkdir(parents=True, exist_ok=False)
@@ -241,6 +292,7 @@ def create_campaign(
             start_hour=start_hour, assets_release=assets_release,
             organization_id=organization_id, channel_id=channel_id,
             api_key_secret=api_key_secret,
+            slot_offset_min=slot_offset_min,
         ),
         encoding="utf-8",
     )

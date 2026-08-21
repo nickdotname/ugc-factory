@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from src.campaigns import (
+    free_slot_offset,
     create_campaign,
     list_campaigns,
     render_config,
@@ -235,3 +236,78 @@ class TestMultipleBufferAccounts:
                         exported |= set((step.get("env") or {}).keys())
             missing = set(BUFFER_KEY_SLOTS) - exported
             assert not missing, f"{name} does not pass {sorted(missing)}"
+
+
+class TestAutomaticStagger:
+    """A new campaign must not land on an existing one's slots.
+
+    Campaigns sharing a cadence and start hour generate identical grids, so a
+    default offset means every network fires on the same minute. Nothing
+    collides in the sense the queue cares about — they are separate channels —
+    which is exactly why it went unnoticed on the live campaigns for a while.
+    """
+
+    def make(self, directory: Path, slug: str, **kw: object) -> None:
+        from src.platforms import Service
+
+        create_campaign(directory, slug, Service.TIKTOK, channel_id="c",
+                        **kw)  # type: ignore[arg-type]
+
+    def test_the_first_campaign_takes_the_top_of_the_hour(
+        self, tmp_path: Path
+    ) -> None:
+        assert free_slot_offset(tmp_path, 12, 15) == 0
+
+    def test_a_second_lands_half_an_interval_away(self, tmp_path: Path) -> None:
+        self.make(tmp_path, "first")
+        # 12/day is a two-hour interval, so half of it is 60 minutes.
+        assert free_slot_offset(tmp_path, 12, 15) == 60
+
+    def test_a_third_splits_the_remaining_gap(self, tmp_path: Path) -> None:
+        self.make(tmp_path, "first")
+        self.make(tmp_path, "second")
+        assert free_slot_offset(tmp_path, 12, 15) == 30
+
+    def test_creation_assigns_it_without_being_asked(
+        self, tmp_path: Path
+    ) -> None:
+        self.make(tmp_path, "first")
+        self.make(tmp_path, "second")
+        loaded = load_campaign(tmp_path, "second")
+        assert loaded.posting.slot_offset_min == 60
+
+    def test_two_campaigns_end_up_on_different_slots(
+        self, tmp_path: Path
+    ) -> None:
+        """The property that actually matters."""
+        from datetime import datetime, timezone
+
+        from src.queue import spread_schedule
+
+        self.make(tmp_path, "first")
+        self.make(tmp_path, "second")
+        day = datetime(2026, 8, 22, tzinfo=timezone.utc)
+        grids = []
+        for slug in ("first", "second"):
+            p = load_campaign(tmp_path, slug).posting
+            grids.append(set(spread_schedule(
+                day, p.posts_per_day, p.start_hour, p.end_hour,
+                p.slot_offset_min,
+            )))
+        assert not (grids[0] & grids[1])
+
+    def test_a_different_cadence_is_not_a_sibling(self, tmp_path: Path) -> None:
+        """Different cadence means a different grid, so there is nothing to
+        avoid and no reason to push it off the hour."""
+        self.make(tmp_path, "first")
+        assert free_slot_offset(tmp_path, 6, 15) == 0
+
+    def test_a_different_start_hour_is_not_a_sibling(
+        self, tmp_path: Path
+    ) -> None:
+        self.make(tmp_path, "first")
+        assert free_slot_offset(tmp_path, 12, 9) == 0
+
+    def test_an_explicit_offset_is_respected(self, tmp_path: Path) -> None:
+        self.make(tmp_path, "first", slot_offset_min=17)
+        assert load_campaign(tmp_path, "first").posting.slot_offset_min == 17
