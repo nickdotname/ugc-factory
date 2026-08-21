@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "a7e115c6-21ae-4782-b910-2127c85d3861",
-      "scheduled_for": "2026-08-21T01:00:00-06:00",
+      "scheduled_for": "2026-08-23T01:00:00-06:00",
       "rendered_at": "2026-08-21T05:30:55.334291Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-08-21/a7e115c6-21ae-4782-b910-2127c85d3861.mp4",
       "caption": "for every aspiring actor, singer, or filmmaker still trying to figure out where to start\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, singers, filmmakers, emerging artists, get involved, creative community]",
@@ -14,7 +14,7 @@
         "music": "music_03.mp3",
         "music_offset_sec": "120"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
