@@ -628,6 +628,23 @@ Renders take a few seconds and reuse one file at
 
 ---
 
+## The weekly digest
+
+The digest is the only thing that reaches a human without them opening
+anything, so it carries the findings rather than just queue health — the
+rolling request total against the allowance, the share of rendered videos
+that actually reached a network, and a warning when the whole caption bank
+uses one call to action. Everything in it is derived from files on disk, so
+it costs no API calls.
+
+It now omits what it cannot compute. Two lines were previously printed as
+hard zeros whatever the truth was: every digest claimed `0 / 3000` requests
+and `days until first repeat: 0` — one falsely reassuring, one falsely
+alarming, and both undermining the rest of a report whose whole job is to
+make silence unambiguous.
+
+---
+
 ## Findings
 
 The dashboard's **Findings** panel derives what can honestly be concluded from

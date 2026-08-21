@@ -75,19 +75,49 @@ class Digest:
     failed: int = 0
     queue_depth: int = 0
     queue_runway_hours: float = 0.0
-    buffer_requests_30d: int = 0
-    days_until_first_repeat: float = 0.0
+    #: None when the caller could not work it out. Rendered only when known:
+    #: both of these were previously printed as hard zeros regardless, so
+    #: every digest reported "0 / 3000" requests and "days until first
+    #: repeat: 0" — one reassuring, one alarming, neither true.
+    buffer_requests_30d: int | None = None
+    days_until_first_repeat: float | None = None
     dedupe_relaxations: int = 0
     missing_licenses: list[str] = field(default_factory=list)
+    #: Share of rendered videos that reached a network, 0..1.
+    delivery_rate: float | None = None
+    #: (distinct asks, captions) — one ask across the bank is one ask tested
+    #: many times, and the ask is what a viewer acts on.
+    caption_asks: tuple[int, int] | None = None
 
     def render(self) -> str:
         lines = [
             f"**ugc-factory weekly digest — {self.campaign}**",
             f"posted: {self.posted}   failed: {self.failed}",
             f"queue depth: {self.queue_depth}   runway: {self.queue_runway_hours:.0f}h",
-            f"buffer requests (30d): {self.buffer_requests_30d} / 3000",
-            f"days until first repeat: {self.days_until_first_repeat:.0f}",
         ]
+        if self.buffer_requests_30d is not None:
+            share = self.buffer_requests_30d / 3000 * 100
+            lines.append(
+                f"buffer requests (30d): {self.buffer_requests_30d} / 3000 "
+                f"({share:.0f}%)"
+            )
+        if self.days_until_first_repeat is not None:
+            lines.append(
+                f"days until first repeat: {self.days_until_first_repeat:.0f}"
+            )
+        if self.delivery_rate is not None:
+            pct = self.delivery_rate * 100
+            mark = "⚠️ " if pct < 60 else ""
+            lines.append(
+                f"{mark}delivered: {pct:.0f}% of rendered videos reached a network"
+            )
+        if self.caption_asks is not None:
+            asks, captions = self.caption_asks
+            if asks <= 1 and captions > 1:
+                lines.append(
+                    f"⚠️ all {captions} captions use one call to action — "
+                    f"nothing to compare it against"
+                )
         if self.dedupe_relaxations:
             lines.append(
                 f"⚠️ dedupe relaxed {self.dedupe_relaxations}× — library is too "

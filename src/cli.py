@@ -1517,7 +1517,7 @@ def cmd_cleanup(args: argparse.Namespace, env: dict[str, str]) -> int:
         if args.digest:
             queue = load_queue(_campaign_dir(config.slug) / "queue.json")
             history = load_history(_campaign_dir(config.slug) / "history.json")
-            notifier.digest(_build_digest(config, queue, history))
+            notifier.digest(_build_digest(config, queue, history, clock))
         return 0
     except UgcError as exc:
         log.exception("cleanup_failed", exc)
@@ -1525,15 +1525,77 @@ def cmd_cleanup(args: argparse.Namespace, env: dict[str, str]) -> int:
         return 1
 
 
-def _build_digest(config: CampaignConfig, queue: Queue, history: History) -> Digest:
+def _build_digest(
+    config: CampaignConfig,
+    queue: Queue,
+    history: History,
+    clock: Clock | None = None,
+) -> Digest:
+    """The weekly summary, carrying only figures it can actually compute.
+
+    Everything here is derived from files on disk, so the digest costs no API
+    calls — which matters, because it is the one thing that reaches a human
+    without them opening anything.
+    """
     pending = [i for i in queue.items if i.status is QueueStatus.PENDING]
+    today = (clock.now() if clock else SystemClock().now()).astimezone(
+        config.zone
+    ).date()
+
+    # Rolling request total, across every campaign sharing this key: the
+    # allowance belongs to the Buffer account rather than to one campaign.
+    slot = config.buffer.api_key_secret
+    ledgers = []
+    for summary in list_campaigns(CAMPAIGNS_DIR):
+        if not summary.valid:
+            continue
+        try:
+            other = load_campaign(CAMPAIGNS_DIR, summary.slug)
+        except UgcError:
+            continue
+        if other.buffer.api_key_secret == slot:
+            ledgers.append(load_quota(quota_path(_campaign_dir(other.slug))))
+    requests = rolling_total(ledgers, today) if ledgers else None
+
+    # Rendered against published, lifetime. The metrics cache is the only
+    # record of what actually reached a network.
+    delivery = None
+    metrics_path = _campaign_dir(config.slug) / "metrics.json"
+    if history.entries and metrics_path.is_file():
+        try:
+            snapshots = load_metrics(metrics_path).snapshots
+            lifetime = [s for s in snapshots if s.scope is Scope.LIFETIME]
+            if lifetime:
+                published = next(
+                    (m.value for m in lifetime[-1].metrics if m.type == "postCount"),
+                    None,
+                )
+                if published is not None:
+                    delivery = min(1.0, published / len(history.entries))
+        except UgcError:
+            delivery = None
+
+    asks = None
+    bank_path = _campaign_dir(config.slug) / "captions.txt"
+    if bank_path.is_file():
+        try:
+            from src.insights import _ctas
+
+            bodies = [d.body for d in parse_bank(bank_path.read_text(encoding="utf-8"))]
+            if bodies:
+                asks = (len({a for b in bodies for a in _ctas(b)}), len(bodies))
+        except UgcError:
+            asks = None
+
     return Digest(
         campaign=config.slug,
         posted=len([i for i in queue.items if i.status is QueueStatus.PUSHED]),
         failed=len([i for i in queue.items if i.status is QueueStatus.FAILED]),
         queue_depth=len(pending),
         queue_runway_hours=len(pending) * (24 / max(1, config.posting.posts_per_day)),
-        days_until_first_repeat=0.0,
+        buffer_requests_30d=requests,
+        delivery_rate=delivery,
+        caption_asks=asks,
     )
 
 

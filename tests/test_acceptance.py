@@ -279,6 +279,39 @@ class TestNotifications:
         text = Digest(campaign="demo", missing_licenses=["music_x.mp3"]).render()
         assert "music_x.mp3" in text
 
+    def test_it_omits_figures_it_does_not_have(self) -> None:
+        """Both of these used to print as hard zeros whatever the truth was:
+        every digest claimed "0 / 3000" requests and "days until first
+        repeat: 0" — one reassuring, one alarming, neither earned."""
+        text = Digest(campaign="demo", posted=1).render()
+        assert "buffer requests" not in text
+        assert "days until first repeat" not in text
+
+    def test_the_request_total_carries_its_share(self) -> None:
+        text = Digest(campaign="demo", buffer_requests_30d=1050).render()
+        assert "1050 / 3000" in text and "35%" in text
+
+    def test_a_low_delivery_rate_is_flagged(self) -> None:
+        text = Digest(campaign="demo", delivery_rate=0.22).render()
+        assert "22%" in text and "⚠️" in text
+
+    def test_a_healthy_delivery_rate_is_reported_without_alarm(self) -> None:
+        text = Digest(campaign="demo", delivery_rate=0.9).render()
+        assert "90%" in text and "⚠️" not in text
+
+    def test_a_single_call_to_action_is_flagged(self) -> None:
+        text = Digest(campaign="demo", caption_asks=(1, 25)).render()
+        assert "one call to action" in text
+
+    def test_a_varied_bank_says_nothing_about_asks(self) -> None:
+        text = Digest(campaign="demo", caption_asks=(4, 25)).render()
+        assert "call to action" not in text
+
+    def test_one_caption_is_not_worth_warning_about(self) -> None:
+        """A bank of one has one ask by definition; saying so is noise."""
+        text = Digest(campaign="demo", caption_asks=(1, 1)).render()
+        assert "call to action" not in text
+
 
 class TestShippedWorkflows:
     """The committed workflows must honour the invariants SPEC §12 names."""
