@@ -2890,7 +2890,8 @@ PAGE = """<!doctype html>
         <label>Start hour<input type="number" id="f-start" min="0" max="23" value="15"></label>
       </div>
       <label class="chk"><input type="checkbox" id="f-share" checked>
-        Share this campaign's asset library — no re-uploading clips</label>
+        <span id="f-share-label">Share the current brand's clips</span></label>
+      <div class="hint" id="f-share-help" style="margin:2px 0 0 23px"></div>
       <label class="chk"><input type="checkbox" id="f-copy" checked>
         Copy the current descriptions</label>
       <div class="row">
@@ -4116,11 +4117,39 @@ function syncChannel(){
 }
 $("#f-channel").onchange = syncChannel;
 
+function describeShare(){
+  const key = GROUPS && GROUPS.selected_group;
+  const group = GROUPS && GROUPS.groups.find(g => g.key === key);
+  const nets = group
+    ? group.campaigns.filter(c => c.valid).map(c => c.service).join(", ")
+    : "";
+  const on = $("#f-share").checked;
+  $("#f-share-label").innerHTML = on
+    ? `Add to <b>${esc(key || "this brand")}</b> — same clips and library`
+    : `Start a <b>new brand</b> with its own clips`;
+  $("#f-share-help").textContent = on
+    ? (nets ? `Joins ${key} alongside ${nets}. Nothing to re-upload.` : "")
+    : `Its own assets Release and its own drop folder. It gets its own tab.`;
+}
+$("#f-share").addEventListener("change", describeShare);
+
 $("#new-btn").onclick = () => {
   const p = $("#new-panel");
   const opening = p.style.display === "none";
   p.style.display = opening ? "block" : "none";
-  if (opening) loadKeys().then(loadChannels);
+  if (opening){
+    $("#new-msgs").innerHTML = "";
+    // Chrome restores text inputs across a reload even with autocomplete=off,
+    // so the slug from the last campaign comes back on its own and Create
+    // rejects it as a duplicate — which reads as the form being broken. Only
+    // a slug that is already taken is cleared, so a half-typed one survives.
+    const taken = new Set(
+      (GROUPS ? GROUPS.campaigns : []).map(c => c.slug)
+    );
+    if (taken.has($("#f-slug").value.trim())) $("#f-slug").value = "";
+    describeShare();
+    loadKeys().then(loadChannels);
+  }
 };
 $("#cancel-btn").onclick = () => { $("#new-panel").style.display = "none"; };
 
@@ -4159,7 +4188,16 @@ $("#create-btn").onclick = async (e) => {
     body: JSON.stringify(body)})).json();
   e.target.disabled = false;
 
-  if (!r.ok){ msg(nm, "bad", r.error); return; }
+  if (!r.ok){
+    msg(nm, "bad", r.error);
+    if (/already exists/.test(r.error || "")) {
+      $("#f-slug").select();
+      msg(nm, "warn", "Each channel needs its own slug — try "
+          + `<code>${esc(($("#f-slug").value || "brand") + "_yt")}</code> `
+          + "for the YouTube one.");
+    }
+    return;
+  }
   msg(nm, "ok", `Created <b>${r.slug}</b> — ${r.files.length} files written.`);
   if (r.required_secrets.length){
     msg(nm, "warn", "Still needs: " + r.required_secrets.map(s =>
@@ -4172,6 +4210,10 @@ $("#create-btn").onclick = async (e) => {
   // filling in a form, being told it worked, and seeing nothing change.
   await pickCampaign(r.slug);
   await loadChannels();
+  // Clear the slug. The panel was only hidden before, so reopening it to add
+  // the next channel offered the name just used — and creating rejected it as
+  // a duplicate, which reads as the form being broken rather than stale.
+  $("#f-slug").value = "";
   $("#new-panel").style.display = "none";
   const done = $("#up-msgs"); done.innerHTML = "";
   msg(done, "ok", `Now showing <b>${esc(r.slug)}</b>. Drop its clips in below —
