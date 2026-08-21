@@ -639,6 +639,13 @@ returns window totals. Nothing links a view to a video, so clip-level ranking
 cannot be derived at any sample size — the panel says so rather than omitting
 the question.
 
+**A caption count is not a variety count.** The bank is measured on what it
+actually varies — distinct openings, distinct *asks*, length spread — because
+twenty-five captions ending in the same call to action are one call to action
+tested twenty-five times. The ask is the part a viewer is meant to act on,
+which makes it the highest-leverage thing in the bank to vary and the easiest
+to forget. On the live bank: 25 distinct openings, and one ask.
+
 **Six daily snapshots is not a trend.** Correlation over that many points is
 noise with a decimal point, so none is computed until there are meaningfully
 more.

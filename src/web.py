@@ -561,8 +561,11 @@ class WebApp:
                 reported=frozenset(values),
             ))
 
+        # The bank is per campaign, so the finding describes the one being
+        # looked at rather than an average across three.
+        captions = [d.body for d in self._descriptions()]
         return {
-            "findings": [f.as_dict() for f in build(facts)],
+            "findings": [f.as_dict() for f in build(facts, captions)],
             "campaigns": len(facts),
         }
 

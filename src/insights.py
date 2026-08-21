@@ -28,7 +28,7 @@ rather than about performance.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Sequence
 
 #: Below this share of renders reaching an audience, the pipeline is mostly
 #: producing videos nobody sees, which outranks any performance question.
@@ -259,6 +259,113 @@ def engagement_mix_finding(facts: list[CampaignFacts]) -> Finding | None:
     )
 
 
+#: Ways a caption asks for something. Deliberately a list of shapes rather
+#: than exact strings — the point is to tell two *kinds* of ask apart, not to
+#: parse English.
+CTA_PATTERNS: tuple[tuple[str, str], ...] = (
+    (r'comment\s+"?[\w\']+"?', "comment a keyword"),
+    (r"\blink in bio\b", "link in bio"),
+    (r"\bdm (?:me|us)\b", "DM"),
+    (r"\b(?:tap|click|check) the link\b", "tap the link"),
+    (r"\bsign up\b", "sign up"),
+    (r"\bsave this\b", "save this"),
+    (r"\bsend this to\b", "send to a friend"),
+    (r"\bfollow for\b", "follow for more"),
+    (r"\bjoin\b", "join"),
+)
+
+#: Above this share of the bank, one phrasing is not a majority — it is the
+#: only one, and there is nothing to compare it against.
+CTA_DOMINANCE = 0.8
+
+
+def _ctas(caption: str) -> set[str]:
+    import re
+
+    return {
+        label for pattern, label in CTA_PATTERNS
+        if re.search(pattern, caption, re.IGNORECASE)
+    }
+
+
+def caption_diversity_finding(captions: Sequence[str]) -> Finding | None:
+    """What the caption bank actually varies on, beyond how many there are.
+
+    A count of descriptions reads like a count of distinct things, and it is
+    not. Twenty-five captions that all end in the same ask are one ask tested
+    twenty-five times — and the ask is the part a viewer is meant to act on,
+    so it is the most valuable thing in the bank to vary and the easiest to
+    forget to.
+    """
+    import re
+    from collections import Counter
+
+    if not captions:
+        return None
+
+    openings = Counter(
+        " ".join(c.split()[:4]).lower().strip(",.") for c in captions
+    )
+    asks = Counter(ask for c in captions for ask in _ctas(c))
+    without = sum(1 for c in captions if not _ctas(c))
+    lengths = [len(c) for c in captions]
+
+    rows = [
+        ("Captions", f"{len(captions)}", ""),
+        (
+            "Distinct openings",
+            f"{len(openings)}",
+            "the first words carry search and the scroll-stop"
+            if len(openings) == len(captions)
+            else f"{len(captions) - len(openings)} repeat another caption's opening",
+        ),
+        (
+            "Distinct asks",
+            f"{len(asks)}",
+            ", ".join(f"{label} x{n}" for label, n in asks.most_common(4))
+            or "none recognised",
+        ),
+        (
+            "Length",
+            f"{min(lengths)}–{max(lengths)}",
+            "characters",
+        ),
+    ]
+    if without:
+        rows.append(
+            ("No recognised ask", f"{without}", "nothing for a viewer to act on")
+        )
+
+    severity, headline, detail = "info", "Caption bank", ""
+    top = asks.most_common(1)
+    if top and top[0][1] >= len(captions) * CTA_DOMINANCE:
+        label, count = top[0]
+        severity = "warn"
+        headline = f'Every caption asks the same thing: "{label}"'
+        detail = (
+            f"{count} of {len(captions)} captions use it. The ask is the part a "
+            f"viewer is meant to act on, which makes it the highest-leverage "
+            f"thing in the bank to vary — and with one phrasing there is "
+            f"nothing to compare it against, so a weak ask stays invisible. "
+            f"Captions are text: three more asks is an afternoon, not a shoot."
+        )
+    else:
+        headline = f"{len(openings)} openings and {len(asks)} asks across {len(captions)} captions"
+        detail = (
+            "A count of captions reads like a count of distinct things. These "
+            "are the dimensions that actually differ."
+        )
+
+    return Finding(
+        id="captions",
+        severity=severity,
+        headline=headline,
+        detail=detail,
+        columns=("Dimension", "Count", "Note"),
+        rows=tuple(rows),
+    )
+
+
 def limits_finding(facts: list[CampaignFacts]) -> Finding:
     """State plainly what this data cannot answer, and why.
 
@@ -305,11 +412,14 @@ def limits_finding(facts: list[CampaignFacts]) -> Finding:
     )
 
 
-def build(facts: list[CampaignFacts]) -> list[Finding]:
+def build(
+    facts: list[CampaignFacts], captions: Sequence[str] = ()
+) -> list[Finding]:
     """Every finding worth showing, most consequential first."""
     found = [
         delivery_finding(facts),
         platform_finding(facts),
+        caption_diversity_finding(captions),
         engagement_mix_finding(facts),
         limits_finding(facts),
     ]

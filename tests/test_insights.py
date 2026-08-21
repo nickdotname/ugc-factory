@@ -9,6 +9,7 @@ from __future__ import annotations
 import pytest
 
 from src.insights import (
+    caption_diversity_finding,
     MIN_SNAPSHOTS_FOR_TREND,
     CampaignFacts,
     build,
@@ -152,3 +153,61 @@ class TestBuild:
 
     def test_no_data_still_states_the_limits(self) -> None:
         assert [f.id for f in build([])] == ["limits"]
+
+
+class TestCaptionDiversity:
+    """A count of captions reads like a count of distinct things. It is not."""
+
+    def bank(self, ask: str = 'comment "create"', n: int = 10) -> list[str]:
+        return [f"opening number {i} of the set, and then {ask}" for i in range(n)]
+
+    def test_one_ask_across_the_bank_is_flagged(self) -> None:
+        found = caption_diversity_finding(self.bank())
+        assert found is not None and found.severity == "warn"
+        assert "same thing" in found.headline
+
+    def test_a_varied_bank_is_not_flagged(self) -> None:
+        captions = (
+            self.bank('comment "create"', 4)
+            + self.bank("link in bio", 4)
+            + self.bank("dm me", 4)
+        )
+        found = caption_diversity_finding(captions)
+        assert found is not None and found.severity == "info"
+
+    def test_it_counts_distinct_asks(self) -> None:
+        found = caption_diversity_finding(
+            self.bank('comment "create"', 5) + self.bank("link in bio", 5)
+        )
+        assert found is not None
+        asks = next(r for r in found.rows if r[0] == "Distinct asks")
+        assert asks[1] == "2"
+
+    def test_repeated_openings_are_reported(self) -> None:
+        captions = ["the same four words here A", "the same four words here B"]
+        found = caption_diversity_finding(captions)
+        assert found is not None
+        row = next(r for r in found.rows if r[0] == "Distinct openings")
+        assert row[1] == "1" and "repeat" in row[2]
+
+    def test_captions_with_no_ask_are_counted(self) -> None:
+        found = caption_diversity_finding(["just a statement about a thing"])
+        assert found is not None
+        assert any(r[0] == "No recognised ask" for r in found.rows)
+
+    def test_an_empty_bank_yields_nothing(self) -> None:
+        assert caption_diversity_finding([]) is None
+
+    def test_ask_matching_ignores_case_and_quoting(self) -> None:
+        one = caption_diversity_finding(['COMMENT "Create" below'])
+        two = caption_diversity_finding(["comment create below"])
+        assert one is not None and two is not None
+        for found in (one, two):
+            asks = next(r for r in found.rows if r[0] == "Distinct asks")
+            assert asks[1] == "1"
+
+    def test_it_appears_in_the_built_findings(self) -> None:
+        from src.insights import build
+
+        ids = [f.id for f in build([], self.bank())]
+        assert "captions" in ids
