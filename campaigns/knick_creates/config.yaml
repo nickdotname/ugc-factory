@@ -1,0 +1,65 @@
+slug: knick_creates
+timezone: America/Denver
+
+posting:
+  # 12/day spread across a 24-hour window starting 15:00 local.
+  # start_hour == end_hour means a full day from that hour, wrapping midnight.
+  posts_per_day: 12
+  start_hour: 15
+  end_hour: 15
+  max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
+  # Chosen to avoid the slots the existing campaigns already occupy: same
+  # cadence and start hour means an identical grid, and every network firing
+  # on the same minute.
+  slot_offset_min: 20
+  # Render tops the backlog up to posts_per_day x this, then stops. It is what
+  # keeps rendering from outrunning what the channel actually publishes.
+  max_backlog_days: 2
+  dry_run: true               # flip to false once a dispatch run looks right
+
+variation:
+  # Per-variant creative treatment: a different punch-in, grade, grain and
+  # pace for every render, seeded on the item id so a winner is reproducible.
+  # Off until you have looked at a few samples — it changes how every video
+  # looks. `ugc sample --campaign knick_creates` renders one without queueing it.
+  enabled: false
+  allow_mirror: false         # mirrors on-screen text and reverses a logo
+
+video:
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 23
+  preset: veryfast
+  min_duration_sec: 5         # SPEC §4.3 — Reels-tab eligibility floor
+  max_duration_sec: 90
+  max_file_mb: 100
+
+composition:
+  bodies_per_video: 1
+  music_volume: 0.10
+  music_fade_out_sec: 1.5
+  # Upload whole songs; each video takes its bed from a different point.
+  music_random_start: true
+  music_segment_sec: 15
+  music_skip_intro_sec: 0
+  music_fade_in_sec: 0.5
+
+selection:
+  dedupe_on: [hook, body, music, caption]
+  # A cooldown of N days at P posts/day needs N x P distinct assets, or the
+  # selector relaxes and alerts daily. Raise these as the library grows.
+  caption_cooldown_days: 2
+  hook_cooldown_days: 0
+  min_runway_days: 90
+
+buffer:
+  api_key_secret: BUFFER_API_KEY_2
+  channel_id: 6a863bb4ccaf649a67dc5e49
+  post_type: reel
+  service: instagram
+  title_strategy: derive
+
+notify:
+  webhook_secret: DISCORD_WEBHOOK
+  on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed, digest]
