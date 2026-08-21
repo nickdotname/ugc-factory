@@ -15,6 +15,7 @@ import pytest
 
 from src.attribution import (
     MIN_POSTS_PER_OPTION,
+    attribute_by_service,
     PostCache,
     attribute,
     coverage,
@@ -155,3 +156,78 @@ class TestCache:
         with pytest.raises(OSError):
             save_posts(posts_path(tmp_path), PostCache().merged_with([post("p", 1)]))
         assert list(tmp_path.iterdir()) == []
+
+
+class TestPerNetwork:
+    """A clip is not good in the abstract. It is good on one network, and
+    networks disagree — which is the whole point of testing."""
+
+    def post_on(self, pid: str, service: str, views: float) -> PostMetrics:
+        return PostMetrics(
+            post_id=pid, service=service, sent_at=NOW,
+            metrics=(MetricRow(type="views", name="Views", value=views),),
+        )
+
+    def test_pooling_would_invent_a_gap_between_identical_clips(self) -> None:
+        """The bug this prevents. Instagram returns ~3.7x TikTok per post, so
+        two equally good hooks weighted to different networks come out far
+        apart on merit they do not have."""
+        posts, history = {}, []
+        for i in range(8):
+            # hook_A mostly on instagram, hook_B mostly on tiktok, and every
+            # post performs exactly at its network's baseline.
+            hook, service = ("A", "instagram") if i < 4 else ("B", "tiktok")
+            views = 146.0 if service == "instagram" else 39.8
+            pid = f"p{i}"
+            posts[pid] = self.post_on(pid, service, views)
+            history.append(entry(pid, hook=hook))
+
+        pooled = next(r for r in attribute(history, posts) if r.dimension == "hook")
+        assert pooled.ratio is not None and pooled.ratio > 3, (
+            "pooling should show a large gap — that is the flaw"
+        )
+
+        by_service = attribute_by_service(history, posts)
+        for service, reports in by_service.items():
+            hook = next(r for r in reports if r.dimension == "hook")
+            # Within a network only one hook ran, so there is nothing to rank
+            # and crucially no fictional gap.
+            assert not hook.rankable
+
+    def test_each_network_is_ranked_on_its_own(self) -> None:
+        posts, history = {}, []
+        for service in ("instagram", "tiktok"):
+            for i in range(8):
+                hook = "good" if i < 4 else "bad"
+                base = 1000 if service == "instagram" else 50
+                pid = f"{service}{i}"
+                posts[pid] = self.post_on(
+                    pid, service, base * (2 if hook == "good" else 1)
+                )
+                history.append(entry(pid, hook=hook))
+
+        by_service = attribute_by_service(history, posts)
+        assert set(by_service) == {"instagram", "tiktok"}
+        for service, reports in by_service.items():
+            hook = next(r for r in reports if r.dimension == "hook")
+            assert [o.option for o in hook.options] == ["good", "bad"]
+            # Same verdict, and the ratio is unpolluted by the other network.
+            assert hook.ratio == pytest.approx(2.0)
+            assert hook.service == service
+
+    def test_a_network_with_no_posts_is_absent(self) -> None:
+        posts = {"p1": self.post_on("p1", "instagram", 100)}
+        assert set(attribute_by_service([entry("p1")], posts)) == {"instagram"}
+
+    def test_posts_are_never_mixed_between_networks(self) -> None:
+        posts = {
+            "ig": self.post_on("ig", "instagram", 1000),
+            "tt": self.post_on("tt", "tiktok", 10),
+        }
+        history = [entry("ig", hook="h"), entry("tt", hook="h")]
+        for service, reports in attribute_by_service(
+            history, posts, min_posts=1
+        ).items():
+            hook = next(r for r in reports if r.dimension == "hook")
+            expected = 1000 if service == "instagram" else 10
+            assert hook.options[0].median == expected

@@ -637,7 +637,12 @@ class WebApp:
         an unpublished or freshly created brand simply has nothing to join
         against and the finding stays absent rather than empty.
         """
-        from src.attribution import attribute, coverage, load_posts, posts_path
+        from src.attribution import (
+            attribute_by_service,
+            coverage,
+            load_posts,
+            posts_path,
+        )
         from src.insights import attribution_finding
         from src.queue import load_history
 
@@ -660,7 +665,7 @@ class WebApp:
             return None
         matched, rendered = coverage(entries, posts)
         return attribution_finding(
-            attribute(entries, posts), matched, rendered
+            attribute_by_service(entries, posts), matched, rendered
         )
 
     # ------------------------------------------------------------------ queue

@@ -28,7 +28,7 @@ rather than about performance.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 #: Below this share of renders reaching an audience, the pipeline is mostly
 #: producing videos nobody sees, which outranks any performance question.
@@ -367,72 +367,94 @@ def caption_diversity_finding(captions: Sequence[str]) -> Finding | None:
 
 
 def attribution_finding(
-    reports: Sequence[Any], matched: int, rendered: int, metric: str = "views"
+    by_service: Mapping[str, Sequence[Any]],
+    matched: int,
+    rendered: int,
+    metric: str = "views",
 ) -> Finding | None:
-    """Which clip actually earned the views.
+    """Which clip earns the most, per network.
 
-    The question the system existed to answer and could not, because window
-    totals cannot be attributed. Reported with its caveats attached rather
-    than beneath: sample size per option, the range each median hides, and
-    what share of the output is measured at all.
+    Always per network. Instagram returns roughly 3.7x TikTok per post on
+    these accounts, so a pooled median mostly measures which platform a clip
+    happened to run on — two identical hooks weighted to different networks
+    come out 3.7x apart, which is fiction that would get acted on. Ranking
+    within a network also removes the bias for free: everything compared
+    shares a baseline, so no index or normalisation is needed.
+
+    A clip is not good in the abstract anyway. It is good on TikTok or good on
+    Shorts, and those can disagree — which is the whole point of testing.
     """
-    rankable = [r for r in reports if r.rankable]
-    if not rankable:
-        thin = sum(len(r.ignored) for r in reports)
-        if not thin:
+    rows: list[tuple[str, ...]] = []
+    leaders: list[tuple[str, Any, Any, float]] = []
+    waiting: list[tuple[str, str, str]] = []
+
+    for service, reports in sorted(by_service.items()):
+        for report in reports:
+            if not report.rankable:
+                if report.ignored:
+                    waiting.append((
+                        service, report.dimension,
+                        ", ".join(str(c) for _, c in report.ignored[:6]),
+                    ))
+                continue
+            for option in report.options:
+                rows.append((
+                    service,
+                    report.dimension,
+                    option.option,
+                    f"{option.median:,.0f}",
+                    str(option.posts),
+                    f"{option.worst:,.0f}–{option.best:,.0f}",
+                ))
+            best, worst = report.options[0], report.options[-1]
+            if worst.median:
+                leaders.append(
+                    (service, report.dimension, best, best.median / worst.median)
+                )
+
+    if not rows:
+        if not waiting:
             return None
         return Finding(
             id="attribution",
             severity="info",
             headline="Not enough published posts to rank clips yet",
             detail=(
-                f"{matched} of {rendered} rendered videos have metrics so far. "
-                f"Ranking needs a handful of posts per clip before a median "
-                f"means anything — a confident order drawn from two posts is "
-                f"worse than none, because it gets acted on."
+                f"{matched} of {rendered} rendered videos have metrics. A "
+                f"median needs a handful of posts behind it before it means "
+                f"anything, and a confident order drawn from two posts is "
+                f"worse than none because it gets acted on. Rankings appear "
+                f"per network as the counts fill in."
             ),
-            columns=("Dimension", "Options waiting", "Posts each"),
-            rows=tuple(
-                (r.dimension, str(len(r.ignored)),
-                 ", ".join(str(c) for _, c in r.ignored[:6]))
-                for r in reports if r.ignored
-            ),
+            columns=("Network", "Dimension", "Posts per option so far"),
+            rows=tuple(waiting),
         )
 
-    rows: list[tuple[str, ...]] = []
-    for report in rankable:
-        for option in report.options:
-            rows.append((
-                report.dimension,
-                option.option,
-                f"{option.median:,.0f}",
-                str(option.posts),
-                f"{option.worst:,.0f}–{option.best:,.0f}",
-            ))
-
-    top = rankable[0]
-    best, worst = top.options[0], top.options[-1]
-    ratio = top.ratio or 1.0
-    # A wide range inside one option means the option is not what moved the
-    # number, and saying so is the difference between data and a horoscope.
-    noisy = best.spread > ratio
+    leaders.sort(key=lambda x: x[3], reverse=True)
+    service, dimension, best, ratio = leaders[0]
     detail = (
-        f"Median {metric} per post, joined from {matched} of {rendered} "
-        f"rendered videos. {best.option} leads its {top.dimension} field at "
-        f"{best.median:,.0f} against {worst.median:,.0f} — {ratio:.1f}x."
+        f"Median {metric} per post, within each network, joined from "
+        f"{matched} of {rendered} rendered videos. Biggest gap: "
+        f"{best.option} leads {service}'s {dimension} field by {ratio:.1f}x."
     )
-    if noisy:
+    if best.spread > ratio:
         detail += (
-            f" Treat that carefully: {best.option}'s own posts range "
-            f"{best.worst:,.0f}–{best.best:,.0f}, a wider spread than the gap "
-            f"between clips, so something other than the clip is driving it."
+            f" Read that carefully — its own posts range "
+            f"{best.worst:,.0f}–{best.best:,.0f}, wider than the gap between "
+            f"clips, so something other than the clip is moving the number."
+        )
+    if len(by_service) > 1:
+        detail += (
+            " Networks are ranked separately on purpose: a clip is not good "
+            "in the abstract, it is good on one network, and they disagree."
         )
     return Finding(
         id="attribution",
         severity="info",
-        headline=f"{best.option} leads on median {metric}",
+        headline=f"{best.option} leads on {service} by {ratio:.1f}x",
         detail=detail,
-        columns=("Dimension", "Clip", f"Median {metric}", "Posts", "Range"),
+        columns=("Network", "Dimension", "Clip", f"Median {metric}", "Posts",
+                 "Range"),
         rows=tuple(rows),
     )
 

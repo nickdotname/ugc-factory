@@ -702,6 +702,15 @@ earlier estimate of ~240 requests a month that talked me out of building it.
 bodies, music offset, caption and now the treatment. The metrics job caches
 per-post figures into `posts.json`, and `attribution.py` joins the two.
 
+**Rankings are always per network.** Instagram returns roughly 3.7x TikTok
+per post on these accounts, so a pooled median mostly measures which platform
+a clip happened to run on: two hooks of identical quality, one weighted to
+Instagram and one to TikTok, come out 3.7x apart on merit neither has. Ranking
+within a network removes that for free — everything being compared shares a
+baseline, so no index or normalisation is needed. It is also the more useful
+question. A clip is not good in the abstract; it is good on Shorts or good on
+TikTok, and those disagree.
+
 The statistics are the hard part, not the join. Four body clips over a
 fortnight is a handful of posts each, and social metrics are wildly
 overdispersed — one video catching an algorithm outranks a hundred others. So:

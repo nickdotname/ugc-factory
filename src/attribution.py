@@ -77,6 +77,12 @@ class DimensionReport:
     dimension: str
     metric: str
     options: tuple[OptionPerformance, ...]
+    #: Which network these posts ran on. Rankings are always per network:
+    #: Instagram returns roughly 3.7x TikTok per post on this account, so a
+    #: pooled median mostly measures which platform a clip happened to run on.
+    #: Two identical hooks, one weighted to Instagram and one to TikTok, come
+    #: out 3.7x apart — an entirely fictional result that would get acted on.
+    service: str = ""
     ignored: tuple[tuple[str, int], ...] = ()
 
     @property
@@ -114,6 +120,7 @@ def attribute(
     posts: Mapping[str, PostMetrics],
     metric: str = DEFAULT_METRIC,
     min_posts: int = MIN_POSTS_PER_OPTION,
+    service: str = "",
 ) -> list[DimensionReport]:
     """Rank each dimension's options by median performance.
 
@@ -129,6 +136,8 @@ def attribute(
             continue
         post = posts.get(entry.buffer_post_id)
         if post is None:
+            continue
+        if service and post.service != service:
             continue
         value = post.value(metric)
         if value is None:
@@ -163,6 +172,7 @@ def attribute(
             DimensionReport(
                 dimension=dimension,
                 metric=metric,
+                service=service,
                 options=tuple(ranked),
                 ignored=tuple(sorted(ignored, key=lambda x: -x[1])),
             )
@@ -171,6 +181,28 @@ def attribute(
     # Dimensions with the most to say first.
     reports.sort(key=lambda r: (r.rankable, len(r.options)), reverse=True)
     return reports
+
+
+def attribute_by_service(
+    history: Sequence[HistoryEntry],
+    posts: Mapping[str, PostMetrics],
+    metric: str = DEFAULT_METRIC,
+    min_posts: int = MIN_POSTS_PER_OPTION,
+) -> dict[str, list[DimensionReport]]:
+    """One ranking per network, which is the only kind that means anything.
+
+    A clip is not good or bad in the abstract — it is good on TikTok or good
+    on Shorts, and those can disagree. Ranking within a network also removes
+    the platform-mix bias for free: every post being compared shares a
+    baseline, so no normalisation or index is needed.
+    """
+    services = sorted({
+        post.service for post in posts.values() if post.service
+    })
+    return {
+        service: attribute(history, posts, metric, min_posts, service)
+        for service in services
+    }
 
 
 def coverage(
