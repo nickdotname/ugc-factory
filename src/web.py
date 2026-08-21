@@ -602,6 +602,7 @@ class WebApp:
                 "caption": item.caption,
                 "title": item.title,
                 "parts": item.parts,
+                "treatment": item.treatment,
                 "video_url": item.video_url,
                 "buffer_post_id": item.buffer_post_id,
                 "last_error": item.last_error,
@@ -2548,6 +2549,7 @@ PAGE = """<!doctype html>
     font-family:"IBM Plex Mono", monospace; font-size:10.5px; color:var(--ink-3);
     margin-top:5px; display:block;
   }
+  .qcap .recipe { color:var(--accent); opacity:.8; }
   .qstate {
     font-size:10px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
     padding:3px 8px; border-radius:3px; white-space:nowrap;
@@ -3124,6 +3126,20 @@ function render(s){
    its public Release URL — so what you preview is what publishes.       */
 let QUEUE = null;
 
+/* The handful of treatment values worth seeing at a glance. The full recipe
+   is in queue.json and, durably, in history.json. */
+function recipe(t){
+  const bits = [];
+  if (t.zoom)       bits.push(`+${(t.zoom * 100).toFixed(1)}% punch`);
+  if (t.rotate_deg) bits.push(`${t.rotate_deg > 0 ? "+" : ""}${t.rotate_deg}°`);
+  if (t.saturation && t.saturation !== 1)
+    bits.push(`sat ${t.saturation.toFixed(2)}`);
+  if (t.speed && t.speed !== 1) bits.push(`${t.speed.toFixed(3)}x`);
+  if (t.grain) bits.push(`grain ${t.grain}`);
+  if (t.mirror) bits.push("mirrored");
+  return bits.join(" · ");
+}
+
 function slotTime(iso){
   const d = new Date(iso);
   return {
@@ -3266,6 +3282,8 @@ function renderQueue(){
           ${esc((i.caption || "").replace(/\\s+/g, " ").slice(0, 160))}${
             (i.caption || "").length > 160 ? "…" : ""}
           <span class="parts">${esc(parts)}</span>
+          ${i.treatment ? `<span class="parts recipe" title="the treatment this
+            cut was rendered with">${esc(recipe(i.treatment))}</span>` : ""}
           ${i.last_error
             ? `<span class="parts dead">${esc(i.last_error.slice(0,140))}</span>`
             : ""}

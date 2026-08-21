@@ -228,3 +228,62 @@ class TestMusicBed:
     def test_the_recipe_records_the_bed_too(self) -> None:
         record = treatment_for("v3", ON).as_dict()
         assert "music_tempo" in record and "music_tilt_db" in record
+
+
+class TestRecipeIsRecorded:
+    """The recipe has to be written down, not recomputed.
+
+    ``treatment_for`` depends on the campaign's variation config, so once that
+    config changes the treatment behind an older winner is unrecoverable. The
+    render log is not a home for it either — Actions logs expire.
+    """
+
+    def test_a_queue_item_can_carry_a_treatment(self) -> None:
+        from datetime import datetime, timezone
+
+        from src.models import QueueItem
+
+        recipe = treatment_for("v1", ON).as_dict()
+        item = QueueItem(
+            id="a", scheduled_for=datetime(2026, 8, 21, tzinfo=timezone.utc),
+            video_url="https://x/a.mp4", caption="c", parts={},
+            treatment=recipe,
+        )
+        assert item.treatment == recipe
+
+    def test_history_carries_it_too(self) -> None:
+        """History is append-only and never pruned, so it is the durable
+        record a performance figure gets joined to."""
+        from datetime import datetime, timezone
+
+        from src.models import HistoryEntry
+
+        recipe = treatment_for("v1", ON).as_dict()
+        entry = HistoryEntry(
+            tuple_hash="h", timestamp=datetime(2026, 8, 21, tzinfo=timezone.utc),
+            item_id="a", hook="hook_01.mov", bodies=("body_01.mp4",),
+            music=None, caption="c", treatment=recipe,
+        )
+        assert entry.treatment["zoom"] == recipe["zoom"]
+
+    def test_it_defaults_to_absent_not_empty(self) -> None:
+        """An untreated render must record nothing, rather than a row of
+        zeros that reads like a real recipe."""
+        from datetime import datetime, timezone
+
+        from src.models import QueueItem
+
+        item = QueueItem(
+            id="a", scheduled_for=datetime(2026, 8, 21, tzinfo=timezone.utc),
+            video_url="https://x/a.mp4", caption="c", parts={},
+        )
+        assert item.treatment is None
+
+    def test_a_recorded_recipe_survives_a_config_change(self) -> None:
+        """The point of recording it. Widen the ranges and the same id now
+        derives a different treatment — the written one still stands."""
+        from src.config import VariationConfig
+
+        recorded = treatment_for("v1", ON).as_dict()
+        wider = VariationConfig(enabled=True, zoom_max=0.2, speed_max=0.15)
+        assert treatment_for("v1", wider).as_dict() != recorded

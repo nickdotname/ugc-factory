@@ -455,6 +455,7 @@ def _render(
                     "music": selection.music or "",
                     "music_offset_sec": f"{selection.music_offset_sec:.0f}",
                 },
+                treatment=result.treatment,
             ),
             selection,
         ))
@@ -487,6 +488,9 @@ def _render(
                 music_offset_sec=sel.music_offset_sec,
                 caption=sel.caption,
                 title=item.title,
+                # Carried from the queue item so history and queue cannot
+                # disagree about what was actually rendered.
+                treatment=item.treatment,
             )
             for item, sel in rendered
         ],

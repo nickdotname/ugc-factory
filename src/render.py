@@ -412,7 +412,12 @@ class FfmpegRenderer(Renderer):
             dimensions=f"{probe.width}x{probe.height}",
         )
         return RenderResult(
-            item_id=request.item_id, output_path=request.output_path, probe=probe
+            item_id=request.item_id, output_path=request.output_path, probe=probe,
+            # None when variation is off, so an untreated render records
+            # nothing rather than a row of zeros that reads as a real recipe.
+            treatment=(
+                treatment.as_dict() if treatment is not NEUTRAL else None
+            ),
         )
 
     def validate_output(self, probe: MediaProbe) -> None:

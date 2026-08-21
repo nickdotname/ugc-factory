@@ -105,6 +105,9 @@ class RenderResult(Model):
     item_id: str
     output_path: Path
     probe: MediaProbe
+    #: What the renderer actually applied, so the caller can record it
+    #: without re-deriving it and risking a different answer.
+    treatment: dict[str, float] | None = None
 
 
 class QueueStatus(str, Enum):
@@ -147,6 +150,12 @@ class QueueItem(Model):
     caption: str
     title: str | None = None
     parts: dict[str, str]
+    #: The creative treatment this video was rendered with, when variation is
+    #: on. Recorded rather than recomputed: ``treatment_for`` depends on the
+    #: campaign's variation config, and that drifts — so once the config
+    #: changes, the recipe behind an older winner is unrecoverable unless it
+    #: was written down.
+    treatment: dict[str, float] | None = None
     status: QueueStatus = QueueStatus.PENDING
     attempts: int = Field(default=0, ge=0)
     buffer_post_id: str | None = None
@@ -188,6 +197,9 @@ class HistoryEntry(Model):
     music_offset_sec: float = 0.0
     caption: str
     title: str | None = None
+    #: See ``QueueItem.treatment``. History is append-only and never pruned,
+    #: so this is the lasting record a performance figure can be joined to.
+    treatment: dict[str, float] | None = None
     buffer_post_id: str | None = None
 
 

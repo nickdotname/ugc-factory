@@ -510,6 +510,16 @@ every thirty, and it accumulates across every part of a concatenated video.
 Mirroring is available and off: it reverses any on-screen text and flips a
 logo, so it is only safe on shots with neither.
 
+The recipe is **written down**, not recomputed. `treatment_for` depends on the
+campaign's variation config, so the moment that config changes the treatment
+behind an older winner becomes unrecoverable — and the render log is no home
+for it either, since Actions logs expire. Every rendered item records its
+treatment in `queue.json` and, durably, in append-only `history.json`, which
+is what a per-post performance figure will eventually join to. An untreated
+render records `null` rather than a row of zeros that would read as a real
+recipe. The queue panel shows the short form on each row:
+`+2.4% punch · +0.42° · sat 0.92 · 0.997x`.
+
 The music bed gets its own treatment — tempo and a shelf tilt, per variant.
 It is deliberately separate from the picture's `speed`: nothing is
 synchronised to the bed, so it can move freely, while the clip's own audio
