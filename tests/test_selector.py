@@ -542,3 +542,82 @@ class TestRankWeighting:
 
     def test_an_empty_pool_is_not_an_error(self) -> None:
         assert _lru_weights((), {}, NOW) == []
+
+
+class TestVariableBodyCount:
+    """Structural variation: a two-body cut is a different shape *and* a
+    different length from a one-body cut, from the same four clips."""
+
+    def library(self, bodies: int = 4) -> AssetLibrary:
+        return AssetLibrary(
+            hooks=("h1", "h2", "h3"),
+            bodies=tuple(f"b{i}" for i in range(bodies)),
+            music=(),
+            captions=tuple(f"c{i}" for i in range(40)),
+        )
+
+    def test_a_range_produces_more_than_one_shape(self) -> None:
+        sel = make_selector(seed=4, hook_cooldown_days=0, caption_cooldown_days=0)
+        outcomes = sel.select_batch(self.library(), History(), 20, 1, 2)
+        sizes = {len(o.selection.bodies) for o in outcomes}
+        assert sizes == {1, 2}
+
+    def test_no_range_keeps_every_video_the_same_shape(self) -> None:
+        sel = make_selector(seed=4, hook_cooldown_days=0, caption_cooldown_days=0)
+        outcomes = sel.select_batch(self.library(), History(), 12, 2)
+        assert {len(o.selection.bodies) for o in outcomes} == {2}
+
+    def test_counts_stay_inside_the_range(self) -> None:
+        sel = make_selector(seed=9, hook_cooldown_days=0, caption_cooldown_days=0)
+        for o in sel.select_batch(self.library(), History(), 25, 2, 3):
+            assert 2 <= len(o.selection.bodies) <= 3
+
+    def test_the_range_is_clamped_to_the_library(self) -> None:
+        """Asking for up to five bodies from a library of two must not fail;
+        it just cannot exceed what exists."""
+        sel = make_selector(seed=2, hook_cooldown_days=0, caption_cooldown_days=0)
+        outcomes = sel.select_batch(self.library(bodies=2), History(), 8, 1, 5)
+        assert all(len(o.selection.bodies) <= 2 for o in outcomes)
+
+    def test_bodies_within_one_video_are_distinct(self) -> None:
+        sel = make_selector(seed=6, hook_cooldown_days=0, caption_cooldown_days=0)
+        for o in sel.select_batch(self.library(), History(), 20, 1, 3):
+            assert len(set(o.selection.bodies)) == len(o.selection.bodies)
+
+    def test_different_shapes_are_different_combinations(self) -> None:
+        """One body and two bodies hash differently, so both count toward the
+        ceiling rather than one replacing the other."""
+        one = Selection(hook="h1", bodies=("b0",), music=None, caption="c")
+        two = Selection(hook="h1", bodies=("b0", "b1"), music=None, caption="c")
+        dims = list(DedupeDimension)
+        assert tuple_hash(one, dims) != tuple_hash(two, dims)
+
+    def test_reordering_is_still_not_a_new_combination(self) -> None:
+        """Deliberate. The same two clips in a different order is very nearly
+        the same video to a viewer, and treating it as new would let visibly
+        similar cuts through."""
+        ab = Selection(hook="h1", bodies=("b0", "b1"), music=None, caption="c")
+        ba = Selection(hook="h1", bodies=("b1", "b0"), music=None, caption="c")
+        dims = list(DedupeDimension)
+        assert tuple_hash(ab, dims) == tuple_hash(ba, dims)
+
+
+class TestCeilingOverARange:
+    def test_each_count_contributes_its_own_combinations(self) -> None:
+        lib = AssetLibrary(hooks=("h",), bodies=("a", "b", "c", "d"),
+                           music=(), captions=("c1",))
+        # C(4,1)=4 and C(4,2)=6, so a 1-2 range offers 10 body shapes.
+        assert lib.ceiling(1) == 4
+        assert lib.ceiling(1, 2) == 10
+        assert lib.ceiling(2, 2) == 6
+
+    def test_a_max_below_the_min_is_ignored_not_negative(self) -> None:
+        lib = AssetLibrary(hooks=("h",), bodies=("a", "b"), music=(),
+                           captions=("c1",))
+        assert lib.ceiling(2, 1) == lib.ceiling(2)
+
+    def test_a_max_beyond_the_library_is_clamped(self) -> None:
+        lib = AssetLibrary(hooks=("h",), bodies=("a", "b"), music=(),
+                           captions=("c1",))
+        # C(2,1)+C(2,2) = 3, and there is no third body to ask for.
+        assert lib.ceiling(1, 9) == 3

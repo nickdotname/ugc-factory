@@ -104,17 +104,33 @@ class AssetLibrary:
             return 1
         return sum(self.segments_for(t) for t in self.music)
 
-    def ceiling(self, bodies_per_video: int) -> int:
+    def ceiling(self, bodies_per_video: int, bodies_max: int | None = None) -> int:
         """Total distinct combinations available.
 
         SPEC §10 asks for this to be logged every render: at 6 posts/day you
         want >= 90 days of unique combos (540) before the first repeat.
+
+        When a range of body counts is allowed, every count contributes its own
+        combinations — a one-body cut and a two-body cut are different videos
+        and hash differently, so the totals add rather than replace.
         """
         from math import comb
 
         if len(self.bodies) < bodies_per_video:
             return 0
-        body_combos = comb(len(self.bodies), bodies_per_video)
+        # Clamped from both ends: a max below the min would otherwise make the
+        # range empty and report zero combinations for a library that has
+        # plenty, and a max above the library size cannot be satisfied. Config
+        # rejects an inverted range, but this is public and should not depend
+        # on the caller having been validated.
+        top = min(
+            max(bodies_max or bodies_per_video, bodies_per_video),
+            len(self.bodies),
+        )
+        body_combos = sum(
+            comb(len(self.bodies), n)
+            for n in range(bodies_per_video, top + 1)
+        )
         # Counts (track, segment) pairs, not tracks: three songs cut into
         # twelve segments each is thirty-six distinct beds, not three.
         music_options = self.total_music_options()
@@ -245,6 +261,7 @@ class Selector:
         history: History,
         count: int,
         bodies_per_video: int,
+        bodies_max: int | None = None,
     ) -> list[SelectionOutcome]:
         """Pick ``count`` combinations, none repeating within the batch.
 
@@ -255,7 +272,7 @@ class Selector:
         if count <= 0:
             return []
 
-        ceiling = library.ceiling(bodies_per_video)
+        ceiling = library.ceiling(bodies_per_video, bodies_max)
         self._log.info(
             "combinatorial_ceiling",
             hooks=len(library.hooks),
@@ -294,7 +311,7 @@ class Selector:
         for _ in range(count):
             outcome = self.select_one(
                 library, history, bodies_per_video,
-                exclude=batch_hashes, recent=recent,
+                exclude=batch_hashes, recent=recent, bodies_max=bodies_max,
             )
             selection = outcome.selection
             digest = tuple_hash(selection, self._config.dedupe_on)
@@ -328,6 +345,7 @@ class Selector:
         *,
         exclude: set[str] | None = None,
         recent: Sequence[HistoryEntry] = (),
+        bodies_max: int | None = None,
     ) -> SelectionOutcome:
         """Pick one combination, relaxing rules in SPEC §10's documented order.
 
@@ -359,10 +377,19 @@ class Selector:
         music_last = _last_used(weighted, "music")
         body_last = _last_used(weighted, "body")
 
+        # How many body clips this particular video gets. Chosen once, before
+        # the relaxation ladder, so a pick that needs relaxing keeps the shape
+        # it started with rather than quietly becoming a different structure.
+        top = min(bodies_max or bodies_per_video, len(library.bodies))
+        wanted = (
+            bodies_per_video if top <= bodies_per_video
+            else self._rng.choice(tuple(range(bodies_per_video, top + 1)))
+        )
+
         for level in RELAXATION_ORDER:
             candidate = self._try_level(
                 library=library,
-                bodies_per_video=bodies_per_video,
+                bodies_per_video=wanted,
                 level=level,
                 now=now,
                 used_hashes=used_hashes,

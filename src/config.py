@@ -235,6 +235,12 @@ class CompositionConfig(StrictModel):
     """How the parts are assembled (SPEC §9 ``composition``)."""
 
     bodies_per_video: int = Field(default=1, ge=1, le=10)
+    #: When set above ``bodies_per_video``, each video picks a count in that
+    #: range instead of always using the same number. Structural variation
+    #: rather than cosmetic: a two-body cut is a different shape *and* a
+    #: different length from a one-body cut, and length is itself worth
+    #: testing. None means every video uses ``bodies_per_video``.
+    bodies_per_video_max: int | None = Field(default=None, ge=1, le=10)
     # SPEC §6: flat 10% for the whole video. No ducking, no per-section levels.
     music_volume: float = Field(default=0.10, ge=0.0, le=1.0)
     music_fade_out_sec: float = Field(default=1.5, ge=0.0, le=10.0)
@@ -253,6 +259,19 @@ class CompositionConfig(StrictModel):
     # A bed starting mid-phrase pops without this.
     music_fade_in_sec: float = Field(default=0.5, ge=0.0, le=10.0)
 
+
+    @model_validator(mode="after")
+    def _body_range_is_ordered(self) -> "CompositionConfig":
+        if (
+            self.bodies_per_video_max is not None
+            and self.bodies_per_video_max < self.bodies_per_video
+        ):
+            raise ValueError(
+                f"composition.bodies_per_video_max "
+                f"({self.bodies_per_video_max}) is below bodies_per_video "
+                f"({self.bodies_per_video})"
+            )
+        return self
 
 class VariationConfig(StrictModel):
     """Per-variant creative treatment (see ``src/variation.py``).
@@ -317,6 +336,7 @@ class SeoConfig(StrictModel):
     #: How far into the text a keyword still counts as front-loaded. Four words
     #: is the usual advice for a caption; the check is a nudge, not a rule.
     front_load_words: int = Field(default=4, ge=1, le=20)
+
 
 
 class SelectionConfig(StrictModel):

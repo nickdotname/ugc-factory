@@ -357,7 +357,10 @@ def _render(
         if count == 0:
             print("\n  Backlog is full — tonight would render nothing.")
         else:
-            ceiling = library.ceiling(config.composition.bodies_per_video)
+            ceiling = library.ceiling(
+                config.composition.bodies_per_video,
+                config.composition.bodies_per_video_max,
+            )
             print(f"\n  {ceiling:,} combinations available, "
                   f"{len(history.entries):,} already used.")
         return 0
@@ -386,7 +389,8 @@ def _render(
         return 0
 
     outcomes = selector.select_batch(
-        library, history, count, config.composition.bodies_per_video
+        library, history, count, config.composition.bodies_per_video,
+        config.composition.bodies_per_video_max,
     )
     relaxed = [o for o in outcomes if o.relaxation is not Relaxation.NONE]
     if relaxed:

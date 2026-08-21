@@ -341,6 +341,32 @@ nothing about whether a viewer can tell two of them apart: with 4 body clips at
 say. **Body clips are the binding constraint, and no amount of unique hashes
 fixes it.**
 
+### Varying the shape, not just the look
+
+`composition.bodies_per_video_max` lets a video use a *range* of body clips
+rather than always the same number. It is the one structural lever available
+without new footage, and on the live library it is worth more than any grade:
+
+| bodies per video | body shapes | combinations |
+|---|---|---|
+| 1 | 4 | 21,600 |
+| 1–2 | 10 | 54,000 |
+| 1–3 | 14 | 75,600 |
+
+Four clips, 2.5× the shapes. A two-body cut is also a different *length* from
+a one-body cut — roughly 23s against 13s — and length is itself worth testing
+rather than holding constant.
+
+The count is drawn once per video, before the relaxation ladder, so a pick
+that needs relaxing keeps the shape it started with instead of quietly
+becoming a different structure.
+
+Reordering is deliberately **not** a new combination. `tuple_hash` sorts the
+body list, so `A→B` and `B→A` collide. The same two clips in a different order
+is very nearly the same video to a viewer, and counting it as new would let
+visibly similar cuts through — which is the thing the whole dedupe ladder
+exists to prevent.
+
 ### How evenly clips are actually used
 
 Selection is LRU-weighted so a night does not cluster on one clip. Two details
