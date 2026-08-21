@@ -31,6 +31,7 @@ from src.config import CampaignConfig
 from src.errors import RenderError, ValidationError
 from src.logging import StructuredLogger
 from src.models import MediaProbe, RenderRequest, RenderResult
+from src.variation import NEUTRAL, Treatment, treatment_for
 
 #: Sample rate Instagram expects for Reels audio (SPEC §4.3).
 AUDIO_RATE = 48000
@@ -170,7 +171,9 @@ class FfmpegRenderer(Renderer):
 
     # --------------------------------------------------------------- stage one
 
-    def _normalize(self, src: Path, dest: Path) -> None:
+    def _normalize(
+        self, src: Path, dest: Path, treatment: "Treatment | None" = None
+    ) -> None:
         """Re-encode one clip to the campaign's exact output shape.
 
         After this runs on every clip, all temps share resolution, fps, SAR,
@@ -211,18 +214,33 @@ class FfmpegRenderer(Renderer):
         # filled 9:16 frame with no pillarboxing.
         # setsar=1 forces square pixels — a source with a non-1 sample aspect
         # ratio would otherwise concat into a stretched segment.
-        vf = (
-            f"scale={v.width}:{v.height}:force_original_aspect_ratio=increase,"
-            f"crop={v.width}:{v.height},"
-            f"setsar=1,"
-            f"fps={v.fps},"
-            f"format=yuv420p"  # required for broad player/Instagram compatibility
-        )
+        # A variant's treatment replaces the whole chain rather than appending
+        # to it: zoom, rotation and crop have to compose in a specific order
+        # (see Treatment.video_filters), and the plain path is just the
+        # treatment with every knob at zero.
+        if treatment is not None and treatment is not NEUTRAL:
+            vf = treatment.video_filters(v.width, v.height, v.fps)
+        else:
+            vf = (
+                f"scale={v.width}:{v.height}:force_original_aspect_ratio=increase,"
+                f"crop={v.width}:{v.height},"
+                f"setsar=1,"
+                f"fps={v.fps},"
+                f"format=yuv420p"  # broad player/Instagram compatibility
+            )
 
+        audio_filters = treatment.audio_filters() if treatment else ""
         argv += [
             "-map", "0:v:0",
             "-map", audio_map,
             "-vf", vf,
+        ]
+        if audio_filters:
+            # Mandatory whenever the picture is retimed: audio left at 1.0
+            # against video at 0.97 drifts a second every thirty, and the error
+            # accumulates across every part of a concatenated video.
+            argv += ["-af", audio_filters]
+        argv += [
             "-c:v", "libx264",
             "-crf", str(v.crf),
             "-preset", v.preset,
@@ -355,10 +373,17 @@ class FfmpegRenderer(Renderer):
         workdir = self._workdir or request.output_path.parent / f".work-{request.item_id}"
         workdir.mkdir(parents=True, exist_ok=True)
         try:
+            # One treatment for the whole video, keyed on the item id: the
+            # parts of a single cut must share a grade and a pace, or the
+            # joins become visible at exactly the moment attention is highest.
+            treatment = treatment_for(request.item_id, self._config.variation)
+            if treatment is not NEUTRAL:
+                log.info("variant_treatment", **treatment.as_dict())
+
             normalized: list[Path] = []
             for index, src in enumerate(sources):
                 temp = workdir / f"norm-{index:03d}.mp4"
-                self._normalize(src, temp)
+                self._normalize(src, temp, treatment)
                 normalized.append(temp)
                 log.debug("normalized", source=src.name, temp=temp.name)
 

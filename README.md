@@ -448,6 +448,44 @@ want.
 
 ---
 
+## Creative variation per render
+
+Every render can carry its own treatment: a punch-in with a nudged crop anchor,
+a fraction of a degree of rotation, a grade shift, film grain, and a slightly
+different pace. `variation.enabled` turns it on, per campaign, and it is off by
+default because it changes how every video looks.
+
+The treatment is **seeded on the item id**, so `variant-a` looks the same on
+any machine on any day. That is the point: a cut that performs is worth knowing
+the recipe for, and the recipe is logged with the render and recorded flat in
+`Treatment.as_dict()`. An unseeded `random()` would make the A/B data
+worthless. Seeding on Python's `hash()` of the id would too — str hashing is
+salted per process, so the same variant would look different on every run.
+
+Two things about the numbers. They are set to the low end of what a viewer
+notices as *a different edit*, not the high end of imperceptible: two cuts a
+person cannot tell apart are the same cut for every purpose that matters,
+including whichever one you hoped would win. And `1080x1920` never jitters —
+odd resolutions get downgraded in delivery.
+
+The filter order is load-bearing:
+
+```
+scale (overscan) -> rotate -> crop back to frame -> hflip -> grade -> grain -> setpts
+```
+
+Rotating a 9:16 frame by 0.6° and cropping back needs about 2% more material
+than the frame, or the corners show black wedges — so the zoom is raised to
+cover the rotation whenever there is one. Grain goes after the grade, or it is
+graded along with the picture and stops reading as grain. Audio is retimed with
+`atempo` whenever the picture is retimed; leaving it alone drifts a second
+every thirty, and it accumulates across every part of a concatenated video.
+
+Mirroring is available and off: it reverses any on-screen text and flips a
+logo, so it is only safe on shots with neither.
+
+---
+
 ## Seeing a video before it exists
 
 The **Render a sample** button in the Randomizer panel builds one video from the
@@ -706,6 +744,7 @@ src/
   revenue.py        dated money ledger + the ratios against reach
   quota.py          rolling Buffer request tally, summed per API key
   insights.py       cross-campaign findings, and what cannot be concluded
+  variation.py      per-variant treatment, seeded so a winner is reproducible
   keys.py           credentials: local .env and GitHub Actions secrets
   assets.py         MediaStore ABC + GitHub Releases
   queue.py          state machine + atomic persistence

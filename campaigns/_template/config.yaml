@@ -13,6 +13,14 @@ posting:
   max_backlog_days: 2         # render tops the backlog up to this many days
   dry_run: true               # leave true until a dispatch run looks correct
 
+variation:
+  # Per-variant creative treatment: a different punch-in, grade, grain and
+  # pace for every render, seeded on the item id so a winner is reproducible.
+  # Off until you have looked at a few samples — it changes how every video
+  # looks. `ugc sample --campaign <slug>` renders one without queueing it.
+  enabled: false
+  allow_mirror: false         # mirrors on-screen text and reverses a logo
+
 video:
   width: 1080
   height: 1920

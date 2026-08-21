@@ -254,6 +254,63 @@ class CompositionConfig(StrictModel):
     music_fade_in_sec: float = Field(default=0.5, ge=0.0, le=10.0)
 
 
+class VariationConfig(StrictModel):
+    """Per-variant creative treatment (see ``src/variation.py``).
+
+    Off by default. Turning it on changes what every render looks like, which
+    is not something a campaign should acquire by upgrading.
+
+    The defaults are set to the low end of *perceptible* rather than the high
+    end of imperceptible. A 0.5% grade shift is invisible, and two cuts a
+    viewer cannot tell apart are the same cut for every purpose that matters —
+    including whichever one you were hoping would perform better.
+    """
+
+    enabled: bool = False
+
+    #: Extra scale before cropping back, as a fraction. 0.05 = up to 5% punch-in.
+    zoom_max: float = Field(default=0.05, ge=0.0, le=0.25)
+    #: Frame rotation, degrees either way. The crop hides the corners; see
+    #: ``Treatment.required_overscan`` for why zoom has to cover it.
+    rotate_max_deg: float = Field(default=0.5, ge=0.0, le=3.0)
+    #: eq brightness either way, in ffmpeg's -1..1 scale.
+    brightness_max: float = Field(default=0.04, ge=0.0, le=0.3)
+    #: Saturation either side of 1.0.
+    saturation_max: float = Field(default=0.08, ge=0.0, le=0.5)
+    #: Hue rotation, degrees either way.
+    hue_max_deg: float = Field(default=4.0, ge=0.0, le=30.0)
+    #: Film-grain strength passed to ffmpeg's noise filter (0 disables).
+    grain_max: float = Field(default=6.0, ge=0.0, le=40.0)
+    #: Playback rate either side of 1.0. Retimes audio with the picture.
+    speed_max: float = Field(default=0.03, ge=0.0, le=0.2)
+    #: Horizontal flip. Off by default because it mirrors any on-screen text
+    #: and reverses a logo — only safe on shots with neither.
+    allow_mirror: bool = False
+
+
+class SeoConfig(StrictModel):
+    """What this campaign wants to be found for (SPEC §9 addendum).
+
+    Both TikTok and YouTube index spoken and written words and serve them
+    through search, which is a traffic source that does not decay the way the
+    feed does. A caption that reads well and mentions nothing searchable is
+    legal, publishes fine, and is invisible to it.
+
+    Keywords are per campaign rather than per platform because the subject is
+    the same everywhere; where the platforms differ is *which field* carries
+    the weight, and that is handled in ``platforms.advice``.
+    """
+
+    #: Phrases this campaign wants to rank for, most important first. Matched
+    #: case-insensitively and on word boundaries, so "nyu" does not match
+    #: "denyung".
+    keywords: tuple[str, ...] = ()
+
+    #: How far into the text a keyword still counts as front-loaded. Four words
+    #: is the usual advice for a caption; the check is a nudge, not a rule.
+    front_load_words: int = Field(default=4, ge=1, le=20)
+
+
 class SelectionConfig(StrictModel):
     """Combination picking and dedupe rules (SPEC §9/§10 ``selection``)."""
 
@@ -428,6 +485,8 @@ class CampaignConfig(StrictModel):
     video: VideoConfig = VideoConfig()
     composition: CompositionConfig = CompositionConfig()
     selection: SelectionConfig = SelectionConfig()
+    seo: SeoConfig = SeoConfig()
+    variation: VariationConfig = VariationConfig()
     buffer: BufferConfig
     notify: NotifyConfig
 
