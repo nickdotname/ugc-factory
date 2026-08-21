@@ -207,6 +207,7 @@ def upcoming_slots(
     *,
     min_lead: timedelta = timedelta(minutes=10),
     exclude: set[datetime] | None = None,
+    offset_min: int = 0,
 ) -> list[datetime]:
     """The next ``count`` posting slots at or after ``now + min_lead``.
 
@@ -235,7 +236,9 @@ def upcoming_slots(
             hour=0, minute=0, second=0, microsecond=0
         )
         candidates.extend(
-            spread_schedule(cycle_day, posts_per_day, start_hour, end_hour)
+            spread_schedule(
+                cycle_day, posts_per_day, start_hour, end_hour, offset_min
+            )
         )
 
     taken = exclude or set()
@@ -244,7 +247,8 @@ def upcoming_slots(
 
 
 def spread_schedule(
-    day: datetime, count: int, start_hour: int, end_hour: int
+    day: datetime, count: int, start_hour: int, end_hour: int,
+    offset_min: int = 0,
 ) -> list[datetime]:
     """Evenly spaced local times across the posting window (SPEC §9).
 
@@ -259,7 +263,9 @@ def spread_schedule(
     """
     if count <= 0:
         return []
-    start = day.replace(hour=start_hour, minute=0, second=0, microsecond=0)
+    start = day.replace(
+        hour=start_hour, minute=0, second=0, microsecond=0
+    ) + timedelta(minutes=offset_min)
     span = (end_hour - start_hour) % 24 or 24
     window = timedelta(hours=span)
     if count == 1:

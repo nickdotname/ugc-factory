@@ -694,6 +694,9 @@ def _reslot_stale(
             config.posting.end_hour,
             config.posting.posts_per_day,
             config.zone,
+            # Same grid as the render, or a re-slotted item lands between the
+            # campaign's own slots and drifts out of the stagger.
+            offset_min=config.posting.slot_offset_min,
         )
         if slot not in taken
     ]

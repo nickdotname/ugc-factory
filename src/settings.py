@@ -60,6 +60,9 @@ EDITABLE: tuple[Setting, ...] = (
             "When on, renders still run but nothing is pushed to Buffer."),
     Setting("posting.posts_per_day", "int", "Posts per day",
             "Drives slot spacing and the backlog target.", _positive),
+    Setting("posting.slot_offset_min", "int_or_null", "Stagger (minutes)",
+            "Shifts this campaign's slots. Campaigns sharing a cadence and "
+            "start hour post on the same minute otherwise."),
     Setting("posting.max_backlog_days", "int", "Backlog days",
             "Render tops the queue up to posts per day x this, then stops.",
             _positive),

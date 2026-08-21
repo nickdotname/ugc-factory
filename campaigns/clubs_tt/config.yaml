@@ -6,6 +6,7 @@ timezone: America/Denver
 assets_release: assets-clubs
 
 posting:
+  slot_offset_min: 40
   # 12/day = one post every two hours across the 24-hour window below.
   #
   # 6 hooks x 4 bodies x 33 music beds x 25 captions = 19,800 combinations,

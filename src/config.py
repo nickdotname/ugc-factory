@@ -126,6 +126,15 @@ class PostingConfig(StrictModel):
     end_hour: int = Field(default=22, ge=0, le=23)
     # SPEC §4.1: free-plan cap is queue *depth*, not a daily cap.
     max_buffer_queue: int = Field(default=10, ge=1, le=100)
+    #: Shifts every slot by this many minutes.
+    #:
+    #: Campaigns sharing a cadence and a start hour produce *identical* slot
+    #: times, so several posting the same library to different networks all
+    #: fire on the same minute. Nothing collides — they are different channels
+    #: — but the day's coverage collapses into a few instants, and anyone
+    #: following two of them sees a double. Give each campaign a different
+    #: offset to spread them across the gap.
+    slot_offset_min: int = Field(default=0, ge=0, le=1439)
     #: How many days of unpublished videos to keep rendered and waiting.
     #:
     #: Render is demand-driven rather than fixed: it tops the local backlog up

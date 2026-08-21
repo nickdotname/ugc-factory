@@ -518,3 +518,48 @@ class TestSlotExclusion:
         tz = ZoneInfo("UTC")
         assert upcoming_slots(NOW, 3, 9, 21, 3, tz) == \
                upcoming_slots(NOW, 3, 9, 21, 3, tz)
+
+
+class TestSlotStagger:
+    """Campaigns sharing a cadence and a start hour produce identical slot
+    times. Nothing collides — they are different channels — but the day's
+    coverage collapses into a few instants and a follower of two sees a
+    double."""
+
+    def day(self) -> datetime:
+        return datetime(2026, 8, 21, tzinfo=timezone.utc)
+
+    def test_no_offset_reproduces_the_old_grid(self) -> None:
+        assert spread_schedule(self.day(), 12, 15, 15) == \
+               spread_schedule(self.day(), 12, 15, 15, 0)
+
+    def test_an_offset_shifts_every_slot(self) -> None:
+        base = spread_schedule(self.day(), 12, 15, 15)
+        shifted = spread_schedule(self.day(), 12, 15, 15, 40)
+        assert all(
+            b + timedelta(minutes=40) == s for b, s in zip(base, shifted)
+        )
+
+    def test_staggered_campaigns_stop_sharing_slots(self) -> None:
+        a = set(spread_schedule(self.day(), 12, 15, 15, 0))
+        b = set(spread_schedule(self.day(), 12, 15, 15, 40))
+        c = set(spread_schedule(self.day(), 12, 15, 15, 80))
+        assert not (a & b) and not (b & c) and not (a & c)
+
+    def test_identical_config_shares_every_slot(self) -> None:
+        """The behaviour being fixed, pinned so it cannot come back unnoticed."""
+        a = set(spread_schedule(self.day(), 12, 15, 15))
+        b = set(spread_schedule(self.day(), 12, 15, 15))
+        assert a == b
+
+    def test_the_spacing_within_a_campaign_is_unchanged(self) -> None:
+        shifted = spread_schedule(self.day(), 12, 15, 15, 40)
+        gaps = {
+            (b - a) for a, b in zip(shifted, shifted[1:])
+        }
+        assert gaps == {timedelta(hours=2)}
+
+    def test_upcoming_slots_honours_the_offset(self) -> None:
+        now = datetime(2026, 8, 21, 12, 0, tzinfo=timezone.utc)
+        slots = upcoming_slots(now, 3, 15, 15, 12, timezone.utc, offset_min=40)
+        assert all(s.minute == 40 for s in slots)

@@ -694,6 +694,32 @@ them.
 
 ---
 
+## Staggering campaigns
+
+Slot times are derived from `posts_per_day`, `start_hour` and `end_hour`, so
+campaigns sharing those produce **identical** slots. Three campaigns posting
+one library to three networks therefore fire on the same minute, all day.
+
+Nothing collides — they are separate channels, and no channel is ever
+double-posted — but the day's coverage collapses into a few instants and
+anyone following two of them sees a double. It is easy to miss while most
+renders are being discarded, and obvious once they are not.
+
+`posting.slot_offset_min` shifts a campaign's whole grid. The live campaigns
+run 0 / 40 / 80 minutes, which spreads three networks evenly across a
+two-hour gap:
+
+```
+clubs     15:00  17:00  19:00  21:00
+clubs_tt  15:40  17:40  19:40  21:40
+clubs_yt  16:20  18:20  20:20  22:20
+```
+
+The re-slotting path uses the same offset, or an item moved off a stale slot
+would land between its campaign's own slots and drift out of the stagger.
+
+---
+
 ## Reviewing what goes out
 
 The render-to-push gap is the human review window, and the dashboard's **Queue**
