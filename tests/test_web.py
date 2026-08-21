@@ -542,6 +542,67 @@ class TestSwitchingCampaigns:
         assert two.library_scope()["campaigns"] == ["first", "second"]
 
 
+class TestOwnVersusSharedLibrary:
+    """Unticking "share the clip library" has to actually give the campaign
+    its own — a new brand with new footage should not silently inherit
+    another campaign's clips."""
+
+    @pytest.fixture
+    def app_with_base(self, tmp_path: Path) -> WebApp:
+        from src.campaigns import create_campaign
+        from src.platforms import Service
+
+        campaigns = tmp_path / "campaigns"
+        campaigns.mkdir()
+        create_campaign(campaigns, "base", Service.INSTAGRAM, channel_id="c0")
+        return WebApp(
+            config=load_campaign(campaigns, "base"), repo_root=tmp_path,
+            inbox=tmp_path / "inbox",
+            bank_path=campaigns / "base" / "captions.txt",
+            log=StructuredLogger({}, io.StringIO()),
+            clock=FrozenClock(NOW), store_factory=FakeStore,
+        )
+
+    def created(self, app: WebApp, slug: str) -> str:
+        return load_campaign(app.campaigns_dir, slug).assets_tag
+
+    def test_box_ticked_shares_the_current_library(
+        self, app_with_base: WebApp
+    ) -> None:
+        app_with_base.create(
+            {"slug": "shared", "service": "tiktok", "channel_id": "c1"}
+        )
+        assert self.created(app_with_base, "shared") == "assets-base"
+
+    def test_box_unticked_gives_it_its_own(self, app_with_base: WebApp) -> None:
+        """The bug this replaces: the browser sends an empty string, which is
+        falsy, so the old check treated it as 'not supplied' and shared the
+        library anyway — silently, and exactly opposite to what was asked."""
+        app_with_base.create({
+            "slug": "own", "service": "tiktok", "channel_id": "c2",
+            "assets_release": "",
+        })
+        assert self.created(app_with_base, "own") == "assets-own"
+
+    def test_an_explicit_tag_is_honoured(self, app_with_base: WebApp) -> None:
+        app_with_base.create({
+            "slug": "named", "service": "tiktok", "channel_id": "c3",
+            "assets_release": "assets-other",
+        })
+        assert self.created(app_with_base, "named") == "assets-other"
+
+    def test_an_own_library_campaign_has_its_own_inbox(
+        self, app_with_base: WebApp
+    ) -> None:
+        """The drop folder follows the Release, so its clips go somewhere of
+        its own rather than into the shared one."""
+        app_with_base.create({
+            "slug": "own", "service": "tiktok", "channel_id": "c2",
+            "assets_release": "",
+        })
+        assert load_campaign(app_with_base.campaigns_dir, "own").library_key == "own"
+
+
 class TestLibraryHeadline:
     """The panel must lead with the number that actually constrains variety."""
 

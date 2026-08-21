@@ -171,19 +171,28 @@ class TestMotion:
         assert block and "transform:none" in block.group(1).replace(" ", "")
 
 
-class TestSwitcherKeyboard:
-    """role="listbox" is a promise. These check the promise is kept, since a
-    dropdown you can only tab out of is not a dropdown."""
+class TestCampaignTabsKeyboard:
+    """role="tablist" is a promise about arrow keys, exactly as role="listbox"
+    was for the dropdown this replaced. Native buttons cover Tab and Enter;
+    the arrows are the part that has to be written."""
 
-    def test_the_menu_declares_itself_a_listbox(self) -> None:
-        assert 'id="switch-menu" class="switch-menu" role="listbox"' in PAGE
+    def test_the_strip_declares_itself_a_tablist(self) -> None:
+        assert 'id="tabs" class="tabs" role="tablist"' in PAGE
 
-    def test_the_trigger_reports_expansion(self) -> None:
-        assert 'aria-haspopup="listbox"' in PAGE
-        assert 'aria-expanded' in PAGE
+    def test_each_tab_reports_whether_it_is_selected(self) -> None:
+        assert 'role="tab" aria-selected=' in PAGE
 
-    def test_arrow_keys_are_handled(self) -> None:
-        assert "ArrowDown" in PAGE and "ArrowUp" in PAGE
+    def test_the_strip_is_labelled(self) -> None:
+        assert 'aria-label="Campaign"' in PAGE
 
-    def test_escape_does_not_strand_focus_on_a_hidden_control(self) -> None:
-        assert 'switch-btn").focus()' in PAGE
+    def test_arrow_keys_move_between_tabs(self) -> None:
+        assert "ArrowRight" in PAGE and "ArrowLeft" in PAGE
+
+    def test_home_and_end_jump_to_the_ends(self) -> None:
+        assert '"Home"' in PAGE and '"End"' in PAGE
+
+    def test_the_dead_dropdown_is_gone(self) -> None:
+        """Leaving its CSS and handlers behind would be dead weight that the
+        next person has to work out is unreachable."""
+        for gone in ("switch-menu", "switch-btn", "toggleSwitch", "sw-item"):
+            assert gone not in PAGE, f"{gone} survived the switch to tabs"

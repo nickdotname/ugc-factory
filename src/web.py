@@ -320,9 +320,15 @@ class WebApp:
                 # Default to sharing this campaign's library: a new campaign for
                 # the same brand on another network should not need the clips
                 # uploaded a second time.
+                # Three cases, and the middle one used to be lost. Absent
+                # means "share whatever this campaign uses". Present-but-empty
+                # is the operator explicitly unticking "share the library",
+                # which must give the new campaign its own — an empty string
+                # is falsy, so the old check treated it as absent and silently
+                # shared the library anyway.
                 assets_release=(
-                    str(payload.get("assets_release"))
-                    if payload.get("assets_release")
+                    (str(payload["assets_release"]).strip() or None)
+                    if "assets_release" in payload
                     else self.config.assets_tag
                 ),
                 organization_id=(
@@ -2241,42 +2247,35 @@ PAGE = """<!doctype html>
   .pill.paused { color:var(--warn); border-color:color-mix(in srgb,var(--warn) 40%,transparent);
                  background:color-mix(in srgb,var(--warn) 10%,transparent); }
 
-  /* ── Campaign switcher ─────────────────────────────────────────────────
-     A native <select> was the wrong control here: macOS drops the popup
-     with the *current* item under the cursor, so the campaign you are on
-     is hidden behind the button and only the others look selectable. This
-     lists every campaign with the one you are on marked.               */
-  .switch { position:relative; }
-  .switch-btn {
-    background:var(--grad-panel); color:var(--ink); border:1px solid var(--line-2);
-    font-weight:650; font-size:14px; padding:7px 12px;
-    display:flex; align-items:center; gap:8px;
+  /* ── Campaign tabs ─────────────────────────────────────────────────────
+     One tab per campaign, because a dropdown hides the thing you are
+     choosing between. With a handful of campaigns the whole set is visible
+     and switching is one click; past that the strip scrolls rather than
+     wrapping the header onto a second line.                             */
+  .tabs {
+    display:flex; align-items:stretch; gap:2px; height:100%;
+    overflow-x:auto; scrollbar-width:none; min-width:0;
   }
-  .switch-btn:hover { background:var(--panel-2); filter:none; }
-  .switch-btn .chev { color:var(--ink-3); font-size:10px; }
-  .switch-menu {
-    position:absolute; top:calc(100% + 6px); left:0; z-index:40;
-    min-width:270px; padding:5px;
-    background:var(--grad-panel); border:1px solid var(--line-2);
-    border-radius:var(--radius); box-shadow:var(--shadow), var(--edge);
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab {
+    position:relative; display:flex; flex-direction:column; justify-content:center;
+    gap:1px; padding:0 14px; border:none; background:transparent;
+    color:var(--ink-3); font-size:13px; font-weight:600; white-space:nowrap;
+    border-radius:0; box-shadow:none;
   }
-  .switch-menu[hidden] { display:none; }
-  .sw-item {
-    display:flex; align-items:center; gap:10px; width:100%;
-    padding:9px 10px; border-radius:var(--radius-sm);
-    background:transparent; border:none; color:var(--ink);
-    font-size:13px; font-weight:500; text-align:left;
+  .tab:hover { background:var(--panel-2); color:var(--ink); filter:none;
+               box-shadow:none; }
+  .tab .svc {
+    font-size:10px; font-weight:500; letter-spacing:.04em; opacity:.75;
   }
-  .sw-item:hover { background:var(--panel-2); filter:none; }
-  .sw-item[aria-selected="true"] { background:var(--panel-2); }
-  .sw-item .tick { color:var(--accent); width:12px; flex:none; font-size:11px; }
-  .sw-item .slug { flex:1; font-weight:600; }
-  .sw-item .meta { font-size:11px; color:var(--ink-3); white-space:nowrap; }
-  .sw-item.broken .slug { color:var(--down); }
-  .sw-new {
-    border-top:1px solid var(--line); margin-top:5px; padding-top:5px;
+  .tab[aria-selected="true"] { color:var(--ink); }
+  /* The indicator is the accent's one job in the header. */
+  .tab[aria-selected="true"]::after {
+    content:""; position:absolute; left:8px; right:8px; bottom:0; height:2px;
+    border-radius:2px 2px 0 0; background:var(--grad-accent);
   }
-  .sw-new .sw-item { color:var(--accent); font-weight:600; }
+  .tab.paused .svc { color:var(--warn); }
+  .tab.broken { color:var(--down); }
 
   /* ── Cards ─────────────────────────────────────────────────────────── */
   .card {
@@ -2750,17 +2749,10 @@ PAGE = """<!doctype html>
 <body>
 <header>
   <span class="brand"><span class="dot"></span>ugc-factory</span>
-  <div class="switch">
-    <button id="switch-btn" class="switch-btn" aria-haspopup="listbox"
-            aria-expanded="false">
-      <span id="switch-name">—</span><span class="chev">&#9662;</span>
-    </button>
-    <div id="switch-menu" class="switch-menu" role="listbox" hidden></div>
-  </div>
-  <span class="pill" id="t-service">—</span>
+  <nav id="tabs" class="tabs" role="tablist" aria-label="Campaign"></nav>
+  <span class="spacer"></span>
   <span class="pill" id="t-cadence">—</span>
   <span class="pill" id="t-dry">—</span>
-  <span class="spacer"></span>
   <button class="ghost" id="new-btn">New campaign</button>
 </header>
 
@@ -3056,7 +3048,8 @@ async function remove(kind, name){
 
 function render(s){
   STATE = s;
-  $("#t-service").textContent = s.service;
+  // The service moved into the campaign tab, where it belongs — it names
+  // the campaign rather than describing its state.
   $("#t-cadence").textContent = s.posts_per_day + "/day";
   const dry = $("#t-dry");
   dry.textContent = s.dry_run ? "paused" : "live";
@@ -3860,20 +3853,19 @@ $("#publish-btn").onclick = async (e) => {
 
 async function loadCampaigns(){
   const r = await (await fetch("/api/campaigns")).json();
-  $("#switch-name").textContent = r.selected;
-  $("#switch-menu").innerHTML = r.campaigns.map(c => `
-    <button class="sw-item ${c.valid ? "" : "broken"}" role="option"
-            aria-selected="${c.slug === r.selected}"
+
+  // One tab per campaign. The service sits under the name so the strip is
+  // scannable without reading slugs, and a paused campaign says so where you
+  // are already looking rather than in a pill somewhere else.
+  $("#tabs").innerHTML = r.campaigns.map(c => `
+    <button class="tab ${c.valid ? "" : "broken"} ${c.dry_run ? "paused" : ""}"
+            role="tab" aria-selected="${c.slug === r.selected}"
             onclick="pickCampaign('${c.slug}')">
-      <span class="tick">${c.slug === r.selected ? "&#10003;" : ""}</span>
-      <span class="slug">${esc(c.slug)}</span>
-      <span class="meta">${c.valid
-        ? `${esc(c.service)} · ${c.posts_per_day}/day · ${c.dry_run ? "paused" : "live"}`
+      <span>${esc(c.slug)}</span>
+      <span class="svc">${c.valid
+        ? esc(c.service) + (c.dry_run ? " · paused" : "")
         : "broken"}</span>
-    </button>`).join("") + `
-    <div class="sw-new"><button class="sw-item" onclick="newCampaign()">
-      <span class="tick">+</span><span class="slug">New campaign</span>
-    </button></div>`;
+    </button>`).join("");
 
   const broken = r.campaigns.filter(c => !c.valid);
   if (broken.length){
@@ -3882,44 +3874,9 @@ async function loadCampaigns(){
   }
 }
 
-function toggleSwitch(open){
-  const menu = $("#switch-menu");
-  const show = open === undefined ? menu.hidden : open;
-  menu.hidden = !show;
-  $("#switch-btn").setAttribute("aria-expanded", String(show));
-  if (show){
-    // Land on the campaign you are already on, not the top of the list.
-    const current = menu.querySelector('.sw-item[aria-selected="true"]');
-    (current || menu.querySelector(".sw-item"))?.focus();
-  } else if (document.activeElement && menu.contains(document.activeElement)){
-    // Closing with Escape must not strand focus on a hidden button.
-    $("#switch-btn").focus();
-  }
-}
-$("#switch-btn").onclick = (e) => { e.stopPropagation(); toggleSwitch(); };
-
-/* role="listbox" is a promise that arrow keys work. Tab alone would walk out
-   of the menu and on through the page, which is not what a dropdown does. */
-$("#switch-menu").addEventListener("keydown", (e) => {
-  const items = [...$("#switch-menu").querySelectorAll(".sw-item")];
-  const at = items.indexOf(document.activeElement);
-  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
-    e.preventDefault();
-    const step = e.key === "ArrowDown" ? 1 : -1;
-    items[(at + step + items.length) % items.length].focus();
-  } else if (e.key === "Home" || e.key === "End"){
-    e.preventDefault();
-    items[e.key === "Home" ? 0 : items.length - 1].focus();
-  }
-});
-document.addEventListener("click", () => toggleSwitch(false));
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") toggleSwitch(false);
-});
-
 /* Every panel, so nothing from the previous campaign survives the switch.
-   The old handler refreshed six of them and left findings, keys and charts
-   showing the campaign you had just navigated away from. */
+   An earlier version refreshed six of them and left findings, keys and
+   charts showing the campaign you had just navigated away from. */
 async function refreshAll(){
   await Promise.all([
     refresh(), loadClips(), loadQueue(), loadQuota(), loadInsights(),
@@ -3928,17 +3885,31 @@ async function refreshAll(){
   ]);
 }
 
+/* role="tablist" promises arrow keys, the same way role="listbox" did for the
+   dropdown this replaced. Native buttons already handle Tab and Enter; this
+   is the part that does not come for free. */
+$("#tabs").addEventListener("keydown", (e) => {
+  const tabs = [...$("#tabs").querySelectorAll(".tab")];
+  const at = tabs.indexOf(document.activeElement);
+  if (at < 0) return;
+  let next = null;
+  if (e.key === "ArrowRight") next = (at + 1) % tabs.length;
+  else if (e.key === "ArrowLeft") next = (at - 1 + tabs.length) % tabs.length;
+  else if (e.key === "Home") next = 0;
+  else if (e.key === "End") next = tabs.length - 1;
+  if (next === null) return;
+  e.preventDefault();
+  tabs[next].focus();
+});
+
 async function pickCampaign(slug){
-  toggleSwitch(false);
-  $("#switch-name").textContent = slug;
+  // Mark the tab immediately; the panels catch up behind it.
+  [...document.querySelectorAll("#tabs .tab")].forEach(t =>
+    t.setAttribute("aria-selected",
+      String(t.textContent.trim().startsWith(slug))));
   await fetch("/api/select", {method:"POST", body: JSON.stringify({slug})});
   await loadCampaigns();
   await refreshAll();
-}
-
-function newCampaign(){
-  toggleSwitch(false);
-  $("#new-btn").click();
 }
 
 async function loadKeys(){

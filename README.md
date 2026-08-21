@@ -566,6 +566,25 @@ trimming first would leave the bed short of the video.
 
 ---
 
+## Switching campaigns
+
+The header is a tab per campaign, showing its network underneath and marking
+a paused one where you are already looking. A dropdown hid the thing you were
+choosing between — on macOS it also drops the popup with the *current* item
+under the cursor, so the campaign you were on appeared to be missing from its
+own list.
+
+Clicking a tab reloads every panel. An earlier version refreshed six of them
+and left findings, keys and charts showing the campaign you had just
+navigated away from.
+
+Unticking **share the clip library** when creating a campaign genuinely gives
+it its own Release and its own drop folder. It used to send an empty string,
+which is falsy, so the server treated it as "not supplied" and shared the
+library anyway — silently, and exactly opposite to what was asked.
+
+---
+
 ## Changing settings without opening the file
 
 The dashboard's **Settings** panel edits `campaigns/<slug>/config.yaml`
