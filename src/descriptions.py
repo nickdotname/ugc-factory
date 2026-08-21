@@ -26,6 +26,8 @@ description and its title cannot drift out of sync or out of order.
 
 from __future__ import annotations
 
+from typing import Sequence
+
 import re
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
@@ -177,7 +179,10 @@ def resolve_titles(
 
 
 def validate_bank(
-    descriptions: list[Description], service: Service
+    descriptions: list[Description],
+    service: Service,
+    keywords: Sequence[str] = (),
+    front_load_words: int = 4,
 ) -> tuple[list[str], list[str]]:
     """Check every record against a platform. Returns (errors, advice).
 
@@ -192,7 +197,10 @@ def validate_bank(
             errors.append(f"description #{index}: {problem}")
         for problem in check_title(description.title, service):
             errors.append(f"description #{index}: {problem}")
-        for note in advice(description.body, description.title, service):
+        for note in advice(
+            description.body, description.title, service,
+            keywords, front_load_words,
+        ):
             notes.append(f"description #{index}: {note}")
     return errors, notes
 

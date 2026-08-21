@@ -90,6 +90,11 @@ slug: e2e
 timezone: America/New_York
 posting:
   posts_per_day: 3
+  # One day of backlog, purely for suite speed: at the default of 2 every
+  # render in this file produces six videos instead of three and the
+  # end-to-end suite takes twice as long. Carrying-forward is unaffected and
+  # is covered by the backlog tests below.
+  max_backlog_days: 1
   start_hour: 9
   end_hour: 21
   max_buffer_queue: 10
@@ -155,24 +160,23 @@ class TestRenderEndToEnd:
         assert cli.cmd_render(render_args(), {}) == 0
 
         queue = load_queue(campaign / "queue.json")
-        # Render tops the backlog up to posts_per_day * max_backlog_days, so a
-        # first run against an empty queue fills two days rather than one.
-        assert len(queue.items) == 6
+        # Render tops the backlog up to posts_per_day * max_backlog_days.
+        assert len(queue.items) == 3
         assert all(i.status is QueueStatus.PENDING for i in queue.items)
         assert all(i.video_url.startswith("https://example.test/") for i in queue.items)
         assert all(i.caption for i in queue.items)
 
         # The rendered files really exist and really are videos.
         published = sorted((tmp_path / "published").glob("*.mp4"))
-        assert len(published) == 6
+        assert len(published) == 3
         for path in published:
             assert path.stat().st_size > 1000
 
     def test_render_records_history_for_dedupe(self, campaign: Path) -> None:
         cli.cmd_render(render_args(), {})
         history = load_history(campaign / "history.json")
-        assert len(history.entries) == 6
-        assert len({e.tuple_hash for e in history.entries}) == 6
+        assert len(history.entries) == 3
+        assert len({e.tuple_hash for e in history.entries}) == 3
 
     def test_second_render_does_not_repeat_the_first(self, campaign: Path) -> None:
         """The whole point of history: tomorrow's batch avoids today's."""
@@ -200,7 +204,7 @@ class TestRenderEndToEnd:
                        key=lambda i: i.scheduled_for)
         times = [i.scheduled_for for i in items]
         assert times == sorted(times)
-        assert len(set(times)) == 6, "slots must not collide"
+        assert len(set(times)) == 3, "slots must not collide"
 
     def test_a_full_backlog_renders_nothing(self, campaign: Path) -> None:
         """The fix for renders outrunning what the channel publishes.
@@ -222,16 +226,16 @@ class TestRenderEndToEnd:
         cli.cmd_render(render_args(), {})
         queue = load_queue(campaign / "queue.json")
         # Drain most of it, as the top-up job would.
-        for item in queue.items[:5]:
+        for item in queue.items[:2]:
             item.status = QueueStatus.PUSHED
-        survivor = queue.items[5].id
+        survivor = queue.items[2].id
         save_queue(campaign / "queue.json", queue)
 
         cli.cmd_render(render_args(), {})
         after = load_queue(campaign / "queue.json").items
         assert survivor in {i.id for i in after}, "an unpushed video was discarded"
         # Pushed items are finished business and are not carried.
-        assert len(after) == 6
+        assert len(after) == 3
 
     def test_carried_and_new_items_never_share_a_slot(self, campaign: Path) -> None:
         from src.queue import save_queue

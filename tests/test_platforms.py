@@ -13,6 +13,8 @@ from src.config import PostType
 from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import ConfigError
 from src.platforms import (
+    SEARCH_FIELD,
+    keyword_advice,
     LIMITS,
     Service,
     advice,
@@ -463,3 +465,92 @@ class TestSeparatorFormat:
 
         records = parse_bank("title: T1\nbody one\n\nmore\n---\ntitle: T2\nbody two")
         assert [r.title for r in records] == ["T1", "T2"]
+
+
+class TestKeywordAdvice:
+    """Search is the traffic that does not decay, and it is the part of a
+    caption people write last. These are notes, never errors."""
+
+    KW = ("creative collaborators", "film students")
+
+    def test_no_keywords_configured_says_nothing(self) -> None:
+        assert keyword_advice("anything at all", None, Service.TIKTOK, ()) == []
+
+    def test_a_caption_with_no_keyword_is_flagged(self) -> None:
+        notes = keyword_advice("a lovely day out", None, Service.TIKTOK, self.KW)
+        assert notes and "no target keyword" in notes[0]
+
+    def test_a_front_loaded_keyword_passes_clean(self) -> None:
+        notes = keyword_advice(
+            "film students in new york, this is for you", None,
+            Service.TIKTOK, self.KW,
+        )
+        assert notes == []
+
+    def test_a_buried_keyword_is_flagged_for_position(self) -> None:
+        notes = keyword_advice(
+            "honestly the best thing I have found all year for film students",
+            None, Service.TIKTOK, self.KW,
+        )
+        assert len(notes) == 1 and "first 4 words" in notes[0]
+
+    def test_the_front_load_window_is_configurable(self) -> None:
+        text = "one two three four five film students"
+        assert keyword_advice(text, None, Service.TIKTOK, self.KW, 4) != []
+        assert keyword_advice(text, None, Service.TIKTOK, self.KW, 7) == []
+
+    def test_matching_is_case_insensitive(self) -> None:
+        assert keyword_advice(
+            "Film Students, listen up", None, Service.TIKTOK, self.KW
+        ) == []
+
+    def test_matching_respects_word_boundaries(self) -> None:
+        """'nyu' inside 'denyung' is not a mention, and counting it would
+        report a keyword as covered when it is absent."""
+        notes = keyword_advice("denyung and other words", None,
+                               Service.TIKTOK, ("nyu",))
+        assert notes and "no target keyword" in notes[0]
+
+    def test_a_multi_word_phrase_tolerates_extra_spacing(self) -> None:
+        assert keyword_advice(
+            "film  students are welcome", None, Service.TIKTOK,
+            ("film students",),
+        ) == []
+
+
+class TestSearchSurface:
+    """The platforms index different fields, and getting it backwards means
+    posting something unsearchable to one of them."""
+
+    def test_youtube_searches_the_title(self) -> None:
+        assert SEARCH_FIELD[Service.YOUTUBE] == "title"
+
+    def test_tiktok_and_instagram_search_the_caption(self) -> None:
+        assert SEARCH_FIELD[Service.TIKTOK] == "caption"
+        assert SEARCH_FIELD[Service.INSTAGRAM] == "caption"
+
+    def test_youtube_checks_the_title_not_the_description(self) -> None:
+        notes = keyword_advice(
+            "a description absolutely stuffed with film students",
+            "an unrelated title", Service.YOUTUBE, ("film students",),
+        )
+        assert notes and "title" in notes[0]
+
+    def test_youtube_passes_when_the_title_carries_it(self) -> None:
+        assert keyword_advice(
+            "any description", "film students in new york",
+            Service.YOUTUBE, ("film students",),
+        ) == []
+
+    def test_a_missing_youtube_title_is_an_empty_search_surface(self) -> None:
+        notes = keyword_advice("body text", None, Service.YOUTUBE,
+                               ("film students",))
+        assert notes and "search surface" in notes[0]
+
+    def test_tiktok_ignores_the_title_entirely(self) -> None:
+        """TikTok has no title field; only the caption is indexed."""
+        notes = keyword_advice(
+            "nothing relevant here", "film students",
+            Service.TIKTOK, ("film students",),
+        )
+        assert notes and "no target keyword" in notes[0]

@@ -484,6 +484,40 @@ every thirty, and it accumulates across every part of a concatenated video.
 Mirroring is available and off: it reverses any on-screen text and flips a
 logo, so it is only safe on shots with neither.
 
+The music bed gets its own treatment — tempo and a shelf tilt, per variant.
+It is deliberately separate from the picture's `speed`: nothing is
+synchronised to the bed, so it can move freely, while the clip's own audio
+must be retimed in lockstep with the video or it drifts. The tilt is a tilt
+rather than a boost — the top lifts by the same dB the bottom trims — so
+`music_volume` keeps meaning what it says. Bed filters run *before* the trim,
+since `atempo` changes how much material a given number of seconds holds, and
+trimming first would leave the bed short of the video.
+
+---
+
+## Being found in search
+
+Both TikTok and YouTube index text and serve it through search, which is the
+traffic that does not decay the way a feed placement does. They index
+**different fields**, and getting it backwards means posting something
+unsearchable:
+
+| platform | indexed field |
+|---|---|
+| TikTok | caption |
+| Instagram | caption |
+| YouTube | **title**, not the description |
+
+Set `seo.keywords` on a campaign and the description bank is linted against
+them: whether a target phrase appears in the field that platform actually
+searches, and whether it appears in the first few words, since front-loading
+is what ranks. Matching is case-insensitive and on word boundaries, so `nyu`
+does not match `denyung` and report a keyword as covered when it is absent.
+
+These are notes, never errors. A post with no keyword publishes perfectly
+well — it is just invisible to everyone who arrives by searching. Run
+`./ugc setup --campaign <slug>` or open the Descriptions panel to see them.
+
 ---
 
 ## Seeing a video before it exists

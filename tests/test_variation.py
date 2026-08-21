@@ -178,5 +178,53 @@ class TestTraceability:
         assert set(record) == {
             "zoom", "anchor_x", "anchor_y", "rotate_deg", "brightness",
             "saturation", "hue_deg", "grain", "speed", "mirror",
+            "music_tempo", "music_tilt_db",
         }
         assert all(isinstance(v, (int, float, bool)) for v in record.values())
+
+
+class TestMusicBed:
+    """The bed moves independently of the picture, because nothing is
+    synchronised to it — unlike the clip's own audio."""
+
+    def test_the_bed_is_retimed_separately_from_the_picture(self) -> None:
+        t = treatment_for("v3", ON)
+        assert t.music_tempo != t.speed
+
+    def test_tempo_comes_before_tone(self) -> None:
+        """atempo resamples; shelving first would drag the corner frequencies
+        along with it."""
+        t = Treatment(**{**NEUTRAL.__dict__, "music_tempo": 1.02,
+                         "music_tilt_db": 1.5})
+        chain = t.music_filters()
+        assert chain.index("atempo") < chain.index("treble")
+
+    def test_the_tilt_is_a_tilt_not_a_boost(self) -> None:
+        """Lifting the top and trimming the bottom by the same amount keeps
+        the bed at roughly one loudness, so music_volume still means what it
+        says."""
+        t = Treatment(**{**NEUTRAL.__dict__, "music_tilt_db": 2.0})
+        chain = t.music_filters()
+        assert "treble=g=2.00" in chain and "bass=g=-2.00" in chain
+
+    def test_a_neutral_bed_adds_no_filters(self) -> None:
+        assert NEUTRAL.music_filters() == ""
+
+    @pytest.mark.parametrize("variant", [f"m{i}" for i in range(30)])
+    def test_bed_values_stay_in_bounds(self, variant: str) -> None:
+        t = treatment_for(variant, ON)
+        assert abs(t.music_tempo - 1.0) <= ON.music_tempo_max
+        assert abs(t.music_tilt_db) <= ON.music_tilt_db
+
+    def test_atempo_stays_in_ffmpegs_accepted_range(self) -> None:
+        """atempo rejects anything outside 0.5..100, and the failure is a
+        render abort partway through a batch."""
+        wide = VariationConfig(enabled=True, music_tempo_max=0.2, speed_max=0.2)
+        for i in range(40):
+            t = treatment_for(f"m{i}", wide)
+            assert 0.5 <= t.music_tempo <= 100.0
+            assert 0.5 <= t.speed <= 100.0
+
+    def test_the_recipe_records_the_bed_too(self) -> None:
+        record = treatment_for("v3", ON).as_dict()
+        assert "music_tempo" in record and "music_tilt_db" in record

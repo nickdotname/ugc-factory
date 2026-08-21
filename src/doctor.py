@@ -217,7 +217,10 @@ def check_descriptions(bank_path: Path, config: CampaignConfig) -> list[Check]:
                   f"./ugc web --campaign {config.slug}")
         ]
 
-    errors, _ = validate_bank(records, config.buffer.service)
+    errors, _ = validate_bank(
+        records, config.buffer.service,
+        config.seo.keywords, config.seo.front_load_words,
+    )
     # Template text shipping to a real account is the failure this catches, and
     # it is reported as part of the one descriptions check rather than as a
     # second contradictory line.

@@ -268,6 +268,7 @@ class FfmpegRenderer(Renderer):
         dest: Path,
         workdir: Path,
         music_offset_sec: float = 0.0,
+        treatment: "Treatment | None" = None,
     ) -> None:
         """Concatenate normalized parts and lay music under the whole video."""
         listfile = workdir / "concat.txt"
@@ -320,8 +321,14 @@ class FfmpegRenderer(Renderer):
         # says. duration=first ties the mix length to the video's own audio.
         start = max(0.0, music_offset_sec)
         fade_in = min(c.music_fade_in_sec, duration / 2)
+        # The bed's own treatment goes first, before the trim: atempo changes
+        # how much material a given number of seconds contains, so trimming
+        # first and retiming after would leave the bed short of the video.
+        bed = treatment.music_filters() if treatment else ""
+        bed = f"{bed}," if bed else ""
         filter_complex = (
             f"[1:a]volume={c.music_volume},"
+            f"{bed}"
             f"atrim={start:.3f}:{start + duration:.3f},"
             f"asetpts=PTS-STARTPTS,"
             f"afade=t=in:st=0:d={fade_in:.3f},"
@@ -389,7 +396,7 @@ class FfmpegRenderer(Renderer):
 
             self._concat_and_mix(
                 normalized, request.music_path, request.output_path, workdir,
-                request.music_offset_sec,
+                request.music_offset_sec, treatment,
             )
         finally:
             # Temps are large; leaving them behind fills a CI runner's disk

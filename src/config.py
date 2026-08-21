@@ -287,6 +287,14 @@ class VariationConfig(StrictModel):
     #: and reverses a logo — only safe on shots with neither.
     allow_mirror: bool = False
 
+    #: Music bed tempo either side of 1.0, independent of the picture. The
+    #: bed is under the voice, so it can move without dragging dialogue with
+    #: it — unlike ``speed_max``, which retimes everything together.
+    music_tempo_max: float = Field(default=0.03, ge=0.0, le=0.2)
+    #: Shelf tilt on the music bed, in dB. Positive lifts air and cuts low
+    #: end; negative does the reverse. A different balance per variant.
+    music_tilt_db: float = Field(default=1.5, ge=0.0, le=6.0)
+
 
 class SeoConfig(StrictModel):
     """What this campaign wants to be found for (SPEC §9 addendum).

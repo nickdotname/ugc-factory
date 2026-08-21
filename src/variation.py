@@ -53,6 +53,10 @@ class Treatment:
     #: Horizontal flip. Destroys on-screen text and mirrors any logo, so it is
     #: opt-in per campaign rather than part of the default mix.
     mirror: bool
+    #: Music bed tempo, independent of ``speed``. 1.0 is unchanged.
+    music_tempo: float = 1.0
+    #: Shelf tilt on the bed in dB: positive is brighter, negative warmer.
+    music_tilt_db: float = 0.0
 
     @property
     def rotate_rad(self) -> float:
@@ -140,6 +144,28 @@ class Treatment:
             return ""
         return f"atempo={self.speed:.5f}"
 
+    def music_filters(self) -> str:
+        """Bed treatment, applied to the music only.
+
+        Separate from ``audio_filters`` on purpose. That one retimes the
+        clip's own audio to match a retimed picture and is not optional. This
+        one shapes the bed underneath the voice, which can move freely because
+        nothing is synchronised to it.
+
+        Order: tempo first, then tone. atempo resamples, and shelving before
+        a resample would move the corner frequencies along with it.
+        """
+        parts: list[str] = []
+        if self.music_tempo != 1.0:
+            parts.append(f"atempo={self.music_tempo:.5f}")
+        if self.music_tilt_db:
+            # A tilt, not a boost: lifting the top while trimming the bottom
+            # by the same amount keeps the bed at roughly the same loudness,
+            # so music_volume still means what it says.
+            parts.append(f"treble=g={self.music_tilt_db:.2f}:f=8000")
+            parts.append(f"bass=g={-self.music_tilt_db:.2f}:f=200")
+        return ",".join(parts)
+
     def as_dict(self) -> dict[str, float | bool]:
         """Flat record for the queue, so a winner can be traced to its recipe."""
         return {
@@ -153,6 +179,8 @@ class Treatment:
             "grain": round(self.grain, 2),
             "speed": round(self.speed, 4),
             "mirror": self.mirror,
+            "music_tempo": round(self.music_tempo, 4),
+            "music_tilt_db": round(self.music_tilt_db, 2),
         }
 
 
@@ -200,4 +228,6 @@ def treatment_for(variant_id: str, config: VariationConfig) -> Treatment:
         grain=draw[7] * config.grain_max,
         speed=1.0 + spread(8, config.speed_max),
         mirror=bool(config.allow_mirror and draw[9] > 0.5),
+        music_tempo=1.0 + spread(10, config.music_tempo_max),
+        music_tilt_db=spread(11, config.music_tilt_db),
     )

@@ -18,6 +18,9 @@ test, not an archaeology expedition.
 
 from __future__ import annotations
 
+import re
+from typing import Sequence
+
 from dataclasses import dataclass
 from enum import Enum
 
@@ -140,7 +143,94 @@ def check_title(title: str | None, service: Service) -> list[str]:
     return problems
 
 
-def advice(text: str, title: str | None, service: Service) -> list[str]:
+#: Which field a platform actually indexes for search.
+#:
+#: They differ, and the difference is easy to get backwards. YouTube ranks a
+#: Short largely on its *title*; the description is close to invisible to
+#: search. TikTok indexes the caption, and weights the opening of it. Writing
+#: one text and posting it to both means one of them is unsearchable.
+SEARCH_FIELD: dict[Service, str] = {
+    Service.INSTAGRAM: "caption",
+    Service.TIKTOK: "caption",
+    Service.YOUTUBE: "title",
+}
+
+
+def _mentions(text: str, phrase: str) -> bool:
+    """Whole-phrase, case-insensitive match on word boundaries.
+
+    Boundaries matter: "nyu" appearing inside "denyung" is not a mention, and
+    counting it would report a keyword as covered when it is not there.
+    """
+    pattern = r"\b" + r"\s+".join(re.escape(w) for w in phrase.split()) + r"\b"
+    return re.search(pattern, text, re.IGNORECASE) is not None
+
+
+def _first_words(text: str, count: int) -> str:
+    return " ".join(text.split()[:count])
+
+
+def keyword_advice(
+    text: str,
+    title: str | None,
+    service: Service,
+    keywords: Sequence[str],
+    front_load_words: int = 4,
+) -> list[str]:
+    """Notes about searchability, against this campaign's target phrases.
+
+    Search is the traffic that does not decay the way a feed placement does,
+    and it is the part of a caption people write last and least. These are
+    notes, never errors: a post with no keyword still publishes fine, it is
+    just invisible to the half of the audience that arrives by searching.
+    """
+    if not keywords:
+        return []
+
+    field = SEARCH_FIELD[service]
+    subject = (title or "") if field == "title" else text
+    notes: list[str] = []
+
+    if field == "title" and not (title or "").strip():
+        # Caught as a hard error elsewhere when the platform requires one; the
+        # point here is that an empty title is an empty search surface.
+        return [
+            f"no title — on {service.value} the title is the search surface, "
+            f"not the description"
+        ]
+
+    hits = [k for k in keywords if _mentions(subject, k)]
+    if not hits:
+        shown = ", ".join(f"'{k}'" for k in keywords[:3])
+        notes.append(
+            f"no target keyword in the {field} ({shown}) — "
+            f"{service.value} indexes the {field} for search"
+        )
+        return notes
+
+    opening = _first_words(subject, front_load_words)
+    if not any(_mentions(opening, k) for k in hits):
+        notes.append(
+            f"'{hits[0]}' appears in the {field} but not in the first "
+            f"{front_load_words} words; front-loading it is what ranks"
+        )
+
+    if field == "title" and text and any(_mentions(text, k) for k in keywords) \
+            and not hits:
+        notes.append(
+            f"keyword is in the description but not the title — on "
+            f"{service.value} that is the wrong field for search"
+        )
+    return notes
+
+
+def advice(
+    text: str,
+    title: str | None,
+    service: Service,
+    keywords: Sequence[str] = (),
+    front_load_words: int = 4,
+) -> list[str]:
     """Non-blocking notes about text that is legal but likely to underperform."""
     limits = limits_for(service)
     notes: list[str] = []
@@ -155,4 +245,5 @@ def advice(text: str, title: str | None, service: Service) -> list[str]:
             f"title is {len(title)} chars; {service.value} displays about "
             f"{limits.visible_chars}"
         )
+    notes += keyword_advice(text, title, service, keywords, front_load_words)
     return notes

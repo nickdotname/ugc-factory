@@ -1435,7 +1435,10 @@ class WebApp:
         )
         try:
             descriptions = parse_bank(bank_text)
-            errors, notes = validate_bank(descriptions, self.config.buffer.service)
+            errors, notes = validate_bank(
+                descriptions, self.config.buffer.service,
+                self.config.seo.keywords, self.config.seo.front_load_words,
+            )
         except UgcError as exc:
             descriptions, errors, notes = [], [str(exc)], []
 
@@ -1640,7 +1643,10 @@ class WebApp:
         self.bank_path.write_text(text, encoding="utf-8")
         try:
             descriptions = parse_bank(text)
-            errors, notes = validate_bank(descriptions, self.config.buffer.service)
+            errors, notes = validate_bank(
+                descriptions, self.config.buffer.service,
+                self.config.seo.keywords, self.config.seo.front_load_words,
+            )
         except UgcError as exc:
             return {"ok": True, "count": 0, "errors": [str(exc)], "notes": []}
         return {
