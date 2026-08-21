@@ -14,6 +14,8 @@ from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import ConfigError
 from src.platforms import (
     SEARCH_FIELD,
+    config_conflicts,
+    effective_video_limits,
     keyword_advice,
     LIMITS,
     Service,
@@ -554,3 +556,55 @@ class TestSearchSurface:
             Service.TIKTOK, ("film students",),
         )
         assert notes and "no target keyword" in notes[0]
+
+
+class TestVideoLimits:
+    """Text was already per-platform; video was not, and the difference bites
+    hardest exactly where it is least visible."""
+
+    def test_the_tighter_limit_wins(self) -> None:
+        _, ceiling, _ = effective_video_limits(Service.YOUTUBE, 5, 90, 100)
+        assert ceiling == 60.0
+
+    def test_a_stricter_config_is_still_honoured(self) -> None:
+        """The platform's number is a fact; the config is preference. Neither
+        one gets to loosen the other."""
+        _, ceiling, _ = effective_video_limits(Service.TIKTOK, 5, 30, 100)
+        assert ceiling == 30.0
+
+    def test_the_floor_takes_the_higher_of_the_two(self) -> None:
+        floor, _, _ = effective_video_limits(Service.INSTAGRAM, 5, 90, 100)
+        assert floor == 5.0
+        floor, _, _ = effective_video_limits(Service.INSTAGRAM, 1, 90, 100)
+        assert floor == 3.0
+
+    def test_file_size_is_clamped_the_same_way(self) -> None:
+        _, _, mb = effective_video_limits(Service.INSTAGRAM, 5, 90, 900)
+        assert mb == 100.0
+
+    def test_shorts_are_capped_below_the_other_two(self) -> None:
+        """A Short is a Short because of its length. Over the boundary it is
+        not rejected — it becomes an ordinary video and loses the entire
+        Shorts surface, with no error to explain the drop."""
+        yt = effective_video_limits(Service.YOUTUBE, 5, 600, 100)[1]
+        ig = effective_video_limits(Service.INSTAGRAM, 5, 600, 100)[1]
+        tt = effective_video_limits(Service.TIKTOK, 5, 600, 100)[1]
+        assert yt < ig < tt
+
+
+class TestConfigConflicts:
+    def test_a_looser_config_is_reported(self) -> None:
+        notes = config_conflicts(Service.YOUTUBE, 90.0, 100.0)
+        assert notes and "clamped to 60s" in notes[0]
+
+    def test_a_config_inside_the_platform_says_nothing(self) -> None:
+        assert config_conflicts(Service.YOUTUBE, 45.0, 100.0) == []
+
+    def test_an_oversized_file_cap_is_reported(self) -> None:
+        notes = config_conflicts(Service.INSTAGRAM, 60.0, 900.0)
+        assert any("max_file_mb" in n for n in notes)
+
+    def test_instagram_does_not_inherit_the_shorts_ceiling(self) -> None:
+        """The bug this replaces: one config, one hardcoded set of limits, and
+        every validation message saying 'Reels' wherever it was going."""
+        assert config_conflicts(Service.INSTAGRAM, 90.0, 100.0) == []

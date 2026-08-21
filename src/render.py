@@ -31,6 +31,7 @@ from src.config import CampaignConfig
 from src.errors import RenderError, ValidationError
 from src.logging import StructuredLogger
 from src.models import MediaProbe, RenderRequest, RenderResult
+from src.platforms import effective_video_limits
 from src.variation import NEUTRAL, Treatment, treatment_for
 
 #: Sample rate Instagram expects for Reels audio (SPEC §4.3).
@@ -430,21 +431,30 @@ class FfmpegRenderer(Renderer):
         gate stays hard.
         """
         v = self._config.video
+        service = self._config.buffer.service
+        # The tighter of config and platform. A campaign config is preference;
+        # the platform's number is a fact, and the old code enforced only the
+        # former — while naming every limit "Reels" regardless of where the
+        # video was actually going.
+        floor, ceiling, max_mb = effective_video_limits(
+            service, v.min_duration_sec, v.max_duration_sec, v.max_file_mb
+        )
         problems: list[str] = []
 
         if not probe.has_video:
             problems.append("no video stream")
         if not probe.has_audio:
             problems.append("no audio stream")
-        if probe.duration_sec < v.min_duration_sec:
+        if probe.duration_sec < floor:
             problems.append(
-                f"duration {probe.duration_sec:.2f}s is under the "
-                f"{v.min_duration_sec}s Reels floor"
+                f"duration {probe.duration_sec:.2f}s is under the {floor:.0f}s "
+                f"floor for {service.value}"
             )
-        if probe.duration_sec > v.max_duration_sec:
+        if probe.duration_sec > ceiling:
             problems.append(
-                f"duration {probe.duration_sec:.2f}s exceeds the "
-                f"{v.max_duration_sec}s Reels ceiling"
+                f"duration {probe.duration_sec:.2f}s exceeds the {ceiling:.0f}s "
+                f"ceiling for {service.value} "
+                f"({self._config.buffer.post_type.value})"
             )
         if (probe.width, probe.height) != (v.width, v.height):
             problems.append(
@@ -452,8 +462,11 @@ class FfmpegRenderer(Renderer):
                 f"configured {v.width}x{v.height}"
             )
         size_mb = probe.size_bytes / 1_000_000
-        if size_mb > v.max_file_mb:
-            problems.append(f"file is {size_mb:.1f} MB, over the {v.max_file_mb} MB cap")
+        if size_mb > max_mb:
+            problems.append(
+                f"file is {size_mb:.1f} MB, over the {max_mb:.0f} MB cap for "
+                f"{service.value}"
+            )
 
         if problems:
             raise ValidationError(

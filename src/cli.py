@@ -70,7 +70,7 @@ from src.metrics import (
 )
 from src.notify import Digest, Notifier, notifier_for
 from src.campaigns import list_campaigns
-from src.platforms import Service
+from src.platforms import Service, config_conflicts, effective_video_limits
 from src.quota import (
     MONTHLY_ALLOWANCE,
     WINDOW_DAYS,
@@ -870,6 +870,19 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
                             "music_probe_failed", track=track.name, error=str(exc)
                         )
 
+            # Duration is decided by which clips get picked, and the selector
+            # cannot know that — it never probes the video parts. So the check
+            # happens here, where the files are already downloaded, rather than
+            # at 05:00 when an over-length cut fails validation after it has
+            # been rendered.
+            problems += _duration_headroom(paths, config, renderer, log)
+            for note in config_conflicts(
+                config.buffer.service,
+                config.video.max_duration_sec,
+                config.video.max_file_mb,
+            ):
+                print(f"WARN {note}", file=sys.stderr)
+
             library = _library_from(paths, descriptions, config, durations)
             library.validate()
             ceiling = library.ceiling(config.composition.bodies_per_video)
@@ -903,6 +916,72 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
 
 
 # ------------------------------------------------------------------ command: ingest
+
+
+def _duration_headroom(
+    paths: LocalLibrary,
+    config: CampaignConfig,
+    renderer: Renderer,
+    log: StructuredLogger,
+) -> list[str]:
+    """Whether the longest possible cut still fits the platform.
+
+    The worst case is the longest hook plus the longest N bodies. If that
+    exceeds the ceiling, some combinations will fail validation after being
+    rendered — wasted work, and a gap in the night's batch. If even the
+    *shortest* possible cut exceeds it, nothing can render at all.
+
+    Returned as problems only in that second case; the first is a warning,
+    because a library where most combinations fit is still usable.
+    """
+    def durations(items: tuple[Path, ...]) -> list[float]:
+        out: list[float] = []
+        for path in items:
+            try:
+                out.append(renderer.probe(path).duration_sec)
+            except UgcError as exc:
+                log.warning("probe_failed", clip=path.name, error=str(exc))
+        return out
+
+    hooks = durations(paths.hooks)
+    bodies = durations(paths.bodies)
+    if not hooks or not bodies:
+        return []
+
+    composition = config.composition
+    most = min(
+        composition.bodies_per_video_max or composition.bodies_per_video,
+        len(bodies),
+    )
+    fewest = composition.bodies_per_video
+    longest = max(hooks) + sum(sorted(bodies, reverse=True)[:most])
+    shortest = min(hooks) + sum(sorted(bodies)[:fewest])
+
+    _, ceiling, _ = effective_video_limits(
+        config.buffer.service, config.video.min_duration_sec,
+        config.video.max_duration_sec, config.video.max_file_mb,
+    )
+    log.info(
+        "duration_headroom", shortest=round(shortest, 1),
+        longest=round(longest, 1), ceiling=ceiling,
+        service=config.buffer.service.value,
+    )
+
+    if shortest > ceiling:
+        return [
+            f"even the shortest possible cut is {shortest:.0f}s, over the "
+            f"{ceiling:.0f}s ceiling for {config.buffer.service.value} — no "
+            f"combination can render"
+        ]
+    if longest > ceiling:
+        print(
+            f"WARN longest possible cut is {longest:.0f}s against a "
+            f"{ceiling:.0f}s ceiling for {config.buffer.service.value}; "
+            f"some combinations will fail. Lower "
+            f"composition.bodies_per_video_max or trim the longer clips.",
+            file=sys.stderr,
+        )
+    return []
 
 
 def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:

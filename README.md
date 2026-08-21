@@ -257,6 +257,41 @@ never pass through this tool.
    your source clips before they reach the pipeline; the renderer has no text
    filters at all.
 
+## Video limits per platform
+
+Text limits were always per-platform; video was not. Every campaign carried
+its own `video.max_duration_sec` and the renderer enforced only that, while
+calling every limit "the Reels ceiling" regardless of where the video was
+going.
+
+| | duration | file | note |
+|---|---|---|---|
+| Instagram | 3–90s | 100 MB | |
+| TikTok | 3–180s | 500 MB | permits far longer; nothing here wants it |
+| YouTube | 3–**60s** | 100 MB | the one that bites |
+
+YouTube is the dangerous one, because a Short is a Short *because of its
+length*. A video over the boundary is not rejected — it is published as an
+ordinary video, losing the whole Shorts surface, with no error anywhere to
+explain why that post did nothing.
+
+The 60s figure is deliberately the old boundary rather than the extended one.
+The asymmetry decides it: capping short costs a length nothing here wants,
+while capping long risks silent reclassification. Verify before relying on
+headroom above 60s.
+
+Renders are validated against **the tighter of config and platform**, so a
+generous config cannot produce a file the platform will reject or reclassify,
+and a deliberately strict config is still honoured.
+
+Duration is decided by which clips get picked, and the selector never probes
+the video parts — so `preflight` does the arithmetic instead, comparing the
+longest possible cut (longest hook + longest N bodies) against the ceiling. On
+the live library that is 15.2s at one body per video and 49.6s at four, so the
+whole range fits every platform.
+
+---
+
 ## Text limits per platform
 
 Verified August 2026 and held in one table in [src/platforms.py](src/platforms.py),

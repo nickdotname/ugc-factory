@@ -14,7 +14,8 @@ import pytest
 from src.config import CampaignConfig
 from src.errors import RenderError, ValidationError
 from src.logging import StructuredLogger
-from src.models import RenderRequest
+from src.config import PostType
+from src.models import MediaProbe, RenderRequest
 from src.render import FfmpegRenderer
 
 from tests.conftest import needs_ffmpeg
@@ -170,14 +171,14 @@ class TestOutputValidation:
         self, renderer: FfmpegRenderer, clips: dict[str, Path], tmp_path: Path
     ) -> None:
         """1s + 1s = 2s, under the 5s Reels floor."""
-        with pytest.raises(ValidationError, match="Reels floor"):
+        with pytest.raises(ValidationError, match="under the 5s floor"):
             renderer.render(request_for(tmp_path, clips, "tiny", ["tiny"]))
 
     def test_too_long_output_is_rejected(
         self, renderer: FfmpegRenderer, clips: dict[str, Path], tmp_path: Path
     ) -> None:
         """50s + 50s = 100s, over the 90s Reels ceiling."""
-        with pytest.raises(ValidationError, match="Reels ceiling"):
+        with pytest.raises(ValidationError, match="exceeds the 90s ceiling"):
             renderer.render(request_for(tmp_path, clips, "long", ["long"]))
 
     def test_wrong_dimensions_are_rejected(
@@ -376,3 +377,36 @@ class TestMusicRandomStart:
             output_path=tmp_path / "zero.mp4",
         )
         assert renderer.render(req).probe.has_audio
+
+
+class TestValidationNamesThePlatform:
+    """The messages used to say "Reels" wherever the video was going, which is
+    actively misleading on a YouTube campaign — the platform whose limit is
+    the tightest and the only one where exceeding it fails silently."""
+
+    def _probe(self, tmp_path: Path, seconds: float) -> MediaProbe:
+        return MediaProbe(
+            path=tmp_path / "x.mp4", duration_sec=seconds, width=1080,
+            height=1920, fps=30.0, has_video=True, has_audio=True,
+            size_bytes=1_000_000,
+        )
+
+    def test_a_youtube_campaign_is_held_to_the_shorts_ceiling(
+        self, config: CampaignConfig, logger: StructuredLogger, tmp_path: Path
+    ) -> None:
+        from src.platforms import Service
+
+        buffer = config.buffer.model_copy(
+            update={"service": Service.YOUTUBE, "post_type": PostType.SHORT}
+        )
+        yt = config.model_copy(update={"buffer": buffer})
+        renderer = FfmpegRenderer(yt, logger)
+        # 75s is legal under the campaign's own 90s config and still too long
+        # to be a Short.
+        with pytest.raises(ValidationError, match="ceiling for youtube"):
+            renderer.validate_output(self._probe(tmp_path, 75.0))
+
+    def test_the_same_length_passes_on_instagram(
+        self, config: CampaignConfig, logger: StructuredLogger, tmp_path: Path
+    ) -> None:
+        FfmpegRenderer(config, logger).validate_output(self._probe(tmp_path, 75.0))

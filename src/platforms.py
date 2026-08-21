@@ -58,6 +58,18 @@ class PlatformLimits:
     #: the hook.
     visible_chars: int
 
+    #: Longest video the platform will accept *in this format*. The one that
+    #: bites is YouTube: a Short is a Short because of its length, and a video
+    #: over the boundary is not rejected — it is silently published as an
+    #: ordinary video, losing the entire Shorts surface with no error to
+    #: explain it.
+    max_duration_sec: float = 60.0
+    #: Shortest that will not be treated as a fragment.
+    min_duration_sec: float = 3.0
+    #: File size ceiling. Buffer fetches by URL, so this is the platform's
+    #: limit rather than an upload cap.
+    max_file_mb: float = 100.0
+
     @property
     def has_title(self) -> bool:
         return self.title_max is not None
@@ -71,6 +83,9 @@ LIMITS: dict[Service, PlatformLimits] = {
         title_max=None,
         title_required=False,
         visible_chars=125,
+        max_duration_sec=90.0,
+        min_duration_sec=3.0,
+        max_file_mb=100.0,
     ),
     Service.TIKTOK: PlatformLimits(
         service=Service.TIKTOK,
@@ -80,6 +95,11 @@ LIMITS: dict[Service, PlatformLimits] = {
         title_max=None,
         title_required=False,
         visible_chars=150,
+        # TikTok permits far longer, but nothing in this pipeline wants a
+        # three-minute ad and a low ceiling cannot cause a misclassification.
+        max_duration_sec=180.0,
+        min_duration_sec=3.0,
+        max_file_mb=500.0,
     ),
     Service.YOUTUBE: PlatformLimits(
         service=Service.YOUTUBE,
@@ -88,6 +108,14 @@ LIMITS: dict[Service, PlatformLimits] = {
         title_max=100,
         title_required=True,
         visible_chars=40,
+        # Deliberately the old 60s boundary rather than the extended one.
+        # The asymmetry decides it: capping short costs a length nothing here
+        # wants, while capping long risks a video published as an ordinary
+        # upload instead of a Short — no error, no Shorts distribution, and
+        # nothing to explain why that post underperformed.
+        max_duration_sec=60.0,
+        min_duration_sec=3.0,
+        max_file_mb=100.0,
     ),
 }
 
@@ -98,6 +126,52 @@ def limits_for(service: Service) -> PlatformLimits:
         return LIMITS[service]
     except KeyError as exc:  # pragma: no cover - unreachable while Service is closed
         raise ValueError(f"no text limits recorded for service {service!r}") from exc
+
+
+def effective_video_limits(
+    service: Service,
+    config_min: float,
+    config_max: float,
+    config_max_mb: float,
+) -> tuple[float, float, float]:
+    """The limits a render must actually satisfy: the tighter of the two.
+
+    Campaign config is operator preference; the platform's number is a fact.
+    Taking the tighter of each means a generous config cannot produce a file
+    the platform will reject or reclassify, and a deliberately strict config
+    is still honoured.
+    """
+    limits = limits_for(service)
+    return (
+        max(config_min, limits.min_duration_sec),
+        min(config_max, limits.max_duration_sec),
+        min(config_max_mb, limits.max_file_mb),
+    )
+
+
+def config_conflicts(
+    service: Service, config_max: float, config_max_mb: float
+) -> list[str]:
+    """Where a campaign's own limits are looser than the platform allows.
+
+    Not an error — the render is clamped either way — but a config claiming a
+    90-second ceiling on YouTube is describing something that will not be a
+    Short, and that is worth saying once at preflight rather than never.
+    """
+    limits = limits_for(service)
+    notes: list[str] = []
+    if config_max > limits.max_duration_sec:
+        notes.append(
+            f"video.max_duration_sec is {config_max:.0f}s but {service.value} "
+            f"allows {limits.max_duration_sec:.0f}s here; renders are clamped "
+            f"to {limits.max_duration_sec:.0f}s"
+        )
+    if config_max_mb > limits.max_file_mb:
+        notes.append(
+            f"video.max_file_mb is {config_max_mb:.0f} but {service.value} "
+            f"allows {limits.max_file_mb:.0f}"
+        )
+    return notes
 
 
 def check_description(text: str, service: Service) -> list[str]:

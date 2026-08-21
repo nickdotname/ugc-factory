@@ -3441,7 +3441,7 @@ async function dropRevenue(id){
 async function loadSettings(){
   const r = await (await fetch("/api/settings")).json();
   $("#settings").innerHTML = `<div class="card">` + r.settings.map(s => {
-    const id = "set-" + s.path.replace(/\./g, "-");
+    const id = "set-" + s.path.replace(/\\./g, "-");
     let control;
     if (s.kind === "bool"){
       control = `<button class="tgl" role="switch" id="${id}"
@@ -3488,7 +3488,7 @@ async function saveSetting(path, value){
 }
 
 async function flipSetting(path){
-  const el = $("#set-" + path.replace(/\./g, "-"));
+  const el = $("#set-" + path.replace(/\\./g, "-"));
   const next = el.getAttribute("aria-checked") !== "true";
   el.setAttribute("aria-checked", String(next));   // optimistic, like the clips
   await saveSetting(path, next);
