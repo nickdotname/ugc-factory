@@ -28,6 +28,7 @@ from src.attribution import (
     treatment_effects,
     underperformers,
 )
+from src.config import Statistic
 from src.errors import ValidationError
 from src.models import HistoryEntry
 from src.publishers.base import MetricRow, PostMetrics
@@ -389,3 +390,65 @@ class TestTreatmentEffects:
         history, posts = self.build(effect_on="zoom")
         assert treatment_effects(history, posts, service="tiktok") == []
         assert treatment_effects(history, posts, service="instagram")
+
+
+class TestRankingStatistic:
+    """Which summary decides the order.
+
+    Both platforms serve every post a seed audience, so a clip's typical day
+    is the floor rather than the clip. That makes the median blind to exactly
+    the clips worth finding: the ones that rarely, but sometimes, break out.
+    """
+
+    # Two clips with an identical typical day. One never leaves the floor;
+    # the other leaves it a quarter of the time. This is the real shape of
+    # the Instagram data, reduced to the smallest case that shows it.
+    STEADY = [140.0, 145.0, 150.0, 141.0, 148.0, 143.0, 150.0, 142.0]
+    SPIKY = [140.0, 145.0, 150.0, 141.0, 148.0, 143.0, 1400.0, 1300.0]
+
+    def _reports(self, statistic):
+        history, posts = [], {}
+        for name, values in (("steady", self.STEADY), ("spiky", self.SPIKY)):
+            for i, v in enumerate(values):
+                pid = f"{name}{i}"
+                history.append(entry(pid, hook=name))
+                posts[pid] = post(pid, v)
+        reports = attribute(history, posts, statistic=statistic)
+        return next(r for r in reports if r.dimension == "hook")
+
+    def test_median_cannot_tell_them_apart(self) -> None:
+        report = self._reports(Statistic.MEDIAN)
+        assert report.ratio is not None
+        # Two percent apart, on clips whose real value differs by far more.
+        assert report.ratio < 1.05
+
+    def test_mean_ranks_the_breakout_clip_first(self) -> None:
+        report = self._reports(Statistic.MEAN)
+        assert [o.option for o in report.options] == ["spiky", "steady"]
+        assert report.ratio is not None and report.ratio > 2.0
+
+    def test_median_is_still_reported_under_either_statistic(self) -> None:
+        """The dashboard's familiar figure survives the ranking change."""
+        for statistic in (Statistic.MEDIAN, Statistic.MEAN):
+            report = self._reports(statistic)
+            spiky = next(o for o in report.options if o.option == "spiky")
+            assert spiky.median == pytest.approx(146.5)
+
+    def test_median_is_the_default(self) -> None:
+        """Existing campaigns keep the behaviour they were tuned on."""
+        default = attribute(*self._history_and_posts())
+        explicit = attribute(*self._history_and_posts(), statistic=Statistic.MEDIAN)
+        assert [
+            (r.dimension, [o.score for o in r.options]) for r in default
+        ] == [
+            (r.dimension, [o.score for o in r.options]) for r in explicit
+        ]
+
+    def _history_and_posts(self):
+        history, posts = [], {}
+        for name, values in (("steady", self.STEADY), ("spiky", self.SPIKY)):
+            for i, v in enumerate(values):
+                pid = f"{name}{i}"
+                history.append(entry(pid, hook=name))
+                posts[pid] = post(pid, v)
+        return history, posts

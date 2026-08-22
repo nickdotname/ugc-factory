@@ -58,6 +58,24 @@ selection:
   hook_cooldown_days: 0
   min_runway_days: 90         # preflight fails under this many days of combos
 
+  # Favour clips that have actually earned views. Instagram is the only
+  # channel with a usable signal: hook_02 and hook_06 have each cleared 1200
+  # views, while hook_01, hook_04 and hook_05 have never once passed 282
+  # across 46 posts between them — and the selector, picking uniformly, used
+  # hook_04 more than any other clip.
+  #
+  # Ranked, not proportional, and capped: the best option is at most
+  # performance_max_boost (default 3) times the worst, an unmeasured clip
+  # sits mid-field so it can still earn data, and nothing reaches zero.
+  performance_weight: 0.5
+  # mean, not median. Every Reel is served a seed audience — visible here as
+  # a tight cluster around 130 views — so the median of any clip that breaks
+  # out less than half the time is just that floor. Median ranks these six
+  # hooks within 8 views of each other, which is noise that would reshuffle
+  # the order every time metrics refresh. The mean orders them by how often
+  # they break out, which is the durable signal.
+  performance_statistic: mean
+
 buffer:
   api_key_secret: BUFFER_API_KEY
   # Not a secret: identifies the channel but grants nothing without

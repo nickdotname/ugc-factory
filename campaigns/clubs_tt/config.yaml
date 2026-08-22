@@ -66,6 +66,12 @@ selection:
   hook_cooldown_days: 0
   min_runway_days: 90         # preflight fails under this many days of combos
 
+  # Performance weighting stays OFF here. This campaign's per-post medians
+  # are 0-3 views across the board because the channel stopped being served
+  # on 2026-08-18, not because of anything about the clips. Ranking that
+  # would bake an outage into every future pick. Revisit once views per post
+  # recover; the Instagram signal is the trustworthy one meanwhile.
+
 buffer:
   api_key_secret: BUFFER_API_KEY
   # Not a secret: identifies the channel but grants nothing without

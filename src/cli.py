@@ -951,11 +951,12 @@ def _performance_medians(
         return None
 
     medians: dict[str, dict[str, float]] = {}
-    for report in attribute(history.entries, posts):
+    statistic = config.selection.performance_statistic
+    for report in attribute(history.entries, posts, statistic=statistic):
         if not report.rankable:
             continue
         medians[report.dimension] = {
-            option.option: option.median for option in report.options
+            option.option: option.score for option in report.options
         }
     if not medians:
         return None
@@ -963,6 +964,7 @@ def _performance_medians(
     log.info(
         "performance_weighting",
         weight=config.selection.performance_weight,
+        statistic=statistic.value,
         dimensions={k: len(v) for k, v in medians.items()},
         posts=len(posts),
     )

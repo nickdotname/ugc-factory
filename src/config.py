@@ -40,6 +40,32 @@ class DedupeDimension(str, Enum):
     CAPTION = "caption"
 
 
+class Statistic(str, Enum):
+    """Which summary of an option's posts decides its rank.
+
+    ``MEDIAN`` is the safe default and the original behaviour: one viral post
+    cannot carry whichever clip happened to be in it.
+
+    ``MEAN`` exists because median has a specific blind spot on these
+    platforms. Every post is served to a seed audience whether or not it is
+    any good — on the Instagram data that floor is a tight cluster around 130
+    views — so for any clip whose breakouts are rarer than one post in two,
+    the median simply reports the floor. It measures what the platform hands
+    out, not what the creative earned, and ranking by it separated the best
+    hook from the worst by 1.30x while the mean separated them by 2.43x over
+    the same posts.
+
+    Short-form outcomes are power-law: value lives in how often a clip breaks
+    out, not in how it does on a typical day. When the medians of a dimension
+    are bunched, the mean is the more honest ranking, and the rank-based,
+    capped weighting downstream already limits what a single lucky post can
+    win.
+    """
+
+    MEDIAN = "median"
+    MEAN = "mean"
+
+
 class NotifyEvent(str, Enum):
     """Events that can trigger an alert to the campaign's webhook."""
 
@@ -384,6 +410,15 @@ class SelectionConfig(StrictModel):
     #: more luck, and entrenches. Every option keeps a floor of 1 so nothing
     #: is ever banned outright — that is what cooldowns are for.
     performance_max_boost: float = Field(default=3.0, ge=1.0, le=10.0)
+
+    #: Which summary of an option's posts decides its rank.
+    #:
+    #: ``median`` is the safe default. ``mean`` is the right choice when a
+    #: platform serves every post a seed audience: that floor becomes the
+    #: median for any clip that breaks out less than half the time, so the
+    #: ranking measures the floor rather than the clip. See
+    #: ``attribution.Statistic``.
+    performance_statistic: Statistic = Statistic.MEDIAN
 
     @field_validator("dedupe_on")
     @classmethod

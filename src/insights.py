@@ -402,14 +402,14 @@ def attribution_finding(
                     service,
                     report.dimension,
                     option.option,
-                    f"{option.median:,.0f}",
+                    f"{option.score:,.0f}",
                     str(option.posts),
                     f"{option.worst:,.0f}–{option.best:,.0f}",
                 ))
             best, worst = report.options[0], report.options[-1]
-            if worst.median:
+            if worst.score:
                 leaders.append(
-                    (service, report.dimension, best, best.median / worst.median)
+                    (service, report.dimension, best, best.score / worst.score)
                 )
 
     if not rows:

@@ -32,6 +32,7 @@ from typing import Iterable, Mapping, Sequence
 
 from pydantic import Field
 
+from src.config import Statistic
 from src.errors import ValidationError
 from src.models import HistoryEntry, Model
 from src.publishers.base import PostMetrics
@@ -49,6 +50,7 @@ MIN_OPTIONS = 2
 DEFAULT_METRIC = "views"
 
 
+
 @dataclass(frozen=True)
 class OptionPerformance:
     """One value of one dimension — a hook, a caption, a body clip."""
@@ -59,6 +61,10 @@ class OptionPerformance:
     median: float
     best: float
     worst: float
+    #: The figure this option was ranked on, per the report's ``statistic``.
+    #: Equal to ``median`` under the default, which is why it can be added
+    #: without changing any existing ranking.
+    score: float = 0.0
 
     @property
     def spread(self) -> float:
@@ -77,6 +83,8 @@ class DimensionReport:
     dimension: str
     metric: str
     options: tuple[OptionPerformance, ...]
+    #: Which summary ``score`` holds, for display and for the render log.
+    statistic: Statistic = Statistic.MEDIAN
     #: Which network these posts ran on. Rankings are always per network:
     #: Instagram returns roughly 3.7x TikTok per post on this account, so a
     #: pooled median mostly measures which platform a clip happened to run on.
@@ -91,11 +99,11 @@ class DimensionReport:
 
     @property
     def ratio(self) -> float | None:
-        """Best median over worst — the size of the effect, if there is one."""
+        """Best score over worst — the size of the effect, if there is one."""
         if not self.rankable:
             return None
-        worst = self.options[-1].median
-        return self.options[0].median / worst if worst else None
+        worst = self.options[-1].score
+        return self.options[0].score / worst if worst else None
 
 
 def _parts_of(entry: HistoryEntry) -> dict[str, list[str]]:
@@ -121,6 +129,7 @@ def attribute(
     metric: str = DEFAULT_METRIC,
     min_posts: int = MIN_POSTS_PER_OPTION,
     service: str = "",
+    statistic: Statistic = Statistic.MEDIAN,
 ) -> list[DimensionReport]:
     """Rank each dimension's options by median performance.
 
@@ -155,23 +164,29 @@ def attribute(
             if len(values) < min_posts:
                 ignored.append((option, len(values)))
                 continue
+            middle = statistics.median(values)
             ranked.append(
                 OptionPerformance(
                     dimension=dimension,
                     option=option,
                     posts=len(values),
-                    # Median, not mean: one viral post would otherwise carry
-                    # whichever clip happened to be in it.
-                    median=statistics.median(values),
+                    # Kept whatever the ranking statistic is: it is the figure
+                    # a reader recognises, and the dashboard still shows it.
+                    median=middle,
                     best=max(values),
                     worst=min(values),
+                    score=(
+                        middle if statistic is Statistic.MEDIAN
+                        else statistics.mean(values)
+                    ),
                 )
             )
-        ranked.sort(key=lambda o: o.median, reverse=True)
+        ranked.sort(key=lambda o: o.score, reverse=True)
         reports.append(
             DimensionReport(
                 dimension=dimension,
                 metric=metric,
+                statistic=statistic,
                 service=service,
                 options=tuple(ranked),
                 ignored=tuple(sorted(ignored, key=lambda x: -x[1])),
