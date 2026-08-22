@@ -15,7 +15,10 @@ posting:
   # Halving the cadence from 24 also halves API spend (1,620 of Buffer's
   # 3,000/30 days, against 2,700 before) and halves how often a viewer sees
   # the same hook.
-  posts_per_day: 12
+  # RECOVERY CADENCE. Both networks stopped serving this account at 12-15/day.
+  # 3/day is a deliberate floor while distribution is broken; raise it only
+  # once views per post recover.
+  posts_per_day: 3
   # One post an hour, starting 15:00 Mountain. start == end means a FULL
   # 24-hour window beginning at that hour, so the run wraps past midnight and
   # the later slots land on the following calendar day.
@@ -34,11 +37,11 @@ video:
   crf: 23
   preset: veryfast
   min_duration_sec: 5         # SPEC §4.3 — Reels-tab eligibility floor
-  max_duration_sec: 90        # SPEC §4.3 — Reels-tab eligibility ceiling
+  max_duration_sec: 60        # YouTube Shorts boundary — over this is a normal upload
   max_file_mb: 100
 
 composition:
-  bodies_per_video: 1
+  bodies_per_video: 2
   music_volume: 0.10          # flat across the whole video, no ducking
   music_fade_out_sec: 1.5
 
@@ -75,7 +78,7 @@ buffer:
   # Only used by services with a separate title field (youtube).
   #   derive  = take the description's first line, cut at a word boundary
   #   require = every record must carry an explicit `title:` line
-  title_strategy: derive
+  title_strategy: require
 
 notify:
   webhook_secret: DISCORD_WEBHOOK

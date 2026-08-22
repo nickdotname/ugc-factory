@@ -1,206 +1,218 @@
-# DESCRIPTION BANK — the text each video is posted WITH (the IG caption box).
-# Never drawn onto the video.
+# DESCRIPTION BANK — YouTube Shorts (campaign clubs_yt)
 #
-# Records are separated by a line of --- so that blank lines INSIDE a caption
-# survive (hook / blank / CTA / blank / keywords).
+# Written for YouTube specifically:
+#   - Every record carries an explicit "title:" line, kept at or under 40
+#     characters. Shorts displays about 40 in-feed; the previous bank derived
+#     titles from Instagram caption openers and all 18 of them were truncated
+#     mid-word. Config uses title_strategy: require so a missing title fails
+#     preflight rather than silently deriving a bad one.
+#   - Titles are written for search. YouTube matches Shorts on title and topic
+#     far more than Instagram matches on caption text, so the title leads with
+#     the thing someone would actually type.
+#   - No "comment and I'll DM you" CTA. Shorts has no DM mechanic, so the ask
+#     is both unactionable and spam-shaped.
 #
-# Keyword lists are varied per caption rather than identical, so 25 posts do
-# not all carry the same trailing block.
-
-this site has been the cheat code to getting involved creatively 🎬🎤
-
-comment "create" and I'll send it over
-
-[creative collaboration, actors, singers, filmmakers, creative community, get involved]
+# NOTE: a line may not START with "#" — the parser treats that as a comment.
+# Hashtags therefore trail a text line.
+#
+# Records are separated by a line of ---
 
 ---
 
-if you're an actor, singer, or filmmaker trying to get involved — this site is unfair
+title: How to Find Casting Calls Online
 
-comment "create" and I'll drop the link
+Where actors, singers and filmmakers find open casting calls, student films and music collaborations in one place. Link in the channel description.
 
-[actors, singers, filmmakers, creative networking, aspiring actors, get involved]
-
----
-
-how I found casting calls, student films, and music collabs without knowing anyone
-
-comment "create" and I'll send it your way
-
-[casting calls, student films, music collabs, creative networking, film students]
+Tags: #shorts #acting #castingcall #filmmaking
 
 ---
 
-NYU Tisch kids have been using this to find creative projects all semester
+title: Find Student Film Roles
 
-comment "create" for the site
+How actors with no credits and no agent get cast in student films and short films. Link in the channel description.
 
-[nyu tisch, film students, creative projects, student films, creative community]
-
----
-
-aspiring actors and emerging artists — bookmark this one
-
-comment "create" and I'll send the link
-
-[aspiring actors, emerging artists, actors, casting calls, creative community]
+Tags: #shorts #acting #studentfilm #actorslife
 
 ---
 
-this is how directors, producers, and screenwriters actually find each other
+title: Where Actors Find Auditions
 
-comment "create" and it's yours
+A place to find open auditions, casting calls and short film roles without an agent or industry connections. Link in the channel description.
 
-[directors, producers, screenwriters, creative collaboration, creative networking]
-
----
-
-the creative networking site nobody's talking about (yet)
-
-comment "create" and I'll send it over
-
-[creative networking, creative community, get involved, artists, creative projects]
+Tags: #shorts #auditions #acting #castingcalls
 
 ---
 
-filmmakers + songwriters + dancers — this one's for you
+title: Creative Networking for Actors
 
-comment "create" for the link
+How actors, singers, dancers and filmmakers find collaborators and real projects to work on. Link in the channel description.
 
-[filmmakers, songwriters, dancers, performers, creative collaboration]
-
----
-
-open casting calls, short films, indie music — all in one place
-
-comment "create" and I'll DM it
-
-[open casting, short films, indie music, casting calls, creative projects]
+Tags: #shorts #acting #creatives #filmmaking
 
 ---
 
-i wish someone told me about this before film school
+title: How Film Students Find Crew
 
-comment "create" and I'll send it over
+Film students use this to find cast, crew and collaborators for student films and short film projects. Link in the channel description.
 
-[film students, student films, filmmakers, nyu tisch, creative community]
-
----
-
-how I got cast in my first student film with zero connections
-
-comment "create" and I'll send you the site
-
-[student films, casting calls, actors, aspiring actors, creative networking]
+Tags: #shorts #filmschool #studentfilm #filmmaking
 
 ---
 
-the cheat code for anyone trying to break into film, music, or performing arts
+title: Find Music Collaborators Online
 
-comment "create"
+Singers, songwriters and producers use this to find each other for indie music collaborations. Link in the channel description.
 
-[filmmakers, indie music, performers, artists, get involved, creative community]
-
----
-
-actors + singers + creators — this is your sign to get involved
-
-comment "create" and I'll send it your way
-
-[actors, singers, artists, get involved, creative community, emerging artists]
+Tags: #shorts #musiccollab #songwriter #indieartist
 
 ---
 
-this site made "getting involved creatively" actually possible
+title: Get Cast With No Experience
 
-comment "create" and it's yours
+How to get cast in short films and student films with no credits, no agent and no connections. Link in the channel description.
 
-[get involved, creative projects, creative community, creative collaboration]
-
----
-
-calling all screenwriters, directors, and producers — you need this
-
-comment "create" for the link
-
-[screenwriters, directors, producers, filmmakers, creative collaboration]
+Tags: #shorts #acting #actorslife #studentfilm
 
 ---
 
-how film students are finding real projects (not just group chats)
+title: Find Short Film Roles
 
-comment "create" and I'll send it over
+Open casting calls for short films, student films and indie projects, updated by the people making them. Link in the channel description.
 
-[film students, creative projects, student films, nyu tisch, creative networking]
-
----
-
-every performer and artist should have this bookmarked
-
-comment "create" and I'll drop it below
-
-[performers, artists, dancers, singers, creative community]
+Tags: #shorts #shortfilm #acting #indiefilm
 
 ---
 
-the creative community I didn't know I needed
+title: Where Screenwriters Find Directors
 
-comment "create" and I'll send the site
+Screenwriters, directors and producers use this to find each other and get projects made. Link in the channel description.
 
-[creative community, creative networking, get involved, artists, emerging artists]
-
----
-
-from casting calls to music collabs — this site does it all
-
-comment "create" for access
-
-[casting calls, music collabs, creative projects, actors, indie music]
+Tags: #shorts #screenwriter #filmmaking #director
 
 ---
 
-if you're trying to get more involved in the creative world, start here
+title: Casting Calls for New Actors
 
-comment "create" and I'll send it over
+Open casting calls aimed at new and emerging actors, including student films and short films. Link in the channel description.
 
-[get involved, creative community, creative projects, artists, aspiring actors]
-
----
-
-dancers, singers, actors — stop waiting for an invite
-
-comment "create" and I'll send you the link
-
-[dancers, singers, actors, performers, get involved, emerging artists]
+Tags: #shorts #castingcall #acting #auditions
 
 ---
 
-this is how indie filmmakers and musicians are finding collaborators right now
+title: Find Dance Auditions Online
 
-comment "create"
+Dancers and performers use this to find auditions, shows and creative projects to join. Link in the channel description.
 
-[indie music, filmmakers, creative collaboration, music collabs, songwriters]
-
----
-
-the creative networking hack that actually works
-
-comment "create" and I'll DM you the site
-
-[creative networking, creative community, get involved, creative collaboration]
+Tags: #shorts #dance #auditions #performingarts
 
 ---
 
-wish I knew about this before scrolling for hours looking for auditions
+title: Break Into Film With No Credits
 
-comment "create" and I'll send it over
+How people with no credits and no industry contacts are getting onto real film sets. Link in the channel description.
 
-[casting calls, open casting, actors, aspiring actors, creative projects]
+Tags: #shorts #filmmaking #acting #indiefilm
 
 ---
 
-for every aspiring actor, singer, or filmmaker still trying to figure out where to start
+title: Find Creative Projects to Join
 
-comment "create" and I'll send the link
+Actors, musicians, filmmakers and dancers find projects looking for exactly what they do. Link in the channel description.
 
-[aspiring actors, singers, filmmakers, emerging artists, get involved, creative community]
+Tags: #shorts #creatives #acting #musician
+
+---
+
+title: Find Film Collaborators Free
+
+A free way for filmmakers to find cast, crew and collaborators for indie and student projects. Link in the channel description.
+
+Tags: #shorts #filmmaking #indiefilm #studentfilm
+
+---
+
+title: How Singers Find Collabs
+
+Singers and vocalists use this to find producers, songwriters and bands looking to collaborate. Link in the channel description.
+
+Tags: #shorts #singer #musiccollab #indieartist
+
+---
+
+title: Student Film Casting Explained
+
+How student film casting actually works, and where the open calls get posted. Link in the channel description.
+
+Tags: #shorts #studentfilm #filmschool #acting
+
+---
+
+title: Find Your First Film Role
+
+Where to look for your first short film or student film role when you are starting from zero. Link in the channel description.
+
+Tags: #shorts #acting #shortfilm #actorslife
+
+---
+
+title: Acting Auditions With No Agent
+
+How to find real auditions and casting calls without representation. Link in the channel description.
+
+Tags: #shorts #auditions #acting #castingcalls
+
+---
+
+title: Where Filmmakers Find Actors
+
+Directors and producers use this to cast short films, student films and indie features. Link in the channel description.
+
+Tags: #shorts #filmmaking #director #castingcall
+
+---
+
+title: Find Indie Film Projects
+
+Indie and student film projects looking for cast, crew and collaborators. Link in the channel description.
+
+Tags: #shorts #indiefilm #studentfilm #filmmaking
+
+---
+
+title: Creative Community for Artists
+
+Actors, singers, dancers, writers and filmmakers finding each other and building work together. Link in the channel description.
+
+Tags: #shorts #creatives #performingarts #artist
+
+---
+
+title: Music Collabs for Indie Artists
+
+Independent musicians use this to find vocalists, producers and writers to collaborate with. Link in the channel description.
+
+Tags: #shorts #indieartist #musiccollab #musician
+
+---
+
+title: How Actors Find Work Online
+
+Where actors look for casting calls, auditions and short film roles that are actually open. Link in the channel description.
+
+Tags: #shorts #acting #auditions #actorslife
+
+---
+
+title: Film School Without Film School
+
+How people outside film programs find the same projects and collaborators students do. Link in the channel description.
+
+Tags: #shorts #filmschool #filmmaking #studentfilm
+
+---
+
+title: Find Performers for Your Project
+
+Casting a short film, music video or student project? This is where performers are looking. Link in the channel description.
+
+Tags: #shorts #castingcall #filmmaking #shortfilm

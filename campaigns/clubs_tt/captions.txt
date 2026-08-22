@@ -1,206 +1,167 @@
-# DESCRIPTION BANK — the text each video is posted WITH (the IG caption box).
-# Never drawn onto the video.
+# DESCRIPTION BANK — TikTok (campaign clubs_tt)
 #
-# Records are separated by a line of --- so that blank lines INSIDE a caption
-# survive (hook / blank / CTA / blank / keywords).
+# Written for TikTok specifically, not shared with the Instagram bank:
+#   - No "comment X and I'll DM you" ask. That is engagement bait plus
+#     off-platform funnelling, the two behaviours TikTok's spam classifier
+#     targets most directly, and it is the likeliest reason this account
+#     stopped being served.
+#   - Hashtags, not a bracketed keyword block. TikTok classifies topic from
+#     "#tag"; bracketed prose does nothing here.
+#   - CTA points at the bio, which is TikTok-native and needs no comment reply.
+#   - First line kept under ~150 chars, which is what TikTok shows before it
+#     truncates.
 #
-# Keyword lists are varied per caption rather than identical, so 25 posts do
-# not all carry the same trailing block.
-
-this site has been the cheat code to getting involved creatively 🎬🎤
-
-comment "create" and I'll send it over
-
-[creative collaboration, actors, singers, filmmakers, creative community, get involved]
+# NOTE: a line may not START with "#" — the parser treats that as a comment.
+# Hashtags therefore trail the CTA on the same line.
+#
+# Records are separated by a line of ---
 
 ---
 
-if you're an actor, singer, or filmmaker trying to get involved — this site is unfair
+the site actors and filmmakers keep sending each other
 
-comment "create" and I'll drop the link
-
-[actors, singers, filmmakers, creative networking, aspiring actors, get involved]
+it's in my bio #acting #filmtok #castingcall #studentfilm
 
 ---
 
-how I found casting calls, student films, and music collabs without knowing anyone
+how i found casting calls without knowing a single person in the industry
 
-comment "create" and I'll send it your way
-
-[casting calls, student films, music collabs, creative networking, film students]
+link in bio #actors #auditions #castingcalls #filmtok
 
 ---
 
-NYU Tisch kids have been using this to find creative projects all semester
+film students: this is where the projects actually are
 
-comment "create" for the site
-
-[nyu tisch, film students, creative projects, student films, creative community]
+it's in my bio #filmschool #studentfilm #filmstudent #indiefilm
 
 ---
 
-aspiring actors and emerging artists — bookmark this one
+open casting calls, short films and music collabs in one place
 
-comment "create" and I'll send the link
-
-[aspiring actors, emerging artists, actors, casting calls, creative community]
+link in bio #castingcall #shortfilm #musiccollab #creatives
 
 ---
 
-this is how directors, producers, and screenwriters actually find each other
+no agent, no credits, no connections — still got cast
 
-comment "create" and it's yours
-
-[directors, producers, screenwriters, creative collaboration, creative networking]
+it's in my bio #acting #actorslife #auditions #studentfilm
 
 ---
 
-the creative networking site nobody's talking about (yet)
+singers and producers are finding each other here
 
-comment "create" and I'll send it over
-
-[creative networking, creative community, get involved, artists, creative projects]
+link in bio #musiccollab #singer #producer #indieartist
 
 ---
 
-filmmakers + songwriters + dancers — this one's for you
+the creative networking site nobody talks about
 
-comment "create" for the link
-
-[filmmakers, songwriters, dancers, performers, creative collaboration]
+it's in my bio #creatives #filmtok #acting #musician
 
 ---
 
-open casting calls, short films, indie music — all in one place
+screenwriters looking for directors, directors looking for scripts
 
-comment "create" and I'll DM it
-
-[open casting, short films, indie music, casting calls, creative projects]
+link in bio #screenwriter #filmmaking #indiefilm #filmtok
 
 ---
 
-i wish someone told me about this before film school
+where dancers actually find auditions
 
-comment "create" and I'll send it over
-
-[film students, student films, filmmakers, nyu tisch, creative community]
+it's in my bio #dance #dancer #auditions #performingarts
 
 ---
 
-how I got cast in my first student film with zero connections
+i wish i had this before film school
 
-comment "create" and I'll send you the site
-
-[student films, casting calls, actors, aspiring actors, creative networking]
+link in bio #filmschool #filmstudent #filmmaking #studentfilm
 
 ---
 
-the cheat code for anyone trying to break into film, music, or performing arts
+got cast in my first short film from this
 
-comment "create"
-
-[filmmakers, indie music, performers, artists, get involved, creative community]
+it's in my bio #acting #shortfilm #actorslife #castingcall
 
 ---
 
-actors + singers + creators — this is your sign to get involved
+stop scrolling instagram looking for auditions
 
-comment "create" and I'll send it your way
-
-[actors, singers, artists, get involved, creative community, emerging artists]
+link in bio #auditions #acting #castingcalls #actorslife
 
 ---
 
-this site made "getting involved creatively" actually possible
+indie musicians — your next collaborator is on here
 
-comment "create" and it's yours
-
-[get involved, creative projects, creative community, creative collaboration]
+it's in my bio #indieartist #musiccollab #musician #songwriter
 
 ---
 
-calling all screenwriters, directors, and producers — you need this
+every performer should have this bookmarked
 
-comment "create" for the link
-
-[screenwriters, directors, producers, filmmakers, creative collaboration]
+link in bio #performingarts #acting #dance #singer
 
 ---
 
-how film students are finding real projects (not just group chats)
+how people with zero credits are getting on set
 
-comment "create" and I'll send it over
-
-[film students, creative projects, student films, nyu tisch, creative networking]
+it's in my bio #filmmaking #acting #studentfilm #indiefilm
 
 ---
 
-every performer and artist should have this bookmarked
+casting calls that are actually open right now
 
-comment "create" and I'll drop it below
-
-[performers, artists, dancers, singers, creative community]
+link in bio #castingcall #castingcalls #auditions #acting
 
 ---
 
-the creative community I didn't know I needed
+your first film role is closer than you think
 
-comment "create" and I'll send the site
-
-[creative community, creative networking, get involved, artists, emerging artists]
+it's in my bio #acting #actorslife #shortfilm #filmtok
 
 ---
 
-from casting calls to music collabs — this site does it all
+directors, producers and editors are all on here
 
-comment "create" for access
-
-[casting calls, music collabs, creative projects, actors, indie music]
+link in bio #filmmaking #director #producer #filmtok
 
 ---
 
-if you're trying to get more involved in the creative world, start here
+the group chat you wish your film program had
 
-comment "create" and I'll send it over
-
-[get involved, creative community, creative projects, artists, aspiring actors]
+it's in my bio #filmschool #filmstudent #studentfilm #creatives
 
 ---
 
-dancers, singers, actors — stop waiting for an invite
+actors, singers, dancers — this one is for you
 
-comment "create" and I'll send you the link
-
-[dancers, singers, actors, performers, get involved, emerging artists]
+link in bio #acting #singer #dance #performingarts
 
 ---
 
-this is how indie filmmakers and musicians are finding collaborators right now
+found my whole crew for a short film on this
 
-comment "create"
-
-[indie music, filmmakers, creative collaboration, music collabs, songwriters]
+it's in my bio #shortfilm #filmmaking #indiefilm #studentfilm
 
 ---
 
-the creative networking hack that actually works
+songwriters looking for vocalists, this is the place
 
-comment "create" and I'll DM you the site
-
-[creative networking, creative community, get involved, creative collaboration]
+link in bio #songwriter #musiccollab #singer #indieartist
 
 ---
 
-wish I knew about this before scrolling for hours looking for auditions
+how to get involved creatively when you know nobody
 
-comment "create" and I'll send it over
-
-[casting calls, open casting, actors, aspiring actors, creative projects]
+it's in my bio #creatives #acting #filmmaking #musician
 
 ---
 
-for every aspiring actor, singer, or filmmaker still trying to figure out where to start
+student films are always looking for people
 
-comment "create" and I'll send the link
+link in bio #studentfilm #filmstudent #acting #filmschool
 
-[aspiring actors, singers, filmmakers, emerging artists, get involved, creative community]
+---
+
+the reason people keep asking how i got on set
+
+it's in my bio #acting #filmtok #shortfilm #actorslife

@@ -15,7 +15,10 @@ posting:
   # Halving the cadence from 24 also halves API spend (1,620 of Buffer's
   # 3,000/30 days, against 2,700 before) and halves how often a viewer sees
   # the same hook.
-  posts_per_day: 12
+  # RECOVERY CADENCE. Both networks stopped serving this account at 12-15/day.
+  # 3/day is a deliberate floor while distribution is broken; raise it only
+  # once views per post recover.
+  posts_per_day: 3
   # One post an hour, starting 15:00 Mountain. start == end means a FULL
   # 24-hour window beginning at that hour, so the run wraps past midnight and
   # the later slots land on the following calendar day.
