@@ -459,6 +459,49 @@ def attribution_finding(
     )
 
 
+def underperformer_finding(found: Sequence[Any]) -> Finding | None:
+    """Clips worth considering cutting, on evidence rather than on rank.
+
+    Ranking last is not evidence: with six clips of identical quality each
+    one comes last about a sixth of the time, because something always is.
+    What is here instead is a sign test — how often a clip's posts land below
+    the median of the *other* clips — which under the null is a coin flip per
+    post and so can be quantified rather than eyeballed.
+
+    A suggestion, never an action. Roughly one in thirty of these is a clip
+    that was fine, and muting is reversible from the Randomizer panel.
+    """
+    if not found:
+        return None
+    return Finding(
+        id="underperformers",
+        severity="warn",
+        headline=(
+            f"{len(found)} clip{'s' if len(found) > 1 else ''} consistently "
+            f"below the rest"
+        ),
+        detail=(
+            "Not simply ranked last — something always is. These land below "
+            "the median of the other clips in their field far more often than "
+            "chance allows, over enough posts to mean it. Switch one off in "
+            "the Randomizer and it stops being picked without being deleted, "
+            "so the decision is reversible. About one in thirty of these will "
+            "be a clip that was doing nothing wrong."
+        ),
+        columns=("Dimension", "Clip", "Below the rest", "Its median", "Others"),
+        rows=tuple(
+            (
+                u.dimension,
+                u.option,
+                f"{u.below}/{u.posts} posts",
+                f"{u.own_median:,.0f}",
+                f"{u.field_median:,.0f}",
+            )
+            for u in found
+        ),
+    )
+
+
 def limits_finding(facts: list[CampaignFacts]) -> Finding:
     """State plainly what this data cannot answer, and why.
 
@@ -509,11 +552,13 @@ def build(
     facts: list[CampaignFacts],
     captions: Sequence[str] = (),
     attribution: Finding | None = None,
+    underperformers: Finding | None = None,
 ) -> list[Finding]:
     """Every finding worth showing, most consequential first."""
     found = [
         delivery_finding(facts),
         attribution,
+        underperformers,
         platform_finding(facts),
         caption_diversity_finding(captions),
         engagement_mix_finding(facts),

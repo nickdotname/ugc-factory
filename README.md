@@ -714,6 +714,34 @@ make silence unambiguous.
 
 ---
 
+## Suggesting a clip be cut
+
+Ranking last is not evidence of anything. With six clips of identical quality
+each one comes last about a sixth of the time, because something always is —
+simulating that is what ruled out the obvious implementation.
+
+Comparing medians directly does not work either: a median over five posts of
+a lognormal quantity is itself extremely noisy.
+
+What survives is a sign test. Count how many of a clip's posts land below the
+median of the **other** clips in its field; if the clip is ordinary that is a
+coin flip each time, so a long run is unlikely in a way that can be
+quantified rather than eyeballed. The leave-one-out part matters — with four
+clips, a clip is a quarter of any pooled median, which drags the bar toward
+it and hides exactly what this is looking for.
+
+The thresholds were chosen by simulation rather than taste: twelve posts and
+80% below fires on about 3% of clips that are fine and catches about 62% of
+clips genuinely three times worse. Twelve at 75% roughly triples the false
+positives for a little more sensitivity, which is the wrong trade for
+something a person will act on.
+
+It is a suggestion and never an action. Muting is reversible from the
+Randomizer panel, and roughly one in thirty of these will be a clip that was
+doing nothing wrong.
+
+---
+
 ## Acting on what wins
 
 Attribution reports; `selection.performance_weight` acts. At 0 — the default

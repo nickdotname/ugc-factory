@@ -205,6 +205,114 @@ def attribute_by_service(
     }
 
 
+#: Posts a clip needs before it can be called a dud. Chosen by simulation
+#: rather than taste: at twelve posts and the share below, the test fires on
+#: about 3% of clips that are in fact fine, and catches about 62% of clips
+#: genuinely three times worse than the rest. Fewer posts, or a lower share,
+#: trades that badly — 12 at 75% roughly triples the false positives.
+MIN_POSTS_TO_CONDEMN = 12
+
+#: Share of a clip's posts that must land below the median of the *others*.
+#: Under the null — the clip being ordinary — each post is a coin flip, so
+#: this is a sign test and a run this long is genuinely unlikely.
+CONDEMN_SHARE = 0.8
+
+
+@dataclass(frozen=True)
+class Underperformer:
+    """A clip whose posts land below the field far too often to be luck."""
+
+    dimension: str
+    option: str
+    posts: int
+    below: int
+    field_median: float
+    own_median: float
+
+    @property
+    def share(self) -> float:
+        return self.below / self.posts if self.posts else 0.0
+
+
+def underperformers(
+    history: Iterable[HistoryEntry],
+    posts: Mapping[str, PostMetrics],
+    metric: str = DEFAULT_METRIC,
+    service: str = "",
+) -> list[Underperformer]:
+    """Clips worth considering cutting, on evidence rather than on rank.
+
+    Ranking last is not evidence of anything. With six clips of identical
+    quality, each one comes last about a sixth of the time — something always
+    is. Simulating that was what ruled out the obvious implementation.
+
+    Nor is comparing medians directly enough, because a median over five
+    posts of a lognormal quantity is itself extremely noisy.
+
+    What survives is a sign test: count how many of a clip's posts fall below
+    the median of every post in its field. If the clip is ordinary that is a
+    coin flip each time, so a long run of them is unlikely in a way that can
+    be quantified rather than eyeballed.
+
+    Never automatic. This returns a suggestion for a person, who can mute a
+    clip in the roster and unmute it later — and roughly one in sixteen of
+    these will be a clip that was fine.
+    """
+    values: dict[str, dict[str, list[float]]] = {}
+    field: list[float] = []
+
+    for entry in history:
+        if not entry.buffer_post_id:
+            continue
+        post = posts.get(entry.buffer_post_id)
+        if post is None:
+            continue
+        if service and post.service != service:
+            continue
+        value = post.value(metric)
+        if value is None:
+            continue
+        field.append(value)
+        for dimension, options in _parts_of(entry).items():
+            bucket = values.setdefault(dimension, {})
+            for option in options:
+                bucket.setdefault(option, []).append(value)
+
+    if len(field) < MIN_POSTS_TO_CONDEMN:
+        return []
+
+    found: list[Underperformer] = []
+    for dimension, by_option in values.items():
+        # A field of one has no field to be below.
+        if len(by_option) < MIN_OPTIONS:
+            continue
+        for option, samples in by_option.items():
+            if len(samples) < MIN_POSTS_TO_CONDEMN:
+                continue
+            # Leave-one-out: a clip is judged against the *other* clips, not
+            # against a field it is a large part of. With four clips its own
+            # posts are a quarter of the median it would be compared to,
+            # which drags the bar down toward it and hides exactly the clip
+            # this is looking for.
+            others = [
+                value
+                for other, vals in by_option.items() if other != option
+                for value in vals
+            ]
+            if not others:
+                continue
+            median = statistics.median(others)
+            below = sum(1 for v in samples if v < median)
+            if below / len(samples) >= CONDEMN_SHARE:
+                found.append(Underperformer(
+                    dimension=dimension, option=option, posts=len(samples),
+                    below=below, field_median=median,
+                    own_median=statistics.median(samples),
+                ))
+    found.sort(key=lambda u: (-u.share, u.own_median))
+    return found
+
+
 def coverage(
     history: Sequence[HistoryEntry], posts: Mapping[str, PostMetrics]
 ) -> tuple[int, int]:

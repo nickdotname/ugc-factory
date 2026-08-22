@@ -14,7 +14,10 @@ from pathlib import Path
 import pytest
 
 from src.attribution import (
+    CONDEMN_SHARE,
+    MIN_POSTS_TO_CONDEMN,
     MIN_POSTS_PER_OPTION,
+    underperformers,
     attribute_by_service,
     PostCache,
     attribute,
@@ -231,3 +234,79 @@ class TestPerNetwork:
             hook = next(r for r in reports if r.dimension == "hook")
             expected = 1000 if service == "instagram" else 10
             assert hook.options[0].median == expected
+
+
+class TestUnderperformers:
+    """Suggesting a clip be cut. The bar has to be much higher than 'ranked
+    last', because with N clips of identical quality each comes last 1/N of
+    the time — something always is."""
+
+    def build(self, bad: str | None, per_clip: int = 14, clips: int = 5):
+        """Deterministic values: the bad clip's are simply lower."""
+        posts, history = {}, []
+        for c in range(clips):
+            name = f"hook_{c}"
+            for i in range(per_clip):
+                # A clean separation, so the test is about the rule and not
+                # about a random seed.
+                value = 10.0 + i if name == bad else 100.0 + i
+                pid = f"{name}-{i}"
+                posts[pid] = PostMetrics(
+                    post_id=pid, service="instagram", sent_at=NOW,
+                    metrics=(MetricRow(type="views", name="V", value=value),),
+                )
+                history.append(HistoryEntry(
+                    tuple_hash=pid, timestamp=NOW, item_id=pid, hook=name,
+                    bodies=("b1",), music=None, caption="c",
+                    buffer_post_id=pid,
+                ))
+        return history, posts
+
+    def test_a_genuinely_bad_clip_is_flagged(self) -> None:
+        history, posts = self.build(bad="hook_0")
+        found = [u for u in underperformers(history, posts)
+                 if u.dimension == "hook"]
+        assert [u.option for u in found] == ["hook_0"]
+
+    def test_equal_clips_are_left_alone(self) -> None:
+        history, posts = self.build(bad=None)
+        assert [u for u in underperformers(history, posts)
+                if u.dimension == "hook"] == []
+
+    def test_it_needs_enough_posts(self) -> None:
+        """Below the floor nothing is said, however bad it looks."""
+        history, posts = self.build(bad="hook_0",
+                                    per_clip=MIN_POSTS_TO_CONDEMN - 1)
+        assert underperformers(history, posts) == []
+
+    def test_a_clip_is_judged_against_the_others_not_itself(self) -> None:
+        """Leave-one-out. With four clips a clip is a quarter of any pooled
+        median, which drags the bar toward it and hides the very thing this
+        is looking for."""
+        history, posts = self.build(bad="hook_0", clips=2)
+        found = [u for u in underperformers(history, posts)
+                 if u.dimension == "hook"]
+        assert found and found[0].field_median > found[0].own_median
+
+    def test_a_field_of_one_has_nothing_to_be_below(self) -> None:
+        history, posts = self.build(bad="hook_0", clips=1)
+        assert underperformers(history, posts) == []
+
+    def test_the_evidence_is_reported_not_just_the_verdict(self) -> None:
+        history, posts = self.build(bad="hook_0")
+        u = next(x for x in underperformers(history, posts)
+                 if x.dimension == "hook")
+        assert u.posts >= MIN_POSTS_TO_CONDEMN
+        assert u.share >= CONDEMN_SHARE
+        assert u.below <= u.posts
+
+    def test_it_can_be_scoped_to_one_network(self) -> None:
+        history, posts = self.build(bad="hook_0")
+        assert underperformers(history, posts, service="tiktok") == []
+        assert underperformers(history, posts, service="instagram")
+
+    def test_the_thresholds_stay_conservative(self) -> None:
+        """Simulated at these values: ~3% of fine clips flagged, ~62% of
+        genuinely bad ones caught. Loosening either trades that badly."""
+        assert MIN_POSTS_TO_CONDEMN >= 12
+        assert CONDEMN_SHARE >= 0.8

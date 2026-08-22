@@ -625,12 +625,13 @@ class WebApp:
         captions = [d.body for d in self._descriptions()]
         return {
             "findings": [
-                f.as_dict() for f in build(facts, captions, self._attribution())
+                f.as_dict()
+                for f in build(facts, captions, *self._attribution())
             ],
             "campaigns": len(facts),
         }
 
-    def _attribution(self) -> "Finding | None":
+    def _attribution(self) -> "tuple[Finding | None, Finding | None]":
         """Rank this brand's clips against cached per-post metrics.
 
         Reads only files on disk. The cache is filled by the metrics job, so
@@ -640,10 +641,11 @@ class WebApp:
         from src.attribution import (
             attribute_by_service,
             coverage,
+            underperformers,
             load_posts,
             posts_path,
         )
-        from src.insights import attribution_finding
+        from src.insights import attribution_finding, underperformer_finding
         from src.queue import load_history
 
         entries = []
@@ -662,10 +664,13 @@ class WebApp:
                 continue
 
         if not posts:
-            return None
+            return None, None
         matched, rendered = coverage(entries, posts)
-        return attribution_finding(
-            attribute_by_service(entries, posts), matched, rendered
+        return (
+            attribution_finding(
+                attribute_by_service(entries, posts), matched, rendered
+            ),
+            underperformer_finding(underperformers(entries, posts)),
         )
 
     # ------------------------------------------------------------------ queue
