@@ -366,6 +366,25 @@ class SelectionConfig(StrictModel):
     # library may legitimately accept a shorter runway.
     min_runway_days: int = Field(default=90, ge=0)
 
+    #: How hard to favour clips that have actually performed, 0 to 1.
+    #:
+    #: 0 keeps selection blind to results, which is what it has always been.
+    #: 1 makes a proven winner ``performance_max_boost`` times likelier than a
+    #: proven loser. Anything in between scales that.
+    #:
+    #: Deliberately not a default-on feature. Weighting toward winners costs
+    #: variety, and variety is most of what keeps a feed working — with four
+    #: body clips, favouring two of them makes the repetition problem worse,
+    #: not better. It earns its place on a dimension with many options
+    #: (captions, hooks) and rarely on one with few.
+    performance_weight: float = Field(default=0.0, ge=0.0, le=1.0)
+
+    #: Ceiling on the advantage a winner can accumulate. Uncapped weighting is
+    #: a feedback loop: a clip that got lucky early is picked more, gathers
+    #: more luck, and entrenches. Every option keeps a floor of 1 so nothing
+    #: is ever banned outright — that is what cooldowns are for.
+    performance_max_boost: float = Field(default=3.0, ge=1.0, le=10.0)
+
     @field_validator("dedupe_on")
     @classmethod
     def _non_empty_unique(

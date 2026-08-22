@@ -70,7 +70,7 @@ from src.metrics import (
 )
 from src.notify import Digest, Notifier, notifier_for
 from src.campaigns import list_campaigns
-from src.attribution import load_posts, posts_path, save_posts
+from src.attribution import attribute, load_posts, posts_path, save_posts
 from src.platforms import Service, config_conflicts, effective_video_limits
 from src.quota import (
     MONTHLY_ALLOWANCE,
@@ -389,9 +389,14 @@ def _render(
         )
         return 0
 
+    # What has actually performed, from this campaign's own posts — which are
+    # all one network, so no cross-network pooling is possible here.
+    performance = _performance_medians(config, history, log)
+
     outcomes = selector.select_batch(
         library, history, count, config.composition.bodies_per_video,
         config.composition.bodies_per_video_max,
+        performance=performance,
     )
     relaxed = [o for o in outcomes if o.relaxation is not Relaxation.NONE]
     if relaxed:
@@ -922,6 +927,46 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
 
 
 # ------------------------------------------------------------------ command: ingest
+
+
+def _performance_medians(
+    config: CampaignConfig, history: History, log: StructuredLogger
+) -> dict[str, dict[str, float]] | None:
+    """Median views per option, for the selector to weight by.
+
+    Returns None when weighting is off or there is nothing to weight with, so
+    the selector's own code path stays untouched rather than being handed a
+    map of ones.
+    """
+    if config.selection.performance_weight <= 0:
+        return None
+
+    cache_path = posts_path(_campaign_dir(config.slug))
+    try:
+        posts = load_posts(cache_path).posts
+    except UgcError as exc:
+        log.warning("performance_cache_unreadable", error=str(exc))
+        return None
+    if not posts:
+        return None
+
+    medians: dict[str, dict[str, float]] = {}
+    for report in attribute(history.entries, posts):
+        if not report.rankable:
+            continue
+        medians[report.dimension] = {
+            option.option: option.median for option in report.options
+        }
+    if not medians:
+        return None
+
+    log.info(
+        "performance_weighting",
+        weight=config.selection.performance_weight,
+        dimensions={k: len(v) for k, v in medians.items()},
+        posts=len(posts),
+    )
+    return medians
 
 
 def _duration_headroom(

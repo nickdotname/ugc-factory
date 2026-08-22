@@ -3594,6 +3594,10 @@ async function loadSettings(){
     } else if (s.kind === "str_list"){
       control = `<input type="text" id="${id}" value="${esc((s.value||[]).join(', '))}"
         placeholder="comma separated" onchange="saveSetting('${s.path}', this.value)">`;
+    } else if (s.kind === "float"){
+      control = `<input type="number" id="${id}" value="${s.value ?? 0}"
+        min="0" max="1" step="0.1"
+        onchange="saveSetting('${s.path}', this.value)">`;
     } else {
       control = `<input type="number" id="${id}" value="${s.value ?? ""}"
         ${s.kind === "int_or_null" ? 'placeholder="off"' : 'min="1"'}

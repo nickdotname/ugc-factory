@@ -17,6 +17,7 @@ from src.ports import FrozenClock, SeededRng
 from src.selector import (
     AssetLibrary,
     _lru_weights,
+    performance_multipliers,
     Relaxation,
     Selector,
     days_until_first_repeat,
@@ -621,3 +622,81 @@ class TestCeilingOverARange:
                            captions=("c1",))
         # C(2,1)+C(2,2) = 3, and there is no third body to ask for.
         assert lib.ceiling(1, 9) == 3
+
+
+class TestPerformanceWeighting:
+    """Favouring what works, without letting it run away.
+
+    Weighting toward winners is a feedback loop by construction: a clip that
+    is picked more gathers more evidence, which gets it picked more. These
+    tests are mostly about the brakes.
+    """
+
+    MEDIANS = {"best": 2000.0, "mid": 800.0, "worst": 300.0}
+    POOL = ["best", "mid", "worst"]
+
+    def test_zero_weight_changes_nothing(self) -> None:
+        assert performance_multipliers(self.POOL, self.MEDIANS, 0.0, 3.0) == [1.0] * 3
+
+    def test_the_best_is_favoured(self) -> None:
+        best, mid, worst = performance_multipliers(
+            self.POOL, self.MEDIANS, 1.0, 3.0
+        )
+        assert best > mid > worst
+
+    def test_the_advantage_is_capped(self) -> None:
+        """Raw medians differ 6.7x here. Uncapped, one lucky clip would take
+        almost every slot and never be disproved."""
+        best, _, worst = performance_multipliers(
+            self.POOL, self.MEDIANS, 1.0, 3.0
+        )
+        assert best / worst == pytest.approx(3.0)
+
+    def test_an_enormous_gap_is_still_capped(self) -> None:
+        extreme = {"best": 500_000.0, "mid": 800.0, "worst": 1.0}
+        best, _, worst = performance_multipliers(self.POOL, extreme, 1.0, 3.0)
+        assert best / worst == pytest.approx(3.0)
+
+    def test_ranking_not_magnitude_decides(self) -> None:
+        """Social metrics span orders of magnitude and the size of a gap is
+        mostly noise; the order is the durable part."""
+        a = performance_multipliers(self.POOL, self.MEDIANS, 1.0, 3.0)
+        b = performance_multipliers(
+            self.POOL, {"best": 2001.0, "mid": 2000.0, "worst": 1999.0}, 1.0, 3.0
+        )
+        assert a == b
+
+    def test_nothing_is_ever_zeroed(self) -> None:
+        """A bad early run has to be recoverable, or one unlucky week retires
+        a clip permanently."""
+        assert min(performance_multipliers(self.POOL, self.MEDIANS, 1.0, 10.0)) >= 1.0
+
+    def test_an_unmeasured_clip_sits_in_the_middle(self) -> None:
+        """Neither rewarded nor punished for being new — punished, and a fresh
+        clip could never gather the data that would clear it."""
+        pool = [*self.POOL, "brand_new"]
+        *_, fresh = performance_multipliers(pool, self.MEDIANS, 1.0, 3.0)
+        assert 1.0 < fresh < 3.0
+
+    def test_a_single_measurement_is_not_a_comparison(self) -> None:
+        assert performance_multipliers(
+            ["only", "other"], {"only": 999.0}, 1.0, 3.0
+        ) == [1.0, 1.0]
+
+    def test_weighting_shifts_the_mix_without_starving_anyone(self) -> None:
+        from collections import Counter
+
+        lib = AssetLibrary(
+            hooks=tuple(f"h{i}" for i in range(6)), bodies=("b1", "b2"),
+            music=(), captions=tuple(f"c{i}" for i in range(40)),
+        )
+        perf = {"hook": {f"h{i}": float(100 * (i + 1)) for i in range(6)}}
+        sel = make_selector(seed=7, hook_cooldown_days=0, caption_cooldown_days=0,
+                            performance_weight=1.0)
+        picks = Counter(
+            o.selection.hook
+            for o in sel.select_batch(lib, History(), 120, 1, performance=perf)
+        )
+        assert picks["h5"] > picks["h0"], "the better hook should win more slots"
+        # Recency weighting still spreads underneath, so nothing is starved.
+        assert all(picks[f"h{i}"] >= 5 for i in range(6))

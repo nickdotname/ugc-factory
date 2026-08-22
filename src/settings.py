@@ -72,6 +72,9 @@ EDITABLE: tuple[Setting, ...] = (
             "…up to (optional)",
             "Draw a range instead of a fixed count. More shapes and mixed "
             "lengths from the same clips."),
+    Setting("selection.performance_weight", "float", "Favour winners (0-1)",
+            "Weights selection toward clips that have performed. Costs "
+            "variety, so it earns its place where there are many options."),
     Setting("variation.enabled", "bool", "Creative variation",
             "Per-variant punch-in, grade, grain and pace, seeded on the item "
             "id so a winner is reproducible."),
@@ -108,6 +111,14 @@ def coerce(setting: Setting, raw: Any) -> Any:
         if setting.check:
             setting.check(value)
         return value
+    if setting.kind == "float":
+        try:
+            fraction = float(raw)
+        except (TypeError, ValueError):
+            raise ValueError("expected a number") from None
+        if not 0.0 <= fraction <= 1.0:
+            raise ValueError("must be between 0 and 1")
+        return fraction
     if setting.kind == "str":
         text = "" if raw is None else str(raw).strip()
         if '"' in text or "\n" in text:
@@ -135,6 +146,10 @@ def to_yaml(value: Any) -> str:
         return "true" if value else "false"
     if isinstance(value, int):
         return str(value)
+    if isinstance(value, float):
+        # Trim the trailing zero so 0.5 does not become 0.5000000001 on a
+        # round trip through YAML.
+        return f"{value:g}"
     if isinstance(value, list):
         # Flow style keeps a list on one line, so the surgical edit stays a
         # single-line replacement rather than a block rewrite.

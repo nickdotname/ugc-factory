@@ -234,6 +234,48 @@ def _lru_weights(
     return weights
 
 
+def performance_multipliers(
+    pool: Sequence[str],
+    medians: Mapping[str, float],
+    weight: float,
+    max_boost: float,
+) -> list[float]:
+    """Scale each option by how it has actually performed, gently.
+
+    Ranked rather than proportional. Social metrics span orders of magnitude
+    — one video catching an algorithm outruns a hundred — so scaling directly
+    by median views would hand a single lucky clip almost every future slot.
+    Position in the order is the durable signal; the size of the gap is
+    mostly noise.
+
+    Three properties keep this from becoming a feedback loop:
+
+    * an option with no measurement sits at the middle, neither rewarded nor
+      punished for being new — otherwise a fresh clip could never earn data;
+    * the best option is at most ``max_boost`` times the worst, however far
+      apart their numbers are;
+    * nothing reaches zero, so every clip keeps a path back into rotation and
+      a bad early run is recoverable.
+    """
+    if weight <= 0 or not pool:
+        return [1.0] * len(pool)
+
+    measured = [name for name in pool if name in medians]
+    if len(measured) < 2:
+        # One measurement is not a comparison, and ranking a field of one
+        # would just declare it the winner.
+        return [1.0] * len(pool)
+
+    order = sorted(measured, key=lambda n: medians[n])
+    position = {name: i / (len(order) - 1) for i, name in enumerate(order)}
+
+    span = max_boost - 1.0
+    return [
+        1.0 + weight * span * position.get(name, 0.5)
+        for name in pool
+    ]
+
+
 class Selector:
     """Picks combinations for one campaign."""
 
@@ -262,6 +304,7 @@ class Selector:
         count: int,
         bodies_per_video: int,
         bodies_max: int | None = None,
+        performance: Mapping[str, Mapping[str, float]] | None = None,
     ) -> list[SelectionOutcome]:
         """Pick ``count`` combinations, none repeating within the batch.
 
@@ -312,6 +355,7 @@ class Selector:
             outcome = self.select_one(
                 library, history, bodies_per_video,
                 exclude=batch_hashes, recent=recent, bodies_max=bodies_max,
+                performance=performance,
             )
             selection = outcome.selection
             digest = tuple_hash(selection, self._config.dedupe_on)
@@ -346,6 +390,7 @@ class Selector:
         exclude: set[str] | None = None,
         recent: Sequence[HistoryEntry] = (),
         bodies_max: int | None = None,
+        performance: Mapping[str, Mapping[str, float]] | None = None,
     ) -> SelectionOutcome:
         """Pick one combination, relaxing rules in SPEC §10's documented order.
 
@@ -400,6 +445,7 @@ class Selector:
                 caption_last=caption_last,
                 music_last=music_last,
                 body_last=body_last,
+                performance=performance,
             )
             if candidate is None:
                 continue
@@ -438,6 +484,7 @@ class Selector:
         caption_last: Mapping[str, datetime],
         music_last: Mapping[str, datetime],
         body_last: Mapping[str, datetime],
+        performance: Mapping[str, Mapping[str, float]] | None = None,
     ) -> Selection | None:
         """Attempt a pick under one relaxation level, or return None."""
         # Each level switches off exactly one more constraint than the previous.
@@ -467,6 +514,29 @@ class Selector:
         caption_w = _lru_weights(captions, caption_last, now)
         body_w = _lru_weights(library.bodies, body_last, now)
         music_w = _lru_weights(library.music, music_last, now) if library.music else []
+
+        # Performance scales recency rather than replacing it. Multiplying
+        # keeps the spread-evenly behaviour underneath: a proven clip is
+        # favoured, but a proven clip used an hour ago still yields to one
+        # that has not been seen for a week. Replacing the weights would let
+        # a single winner run every slot until its cooldown bit.
+        if performance:
+            config = self._config
+            for pool, weights, dimension in (
+                (hooks, hook_w, "hook"),
+                (captions, caption_w, "caption"),
+                (list(library.bodies), body_w, "body"),
+                (list(library.music), music_w, "music"),
+            ):
+                medians = performance.get(dimension) or {}
+                if not medians or not pool:
+                    continue
+                boosts = performance_multipliers(
+                    pool, medians,
+                    config.performance_weight, config.performance_max_boost,
+                )
+                for index, boost in enumerate(boosts):
+                    weights[index] *= boost
 
         for _ in range(self._max_attempts):
             hook = self._rng.weighted_choice(hooks, hook_w)

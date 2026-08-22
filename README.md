@@ -714,6 +714,39 @@ make silence unambiguous.
 
 ---
 
+## Acting on what wins
+
+Attribution reports; `selection.performance_weight` acts. At 0 — the default
+— selection stays blind to results, exactly as it always was. Above 0 it
+scales each clip's weight by how it has performed.
+
+Three brakes, because weighting toward winners is a feedback loop by
+construction: a clip picked more gathers more evidence, which gets it picked
+more.
+
+- **Rank, not magnitude.** Social metrics span orders of magnitude and the
+  size of a gap is mostly noise; the order is the durable part. A clip with a
+  500,000-view outlier gets the same boost as one merely in first place.
+- **A cap.** `performance_max_boost` bounds the best against the worst
+  whatever their numbers say, and nothing ever reaches zero — a bad early run
+  has to be recoverable, or one unlucky week retires a clip for good.
+- **Unmeasured sits in the middle.** A new clip is neither rewarded nor
+  punished for being new; punish it and it could never gather the data that
+  would clear it.
+
+Performance *multiplies* the recency weighting rather than replacing it, so a
+proven clip used an hour ago still yields to one unseen for a week. In
+practice even at full weight the best hook takes about 1.6x the worst's
+slots, and the worst still takes a share — the point is a nudge that
+compounds, not a winner-take-all.
+
+It is off by default on purpose. Weighting costs variety, and variety is most
+of what keeps a feed working: with four body clips, favouring two of them
+makes the repetition problem worse. It earns its place on a dimension with
+many options — captions, hooks — and rarely on one with few.
+
+---
+
 ## Which clip actually wins
 
 For most of this project that question was unanswerable. `metrics.json` holds
