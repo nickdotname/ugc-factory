@@ -99,7 +99,7 @@
     },
     {
       "id": "0f801e59-c630-4739-b284-c1535b1963cc",
-      "scheduled_for": "2026-08-22T07:00:00-06:00",
+      "scheduled_for": "2026-08-22T07:40:00-06:00",
       "rendered_at": "2026-08-22T05:25:00.648407Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-22/0f801e59-c630-4739-b284-c1535b1963cc.mp4",
       "caption": "i wish someone told me about this before film school\n\ncomment \"create\" and I'll send it over\n\n[film students, student films, filmmakers, nyu tisch, creative community]",
@@ -124,7 +124,7 @@
         "music_tempo": 0.9721,
         "music_tilt_db": -1.12
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
