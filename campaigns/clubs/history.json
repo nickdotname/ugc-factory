@@ -2879,6 +2879,482 @@
       "title": null,
       "treatment": null,
       "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "ffb85c3840c5a4360dc1325118ed9281db8cd6e636e7aa7edfabf08618030a59",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "9d2d737b-9f7d-47e3-8c67-b63dd8d962a8",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 15.0,
+      "caption": "how I found casting calls, student films, and music collabs without knowing anyone\n\ncomment \"create\" and I'll send it your way\n\n[casting calls, student films, music collabs, creative networking, film students]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0155,
+        "anchor_x": 0.687,
+        "anchor_y": 0.574,
+        "rotate_deg": -0.202,
+        "brightness": 0.0077,
+        "saturation": 1.0204,
+        "hue_deg": -1.24,
+        "grain": 0.85,
+        "speed": 0.9987,
+        "mirror": 0.0,
+        "music_tempo": 0.9813,
+        "music_tilt_db": -0.25
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "41488da2a059d3c79b1c8e7983e5ddc6f4888e6b9c652ac55db8d4f55e06409b",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "8279e1dc-ae95-4109-bd03-53e2b5abe9d8",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 45.0,
+      "caption": "how I got cast in my first student film with zero connections\n\ncomment \"create\" and I'll send you the site\n\n[student films, casting calls, actors, aspiring actors, creative networking]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0067,
+        "anchor_x": 0.75,
+        "anchor_y": 0.66,
+        "rotate_deg": 0.21,
+        "brightness": 0.0231,
+        "saturation": 0.9821,
+        "hue_deg": 2.68,
+        "grain": 5.88,
+        "speed": 0.9945,
+        "mirror": 0.0,
+        "music_tempo": 1.0206,
+        "music_tilt_db": 1.06
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "0a27392c21c967a5a6dc41d5deeac84532ada107fcfad0281453d853dd87588c",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "d39762b9-d096-4ed9-983e-56640f06c1ed",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 180.0,
+      "caption": "calling all screenwriters, directors, and producers — you need this\n\ncomment \"create\" for the link\n\n[screenwriters, directors, producers, filmmakers, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0282,
+        "anchor_x": 0.358,
+        "anchor_y": 0.479,
+        "rotate_deg": 0.41,
+        "brightness": -0.0243,
+        "saturation": 1.0292,
+        "hue_deg": -1.77,
+        "grain": 4.12,
+        "speed": 1.0253,
+        "mirror": 0.0,
+        "music_tempo": 0.9787,
+        "music_tilt_db": -1.23
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "d40eedb0bf8d8218923b9337ccbf3e4d69d27d5979c2d0243e000598215d33e9",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "c43462de-918a-4d47-8493-fe9c995859ae",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 90.0,
+      "caption": "i wish someone told me about this before film school\n\ncomment \"create\" and I'll send it over\n\n[film students, student films, filmmakers, nyu tisch, creative community]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0316,
+        "anchor_x": 0.387,
+        "anchor_y": 0.397,
+        "rotate_deg": 0.331,
+        "brightness": -0.0193,
+        "saturation": 1.026,
+        "hue_deg": -3.31,
+        "grain": 2.66,
+        "speed": 1.0175,
+        "mirror": 0.0,
+        "music_tempo": 0.994,
+        "music_tilt_db": -0.82
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "898ec5cd80fd35071f4bb86b2537d3cac3589ab0ec4449db343589d7d3bc4913",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "8446c5b4-60d8-4e38-8589-5bbada92c20f",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 0.0,
+      "caption": "NYU Tisch kids have been using this to find creative projects all semester\n\ncomment \"create\" for the site\n\n[nyu tisch, film students, creative projects, student films, creative community]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0002,
+        "anchor_x": 0.481,
+        "anchor_y": 0.287,
+        "rotate_deg": -0.398,
+        "brightness": -0.0249,
+        "saturation": 1.0568,
+        "hue_deg": 0.61,
+        "grain": 3.79,
+        "speed": 1.0107,
+        "mirror": 0.0,
+        "music_tempo": 1.0269,
+        "music_tilt_db": -0.39
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "ef41183ed2a0ea9945b65eb11dee0af0a43e341de722da6937d6eacb5851dc97",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "0aa18784-b7bc-45eb-88dd-4397f83535d8",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 135.0,
+      "caption": "how I found casting calls, student films, and music collabs without knowing anyone\n\ncomment \"create\" and I'll send it your way\n\n[casting calls, student films, music collabs, creative networking, film students]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0322,
+        "anchor_x": 0.454,
+        "anchor_y": 0.397,
+        "rotate_deg": 0.167,
+        "brightness": 0.0008,
+        "saturation": 0.9576,
+        "hue_deg": -1.9,
+        "grain": 4.82,
+        "speed": 1.0293,
+        "mirror": 0.0,
+        "music_tempo": 0.9907,
+        "music_tilt_db": 0.69
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "5cbfae18191a4671d0a52f8be5bfb688a672d7501df0252b6215b66c98510ef1",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "792bde3b-b251-4f83-b834-7f0cdee748b9",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 45.0,
+      "caption": "open casting calls, short films, indie music — all in one place\n\ncomment \"create\" and I'll DM it\n\n[open casting, short films, indie music, casting calls, creative projects]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0314,
+        "anchor_x": 0.646,
+        "anchor_y": 0.436,
+        "rotate_deg": 0.457,
+        "brightness": 0.0322,
+        "saturation": 0.9501,
+        "hue_deg": 2.96,
+        "grain": 2.21,
+        "speed": 1.0267,
+        "mirror": 0.0,
+        "music_tempo": 1.0178,
+        "music_tilt_db": 0.36
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "39ddbad2daa0ca31e7af69746a71ed2ac90e012791fe86298c0f17bca37418df",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "7dc89ec9-8697-4df4-a828-dee3dbe53861",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 15.0,
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0039,
+        "anchor_x": 0.595,
+        "anchor_y": 0.436,
+        "rotate_deg": -0.237,
+        "brightness": 0.0278,
+        "saturation": 1.0304,
+        "hue_deg": 2.09,
+        "grain": 0.35,
+        "speed": 0.9938,
+        "mirror": 0.0,
+        "music_tempo": 1.0088,
+        "music_tilt_db": -1.37
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "08885bb11b3d8856da07a60ee4818a63b36f6b42a85110afb84f3b3139758cbb",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "0fab9f78-b77a-4767-8956-35c6212f10e1",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 75.0,
+      "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, creative community, get involved, artists, creative projects]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0341,
+        "anchor_x": 0.693,
+        "anchor_y": 0.44,
+        "rotate_deg": -0.339,
+        "brightness": -0.0353,
+        "saturation": 0.9715,
+        "hue_deg": -2.4,
+        "grain": 4.21,
+        "speed": 1.0072,
+        "mirror": 0.0,
+        "music_tempo": 0.9726,
+        "music_tilt_db": 0.41
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "1f89ff2b35ac4fa65f19257b3e6f50f89e0129120ac4019a08405c938bb2fff3",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "7604362b-b327-481c-9046-d6612cfb708b",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 45.0,
+      "caption": "dancers, singers, actors — stop waiting for an invite\n\ncomment \"create\" and I'll send you the link\n\n[dancers, singers, actors, performers, get involved, emerging artists]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0341,
+        "anchor_x": 0.546,
+        "anchor_y": 0.346,
+        "rotate_deg": -0.433,
+        "brightness": 0.029,
+        "saturation": 1.0147,
+        "hue_deg": -0.42,
+        "grain": 5.39,
+        "speed": 1.0133,
+        "mirror": 0.0,
+        "music_tempo": 0.9707,
+        "music_tilt_db": -0.99
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "df375108fd04c1023fd7ad5f26c09e711db3f054fb1d89812def3f3ff655680e",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "60982eb0-7098-46e9-bb86-9baa625adfa1",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 15.0,
+      "caption": "this site made \"getting involved creatively\" actually possible\n\ncomment \"create\" and it's yours\n\n[get involved, creative projects, creative community, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0159,
+        "anchor_x": 0.546,
+        "anchor_y": 0.675,
+        "rotate_deg": 0.382,
+        "brightness": 0.0193,
+        "saturation": 1.0022,
+        "hue_deg": 1.74,
+        "grain": 5.76,
+        "speed": 1.0192,
+        "mirror": 0.0,
+        "music_tempo": 1.0088,
+        "music_tilt_db": 1.16
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "a0e61ebe289035e6ceed872abe3c72a31140f19f116f24ed440bc27a69a6d8e7",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "706e3e8c-7171-410e-bc1a-4825e353a5fb",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 195.0,
+      "caption": "this is how directors, producers, and screenwriters actually find each other\n\ncomment \"create\" and it's yours\n\n[directors, producers, screenwriters, creative collaboration, creative networking]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0022,
+        "anchor_x": 0.542,
+        "anchor_y": 0.656,
+        "rotate_deg": 0.084,
+        "brightness": 0.0212,
+        "saturation": 1.0562,
+        "hue_deg": -0.74,
+        "grain": 2.82,
+        "speed": 0.9886,
+        "mirror": 0.0,
+        "music_tempo": 0.986,
+        "music_tilt_db": -0.9
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "d3bae31b49804a69f7dd777a81faa8c937cd82d8c6491100eefca5ebc925854a",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "a4875725-2d83-421f-9711-6e2481640628",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.019,
+        "anchor_x": 0.67,
+        "anchor_y": 0.297,
+        "rotate_deg": -0.002,
+        "brightness": -0.024,
+        "saturation": 0.9633,
+        "hue_deg": 1.68,
+        "grain": 5.79,
+        "speed": 1.0288,
+        "mirror": 0.0,
+        "music_tempo": 1.0234,
+        "music_tilt_db": -0.89
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "296a7847f1820c9a6dc31a9c87172aab61acc0c405c34df4d68fbe4fbc42ec10",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "5797991f-811c-411f-8752-62b495799c3a",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 180.0,
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, creative community, creative projects, artists, aspiring actors]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0414,
+        "anchor_x": 0.589,
+        "anchor_y": 0.574,
+        "rotate_deg": 0.112,
+        "brightness": 0.0231,
+        "saturation": 0.925,
+        "hue_deg": -0.8,
+        "grain": 5.88,
+        "speed": 1.0135,
+        "mirror": 0.0,
+        "music_tempo": 0.9716,
+        "music_tilt_db": -0.63
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "5e01380fc6478df1e1404705e190a6628a2278fd23a246535b2bd8d238a106f0",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "7100113b-c0c6-46fb-b5ff-43add6e97223",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "how film students are finding real projects (not just group chats)\n\ncomment \"create\" and I'll send it over\n\n[film students, creative projects, student films, nyu tisch, creative networking]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0051,
+        "anchor_x": 0.33,
+        "anchor_y": 0.54,
+        "rotate_deg": 0.073,
+        "brightness": 0.0105,
+        "saturation": 0.9533,
+        "hue_deg": 3.53,
+        "grain": 3.93,
+        "speed": 0.9836,
+        "mirror": 0.0,
+        "music_tempo": 1.026,
+        "music_tilt_db": 0.86
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "453624e49a64052e2ee497d37b56494451a30452ff01030db34f8ceea2f732da",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "5c72d4b8-494c-4f89-a1ac-020c35c9b64a",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 150.0,
+      "caption": "actors + singers + creators — this is your sign to get involved\n\ncomment \"create\" and I'll send it your way\n\n[actors, singers, artists, get involved, creative community, emerging artists]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0008,
+        "anchor_x": 0.313,
+        "anchor_y": 0.526,
+        "rotate_deg": -0.335,
+        "brightness": -0.0271,
+        "saturation": 0.9658,
+        "hue_deg": 0.36,
+        "grain": 2.56,
+        "speed": 0.9742,
+        "mirror": 0.0,
+        "music_tempo": 0.9754,
+        "music_tilt_db": -1.21
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "f1c2c5c3f093579f1101a519fc32e1e87b41b76e704627efb4188238ae4413e1",
+      "timestamp": "2026-08-22T05:25:11.869376Z",
+      "item_id": "cf90e0eb-e389-477b-be37-a539c18b58eb",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.03,
+        "anchor_x": 0.621,
+        "anchor_y": 0.73,
+        "rotate_deg": -0.296,
+        "brightness": 0.0384,
+        "saturation": 0.962,
+        "hue_deg": 0.42,
+        "grain": 0.71,
+        "speed": 1.0114,
+        "mirror": 0.0,
+        "music_tempo": 0.9869,
+        "music_tilt_db": -1.11
+      },
+      "buffer_post_id": null
     }
   ]
 }
