@@ -263,7 +263,7 @@
         "music_offset_sec": "255"
       },
       "treatment": null,
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -295,7 +295,7 @@
         "music_tempo": 1.0079,
         "music_tilt_db": 1.01
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -327,7 +327,7 @@
         "music_tempo": 1.0093,
         "music_tilt_db": 1.44
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -359,7 +359,7 @@
         "music_tempo": 1.0276,
         "music_tilt_db": 1.16
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -391,7 +391,7 @@
         "music_tempo": 0.9959,
         "music_tilt_db": -1.49
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -423,7 +423,7 @@
         "music_tempo": 0.9865,
         "music_tilt_db": -0.17
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -455,7 +455,7 @@
         "music_tempo": 1.002,
         "music_tilt_db": 0.92
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -487,7 +487,7 @@
         "music_tempo": 1.0055,
         "music_tilt_db": -1.16
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -519,7 +519,7 @@
         "music_tempo": 0.9994,
         "music_tilt_db": 1.03
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -551,7 +551,7 @@
         "music_tempo": 1.0215,
         "music_tilt_db": 0.1
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -583,7 +583,7 @@
         "music_tempo": 1.0149,
         "music_tilt_db": -0.39
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -615,7 +615,7 @@
         "music_tempo": 0.994,
         "music_tilt_db": 0.01
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -647,7 +647,7 @@
         "music_tempo": 0.9905,
         "music_tilt_db": 0.57
       },
-      "status": "pending",
+      "status": "cancelled",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

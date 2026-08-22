@@ -12,6 +12,8 @@ from src.errors import ValidationError
 from src.logging import StructuredLogger
 from src.models import History, HistoryEntry, Queue, QueueItem, QueueStatus
 from src.queue import (
+    CANCELLABLE,
+    cancel,
     IllegalTransition,
     append_history,
     cancel,
@@ -563,3 +565,36 @@ class TestSlotStagger:
         now = datetime(2026, 8, 21, 12, 0, tzinfo=timezone.utc)
         slots = upcoming_slots(now, 3, 15, 15, 12, timezone.utc, offset_min=40)
         assert all(s.minute == 40 for s in slots)
+
+
+class TestDiscardSelection:
+    """Which items `ugc queue --discard` is allowed to withdraw.
+
+    The command is the answer to a config change landing while the queue is
+    still deep: everything already rendered carries the old settings, and at
+    a full queue that is two more days of them. What it must never do is
+    pretend it can recall something already published.
+    """
+
+    def test_claimed_is_never_withdrawable(self, log: StructuredLogger) -> None:
+        """A claimed item may be mid-push; cancelling races a live publish."""
+        assert QueueStatus.CLAIMED not in CANCELLABLE
+        with pytest.raises(ValidationError):
+            cancel(item(status=QueueStatus.CLAIMED), log=log)
+
+    def test_pending_and_pushed_are_withdrawable(self, log: StructuredLogger) -> None:
+        for status in (QueueStatus.PENDING, QueueStatus.PUSHED, QueueStatus.FAILED):
+            assert cancel(item(status=status), log=log).status is QueueStatus.CANCELLED
+
+    def test_cancelled_items_are_not_claimable(self, log: StructuredLogger) -> None:
+        """The whole point: a withdrawn item must not be picked up by top-up."""
+        queue = Queue(generated_at=NOW, items=[item("keep"), item("drop")])
+        cancel(queue.items[1], log=log)
+        assert [i.id for i in claimable(queue)] == ["keep"]
+
+    def test_cancelled_is_distinct_from_failed(self, log: StructuredLogger) -> None:
+        """A deliberate withdrawal must not land in the failure alerts."""
+        withdrawn = cancel(item(), log=log)
+        assert withdrawn.status is QueueStatus.CANCELLED
+        assert withdrawn.attempts == 0
+        assert withdrawn.last_error is None

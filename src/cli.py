@@ -20,6 +20,7 @@ campaign's assets Release.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import os
 import sys
 import uuid
@@ -85,8 +86,10 @@ from src.ports import Clock, Rng, SeededRng, SystemClock
 from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
 from src.publishers.buffer import BufferPublisher
 from src.queue import (
+    CANCELLABLE,
     append_history,
     backfill_post_id,
+    cancel,
     carry_forward,
     claimable,
     depth_needed,
@@ -1570,6 +1573,90 @@ def cmd_web(args: argparse.Namespace, env: dict[str, str]) -> int:
 # ----------------------------------------------------------------- command: cleanup
 
 
+def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Show the queue, and withdraw items a config change has made stale.
+
+    Config changes only reach the *next* render. Everything already rendered
+    carries the settings it was built with, so a campaign that has just had
+    its captions rewritten or its music muted keeps publishing the old shape
+    for as long as the queue is deep — two days, at a full queue.
+
+    Withdrawing is deliberately two-speed. A ``pending`` item exists only on
+    disk and costs nothing to drop. A ``pushed`` one is already scheduled in
+    Buffer and has to be deleted there too, which needs the API key and only
+    works while it is still queued — once the network publishes it, it is out
+    (SPEC §4.2). So ``--discard pending`` works offline and ``--discard all``
+    does not, and the difference is reported rather than hidden.
+    """
+    log = get_logger(command="queue", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    path = _campaign_dir(config.slug) / "queue.json"
+    queue = load_queue(path)
+
+    counts = Counter(i.status.value for i in queue.items)
+    print(f"{config.slug} — {len(queue.items)} items")
+    for status, n in sorted(counts.items()):
+        print(f"  {status:10s} {n:3d}")
+
+    if not args.discard:
+        with_music = sum(
+            1 for i in queue.items
+            if i.status in CANCELLABLE and i.parts.get("music")
+        )
+        if with_music:
+            print(f"\n  {with_music} withdrawable item(s) carry a music bed.")
+        print("\nPass --discard pending|pushed|all to withdraw.")
+        return 0
+
+    wanted = {
+        "pending": {QueueStatus.PENDING},
+        "pushed": {QueueStatus.PUSHED},
+        "all": {QueueStatus.PENDING, QueueStatus.PUSHED, QueueStatus.FAILED},
+    }[args.discard]
+    targets = [i for i in queue.items if i.status in wanted]
+    if not targets:
+        print(f"\nnothing {args.discard} to discard")
+        return 0
+
+    remote = [i for i in targets if i.status is QueueStatus.PUSHED]
+    publisher: Publisher | None = None
+    if remote:
+        # Built only when something actually has to be deleted remotely, so
+        # the offline case never trips over a missing key it does not need.
+        publisher = _build_publisher(config, env, log)
+
+    if args.dry_run and not config.posting.dry_run:
+        print(f"\nwould discard {len(targets)} item(s); --dry-run, nothing written")
+        return 0
+
+    cancelled, failed = 0, 0
+    for item in targets:
+        if item.status is QueueStatus.PUSHED and publisher is not None:
+            if not item.buffer_post_id:
+                log.warning("queue_discard_no_post_id", item=item.id)
+                failed += 1
+                continue
+            try:
+                publisher.delete_post(item.buffer_post_id)
+            except UgcError as exc:
+                # Most likely already published, which is exactly the case
+                # that cannot be undone. Leave the item alone so the record
+                # keeps saying what really happened.
+                log.warning(
+                    "queue_discard_remote_failed",
+                    item=item.id, post_id=item.buffer_post_id, error=str(exc),
+                )
+                failed += 1
+                continue
+        cancel(item, log=log)  # mutates in place
+        cancelled += 1
+
+    save_queue(path, queue)
+    print(f"\ndiscarded {cancelled} item(s)" + (f", {failed} could not be" if failed else ""))
+    print("Commit and push campaigns/ for the change to reach the workflows.")
+    return 0
+
+
 def cmd_cleanup(args: argparse.Namespace, env: dict[str, str]) -> int:
     clock: Clock = SystemClock()
     log = get_logger(command="cleanup", campaign=args.campaign)
@@ -1758,6 +1845,15 @@ def build_parser() -> argparse.ArgumentParser:
     clips.add_argument("--kind", choices=[k.value for k in PartKind],
                        help="limit --all-on/--all-off to one role")
 
+    queue_cmd = sub.add_parser(
+        "queue", help="show the queue, or withdraw items a config change has stranded"
+    )
+    common(queue_cmd)
+    queue_cmd.add_argument(
+        "--discard", choices=["pending", "pushed", "all"],
+        help="withdraw items; 'pushed' and 'all' also delete them from Buffer",
+    )
+
     cleanup = sub.add_parser("cleanup", help="delete expired render Releases")
     common(cleanup)
     cleanup.add_argument("--digest", action="store_true",
@@ -1777,6 +1873,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "ingest": cmd_ingest,
         "web": cmd_web,
         "clips": cmd_clips,
+        "queue": cmd_queue,
         "setup": cmd_setup,
         "metrics": cmd_metrics,
         "diagnose": cmd_diagnose,
