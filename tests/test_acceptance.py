@@ -307,6 +307,18 @@ class TestNotifications:
         text = Digest(campaign="demo", caption_asks=(4, 25)).render()
         assert "call to action" not in text
 
+    def test_the_top_performer_is_carried(self) -> None:
+        """A weekly note saying which hook is actually working is the whole
+        point of measuring, and should not require opening a dashboard."""
+        text = Digest(
+            campaign="demo",
+            best_performer=("hook", "hook_03.mov", "hook_02.mov", 4.6),
+        ).render()
+        assert "best hook: hook_03.mov" in text and "4.6x" in text
+
+    def test_no_ranking_yet_says_nothing(self) -> None:
+        assert "best " not in Digest(campaign="demo").render()
+
     def test_one_caption_is_not_worth_warning_about(self) -> None:
         """A bank of one has one ask by definition; saying so is noise."""
         text = Digest(campaign="demo", caption_asks=(1, 1)).render()

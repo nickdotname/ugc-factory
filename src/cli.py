@@ -1653,6 +1653,23 @@ def _build_digest(
         except UgcError:
             asks = None
 
+    # Which clip is actually working, from this campaign's own posts — all one
+    # network, so the ranking is per network without doing anything.
+    best = None
+    try:
+        cached = load_posts(posts_path(_campaign_dir(config.slug))).posts
+        if cached:
+            for report in attribute(history.entries, cached):
+                if report.rankable and report.ratio:
+                    top, bottom = report.options[0], report.options[-1]
+                    best = (
+                        report.dimension, top.option, bottom.option,
+                        report.ratio,
+                    )
+                    break
+    except UgcError:
+        best = None
+
     return Digest(
         campaign=config.slug,
         posted=len([i for i in queue.items if i.status is QueueStatus.PUSHED]),
@@ -1662,6 +1679,7 @@ def _build_digest(
         buffer_requests_30d=requests,
         delivery_rate=delivery,
         caption_asks=asks,
+        best_performer=best,
     )
 
 

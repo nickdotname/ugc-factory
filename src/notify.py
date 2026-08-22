@@ -88,6 +88,11 @@ class Digest:
     #: (distinct asks, captions) — one ask across the bank is one ask tested
     #: many times, and the ask is what a viewer acts on.
     caption_asks: tuple[int, int] | None = None
+    #: (dimension, winner, loser, ratio) for this campaign's own network.
+    #: The single most useful line here: a weekly note saying which hook is
+    #: actually working is the whole point of measuring, and it should not
+    #: require opening a dashboard to see.
+    best_performer: tuple[str, str, str, float] | None = None
 
     def render(self) -> str:
         lines = [
@@ -110,6 +115,11 @@ class Digest:
             mark = "⚠️ " if pct < 60 else ""
             lines.append(
                 f"{mark}delivered: {pct:.0f}% of rendered videos reached a network"
+            )
+        if self.best_performer is not None:
+            dimension, winner, loser, ratio = self.best_performer
+            lines.append(
+                f"best {dimension}: {winner} — {ratio:.1f}x {loser}"
             )
         if self.caption_asks is not None:
             asks, captions = self.caption_asks
