@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "4cfd614d-3a2c-4c58-bb5b-742069e24af9",
-      "scheduled_for": "2026-08-22T01:00:00-06:00",
+      "scheduled_for": "2026-08-22T03:40:00-06:00",
       "rendered_at": "2026-08-22T05:25:00.648407Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-22/4cfd614d-3a2c-4c58-bb5b-742069e24af9.mp4",
       "caption": "this site has been the cheat code to getting involved creatively 🎬🎤\n\ncomment \"create\" and I'll send it over\n\n[creative collaboration, actors, singers, filmmakers, creative community, get involved]",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9992,
         "music_tilt_db": -0.46
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
