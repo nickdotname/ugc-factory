@@ -1,0 +1,89 @@
+name: queue
+
+# Manual only. Shows a campaign's queue, and withdraws items that a config
+# change has stranded — everything already rendered carries the settings it
+# was built with, so muting music or rewriting captions does nothing about a
+# queue that is already deep.
+#
+# Lives here rather than being run locally because withdrawing a *pushed*
+# item means deleting it from Buffer, and the API key is a repo secret. The
+# `pending` half needs no key and can be done from a laptop.
+#
+# Default `discard` is blank, which only reports. Withdrawing is deliberate.
+on:
+  workflow_dispatch:
+    inputs:
+      campaign:
+        description: campaign slug (blank = all)
+        required: false
+        default: ""
+      discard:
+        description: what to withdraw (blank = report only)
+        required: false
+        default: ""
+        type: choice
+        options: ["", "pending", "pushed", "all"]
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      campaigns: ${{ steps.list.outputs.campaigns }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          slugs=$(find campaigns -mindepth 1 -maxdepth 1 -type d \
+                    -not -name '_*' -exec basename {} \; | sort)
+          echo "found: $slugs"
+          echo "campaigns=$(printf '%s\n' $slugs | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+
+  queue:
+    needs: discover
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        campaign: ${{ fromJson(needs.discover.outputs.campaigns) }}
+      # Serialised: each run commits campaigns/, and parallel jobs would race
+      # the push the same way topup does.
+      max-parallel: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+
+      - name: Queue
+        if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_API_KEY_2: ${{ secrets.BUFFER_API_KEY_2 }}
+          BUFFER_API_KEY_3: ${{ secrets.BUFFER_API_KEY_3 }}
+          BUFFER_API_KEY_4: ${{ secrets.BUFFER_API_KEY_4 }}
+          BUFFER_API_KEY_5: ${{ secrets.BUFFER_API_KEY_5 }}
+          BUFFER_API_KEY_6: ${{ secrets.BUFFER_API_KEY_6 }}
+          BUFFER_API_KEY_7: ${{ secrets.BUFFER_API_KEY_7 }}
+          BUFFER_API_KEY_8: ${{ secrets.BUFFER_API_KEY_8 }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          python -m src.cli queue --campaign "${{ matrix.campaign }}" \
+            ${{ inputs.discard && format('--discard {0}', inputs.discard) || '' }}
+
+      - name: Commit any withdrawal
+        if: ${{ inputs.discard != '' && (inputs.campaign == '' || inputs.campaign == matrix.campaign) }}
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add campaigns/
+          git diff --cached --quiet && exit 0
+          git commit -m "withdraw ${{ inputs.discard }} for ${{ matrix.campaign }} [skip ci]"
+          git pull --rebase --autostash
+          git push
