@@ -313,6 +313,146 @@ def underperformers(
     return found
 
 
+# ------------------------------------------------------- treatment effects
+
+#: Posts needed before a treatment parameter is tested at all.
+MIN_POSTS_FOR_TREATMENT = 30
+
+#: Per-test significance, before correction. Corrected below by the number of
+#: parameters actually tested, because testing twelve at the usual 5% bar
+#: gives a 46% chance of declaring a winner every week whether or not
+#: variation does anything.
+TREATMENT_ALPHA = 0.05
+
+
+@dataclass(frozen=True)
+class TreatmentEffect:
+    """Whether one knob of the variation engine moves the numbers."""
+
+    parameter: str
+    low_median: float
+    high_median: float
+    posts: int
+    #: Corrected for how many parameters were tested together.
+    p_value: float
+    threshold: float
+
+    @property
+    def significant(self) -> bool:
+        return self.p_value <= self.threshold
+
+    @property
+    def ratio(self) -> float:
+        return self.high_median / self.low_median if self.low_median else 1.0
+
+
+def _rank_sum_p(low: Sequence[float], high: Sequence[float]) -> float:
+    """Two-sided Mann-Whitney U, normal approximation.
+
+    A rank test rather than a t-test because views are lognormal and nowhere
+    near normal; ranks do not care. The normal approximation is fine at the
+    sample sizes this refuses to run below.
+    """
+    import math
+
+    n1, n2 = len(low), len(high)
+    if n1 < 2 or n2 < 2:
+        return 1.0
+
+    combined = sorted([(v, 0) for v in low] + [(v, 1) for v in high])
+    ranks: list[float] = [0.0] * len(combined)
+    index = 0
+    while index < len(combined):
+        stop = index
+        while stop + 1 < len(combined) and combined[stop + 1][0] == combined[index][0]:
+            stop += 1
+        # Ties share the average of the ranks they span.
+        average = (index + stop) / 2 + 1
+        for position in range(index, stop + 1):
+            ranks[position] = average
+        index = stop + 1
+
+    rank_sum = sum(r for r, (_, group) in zip(ranks, combined) if group == 0)
+    u = rank_sum - n1 * (n1 + 1) / 2
+    mean = n1 * n2 / 2
+    sd = math.sqrt(n1 * n2 * (n1 + n2 + 1) / 12)
+    if sd == 0:
+        return 1.0
+    z = (u - mean) / sd
+    return 2 * (1 - 0.5 * (1 + math.erf(abs(z) / math.sqrt(2))))
+
+
+def treatment_effects(
+    history: Iterable[HistoryEntry],
+    posts: Mapping[str, PostMetrics],
+    metric: str = DEFAULT_METRIC,
+    service: str = "",
+) -> list[TreatmentEffect]:
+    """Does any of the creative variation actually change performance?
+
+    Without this the variation engine runs blind: it applies a different
+    punch-in, grade and pace to every video and nothing ever asks whether it
+    helps. The recipe is recorded per post precisely so it can be.
+
+    Each parameter is split at its median into a low and a high half and the
+    two are compared with a rank test. The significance bar is divided by the
+    number of parameters tested — twelve of them at the usual 5% would
+    declare a winner about half the weeks whether or not variation does
+    anything, and that is a machine for inventing findings.
+    """
+    samples: list[tuple[dict[str, float], float]] = []
+    for entry in history:
+        if not entry.buffer_post_id or not entry.treatment:
+            continue
+        post = posts.get(entry.buffer_post_id)
+        if post is None:
+            continue
+        if service and post.service != service:
+            continue
+        value = post.value(metric)
+        if value is None:
+            continue
+        samples.append((entry.treatment, value))
+
+    if len(samples) < MIN_POSTS_FOR_TREATMENT:
+        return []
+
+    parameters = sorted({
+        key for recipe, _ in samples for key in recipe
+        # Anchors are where the crop sits, not how much of anything; they
+        # have no natural low-to-high ordering to split on.
+        if not key.startswith("anchor")
+    })
+    if not parameters:
+        return []
+    threshold = TREATMENT_ALPHA / len(parameters)
+
+    effects: list[TreatmentEffect] = []
+    for parameter in parameters:
+        pairs = [
+            (float(recipe[parameter]), value)
+            for recipe, value in samples if parameter in recipe
+        ]
+        if len(pairs) < MIN_POSTS_FOR_TREATMENT:
+            continue
+        midpoint = statistics.median(setting for setting, _ in pairs)
+        low = [v for setting, v in pairs if setting <= midpoint]
+        high = [v for setting, v in pairs if setting > midpoint]
+        if len(low) < 2 or len(high) < 2:
+            continue
+        effects.append(TreatmentEffect(
+            parameter=parameter,
+            low_median=statistics.median(low),
+            high_median=statistics.median(high),
+            posts=len(pairs),
+            p_value=_rank_sum_p(low, high),
+            threshold=threshold,
+        ))
+
+    effects.sort(key=lambda e: e.p_value)
+    return effects
+
+
 def coverage(
     history: Sequence[HistoryEntry], posts: Mapping[str, PostMetrics]
 ) -> tuple[int, int]:

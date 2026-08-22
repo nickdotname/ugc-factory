@@ -15,16 +15,18 @@ import pytest
 
 from src.attribution import (
     CONDEMN_SHARE,
-    MIN_POSTS_TO_CONDEMN,
+    MIN_POSTS_FOR_TREATMENT,
     MIN_POSTS_PER_OPTION,
-    underperformers,
-    attribute_by_service,
+    MIN_POSTS_TO_CONDEMN,
     PostCache,
     attribute,
+    attribute_by_service,
     coverage,
     load_posts,
     posts_path,
     save_posts,
+    treatment_effects,
+    underperformers,
 )
 from src.errors import ValidationError
 from src.models import HistoryEntry
@@ -310,3 +312,80 @@ class TestUnderperformers:
         genuinely bad ones caught. Loosening either trades that badly."""
         assert MIN_POSTS_TO_CONDEMN >= 12
         assert CONDEMN_SHARE >= 0.8
+
+
+class TestTreatmentEffects:
+    """Whether the variation engine is doing anything measurable.
+
+    Twelve knobs tested at the usual 5% bar would declare a winner about half
+    of all weeks whether or not variation matters. Correcting for that is the
+    difference between noticing an effect and manufacturing one.
+    """
+
+    def build(self, effect_on: str | None, n: int = 120, seed: int = 1):
+        import random
+
+        from src.config import VariationConfig
+        from src.variation import treatment_for
+
+        random.seed(seed)
+        posts, history = {}, []
+        for i in range(n):
+            recipe = treatment_for(f"v{i}", VariationConfig(enabled=True)).as_dict()
+            mu = 5.0
+            if effect_on:
+                mu += 1.2 * (recipe[effect_on] > 0.025)
+            pid = f"p{i}"
+            posts[pid] = PostMetrics(
+                post_id=pid, service="instagram", sent_at=NOW,
+                metrics=(MetricRow(type="views", name="V",
+                                   value=random.lognormvariate(mu, 1.0)),),
+            )
+            history.append(HistoryEntry(
+                tuple_hash=pid, timestamp=NOW, item_id=f"v{i}", hook="h",
+                bodies=("b",), music=None, caption="c",
+                buffer_post_id=pid, treatment=recipe,
+            ))
+        return history, posts
+
+    def test_a_real_effect_is_found_and_named(self) -> None:
+        history, posts = self.build(effect_on="zoom")
+        winners = [e for e in treatment_effects(history, posts) if e.significant]
+        assert [e.parameter for e in winners] == ["zoom"]
+
+    def test_nothing_is_claimed_when_variation_does_nothing(self) -> None:
+        history, posts = self.build(effect_on=None)
+        assert not any(e.significant for e in treatment_effects(history, posts))
+
+    def test_the_bar_is_corrected_for_how_many_knobs_are_tested(self) -> None:
+        history, posts = self.build(effect_on=None)
+        effects = treatment_effects(history, posts)
+        assert effects
+        assert all(e.threshold < 0.05 for e in effects)
+        # One shared, corrected bar rather than a per-test 5%.
+        assert len({e.threshold for e in effects}) == 1
+
+    def test_too_few_posts_says_nothing(self) -> None:
+        history, posts = self.build(effect_on="zoom",
+                                    n=MIN_POSTS_FOR_TREATMENT - 1)
+        assert treatment_effects(history, posts) == []
+
+    def test_untreated_posts_are_ignored(self) -> None:
+        """Renders from before variation was switched on carry no recipe."""
+        history, posts = self.build(effect_on="zoom")
+        stripped = [
+            e.model_copy(update={"treatment": None}) for e in history
+        ]
+        assert treatment_effects(stripped, posts) == []
+
+    def test_crop_anchors_are_not_tested(self) -> None:
+        """They are where the crop sits, not how much of anything — there is
+        no low-to-high ordering to split on."""
+        history, posts = self.build(effect_on=None)
+        names = {e.parameter for e in treatment_effects(history, posts)}
+        assert not any(n.startswith("anchor") for n in names)
+
+    def test_it_can_be_scoped_to_one_network(self) -> None:
+        history, posts = self.build(effect_on="zoom")
+        assert treatment_effects(history, posts, service="tiktok") == []
+        assert treatment_effects(history, posts, service="instagram")

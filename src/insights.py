@@ -502,6 +502,69 @@ def underperformer_finding(found: Sequence[Any]) -> Finding | None:
     )
 
 
+def treatment_finding(effects: Sequence[Any]) -> Finding | None:
+    """Whether the creative variation is doing anything measurable.
+
+    Without this the variation engine runs blind — a different punch-in,
+    grade and pace on every video and nothing ever asking whether it helps.
+
+    The significance bar is divided by the number of knobs tested. Twelve
+    parameters at the usual 5% would declare a winner about half of all
+    weeks whether or not variation matters, which is a machine for inventing
+    findings rather than a way of noticing one.
+    """
+    if not effects:
+        return None
+
+    winners = [e for e in effects if e.significant]
+    rows = tuple(
+        (
+            e.parameter,
+            f"{e.low_median:,.0f}",
+            f"{e.high_median:,.0f}",
+            f"{e.ratio:.2f}x",
+            "yes" if e.significant else "no",
+        )
+        for e in effects[:8]
+    )
+    posts = effects[0].posts
+
+    if not winners:
+        return Finding(
+            id="treatment",
+            severity="info",
+            headline="No variation setting is measurably changing results",
+            detail=(
+                f"Across {posts} posts, none of the knobs separates high from "
+                f"low by more than chance allows once the bar is corrected for "
+                f"testing {len(effects)} of them at once. That is a real "
+                f"answer rather than a missing one: the variation is doing its "
+                f"job of making cuts distinct without any single setting being "
+                f"worth tuning."
+            ),
+            columns=("Setting", "Low half", "High half", "Ratio", "Beats chance"),
+            rows=rows,
+        )
+
+    best = winners[0]
+    direction = "higher" if best.high_median > best.low_median else "lower"
+    return Finding(
+        id="treatment",
+        severity="info",
+        headline=f"{direction.capitalize()} {best.parameter} is outperforming",
+        detail=(
+            f"Across {posts} posts, {best.parameter} separates into "
+            f"{best.low_median:,.0f} against {best.high_median:,.0f} — "
+            f"{best.ratio:.2f}x, and it clears a bar already tightened for "
+            f"testing {len(effects)} settings together. Worth narrowing that "
+            f"knob's range toward the {direction} end and letting the rest "
+            f"keep varying."
+        ),
+        columns=("Setting", "Low half", "High half", "Ratio", "Beats chance"),
+        rows=rows,
+    )
+
+
 def limits_finding(facts: list[CampaignFacts]) -> Finding:
     """State plainly what this data cannot answer, and why.
 
@@ -553,12 +616,14 @@ def build(
     captions: Sequence[str] = (),
     attribution: Finding | None = None,
     underperformers: Finding | None = None,
+    treatment: Finding | None = None,
 ) -> list[Finding]:
     """Every finding worth showing, most consequential first."""
     found = [
         delivery_finding(facts),
         attribution,
         underperformers,
+        treatment,
         platform_finding(facts),
         caption_diversity_finding(captions),
         engagement_mix_finding(facts),

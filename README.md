@@ -714,6 +714,31 @@ make silence unambiguous.
 
 ---
 
+## Is the variation doing anything?
+
+The variation engine applies a different punch-in, grade, grain and pace to
+every video, and until now nothing asked whether any of it helps. The recipe
+is recorded per post precisely so it can be.
+
+Each knob is split at its median into a low and a high half and the two are
+compared with a rank test — ranks, because views are lognormal and nowhere
+near normal.
+
+The bar is the interesting part. There are twelve knobs, and testing twelve
+things at the usual 5% gives a **46% chance of declaring a winner every
+week** whether or not variation does anything at all. That is a machine for
+manufacturing findings. So the threshold is divided by the number of
+parameters tested, and simulation confirms the result: across twenty runs
+where variation genuinely did nothing it reported an effect **zero** times,
+and across twenty where zoom genuinely mattered it found it **twenty** times
+— naming zoom rather than one of the other eleven.
+
+"No setting is measurably changing results" is a real answer rather than a
+missing one: it means the variation is making cuts distinct without any
+single knob being worth tuning.
+
+---
+
 ## Suggesting a clip be cut
 
 Ranking last is not evidence of anything. With six clips of identical quality
