@@ -573,12 +573,15 @@ def _metadata_for(request: PublishRequest) -> dict[str, Any] | None:
     reject the whole mutation rather than defaulting it.
     """
     if request.service is Service.INSTAGRAM:
-        return {
-            "instagram": {
-                "type": request.post_type.value,
-                "shouldShareToFeed": request.share_to_feed,
-            }
+        instagram: dict[str, Any] = {
+            "type": request.post_type.value,
+            "shouldShareToFeed": request.share_to_feed,
         }
+        # Only sent when there is one: an empty firstComment posts an empty
+        # comment rather than none.
+        if request.first_comment:
+            instagram["firstComment"] = request.first_comment
+        return {"instagram": instagram}
     if request.service is Service.YOUTUBE:
         # YouTube is the one platform with a separate title, capped at 100
         # characters. PublishRequest has already refused an over-long or missing
@@ -594,6 +597,7 @@ def _metadata_for(request: PublishRequest) -> dict[str, Any] | None:
                 # default; made-for-kids must be declared explicitly.
                 "categoryId": "22",
                 "madeForKids": False,
+                "notifySubscribers": request.notify_subscribers,
             }
         }
     # TikTok: its metadata input exists but has no required members for a plain

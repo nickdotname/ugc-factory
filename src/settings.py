@@ -78,6 +78,12 @@ EDITABLE: tuple[Setting, ...] = (
     Setting("variation.allow_mirror", "bool", "Allow mirroring",
             "Reverses on-screen text and flips a logo. Only for shots with "
             "neither."),
+    Setting("buffer.first_comment", "str", "First comment",
+            "Posted as the first comment on Instagram — where a link belongs, "
+            "since one in the caption is not clickable."),
+    Setting("buffer.notify_subscribers", "bool", "Notify subscribers",
+            "YouTube only. Pushes each Short to subscribers. Leave off for a "
+            "channel posting many times a day."),
     Setting("seo.keywords", "str_list", "Target keywords",
             "Linted against the field each platform searches — the caption on "
             "TikTok, the title on YouTube."),
@@ -102,6 +108,11 @@ def coerce(setting: Setting, raw: Any) -> Any:
         if setting.check:
             setting.check(value)
         return value
+    if setting.kind == "str":
+        text = "" if raw is None else str(raw).strip()
+        if '"' in text or "\n" in text:
+            raise ValueError("cannot contain quotes or newlines")
+        return text
     if setting.kind == "str_list":
         if isinstance(raw, str):
             raw = [part.strip() for part in raw.split(",")]

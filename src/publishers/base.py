@@ -47,6 +47,16 @@ class PublishRequest(BaseModel):
     #: Instagram-specific but harmless elsewhere: whether a Reel also appears in
     #: the main feed. Backends that have no such concept ignore it.
     share_to_feed: bool = True
+    #: Posted as the first comment rather than in the caption. Where a link
+    #: belongs on Instagram: putting it in the caption is not clickable and
+    #: costs reach, while a first comment is pinned to the top and carries it
+    #: without touching the caption's opening — which is the part search and
+    #: the scroll-stop both read.
+    first_comment: str | None = None
+    #: YouTube only: push the Short to subscribers' feeds. Off is the safe
+    #: default for a channel posting many times a day, on is a reach lever
+    #: for one posting a few.
+    notify_subscribers: bool = False
 
     @model_validator(mode="after")
     def _within_platform_limits(self) -> "PublishRequest":

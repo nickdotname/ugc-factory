@@ -413,6 +413,16 @@ class BufferConfig(StrictModel):
     service: Service = Service.INSTAGRAM
     #: Ignored by services with no separate title field (Instagram, TikTok).
     title_strategy: TitleStrategy = TitleStrategy.DERIVE
+    #: Posted as the first comment on Instagram, where a link belongs. A link
+    #: in the caption is not clickable and costs reach; a first comment is
+    #: pinned to the top and carries it without touching the caption's
+    #: opening, which is what search and the scroll-stop both read.
+    #: Empty means no comment is posted.
+    first_comment: str = ""
+    #: YouTube: push each Short to subscribers' feeds. Off by default —
+    #: notifying a subscriber list a dozen times a day is a good way to lose
+    #: it. Worth turning on for a channel posting a few times a day.
+    notify_subscribers: bool = False
     # Buffer's organization id. Not a secret — it identifies an account but
     # grants nothing without the API key — so it lives in config rather than
     # in GitHub Secrets. Setting it matters for QUOTA: without it every top-up

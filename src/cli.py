@@ -624,6 +624,8 @@ def _topup(
                     service=config.buffer.service,
                     video_url=item.video_url,
                     scheduled_for=item.scheduled_for,
+                    first_comment=config.buffer.first_comment or None,
+                    notify_subscribers=config.buffer.notify_subscribers,
                     post_type=config.buffer.post_type,
                 )
             )

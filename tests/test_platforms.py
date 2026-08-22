@@ -608,3 +608,60 @@ class TestConfigConflicts:
         """The bug this replaces: one config, one hardcoded set of limits, and
         every validation message saying 'Reels' wherever it was going."""
         assert config_conflicts(Service.INSTAGRAM, 90.0, 100.0) == []
+
+
+class TestPlatformLevers:
+    """Fields Buffer exposes per network that were going unused. Found by
+    introspecting the schema rather than assuming, which is how the per-post
+    metrics question was settled too."""
+
+    def request(self, service: Service, **kw):
+        from datetime import datetime, timezone
+
+        from src.config import PostType
+        from src.publishers.base import PublishRequest
+
+        base = dict(
+            channel_id="c", text="a caption", video_url="https://x/v.mp4",
+            scheduled_for=datetime(2026, 8, 22, tzinfo=timezone.utc),
+            service=service,
+            post_type=PostType.SHORT if service is Service.YOUTUBE else PostType.REEL,
+        )
+        if service is Service.YOUTUBE:
+            base["title"] = "A title"
+        base.update(kw)
+        return PublishRequest(**base)
+
+    def test_a_first_comment_reaches_instagram(self) -> None:
+        """Where a link belongs: one in the caption is not clickable, and it
+        displaces the opening words that search and the scroll-stop read."""
+        from src.publishers.buffer import _metadata_for
+
+        meta = _metadata_for(self.request(Service.INSTAGRAM, first_comment="x.com"))
+        assert meta["instagram"]["firstComment"] == "x.com"
+
+    def test_no_first_comment_sends_no_field(self) -> None:
+        """An empty string would post an empty comment, not no comment."""
+        from src.publishers.buffer import _metadata_for
+
+        meta = _metadata_for(self.request(Service.INSTAGRAM))
+        assert "firstComment" not in meta["instagram"]
+
+    def test_subscriber_notification_reaches_youtube(self) -> None:
+        from src.publishers.buffer import _metadata_for
+
+        meta = _metadata_for(self.request(Service.YOUTUBE, notify_subscribers=True))
+        assert meta["youtube"]["notifySubscribers"] is True
+
+    def test_subscribers_are_not_notified_by_default(self) -> None:
+        """Notifying a subscriber list a dozen times a day loses it."""
+        from src.publishers.buffer import _metadata_for
+
+        meta = _metadata_for(self.request(Service.YOUTUBE))
+        assert meta["youtube"]["notifySubscribers"] is False
+
+    def test_reels_still_share_to_the_feed(self) -> None:
+        from src.publishers.buffer import _metadata_for
+
+        meta = _metadata_for(self.request(Service.INSTAGRAM))
+        assert meta["instagram"]["shouldShareToFeed"] is True

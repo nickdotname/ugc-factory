@@ -257,6 +257,33 @@ never pass through this tool.
    your source clips before they reach the pipeline; the renderer has no text
    filters at all.
 
+## Per-network publishing levers
+
+Buffer's `PostInputMetaData` carries a different input per network, and
+several useful fields were going unused. Found by introspecting the schema
+rather than assuming — the same move that settled the per-post metrics
+question.
+
+| field | network | what it does |
+|---|---|---|
+| `firstComment` | Instagram | posts a pinned first comment |
+| `shouldShareToFeed` | Instagram | Reel also appears in the main feed |
+| `notifySubscribers` | YouTube | pushes the Short to subscribers |
+| `title` | YouTube | the search surface for a Short |
+
+`buffer.first_comment` is where a link belongs on Instagram. One in the
+caption is not clickable, and it displaces the opening words that both search
+and the scroll-stop read. Empty means no comment is posted — an empty string
+would post an empty comment rather than none.
+
+`buffer.notify_subscribers` is off by default. Notifying a subscriber list a
+dozen times a day is a good way to lose it; it is worth turning on for a
+channel posting a few times a day.
+
+Both are editable from the dashboard's Settings panel.
+
+---
+
 ## Video limits per platform
 
 Text limits were always per-platform; video was not. Every campaign carried
