@@ -23,7 +23,7 @@ variation:
   # pace for every render, seeded on the item id so a winner is reproducible.
   # Off until you have looked at a few samples — it changes how every video
   # looks. `ugc sample --campaign knick_creates_tt` renders one without queueing it.
-  enabled: false
+  enabled: true
   allow_mirror: false         # mirrors on-screen text and reverses a logo
 
 video:

@@ -80,3 +80,6 @@ buffer:
 notify:
   webhook_secret: DISCORD_WEBHOOK
   on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed, digest]
+
+variation:
+  enabled: true
