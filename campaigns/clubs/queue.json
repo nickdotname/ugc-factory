@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "9d2d737b-9f7d-47e3-8c67-b63dd8d962a8",
-      "scheduled_for": "2026-08-22T01:00:00-06:00",
+      "scheduled_for": "2026-08-24T01:00:00-06:00",
       "rendered_at": "2026-08-22T05:25:11.869376Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-08-22/9d2d737b-9f7d-47e3-8c67-b63dd8d962a8.mp4",
       "caption": "how I found casting calls, student films, and music collabs without knowing anyone\n\ncomment \"create\" and I'll send it your way\n\n[casting calls, student films, music collabs, creative networking, film students]",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9813,
         "music_tilt_db": -0.25
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
