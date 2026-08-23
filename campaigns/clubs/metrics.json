@@ -993,6 +993,148 @@
         }
       ],
       "metrics_updated_at": "2026-08-21T16:35:27.304000Z"
+    },
+    {
+      "date": "2026-08-23",
+      "scope": "lifetime",
+      "fetched_at": "2026-08-23T07:11:56.753029Z",
+      "window_start": "2026-08-12T00:00:00Z",
+      "window_end": "2026-08-24T00:00:00Z",
+      "service": "instagram",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 101.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 404.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 58.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 6.78,
+          "unit": "percentage"
+        },
+        {
+          "type": "impressions",
+          "name": "Impressions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 22610.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 315.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 440.0,
+          "unit": "count"
+        },
+        {
+          "type": "follows",
+          "name": "Follows",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 18510.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-22T15:35:38.334000Z"
+    },
+    {
+      "date": "2026-08-23",
+      "scope": "rolling",
+      "fetched_at": "2026-08-23T07:11:56.753029Z",
+      "window_start": "2026-07-24T00:00:00Z",
+      "window_end": "2026-08-23T00:00:00Z",
+      "service": "instagram",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 101.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 404.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 58.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 6.78,
+          "unit": "percentage"
+        },
+        {
+          "type": "impressions",
+          "name": "Impressions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 22610.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 315.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 440.0,
+          "unit": "count"
+        },
+        {
+          "type": "follows",
+          "name": "Follows",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 18510.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-22T15:35:38.334000Z"
     }
   ]
 }
