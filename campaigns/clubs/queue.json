@@ -99,7 +99,7 @@
     },
     {
       "id": "e85d2fde-c938-495a-8658-284ff6e5c622",
-      "scheduled_for": "2026-08-25T07:00:00-06:00",
+      "scheduled_for": "2026-08-27T05:00:00-06:00",
       "rendered_at": "2026-08-25T05:29:56.808261Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-08-25/e85d2fde-c938-495a-8658-284ff6e5c622.mp4",
       "caption": "the creative community I didn't know I needed\n\ncomment \"create\" and I'll send the site\n\n[creative community, creative networking, get involved, artists, emerging artists]",
@@ -124,7 +124,7 @@
         "music_tempo": 1.0199,
         "music_tilt_db": -0.64
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
