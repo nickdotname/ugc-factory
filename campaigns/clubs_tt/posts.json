@@ -1113,7 +1113,7 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 0.0,
+          "value": 1.0,
           "unit": "count"
         }
       ]
@@ -1783,13 +1783,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 50.0,
+          "value": 33.33,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 2.0,
+          "value": 3.0,
           "unit": "count"
         },
         {
@@ -2434,7 +2434,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 90.0,
+          "value": 92.0,
           "unit": "count"
         },
         {
@@ -2729,13 +2729,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 25.0,
+          "value": 20.0,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 4.0,
+          "value": 5.0,
           "unit": "count"
         },
         {
@@ -4510,7 +4510,7 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 0.0,
+          "value": 1.0,
           "unit": "count"
         }
       ]
@@ -5187,6 +5187,264 @@
           "type": "views",
           "name": "Views",
           "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a8c075884af6f3664cb389a": {
+      "post_id": "6a8c075884af6f3664cb389a",
+      "service": "tiktok",
+      "sent_at": "2026-08-25T05:02:27.027000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a8c0755eb530dcb0465d06d": {
+      "post_id": "6a8c0755eb530dcb0465d06d",
+      "service": "tiktok",
+      "sent_at": "2026-08-24T21:03:02.743000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 6.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 1.5,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 399.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a8c075220501c33dca9f6f0": {
+      "post_id": "6a8c075220501c33dca9f6f0",
+      "service": "tiktok",
+      "sent_at": "2026-08-24T13:08:39.590000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 69.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a8ab1b9dd02437c21a8099f": {
+      "post_id": "6a8ab1b9dd02437c21a8099f",
+      "service": "tiktok",
+      "sent_at": "2026-08-25T05:01:43.458000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a8ab1b6bc455ba248eb960c": {
+      "post_id": "6a8ab1b6bc455ba248eb960c",
+      "service": "tiktok",
+      "sent_at": "2026-08-24T21:02:26.175000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 1.92,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 52.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a8ab1b3c5db1e9cdcf2acfc": {
+      "post_id": "6a8ab1b3c5db1e9cdcf2acfc",
+      "service": "tiktok",
+      "sent_at": "2026-08-24T13:09:59.505000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 158.0,
           "unit": "count"
         },
         {
