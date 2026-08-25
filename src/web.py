@@ -2434,6 +2434,15 @@ PAGE = """<!doctype html>
     content:"paused"; font-size:9.5px; letter-spacing:.05em;
     text-transform:uppercase; opacity:.85;
   }
+  /* A config that will not parse is not a paused campaign. It reads as one
+     otherwise, because the load failure falls back to dry_run — safe for
+     posting, misleading on screen, and it has sent someone to look for a
+     pause that was never set. */
+  .net.invalid { color:var(--down); border-color:color-mix(in srgb,var(--down) 40%,transparent); }
+  .net.invalid::after {
+    content:"error"; font-size:9.5px; letter-spacing:.05em;
+    text-transform:uppercase; opacity:.85;
+  }
 
   /* ── Cards ─────────────────────────────────────────────────────────── */
   .card {
@@ -4033,15 +4042,17 @@ async function loadCampaigns(){
             onclick="pickGroup('${g.key}')">
       <span>${esc(g.key)}</span>
       <span class="svc">${g.campaigns.length} channel${
-        g.campaigns.length === 1 ? "" : "s"}${live ? "" : " · paused"}</span>
+        g.campaigns.length === 1 ? "" : "s"}${
+        broken ? " · error" : live ? "" : " · paused"}</span>
     </button>`;
   }).join("");
 
   const group = r.groups.find(g => g.key === r.selected_group);
   $("#nets").innerHTML = !group || group.campaigns.length < 2 ? "" :
     `<span class="lbl">network</span>` + group.campaigns.map(c => `
-      <button class="net ${c.dry_run ? "paused" : ""}" role="tab"
-              aria-selected="${c.slug === r.selected}"
+      <button class="net ${!c.valid ? "invalid" : c.dry_run ? "paused" : ""}"
+              role="tab" aria-selected="${c.slug === r.selected}"
+              title="${c.valid ? "" : esc(c.error || "config failed to load")}"
               onclick="pickCampaign('${c.slug}')">
         ${esc(c.service)}<span class="n">${c.posts_per_day}/day</span>
       </button>`).join("");
