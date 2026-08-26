@@ -1330,6 +1330,113 @@ class WebApp:
             })
         return {"ok": True, "channels": out}
 
+    def growth(self) -> dict[str, Any]:
+        """Signups, and how the posting lines up against them.
+
+        The one section not sourced from the networks. Everything else here
+        reports reach; this reports what reach produced, which is the number
+        the pipeline is actually for.
+
+        Posting is summed across every campaign sharing this group's assets
+        Release, because those campaigns are one brand driving one product. A
+        signup series is product-wide and carries no per-post identifier, so
+        the join is by day and the response says so — ``attributable`` is
+        False and the UI prints the caveat rather than leaving a reader to
+        assume a causal link the data cannot support.
+        """
+        from datetime import date as _date
+        from src.analytics import cache_path as analytics_cache_path
+        from src.analytics import correlate, load_cache as load_analytics_cache
+        from src.attribution import load_posts, posts_path
+        from src.queue import load_history
+
+        def _d(iso: str) -> _date:
+            return _date.fromisoformat(iso)
+
+        signups: dict[str, int] = {}
+        users_total = 0
+        configured = False
+        for slug in self._group_slugs():
+            try:
+                config = load_campaign(self.campaigns_dir, slug)
+            except UgcError:
+                continue
+            if not config.analytics.configured:
+                continue
+            configured = True
+            try:
+                cache = load_analytics_cache(
+                    analytics_cache_path(self.campaigns_dir / slug)
+                )
+            except UgcError:
+                continue
+            for day, count in cache.latest_by_day().items():
+                signups[day.isoformat()] = count
+            if cache.fetches:
+                users_total = max(users_total, cache.fetches[-1].users)
+
+        posts: dict[str, int] = {}
+        views: dict[str, float] = {}
+        for slug in self._group_slugs():
+            directory = self.campaigns_dir / slug
+            try:
+                config = load_campaign(self.campaigns_dir, slug)
+                history = load_history(directory / "history.json")
+                measured = load_posts(posts_path(directory)).posts
+            except UgcError:
+                continue
+            for entry in history.entries:
+                stamp = entry.timestamp.astimezone(config.zone).strftime("%Y-%m-%d")
+                posts[stamp] = posts.get(stamp, 0) + 1
+                post = measured.get(entry.buffer_post_id or "")
+                if post is not None:
+                    views[stamp] = views.get(stamp, 0.0) + (post.value("views") or 0.0)
+
+        # Only days the product reported on can carry a signup figure. Showing
+        # posting from before the first fetch beside an empty signup line would
+        # read as "we posted and nothing happened", which is not what a missing
+        # measurement means.
+        known = set(signups)
+        rows = [
+            r for r in correlate(
+                {_d(k): v for k, v in posts.items()},
+                {_d(k): v for k, v in views.items()},
+                {_d(k): v for k, v in signups.items()},
+            )
+            if r.day.isoformat() in known
+        ]
+
+        posted = [r for r in rows if r.posts]
+        quiet = [r for r in rows if not r.posts]
+        ratios = [r.views_per_signup for r in rows if r.views_per_signup is not None]
+        return {
+            "configured": configured,
+            "attributable": False,
+            "users_total": users_total,
+            "signups_total": sum(r.signups for r in rows),
+            "days": len(rows),
+            "signups": [[r.day.isoformat(), r.signups] for r in rows],
+            "posts": [[r.day.isoformat(), r.posts] for r in rows],
+            "views": [[r.day.isoformat(), round(r.views)] for r in rows],
+            "views_per_signup": [
+                [r.day.isoformat(), round(r.views_per_signup)]
+                for r in rows if r.views_per_signup is not None
+            ],
+            "mean_posting_day": (
+                round(sum(r.signups for r in posted) / len(posted), 1)
+                if posted else None
+            ),
+            "mean_quiet_day": (
+                round(sum(r.signups for r in quiet) / len(quiet), 1)
+                if quiet else None
+            ),
+            "posting_days": len(posted),
+            "quiet_days": len(quiet),
+            "median_views_per_signup": (
+                round(sorted(ratios)[len(ratios) // 2]) if ratios else None
+            ),
+        }
+
     def charts(self) -> dict[str, Any]:
         """Every series the analytics section plots, read from disk only.
 
@@ -2031,6 +2138,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.key_slots())
             elif route == "/api/charts":
                 self._json(app.charts())
+            elif route == "/api/growth":
+                self._json(app.growth())
             elif route == "/api/pending":
                 self._json(app.pending_changes())
             elif route == "/api/metrics":
@@ -2972,6 +3081,32 @@ PAGE = """<!doctype html>
   <section>
     <h2>All time <small>every campaign, since the first post</small></h2>
     <div id="overall"></div>
+  </section>
+
+  <section>
+    <h2>Growth
+      <small>what the posting produced — signups, not reach</small>
+    </h2>
+    <div id="g-empty"></div>
+    <div id="g-body" style="display:none">
+      <div class="card" id="g-stats"></div>
+      <div class="grid2" style="margin-top:14px">
+        <div class="card pad">
+          <div class="chead">Signups <small>per day, from the product</small></div>
+          <div id="g-signups"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Videos published <small>per day, same window</small></div>
+          <div id="g-posts"></div>
+        </div>
+      </div>
+      <div class="card pad" style="margin-top:14px">
+        <div class="chead">Views per signup
+          <small>lower is better — reach spent to earn one</small></div>
+        <div id="g-ratio"></div>
+        <div class="foot" id="g-caveat"></div>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -4078,6 +4213,7 @@ async function refreshAll(){
   await Promise.all([
     refresh(), loadClips(), loadQueue(), loadQuota(), loadInsights(),
     loadRevenue(), loadSecrets(), loadSettings(), loadMetrics(), loadCharts(),
+    loadGrowth(),
     loadPending(),
   ]);
 }
@@ -4356,7 +4492,9 @@ $("#upload").onclick = async (e) => {
    survivors. Text always wears ink tokens; the swatch beside it carries
    identity, never the text itself.                                        */
 let CHARTS = null, CMETRIC = null, CASSET = "hooks";
-const SERIES_VAR = {instagram:"--s1", tiktok:"--s2", youtube:"--s3"};
+const SERIES_VAR = {instagram:"--s1", tiktok:"--s2", youtube:"--s3",
+                    "videos published":"--s1", signups:"--s2",
+                    "views per signup":"--s3"};
 const svar = s => getComputedStyle(document.documentElement)
                     .getPropertyValue(SERIES_VAR[s] || "--s1").trim() || "#888";
 const esc = t => String(t).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
@@ -4647,6 +4785,74 @@ function drawCharts(){
     ({label:n, value:v})), {unit:"count", labelW:124, label:"asset usage"});
 }
 
+/* ── Growth ───────────────────────────────────────────────────────────────
+   Signups and posting are plotted as two charts, never one with two y-axes:
+   they are measures of different scale, and a second axis invites a reader to
+   see a crossing as an event when it is an artefact of where the axes were
+   pinned. Same x-window on both, so the eye can still compare them.         */
+function drawGrowth(g){
+  const empty = $("#g-empty"), body = $("#g-body");
+  if (!g.configured){
+    body.style.display = "none";
+    empty.innerHTML = `<div class="card"><div class="foot">
+      No analytics source configured for this brand. Add
+      <code>analytics.base_url</code> and <code>analytics.api_key_secret</code>
+      to a campaign's config.yaml to read signups.</div></div>`;
+    return;
+  }
+  if (!g.days){
+    body.style.display = "none";
+    empty.innerHTML = `<div class="card"><div class="foot">
+      Configured, but nothing fetched yet. Set the API key as a repo secret and
+      run <code>ugc analytics --campaign &lt;slug&gt;</code>, or dispatch the
+      analytics workflow — it runs daily at 12:40 UTC.</div></div>`;
+    return;
+  }
+  empty.innerHTML = "";
+  body.style.display = "";
+
+  const cells = [
+    `<div class="stat lead"><div class="v num">${fmt(g.signups_total,"count")}</div>
+      <div class="k">signups in window</div></div>`,
+    `<div class="stat"><div class="v num">${fmt(g.users_total,"count")}</div>
+      <div class="k">users all time</div></div>`,
+  ];
+  if (g.median_views_per_signup !== null)
+    cells.push(`<div class="stat"><div class="v num">${
+      fmt(g.median_views_per_signup,"count")}</div>
+      <div class="k">median views per signup</div></div>`);
+  if (g.mean_posting_day !== null)
+    cells.push(`<div class="stat"><div class="v num">${g.mean_posting_day}</div>
+      <div class="k">mean signups, ${g.posting_days} posting day${
+        g.posting_days === 1 ? "" : "s"}</div></div>`);
+  if (g.mean_quiet_day !== null)
+    cells.push(`<div class="stat"><div class="v num">${g.mean_quiet_day}</div>
+      <div class="k">mean signups, ${g.quiet_days} quiet day${
+        g.quiet_days === 1 ? "" : "s"}</div></div>`);
+  $("#g-stats").innerHTML = `<div class="hero">${cells.join("")}</div>`;
+
+  lineChart($("#g-signups"), {signups: g.signups}, {h:200});
+  lineChart($("#g-posts"), {"videos published": g.posts}, {h:200});
+  lineChart($("#g-ratio"), {"views per signup": g.views_per_signup}, {h:200});
+
+  /* Stated on the page, not just in the docstring: the figure is product-wide,
+     so a reader who takes this as per-post attribution is being misled by the
+     chart rather than by their own carelessness. */
+  $("#g-caveat").textContent = g.attributable ? "" :
+    "The signup figure is product-wide — it carries no per-post identifier, so " +
+    "this compares days, not posts. It cannot say which hook or caption earned " +
+    "a signup; that would need a unique link per post.";
+}
+
+async function loadGrowth(){
+  try {
+    drawGrowth(await (await fetch("/api/growth")).json());
+  } catch (e){
+    $("#g-empty").innerHTML = `<div class="card"><div class="foot">
+      Could not load growth data: ${esc(e.message || e)}</div></div>`;
+  }
+}
+
 async function loadCharts(){
   CHARTS = await (await fetch("/api/charts")).json();
   if (!CMETRIC || !CHARTS.series[CMETRIC]) CMETRIC = CHARTS.metrics[0] || null;
@@ -4670,9 +4876,22 @@ loadQueue(); loadQuota();
 loadSecrets();
 loadRevenue();
 loadMetrics();
-loadPending(); loadCharts();
+loadPending(); loadCharts(); loadGrowth();
 setInterval(() => { refresh(); loadPending(); }, 5000);
-setInterval(() => { loadMetrics(); loadCharts(); }, 300000);
+// Growth moves on the analytics job's cadence (daily), not the metrics
+// one, but refreshing it alongside costs a single cached read.
+setInterval(() => { loadMetrics(); loadCharts(); loadGrowth(); }, 300000);
+
+/* Series colours are resolved from CSS variables at draw time and baked into
+   the SVG, so a scheme change after load leaves every chart wearing the other
+   theme's palette — which is not merely wrong but low-contrast, since each
+   palette is solved against its own surface. Redraw instead of restyling: the
+   charts are cheap and the alternative is threading a colour update through
+   every mark. */
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  if (CHARTS) drawCharts();
+  loadGrowth();
+});
 </script>
 </body>
 </html>
