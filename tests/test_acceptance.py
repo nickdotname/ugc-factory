@@ -49,7 +49,9 @@ class TestAbstractionBoundaries:
     # tool — so this is a boundary module by the same logic as vcs.py, and is
     # listed rather than exempted case-by-case.
     FORBIDDEN = {
-        "requests": {"assets.py", "notify.py", "buffer.py"},
+        # analytics_api.py is the transport for a product's admin API,
+        # and exists so src/analytics.py can stay pure arithmetic.
+        "requests": {"assets.py", "notify.py", "buffer.py", "analytics_api.py"},
         "subprocess": {"render.py", "vcs.py", "keys.py"},
         "random": {"ports.py", "vcs.py"},
     }

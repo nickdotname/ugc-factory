@@ -96,3 +96,12 @@ notify:
 
 variation:
   enabled: true
+
+analytics:
+  # The Clubs admin API (Integration Guide §B). Read-only, GET/OPTIONS only.
+  # Signups are product-wide, so all three campaigns point at the same place
+  # and `ugc analytics` sums posting across the ones sharing this assets tag.
+  base_url: https://admin.clubsapp.org/api/v1
+  # The key itself never lives here. It is shown once at creation and stored
+  # only as a hash, so a lost key is reissued rather than recovered.
+  api_key_secret: CLUBS_API_KEY

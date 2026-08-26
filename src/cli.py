@@ -20,11 +20,12 @@ campaign's assets Release.
 from __future__ import annotations
 
 import argparse
+import json
 from collections import Counter
 import os
 import sys
 import uuid
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -85,6 +86,14 @@ from src.quota import (
 from src.ports import Clock, Rng, SeededRng, SystemClock
 from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
 from src.publishers.buffer import BufferPublisher
+from src.analytics import (
+    cache_path as analytics_cache_path,
+    correlate,
+    load_cache as load_analytics_cache,
+    range_from_clock,
+    save_cache as save_analytics_cache,
+)
+from src.analytics_api import HttpProductAnalytics
 from src.queue import (
     CANCELLABLE,
     append_history,
@@ -1657,6 +1666,108 @@ def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
     return 0
 
 
+def cmd_analytics(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Fetch a product's signups and line them up against posting.
+
+    The figure this repo never had. Everything else it collects is reach, and
+    reach was only ever a proxy: a hook earning 1,400 views and no signups is
+    worth less than one earning 200 that converts, and nothing could tell them
+    apart.
+
+    What comes back is a join by *day*, not an attribution by post. The signup
+    series is product-wide and carries no per-post identifier, so it can say
+    whether the days we posted differed from the days we did not, and cannot
+    say which hook did it. Posting is summed across every campaign sharing this
+    one's assets Release, because those campaigns are one brand driving one
+    product — joining product-wide signups against a single network's posting
+    would imply an attribution the data does not support.
+    """
+    log = get_logger(command="analytics", campaign=args.campaign)
+    config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    clock: Clock = SystemClock()
+
+    if not config.analytics.configured:
+        # Not an error. Most campaigns have no admin API behind them, and this
+        # runs across every campaign in a matrix — failing the ones without a
+        # product to measure would make the job red for a correct config.
+        print(
+            f"{config.slug} has no analytics.base_url and analytics.api_key_secret; "
+            f"nothing to fetch. Add both to config.yaml to read acquisition figures."
+        )
+        return 0
+    key = _secret(config.analytics.api_key_secret, env)
+    if not key:
+        raise ConfigError(
+            f"{config.analytics.api_key_secret} is not set. Admin API keys are "
+            f"typically shown once and stored only as a hash, so a lost key is "
+            f"reissued rather than recovered."
+        )
+
+    source = HttpProductAnalytics(config.analytics.base_url, key, log)
+    if args.scopes:
+        print(json.dumps(source.scopes(), indent=2)[:4000])
+        return 0
+
+    since, until = range_from_clock(clock.now(), args.days)
+    overview = source.overview(since, until)
+
+    path = analytics_cache_path(_campaign_dir(config.slug))
+    cache = load_analytics_cache(path)
+    cache.fetches.append(overview)
+    save_analytics_cache(path, cache)
+    log.info(
+        "analytics_fetched", since=since.isoformat(), until=until.isoformat(),
+        signups=overview.signups, users=overview.users,
+        days=len(overview.signups_by_day),
+    )
+
+    posts_by_day: dict[date, int] = {}
+    views_by_day: dict[date, float] = {}
+    siblings = [
+        s.slug for s in list_campaigns(CAMPAIGNS_DIR)
+        if s.valid and s.assets_tag == config.assets_tag
+    ]
+    for slug in siblings:
+        campaign_dir = _campaign_dir(slug)
+        try:
+            history = load_history(campaign_dir / "history.json")
+            posts = load_posts(posts_path(campaign_dir)).posts
+        except UgcError:
+            continue
+        for entry in history.entries:
+            day = entry.timestamp.date()
+            if not since <= day <= until:
+                continue
+            posts_by_day[day] = posts_by_day.get(day, 0) + 1
+            post = posts.get(entry.buffer_post_id or "")
+            if post is not None:
+                views_by_day[day] = views_by_day.get(day, 0.0) + (
+                    post.value("views") or 0.0
+                )
+
+    rows = correlate(posts_by_day, views_by_day, overview.by_day)
+    print(f"{config.slug} — {since} to {until}")
+    print(f"  posting summed over: {', '.join(siblings)}")
+    print(f"  {overview.users} users total, {overview.signups} signups in range\n")
+    print(f"  {'day':<12}{'posts':>6}{'views':>10}{'signups':>9}{'views/signup':>14}")
+    for row in rows:
+        ratio = row.views_per_signup
+        shown = f"{ratio:,.0f}" if ratio is not None else "—"
+        print(f"  {row.day.isoformat():<12}{row.posts:>6}{row.views:>10,.0f}"
+              f"{row.signups:>9}{shown:>14}")
+
+    posted = [r for r in rows if r.posts]
+    quiet = [r for r in rows if not r.posts]
+    if posted and quiet:
+        busy = sum(r.signups for r in posted) / len(posted)
+        idle = sum(r.signups for r in quiet) / len(quiet)
+        print(f"\n  mean signups on the {len(posted)} day(s) with posts: {busy:.1f}")
+        print(f"  mean signups on the {len(quiet)} day(s) without:    {idle:.1f}")
+        print("  A correlation over few days, not an attribution — the signup "
+              "figure is product-wide.")
+    return 0
+
+
 def cmd_cleanup(args: argparse.Namespace, env: dict[str, str]) -> int:
     clock: Clock = SystemClock()
     log = get_logger(command="cleanup", campaign=args.campaign)
@@ -1854,6 +1965,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="withdraw items; 'pushed' and 'all' also delete them from Buffer",
     )
 
+    analytics = sub.add_parser(
+        "analytics", help="fetch product signups and compare them with posting"
+    )
+    common(analytics)
+    analytics.add_argument("--days", type=int, default=30,
+                           help="how many days back to fetch (default 30)")
+    analytics.add_argument("--scopes", action="store_true",
+                           help="print what this key can reach, and exit")
+
     cleanup = sub.add_parser("cleanup", help="delete expired render Releases")
     common(cleanup)
     cleanup.add_argument("--digest", action="store_true",
@@ -1874,6 +1994,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "web": cmd_web,
         "clips": cmd_clips,
         "queue": cmd_queue,
+        "analytics": cmd_analytics,
         "setup": cmd_setup,
         "metrics": cmd_metrics,
         "diagnose": cmd_diagnose,

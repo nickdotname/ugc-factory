@@ -116,6 +116,28 @@ class RateLimitError(PublishError):
     retryable = True
 
 
+class AnalyticsError(UgcError):
+    """A product's admin analytics API could not answer.
+
+    Its own class rather than a ``PublishError``: nothing here publishes, and
+    filing a read-only analytics failure under publishing would put it in the
+    wrong alerts. Retryable by default — the common causes are a rate limit or
+    a 5xx, and the subclass below carves out the case that is not.
+    """
+
+    retryable = True
+
+
+class AnalyticsAuthError(AnalyticsError):
+    """The key is missing, revoked, or lacks the scope for that endpoint.
+
+    Not retryable, for the same reason ``AuthError`` is not: the key will not
+    grow a scope between attempts. The API's own ``/meta`` lists what a key actually has.
+    """
+
+    retryable = False
+
+
 class NotifyError(UgcError):
     """The alerting webhook itself failed.
 

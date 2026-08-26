@@ -543,6 +543,25 @@ class BufferConfig(StrictModel):
         return v
 
 
+class AnalyticsConfig(StrictModel):
+    """Where to read this product's acquisition figures (optional).
+
+    Absent by default: most campaigns have no admin API behind them, and a
+    campaign without one must keep working exactly as before. Present, it
+    names an endpoint and the *name* of the secret holding its bearer key —
+    never the key, which lives in the environment like every other credential.
+    """
+
+    #: e.g. https://admin.example.org/api/v1 — no trailing slash needed.
+    base_url: str = ""
+    #: Environment variable holding the bearer token.
+    api_key_secret: str = ""
+
+    @property
+    def configured(self) -> bool:
+        return bool(self.base_url and self.api_key_secret)
+
+
 class NotifyConfig(StrictModel):
     """Alerting (SPEC §9 ``notify``)."""
 
@@ -590,6 +609,7 @@ class CampaignConfig(StrictModel):
     variation: VariationConfig = VariationConfig()
     buffer: BufferConfig
     notify: NotifyConfig
+    analytics: AnalyticsConfig = AnalyticsConfig()
 
     @field_validator("slug")
     @classmethod
