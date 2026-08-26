@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from src.config import load_config
+from src.config import Statistic, load_config
 from src.errors import ConfigError, ValidationError
 from src.settings import BY_PATH, EDITABLE, coerce, to_yaml, write_setting
 
@@ -172,3 +172,60 @@ class TestCoercion:
 
     def test_a_numeric_string_becomes_an_int(self) -> None:
         assert coerce(BY_PATH["posting.posts_per_day"], "12") == 12
+
+
+class TestChoiceSettings:
+    """Settings whose value is one of a fixed set.
+
+    The failure this guards against is quiet: an enum that is also a `str`
+    still formats as "Statistic.MEAN" rather than "mean", so rendering one
+    without unwrapping it writes a value the loader cannot read back — and
+    the write succeeds, because the string is valid YAML.
+    """
+
+    def test_an_enum_renders_as_its_value(self) -> None:
+        assert to_yaml(Statistic.MEAN) == '"mean"'
+        assert "Statistic" not in to_yaml(Statistic.MEDIAN)
+
+    def test_a_choice_round_trips_through_the_file(self, config_file: Path) -> None:
+        write_setting(config_file, "selection.performance_statistic", "mean")
+        assert load_config(config_file).selection.performance_statistic is Statistic.MEAN
+
+    def test_writing_back_what_was_read_is_stable(self, config_file: Path) -> None:
+        """Round-tripping a loaded value must not corrupt it."""
+        write_setting(config_file, "selection.performance_statistic", "mean")
+        loaded = load_config(config_file).selection.performance_statistic
+        write_setting(config_file, "selection.performance_statistic", loaded)
+        assert load_config(config_file).selection.performance_statistic is Statistic.MEAN
+
+    def test_a_value_outside_the_choices_is_refused(self) -> None:
+        setting = BY_PATH["selection.performance_statistic"]
+        with pytest.raises(ValueError, match="median, mean"):
+            coerce(setting, "average")
+
+    def test_every_choice_setting_declares_its_options(self) -> None:
+        for setting in EDITABLE:
+            if setting.kind == "choice":
+                assert setting.choices, f"{setting.path} has no choices"
+
+    def test_validators_are_bound_to_check_not_a_later_field(self) -> None:
+        """Guards against a field being inserted ahead of ``check``.
+
+        Three settings pass their validator positionally. Adding a dataclass
+        field before ``check`` rebinds the function to that field and leaves
+        ``check`` None, which drops the guard without any error — the setting
+        simply stops refusing bad values until the config re-parse catches it,
+        with a much worse message.
+        """
+        for path in ("posting.posts_per_day", "posting.max_backlog_days",
+                     "composition.bodies_per_video"):
+            setting = BY_PATH[path]
+            assert callable(setting.check), f"{path} lost its validator"
+            assert setting.choices == (), f"{path} bound a validator to choices"
+
+    def test_a_dropped_validator_surfaces_as_a_clean_refusal(
+        self, config_file: Path
+    ) -> None:
+        """The symptom the binding bug produced, pinned directly."""
+        with pytest.raises(ValidationError, match="at least 1"):
+            write_setting(config_file, "posting.posts_per_day", 0)

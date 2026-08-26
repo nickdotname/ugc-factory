@@ -30,6 +30,7 @@ import shutil
 import threading
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from enum import Enum
 from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import parse_qs, urlparse
@@ -1042,7 +1043,10 @@ class WebApp:
                 "kind": setting.kind,
                 "label": setting.label,
                 "help": setting.help,
-                "value": value,
+                # Enums serialise as their value through the str mixin, but
+                # normalise here rather than relying on that.
+                "value": value.value if isinstance(value, Enum) else value,
+                "choices": list(setting.choices),
             })
         return {
             "campaign": self.config.slug,
@@ -3616,6 +3620,11 @@ async function loadSettings(){
     } else if (s.kind === "str_list"){
       control = `<input type="text" id="${id}" value="${esc((s.value||[]).join(', '))}"
         placeholder="comma separated" onchange="saveSetting('${s.path}', this.value)">`;
+    } else if (s.kind === "choice"){
+      control = `<select id="${id}" onchange="saveSetting('${s.path}', this.value)">`
+        + (s.choices||[]).map(o =>
+            `<option value="${esc(o)}" ${o === s.value ? "selected" : ""}>${esc(o)}</option>`
+          ).join("") + `</select>`;
     } else if (s.kind === "float"){
       control = `<input type="number" id="${id}" value="${s.value ?? 0}"
         min="0" max="1" step="0.1"

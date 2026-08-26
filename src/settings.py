@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
 from typing import Any, Callable
 
@@ -34,11 +35,15 @@ class Setting:
     """One editable knob, and how to render it into YAML."""
 
     path: str          # dotted, e.g. "variation.enabled"
-    kind: str          # bool | int | int_or_null | str_list
+    kind: str          # bool | int | int_or_null | float | str | str_list | choice
     label: str
     help: str
     #: Extra guard beyond the type, raising ValueError with a usable message.
+    #: Keep this field ahead of any new one: three settings pass it
+    #: positionally, so inserting before it rebinds them to the wrong field.
     check: Callable[[Any], None] | None = None
+    #: The allowed values, for ``kind == "choice"``. Empty otherwise.
+    choices: tuple[str, ...] = ()
 
     @property
     def section(self) -> str:
@@ -75,6 +80,11 @@ EDITABLE: tuple[Setting, ...] = (
     Setting("selection.performance_weight", "float", "Favour winners (0-1)",
             "Weights selection toward clips that have performed. Costs "
             "variety, so it earns its place where there are many options."),
+    Setting("selection.performance_statistic", "choice", "Rank winners by",
+            "What 'performed' means. Median is steadier; mean favours clips "
+            "that break out, which median hides when every post gets the same "
+            "seed audience.",
+            choices=("median", "mean")),
     Setting("variation.enabled", "bool", "Creative variation",
             "Per-variant punch-in, grade, grain and pace, seeded on the item "
             "id so a winner is reproducible."),
@@ -124,6 +134,13 @@ def coerce(setting: Setting, raw: Any) -> Any:
         if '"' in text or "\n" in text:
             raise ValueError("cannot contain quotes or newlines")
         return text
+    if setting.kind == "choice":
+        if isinstance(raw, Enum):
+            raw = raw.value
+        text = "" if raw is None else str(raw).strip()
+        if text not in setting.choices:
+            raise ValueError(f"expected one of {', '.join(setting.choices)}")
+        return text
     if setting.kind == "str_list":
         if isinstance(raw, str):
             raw = [part.strip() for part in raw.split(",")]
@@ -140,6 +157,11 @@ def to_yaml(value: Any) -> str:
     """Render a value as the YAML scalar this file would have used."""
     if value is None:
         return "null"
+    if isinstance(value, Enum):
+        # Before the str branch, and load-bearing. A ``str``-mixin Enum still
+        # formats as "Statistic.MEAN" rather than "mean", so falling through
+        # would write a value the loader cannot read back.
+        return to_yaml(value.value)
     if isinstance(value, bool):
         # Checked before int: bool is a subclass of int in Python, and `True`
         # would otherwise be written as `1`.
