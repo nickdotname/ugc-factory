@@ -29,6 +29,7 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Sequence
 
+from src.keys import read_env
 from src.assets import (
     GitHubReleasesStore,
     LocalLibrary,
@@ -1984,7 +1985,14 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    env = dict(os.environ)
+
+    # The dashboard writes credentials to .env, and until now only the
+    # dashboard read them back — so a key pasted into the panel built for
+    # pasting keys left every CLI command insisting it was not set. Real
+    # environment variables win, which keeps Actions (where there is no .env
+    # and everything arrives as workflow env) behaving exactly as before, and
+    # lets an explicit export override the file for a one-off.
+    env = {**read_env(REPO_ROOT / ".env"), **os.environ}
 
     handlers = {
         "render": cmd_render,
