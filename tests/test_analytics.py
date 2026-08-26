@@ -19,6 +19,7 @@ from src.analytics import (
     by_weekday,
     lag_scan,
     pearson,
+    vocabulary_gap,
     AnalyticsCache,
     DayCount,
     Overview,
@@ -411,3 +412,71 @@ class TestCohorts:
 
     def test_an_empty_payload_is_an_empty_grid(self) -> None:
         assert parse_cohorts({}).rows == ()
+
+
+class TestVocabularyGap:
+    """Whether our copy speaks to the demand that actually exists.
+
+    Every other measure here is about what happened after a post went out.
+    This one asks whether the post was about the right thing at all, which is
+    the earlier and cheaper question.
+    """
+
+    CORPUS = """
+    if you're an actor, singer, or filmmaker trying to get involved
+    open casting calls, short films, indie music — all in one place
+    """
+
+    def test_a_term_we_never_say_is_unmet(self) -> None:
+        gap = vocabulary_gap([("model", 9)], self.CORPUS)
+        assert gap.terms[0].unmet
+        assert gap.unmet_searches == 9
+
+    def test_a_term_we_do_say_is_met(self) -> None:
+        gap = vocabulary_gap([("casting", 5)], self.CORPUS)
+        assert not gap.terms[0].unmet
+        assert gap.met_searches == 5
+
+    def test_a_plural_still_counts_as_said(self) -> None:
+        """'actors' in the copy covers a search for 'actor'."""
+        assert not vocabulary_gap([("actor", 3)], self.CORPUS).terms[0].unmet
+
+    def test_stopwords_alone_do_not_count_as_coverage(self) -> None:
+        """Matching on 'the' would mark almost any query as met."""
+        assert vocabulary_gap([("the and for", 1)], self.CORPUS).terms[0].unmet
+
+    def test_coverage_is_weighted_by_search_volume(self) -> None:
+        """One heavily-searched miss matters more than three rare hits."""
+        gap = vocabulary_gap(
+            [("model", 90), ("casting", 5), ("singer", 5)], self.CORPUS
+        )
+        assert gap.coverage == pytest.approx(10 / 100)
+
+    def test_worst_ranks_unmet_demand_by_volume(self) -> None:
+        gap = vocabulary_gap(
+            [("model", 9), ("casting", 50), ("podcast", 2), ("dallas", 3)],
+            self.CORPUS,
+        )
+        assert [t.query for t in gap.worst()] == ["model", "dallas", "podcast"]
+
+    def test_worst_honours_its_limit(self) -> None:
+        gap = vocabulary_gap([(f"q{i}", i) for i in range(20)], self.CORPUS)
+        assert len(gap.worst(5)) == 5
+
+    def test_no_demand_means_coverage_is_unknown(self) -> None:
+        """Not 100%: nothing was asked, so nothing was covered or missed."""
+        assert vocabulary_gap([], self.CORPUS).coverage is None
+
+    def test_an_empty_corpus_leaves_everything_unmet(self) -> None:
+        gap = vocabulary_gap([("model", 9), ("casting", 5)], "")
+        assert gap.coverage == 0.0
+        assert len(gap.worst()) == 2
+
+    def test_comment_lines_in_a_bank_still_count_as_corpus(self) -> None:
+        """A deliberate simplification, pinned so it is a choice not a bug.
+
+        The corpus is the raw file, so a word appearing only in a header
+        comment reads as covered. Cheap to over-count that way; expensive to
+        parse every bank twice to avoid it.
+        """
+        assert not vocabulary_gap([("hashtags", 1)], "# hashtags go here").terms[0].unmet

@@ -1711,10 +1711,21 @@ def cmd_analytics(args: argparse.Namespace, env: dict[str, str]) -> int:
 
     since, until = range_from_clock(clock.now(), args.days)
     overview = source.overview(since, until)
+    try:
+        cohorts = source.cohorts(weeks=16)
+    except UgcError as exc:
+        # A missing cohort grid must not cost the overview that already
+        # succeeded: it is one panel, not the point of the run.
+        log.warning("analytics_cohorts_failed", error=str(exc))
+        cohorts = None
 
     path = analytics_cache_path(_campaign_dir(config.slug))
     cache = load_analytics_cache(path)
     cache.fetches.append(overview)
+    if cohorts is not None:
+        # The cache model is frozen, so this is a rebuild rather than an
+        # assignment; fetches is carried across by reference deliberately.
+        cache = cache.model_copy(update={"cohorts": cohorts})
     save_analytics_cache(path, cache)
     log.info(
         "analytics_fetched", since=since.isoformat(), until=until.isoformat(),

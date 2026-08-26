@@ -1355,6 +1355,7 @@ class WebApp:
             correlate,
             lag_scan,
             load_cache as load_analytics_cache,
+            vocabulary_gap,
         )
         from src.attribution import load_posts, posts_path
         from src.queue import load_history
@@ -1420,15 +1421,17 @@ class WebApp:
         ratios = [r.views_per_signup for r in rows if r.views_per_signup is not None]
 
         latest = None
+        grid = None
         for slug in self._group_slugs():
             try:
-                cache = load_analytics_cache(
+                cached = load_analytics_cache(
                     analytics_cache_path(self.campaigns_dir / slug)
                 )
             except UgcError:
                 continue
-            if cache.fetches:
-                latest = cache.fetches[-1]
+            if cached.fetches:
+                latest = cached.fetches[-1]
+                grid = cached.cohorts
                 break
 
         # Reach against outcome at each offset. Views are only meaningful on
@@ -1450,7 +1453,35 @@ class WebApp:
                 running += row.count
                 cumulative.append([row.day.isoformat(), running])
 
+            # The one panel that crosses the product's data with our own:
+            # what people search for, against the words our captions use.
+            corpus = ""
+            for slug in self._group_slugs():
+                captions = self.campaigns_dir / slug / "captions.txt"
+                if captions.is_file():
+                    corpus += "\n" + captions.read_text(
+                        encoding="utf-8", errors="replace"
+                    )
+            gap = vocabulary_gap(
+                [(l.label, int(l.value)) for l in latest.top_searches], corpus
+            )
+
             extra = {
+                "vocab_coverage": (
+                    round(gap.coverage, 3) if gap.coverage is not None else None
+                ),
+                "vocab_met": gap.met_searches,
+                "vocab_unmet": gap.unmet_searches,
+                "vocab_worst": [[t.query, t.searches] for t in gap.worst(12)],
+                "cohorts": [
+                    {
+                        "week": row.week.isoformat(),
+                        "size": row.size,
+                        "rates": {str(k): round(v, 4) for k, v in row.rates.items()},
+                    }
+                    for row in (grid.rows if grid else ())
+                ],
+                "cohort_max_offset": grid.max_offset if grid else 0,
                 "dau": pts(latest.dau_by_day),
                 "swipes": pts(latest.swipes_by_day),
                 "projects": pts(latest.projects_by_day),
@@ -2622,6 +2653,22 @@ PAGE = """<!doctype html>
     text-transform:uppercase; opacity:.85;
   }
 
+
+  /* Cohort grid. A sequential ramp — one hue, light to dark — because the
+     value is a magnitude. Never a rainbow: a hue change would imply the
+     categories differ in kind rather than in size. Cells with no measurement
+     stay blank rather than taking the ramp's lightest step, which would read
+     as "measured, near zero". */
+  .cog { border-collapse:separate; border-spacing:2px; font-size:11px;
+         font-variant-numeric:tabular-nums; }
+  .cog th { color:var(--ink-3); font-weight:600; text-align:center;
+            padding:2px 4px; white-space:nowrap; }
+  .cog th.wk { text-align:left; }
+  .cog td { text-align:center; padding:4px 6px; border-radius:5px;
+            color:var(--ink); min-width:34px; }
+  .cog td.na { background:transparent; color:var(--ink-3); }
+  .cog td.sz { background:var(--panel-2); color:var(--ink-2); }
+
   /* ── Cards ─────────────────────────────────────────────────────────── */
   .card {
     background:var(--grad-panel); border:1px solid var(--line);
@@ -3226,6 +3273,21 @@ PAGE = """<!doctype html>
         <div class="card pad">
           <div class="chead">Schools <small>top 12</small></div>
           <div id="g-schools"></div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="card pad">
+          <div class="chead">Demand we don't speak to
+            <small>searches whose words appear in no caption</small></div>
+          <div id="g-vocab"></div>
+          <div class="foot" id="g-vocabnote"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Retention by signup week
+            <small>share of a cohort still active, weeks after joining</small></div>
+          <div id="g-cohorts"></div>
+          <div class="foot" id="g-cohortnote"></div>
         </div>
       </div>
 
@@ -5046,6 +5108,27 @@ function drawGrowth(g){
     .map(([label, value]) => ({label, value})),
     {unit:"count", labelW:150, label:"schools"});
 
+  barsH($("#g-vocab"), (g.vocab_worst || []).map(([label, value]) =>
+    ({label, value, note:"never mentioned in any caption"})),
+    {unit:"count", labelW:170, label:"unmet search demand"});
+  const cov = g.vocab_coverage;
+  /* Stated as a limitation, because word overlap is a reliable detector of
+     absence and a weak one for presence: a caption saying "actors" covers
+     "actor", and nothing covers "model" but the word itself. */
+  $("#g-vocabnote").textContent = cov === null || cov === undefined ? "" :
+    `Captions use words from ${(cov * 100).toFixed(0)}% of search volume ` +
+    `(${g.vocab_met} of ${g.vocab_met + g.vocab_unmet} searches). ` +
+    `Word overlap only — it catches a term you never mention, not whether ` +
+    `the video was about it.`;
+
+  drawCohorts($("#g-cohorts"), g.cohorts || [], g.cohort_max_offset || 0);
+  const sizes = (g.cohorts || []).filter(c => c.size >= 5);
+  const w1 = sizes.map(c => c.rates["1"]).filter(v => v !== undefined);
+  $("#g-cohortnote").textContent = !w1.length ? "" :
+    `Median week-1 retention across cohorts of 5+: ` +
+    `${(w1.slice().sort((a,b)=>a-b)[Math.floor(w1.length/2)] * 100).toFixed(0)}%. ` +
+    `Week 0 counts the signup week itself, so the fall to week 1 is the real cliff.`;
+
   const pct = v => v === undefined ? null : (v * 100).toFixed(1) + "%";
   const r = g.retention || {}, e = g.engagement || {}, m = g.marketplace || {};
   const tiles = [
@@ -5067,6 +5150,48 @@ function drawGrowth(g){
     "The signup figure is product-wide — it carries no per-post identifier, so " +
     "this compares days, not posts. It cannot say which hook or caption earned " +
     "a signup; that would need a unique link per post.";
+}
+
+/* Cohort retention grid.
+
+   A table, not an SVG heatmap: the cells carry numbers people read, the row
+   and column headers are text, and a screen reader gets a real table for
+   free. The colour is a second encoding on top of the number, never the only
+   one — which is also what keeps it legible for a colour-blind reader and in
+   forced-colors mode.                                                      */
+function drawCohorts(el, rows, maxOffset){
+  if (!rows.length){ el.innerHTML = `<div class="hint">No cohort data yet.</div>`; return; }
+  const cols = Math.min(maxOffset, 8);
+  /* Single hue, light to dark, anchored on the strongest observed rate rather
+     than on 100% — retention past week 0 is single digits here, and a fixed
+     0-100 scale would render the entire grid as one flat colour. */
+  const peak = Math.max(0.05, ...rows.flatMap(r =>
+    Object.entries(r.rates).filter(([o]) => +o > 0).map(([, v]) => v)));
+  const shade = (v, offset) => {
+    if (v === undefined) return "";
+    const scale = offset === 0 ? 1 : peak;
+    const k = Math.max(0, Math.min(1, v / scale));
+    /* Alpha carries the magnitude, which keeps one expression working on both
+       theme surfaces. Capped at 62%: the cell text wears the normal ink token,
+       and a denser fill than this drops 11px text under 4.5:1 against it in
+       light mode. The ceiling costs a little separation at the top of the
+       ramp and buys legibility on every cell. */
+    return `background:color-mix(in srgb, var(--s2) ${(10 + k * 52).toFixed(0)}%, transparent)`;
+  };
+  const head = `<tr><th class="wk">signup week</th><th>n</th>` +
+    Array.from({length: cols + 1}, (_, i) => `<th>w${i}</th>`).join("") + `</tr>`;
+  const body = rows.map(r => {
+    const cells = Array.from({length: cols + 1}, (_, i) => {
+      const v = r.rates[String(i)];
+      return v === undefined
+        ? `<td class="na" title="no activity recorded">·</td>`
+        : `<td style="${shade(v, i)}" title="${r.size} joined, ${
+             Math.round(v * r.size)} active">${(v * 100).toFixed(0)}%</td>`;
+    }).join("");
+    return `<tr><th class="wk">${esc(r.week)}</th>` +
+           `<td class="sz">${r.size}</td>${cells}</tr>`;
+  }).join("");
+  el.innerHTML = `<div style="overflow-x:auto"><table class="cog">${head}${body}</table></div>`;
 }
 
 async function loadGrowth(){

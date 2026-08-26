@@ -20,6 +20,7 @@ reason, and the naming is meant to keep anyone from reading more into it.
 
 from __future__ import annotations
 
+import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
@@ -121,6 +122,9 @@ class AnalyticsCache(Model):
     """
 
     fetches: list[Overview] = Field(default_factory=list)
+    #: Only the newest grid is kept. Unlike a daily series, each fetch restates
+    #: every cohort from scratch, so history here would be near-duplicates.
+    cohorts: CohortGrid | None = None
 
     def latest_by_day(self) -> dict[date, int]:
         """Newest reported figure for each day, across every fetch."""
@@ -296,3 +300,88 @@ def by_weekday(series: Mapping[date, float]) -> list[tuple[str, float, int]]:
         )
         for i in range(7)
     ]
+
+
+#: Words too common to count as topical coverage. Kept short on purpose: a
+#: long stoplist starts silently deciding what demand counts as real.
+_STOP = frozenset("""
+the and for you your with this that from are was who out get got can put has
+have will its our their they them not but all any how why what when where
+""".split())
+
+
+def _tokens(text: str) -> list[str]:
+    return [w for w in re.findall(r"[a-z]{3,}", text.lower()) if w not in _STOP]
+
+
+@dataclass(frozen=True)
+class DemandTerm:
+    """One thing people searched for, and whether we ever say it."""
+
+    query: str
+    searches: int
+    mentions: int
+
+    @property
+    def unmet(self) -> bool:
+        return self.mentions == 0
+
+
+@dataclass(frozen=True)
+class VocabularyGap:
+    """How much of what people search for our copy actually speaks to.
+
+    The most direct read available on whether the marketing is aimed at the
+    demand that exists. Everything else here measures what happened after a
+    post went out; this measures whether the post was about the right thing in
+    the first place.
+
+    It is a word-overlap test, not comprehension: a caption that says
+    "actors" covers a search for "actor" through the stem, and would not cover
+    "model" however much the video is about modelling. That makes it a
+    reliable detector of *absence* and a weak one for presence — an unmet term
+    is genuinely never mentioned, while a met one is only mentioned.
+    """
+
+    terms: tuple[DemandTerm, ...]
+
+    @property
+    def met_searches(self) -> int:
+        return sum(t.searches for t in self.terms if not t.unmet)
+
+    @property
+    def unmet_searches(self) -> int:
+        return sum(t.searches for t in self.terms if t.unmet)
+
+    @property
+    def coverage(self) -> float | None:
+        total = self.met_searches + self.unmet_searches
+        return self.met_searches / total if total else None
+
+    def worst(self, limit: int = 15) -> list[DemandTerm]:
+        """Unmet demand, heaviest first — the list to write copy against."""
+        return sorted(
+            (t for t in self.terms if t.unmet),
+            key=lambda t: -t.searches,
+        )[:limit]
+
+
+def vocabulary_gap(
+    demand: Sequence[tuple[str, int]], corpus: str
+) -> VocabularyGap:
+    """Match search terms against the words our captions actually use.
+
+    Stem-insensitive at the prefix, so "model" matches "modelling" and
+    "actor" matches "actors" — without it the gap would be full of false
+    positives that are really plurals.
+    """
+    vocabulary = set(_tokens(corpus))
+    stems = {w[:5] for w in vocabulary}
+    terms: list[DemandTerm] = []
+    for query, count in demand:
+        hits = 0
+        for token in _tokens(query):
+            if token in vocabulary or token[:5] in stems:
+                hits += 1
+        terms.append(DemandTerm(query=query, searches=int(count), mentions=hits))
+    return VocabularyGap(terms=tuple(terms))
