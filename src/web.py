@@ -1350,7 +1350,12 @@ class WebApp:
         """
         from datetime import date as _date
         from src.analytics import cache_path as analytics_cache_path
-        from src.analytics import correlate, load_cache as load_analytics_cache
+        from src.analytics import (
+            by_weekday,
+            correlate,
+            lag_scan,
+            load_cache as load_analytics_cache,
+        )
         from src.attribution import load_posts, posts_path
         from src.queue import load_history
 
@@ -1413,7 +1418,63 @@ class WebApp:
         posted = [r for r in rows if r.posts]
         quiet = [r for r in rows if not r.posts]
         ratios = [r.views_per_signup for r in rows if r.views_per_signup is not None]
+
+        latest = None
+        for slug in self._group_slugs():
+            try:
+                cache = load_analytics_cache(
+                    analytics_cache_path(self.campaigns_dir / slug)
+                )
+            except UgcError:
+                continue
+            if cache.fetches:
+                latest = cache.fetches[-1]
+                break
+
+        # Reach against outcome at each offset. Views are only meaningful on
+        # days the metrics job has actually measured, so the scan runs on those
+        # rather than on every day in the window.
+        views_dated = {_d(k): v for k, v in views.items() if v}
+        lags = [
+            {"lag": l.days, "r": (round(l.r, 3) if l.r is not None else None), "n": l.n}
+            for l in lag_scan(views_dated, {_d(k): v for k, v in signups.items()})
+        ]
+        extra: dict[str, Any] = {}
+        if latest is not None:
+            def pts(series: Any) -> list[list[Any]]:
+                return [[r.day.isoformat(), r.count] for r in series]
+
+            running = 0
+            cumulative: list[list[Any]] = []
+            for row in latest.new_users_by_day:
+                running += row.count
+                cumulative.append([row.day.isoformat(), running])
+
+            extra = {
+                "dau": pts(latest.dau_by_day),
+                "swipes": pts(latest.swipes_by_day),
+                "projects": pts(latest.projects_by_day),
+                "new_users": pts(latest.new_users_by_day),
+                "cumulative_users": cumulative,
+                "funnel": latest.funnel,
+                "swipe_funnel": latest.swipe_funnel,
+                "retention": latest.retention,
+                "engagement": latest.engagement,
+                "marketplace": latest.marketplace,
+                "supply": latest.supply,
+                "age_dist": [[l.label, l.value] for l in latest.age_dist],
+                "school_dist": [[l.label, l.value] for l in latest.school_dist],
+                "top_searches": [[l.label, l.value] for l in latest.top_searches],
+                "signups_by_weekday": [
+                    [name, round(mean, 2), n]
+                    for name, mean, n in by_weekday(
+                        {_d(k): float(v) for k, v in signups.items()}
+                    )
+                ],
+            }
         return {
+            "lags": lags,
+            **extra,
             "configured": configured,
             "attributable": False,
             "users_total": users_total,
@@ -3110,6 +3171,65 @@ PAGE = """<!doctype html>
         <div id="g-ratio"></div>
         <div class="foot" id="g-caveat"></div>
       </div>
+      <div class="grid2" style="margin-top:14px">
+        <div class="card pad">
+          <div class="chead">Does reach move signups?
+            <small>correlation at each day of lag</small></div>
+          <div id="g-lag"></div>
+          <div class="foot" id="g-lagnote"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Signups by weekday <small>mean, this window</small></div>
+          <div id="g-dow"></div>
+        </div>
+      </div>
+
+      <div class="card pad" style="margin-top:14px">
+        <div class="chead">Users, cumulative <small>every signup since launch</small></div>
+        <div id="g-cume"></div>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="card pad">
+          <div class="chead">Daily actives <small>DAU</small></div>
+          <div id="g-dau"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Swipes <small>per day</small></div>
+          <div id="g-swipes"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Projects created <small>the UGC on the platform</small></div>
+          <div id="g-projects"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Activation funnel <small>this window</small></div>
+          <div id="g-funnel"></div>
+          <div class="foot" id="g-funnelnote"></div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="card pad">
+          <div class="chead">What people search for
+            <small>demand in users' own words</small></div>
+          <div id="g-searches"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Swipe outcomes <small>what a card gets</small></div>
+          <div id="g-swipefunnel"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Age <small>share of users</small></div>
+          <div id="g-age"></div>
+        </div>
+        <div class="card pad">
+          <div class="chead">Schools <small>top 12</small></div>
+          <div id="g-schools"></div>
+        </div>
+      </div>
+
+      <div class="card" id="g-health" style="margin-top:14px"></div>
     </div>
   </section>
 
@@ -4594,8 +4714,16 @@ function lineChart(el, seriesMap, opts){
     g += `<line class="gridline" x1="${P.l}" y1="${yy}" x2="${W-P.r}" y2="${yy}"/>
           <text class="axis" x="${P.l-8}" y="${yy+3.5}" text-anchor="end">${fmt(v,"count")}</text>`;
   }
+  /* Stride from the width, not a fixed every-other rule: at 30 points those
+     agree, but a 121-day series drew 61 labels into an axis with room for
+     about 24, which overlaps into an unreadable smear. A "MM/DD" needs ~46px
+     including breathing room. Counted back from the last date so the newest
+     is always labelled — it is the one a reader looks for. */
+  const perLabel = 46;
+  const room = Math.max(2, Math.floor((W - P.l - P.r) / perLabel));
+  const stride = Math.max(1, Math.ceil(dates.length / room));
   dates.forEach((d,i) => {
-    if (dates.length > 8 && i % 2) return;
+    if ((dates.length - 1 - i) % stride) return;
     g += `<text class="axis" x="${x(i)}" y="${H-8}" text-anchor="middle">${shortDate(d)}</text>`;
   });
 
@@ -4730,7 +4858,9 @@ function barsV(el, rows, opts){
       const r = rows[+rect.dataset.i];
       tipShow(ev.clientX, ev.clientY,
         `<div class="tt">${esc(r.label)}</div>
-         <div class="tr"><b class="num">${fmt(r.value,"count")}</b> ${esc(opts.noun||"")}</div>`);
+         <div class="tr"><b class="num">${fmt(r.value, opts.unit ?? "count")}</b>
+           ${esc(opts.noun||"")}</div>` +
+        (r.note ? `<div class="tt" style="margin:5px 0 0">${esc(r.note)}</div>` : ""));
     });
     rect.addEventListener("mouseleave", tipHide);
   });
@@ -4842,6 +4972,97 @@ function drawGrowth(g){
   /* Stated on the page, not just in the docstring: the figure is product-wide,
      so a reader who takes this as per-post attribution is being misled by the
      chart rather than by their own carelessness. */
+  /* Correlation, not a line: lag is an ordered domain of eight discrete
+     candidates, and drawing it as a curve would invite reading a trend
+     between offsets that have no path between them. Bars start at zero and
+     go both ways, because a negative correlation is a real answer.          */
+  const lags = g.lags || [];
+  const thin = lags.filter(l => l.r !== null && l.n >= 5);
+  barsV($("#g-lag"), lags.map(l => ({
+    label: l.lag === 0 ? "same day" : l.lag + " day" + (l.lag === 1 ? "" : "s"),
+    tick: l.lag + "d",
+    value: l.r === null ? 0 : Math.abs(l.r),
+    color: l.r === null ? "var(--ink-3)"
+         : l.r < 0 ? "var(--down)" : "var(--up)",
+    note: l.r === null ? "not measurable" : `r ${l.r >= 0 ? "+" : ""}${l.r}, n=${l.n}`,
+  })), {h:170, unit:"", label:"correlation by lag"});
+  const best = thin.slice().sort((a,b) => Math.abs(b.r) - Math.abs(a.r))[0];
+  /* Said plainly, because a bar chart of correlations is exactly the sort of
+     thing that gets screenshotted into a deck as proof of something. */
+  $("#g-lagnote").textContent = !best
+    ? "Not enough measured days yet to correlate reach against signups."
+    : `Strongest at ${best.lag} day(s): r ${best.r >= 0 ? "+" : ""}${best.r} on ` +
+      `n=${best.n}. At this sample size r swings widely between refreshes — ` +
+      `treat a peak as a hypothesis, not a finding, until it holds for a week.`;
+
+  const dow = g.signups_by_weekday || [];
+  barsV($("#g-dow"), dow.map(([name, mean, n]) => ({
+    label: name, tick: name, value: mean,
+    note: `mean of ${n} ${n === 1 ? "day" : "days"}`,
+  })), {h:170, unit:"count", label:"signups by weekday"});
+
+  lineChart($("#g-cume"), {"users": g.cumulative_users || []}, {h:220});
+  lineChart($("#g-dau"), {"daily actives": g.dau || []}, {h:180});
+  lineChart($("#g-swipes"), {"swipes": g.swipes || []}, {h:180});
+  lineChart($("#g-projects"), {"projects created": g.projects || []}, {h:180});
+
+  /* The funnel is drawn as plain bars on one shared scale rather than a
+     tapering ribbon. A ribbon encodes each stage as an area, which reads as
+     a much steeper fall than the numbers justify, and its width carries no
+     meaning at all. */
+  const f = g.funnel || {};
+  const stages = [
+    ["signed up", f.signups], ["swiped at least once", f.swiped],
+    ["eligible for day 7", f.d7_eligible], ["still active day 7", f.d7_retained],
+  ].filter(([, v]) => v !== undefined);
+  const top = stages.length ? stages[0][1] : 0;
+  barsH($("#g-funnel"), stages.map(([label, v]) => ({
+    label, value: v,
+    note: top ? `${(v / top * 100).toFixed(0)}% of signups` : "",
+  })), {unit:"count", labelW:150, label:"activation funnel"});
+  $("#g-funnelnote").textContent = (f.signups && f.swiped)
+    ? `${(100 - f.swiped / f.signups * 100).toFixed(0)}% of signups never swipe once.`
+    : "";
+
+  barsH($("#g-searches"), (g.top_searches || []).slice(0, 12)
+    .map(([label, value]) => ({label, value})),
+    {unit:"count", labelW:120, label:"top searches"});
+
+  const sf = g.swipe_funnel || {};
+  barsH($("#g-swipefunnel"), Object.entries(sf)
+    .filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1])
+    .map(([label, value]) => ({label, value})),
+    {unit:"count", labelW:90, label:"swipe outcomes"});
+
+  /* Age buckets are ordered youngest-first rather than by size: the domain is
+     ordinal, and sorting it by magnitude would destroy that. */
+  const AGE = ["18-21", "22-25", "26-30", "31+", "unknown"];
+  const age = Object.fromEntries(g.age_dist || []);
+  barsH($("#g-age"), AGE.filter(k => age[k] !== undefined)
+    .map(k => ({label:k, value:age[k]})),
+    {unit:"count", labelW:90, label:"age distribution"});
+
+  barsH($("#g-schools"), (g.school_dist || []).slice(0, 12)
+    .map(([label, value]) => ({label, value})),
+    {unit:"count", labelW:150, label:"schools"});
+
+  const pct = v => v === undefined ? null : (v * 100).toFixed(1) + "%";
+  const r = g.retention || {}, e = g.engagement || {}, m = g.marketplace || {};
+  const tiles = [
+    ["active, 7d", r.active_7d, "count"],
+    ["active, 30d", r.active_30d, "count"],
+    ["weekly churn", pct(r.weekly_churn_rate), "raw"],
+    ["match rate", pct(e.match_rate), "raw"],
+    ["swipes / active / wk", e.swipes_per_active_per_week?.toFixed(1), "raw"],
+    ["messages / active / wk", e.messages_per_active_per_week?.toFixed(2), "raw"],
+    ["connection rate", pct(m.connection_rate), "raw"],
+    ["projects with an applicant", pct(m.pct_with_applicant), "raw"],
+  ].filter(([, v]) => v !== null && v !== undefined);
+  $("#g-health").innerHTML = `<div class="hero">${tiles.map(([k, v, kind]) =>
+    `<div class="stat"><div class="v num">${
+      kind === "count" ? fmt(v, "count") : v}</div>
+      <div class="k">${k}</div></div>`).join("")}</div>`;
+
   $("#g-caveat").textContent = g.attributable ? "" :
     "The signup figure is product-wide — it carries no per-post identifier, so " +
     "this compares days, not posts. It cannot say which hook or caption earned " +

@@ -8,13 +8,17 @@ would like it to, and the shape of the module should keep anyone from trying.
 from __future__ import annotations
 
 import io
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
 import requests
 
 from src.analytics import (
+    WEEKDAYS,
+    by_weekday,
+    lag_scan,
+    pearson,
     AnalyticsCache,
     DayCount,
     Overview,
@@ -24,7 +28,7 @@ from src.analytics import (
     range_from_clock,
     save_cache,
 )
-from src.analytics_api import HttpProductAnalytics, parse_overview
+from src.analytics_api import HttpProductAnalytics, parse_cohorts, parse_overview
 from src.errors import AnalyticsAuthError, AnalyticsError, ValidationError
 from src.logging import StructuredLogger
 
@@ -303,3 +307,107 @@ class TestRange:
         """SPEC §2.2 — nothing outside ports reads wall time."""
         now = datetime(2026, 8, 30, 5, 25, tzinfo=timezone.utc)
         assert range_from_clock(now, 2) == (date(2026, 8, 29), date(2026, 8, 30))
+
+
+class TestCorrelation:
+    def test_a_perfect_line_is_one(self) -> None:
+        assert pearson([1, 2, 3, 4], [2, 4, 6, 8]) == pytest.approx(1.0)
+
+    def test_a_perfect_inverse_is_minus_one(self) -> None:
+        assert pearson([1, 2, 3, 4], [8, 6, 4, 2]) == pytest.approx(-1.0)
+
+    def test_too_few_pairs_is_none_not_zero(self) -> None:
+        """0.0 would read as 'measured, no relationship'."""
+        assert pearson([1, 2], [3, 4]) is None
+
+    def test_a_flat_series_is_none_not_zero(self) -> None:
+        """No covariance to share is unmeasurable, not uncorrelated."""
+        assert pearson([5, 5, 5, 5], [1, 2, 3, 4]) is None
+
+    def test_mismatched_lengths_are_refused(self) -> None:
+        assert pearson([1, 2, 3], [1, 2]) is None
+
+
+class TestLagScan:
+    def _daily(self, values, start=date(2026, 8, 1)):
+        return {start + timedelta(days=i): v for i, v in enumerate(values)}
+
+    def test_it_finds_the_offset_the_effect_actually_sits_at(self) -> None:
+        """Signups echo reach two days later and nowhere else."""
+        # Reach spikes on days 2, 5 and 8; signups spike two days after each.
+        views = self._daily([100, 900, 100, 100, 900, 100, 100, 900, 100])
+        signups = self._daily([1, 1, 1, 9, 1, 1, 9, 1, 1])
+        scan = {l.days: l.r for l in lag_scan(views, signups, max_lag=3)}
+        assert scan[2] is not None and scan[2] > 0.95
+        assert scan[0] is not None and scan[0] < 0.5
+
+    def test_every_lag_reports_its_own_sample_size(self) -> None:
+        """n shrinks with lag, and a reader has to be able to see that."""
+        views = self._daily([1, 2, 3, 4, 5])
+        signups = self._daily([1, 2, 3, 4, 5])
+        scan = lag_scan(views, signups, max_lag=3)
+        assert [l.n for l in scan] == [5, 4, 3, 2]
+
+    def test_it_covers_every_requested_lag(self) -> None:
+        scan = lag_scan(self._daily([1, 2, 3]), self._daily([1, 2, 3]), max_lag=5)
+        assert [l.days for l in scan] == [0, 1, 2, 3, 4, 5]
+
+    def test_a_lag_with_too_few_pairs_is_none(self) -> None:
+        scan = lag_scan(self._daily([1, 2, 3]), self._daily([1, 2, 3]), max_lag=4)
+        assert scan[4].r is None and scan[4].n == 0
+
+    def test_days_missing_from_either_side_are_skipped(self) -> None:
+        """Views only exist on measured days; that must not invent zeroes."""
+        views = {date(2026, 8, 1): 100.0, date(2026, 8, 5): 200.0}
+        signups = {date(2026, 8, i): i for i in range(1, 10)}
+        assert lag_scan(views, signups, max_lag=0)[0].n == 2
+
+
+class TestByWeekday:
+    def test_it_means_each_weekday_and_counts_the_days(self) -> None:
+        # 2026-08-03 is a Monday.
+        series = {
+            date(2026, 8, 3): 10.0, date(2026, 8, 10): 20.0,   # two Mondays
+            date(2026, 8, 4): 7.0,                              # one Tuesday
+        }
+        out = dict((name, (mean, n)) for name, mean, n in by_weekday(series))
+        assert out["Mon"] == (15.0, 2)
+        assert out["Tue"] == (7.0, 1)
+
+    def test_every_weekday_is_present_even_when_unobserved(self) -> None:
+        """A missing weekday is a gap in the data, not a row to hide."""
+        out = by_weekday({date(2026, 8, 3): 10.0})
+        assert [name for name, _, _ in out] == list(WEEKDAYS)
+        assert dict((n, c) for n, _, c in out)["Sun"] == 0
+
+    def test_it_starts_on_monday(self) -> None:
+        assert by_weekday({})[0][0] == "Mon"
+
+
+class TestCohorts:
+    def test_it_reads_the_matrix(self) -> None:
+        grid = parse_cohorts({"cohorts": [
+            {"week": "2026-06-01", "size": 20, "cells": [
+                {"offset": 0, "rate": 0.85}, {"offset": 1, "rate": 0.05}]},
+        ]})
+        assert grid.rows[0].size == 20
+        assert grid.rows[0].rates == {0: 0.85, 1: 0.05}
+
+    def test_a_missing_offset_stays_missing(self) -> None:
+        """An absent cell is no activity, not a measured zero."""
+        grid = parse_cohorts({"cohorts": [
+            {"week": "2026-06-01", "size": 20,
+             "cells": [{"offset": 0, "rate": 0.85}, {"offset": 3, "rate": 0.1}]},
+        ]})
+        assert 1 not in grid.rows[0].rates and 2 not in grid.rows[0].rates
+        assert grid.max_offset == 3
+
+    def test_cohorts_come_back_oldest_first(self) -> None:
+        grid = parse_cohorts({"cohorts": [
+            {"week": "2026-06-08", "size": 1, "cells": []},
+            {"week": "2026-06-01", "size": 1, "cells": []},
+        ]})
+        assert [r.week for r in grid.rows] == [date(2026, 6, 1), date(2026, 6, 8)]
+
+    def test_an_empty_payload_is_an_empty_grid(self) -> None:
+        assert parse_cohorts({}).rows == ()

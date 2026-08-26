@@ -19,7 +19,14 @@ from typing import Any, Callable, Mapping
 
 import requests
 
-from src.analytics import DayCount, Overview, ProductAnalytics
+from src.analytics import (
+    CohortGrid,
+    CohortRow,
+    DayCount,
+    Labelled,
+    Overview,
+    ProductAnalytics,
+)
 from src.errors import AnalyticsAuthError, AnalyticsError, ValidationError
 from src.logging import StructuredLogger
 
@@ -138,6 +145,12 @@ class HttpProductAnalytics(ProductAnalytics):
         )
         return parse_overview(body, since, until)
 
+    def cohorts(self, weeks: int = 12) -> CohortGrid:
+        """Signup cohorts by week, with retention at each week offset."""
+        if not 1 <= weeks <= 26:
+            raise ValidationError(f"weeks must be 1-26, got {weeks}")
+        return parse_cohorts(self._get("/analytics/cohorts", {"weeks": weeks}))
+
 
 def _error_message(response: requests.Response) -> str:
     """Pull a structured ``error.message`` out, or fall back to the body."""
@@ -166,27 +179,35 @@ def parse_overview(
     reported = body.get("range") or {}
     totals = body.get("totals") or {}
     funnel = body.get("funnel") or {}
-    series = (body.get("series") or {}).get("signups_by_day") or []
-
-    days: list[DayCount] = []
-    for row in series:
-        if not isinstance(row, Mapping):
-            continue
-        day, count = row.get("day"), row.get("count")
-        if day is None or count is None:
-            continue
-        try:
-            days.append(DayCount(day=_as_date(day), count=int(count)))
-        except (ValueError, TypeError):
-            # One malformed row must not cost the rest of the series.
-            continue
+    series = body.get("series") or {}
+    demographics = body.get("demographics") or {}
+    acquisition = body.get("acquisition") or {}
 
     return Overview(
         range_from=_as_date(reported.get("from"), since),
         range_to=_as_date(reported.get("to"), until),
         users=int(totals.get("users") or 0),
         signups=int(funnel.get("signups") or 0),
-        signups_by_day=tuple(sorted(days, key=lambda d: d.day)),
+        signups_by_day=_series(series.get("signups_by_day")),
+        dau_by_day=_series(series.get("dau_by_day")),
+        swipes_by_day=_series(series.get("swipes_by_day")),
+        projects_by_day=_series(series.get("projects_by_day")),
+        # This one counts with "new", not "count".
+        new_users_by_day=_series(acquisition.get("cumulative_by_day"), "new"),
+        funnel=_numbers(funnel),
+        swipe_funnel=_numbers(body.get("swipe_funnel")),
+        retention=_numbers(body.get("retention")),
+        engagement=_numbers(body.get("engagement")),
+        marketplace=_numbers(body.get("marketplace")),
+        supply=_numbers(body.get("supply")),
+        totals=_numbers(totals),
+        age_dist=tuple(
+            Labelled(label=str(k), value=float(v))
+            for k, v in (demographics.get("age_dist") or {}).items()
+            if isinstance(v, (int, float)) and not isinstance(v, bool)
+        ),
+        school_dist=_labelled(demographics.get("school_dist"), "school", "count"),
+        top_searches=_labelled(body.get("top_searches"), "query", "count"),
     )
 
 
@@ -206,3 +227,88 @@ def _as_date(raw: Any, fallback: date | None = None) -> date:
     if fallback is not None:
         return fallback
     raise ValueError(f"not an ISO date: {raw!r}")
+
+
+def _series(raw: Any, key: str = "count") -> tuple[DayCount, ...]:
+    """A daily series, skipping rows that cannot be read.
+
+    ``key`` varies across the payload — most series count with ``count`` and
+    the cumulative one uses ``new`` — so it is a parameter rather than an
+    assumption that would silently yield an empty series.
+    """
+    rows: list[DayCount] = []
+    for row in raw or []:
+        if not isinstance(row, Mapping):
+            continue
+        day, count = row.get("day"), row.get(key)
+        if day is None or count is None:
+            continue
+        try:
+            rows.append(DayCount(day=_as_date(day), count=int(count)))
+        except (ValueError, TypeError):
+            continue
+    return tuple(sorted(rows, key=lambda d: d.day))
+
+
+def _numbers(raw: Any) -> dict[str, float]:
+    """Flatten a scalar block, dropping anything not a plain number."""
+    out: dict[str, float] = {}
+    if not isinstance(raw, Mapping):
+        return out
+    for key, value in raw.items():
+        if isinstance(value, bool):
+            continue
+        if isinstance(value, (int, float)):
+            out[str(key)] = float(value)
+        elif isinstance(value, Mapping):
+            # One level of nesting, flattened: weekly_churn.rate becomes
+            # weekly_churn_rate rather than being lost.
+            for inner, deep in value.items():
+                if isinstance(deep, (int, float)) and not isinstance(deep, bool):
+                    out[f"{key}_{inner}"] = float(deep)
+    return out
+
+
+def _labelled(raw: Any, label_key: str, value_key: str) -> tuple[Labelled, ...]:
+    rows: list[Labelled] = []
+    for row in raw or []:
+        if not isinstance(row, Mapping):
+            continue
+        label, value = row.get(label_key), row.get(value_key)
+        if label is None or value is None:
+            continue
+        try:
+            rows.append(Labelled(label=str(label), value=float(value)))
+        except (ValueError, TypeError):
+            continue
+    return tuple(rows)
+
+
+def parse_cohorts(body: Mapping[str, Any]) -> CohortGrid:
+    """Map the cohort matrix, tolerating gaps.
+
+    A cohort reports only the offsets it has cells for, so a missing offset is
+    a genuine absence of activity rather than an error — it stays missing
+    instead of becoming a zero the grid would render as a measured value.
+    """
+    rows: list[CohortRow] = []
+    for raw in body.get("cohorts") or []:
+        if not isinstance(raw, Mapping):
+            continue
+        try:
+            week = _as_date(raw.get("week"))
+        except ValueError:
+            continue
+        rates: dict[int, float] = {}
+        for cell in raw.get("cells") or []:
+            if not isinstance(cell, Mapping):
+                continue
+            offset, rate = cell.get("offset"), cell.get("rate")
+            if offset is None or rate is None:
+                continue
+            try:
+                rates[int(offset)] = float(rate)
+            except (ValueError, TypeError):
+                continue
+        rows.append(CohortRow(week=week, size=int(raw.get("size") or 0), rates=rates))
+    return CohortGrid(rows=tuple(sorted(rows, key=lambda r: r.week)))
