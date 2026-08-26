@@ -1097,6 +1097,10 @@ class WebApp:
                 config.buffer.api_key_secret,
                 config.buffer.channel_id_secret,
                 config.notify.webhook_secret,
+                # A campaign with an analytics source needs its key in both
+                # stores too — omitting it here made save_secret refuse the
+                # name, so the one panel built for this could not accept it.
+                config.analytics.api_key_secret,
             ):
                 if name:
                     needed.setdefault(name, []).append(config.slug)
