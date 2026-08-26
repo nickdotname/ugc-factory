@@ -4727,6 +4727,426 @@
         "music_tilt_db": 1.12
       },
       "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "762bdbe879df42c0a5933781563a2e472e22a45c565c4871bf54d87a42e0daaf",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "34e0b293-0ddb-4100-8c61-a677dae761b0",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 135.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0033,
+        "anchor_x": 0.409,
+        "anchor_y": 0.485,
+        "rotate_deg": -0.076,
+        "brightness": 0.0218,
+        "saturation": 1.0618,
+        "hue_deg": -0.86,
+        "grain": 5.22,
+        "speed": 0.9931,
+        "mirror": 0.0,
+        "music_tempo": 1.0025,
+        "music_tilt_db": 0.11
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "389a0ae1c2c338db50b2239970d57106b6f5c440c69c54595635cb5a612f22a3",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "f97ab337-d0b9-4086-975a-3343891cab2f",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 0.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0245,
+        "anchor_x": 0.283,
+        "anchor_y": 0.256,
+        "rotate_deg": -0.143,
+        "brightness": -0.0359,
+        "saturation": 0.9533,
+        "hue_deg": 3.09,
+        "grain": 1.15,
+        "speed": 1.0055,
+        "mirror": 0.0,
+        "music_tempo": 0.9731,
+        "music_tilt_db": -0.96
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "eb35ac24d6c5d3eb97b137dc30c73fe19a75fe525eba33d76803179b9380d46e",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "6825c992-e2d5-42f9-93b3-5e2b64a494a3",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0425,
+        "anchor_x": 0.479,
+        "anchor_y": 0.703,
+        "rotate_deg": -0.371,
+        "brightness": 0.0055,
+        "saturation": 1.0173,
+        "hue_deg": -1.9,
+        "grain": 6.0,
+        "speed": 0.9818,
+        "mirror": 0.0,
+        "music_tempo": 0.9709,
+        "music_tilt_db": 1.22
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "9b16f2533e5401ba3181b98862de682af8401e6b218856fac0282e4733f600ba",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "2bcaa554-e157-4aa9-b14d-d67bddbfeea9",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 255.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.334,
+        "anchor_y": 0.279,
+        "rotate_deg": 0.304,
+        "brightness": -0.0334,
+        "saturation": 0.9959,
+        "hue_deg": 1.27,
+        "grain": 5.67,
+        "speed": 0.9702,
+        "mirror": 0.0,
+        "music_tempo": 0.9879,
+        "music_tilt_db": 1.25
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "6b3efcb94f85cafd7fab9f3b7928b0749e48ac6ebcdd688253f1a9a7548395f2",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "130cf3db-8b4f-4323-b884-7cefee655c10",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 255.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.039,
+        "anchor_x": 0.744,
+        "anchor_y": 0.289,
+        "rotate_deg": -0.406,
+        "brightness": -0.0362,
+        "saturation": 1.0511,
+        "hue_deg": 1.08,
+        "grain": 5.88,
+        "speed": 1.0258,
+        "mirror": 0.0,
+        "music_tempo": 1.0279,
+        "music_tilt_db": 0.21
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "3519963da2136caad50d222612a9522c9416e1a218d9c45dc1205fd6e51538fc",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "c2b044e1-11e3-4ce9-9397-6e70f9e4a1b0",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 0.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.039,
+        "anchor_x": 0.281,
+        "anchor_y": 0.654,
+        "rotate_deg": 0.206,
+        "brightness": -0.0391,
+        "saturation": 1.0041,
+        "hue_deg": -3.44,
+        "grain": 1.95,
+        "speed": 0.9952,
+        "mirror": 0.0,
+        "music_tempo": 0.9926,
+        "music_tilt_db": 0.03
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "4416da2800038461cc2feb5498772832e23852a9482e8e14dccdf9dd6d45a565",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "55178bc4-86a6-40a6-9f45-9c4072220c9c",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0384,
+        "anchor_x": 0.423,
+        "anchor_y": 0.289,
+        "rotate_deg": -0.182,
+        "brightness": 0.0093,
+        "saturation": 0.9564,
+        "hue_deg": -2.49,
+        "grain": 1.98,
+        "speed": 0.9949,
+        "mirror": 0.0,
+        "music_tempo": 1.0001,
+        "music_tilt_db": -0.58
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "f389fea1b911f04f3aff0bf77a81894195be18d3cd55dffe024c47e9a5a9d518",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "489c96a1-2916-469d-aaf9-dffe878190ef",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 15.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0014,
+        "anchor_x": 0.691,
+        "anchor_y": 0.55,
+        "rotate_deg": 0.394,
+        "brightness": -0.029,
+        "saturation": 0.942,
+        "hue_deg": -3.06,
+        "grain": 3.79,
+        "speed": 0.9886,
+        "mirror": 0.0,
+        "music_tempo": 0.9724,
+        "music_tilt_db": -1.24
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "ca94ef1c0a2717dd1d09bbea5fa1225f6ae998b0623953547146397513a6e53e",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "e5976ebb-7a35-46c8-a3e4-6ebafa635632",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 165.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0333,
+        "anchor_x": 0.425,
+        "anchor_y": 0.354,
+        "rotate_deg": 0.002,
+        "brightness": -0.0265,
+        "saturation": 1.0229,
+        "hue_deg": 1.74,
+        "grain": 5.04,
+        "speed": 1.0081,
+        "mirror": 0.0,
+        "music_tempo": 0.9712,
+        "music_tilt_db": -0.39
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "45837fb72472e9ac4f463df13f81b4baced91aef93a3872eb1935fdd39f90f25",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "b75dd368-547e-40ff-83b4-4d32409bc1bd",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0069,
+        "anchor_x": 0.65,
+        "anchor_y": 0.487,
+        "rotate_deg": 0.057,
+        "brightness": 0.0036,
+        "saturation": 1.0668,
+        "hue_deg": 2.02,
+        "grain": 0.54,
+        "speed": 1.0166,
+        "mirror": 0.0,
+        "music_tempo": 1.0173,
+        "music_tilt_db": 1.37
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "86a119ee98d6af91b89e187c1a3f6840930766b49a2d6296b1f80a047327e2a2",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "7dba432c-803e-4c6a-96e4-d4e392731996",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 225.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0284,
+        "anchor_x": 0.27,
+        "anchor_y": 0.568,
+        "rotate_deg": 0.304,
+        "brightness": -0.0102,
+        "saturation": 1.0367,
+        "hue_deg": 2.27,
+        "grain": 2.12,
+        "speed": 0.9862,
+        "mirror": 0.0,
+        "music_tempo": 1.0081,
+        "music_tilt_db": 0.57
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "ee9df0f07b4e6d04863c714d337471a0279595838ea6cc8ec35876535b51075d",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "b208ccdf-4028-46e6-b1b0-fa4b66a0c730",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 0.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0151,
+        "anchor_x": 0.428,
+        "anchor_y": 0.558,
+        "rotate_deg": 0.233,
+        "brightness": -0.0331,
+        "saturation": 0.9457,
+        "hue_deg": 1.71,
+        "grain": 5.91,
+        "speed": 1.0284,
+        "mirror": 0.0,
+        "music_tempo": 0.9968,
+        "music_tilt_db": -0.94
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "e8b5e170fcc26344a9a838266955e93cfea4b414a7cecba56af84cd167d0d0b7",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "e8c08b55-4aa1-48a4-8c82-d9042d62b148",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 15.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.002,
+        "anchor_x": 0.332,
+        "anchor_y": 0.299,
+        "rotate_deg": 0.257,
+        "brightness": -0.0108,
+        "saturation": 0.9853,
+        "hue_deg": 2.24,
+        "grain": 0.02,
+        "speed": 0.9782,
+        "mirror": 0.0,
+        "music_tempo": 1.0105,
+        "music_tilt_db": 0.15
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "3a22db451182196e821a28f54a22af717eda14126035eac007631f1eae332cf8",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "db3aaffc-6da9-41a9-a6dc-a28a16351044",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 195.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0341,
+        "anchor_x": 0.425,
+        "anchor_y": 0.719,
+        "rotate_deg": 0.206,
+        "brightness": 0.0196,
+        "saturation": 1.0179,
+        "hue_deg": -4.0,
+        "grain": 0.68,
+        "speed": 0.9789,
+        "mirror": 0.0,
+        "music_tempo": 1.0227,
+        "music_tilt_db": 0.02
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "a0d3ad09178de8d2a2239afc2be51920a7b1b7d7062155cb2b923ca6c19f5c01",
+      "timestamp": "2026-08-26T05:32:52.154973Z",
+      "item_id": "12a9b067-08f6-405e-a125-e0cddb9a62d2",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 45.0,
+      "caption": "if you're an actor, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, singers, filmmakers, creative networking, aspiring actors, get involved]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0418,
+        "anchor_x": 0.328,
+        "anchor_y": 0.711,
+        "rotate_deg": 0.073,
+        "brightness": -0.008,
+        "saturation": 0.9853,
+        "hue_deg": -1.43,
+        "grain": 4.33,
+        "speed": 1.0152,
+        "mirror": 0.0,
+        "music_tempo": 1.0133,
+        "music_tilt_db": 0.95
+      },
+      "buffer_post_id": null
     }
   ]
 }
