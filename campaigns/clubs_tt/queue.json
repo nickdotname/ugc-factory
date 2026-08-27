@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "07fed768-9af6-4c7f-b4e8-3ddb40161351",
-      "scheduled_for": "2026-08-27T15:00:00-06:00",
+      "scheduled_for": "2026-08-27T23:40:00-06:00",
       "rendered_at": "2026-08-27T16:07:46.719247Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-27/07fed768-9af6-4c7f-b4e8-3ddb40161351.mp4",
       "caption": "casting calls that are actually open right now\n\nlink in bio #castingcall #castingcalls #auditions #acting",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9905,
         "music_tilt_db": 1.25
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
