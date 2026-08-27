@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "78d3143b-1c98-49dd-b2be-bc18b45d98a7",
-      "scheduled_for": "2026-08-27T15:00:00-06:00",
+      "scheduled_for": "2026-08-28T00:20:00-06:00",
       "rendered_at": "2026-08-27T16:07:13.622936Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-08-27/78d3143b-1c98-49dd-b2be-bc18b45d98a7.mp4",
       "caption": "Singers and vocalists use this to find producers, songwriters and bands looking to collaborate. Link in the channel description.\n\nTags: #shorts #singer #musiccollab #indieartist",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9949,
         "music_tilt_db": -0.11
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
