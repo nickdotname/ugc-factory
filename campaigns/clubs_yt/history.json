@@ -3935,6 +3935,180 @@
         "music_tilt_db": 0.31
       },
       "buffer_post_id": "6a8ea9af99f3f7567bc83ac3"
+    },
+    {
+      "tuple_hash": "aef93cb93460ddf3414e766bfc78b3ac0e53cba8f013694ddb01ef5eba75696f",
+      "timestamp": "2026-08-27T16:07:13.622936Z",
+      "item_id": "78d3143b-1c98-49dd-b2be-bc18b45d98a7",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_01.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Singers and vocalists use this to find producers, songwriters and bands looking to collaborate. Link in the channel description.\n\nTags: #shorts #singer #musiccollab #indieartist",
+      "title": "How Singers Find Collabs",
+      "treatment": {
+        "zoom": 0.0084,
+        "anchor_x": 0.43,
+        "anchor_y": 0.377,
+        "rotate_deg": 0.025,
+        "brightness": 0.0093,
+        "saturation": 1.0248,
+        "hue_deg": -3.18,
+        "grain": 0.45,
+        "speed": 0.9869,
+        "mirror": 0.0,
+        "music_tempo": 0.9949,
+        "music_tilt_db": -0.11
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "7ff3b1fff31127fc49a8dc338e7e33578578b505f6165189d1a64379391bba83",
+      "timestamp": "2026-08-27T16:07:13.622936Z",
+      "item_id": "17e47279-0b02-4f40-9133-b2d3ba4bc77f",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_02.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Indie and student film projects looking for cast, crew and collaborators. Link in the channel description.\n\nTags: #shorts #indiefilm #studentfilm #filmmaking",
+      "title": "Find Indie Film Projects",
+      "treatment": {
+        "zoom": 0.0233,
+        "anchor_x": 0.425,
+        "anchor_y": 0.289,
+        "rotate_deg": 0.022,
+        "brightness": -0.0187,
+        "saturation": 0.9501,
+        "hue_deg": 3.97,
+        "grain": 0.49,
+        "speed": 0.9966,
+        "mirror": 0.0,
+        "music_tempo": 0.9874,
+        "music_tilt_db": -0.51
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "cafa61b3143dda815e4dea93c34a21cda6ad9be06eeb3accbd2a68c2a9ba1976",
+      "timestamp": "2026-08-27T16:07:13.622936Z",
+      "item_id": "e6c609dd-a56c-44a3-8af9-5d1c70d869bf",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_01.mp4",
+        "body_04.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "A place to find open auditions, casting calls and short film roles without an agent or industry connections. Link in the channel description.\n\nTags: #shorts #auditions #acting #castingcalls",
+      "title": "Where Actors Find Auditions",
+      "treatment": {
+        "zoom": 0.0282,
+        "anchor_x": 0.601,
+        "anchor_y": 0.509,
+        "rotate_deg": 0.092,
+        "brightness": 0.0334,
+        "saturation": 1.0769,
+        "hue_deg": -2.56,
+        "grain": 2.71,
+        "speed": 0.9924,
+        "mirror": 0.0,
+        "music_tempo": 0.9886,
+        "music_tilt_db": -1.34
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "5fbbbcb382026cb2a363a247bc890ac909a79f2ae3a44e3acd660834a8495b4a",
+      "timestamp": "2026-08-27T16:07:13.622936Z",
+      "item_id": "871c85b9-fdc4-44d9-b490-576c00cf3bcb",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_03.mp4",
+        "body_01.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Actors, singers, dancers, writers and filmmakers finding each other and building work together. Link in the channel description.\n\nTags: #shorts #creatives #performingarts #artist",
+      "title": "Creative Community for Artists",
+      "treatment": {
+        "zoom": 0.0157,
+        "anchor_x": 0.415,
+        "anchor_y": 0.497,
+        "rotate_deg": 0.414,
+        "brightness": 0.0061,
+        "saturation": 0.9733,
+        "hue_deg": -2.59,
+        "grain": 3.55,
+        "speed": 0.9978,
+        "mirror": 0.0,
+        "music_tempo": 0.9773,
+        "music_tilt_db": -1.15
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "1a248f4620d4ffed3d2dde2ccb0be0da92a4ccc7c0a0966023c8969ee967f6bd",
+      "timestamp": "2026-08-27T16:07:13.622936Z",
+      "item_id": "47583476-3143-4b99-84b7-d40693662dd5",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_04.mp4",
+        "body_02.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Independent musicians use this to find vocalists, producers and writers to collaborate with. Link in the channel description.\n\nTags: #shorts #indieartist #musiccollab #musician",
+      "title": "Music Collabs for Indie Artists",
+      "treatment": {
+        "zoom": 0.0237,
+        "anchor_x": 0.321,
+        "anchor_y": 0.562,
+        "rotate_deg": -0.233,
+        "brightness": -0.0133,
+        "saturation": 0.9464,
+        "hue_deg": -0.36,
+        "grain": 5.79,
+        "speed": 0.9867,
+        "mirror": 0.0,
+        "music_tempo": 0.9804,
+        "music_tilt_db": 0.08
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "cf2bf42910db243e290b9317f41de217b406b2603d1d09bca3e1c614a6977438",
+      "timestamp": "2026-08-27T16:07:13.622936Z",
+      "item_id": "5ced11cf-855e-4fd5-ac7a-1b537a666f06",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_01.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "How people outside film programs find the same projects and collaborators students do. Link in the channel description.\n\nTags: #shorts #filmschool #filmmaking #studentfilm",
+      "title": "Film School Without Film School",
+      "treatment": {
+        "zoom": 0.0182,
+        "anchor_x": 0.691,
+        "anchor_y": 0.27,
+        "rotate_deg": -0.147,
+        "brightness": -0.0064,
+        "saturation": 1.0756,
+        "hue_deg": -0.33,
+        "grain": 0.02,
+        "speed": 1.002,
+        "mirror": 0.0,
+        "music_tempo": 0.9912,
+        "music_tilt_db": 0.25
+      },
+      "buffer_post_id": null
     }
   ]
 }
