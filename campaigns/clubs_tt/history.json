@@ -3982,6 +3982,174 @@
         "music_tilt_db": -0.98
       },
       "buffer_post_id": "6a8ea98b4e0795339604a624"
+    },
+    {
+      "tuple_hash": "0d258b167c2fbd24baa0f225f0a5effab0d1e5439e2abdded3ee1fa4c4d14a7c",
+      "timestamp": "2026-08-27T16:07:46.719247Z",
+      "item_id": "07fed768-9af6-4c7f-b4e8-3ddb40161351",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "casting calls that are actually open right now\n\nlink in bio #castingcall #castingcalls #auditions #acting",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0012,
+        "anchor_x": 0.325,
+        "anchor_y": 0.279,
+        "rotate_deg": 0.375,
+        "brightness": 0.0397,
+        "saturation": 1.0656,
+        "hue_deg": -2.62,
+        "grain": 1.44,
+        "speed": 1.0147,
+        "mirror": 0.0,
+        "music_tempo": 0.9905,
+        "music_tilt_db": 1.25
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "eb40d54b0ec0565cbc1884b041376706f514e7bd2b0f15f09acb02db4b842de5",
+      "timestamp": "2026-08-27T16:07:46.719247Z",
+      "item_id": "1f94371c-2343-49d0-96de-b6aa75353823",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "i wish i had this before film school\n\nlink in bio #filmschool #filmstudent #filmmaking #studentfilm",
+      "title": null,
+      "treatment": {
+        "zoom": 0.049,
+        "anchor_x": 0.462,
+        "anchor_y": 0.666,
+        "rotate_deg": 0.48,
+        "brightness": -0.0309,
+        "saturation": 0.962,
+        "hue_deg": 3.47,
+        "grain": 2.68,
+        "speed": 1.0025,
+        "mirror": 0.0,
+        "music_tempo": 1.0142,
+        "music_tilt_db": -1.19
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "f801386ebdb17d597dd55b5316a68c005d647d8778d08ca1d1cbc80d80289162",
+      "timestamp": "2026-08-27T16:07:46.719247Z",
+      "item_id": "521e7454-a56c-4567-913a-1fffb2f71eca",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "film students: this is where the projects actually are\n\nit's in my bio #filmschool #studentfilm #filmstudent #indiefilm",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0296,
+        "anchor_x": 0.299,
+        "anchor_y": 0.432,
+        "rotate_deg": 0.19,
+        "brightness": 0.0256,
+        "saturation": 1.0587,
+        "hue_deg": 0.33,
+        "grain": 0.31,
+        "speed": 1.0107,
+        "mirror": 0.0,
+        "music_tempo": 0.9811,
+        "music_tilt_db": -0.1
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "9b98e87e37f188175c5842313fcbeb1fe1cd9ffaaba7b8fe8de5784d5fd51036",
+      "timestamp": "2026-08-27T16:07:46.719247Z",
+      "item_id": "e5a59c90-cfc2-4a40-a7f4-8b1141e2ef8e",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the site actors and filmmakers keep sending each other\n\nit's in my bio #acting #filmtok #castingcall #studentfilm",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0463,
+        "anchor_x": 0.464,
+        "anchor_y": 0.256,
+        "rotate_deg": 0.484,
+        "brightness": 0.018,
+        "saturation": 0.947,
+        "hue_deg": 2.24,
+        "grain": 2.92,
+        "speed": 1.0114,
+        "mirror": 0.0,
+        "music_tempo": 1.0138,
+        "music_tilt_db": 0.32
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "3732d3fd131e1b1dc3e516ca3ff22d93393a55bcd56608e35d8f526e4c1fcaf3",
+      "timestamp": "2026-08-27T16:07:46.719247Z",
+      "item_id": "685a0934-6f70-4829-ba6d-5a927d468cd1",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "no agent, no credits, no connections — still got cast\n\nit's in my bio #acting #actorslife #auditions #studentfilm",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0008,
+        "anchor_x": 0.626,
+        "anchor_y": 0.275,
+        "rotate_deg": 0.437,
+        "brightness": -0.0309,
+        "saturation": 1.0536,
+        "hue_deg": 2.78,
+        "grain": 0.45,
+        "speed": 0.9862,
+        "mirror": 0.0,
+        "music_tempo": 0.9865,
+        "music_tilt_db": -0.36
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "1d9c996831220ee9e524aac473c6222bf4549fe146c75e79cb7fd3397be84741",
+      "timestamp": "2026-08-27T16:07:46.719247Z",
+      "item_id": "fbcc6e20-0b27-4a66-9582-53d5622ba14e",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "how to get involved creatively when you know nobody\n\nit's in my bio #creatives #acting #filmmaking #musician",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0004,
+        "anchor_x": 0.644,
+        "anchor_y": 0.252,
+        "rotate_deg": -0.394,
+        "brightness": -0.0205,
+        "saturation": 0.9363,
+        "hue_deg": 2.24,
+        "grain": 5.29,
+        "speed": 1.0265,
+        "mirror": 0.0,
+        "music_tempo": 1.0189,
+        "music_tilt_db": -0.43
+      },
+      "buffer_post_id": null
     }
   ]
 }
