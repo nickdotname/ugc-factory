@@ -67,7 +67,13 @@ selection:
   # Ranked, not proportional, and capped: the best option is at most
   # performance_max_boost (default 3) times the worst, an unmeasured clip
   # sits mid-field so it can still earn data, and nothing reaches zero.
-  performance_weight: 0.5
+  # Raised from 0.5 once 21 breakouts made the ranking decisive rather than
+  # suggestive. body_04 holds 25.6% of ordinary posts and has produced 0 of
+  # those 21 — p = 0.002 against it being merely average. Weighting rather
+  # than muting: dropping to three bodies would cut distinct visuals from 24
+  # to 18, and at 12/day that is a picture repeating every day and a half.
+  # The clip to replace first when new material is shot.
+  performance_weight: 0.7
   # mean, not median. Every Reel is served a seed audience — visible here as
   # a tight cluster around 130 views — so the median of any clip that breaks
   # out less than half the time is just that floor. Median ranks these six
