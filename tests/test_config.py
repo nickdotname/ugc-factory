@@ -298,3 +298,62 @@ class TestWrappingPostingWindow:
     def test_too_many_posts_for_a_short_window_still_rejected(self, tmp_path: Path) -> None:
         body = MINIMAL + "\nposting:\n  posts_per_day: 24\n  start_hour: 1\n  end_hour: 1\n"
         load_config(write(tmp_path, body))  # 24h window, fine
+
+
+class TestShippedCaptionsMeetDemand:
+    """The banks that actually ship, against the demand actually recorded.
+
+    A unit test cannot catch a caption rewrite that quietly stops speaking to
+    what people search for — the copy stays valid, the platforms accept it,
+    and only the coverage figure moves. This is the guard that fails in CI
+    rather than in Discord a day later.
+    """
+
+    def _campaigns_with_cached_demand(self):
+        import json
+
+        from src.campaigns import list_campaigns
+
+        found = []
+        for summary in list_campaigns(REPO_ROOT / "campaigns"):
+            if not summary.valid:
+                continue
+            cache = REPO_ROOT / "campaigns" / summary.slug / "analytics.json"
+            if not cache.is_file():
+                continue
+            fetches = json.loads(cache.read_text()).get("fetches") or []
+            if not fetches or not fetches[-1].get("top_searches"):
+                continue
+            found.append((summary, fetches[-1]["top_searches"]))
+        return found
+
+    def test_shipped_banks_clear_their_own_configured_floor(self) -> None:
+        from src.analytics import vocabulary_gap
+        from src.campaigns import list_campaigns
+        from src.config import load_campaign
+
+        cached = self._campaigns_with_cached_demand()
+        if not cached:
+            pytest.skip("no campaign has fetched demand data yet")
+
+        for summary, searches in cached:
+            config = load_campaign(REPO_ROOT / "campaigns", summary.slug)
+            # One brand's banks against one product's search log, matching how
+            # the alert itself groups them.
+            corpus = ""
+            for other in list_campaigns(REPO_ROOT / "campaigns"):
+                if other.valid and other.assets_tag == summary.assets_tag:
+                    bank = REPO_ROOT / "campaigns" / other.slug / "captions.txt"
+                    if bank.is_file():
+                        corpus += "\n" + bank.read_text(encoding="utf-8")
+            gap = vocabulary_gap(
+                [(s["label"], int(s["value"])) for s in searches], corpus
+            )
+            assert gap.coverage is not None
+            floor = config.notify.demand_coverage_floor
+            assert gap.coverage >= floor, (
+                f"{summary.slug}: captions speak to "
+                f"{gap.coverage * 100:.0f}% of search volume, under its "
+                f"{floor * 100:.0f}% floor. Unmet: "
+                f"{[t.query for t in gap.worst(6)]}"
+            )

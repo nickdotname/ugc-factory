@@ -99,6 +99,7 @@ from src.analytics import (
     load_cache as load_analytics_cache,
     range_from_clock,
     save_cache as save_analytics_cache,
+    vocabulary_gap,
 )
 from src.analytics_api import HttpProductAnalytics
 from src.queue import (
@@ -1792,6 +1793,38 @@ def cmd_analytics(args: argparse.Namespace, env: dict[str, str]) -> int:
         shown = f"{ratio:,.0f}" if ratio is not None else "—"
         print(f"  {row.day.isoformat():<12}{row.posts:>6}{row.views:>10,.0f}"
               f"{row.signups:>9}{shown:>14}")
+
+    # Whether the copy is aimed at the demand that exists — the one check
+    # here that can be made before a post goes out rather than after. Uses the
+    # same sibling set as the join above: one brand's banks against one
+    # product's search log.
+    corpus = ""
+    for slug in siblings:
+        captions = _campaign_dir(slug) / "captions.txt"
+        if captions.is_file():
+            corpus += "\n" + captions.read_text(encoding="utf-8", errors="replace")
+    gap = vocabulary_gap(
+        [(s.label, int(s.value)) for s in overview.top_searches], corpus
+    )
+    floor = config.notify.demand_coverage_floor
+    if gap.coverage is not None:
+        print(f"\n  captions speak to {gap.coverage * 100:.0f}% of search volume")
+        if gap.coverage < floor:
+            worst = ", ".join(
+                f"{t.query} ({t.searches})" for t in gap.worst(8)
+            )
+            log.warning(
+                "demand_unmet", campaign=config.slug,
+                coverage=round(gap.coverage, 3), floor=floor,
+            )
+            notifier_for(config, log, env).notify(
+                NotifyEvent.DEMAND_UNMET,
+                f"{config.slug}: captions speak to only "
+                f"{gap.coverage * 100:.0f}% of search volume "
+                f"(floor {floor * 100:.0f}%). Most-searched terms no caption "
+                f"mentions — {worst}. Word overlap only: it catches a term "
+                f"never mentioned, not whether a video was about it.",
+            )
 
     posted = [r for r in rows if r.posts]
     quiet = [r for r in rows if not r.posts]

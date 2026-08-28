@@ -82,6 +82,10 @@ class NotifyEvent(str, Enum):
     #: not viewers ignoring the content. Distinct from a quiet week, and
     #: the one failure here that no job reports because nothing errored.
     DISTRIBUTION_LOST = "distribution_lost"
+    #: The copy has drifted away from what people actually search for.
+    #: Not a failure of the machine — everything published fine — but a
+    #: failure of aim, and the only one visible before a post goes out.
+    DEMAND_UNMET = "demand_unmet"
     DIGEST = "digest"
 
 
@@ -592,6 +596,12 @@ class NotifyConfig(StrictModel):
     #: Consecutive posting days above that share before alerting. One bad
     #: day happens; three in a row is a channel, not a batch.
     distribution_days: int = Field(default=3, ge=2, le=14)
+
+    #: Alert when captions speak to less than this share of search volume.
+    #: The gap sat at 53% before anyone looked and rose to 92% once the
+    #: missing words went in; a floor between the two catches the drift
+    #: back without firing on the terms not worth chasing.
+    demand_coverage_floor: float = Field(default=0.75, ge=0.0, le=1.0)
 
     @field_validator("webhook_secret")
     @classmethod

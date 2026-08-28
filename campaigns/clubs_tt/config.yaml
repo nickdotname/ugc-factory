@@ -93,7 +93,7 @@ notify:
   # them. distribution_lost is the one failure nothing else reports —
   # renders succeed, pushes succeed, and the posts reach nobody.
   on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed,
-       queue_stale, distribution_lost, digest]
+       queue_stale, distribution_lost, demand_unmet, digest]
 
 variation:
   enabled: true
