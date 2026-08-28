@@ -9,6 +9,7 @@ from __future__ import annotations
 import io
 import json
 from datetime import datetime, timezone
+import time
 from pathlib import Path
 
 import pytest
@@ -1116,3 +1117,100 @@ class TestChannelPicker:
         """It would hold a live API key; committing one is the failure mode."""
         root = Path(__file__).resolve().parents[1]
         assert ".env" in (root / ".gitignore").read_text(encoding="utf-8")
+
+
+class TestStaleCheckoutDetection:
+    """The dashboard reads local files; the workflows commit to the repo.
+
+    A checkout that has not pulled therefore shows figures frozen at whenever
+    it last did, and every panel looks perfectly healthy while doing it. The
+    dashboard tracked "ahead" from the start and not "behind", which made the
+    misleading direction the invisible one.
+    """
+
+    @staticmethod
+    def _repo(tmp_path: Path) -> tuple[Path, Path]:
+        """An origin with two commits, and a clone parked on the first."""
+        import subprocess
+
+        def git(where: Path, *args: str) -> None:
+            subprocess.run(["git", *args], cwd=where, check=True,
+                           capture_output=True, text=True)
+
+        origin = tmp_path / "origin"
+        origin.mkdir()
+        git(origin, "init", "--quiet", "-b", "main")
+        git(origin, "config", "user.email", "t@example.com")
+        git(origin, "config", "user.name", "t")
+        (origin / "a.txt").write_text("one")
+        git(origin, "add", "-A")
+        git(origin, "commit", "--quiet", "-m", "one")
+
+        clone = tmp_path / "clone"
+        subprocess.run(["git", "clone", "--quiet", str(origin), str(clone)],
+                       check=True, capture_output=True)
+
+        (origin / "a.txt").write_text("two")
+        git(origin, "add", "-A")
+        git(origin, "commit", "--quiet", "-m", "two")
+        return origin, clone
+
+    def _probe(self):
+        from src.web import WebApp
+
+        class Probe:
+            FETCH_EVERY_SEC = WebApp.FETCH_EVERY_SEC
+            _last_fetch = float("-inf")
+            _commits_behind = WebApp._commits_behind
+
+        return Probe()
+
+    def _vcs(self, root: Path):
+        import io
+
+        from src.logging import StructuredLogger
+        from src.vcs import GitVcs
+
+        return GitVcs(root, StructuredLogger({}, io.StringIO()), push=False)
+
+    def test_a_checkout_behind_its_remote_is_detected(self, tmp_path: Path) -> None:
+        _, clone = self._repo(tmp_path)
+        assert self._probe()._commits_behind(self._vcs(clone)) == 1
+
+    def test_a_current_checkout_reports_zero(self, tmp_path: Path) -> None:
+        _, clone = self._repo(tmp_path)
+        import subprocess
+
+        subprocess.run(["git", "pull", "--quiet"], cwd=clone, check=True,
+                       capture_output=True)
+        assert self._probe()._commits_behind(self._vcs(clone)) == 0
+
+    def test_it_fetches_rather_than_trusting_the_tracking_ref(
+        self, tmp_path: Path
+    ) -> None:
+        """Without a fetch this reports a confident zero on a stale checkout.
+
+        That is worse than not reporting at all, so the fetch is the feature
+        rather than an optimisation to skip.
+        """
+        _, clone = self._repo(tmp_path)
+        probe = self._probe()
+        # Simulate a check that just ran, so the rate limit suppresses the
+        # fetch: the tracking ref has never seen the second commit.
+        probe._last_fetch = time.monotonic()
+        assert probe._commits_behind(self._vcs(clone)) == 0
+        # And with the rate limit clear, the same repo reports the truth.
+        probe._last_fetch = float("-inf")
+        assert probe._commits_behind(self._vcs(clone)) == 1
+
+    def test_a_repo_with_no_upstream_reports_zero_not_an_error(
+        self, tmp_path: Path
+    ) -> None:
+        """Offline or detached is normal for a local dashboard."""
+        import subprocess
+
+        solo = tmp_path / "solo"
+        solo.mkdir()
+        subprocess.run(["git", "init", "--quiet", "-b", "main"], cwd=solo,
+                       check=True, capture_output=True)
+        assert self._probe()._commits_behind(self._vcs(solo)) == 0

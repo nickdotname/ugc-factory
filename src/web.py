@@ -25,6 +25,7 @@ from __future__ import annotations
 import json
 import mimetypes
 import os
+import time
 import re
 import shutil
 import threading
@@ -133,6 +134,10 @@ class WebApp:
         # Probed once and cached: the state endpoint is polled every few
         # seconds, and ffprobing every track on each poll would be absurd.
         self._music_beds: int | None = None
+        # Monotonic, so a system clock change cannot make the next remote
+        # check wait hours. Starts far enough back that the first poll fetches
+        # rather than reporting a confident zero from a stale tracking ref.
+        self._last_fetch = float("-inf")
         # Buffer channels change rarely and every fetch costs one of the
         # 3,000 monthly requests, so they are pulled once per session rather
         # than on each page load.
@@ -1655,7 +1660,46 @@ class WebApp:
             unpushed = int((ahead.stdout or "0").strip() or 0)
         except ValueError:
             unpushed = 0
-        return {"changed": changed, "unpushed_commits": unpushed}
+
+        # The opposite gap, and the one that actually misleads. Every panel
+        # here reads local files, but the workflows commit their results to
+        # the repo — so a checkout that has not pulled shows numbers frozen at
+        # whenever it last did, with nothing on screen saying so. Tracking
+        # only "ahead" made this invisible: the dashboard could be two days
+        # stale and look perfectly healthy.
+        behind = self._commits_behind(vcs)
+        return {
+            "changed": changed,
+            "unpushed_commits": unpushed,
+            "behind_commits": behind,
+        }
+
+    #: Seconds between remote checks. A fetch is a network round trip and the
+    #: dashboard polls, so this is rate-limited rather than run per request.
+    FETCH_EVERY_SEC = 90
+
+    def _commits_behind(self, vcs: Any) -> int:
+        """How many commits the remote has that this checkout does not.
+
+        Requires a fetch: ``@{upstream}`` is a local ref, so without one this
+        would confidently report zero on a checkout that is days behind —
+        worse than not reporting at all.
+
+        Failures return 0 rather than raising. Offline is a normal state for a
+        local dashboard, and a panel that errors because the network is down
+        would be a worse bug than the one this fixes.
+        """
+        now = time.monotonic()
+        if now - self._last_fetch > self.FETCH_EVERY_SEC:
+            self._last_fetch = now
+            vcs._git("fetch", "--quiet", check=False)
+        result = vcs._git(
+            "rev-list", "--count", "HEAD..@{upstream}", check=False
+        )
+        try:
+            return int((result.stdout or "0").strip() or 0)
+        except ValueError:
+            return 0
 
     def publish(self, message: str = "") -> dict[str, Any]:
         """Commit and push campaign changes so the workflows can see them."""
@@ -4339,12 +4383,23 @@ async function refresh(){ render(await (await fetch("/api/state")).json()); }
 async function loadPending(){
   const r = await (await fetch("/api/pending")).json();
   const bar = $("#sync-bar");
-  const n = r.changed.length, c = r.unpushed_commits;
-  if (!n && !c){ bar.style.display = "none"; return; }
+  const n = r.changed.length, c = r.unpushed_commits, b = r.behind_commits || 0;
+  if (!n && !c && !b){ bar.style.display = "none"; return; }
   bar.style.display = "block";
-  $("#sync-text").innerHTML = n
+  /* Behind is reported first and on its own. The other two are about work
+     leaving this machine; this one says every number on the page is out of
+     date, which changes how you read them rather than what you should push. */
+  $("#sync-text").innerHTML = b
+    ? `<b>${b} commit${b>1?"s":""} behind GitHub.</b> The workflows commit their
+       results to the repo, and every figure here is read from this checkout —
+       so these numbers are as of your last pull, not as of now.
+       <code>git pull</code> to catch up.`
+    : n
     ? `<b>${n} local change${n>1?"s":""}</b> not on GitHub yet — the workflows read from the repo, so nothing here affects posting until you publish.`
     : `<b>${c} commit${c>1?"s":""}</b> not pushed yet.`;
+  /* The publish button does not resolve a stale checkout, and offering it as
+     though it might is how you end up pushing over fresher remote state. */
+  $("#publish-btn").style.display = (b && !n && !c) ? "none" : "";
 }
 
 $("#publish-btn").onclick = async (e) => {
