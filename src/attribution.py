@@ -27,6 +27,7 @@ import os
 import statistics
 import tempfile
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
@@ -533,3 +534,146 @@ def save_posts(path: Path, cache: PostCache) -> None:
     except BaseException:
         Path(temp).unlink(missing_ok=True)
         raise
+
+
+#: A post at or below this many views was not served, as distinct from served
+#: and ignored. Every platform gives a new post some seed audience, so a
+#: genuine zero means the video never entered distribution at all.
+NOT_SERVED_VIEWS = 2
+
+#: Days a post needs before its view count means anything. Judging the batch
+#: that went out this morning would report a collapse every single day.
+MATURITY_DAYS = 2
+
+#: Below this many posts a day, the dead share is 0% or 100% by arithmetic
+#: rather than by evidence.
+MIN_POSTS_PER_DAY = 4
+
+
+@dataclass(frozen=True)
+class DayHealth:
+    """One day's posts, and how many of them reached nobody."""
+
+    day: date
+    posts: int
+    not_served: int
+
+    @property
+    def dead_share(self) -> float:
+        return self.not_served / self.posts if self.posts else 0.0
+
+
+@dataclass(frozen=True)
+class DistributionAlert:
+    """A channel that was being served and stopped."""
+
+    since: date
+    days: tuple[DayHealth, ...]
+
+    @property
+    def worst(self) -> float:
+        return max(d.dead_share for d in self.days)
+
+    def message(self, campaign: str) -> str:
+        run = ", ".join(
+            f"{d.day.isoformat()} {d.dead_share * 100:.0f}%" for d in self.days
+        )
+        return (
+            f"{campaign}: posts have stopped being served. "
+            f"Share reaching nobody, by day — {run}. "
+            f"A served post always gets some seed audience, so this is the "
+            f"network withholding distribution rather than viewers ignoring "
+            f"the content. Check the channel for a strike, a copyright claim, "
+            f"or a posting restriction."
+        )
+
+
+def daily_health(
+    history: Iterable[HistoryEntry],
+    posts: Mapping[str, PostMetrics],
+    today: date,
+    *,
+    metric: str = DEFAULT_METRIC,
+    maturity_days: int = MATURITY_DAYS,
+) -> list[DayHealth]:
+    """Per-day counts of posts that reached essentially nobody.
+
+    Posts younger than ``maturity_days`` are excluded rather than counted as
+    dead: views arrive over days, and this morning's batch legitimately has
+    none yet.
+    """
+    buckets: dict[date, list[float]] = {}
+    for entry in history:
+        post = posts.get(entry.buffer_post_id or "")
+        if post is None:
+            continue
+        value = post.value(metric)
+        if value is None:
+            continue
+        day = entry.timestamp.date()
+        if (today - day).days < maturity_days:
+            continue
+        buckets.setdefault(day, []).append(value)
+
+    return [
+        DayHealth(
+            day=day,
+            posts=len(values),
+            not_served=sum(1 for v in values if v <= NOT_SERVED_VIEWS),
+        )
+        for day, values in sorted(buckets.items())
+    ]
+
+
+def distribution_lost(
+    history: Iterable[HistoryEntry],
+    posts: Mapping[str, PostMetrics],
+    today: date,
+    *,
+    threshold: float,
+    days: int,
+    min_posts: int = MIN_POSTS_PER_DAY,
+    metric: str = DEFAULT_METRIC,
+) -> DistributionAlert | None:
+    """A channel that was being served and stopped, or None.
+
+    **Why not a drop in views.** Because it does not work. On this data a
+    healthy Instagram swings 0.23x then 3.15x day to day, and a healthy
+    YouTube posting twice a day swings by two orders of magnitude. Any
+    percentage-drop rule tuned to catch a real outage fires constantly on
+    channels that are fine, and one that does not fire constantly is too loose
+    to catch anything.
+
+    What separates an outage is not magnitude but shape: the share of posts
+    that reached *nobody*. Instagram has never had a single such day. TikTok's
+    outage ran 92%, 93%, 93%, 100% — and the days before it were 0%.
+
+    **Why a transition rather than a level.** The run must be preceded by a
+    healthy day inside the window. A channel that has never worked would
+    otherwise alert every morning forever, which trains people to ignore it —
+    and "this has always been broken" is a thing to investigate once, not to
+    be told daily. It does mean a channel already dead when alerting is
+    switched on stays silent; that is the deliberate trade.
+    """
+    health = daily_health(history, posts, today, metric=metric)
+    usable = [d for d in health if d.posts >= min_posts]
+    if len(usable) <= days:
+        return None
+
+    run: list[DayHealth] = []
+    for day in reversed(usable):
+        if day.dead_share >= threshold:
+            run.append(day)
+        else:
+            break
+    if len(run) < days:
+        return None
+
+    # The day before the run has to have been healthy, or this is a channel
+    # that never worked rather than one that stopped.
+    preceding = usable[: len(usable) - len(run)]
+    if not preceding or preceding[-1].dead_share >= threshold:
+        return None
+
+    ordered = tuple(reversed(run))
+    return DistributionAlert(since=ordered[0].day, days=ordered)

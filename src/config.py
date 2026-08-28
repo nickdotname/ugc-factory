@@ -78,6 +78,10 @@ class NotifyEvent(str, Enum):
     #: Distinct from QUEUE_EMPTY, which is the opposite problem: this means the
     #: queue is filling faster than it drains, and posts_per_day is too high.
     QUEUE_STALE = "queue_stale"
+    #: Posts stopped being served — the network withholding distribution,
+    #: not viewers ignoring the content. Distinct from a quiet week, and
+    #: the one failure here that no job reports because nothing errored.
+    DISTRIBUTION_LOST = "distribution_lost"
     DIGEST = "digest"
 
 
@@ -577,8 +581,17 @@ class NotifyConfig(StrictModel):
         NotifyEvent.LICENSE_MISSING,
         NotifyEvent.DEDUPE_RELAXED,
         NotifyEvent.QUEUE_STALE,
+        NotifyEvent.DISTRIBUTION_LOST,
         NotifyEvent.DIGEST,
     )
+
+    #: Share of a day's posts reaching nobody before that day counts as
+    #: lost. Measured, not guessed: this account's healthy days sit at 0%
+    #: and its outage ran 92-100%, so anywhere in between separates them.
+    distribution_dead_share: float = Field(default=0.7, gt=0.0, le=1.0)
+    #: Consecutive posting days above that share before alerting. One bad
+    #: day happens; three in a row is a channel, not a batch.
+    distribution_days: int = Field(default=3, ge=2, le=14)
 
     @field_validator("webhook_secret")
     @classmethod

@@ -73,7 +73,13 @@ from src.metrics import (
 )
 from src.notify import Digest, Notifier, notifier_for
 from src.campaigns import list_campaigns
-from src.attribution import attribute, load_posts, posts_path, save_posts
+from src.attribution import (
+    attribute,
+    distribution_lost,
+    load_posts,
+    posts_path,
+    save_posts,
+)
 from src.platforms import Service, config_conflicts, effective_video_limits
 from src.quota import (
     MONTHLY_ALLOWANCE,
@@ -1323,6 +1329,25 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                 "post_metrics_cached",
                 fetched=len(fresh), total=len(cache.posts), campaign=config.slug,
             )
+            # The one failure nothing else reports. A render that succeeds
+            # and a push that succeeds still leave the posts reaching nobody,
+            # and every other alert here fires on an error that did not
+            # happen. Checked here because this is where fresh per-post
+            # figures land, and it costs no extra request.
+            alert = distribution_lost(
+                posted.entries, cache.posts, clock.now().date(),
+                threshold=config.notify.distribution_dead_share,
+                days=config.notify.distribution_days,
+            )
+            if alert is not None:
+                log.warning(
+                    "distribution_lost", campaign=config.slug,
+                    since=alert.since.isoformat(),
+                    worst_dead_share=round(alert.worst, 3),
+                )
+                notifier.notify(
+                    NotifyEvent.DISTRIBUTION_LOST, alert.message(config.slug)
+                )
         except UgcError as exc:
             # Never fail the metrics run over attribution: the window snapshot
             # above is what preflight and the digest depend on.

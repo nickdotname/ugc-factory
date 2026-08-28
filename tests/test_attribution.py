@@ -8,7 +8,7 @@ worse than no ranking, because it gets acted on.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
@@ -22,6 +22,8 @@ from src.attribution import (
     attribute,
     attribute_by_service,
     coverage,
+    daily_health,
+    distribution_lost,
     load_posts,
     posts_path,
     save_posts,
@@ -452,3 +454,110 @@ class TestRankingStatistic:
                 history.append(entry(pid, hook=name))
                 posts[pid] = post(pid, v)
         return history, posts
+
+
+class TestDistributionLost:
+    """Catching a channel that stopped being served.
+
+    The design is pinned here because the obvious implementation does not
+    work. On real data a healthy Instagram swings 0.23x then 3.15x day to
+    day, so any percentage-drop rule loose enough to avoid firing on that is
+    too loose to catch anything. What separates an outage is shape rather
+    than magnitude: the share of posts reaching nobody.
+    """
+
+    @staticmethod
+    def _days(shares, today=NOW.date(), start_offset=20, per_day=8):
+        """History and posts for a run of days at given dead-shares."""
+        history, posts = [], {}
+        for i, share in enumerate(shares):
+            day = today - timedelta(days=start_offset - i)
+            dead = round(share * per_day)
+            for n in range(per_day):
+                pid = f"{day.isoformat()}-{n}"
+                history.append(HistoryEntry(
+                    tuple_hash=pid, timestamp=datetime.combine(
+                        day, datetime.min.time(), tzinfo=timezone.utc),
+                    item_id=pid, hook="h1", bodies=("b1",), music=None,
+                    caption="c1", buffer_post_id=pid,
+                ))
+                posts[pid] = post(pid, 0.0 if n < dead else 400.0)
+        return history, posts
+
+    def _call(self, shares, **kw):
+        history, posts = self._days(shares)
+        return distribution_lost(
+            history, posts, NOW.date(),
+            threshold=kw.get("threshold", 0.7), days=kw.get("days", 3),
+        )
+
+    def test_a_sustained_collapse_after_health_alerts(self) -> None:
+        assert self._call([0.0, 0.0, 0.9, 1.0, 0.95]) is not None
+
+    def test_two_bad_days_are_not_yet_a_channel_problem(self) -> None:
+        """One bad day happens; the run length is the whole point."""
+        assert self._call([0.0, 0.0, 0.0, 0.9, 1.0]) is None
+
+    def test_a_healthy_channel_never_alerts(self) -> None:
+        assert self._call([0.0, 0.0, 0.0, 0.0, 0.0, 0.0]) is None
+
+    def test_wild_swings_in_volume_do_not_alert(self) -> None:
+        """The case that rules out a percentage-drop rule.
+
+        Every post is served; the counts merely vary enormously, which is what
+        a healthy short-form channel actually looks like.
+        """
+        history, posts = [], {}
+        for i, mean in enumerate([2000.0, 460.0, 6300.0, 300.0, 1900.0, 240.0]):
+            day = NOW.date() - timedelta(days=20 - i)
+            for n in range(8):
+                pid = f"{day}-{n}"
+                history.append(HistoryEntry(
+                    tuple_hash=pid, timestamp=datetime.combine(
+                        day, datetime.min.time(), tzinfo=timezone.utc),
+                    item_id=pid, hook="h1", bodies=("b1",), music=None,
+                    caption="c1", buffer_post_id=pid))
+                posts[pid] = post(pid, mean)
+        assert distribution_lost(history, posts, NOW.date(),
+                                 threshold=0.7, days=3) is None
+
+    def test_a_channel_that_never_worked_stays_silent(self) -> None:
+        """Otherwise it alerts every morning forever and trains people to
+        ignore it. 'This has always been broken' is investigated once."""
+        assert self._call([0.9, 1.0, 0.95, 1.0, 0.9]) is None
+
+    def test_recovery_stops_the_alert(self) -> None:
+        assert self._call([0.0, 0.9, 1.0, 0.95, 0.0]) is None
+
+    def test_todays_posts_are_not_counted_as_dead(self) -> None:
+        """Views arrive over days; this morning's batch has none yet, and
+        judging it would report a collapse every single morning."""
+        history, posts = self._days([0.0, 0.0, 0.0], start_offset=2)
+        assert distribution_lost(history, posts, NOW.date(),
+                                 threshold=0.7, days=3) is None
+
+    def test_thin_days_are_ignored_rather_than_trusted(self) -> None:
+        """With two posts a day the share is 0% or 100% by arithmetic."""
+        history, posts = self._days([0.0, 1.0, 1.0, 1.0], per_day=2)
+        assert distribution_lost(history, posts, NOW.date(),
+                                 threshold=0.7, days=3) is None
+
+    def test_the_alert_names_the_day_it_started(self) -> None:
+        alert = self._call([0.0, 0.0, 0.9, 1.0, 0.95])
+        assert alert is not None
+        assert alert.since == NOW.date() - timedelta(days=18)
+        assert alert.worst == pytest.approx(1.0)
+
+    def test_the_message_says_what_to_go_and_check(self) -> None:
+        alert = self._call([0.0, 0.0, 0.9, 1.0, 0.95])
+        assert alert is not None
+        text = alert.message("clubs_tt")
+        assert "clubs_tt" in text
+        for expected in ("seed audience", "claim", "restriction"):
+            assert expected in text
+
+    def test_daily_health_reports_shares_per_day(self) -> None:
+        history, posts = self._days([0.0, 0.5])
+        rows = daily_health(history, posts, NOW.date())
+        assert [r.dead_share for r in rows] == [0.0, 0.5]
+        assert all(r.posts == 8 for r in rows)
