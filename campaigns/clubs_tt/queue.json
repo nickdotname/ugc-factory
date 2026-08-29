@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "f4207acd-be3c-4c87-92e4-ba454753fe54",
-      "scheduled_for": "2026-08-29T07:00:00-06:00",
+      "scheduled_for": "2026-08-29T15:40:00-06:00",
       "rendered_at": "2026-08-29T11:28:46.269646Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-29/f4207acd-be3c-4c87-92e4-ba454753fe54.mp4",
       "caption": "writers, designers, artists — how to get involved when you know nobody\n\nit's in my bio #writer #design #art #creatives",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9764,
         "music_tilt_db": -0.88
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
