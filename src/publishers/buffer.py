@@ -39,6 +39,7 @@ from src.errors import (
 from src.logging import StructuredLogger
 from src.platforms import Service
 from src.publishers.base import (
+    QueueState,
     MetricRow,
     PostMetrics,
     PublishedPost,
@@ -280,12 +281,16 @@ class BufferPublisher(Publisher):
 
     # ------------------------------------------------------------------- reads
 
-    def queue_depth(self, channel_id: str) -> int:
-        """Count posts occupying a queue slot (SPEC §4.1).
+    def queue_state(self, channel_id: str) -> QueueState:
+        """Count posts occupying a queue slot, and find the earliest (SPEC §4.1).
 
         ``scheduled`` and ``sending`` both hold a slot; ``sent`` has released
         one and ``draft``/``error`` never held one. Counting anything else would
         make the top-up job push too few or too many.
+
+        ``dueAt`` was always in this query and always discarded. Returning it
+        is what lets the caller tell a queue that is full from one that is
+        merely full *by count* while nothing publishes for hours.
         """
         data = self._gql(
             POSTS,
@@ -301,11 +306,25 @@ class BufferPublisher(Publisher):
             },
         )
         edges = ((data.get("posts") or {}).get("edges")) or []
-        depth = len(edges)
+        due: list[datetime] = []
+        for edge in edges:
+            raw = ((edge or {}).get("node") or {}).get("dueAt")
+            if not raw:
+                continue
+            try:
+                due.append(datetime.fromisoformat(str(raw).replace("Z", "+00:00")))
+            except ValueError:
+                # One unparseable timestamp must not cost the whole reading —
+                # the depth is still correct and still worth returning.
+                self._log.warning("buffer_due_at_unparsable", value=str(raw)[:40])
+        state = QueueState(depth=len(edges), next_due=min(due) if due else None)
         self._log.info(
-            "buffer_queue_depth", channel_id_suffix=channel_id[-4:], depth=depth
+            "buffer_queue_depth",
+            channel_id_suffix=channel_id[-4:],
+            depth=state.depth,
+            next_due=state.next_due.isoformat() if state.next_due else None,
         )
-        return depth
+        return state
 
     def find_scheduled_post(
         self, channel_id: str, scheduled_for: datetime

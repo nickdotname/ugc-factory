@@ -599,10 +599,12 @@ def _topup(
         log.info("revived_failed_items", count=revived, campaign=config.slug)
         save_queue(queue_path, queue)
 
-    depth = publisher.queue_depth(channel)
+    state = publisher.queue_state(channel)
+    depth = state.depth
     need = depth_needed(depth, config.posting.max_buffer_queue)
     ready = claimable(queue)
     to_push = ready[:need]
+    gap = state.gap_hours(clock.now())
 
     log.info(
         "topup_plan",
@@ -611,7 +613,28 @@ def _topup(
         need=need,
         available=len(ready),
         pushing=len(to_push),
+        next_due_in_hours=None if gap is None else round(gap, 1),
     )
+
+    # A queue can be full by count and empty in time: the cap is satisfied,
+    # nothing failed, every job reports success, and nothing publishes for
+    # hours. No other alert covers it — they all fire on an error, and there
+    # is no error here. Reported when the queue is genuinely full, because a
+    # queue with room is about to be topped up anyway.
+    limit = config.notify.max_schedule_gap_hours
+    if gap is not None and gap > limit and not to_push:
+        log.warning(
+            "schedule_gap", campaign=config.slug,
+            next_due_in_hours=round(gap, 1), limit=limit, depth=depth,
+        )
+        notifier.notify(
+            NotifyEvent.SCHEDULE_GAP,
+            f"{config.slug}: Buffer holds {depth} post(s) but the next one is "
+            f"{gap:.0f}h away, over the {limit:.0f}h limit. The queue is full "
+            f"by count and empty in time, so top-up will not add to it and "
+            f"{len(ready)} rendered video(s) are waiting. Nothing has failed — "
+            f"the slots are simply too far out.",
+        )
     if not to_push:
         # SPEC §14 — queue already full: push nothing and exit clean.
         if not ready and depth == 0:

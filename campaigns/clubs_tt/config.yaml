@@ -18,13 +18,18 @@ posting:
   # RECOVERY CADENCE. Both networks stopped serving this account at 12-15/day.
   # 3/day is a deliberate floor while distribution is broken; raise it only
   # once views per post recover.
-  posts_per_day: 3
+  posts_per_day: 6
   # One post an hour, starting 15:00 Mountain. start == end means a FULL
   # 24-hour window beginning at that hour, so the run wraps past midnight and
   # the later slots land on the following calendar day.
   start_hour: 15
   end_hour: 15
   max_buffer_queue: 10        # SPEC §4.1 — Buffer free-plan queue-depth cap
+  # Rendering posts_per_day x max_backlog_days every day, then pushing it
+  # all within a day, made the backlog a hidden rate multiplier: this
+  # campaign was configured for 3/day and publishing 6/day. One day
+  # of backlog makes the number here mean what it says.
+  max_backlog_days: 1
   # LIVE. Posts are pushed to Buffer and publish on their scheduled slot.
   # Set back to true to pause posting without touching the workflows; the
   # render job keeps building batches either way.
@@ -93,7 +98,7 @@ notify:
   # them. distribution_lost is the one failure nothing else reports —
   # renders succeed, pushes succeed, and the posts reach nobody.
   on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed,
-       queue_stale, distribution_lost, demand_unmet, digest]
+       queue_stale, distribution_lost, demand_unmet, schedule_gap, digest]
 
 variation:
   enabled: true

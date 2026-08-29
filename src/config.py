@@ -86,6 +86,10 @@ class NotifyEvent(str, Enum):
     #: Not a failure of the machine — everything published fine — but a
     #: failure of aim, and the only one visible before a post goes out.
     DEMAND_UNMET = "demand_unmet"
+    #: Buffer is holding posts but none of them go out for hours. A queue
+    #: full by count and empty in time — which no other event notices,
+    #: because nothing failed.
+    SCHEDULE_GAP = "schedule_gap"
     DIGEST = "digest"
 
 
@@ -602,6 +606,13 @@ class NotifyConfig(StrictModel):
     #: missing words went in; a floor between the two catches the drift
     #: back without firing on the terms not worth chasing.
     demand_coverage_floor: float = Field(default=0.75, ge=0.0, le=1.0)
+
+    #: Hours the channel may have nothing scheduled before that is wrong.
+    #: Derived from cadence rather than picked: at 12/day a slot comes
+    #: every two hours, so six hours of silence is already three missed.
+    #: Left generous so a campaign posting twice a day does not alert on a
+    #: normal overnight gap.
+    max_schedule_gap_hours: float = Field(default=6.0, gt=0.0, le=72.0)
 
     @field_validator("webhook_secret")
     @classmethod

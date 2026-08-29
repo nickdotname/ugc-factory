@@ -408,3 +408,65 @@ class TestRedaction:
         r = request().redacted()
         assert "a caption" not in str(r)
         assert r["channel_id_suffix"] == "1234"
+
+
+class TestQueueState:
+    """Depth alone cannot tell a healthy queue from a stalled one.
+
+    A queue can satisfy its cap while nothing publishes for eighteen hours:
+    ten posts all scheduled for tomorrow. Top-up reading only the count
+    declines to add any, every job reports success, and the channel goes
+    quiet. `dueAt` was always in this query and always discarded.
+    """
+
+    NOW = datetime(2026, 8, 29, 12, 0, tzinfo=timezone.utc)
+
+    def _state(self, *due: str):
+        edges = [
+            {"node": {"id": f"p{i}", "dueAt": d, "status": "scheduled"}}
+            for i, d in enumerate(due)
+        ]
+        s = FakeSession().route(
+            "POST", "api.buffer.com", gql_ok({"posts": {"edges": edges}})
+        )
+        return make_publisher(s).queue_state("chan-1")
+
+    def test_it_reports_depth_and_the_earliest_slot(self) -> None:
+        state = self._state(
+            "2026-08-30T01:00:00Z", "2026-08-29T19:00:00Z", "2026-08-30T03:00:00Z"
+        )
+        assert state.depth == 3
+        assert state.next_due == datetime(2026, 8, 29, 19, 0, tzinfo=timezone.utc)
+
+    def test_an_empty_queue_has_no_next_slot(self) -> None:
+        state = self._state()
+        assert state.depth == 0
+        assert state.next_due is None
+        assert state.gap_hours(self.NOW) is None
+
+    def test_the_gap_is_measured_in_hours(self) -> None:
+        state = self._state("2026-08-29T19:00:00Z")
+        assert state.gap_hours(self.NOW) == pytest.approx(7.0)
+
+    def test_a_full_queue_can_still_have_a_long_gap(self) -> None:
+        """The failure this exists to catch, in one assertion."""
+        state = self._state(*[f"2026-08-30T{h:02d}:00:00Z" for h in range(0, 10)])
+        assert state.depth == 10
+        assert state.gap_hours(self.NOW) == pytest.approx(12.0)
+
+    def test_a_slot_already_past_reads_as_zero_not_negative(self) -> None:
+        """Unpublished-and-overdue is a different fault; it must not look
+        healthy to a caller comparing against a threshold."""
+        state = self._state("2026-08-29T06:00:00Z")
+        assert state.gap_hours(self.NOW) == 0.0
+
+    def test_one_unparsable_timestamp_does_not_lose_the_reading(self) -> None:
+        state = self._state("not-a-date", "2026-08-29T19:00:00Z")
+        assert state.depth == 2
+        assert state.next_due == datetime(2026, 8, 29, 19, 0, tzinfo=timezone.utc)
+
+    def test_queue_depth_still_answers_for_existing_callers(self) -> None:
+        s = FakeSession().route("POST", "api.buffer.com", gql_ok({"posts": {"edges": [
+            {"node": {"id": "p", "dueAt": "2026-08-30T01:00:00Z"}}
+        ]}}))
+        assert make_publisher(s).queue_depth("chan-1") == 1

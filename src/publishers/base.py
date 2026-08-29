@@ -16,6 +16,7 @@ backend what actually exists before deciding whether to push again.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -133,12 +134,48 @@ class PublishedPost(BaseModel):
     will_publish_automatically: bool = True
 
 
+@dataclass(frozen=True)
+class QueueState:
+    """What the backend is holding for a channel, and when it next fires.
+
+    Depth alone is not enough to tell whether a channel is healthy. A queue can
+    be full by count and empty in time: ten posts all scheduled for tomorrow
+    satisfy the cap while nothing goes out for eighteen hours, and a top-up
+    that only reads the count declines to fix it. ``next_due`` is what makes
+    that visible, and it costs nothing — the depth query already fetches it.
+    """
+
+    depth: int
+    #: Earliest scheduled post, or None when nothing is queued.
+    next_due: datetime | None = None
+
+    def gap_hours(self, now: datetime) -> float | None:
+        """Hours until the next post, or None when nothing is scheduled.
+
+        Negative would mean a slot already past and unpublished, which is a
+        different fault; clamped to zero so a caller comparing against a
+        threshold cannot read it as healthy.
+        """
+        if self.next_due is None:
+            return None
+        return max(0.0, (self.next_due - now).total_seconds() / 3600.0)
+
+
 class Publisher(ABC):
     """A scheduling backend."""
 
     @abstractmethod
+    def queue_state(self, channel_id: str) -> QueueState:
+        """What is queued for this channel, and when it next publishes."""
+
     def queue_depth(self, channel_id: str) -> int:
-        """How many posts are currently queued for this channel (SPEC §4.1)."""
+        """How many posts are currently queued for this channel (SPEC §4.1).
+
+        Concrete rather than abstract: every backend answers it the same way
+        once ``queue_state`` exists, and two abstract methods returning
+        overlapping facts is how they drift apart.
+        """
+        return self.queue_state(channel_id).depth
 
     @abstractmethod
     def create_post(self, request: PublishRequest) -> PublishedPost:
@@ -174,13 +211,20 @@ class DryRunPublisher(Publisher):
     method reaching the network, which is the exact thing dry run must rule out.
     """
 
-    def __init__(self, log: StructuredLogger, *, queue_depth: int = 0) -> None:
+    def __init__(
+        self,
+        log: StructuredLogger,
+        *,
+        queue_depth: int = 0,
+        next_due: datetime | None = None,
+    ) -> None:
         self._log = log
         self._depth = queue_depth
+        self._next_due = next_due
         self.published: list[PublishRequest] = []
 
-    def queue_depth(self, channel_id: str) -> int:
-        return self._depth
+    def queue_state(self, channel_id: str) -> QueueState:
+        return QueueState(depth=self._depth, next_due=self._next_due)
 
     def create_post(self, request: PublishRequest) -> PublishedPost:
         self.published.append(request)
