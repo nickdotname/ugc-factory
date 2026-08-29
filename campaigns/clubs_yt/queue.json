@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "d5e34db8-3d90-454e-88db-a655cdb6fe77",
-      "scheduled_for": "2026-08-29T07:00:00-06:00",
+      "scheduled_for": "2026-08-29T08:20:00-06:00",
       "rendered_at": "2026-08-29T11:28:45.794883Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-08-29/d5e34db8-3d90-454e-88db-a655cdb6fe77.mp4",
       "caption": "How student film casting actually works, and where the open calls get posted. Link in the channel description.\n\nTags: #shorts #studentfilm #filmschool #acting",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9724,
         "music_tilt_db": 0.57
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
