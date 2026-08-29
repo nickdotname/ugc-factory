@@ -6015,6 +6015,174 @@
         "music_tilt_db": -0.91
       },
       "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "4bd47808e687660951b254e716826a2a8ed5daa896e491bb1dc976fa634f47a5",
+      "timestamp": "2026-08-29T11:29:32.387268Z",
+      "item_id": "ee58eef6-101b-4c76-87e0-0db2dfe7df8d",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "if you're an actor, model, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, models, singers, filmmakers, creative networking, aspiring actors]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0092,
+        "anchor_x": 0.444,
+        "anchor_y": 0.628,
+        "rotate_deg": 0.084,
+        "brightness": -0.018,
+        "saturation": 1.0775,
+        "hue_deg": 2.68,
+        "grain": 0.59,
+        "speed": 1.0227,
+        "mirror": 0.0,
+        "music_tempo": 0.9787,
+        "music_tilt_db": 0.41
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "c6a01e7a2ee1b8e92ce0a29e4839204f9ebd4a84b79bdfb606dfce1a82b7bce4",
+      "timestamp": "2026-08-29T11:29:32.387268Z",
+      "item_id": "5c9108f1-94f2-4a93-b5a8-6af0c39b2bfb",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 0.0,
+      "caption": "filmmakers + models + songwriters + dancers — this one's for you\n\ncomment \"create\" for the link\n\n[filmmakers, models, songwriters, dancers, performers, new york, los angeles]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0247,
+        "anchor_x": 0.64,
+        "anchor_y": 0.405,
+        "rotate_deg": -0.229,
+        "brightness": 0.014,
+        "saturation": 0.9645,
+        "hue_deg": 0.67,
+        "grain": 1.69,
+        "speed": 0.9801,
+        "mirror": 0.0,
+        "music_tempo": 1.0154,
+        "music_tilt_db": -0.81
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "601edf7cf360d6fd4bc50e4a98138e69190991ec72cfefd4fa9ab6da1ca50798",
+      "timestamp": "2026-08-29T11:29:32.387268Z",
+      "item_id": "9353de07-9857-4ab6-98ba-d5966bb3ca71",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "aspiring actors and models — bookmark this one\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, models, modeling, casting calls, emerging artists]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.029,
+        "anchor_x": 0.487,
+        "anchor_y": 0.603,
+        "rotate_deg": -0.198,
+        "brightness": 0.0096,
+        "saturation": 0.9357,
+        "hue_deg": 0.17,
+        "grain": 5.46,
+        "speed": 1.0119,
+        "mirror": 0.0,
+        "music_tempo": 0.9747,
+        "music_tilt_db": 0.68
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "9e56f9b4d58494d0be0b0823e931bce5b4e47a05c1a2023708cc4919fc753343",
+      "timestamp": "2026-08-29T11:29:32.387268Z",
+      "item_id": "5803e20c-d188-45fb-acde-fd6da80edaa4",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "every performer and artist should have this bookmarked\n\ncomment \"create\" and I'll drop it below\n\n[performers, models, dancers, singers, writers, bands, creative community]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.032,
+        "anchor_x": 0.717,
+        "anchor_y": 0.385,
+        "rotate_deg": -0.292,
+        "brightness": 0.0074,
+        "saturation": 0.9658,
+        "hue_deg": 1.74,
+        "grain": 1.51,
+        "speed": 0.9839,
+        "mirror": 0.0,
+        "music_tempo": 1.03,
+        "music_tilt_db": -1.26
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "3529e8ad447b044b8f9cf2bac26aae4923d866cbf833afe0b3e0d891450923c6",
+      "timestamp": "2026-08-29T11:29:32.387268Z",
+      "item_id": "ef50304a-8088-43ae-863e-6e5b751d627c",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, nyc, los angeles, dallas, san diego, creative community]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0398,
+        "anchor_x": 0.277,
+        "anchor_y": 0.307,
+        "rotate_deg": -0.198,
+        "brightness": 0.04,
+        "saturation": 0.9627,
+        "hue_deg": 2.93,
+        "grain": 1.22,
+        "speed": 0.9721,
+        "mirror": 0.0,
+        "music_tempo": 1.0206,
+        "music_tilt_db": -0.17
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "224559936e90e9d254ee070ba6ad5431b0e220a842658b5a0729f07e556162f9",
+      "timestamp": "2026-08-29T11:29:32.387268Z",
+      "item_id": "bc7f18ad-d72f-48f3-803e-ea7e8e380b14",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "filmmakers + models + songwriters + dancers — this one's for you\n\ncomment \"create\" for the link\n\n[filmmakers, models, songwriters, dancers, performers, new york, los angeles]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0241,
+        "anchor_x": 0.319,
+        "anchor_y": 0.254,
+        "rotate_deg": 0.343,
+        "brightness": 0.0127,
+        "saturation": 0.9821,
+        "hue_deg": -1.99,
+        "grain": 0.87,
+        "speed": 1.0298,
+        "mirror": 0.0,
+        "music_tempo": 0.9909,
+        "music_tilt_db": 0.58
+      },
+      "buffer_post_id": null
     }
   ]
 }
