@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "f8d239a8-f884-4bdb-90af-9ff771791e33",
-      "scheduled_for": "2026-08-30T07:00:00-04:00",
+      "scheduled_for": "2026-08-30T12:20:00-04:00",
       "rendered_at": "2026-08-30T10:16:26.035831Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-08-30/f8d239a8-f884-4bdb-90af-9ff771791e33.mp4",
       "caption": "Where actors look for casting calls, auditions and short film roles that are actually open. Link in the channel description.\n\nTags: #shorts #acting #auditions #actorslife",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9978,
         "music_tilt_db": -0.14
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
