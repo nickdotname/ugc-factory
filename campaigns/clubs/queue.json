@@ -131,7 +131,7 @@
     },
     {
       "id": "1ea41b32-ef50-4608-920d-4b1ae0571d6d",
-      "scheduled_for": "2026-08-30T15:00:00-04:00",
+      "scheduled_for": "2026-08-31T11:00:00-04:00",
       "rendered_at": "2026-08-30T10:16:29.252263Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-08-30/1ea41b32-ef50-4608-920d-4b1ae0571d6d.mp4",
       "caption": "this is how indie filmmakers and musicians are finding collaborators right now\n\ncomment \"create\"\n\n[indie music, bands, podcast, filmmakers, music collabs, songwriters]",
@@ -156,7 +156,7 @@
         "music_tempo": 1.0036,
         "music_tilt_db": -1.19
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
