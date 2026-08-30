@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "55c665c7-8118-4af3-aa9a-4e11f4c6f90c",
-      "scheduled_for": "2026-08-30T07:00:00-04:00",
+      "scheduled_for": "2026-08-30T11:40:00-04:00",
       "rendered_at": "2026-08-30T10:17:26.093911Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-08-30/55c665c7-8118-4af3-aa9a-4e11f4c6f90c.mp4",
       "caption": "no agent, no credits, no connections — still got cast\n\nit's in my bio #acting #actorslife #auditions #studentfilm",
@@ -28,7 +28,7 @@
         "music_tempo": 1.0267,
         "music_tilt_db": 1.22
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
