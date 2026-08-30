@@ -6519,6 +6519,342 @@
         "music_tilt_db": 0.42
       },
       "buffer_post_id": "6a93312373b542df4de12617"
+    },
+    {
+      "tuple_hash": "63b443cf64aea26040f5426192b649f692ee894c71adcd84ab67c8f6a6714c48",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "ce8e56f9-13fc-43bb-a268-5bc1c147b26e",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 75.0,
+      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0075,
+        "anchor_x": 0.415,
+        "anchor_y": 0.548,
+        "rotate_deg": -0.488,
+        "brightness": -0.0215,
+        "saturation": 0.9551,
+        "hue_deg": -1.49,
+        "grain": 5.29,
+        "speed": 1.0081,
+        "mirror": 0.0,
+        "music_tempo": 0.9825,
+        "music_tilt_db": -0.66
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "899cddde0c020e32d276b9761705e5a214b03c0f28baeea46f62cb054b3a28db",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "f427ada5-3641-4919-837a-391929e1da48",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 135.0,
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, models, writers, artists, design, creative projects]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0251,
+        "anchor_x": 0.268,
+        "anchor_y": 0.344,
+        "rotate_deg": -0.265,
+        "brightness": -0.0215,
+        "saturation": 1.0229,
+        "hue_deg": -1.36,
+        "grain": 3.46,
+        "speed": 0.9742,
+        "mirror": 0.0,
+        "music_tempo": 1.0095,
+        "music_tilt_db": 1.01
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "92d699f30878ab8c27fcc8fd5e460dd67ea5633b101b5b62df62444874c54456",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "a5926b6e-e2c4-4bcc-8232-0a2655fd7a0a",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 45.0,
+      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0312,
+        "anchor_x": 0.685,
+        "anchor_y": 0.687,
+        "rotate_deg": 0.429,
+        "brightness": 0.0237,
+        "saturation": 0.925,
+        "hue_deg": 3.15,
+        "grain": 1.55,
+        "speed": 1.0124,
+        "mirror": 0.0,
+        "music_tempo": 1.0258,
+        "music_tilt_db": 0.19
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "fcc9506ba59ec42895faacd1735641414dfd60a4ad07bd882b6d942badd3cc5e",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "e939a259-cd42-45a5-8286-e914cf95215b",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 240.0,
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, models, writers, artists, design, creative projects]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0043,
+        "anchor_x": 0.568,
+        "anchor_y": 0.615,
+        "rotate_deg": 0.312,
+        "brightness": -0.0372,
+        "saturation": 1.0587,
+        "hue_deg": 2.75,
+        "grain": 2.85,
+        "speed": 1.0199,
+        "mirror": 0.0,
+        "music_tempo": 0.9954,
+        "music_tilt_db": 1.05
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "25812892fd7c9c58f36b6518f99892265d31ef606eec378a90fd2c9cc2bd90f9",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "1ea41b32-ef50-4608-920d-4b1ae0571d6d",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 15.0,
+      "caption": "this is how indie filmmakers and musicians are finding collaborators right now\n\ncomment \"create\"\n\n[indie music, bands, podcast, filmmakers, music collabs, songwriters]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0018,
+        "anchor_x": 0.407,
+        "anchor_y": 0.536,
+        "rotate_deg": -0.139,
+        "brightness": 0.0187,
+        "saturation": 1.0129,
+        "hue_deg": -0.93,
+        "grain": 4.14,
+        "speed": 0.9916,
+        "mirror": 0.0,
+        "music_tempo": 1.0036,
+        "music_tilt_db": -1.19
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "905002229c6d64e713856bacaf70a570f8c1ed5eae52e488575aa39f80a36977",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "659cab18-b03f-4201-8241-fe2f6d9fea03",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 135.0,
+      "caption": "how I got cast in my first student film with zero connections\n\ncomment \"create\" and I'll send you the site\n\n[student films, casting calls, actors, aspiring actors, creative networking]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0316,
+        "anchor_x": 0.64,
+        "anchor_y": 0.742,
+        "rotate_deg": 0.351,
+        "brightness": 0.0118,
+        "saturation": 0.9288,
+        "hue_deg": 2.37,
+        "grain": 0.75,
+        "speed": 0.9714,
+        "mirror": 0.0,
+        "music_tempo": 1.0192,
+        "music_tilt_db": 1.15
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "4a1d2047102a2e588011cab97a476df4259d32d8ddf8b3d76c9a38579c0969e2",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "80932f32-53bf-48af-ba7b-cfdc1e3ee25a",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_04.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 30.0,
+      "caption": "this site made \"getting involved creatively\" actually possible\n\ncomment \"create\" and it's yours\n\n[get involved, creative projects, creative community, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0227,
+        "anchor_x": 0.546,
+        "anchor_y": 0.477,
+        "rotate_deg": 0.422,
+        "brightness": -0.0347,
+        "saturation": 1.0461,
+        "hue_deg": -2.18,
+        "grain": 3.6,
+        "speed": 1.0029,
+        "mirror": 0.0,
+        "music_tempo": 0.9836,
+        "music_tilt_db": 1.34
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "512f1712f492442b61e8be51cf400ae7004d0e34f02d205108f291010db03e04",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "d95fef20-d61f-499d-a390-15874a23b455",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 180.0,
+      "caption": "the creative community I didn't know I needed\n\ncomment \"create\" and I'll send the site\n\n[creative community, creative networking, get involved, artists, emerging artists]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.03,
+        "anchor_x": 0.383,
+        "anchor_y": 0.326,
+        "rotate_deg": 0.12,
+        "brightness": -0.0337,
+        "saturation": 0.9639,
+        "hue_deg": 3.56,
+        "grain": 5.98,
+        "speed": 1.0076,
+        "mirror": 0.0,
+        "music_tempo": 1.0119,
+        "music_tilt_db": -1.32
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "421aa2c5343431cf94bc6bfc6d6c0b918940d7bd8a0c2af1cc75bba9766e3ad0",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "002a7d81-3c3e-40a6-a65d-be08c9f829b0",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_03.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 45.0,
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0002,
+        "anchor_x": 0.744,
+        "anchor_y": 0.679,
+        "rotate_deg": 0.292,
+        "brightness": -0.0039,
+        "saturation": 0.9514,
+        "hue_deg": 1.99,
+        "grain": 2.05,
+        "speed": 1.0076,
+        "mirror": 0.0,
+        "music_tempo": 0.9782,
+        "music_tilt_db": 0.37
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "2aed9ca49c0ccc2dcf22bbd4a623f9bb235dcb8f8fd8fdc751af748ad2e6812a",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "996fbf94-a13a-4d09-9de8-f4609c13460b",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_02.mp3",
+      "music_offset_sec": 60.0,
+      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0335,
+        "anchor_x": 0.407,
+        "anchor_y": 0.374,
+        "rotate_deg": 0.324,
+        "brightness": 0.0133,
+        "saturation": 0.9495,
+        "hue_deg": -2.18,
+        "grain": 3.67,
+        "speed": 1.0168,
+        "mirror": 0.0,
+        "music_tempo": 0.9773,
+        "music_tilt_db": -0.06
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "b3c920628121ecac39fbd50f7a8118b3e0dcdef6718dac50f28fd9212eb071b2",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "45d37aa5-008f-45a6-a60b-205574899a86",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": "music_01.mp3",
+      "music_offset_sec": 15.0,
+      "caption": "this site made \"getting involved creatively\" actually possible\n\ncomment \"create\" and it's yours\n\n[get involved, creative projects, creative community, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0241,
+        "anchor_x": 0.356,
+        "anchor_y": 0.37,
+        "rotate_deg": 0.386,
+        "brightness": -0.0268,
+        "saturation": 1.0116,
+        "hue_deg": -0.08,
+        "grain": 5.84,
+        "speed": 1.0008,
+        "mirror": 0.0,
+        "music_tempo": 1.0201,
+        "music_tilt_db": -0.97
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "14af3550ab9f18eb6fd8c8f77d56c80ac0aba7def1d9c6e9bab7f29383029c1e",
+      "timestamp": "2026-08-30T10:16:29.252263Z",
+      "item_id": "59ca2094-898e-4e28-9907-fdcc08d5223f",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": "music_03.mp3",
+      "music_offset_sec": 45.0,
+      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
+      "title": null,
+      "treatment": {
+        "zoom": 0.0169,
+        "anchor_x": 0.295,
+        "anchor_y": 0.644,
+        "rotate_deg": -0.127,
+        "brightness": -0.0284,
+        "saturation": 1.026,
+        "hue_deg": 1.99,
+        "grain": 5.65,
+        "speed": 0.9895,
+        "mirror": 0.0,
+        "music_tempo": 1.0253,
+        "music_tilt_db": 1.02
+      },
+      "buffer_post_id": null
     }
   ]
 }
