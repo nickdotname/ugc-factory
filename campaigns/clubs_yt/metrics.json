@@ -1229,6 +1229,88 @@
         }
       ],
       "metrics_updated_at": "2026-08-30T08:41:40.339000Z"
+    },
+    {
+      "date": "2026-08-31",
+      "scope": "lifetime",
+      "fetched_at": "2026-08-31T14:19:50.618811Z",
+      "window_start": "2026-08-12T00:00:00Z",
+      "window_end": "2026-09-01T00:00:00Z",
+      "service": "youtube",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 128.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 51.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 7.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 1.03,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 5614.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-31T07:42:33.628000Z"
+    },
+    {
+      "date": "2026-08-31",
+      "scope": "rolling",
+      "fetched_at": "2026-08-31T14:19:50.618811Z",
+      "window_start": "2026-08-01T00:00:00Z",
+      "window_end": "2026-08-31T00:00:00Z",
+      "service": "youtube",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 126.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 51.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 7.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 1.03,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 5611.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-08-31T07:42:33.628000Z"
     }
   ]
 }
