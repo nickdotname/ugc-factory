@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "76002917-b5fb-4c4a-a44c-28030ef16f1d",
-      "scheduled_for": "2026-08-31T11:00:00-04:00",
+      "scheduled_for": "2026-08-31T12:20:00-04:00",
       "rendered_at": "2026-08-31T11:22:41.385038Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-08-31/76002917-b5fb-4c4a-a44c-28030ef16f1d.mp4",
       "caption": "Screenwriters, directors and producers use this to find each other and get projects made. Link in the channel description.\n\nTags: #shorts #screenwriter #filmmaking #director",
@@ -28,7 +28,7 @@
         "music_tempo": 1.01,
         "music_tilt_db": -0.05
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
