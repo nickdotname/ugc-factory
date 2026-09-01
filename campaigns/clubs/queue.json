@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "b08c860d-7ec6-4e3b-aa41-4068b1aca896",
-      "scheduled_for": "2026-09-01T07:00:00-04:00",
+      "scheduled_for": "2026-09-02T07:00:00-04:00",
       "rendered_at": "2026-09-01T09:45:26.614664Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-01/b08c860d-7ec6-4e3b-aa41-4068b1aca896.mp4",
       "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, nyc, los angeles, dallas, san diego, creative community]",
@@ -28,14 +28,14 @@
         "music_tempo": 0.9881,
         "music_tilt_db": 0.25
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
       "id": "f8e45068-05d1-4d12-a5b8-74cbc9639a0e",
-      "scheduled_for": "2026-09-01T09:00:00-04:00",
+      "scheduled_for": "2026-09-02T09:00:00-04:00",
       "rendered_at": "2026-09-01T09:45:26.614664Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-01/f8e45068-05d1-4d12-a5b8-74cbc9639a0e.mp4",
       "caption": "aspiring actors and models — bookmark this one\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, models, modeling, casting calls, emerging artists]",
