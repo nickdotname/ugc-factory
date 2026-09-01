@@ -1700,7 +1700,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 21.0,
+          "value": 22.0,
           "unit": "count"
         }
       ]
@@ -3808,7 +3808,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 23.0,
+          "value": 24.0,
           "unit": "count"
         }
       ]
@@ -3895,13 +3895,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 16.67,
+          "value": 15.38,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 12.0,
+          "value": 13.0,
           "unit": "count"
         }
       ]
@@ -3932,7 +3932,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 6.0,
+          "value": 7.0,
           "unit": "count"
         }
       ]
@@ -3994,7 +3994,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 5.0,
+          "value": 6.0,
           "unit": "count"
         }
       ]
@@ -4236,13 +4236,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 6.73,
+          "value": 6.67,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 104.0,
+          "value": 105.0,
           "unit": "count"
         }
       ]
@@ -4335,7 +4335,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 20.0,
+          "value": 21.0,
           "unit": "count"
         }
       ]
@@ -4397,7 +4397,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 3.0,
+          "value": 4.0,
           "unit": "count"
         }
       ]
@@ -4459,7 +4459,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 3.0,
+          "value": 4.0,
           "unit": "count"
         }
       ]
@@ -4515,13 +4515,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 6.25,
+          "value": 5.88,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 16.0,
+          "value": 17.0,
           "unit": "count"
         }
       ]
@@ -4614,7 +4614,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 6.0,
+          "value": 8.0,
           "unit": "count"
         }
       ]
@@ -4676,7 +4676,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 0.0,
+          "value": 3.0,
           "unit": "count"
         }
       ]
@@ -4707,7 +4707,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 3.0,
+          "value": 4.0,
           "unit": "count"
         }
       ]
@@ -4825,13 +4825,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 9.52,
+          "value": 3.57,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 21.0,
+          "value": 56.0,
           "unit": "count"
         }
       ]
@@ -4856,13 +4856,199 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 16.67,
+          "value": 9.09,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 6.0,
+          "value": 11.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a95a687117abd0aa3b4133f": {
+      "post_id": "6a95a687117abd0aa3b4133f",
+      "service": "youtube",
+      "sent_at": "2026-09-01T11:01:04.691000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a95a68353e01f69d94474be": {
+      "post_id": "6a95a68353e01f69d94474be",
+      "service": "youtube",
+      "sent_at": "2026-09-01T07:01:05.737000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a95a6807116b186166ce319": {
+      "post_id": "6a95a6807116b186166ce319",
+      "service": "youtube",
+      "sent_at": "2026-09-01T03:00:24.896000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a95a67c117abd0aa3b4119f": {
+      "post_id": "6a95a67c117abd0aa3b4119f",
+      "service": "youtube",
+      "sent_at": "2026-08-31T23:00:42.192000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a95a67953e01f69d94473a4": {
+      "post_id": "6a95a67953e01f69d94473a4",
+      "service": "youtube",
+      "sent_at": "2026-08-31T19:00:43.119000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a95a675e3b9bc5e662d453e": {
+      "post_id": "6a95a675e3b9bc5e662d453e",
+      "service": "youtube",
+      "sent_at": "2026-08-31T16:20:06.869000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 0.0,
           "unit": "count"
         }
       ]
