@@ -138,6 +138,13 @@ class WebApp:
         # check wait hours. Starts far enough back that the first poll fetches
         # rather than reporting a confident zero from a stale tracking ref.
         self._last_fetch = float("-inf")
+        # What the code and config looked like when this process booted.
+        # Config models forbid unknown keys, so a campaign gaining a field
+        # this build predates fails validation wholesale — and the panel
+        # that would report it is the one running the old build. Four
+        # separate "the dashboard is broken" reports were this, so the
+        # process now watches itself for going out of date.
+        self._boot_fingerprint = self._source_fingerprint()
         # Buffer channels change rarely and every fetch costs one of the
         # 3,000 monthly requests, so they are pulled once per session rather
         # than on each page load.
@@ -1672,7 +1679,36 @@ class WebApp:
             "changed": changed,
             "unpushed_commits": unpushed,
             "behind_commits": behind,
+            # A pull, or an edit to src/, leaves this process running code that
+            # no longer matches the disk it reads from. It cannot detect that
+            # by validating anything — a stale build validates its own stale
+            # world perfectly well — so it compares against what it booted on.
+            "restart_needed": self._source_fingerprint() != self._boot_fingerprint,
         }
+
+    def _source_fingerprint(self) -> tuple[int, int]:
+        """Cheap signature of the code and config this process is running.
+
+        Count and newest mtime, not a content hash: the question is only
+        "has anything changed since boot", the answer is polled every few
+        seconds, and hashing every source file on each poll to answer a yes/no
+        would cost far more than it tells anyone.
+        """
+        newest = 0.0
+        count = 0
+        for path in (self.repo_root / "src").rglob("*.py"):
+            try:
+                newest = max(newest, path.stat().st_mtime)
+            except OSError:
+                continue
+            count += 1
+        for path in sorted(self.campaigns_dir.glob("*/config.yaml")):
+            try:
+                newest = max(newest, path.stat().st_mtime)
+            except OSError:
+                continue
+            count += 1
+        return count, int(newest)
 
     #: Seconds between remote checks. A fetch is a network round trip and the
     #: dashboard polls, so this is rate-limited rather than run per request.
@@ -4384,12 +4420,24 @@ async function loadPending(){
   const r = await (await fetch("/api/pending")).json();
   const bar = $("#sync-bar");
   const n = r.changed.length, c = r.unpushed_commits, b = r.behind_commits || 0;
-  if (!n && !c && !b){ bar.style.display = "none"; return; }
+  const stale = !!r.restart_needed;
+  if (!n && !c && !b && !stale){ bar.style.display = "none"; return; }
   bar.style.display = "block";
   /* Behind is reported first and on its own. The other two are about work
      leaving this machine; this one says every number on the page is out of
      date, which changes how you read them rather than what you should push. */
-  $("#sync-text").innerHTML = b
+  /* Reported above everything else, because it is the only state where the
+     rest of this panel cannot be trusted: a process running last week's code
+     reads today's config, fails to validate it, and reports whatever its own
+     stale world says. Four "the dashboard is broken" reports were this. */
+  $("#sync-text").innerHTML = stale
+    ? `<b>This dashboard is running older code than the files on disk.</b>
+       Something changed in <code>src/</code> or a campaign config since it
+       started — after a <code>git pull</code>, usually. Everything below is
+       whatever the old build makes of the new files, so restart it before
+       believing any of it &mdash; <code>pkill -f "src.cli web"</code>, then
+       start it again the way you did before.`
+    : b
     ? `<b>${b} commit${b>1?"s":""} behind GitHub.</b> The workflows commit their
        results to the repo, and every figure here is read from this checkout —
        so these numbers are as of your last pull, not as of now.
@@ -4399,7 +4447,9 @@ async function loadPending(){
     : `<b>${c} commit${c>1?"s":""}</b> not pushed yet.`;
   /* The publish button does not resolve a stale checkout, and offering it as
      though it might is how you end up pushing over fresher remote state. */
-  $("#publish-btn").style.display = (b && !n && !c) ? "none" : "";
+  /* Publishing from a stale process would commit whatever that build made
+     of files it cannot fully parse. */
+  $("#publish-btn").style.display = ((b || stale) && !n && !c) ? "none" : "";
 }
 
 $("#publish-btn").onclick = async (e) => {

@@ -9,6 +9,7 @@ from __future__ import annotations
 import io
 import json
 from datetime import datetime, timezone
+import os
 import time
 from pathlib import Path
 
@@ -1214,3 +1215,69 @@ class TestStaleCheckoutDetection:
         subprocess.run(["git", "init", "--quiet", "-b", "main"], cwd=solo,
                        check=True, capture_output=True)
         assert self._probe()._commits_behind(self._vcs(solo)) == 0
+
+
+class TestSelfStalenessDetection:
+    """A dashboard noticing that it is running yesterday's code.
+
+    This is the failure the rest of the panel cannot report. Config models
+    forbid unknown keys, so a campaign that gains a field the running build
+    predates fails validation wholesale — and the only thing available to
+    report that is the stale build itself, which validates its own stale world
+    perfectly happily. It shows every campaign as broken and no reason why.
+
+    `behind_commits` cannot cover it either: a pull fixes the checkout and
+    leaves the process exactly as wrong as before, now with nothing flagged.
+    """
+
+    def _app(self, tmp_path: Path):
+        from src.web import WebApp
+
+        (tmp_path / "src").mkdir()
+        (tmp_path / "src" / "a.py").write_text("x = 1")
+        campaigns = tmp_path / "campaigns" / "demo"
+        campaigns.mkdir(parents=True)
+        (campaigns / "config.yaml").write_text("slug: demo")
+
+        app = WebApp.__new__(WebApp)
+        app.repo_root = tmp_path
+        app.campaigns_dir = tmp_path / "campaigns"
+        app._boot_fingerprint = app._source_fingerprint()
+        return app
+
+    def test_an_untouched_tree_is_not_stale(self, tmp_path: Path) -> None:
+        app = self._app(tmp_path)
+        assert app._source_fingerprint() == app._boot_fingerprint
+
+    def test_a_changed_config_is_detected(self, tmp_path: Path) -> None:
+        """The pull case: content the running process already loaded."""
+        app = self._app(tmp_path)
+        cfg = tmp_path / "campaigns" / "demo" / "config.yaml"
+        os.utime(cfg, (time.time() + 10, time.time() + 10))
+        assert app._source_fingerprint() != app._boot_fingerprint
+
+    def test_edited_source_is_detected(self, tmp_path: Path) -> None:
+        app = self._app(tmp_path)
+        src = tmp_path / "src" / "a.py"
+        os.utime(src, (time.time() + 10, time.time() + 10))
+        assert app._source_fingerprint() != app._boot_fingerprint
+
+    def test_a_new_source_file_is_detected(self, tmp_path: Path) -> None:
+        """Counted as well as timestamped: a file added with an old mtime
+        would otherwise leave the newest unchanged and slip through."""
+        app = self._app(tmp_path)
+        (tmp_path / "src" / "b.py").write_text("y = 2")
+        os.utime(tmp_path / "src" / "b.py", (1, 1))
+        assert app._source_fingerprint() != app._boot_fingerprint
+
+    def test_a_deleted_campaign_config_is_detected(self, tmp_path: Path) -> None:
+        app = self._app(tmp_path)
+        (tmp_path / "campaigns" / "demo" / "config.yaml").unlink()
+        assert app._source_fingerprint() != app._boot_fingerprint
+
+    def test_unrelated_files_are_ignored(self, tmp_path: Path) -> None:
+        """Queue and metrics churn constantly; only code and config matter."""
+        app = self._app(tmp_path)
+        (tmp_path / "campaigns" / "demo" / "queue.json").write_text("{}")
+        (tmp_path / "notes.md").write_text("hello")
+        assert app._source_fingerprint() == app._boot_fingerprint
