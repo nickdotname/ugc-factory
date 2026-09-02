@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "f77d18e0-1073-486b-b471-1d83b8c0b948",
-      "scheduled_for": "2026-09-02T07:00:00-04:00",
+      "scheduled_for": "2026-09-02T12:20:00-04:00",
       "rendered_at": "2026-09-02T09:18:57.474878Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-02/f77d18e0-1073-486b-b471-1d83b8c0b948.mp4",
       "caption": "Directors and producers use this to cast short films, student films and indie features. Link in the channel description.\n\nTags: #shorts #filmmaking #director #castingcall",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9822,
         "music_tilt_db": 0.05
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
