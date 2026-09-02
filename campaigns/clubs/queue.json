@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "16ccd008-2661-4d47-a128-a5cfa11a61d8",
-      "scheduled_for": "2026-09-02T07:00:00-04:00",
+      "scheduled_for": "2026-09-03T07:00:00-04:00",
       "rendered_at": "2026-09-02T09:17:53.426995Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-02/16ccd008-2661-4d47-a128-a5cfa11a61d8.mp4",
       "caption": "if you're an actor, model, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, models, singers, filmmakers, creative networking, aspiring actors]",
@@ -28,7 +28,7 @@
         "music_tempo": 1.0284,
         "music_tilt_db": 1.09
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
