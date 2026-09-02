@@ -83,7 +83,14 @@ jobs:
           git config user.name  "ugc-factory"
           git config user.email "ugc-factory@users.noreply.github.com"
           git add campaigns/
-          git diff --cached --quiet && exit 0
-          git commit -m "withdraw ${{ inputs.discard }} for ${{ matrix.campaign }} [skip ci]"
-          git pull --rebase --autostash
-          git push
+          if git diff --cached --quiet; then
+            echo "nothing withdrawn"
+          else
+            git commit -m "withdraw ${{ inputs.discard }} for ${{ matrix.campaign }} [skip ci]"
+            # Same retry as every other committing workflow: pull-then-push
+            # loses any race that opens between the two.
+            for i in 1 2 3 4; do
+              git push && break
+              git pull --rebase || { git rebase --abort; exit 1; }
+            done
+          fi
