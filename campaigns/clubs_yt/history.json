@@ -5153,6 +5153,180 @@
         "music_tilt_db": 0.62
       },
       "buffer_post_id": "6a96d2737d0dcea47dd53b66"
+    },
+    {
+      "tuple_hash": "b9a9c003822c7666b4cb571fb729f257484602bcb872a8a40bb304c2622fd48a",
+      "timestamp": "2026-09-02T09:18:57.474878Z",
+      "item_id": "f77d18e0-1073-486b-b471-1d83b8c0b948",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_02.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Directors and producers use this to cast short films, student films and indie features. Link in the channel description.\n\nTags: #shorts #filmmaking #director #castingcall",
+      "title": "Where Filmmakers Find Actors",
+      "treatment": {
+        "zoom": 0.0092,
+        "anchor_x": 0.487,
+        "anchor_y": 0.703,
+        "rotate_deg": -0.084,
+        "brightness": -0.0086,
+        "saturation": 1.0737,
+        "hue_deg": 2.96,
+        "grain": 1.25,
+        "speed": 1.0239,
+        "mirror": 0.0,
+        "music_tempo": 0.9822,
+        "music_tilt_db": 0.05
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "73e6d08e9409d08b09fbc185285243506a9db437de3d87017bef772007b48b15",
+      "timestamp": "2026-09-02T09:18:57.474878Z",
+      "item_id": "95a7e4b3-ecfa-40bb-8f6f-6d94fc6d6119",
+      "hook": "hook_06.mov",
+      "bodies": [
+        "body_01.mp4",
+        "body_04.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Bands, podcasters and independent musicians use this to find vocalists, producers and writers. Link in the channel description.\n\nTags: #shorts #indieartist #musiccollab #musician",
+      "title": "Find a Band or Podcast Collab",
+      "treatment": {
+        "zoom": 0.0494,
+        "anchor_x": 0.307,
+        "anchor_y": 0.672,
+        "rotate_deg": 0.292,
+        "brightness": -0.0058,
+        "saturation": 1.038,
+        "hue_deg": 2.96,
+        "grain": 0.47,
+        "speed": 1.018,
+        "mirror": 0.0,
+        "music_tempo": 0.982,
+        "music_tilt_db": 0.09
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "b9c5fa977c41a27c9c8fed67b691588625e55f8a744330c249696b1b56c41e2e",
+      "timestamp": "2026-09-02T09:18:57.474878Z",
+      "item_id": "0c6e747c-8f82-4f0e-9fae-fee29d4472b4",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_02.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "How people with no credits and no industry contacts are getting onto real film sets. Link in the channel description.\n\nTags: #shorts #filmmaking #acting #indiefilm",
+      "title": "Break Into Film With No Credits",
+      "treatment": {
+        "zoom": 0.0075,
+        "anchor_x": 0.34,
+        "anchor_y": 0.67,
+        "rotate_deg": 0.382,
+        "brightness": -0.0005,
+        "saturation": 1.006,
+        "hue_deg": 3.12,
+        "grain": 1.36,
+        "speed": 0.9738,
+        "mirror": 0.0,
+        "music_tempo": 1.0272,
+        "music_tilt_db": 0.75
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "cd003dc80d649c854a428025020618d09d247e1b6d235ebf587d400caa11c1c6",
+      "timestamp": "2026-09-02T09:18:57.474878Z",
+      "item_id": "36079461-c23e-45df-9292-8dd5affa7b9b",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_04.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "A place to find open auditions, casting calls, modeling shoots and short film roles without an agent or industry connections. Link in the channel description.\n\nTags: #shorts #auditions #acting #castingcalls",
+      "title": "Where Actors & Models Find Work",
+      "treatment": {
+        "zoom": 0.0133,
+        "anchor_x": 0.683,
+        "anchor_y": 0.387,
+        "rotate_deg": -0.296,
+        "brightness": -0.0205,
+        "saturation": 1.0668,
+        "hue_deg": 1.18,
+        "grain": 1.27,
+        "speed": 0.9792,
+        "mirror": 0.0,
+        "music_tempo": 1.0086,
+        "music_tilt_db": 1.06
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "8bae2541706f0d0723e6c42465e719f16e6781b283cf651be5fe448758dd9e85",
+      "timestamp": "2026-09-02T09:18:57.474878Z",
+      "item_id": "5f879a5c-dae9-40da-ba3c-5b1ba7e13b87",
+      "hook": "hook_04.mov",
+      "bodies": [
+        "body_03.mp4",
+        "body_01.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Casting a short film, music video or student project? This is where performers are looking. Link in the channel description.\n\nTags: #shorts #castingcall #filmmaking #shortfilm",
+      "title": "Find Performers for Your Project",
+      "treatment": {
+        "zoom": 0.0241,
+        "anchor_x": 0.281,
+        "anchor_y": 0.401,
+        "rotate_deg": -0.171,
+        "brightness": -0.0121,
+        "saturation": 0.957,
+        "hue_deg": -1.02,
+        "grain": 2.61,
+        "speed": 1.0084,
+        "mirror": 0.0,
+        "music_tempo": 1.0284,
+        "music_tilt_db": -1.24
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "a1895289e36c0e71fd8b77e5f9af06078c3352e9f756b540ec1768ee29c62d6c",
+      "timestamp": "2026-09-02T09:18:57.474878Z",
+      "item_id": "b7218977-c7ac-4540-9bc0-7cf5e5452ecb",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_04.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "How to get cast in short films and student films with no credits, no agent and no connections. Link in the channel description.\n\nTags: #shorts #acting #actorslife #studentfilm",
+      "title": "Get Cast With No Experience",
+      "treatment": {
+        "zoom": 0.0455,
+        "anchor_x": 0.689,
+        "anchor_y": 0.466,
+        "rotate_deg": -0.406,
+        "brightness": 0.0312,
+        "saturation": 1.0066,
+        "hue_deg": -3.69,
+        "grain": 5.39,
+        "speed": 0.994,
+        "mirror": 0.0,
+        "music_tempo": 0.9916,
+        "music_tilt_db": -0.99
+      },
+      "buffer_post_id": null
     }
   ]
 }
