@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "c07dd3ea-ec49-4be6-b8fd-478d5cf3c2b4",
-      "scheduled_for": "2026-09-03T07:00:00-04:00",
+      "scheduled_for": "2026-09-03T11:40:00-04:00",
       "rendered_at": "2026-09-03T09:28:09.925942Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-09-03/c07dd3ea-ec49-4be6-b8fd-478d5cf3c2b4.mp4",
       "caption": "student films are always looking for people\n\nlink in bio #studentfilm #filmstudent #acting #filmschool",
@@ -28,7 +28,7 @@
         "music_tempo": 1.0185,
         "music_tilt_db": -0.32
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
