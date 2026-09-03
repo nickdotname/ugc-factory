@@ -40,6 +40,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -81,6 +93,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -126,6 +150,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.03,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.0,
+          "unit": "count"
         }
       ]
     },
@@ -167,6 +203,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -212,6 +260,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -253,6 +313,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -298,6 +370,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -341,6 +425,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.05,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.0,
+          "unit": "count"
         }
       ]
     },
@@ -382,6 +478,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -427,6 +535,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.03,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.0,
+          "unit": "count"
         }
       ]
     },
@@ -468,6 +588,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -513,6 +645,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -555,6 +699,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.08,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.5,
           "unit": "count"
         }
       ]
@@ -599,6 +755,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.12,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.5,
+          "unit": "count"
         }
       ]
     },
@@ -642,6 +810,18 @@
           "name": "Reach",
           "value": 3.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.3,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.5,
+          "unit": "count"
         }
       ]
     },
@@ -683,6 +863,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -728,6 +920,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -769,6 +973,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -814,6 +1030,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.0,
+          "unit": "count"
         }
       ]
     },
@@ -856,6 +1084,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.33,
           "unit": "count"
         }
       ]
@@ -900,6 +1140,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.5,
+          "unit": "count"
         }
       ]
     },
@@ -941,6 +1193,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -986,6 +1250,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -1029,6 +1305,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -1070,6 +1358,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -1115,6 +1415,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.27,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 8.0,
+          "unit": "count"
         }
       ]
     },
@@ -1158,6 +1470,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -1199,6 +1523,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -1244,6 +1580,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -1285,6 +1633,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -1330,6 +1690,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -1373,6 +1745,18 @@
           "name": "Reach",
           "value": 8.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.32,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.9,
+          "unit": "count"
         }
       ]
     },
@@ -1414,6 +1798,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -1459,6 +1855,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.22,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 13.0,
+          "unit": "count"
         }
       ]
     },
@@ -1500,6 +1908,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 1.0,
           "unit": "count"
         }
@@ -1545,6 +1965,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -1586,6 +2018,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -1631,6 +2075,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.0,
+          "unit": "count"
         }
       ]
     },
@@ -1673,6 +2129,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.12,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.33,
           "unit": "count"
         }
       ]
@@ -1717,6 +2185,18 @@
           "name": "Reach",
           "value": 2.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.07,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.33,
+          "unit": "count"
         }
       ]
     },
@@ -1758,6 +2238,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -1803,6 +2295,18 @@
           "name": "Reach",
           "value": 2.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.1,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.2,
+          "unit": "count"
         }
       ]
     },
@@ -1845,6 +2349,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.03,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.67,
           "unit": "count"
         }
       ]
@@ -1889,6 +2405,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.07,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.0,
+          "unit": "count"
         }
       ]
     },
@@ -1930,6 +2458,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -1975,6 +2515,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -2016,6 +2568,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -2061,6 +2625,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -2102,7 +2678,19 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 3.0,
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.08,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.25,
           "unit": "count"
         }
       ]
@@ -2147,6 +2735,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -2189,6 +2789,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.25,
           "unit": "count"
         }
       ]
@@ -2233,6 +2845,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -2275,6 +2899,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.33,
           "unit": "count"
         }
       ]
@@ -2319,6 +2955,18 @@
           "name": "Reach",
           "value": 49.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.05,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.37,
+          "unit": "count"
         }
       ]
     },
@@ -2361,6 +3009,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 32.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 1.47,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.51,
           "unit": "count"
         }
       ]
@@ -2405,6 +3065,18 @@
           "name": "Reach",
           "value": 179.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 8.55,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.59,
+          "unit": "count"
         }
       ]
     },
@@ -2447,6 +3119,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 87.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 5.3,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.49,
           "unit": "count"
         }
       ]
@@ -2491,6 +3175,18 @@
           "name": "Reach",
           "value": 65.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.17,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.68,
+          "unit": "count"
         }
       ]
     },
@@ -2533,6 +3229,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 96.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 4.65,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.74,
           "unit": "count"
         }
       ]
@@ -2577,6 +3285,18 @@
           "name": "Reach",
           "value": 3.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.08,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.63,
+          "unit": "count"
         }
       ]
     },
@@ -2619,6 +3339,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.08,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.0,
           "unit": "count"
         }
       ]
@@ -2663,6 +3395,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -2705,6 +3449,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.13,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.33,
           "unit": "count"
         }
       ]
@@ -2749,6 +3505,18 @@
           "name": "Reach",
           "value": 4.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.23,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.0,
+          "unit": "count"
         }
       ]
     },
@@ -2791,6 +3559,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.1,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.0,
           "unit": "count"
         }
       ]
@@ -2835,6 +3615,18 @@
           "name": "Reach",
           "value": 89.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.88,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.35,
+          "unit": "count"
         }
       ]
     },
@@ -2877,6 +3669,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 56.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.22,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.15,
           "unit": "count"
         }
       ]
@@ -2921,6 +3725,18 @@
           "name": "Reach",
           "value": 69.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.63,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.83,
+          "unit": "count"
         }
       ]
     },
@@ -2963,6 +3779,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 85.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 5.37,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.19,
           "unit": "count"
         }
       ]
@@ -3007,6 +3835,18 @@
           "name": "Reach",
           "value": 4.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.13,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.0,
+          "unit": "count"
         }
       ]
     },
@@ -3049,6 +3889,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 5.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.22,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.44,
           "unit": "count"
         }
       ]
@@ -3093,6 +3945,18 @@
           "name": "Reach",
           "value": 177.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 12.22,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.36,
+          "unit": "count"
         }
       ]
     },
@@ -3135,6 +3999,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 148.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 10.62,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.73,
           "unit": "count"
         }
       ]
@@ -3179,6 +4055,18 @@
           "name": "Reach",
           "value": 123.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 8.4,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.65,
+          "unit": "count"
         }
       ]
     },
@@ -3221,6 +4109,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 121.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 9.33,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.06,
           "unit": "count"
         }
       ]
@@ -3265,6 +4165,18 @@
           "name": "Reach",
           "value": 87.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 6.08,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.65,
+          "unit": "count"
         }
       ]
     },
@@ -3307,6 +4219,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 184.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 13.73,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.94,
           "unit": "count"
         }
       ]
@@ -3351,6 +4275,18 @@
           "name": "Reach",
           "value": 70.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 4.52,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.35,
+          "unit": "count"
         }
       ]
     },
@@ -3393,6 +4329,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 70.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 4.7,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.86,
           "unit": "count"
         }
       ]
@@ -3437,6 +4385,18 @@
           "name": "Reach",
           "value": 92.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 5.58,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.32,
+          "unit": "count"
         }
       ]
     },
@@ -3479,6 +4439,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 260.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 27.85,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.68,
           "unit": "count"
         }
       ]
@@ -3523,6 +4495,18 @@
           "name": "Reach",
           "value": 241.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 15.97,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.35,
+          "unit": "count"
         }
       ]
     },
@@ -3565,6 +4549,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 214.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 21.25,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.7,
           "unit": "count"
         }
       ]
@@ -3609,6 +4605,18 @@
           "name": "Reach",
           "value": 221.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 16.9,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.02,
+          "unit": "count"
         }
       ]
     },
@@ -3651,6 +4659,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 214.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 17.9,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.3,
           "unit": "count"
         }
       ]
@@ -3695,6 +4715,18 @@
           "name": "Reach",
           "value": 287.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 30.65,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.22,
+          "unit": "count"
         }
       ]
     },
@@ -3737,6 +4769,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 146.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 23.67,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 7.93,
           "unit": "count"
         }
       ]
@@ -3781,6 +4825,18 @@
           "name": "Reach",
           "value": 232.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 14.13,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.93,
+          "unit": "count"
         }
       ]
     },
@@ -3823,6 +4879,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 357.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 51.8,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 7.05,
           "unit": "count"
         }
       ]
@@ -3867,6 +4935,18 @@
           "name": "Reach",
           "value": 221.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 21.28,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.5,
+          "unit": "count"
         }
       ]
     },
@@ -3910,6 +4990,18 @@
           "name": "Reach",
           "value": 89.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 13.67,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 7.13,
+          "unit": "count"
         }
       ]
     },
@@ -3951,6 +5043,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -3996,6 +5100,18 @@
           "name": "Reach",
           "value": 202.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 20.52,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.54,
+          "unit": "count"
         }
       ]
     },
@@ -4038,6 +5154,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 194.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 15.93,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.21,
           "unit": "count"
         }
       ]
@@ -4082,6 +5210,18 @@
           "name": "Reach",
           "value": 291.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 23.97,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.72,
+          "unit": "count"
         }
       ]
     },
@@ -4124,6 +5264,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 233.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 22.7,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.24,
           "unit": "count"
         }
       ]
@@ -4168,6 +5320,18 @@
           "name": "Reach",
           "value": 218.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 25.93,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.37,
+          "unit": "count"
         }
       ]
     },
@@ -4210,6 +5374,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 45.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 5.15,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.75,
           "unit": "count"
         }
       ]
@@ -4254,6 +5430,18 @@
           "name": "Reach",
           "value": 119.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 9.52,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.44,
+          "unit": "count"
         }
       ]
     },
@@ -4296,6 +5484,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 177.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 13.92,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.35,
           "unit": "count"
         }
       ]
@@ -4340,6 +5540,18 @@
           "name": "Reach",
           "value": 665.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 53.35,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.86,
+          "unit": "count"
         }
       ]
     },
@@ -4382,6 +5594,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 621.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 48.15,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.66,
           "unit": "count"
         }
       ]
@@ -4426,6 +5650,18 @@
           "name": "Reach",
           "value": 708.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 55.7,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.82,
+          "unit": "count"
         }
       ]
     },
@@ -4467,6 +5703,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -4512,6 +5760,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.05,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.0,
+          "unit": "count"
         }
       ]
     },
@@ -4553,6 +5813,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -4598,6 +5870,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -4639,6 +5923,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -4684,6 +5980,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -4725,6 +6033,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -4770,6 +6090,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.23,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 7.0,
+          "unit": "count"
         }
       ]
     },
@@ -4813,6 +6145,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.05,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.0,
+          "unit": "count"
         }
       ]
     },
@@ -4854,6 +6198,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.15,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 3.0,
           "unit": "count"
         }
@@ -4899,6 +6255,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -4940,6 +6308,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -4985,6 +6365,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -5027,6 +6419,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.5,
           "unit": "count"
         }
       ]
@@ -5071,6 +6475,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -5114,6 +6530,18 @@
           "name": "Reach",
           "value": 2.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -5155,6 +6583,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -5200,6 +6640,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.0,
+          "unit": "count"
         }
       ]
     },
@@ -5242,6 +6694,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 96.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 6.62,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.72,
           "unit": "count"
         }
       ]
@@ -5286,6 +6750,18 @@
           "name": "Reach",
           "value": 444.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 29.07,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.45,
+          "unit": "count"
         }
       ]
     },
@@ -5328,6 +6804,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 64.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 4.85,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.99,
           "unit": "count"
         }
       ]
@@ -5372,6 +6860,18 @@
           "name": "Reach",
           "value": 312.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 22.98,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.0,
+          "unit": "count"
         }
       ]
     },
@@ -5414,6 +6914,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 121.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 5.95,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.57,
           "unit": "count"
         }
       ]
@@ -5458,6 +6970,18 @@
           "name": "Reach",
           "value": 157.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 14.2,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.63,
+          "unit": "count"
         }
       ]
     },
@@ -5500,6 +7024,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.05,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.79,
           "unit": "count"
         }
       ]
@@ -5544,6 +7080,18 @@
           "name": "Reach",
           "value": 46.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.43,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.69,
+          "unit": "count"
         }
       ]
     },
@@ -5586,6 +7134,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 127.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 9.33,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.61,
           "unit": "count"
         }
       ]
@@ -5630,6 +7190,18 @@
           "name": "Reach",
           "value": 3.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.2,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.1,
+          "unit": "count"
         }
       ]
     },
@@ -5672,6 +7244,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 76.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.73,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.88,
           "unit": "count"
         }
       ]
@@ -5716,6 +7300,18 @@
           "name": "Reach",
           "value": 51.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.23,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.13,
+          "unit": "count"
         }
       ]
     },
@@ -5758,6 +7354,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 50.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.53,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.31,
           "unit": "count"
         }
       ]
@@ -5802,6 +7410,18 @@
           "name": "Reach",
           "value": 118.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 8.58,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.55,
+          "unit": "count"
         }
       ]
     },
@@ -5844,6 +7464,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 82.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 4.72,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.02,
           "unit": "count"
         }
       ]
@@ -5888,6 +7520,18 @@
           "name": "Reach",
           "value": 2.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.05,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.51,
+          "unit": "count"
         }
       ]
     },
@@ -5930,6 +7574,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 113.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 8.83,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.93,
           "unit": "count"
         }
       ]
@@ -5974,6 +7630,18 @@
           "name": "Reach",
           "value": 4.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.48,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.25,
+          "unit": "count"
         }
       ]
     },
@@ -6016,6 +7684,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 5.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.15,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.77,
           "unit": "count"
         }
       ]
@@ -6060,6 +7740,18 @@
           "name": "Reach",
           "value": 253.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 17.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.51,
+          "unit": "count"
         }
       ]
     },
@@ -6103,6 +7795,18 @@
           "name": "Reach",
           "value": 182.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 11.52,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.34,
+          "unit": "count"
         }
       ]
     },
@@ -6114,7 +7818,7 @@
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 36.0,
+          "value": 37.0,
           "unit": "count"
         },
         {
@@ -6126,13 +7830,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 5.66,
+          "value": 5.75,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 671.0,
+          "value": 678.0,
           "unit": "count"
         },
         {
@@ -6145,6 +7849,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 557.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 46.77,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.15,
           "unit": "count"
         }
       ]
@@ -6189,6 +7905,18 @@
           "name": "Reach",
           "value": 846.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 77.4,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.6,
+          "unit": "count"
         }
       ]
     },
@@ -6231,6 +7959,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 73.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.75,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.98,
           "unit": "count"
         }
       ]
@@ -6275,6 +8015,18 @@
           "name": "Reach",
           "value": 137.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 7.6,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.07,
+          "unit": "count"
         }
       ]
     },
@@ -6317,6 +8069,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 105.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 6.38,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.36,
           "unit": "count"
         }
       ]
@@ -6361,6 +8125,18 @@
           "name": "Reach",
           "value": 116.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 8.97,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.02,
+          "unit": "count"
         }
       ]
     },
@@ -6403,6 +8179,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 133.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 8.32,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.35,
           "unit": "count"
         }
       ]
@@ -6447,6 +8235,18 @@
           "name": "Reach",
           "value": 124.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 9.08,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.96,
+          "unit": "count"
         }
       ]
     },
@@ -6489,6 +8289,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.27,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.49,
           "unit": "count"
         }
       ]
@@ -6533,6 +8345,18 @@
           "name": "Reach",
           "value": 275.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 19.8,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.76,
+          "unit": "count"
         }
       ]
     },
@@ -6575,6 +8399,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.32,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.81,
           "unit": "count"
         }
       ]
@@ -6619,6 +8455,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.3,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 9.07,
+          "unit": "count"
         }
       ]
     },
@@ -6661,6 +8509,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.18,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.36,
           "unit": "count"
         }
       ]
@@ -6705,6 +8565,18 @@
           "name": "Reach",
           "value": 54.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.33,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.35,
+          "unit": "count"
         }
       ]
     },
@@ -6747,6 +8619,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 140.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 10.6,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.0,
           "unit": "count"
         }
       ]
@@ -6791,6 +8675,18 @@
           "name": "Reach",
           "value": 201.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 19.95,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.18,
+          "unit": "count"
         }
       ]
     },
@@ -6833,6 +8729,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 747.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 68.93,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.79,
           "unit": "count"
         }
       ]
@@ -6877,6 +8785,18 @@
           "name": "Reach",
           "value": 344.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 30.5,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.58,
+          "unit": "count"
         }
       ]
     },
@@ -6900,13 +8820,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 3.57,
+          "value": 2.56,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 28.0,
+          "value": 39.0,
           "unit": "count"
         },
         {
@@ -6919,6 +8839,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.62,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.84,
           "unit": "count"
         }
       ]
@@ -6943,13 +8875,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 3.77,
+          "value": 3.65,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 212.0,
+          "value": 219.0,
           "unit": "count"
         },
         {
@@ -6962,6 +8894,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 14.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.62,
           "unit": "count"
         }
       ]
@@ -6986,13 +8930,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 5.73,
+          "value": 5.72,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 925.0,
+          "value": 926.0,
           "unit": "count"
         },
         {
@@ -7005,6 +8949,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 75.83,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.55,
           "unit": "count"
         }
       ]
@@ -7049,6 +9005,18 @@
           "name": "Reach",
           "value": 1.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 13.07,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.77,
+          "unit": "count"
         }
       ]
     },
@@ -7092,6 +9060,18 @@
           "name": "Reach",
           "value": 21.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.25,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.69,
+          "unit": "count"
         }
       ]
     },
@@ -7115,13 +9095,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 4.94,
+          "value": 4.93,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 749.0,
+          "value": 751.0,
           "unit": "count"
         },
         {
@@ -7134,6 +9114,18 @@
           "type": "reach",
           "name": "Reach",
           "value": 509.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 63.6,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.77,
           "unit": "count"
         }
       ]
@@ -7176,6 +9168,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -7221,6 +9225,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.08,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.56,
+          "unit": "count"
         }
       ]
     },
@@ -7264,6 +9280,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.22,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 13.59,
+          "unit": "count"
         }
       ]
     },
@@ -7305,6 +9333,18 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
@@ -7350,6 +9390,18 @@
           "name": "Reach",
           "value": 0.0,
           "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
         }
       ]
     },
@@ -7391,6 +9443,348 @@
         {
           "type": "reach",
           "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.23,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 7.47,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a9819dd8898ec5f2ac4f25d": {
+      "post_id": "6a9819dd8898ec5f2ac4f25d",
+      "service": "tiktok",
+      "sent_at": "2026-09-03T07:01:42.325000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a9819d9aec12fdafec52f2d": {
+      "post_id": "6a9819d9aec12fdafec52f2d",
+      "service": "tiktok",
+      "sent_at": "2026-09-03T03:01:34.115000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a9819d62ed7142e7a1a8155": {
+      "post_id": "6a9819d62ed7142e7a1a8155",
+      "service": "tiktok",
+      "sent_at": "2026-09-02T23:01:53.437000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a9819d22ed7142e7a1a8120": {
+      "post_id": "6a9819d22ed7142e7a1a8120",
+      "service": "tiktok",
+      "sent_at": "2026-09-02T19:02:28.627000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a9819cf2ed7142e7a1a80db": {
+      "post_id": "6a9819cf2ed7142e7a1a80db",
+      "service": "tiktok",
+      "sent_at": "2026-09-02T15:02:57.797000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6a9819cc8898ec5f2ac4f1be": {
+      "post_id": "6a9819cc8898ec5f2ac4f1be",
+      "service": "tiktok",
+      "sent_at": "2026-09-02T15:41:49.119000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
           "value": 0.0,
           "unit": "count"
         }
