@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "8c46a0df-d9b9-417b-ba9b-0494927597fe",
-      "scheduled_for": "2026-09-04T07:00:00-04:00",
+      "scheduled_for": "2026-09-04T12:20:00-04:00",
       "rendered_at": "2026-09-04T09:19:40.093452Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-04/8c46a0df-d9b9-417b-ba9b-0494927597fe.mp4",
       "caption": "Film students use this to find cast, crew and collaborators for student films and short film projects. Link in the channel description.\n\nTags: #shorts #filmschool #studentfilm #filmmaking",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9992,
         "music_tilt_db": 0.85
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
