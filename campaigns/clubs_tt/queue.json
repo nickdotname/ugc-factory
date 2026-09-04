@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "f7cc85d5-3328-4b73-95c1-a7cf8967fcb4",
-      "scheduled_for": "2026-09-04T07:00:00-04:00",
+      "scheduled_for": "2026-09-04T11:40:00-04:00",
       "rendered_at": "2026-09-04T09:19:40.090781Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-09-04/f7cc85d5-3328-4b73-95c1-a7cf8967fcb4.mp4",
       "caption": "directors, producers and editors are all on here\n\nlink in bio #filmmaking #director #producer #filmtok",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9735,
         "music_tilt_db": -0.94
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
