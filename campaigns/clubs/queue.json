@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "4313c81e-070a-4dc6-a0d5-65bb140c2327",
-      "scheduled_for": "2026-09-04T07:00:00-04:00",
+      "scheduled_for": "2026-09-05T07:00:00-04:00",
       "rendered_at": "2026-09-04T09:19:54.769697Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-04/4313c81e-070a-4dc6-a0d5-65bb140c2327.mp4",
       "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, models, writers, artists, design, creative projects]",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9728,
         "music_tilt_db": -0.48
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
