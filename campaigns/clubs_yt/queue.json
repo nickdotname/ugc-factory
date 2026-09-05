@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "f790de93-9bd8-42e7-a2b0-8561e9456b35",
-      "scheduled_for": "2026-09-05T07:00:00-04:00",
+      "scheduled_for": "2026-09-05T08:20:00-04:00",
       "rendered_at": "2026-09-05T08:49:15.337740Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-05/f790de93-9bd8-42e7-a2b0-8561e9456b35.mp4",
       "caption": "A free way for filmmakers to find cast, crew and collaborators for indie and student projects. Link in the channel description.\n\nTags: #shorts #filmmaking #indiefilm #studentfilm",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9938,
         "music_tilt_db": 0.48
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
