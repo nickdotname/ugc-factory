@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "0e5043cc-cadc-4f05-beab-80d1a7d12a73",
-      "scheduled_for": "2026-09-06T07:00:00-04:00",
+      "scheduled_for": "2026-09-06T08:20:00-04:00",
       "rendered_at": "2026-09-06T09:09:51.117981Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-06/0e5043cc-cadc-4f05-beab-80d1a7d12a73.mp4",
       "caption": "How actors, models, singers and filmmakers in New York, Los Angeles, Dallas and San Diego find collaborators. Link in the channel description.\n\nTags: #shorts #acting #creatives #filmmaking",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9796,
         "music_tilt_db": 0.21
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
