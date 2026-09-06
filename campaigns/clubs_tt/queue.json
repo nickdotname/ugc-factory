@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "31ac889c-f22c-45e5-9e3f-ede48f46bf3a",
-      "scheduled_for": "2026-09-06T07:00:00-04:00",
+      "scheduled_for": "2026-09-06T11:40:00-04:00",
       "rendered_at": "2026-09-06T09:09:32.878640Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-09-06/31ac889c-f22c-45e5-9e3f-ede48f46bf3a.mp4",
       "caption": "bands and podcasters — your next collaborator is on here\n\nit's in my bio #band #podcast #musiccollab #indieartist",
@@ -28,7 +28,7 @@
         "music_tempo": 1.0171,
         "music_tilt_db": -0.48
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
