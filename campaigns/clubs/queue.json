@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "2a451de6-f498-4ca4-8d31-1848ce60f184",
-      "scheduled_for": "2026-09-06T07:00:00-04:00",
+      "scheduled_for": "2026-09-07T07:00:00-04:00",
       "rendered_at": "2026-09-06T09:09:32.826959Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-06/2a451de6-f498-4ca4-8d31-1848ce60f184.mp4",
       "caption": "this site made \"getting involved creatively\" actually possible\n\ncomment \"create\" and it's yours\n\n[get involved, creative projects, creative community, creative collaboration]",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9971,
         "music_tilt_db": 0.78
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
