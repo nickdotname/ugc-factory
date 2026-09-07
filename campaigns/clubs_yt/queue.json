@@ -35,7 +35,7 @@
     },
     {
       "id": "4c82a143-ac11-4a9e-aa36-85ff38fb60b2",
-      "scheduled_for": "2026-09-07T11:00:00-04:00",
+      "scheduled_for": "2026-09-07T16:20:00-04:00",
       "rendered_at": "2026-09-07T09:57:20.266771Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-07/4c82a143-ac11-4a9e-aa36-85ff38fb60b2.mp4",
       "caption": "How to find real auditions and casting calls without representation. Link in the channel description.\n\nTags: #shorts #auditions #acting #castingcalls",
@@ -60,14 +60,14 @@
         "music_tempo": 1.0222,
         "music_tilt_db": 1.38
       },
-      "status": "failed",
+      "status": "claimed",
       "attempts": 1,
       "buffer_post_id": null,
       "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL."
     },
     {
       "id": "26624288-9924-468d-86d1-2e8551f87f92",
-      "scheduled_for": "2026-09-07T15:00:00-04:00",
+      "scheduled_for": "2026-09-07T20:20:00-04:00",
       "rendered_at": "2026-09-07T09:57:20.266771Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-07/26624288-9924-468d-86d1-2e8551f87f92.mp4",
       "caption": "Where actors, singers and filmmakers find open casting calls, student films and music collaborations in one place. Link in the channel description.\n\nTags: #shorts #acting #castingcall #filmmaking",
@@ -92,7 +92,7 @@
         "music_tempo": 1.0218,
         "music_tilt_db": 1.35
       },
-      "status": "failed",
+      "status": "pending",
       "attempts": 1,
       "buffer_post_id": null,
       "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL."
@@ -124,7 +124,7 @@
         "music_tempo": 0.9832,
         "music_tilt_db": 0.02
       },
-      "status": "failed",
+      "status": "pending",
       "attempts": 1,
       "buffer_post_id": null,
       "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL."
