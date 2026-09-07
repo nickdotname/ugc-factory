@@ -92,10 +92,10 @@
         "music_tempo": 1.0218,
         "music_tilt_db": 1.35
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 1,
-      "buffer_post_id": null,
-      "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL."
+      "buffer_post_id": "6a9f1538ef15a740c072d200",
+      "last_error": null
     },
     {
       "id": "99bad30b-a0a7-4bfd-ab9e-e96734eca793",
