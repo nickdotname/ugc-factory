@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "93c7e371-4a47-43e8-82f4-71fd044ccf79",
-      "scheduled_for": "2026-09-07T07:00:00-04:00",
+      "scheduled_for": "2026-09-07T12:20:00-04:00",
       "rendered_at": "2026-09-07T09:57:20.266771Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-07/93c7e371-4a47-43e8-82f4-71fd044ccf79.mp4",
       "caption": "Actors, singers, dancers, writers and filmmakers finding each other and building work together. Link in the channel description.\n\nTags: #shorts #creatives #performingarts #artist",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9961,
         "music_tilt_db": -0.94
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
