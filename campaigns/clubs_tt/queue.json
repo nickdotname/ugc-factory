@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "43ec518c-43c6-446e-8c34-b558e3838459",
-      "scheduled_for": "2026-09-07T07:00:00-04:00",
+      "scheduled_for": "2026-09-07T11:40:00-04:00",
       "rendered_at": "2026-09-07T09:57:21.184348Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-09-07/43ec518c-43c6-446e-8c34-b558e3838459.mp4",
       "caption": "where dancers actually find auditions\n\nit's in my bio #dance #dancer #auditions #performingarts",
@@ -28,7 +28,7 @@
         "music_tempo": 1.0265,
         "music_tilt_db": -1.5
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
