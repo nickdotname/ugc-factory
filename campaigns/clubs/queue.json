@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "6df45fd0-8b37-41a9-93dc-79a25559948f",
-      "scheduled_for": "2026-09-08T07:00:00-04:00",
+      "scheduled_for": "2026-09-09T07:00:00-04:00",
       "rendered_at": "2026-09-08T09:22:17.961910Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-08/6df45fd0-8b37-41a9-93dc-79a25559948f.mp4",
       "caption": "actors + singers + creators — this is your sign to get involved\n\ncomment \"create\" and I'll send it your way\n\n[actors, singers, artists, get involved, creative community, emerging artists]",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9916,
         "music_tilt_db": 0.83
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
