@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "10bd0c35-49e4-4ac8-adb1-db802dc47695",
-      "scheduled_for": "2026-09-09T07:00:00-04:00",
+      "scheduled_for": "2026-09-09T12:20:00-04:00",
       "rendered_at": "2026-09-09T09:24:35.183885Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-09/10bd0c35-49e4-4ac8-adb1-db802dc47695.mp4",
       "caption": "How people with no credits and no industry contacts are getting onto real film sets. Link in the channel description.\n\nTags: #shorts #filmmaking #acting #indiefilm",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9771,
         "music_tilt_db": -1.05
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
