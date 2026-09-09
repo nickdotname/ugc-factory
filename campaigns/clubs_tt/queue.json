@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "4b202b5d-ff38-4e56-b140-f3603db28fc2",
-      "scheduled_for": "2026-09-09T07:00:00-04:00",
+      "scheduled_for": "2026-09-09T11:40:00-04:00",
       "rendered_at": "2026-09-09T09:24:19.364654Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-09-09/4b202b5d-ff38-4e56-b140-f3603db28fc2.mp4",
       "caption": "screenwriters looking for directors, directors looking for scripts\n\nlink in bio #screenwriter #filmmaking #indiefilm #filmtok",
@@ -28,7 +28,7 @@
         "music_tempo": 1.0058,
         "music_tilt_db": 0.57
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
