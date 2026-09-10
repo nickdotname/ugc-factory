@@ -7170,13 +7170,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 22.22,
+          "value": 20.0,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 9.0,
+          "value": 10.0,
           "unit": "count"
         },
         {
@@ -7689,13 +7689,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 0.08,
+          "value": 0.12,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 0.42,
+          "value": 0.54,
           "unit": "count"
         }
       ]
@@ -7744,7 +7744,7 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 16.7,
+          "value": 16.78,
           "unit": "count"
         },
         {
@@ -7830,13 +7830,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 5.44,
+          "value": 5.41,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 698.0,
+          "value": 702.0,
           "unit": "count"
         },
         {
@@ -7854,7 +7854,7 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 47.55,
+          "value": 47.62,
           "unit": "count"
         },
         {
@@ -7891,7 +7891,7 @@
         {
           "type": "views",
           "name": "Video Views",
-          "value": 1035.0,
+          "value": 1036.0,
           "unit": "count"
         },
         {
@@ -7903,13 +7903,13 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 857.0,
+          "value": 859.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 78.6,
+          "value": 78.95,
           "unit": "count"
         },
         {
@@ -8716,7 +8716,7 @@
         {
           "type": "views",
           "name": "Video Views",
-          "value": 797.0,
+          "value": 798.0,
           "unit": "count"
         },
         {
@@ -8734,13 +8734,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 62.58,
+          "value": 62.95,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.3,
+          "value": 4.31,
           "unit": "count"
         }
       ]
@@ -8875,13 +8875,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 3.66,
+          "value": 3.64,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 246.0,
+          "value": 247.0,
           "unit": "count"
         },
         {
@@ -8899,13 +8899,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 16.17,
+          "value": 14.93,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.72,
+          "value": 3.42,
           "unit": "count"
         }
       ]
@@ -8954,13 +8954,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 76.57,
+          "value": 70.6,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.57,
+          "value": 4.21,
           "unit": "count"
         }
       ]
@@ -9009,13 +9009,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 13.22,
+          "value": 12.47,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.76,
+          "value": 3.55,
           "unit": "count"
         }
       ]
@@ -9064,13 +9064,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 3.25,
+          "value": 2.95,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.69,
+          "value": 3.34,
           "unit": "count"
         }
       ]
@@ -9119,13 +9119,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 63.7,
+          "value": 59.53,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.76,
+          "value": 4.45,
           "unit": "count"
         }
       ]
@@ -9975,13 +9975,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 2.7,
+          "value": 2.38,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 37.0,
+          "value": 42.0,
           "unit": "count"
         },
         {
@@ -9993,19 +9993,19 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 12.0,
+          "value": 23.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 5.23,
+          "value": 6.1,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 7.86,
+          "value": 7.81,
           "unit": "count"
         }
       ]
@@ -10085,13 +10085,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 2.1,
+          "value": 2.08,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 143.0,
+          "value": 144.0,
           "unit": "count"
         },
         {
@@ -10109,13 +10109,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 10.12,
+          "value": 10.13,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.25,
+          "value": 4.23,
           "unit": "count"
         }
       ]
@@ -10360,13 +10360,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 2.48,
+          "value": 2.46,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 121.0,
+          "value": 122.0,
           "unit": "count"
         },
         {
@@ -10384,13 +10384,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 13.05,
+          "value": 13.08,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 6.07,
+          "value": 6.04,
           "unit": "count"
         }
       ]
@@ -10818,7 +10818,7 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 86.0,
+          "value": 87.0,
           "unit": "count"
         },
         {
@@ -11093,7 +11093,7 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 75.0,
+          "value": 76.0,
           "unit": "count"
         },
         {
@@ -11258,7 +11258,7 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 0.0,
+          "value": 1.0,
           "unit": "count"
         },
         {
@@ -11313,7 +11313,7 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 82.0,
+          "value": 101.0,
           "unit": "count"
         },
         {
@@ -11356,7 +11356,7 @@
         {
           "type": "views",
           "name": "Video Views",
-          "value": 2.0,
+          "value": 3.0,
           "unit": "count"
         },
         {
@@ -11368,19 +11368,19 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 1.0,
+          "value": 2.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 0.03,
+          "value": 0.07,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 1.29,
+          "value": 1.63,
           "unit": "count"
         }
       ]
@@ -11521,7 +11521,7 @@
         {
           "type": "views",
           "name": "Video Views",
-          "value": 93.0,
+          "value": 110.0,
           "unit": "count"
         },
         {
@@ -11539,13 +11539,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 6.43,
+          "value": 7.13,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.11,
+          "value": 3.86,
           "unit": "count"
         }
       ]
@@ -11558,7 +11558,7 @@
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 0.0,
+          "value": 1.0,
           "unit": "count"
         },
         {
@@ -11570,13 +11570,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 0.0,
+          "value": 0.99,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Video Views",
-          "value": 70.0,
+          "value": 101.0,
           "unit": "count"
         },
         {
@@ -11588,19 +11588,19 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 0.0,
+          "value": 13.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 2.9,
+          "value": 4.33,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 2.49,
+          "value": 2.58,
           "unit": "count"
         }
       ]
@@ -11766,6 +11766,336 @@
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
           "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa156ff4631faf4a457a838": {
+      "post_id": "6aa156ff4631faf4a457a838",
+      "service": "tiktok",
+      "sent_at": "2026-09-10T07:02:56.231000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 16.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 1.67,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 6.26,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa156fc4cb222af4f43c13c": {
+      "post_id": "6aa156fc4cb222af4f43c13c",
+      "service": "tiktok",
+      "sent_at": "2026-09-10T03:01:37.605000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa156f8390198f28f5e3991": {
+      "post_id": "6aa156f8390198f28f5e3991",
+      "service": "tiktok",
+      "sent_at": "2026-09-09T23:04:28.188000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 1.04,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 96.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 4.93,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.09,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa156f54cb222af4f43c0cd": {
+      "post_id": "6aa156f54cb222af4f43c0cd",
+      "service": "tiktok",
+      "sent_at": "2026-09-09T19:03:52.905000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 110.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 7.23,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.85,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa156f2420834e1f960b97b": {
+      "post_id": "6aa156f2420834e1f960b97b",
+      "service": "tiktok",
+      "sent_at": "2026-09-09T15:30:42.037000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 54.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.27,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.48,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa156ef0844d2b6d49ee3b9": {
+      "post_id": "6aa156ef0844d2b6d49ee3b9",
+      "service": "tiktok",
+      "sent_at": "2026-09-09T15:46:48.404000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 2.63,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 114.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 6.68,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.41,
           "unit": "count"
         }
       ]
