@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "9c6baf9e-992e-4f98-a81a-5200433b3785",
-      "scheduled_for": "2026-09-10T07:00:00-04:00",
+      "scheduled_for": "2026-09-10T11:40:00-04:00",
       "rendered_at": "2026-09-10T09:23:43.724831Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-09-10/9c6baf9e-992e-4f98-a81a-5200433b3785.mp4",
       "caption": "open casting calls, modeling shoots and music collabs in one place\n\nlink in bio #castingcall #modeling #shortfilm #musiccollab",
@@ -28,7 +28,7 @@
         "music_tempo": 1.0015,
         "music_tilt_db": -0.72
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
