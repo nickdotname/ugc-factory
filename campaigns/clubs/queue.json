@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "345c85f2-5989-4cf6-9e3e-055827eb426d",
-      "scheduled_for": "2026-09-10T07:00:00-04:00",
+      "scheduled_for": "2026-09-11T07:00:00-04:00",
       "rendered_at": "2026-09-10T09:23:46.615252Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-10/345c85f2-5989-4cf6-9e3e-055827eb426d.mp4",
       "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, nyc, los angeles, dallas, san diego, creative community]",
@@ -28,14 +28,14 @@
         "music_tempo": 1.0025,
         "music_tilt_db": -0.48
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
       "id": "3bf1d543-55ec-4796-8515-d4ee0656c907",
-      "scheduled_for": "2026-09-10T09:00:00-04:00",
+      "scheduled_for": "2026-09-11T09:00:00-04:00",
       "rendered_at": "2026-09-10T09:23:46.615252Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-10/3bf1d543-55ec-4796-8515-d4ee0656c907.mp4",
       "caption": "how I found casting calls, student films, and music collabs without knowing anyone\n\ncomment \"create\" and I'll send it your way\n\n[casting calls, student films, music collabs, creative networking, film students]",
