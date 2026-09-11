@@ -414,6 +414,38 @@ creatives:
     weight: 0
 """))
 
+    def test_two_creatives_sharing_a_tag_is_a_hard_error(self, tmp_path: Path) -> None:
+        """The silent-reuse trap: a second creative with no assets_release of
+        its own quietly falls back to the campaign's tag — the same one the
+        first creative already uses — and would share every clip with it."""
+        with pytest.raises(ConfigError, match="same Release tag"):
+            load_config(write(tmp_path, MINIMAL + """
+creatives:
+  - name: default
+  - name: second
+"""))
+
+    def test_two_creatives_with_the_same_explicit_tag_is_also_an_error(
+        self, tmp_path: Path
+    ) -> None:
+        with pytest.raises(ConfigError, match="same Release tag"):
+            load_config(write(tmp_path, MINIMAL + """
+creatives:
+  - name: a
+    assets_release: assets-shared
+  - name: b
+    assets_release: assets-shared
+"""))
+
+    def test_distinct_tags_are_fine(self, tmp_path: Path) -> None:
+        cfg = load_config(write(tmp_path, MINIMAL + """
+creatives:
+  - name: default
+  - name: second
+    assets_release: assets-demo-second
+"""))
+        assert len(cfg.creatives) == 2
+
     def test_licenses_path_is_per_creative_under_the_campaign_dir(
         self, tmp_path: Path
     ) -> None:

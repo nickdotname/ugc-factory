@@ -707,6 +707,34 @@ class CampaignConfig(StrictModel):
             raise ValueError(f"creatives has duplicate names: {names}")
         return v
 
+    @model_validator(mode="after")
+    def _creatives_do_not_share_a_tag(self) -> "CampaignConfig":
+        """Two creatives resolving to the same Release tag would silently
+        share every clip — the exact trap a creative exists to prevent
+        (HANDOFF phase 1: "clips never mix across creatives"). The easiest
+        way into it is forgetting to set ``assets_release`` on a second
+        creative, which then quietly falls back to the campaign's own tag —
+        the same one the first creative already uses. Caught here as a hard
+        failure rather than a runway/dedupe number that just looks a little
+        off.
+        """
+        by_tag: dict[str, list[str]] = {}
+        for creative in self.creatives:
+            by_tag.setdefault(self.creative_assets_tag(creative), []).append(
+                creative.name
+            )
+        collisions = {tag: names for tag, names in by_tag.items() if len(names) > 1}
+        if collisions:
+            detail = "; ".join(
+                f"{tag!r}: {', '.join(names)}" for tag, names in collisions.items()
+            )
+            raise ValueError(
+                f"creatives must each have their own asset pool, but these "
+                f"resolve to the same Release tag — {detail}. Set a distinct "
+                f"assets_release on every creative but one."
+            )
+        return self
+
     @field_validator("slug")
     @classmethod
     def _slug_is_path_safe(cls, v: str) -> str:
