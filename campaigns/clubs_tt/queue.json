@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "94603b0e-07f8-40ab-82ea-123daf628275",
-      "scheduled_for": "2026-09-11T07:00:00-04:00",
+      "scheduled_for": "2026-09-11T11:40:00-04:00",
       "rendered_at": "2026-09-11T09:21:54.134142Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_tt-2026-09-11/94603b0e-07f8-40ab-82ea-123daf628275.mp4",
       "caption": "i wish i had this before film school\n\nlink in bio #filmschool #filmstudent #filmmaking #studentfilm",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9966,
         "music_tilt_db": -0.04
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
