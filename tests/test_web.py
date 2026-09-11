@@ -840,7 +840,7 @@ class TestSampleRender:
         """Put real clips where the sample renderer looks for them."""
         import shutil
 
-        assets = app.repo_root / "work" / app.config.slug / "assets"
+        assets = app.repo_root / "work" / app.config.slug / "assets" / app.creative.name
         assets.mkdir(parents=True, exist_ok=True)
         for i in range(count):
             shutil.copy2(clips["portrait"], assets / f"hook_{i + 1:02d}.mp4")

@@ -231,6 +231,82 @@ def _apply(text: str, setting: Setting, value: Any) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _section_bounds(lines: list[str], name: str) -> tuple[int | None, int]:
+    """Where a top-level section's lines run, as ``(start, end)``.
+
+    ``start`` is the header line, or ``None`` if the file has no such section.
+    ``end`` is the first line back at column zero that is not blank or a
+    comment — the same rule ``_apply`` uses for scalar settings, reused here
+    for the list-shaped ``creatives:`` section.
+    """
+    start = None
+    for index, line in enumerate(lines):
+        match = _SECTION.match(line)
+        if match and match.group(1) == name:
+            start = index
+            break
+    if start is None:
+        return None, len(lines)
+
+    end = len(lines)
+    for index in range(start + 1, len(lines)):
+        line = lines[index]
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        if not line[:1].isspace():
+            end = index
+            break
+    return start, end
+
+
+def append_creative(
+    config_path: Path, name: str, weight: float, assets_release: str
+) -> None:
+    """Add one creative to config.yaml's ``creatives:`` list, or leave it as is.
+
+    Same discipline as ``write_setting``: a surgical text edit, proven by
+    re-parsing through the real loader, with the original restored on any
+    failure. ``creatives:`` is a list of mappings rather than the single
+    scalar ``_apply`` edits, so it gets its own function instead of being
+    forced through that one.
+    """
+    original = config_path.read_text(encoding="utf-8")
+    lines = original.splitlines()
+
+    block = [f"  - name: {name}"]
+    if weight != 1.0:
+        block.append(f"    weight: {weight:g}")
+    block.append(f"    assets_release: {assets_release}")
+
+    start, end = _section_bounds(lines, "creatives")
+    if start is None:
+        # No creatives: block yet — the campaign has been running on the
+        # schema's implicit single default creative. That creative has to be
+        # named explicitly here too, or the file ends up declaring only the
+        # new one while pydantic still supplies a second, unwritten
+        # "default" — functionally fine (it still resolves to this
+        # campaign's own tag) but the file would then be lying about how
+        # many creatives it actually declares.
+        section = ["", "creatives:", "  - name: default", *block]
+        updated = "\n".join(lines + section) + "\n"
+    else:
+        lines[end:end] = block
+        updated = "\n".join(lines) + "\n"
+
+    config_path.write_text(updated, encoding="utf-8")
+
+    from src.config import load_config
+
+    try:
+        load_config(config_path)
+    except Exception as exc:
+        config_path.write_text(original, encoding="utf-8")
+        raise ConfigError(
+            f"creative {name!r} was not added — the edit produced a config "
+            f"that will not load: {exc}"
+        ) from exc
+
+
 def write_setting(config_path: Path, path: str, raw: Any) -> Any:
     """Change one setting, or leave the file exactly as it was.
 

@@ -39,7 +39,7 @@ from urllib.parse import parse_qs, urlparse
 from src.assets import GitHubReleasesStore, LocalLibrary, MediaStore
 from src.campaigns import create_campaign, list_campaigns, slug_error
 from src.clips import ClipRoster, kind_of, load_roster, roster_path, save_roster
-from src.config import CampaignConfig, load_campaign
+from src.config import CampaignConfig, CreativeConfig, load_campaign
 from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import UgcError
 from src.keys import (
@@ -122,6 +122,10 @@ class WebApp:
         store_factory: Callable[[], MediaStore] | None = None,
     ) -> None:
         self.config = config
+        # Which of the campaign's creatives the Assets panel is pointed at.
+        # Defaults to the first — for a campaign that has never heard of
+        # creatives, that is the only one, and it behaves exactly as before.
+        self.creative: CreativeConfig = config.creatives[0]
         self.repo_root = repo_root
         self.inbox = inbox
         self.bank_path = bank_path
@@ -171,14 +175,26 @@ class WebApp:
             out[dirname] = files
         return out
 
+    @property
+    def creative_tag(self) -> str:
+        """The Release tag the selected creative's pool actually lives in."""
+        return self.config.creative_assets_tag(self.creative)
+
     def _sharing_campaigns(self) -> list[str]:
-        """Every campaign fed by this library, the selected one included.
+        """Every campaign fed by this same pool, the selected one included.
 
         Campaigns posting the same content to different networks point at one
         assets Release (``assets_release`` in their config), so a clip dropped
         in once is live in all of them. The dashboard has to say so — otherwise
         the obvious reading of a per-campaign page is that you upload three
         times.
+
+        Compared against the *selected creative's* tag, not the campaign's own
+        — a campaign with more than one creative only shares its first
+        creative's pool with its sibling campaigns by construction (the tag-
+        collision check in ``CampaignConfig`` forbids two creatives in one
+        campaign from sharing a tag, but says nothing about a second creative
+        sharing a tag with some *other* campaign's own pool).
         """
         try:
             summaries = list_campaigns(self.campaigns_dir)
@@ -186,16 +202,110 @@ class WebApp:
             return [self.config.slug]
         shared = [
             c.slug for c in summaries
-            if c.valid and c.assets_tag == self.config.assets_tag
+            if c.valid and c.assets_tag == self.creative_tag
         ]
         return shared or [self.config.slug]
 
     def library_scope(self) -> dict[str, Any]:
         return {
-            "tag": self.config.assets_tag,
-            "inbox": self.config.library_key,
+            "tag": self.creative_tag,
+            "inbox": self.config.creative_library_key(self.creative),
             "campaigns": self._sharing_campaigns(),
         }
+
+    def creatives_info(self) -> list[dict[str, Any]]:
+        """Every creative this campaign declares, and which is selected."""
+        return [
+            {
+                "name": c.name,
+                "weight": c.weight,
+                "tag": self.config.creative_assets_tag(c),
+                "selected": c.name == self.creative.name,
+            }
+            for c in self.config.creatives
+        ]
+
+    def select_creative(self, name: str) -> dict[str, Any]:
+        """Point the Assets panel at a different creative's pool.
+
+        Rebinds ``inbox`` the same way ``select`` rebinds it for a campaign
+        switch — everything downstream (upload, the drop zones, the library
+        health numbers) reads through ``self.inbox``/``self.creative_tag`` and
+        so follows without needing to know creatives exist.
+        """
+        creative = next(
+            (c for c in self.config.creatives if c.name == name), None
+        )
+        if creative is None:
+            known = ", ".join(c.name for c in self.config.creatives)
+            return {
+                "ok": False,
+                "error": f"no creative named {name!r} — known: {known}",
+            }
+        self.creative = creative
+        self.inbox = (
+            self.repo_root / "inbox" / self.config.creative_library_key(creative)
+        )
+        self._music_beds = None
+        self._remote_clips = None
+        ensure_inbox(self.inbox)
+        self.log.info("creative_selected", campaign=self.config.slug, creative=name)
+        return {"ok": True, "creative": name}
+
+    def create_creative(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Add a new, self-contained hook/body/music pool to this campaign.
+
+        Its own Release tag is generated rather than asked for — one clean,
+        unambiguous choice beats a text field that can collide with an
+        existing tag and hit the hard error meant to catch a *mistake*, not
+        a routine "type the tag" step.
+        """
+        name = str(payload.get("name", "")).strip().lower()
+        if not name:
+            return {"ok": False, "error": "name is required"}
+        if any(c.name == name for c in self.config.creatives):
+            return {"ok": False, "error": f"creative {name!r} already exists"}
+
+        try:
+            weight = float(payload.get("weight") or 1.0)
+        except (TypeError, ValueError):
+            return {"ok": False, "error": "weight must be a number"}
+        if weight <= 0:
+            return {"ok": False, "error": "weight must be greater than 0"}
+
+        assets_release = f"assets-{self.config.slug}-{name}"
+
+        from src.settings import append_creative
+
+        try:
+            append_creative(self.config_file, name, weight, assets_release)
+        except UgcError as exc:
+            return {"ok": False, "error": str(exc)}
+
+        # A stub so `check_music_licenses` finds a real, empty file rather
+        # than reporting "missing" for a creative that has no music yet —
+        # the committed file is the only copy now (no Release-side LICENSES.md
+        # to duplicate into).
+        licenses_dir = (
+            self.campaigns_dir / self.config.slug / "creatives" / name
+        )
+        licenses_dir.mkdir(parents=True, exist_ok=True)
+        licenses_path = licenses_dir / "LICENSES.md"
+        if not licenses_path.is_file():
+            licenses_path.write_text(
+                f"# Music licences — {name}\n\n"
+                f"One line per track: filename, source, licence.\n",
+                encoding="utf-8",
+            )
+
+        self.config = load_campaign(self.campaigns_dir, self.config.slug)
+        self.log.info(
+            "creative_created", campaign=self.config.slug, name=name,
+            weight=weight, assets_release=assets_release,
+        )
+        result = self.select_creative(name)
+        result["assets_release"] = assets_release
+        return result
 
     # -------------------------------------------------------------- the roster
 
@@ -241,7 +351,7 @@ class WebApp:
             if store is not None:
                 try:
                     self._remote_clips = store.list_assets(
-                        self.config.assets_tag
+                        self.creative_tag
                     )
                 except UgcError as exc:
                     self.log.warning("clip_listing_failed", error=str(exc))
@@ -282,8 +392,11 @@ class WebApp:
         """
         config = load_campaign(self.campaigns_dir, slug)
         self.config = config
+        self.creative = config.creatives[0]
         self.bank_path = self.campaigns_dir / slug / "captions.txt"
-        self.inbox = self.repo_root / "inbox" / config.library_key
+        self.inbox = (
+            self.repo_root / "inbox" / config.creative_library_key(self.creative)
+        )
         self._music_beds = None
         self._remote_clips = None
         ensure_inbox(self.inbox)
@@ -450,7 +563,7 @@ class WebApp:
         from src.selector import Selector
 
         work = self.repo_root / "work" / self.config.slug
-        assets = work / "assets"
+        assets = work / "assets" / self.creative.name
         if not assets.is_dir() or not any(assets.iterdir()):
             store = self._store()
             if store is None:
@@ -460,7 +573,7 @@ class WebApp:
                              "to fetch them. Run `gh auth login`, or render once "
                              "from the CLI to populate work/.",
                 }
-            store.download_assets(self.config.assets_tag, assets)
+            store.download_assets(self.creative_tag, assets)
 
         if not assets.is_dir() or not any(assets.iterdir()):
             # download_assets succeeding with nothing to download is normal for
@@ -512,7 +625,15 @@ class WebApp:
             music_skip_intro_sec=composition.music_skip_intro_sec,
         )
 
-        history = load_history(self.bank_path.parent / "history.json")
+        from src.models import History as _History
+
+        full_history = load_history(self.bank_path.parent / "history.json")
+        # Scoped to the selected creative only — its cooldowns and dedupe
+        # must not see what a sibling creative has used (HANDOFF phase 1:
+        # "clips never mix across creatives").
+        history = _History(entries=[
+            e for e in full_history.entries if e.creative == self.creative.name
+        ])
         # Seeded from the clock rather than fixed: two clicks in a row should
         # show two different combinations, which is the point of the button.
         rng = SeededRng(int(self.clock.now().timestamp() * 1000) % (2**32))
@@ -1930,6 +2051,8 @@ class WebApp:
             "dry_run": self.config.posting.dry_run,
             "staged": self._staged(),
             "library": self.library_scope(),
+            "creative": self.creative.name,
+            "creatives": self.creatives_info(),
             "uploaded": counts,
             "muted": muted,
             "descriptions": {
@@ -2076,7 +2199,7 @@ class WebApp:
                          "removed. Mute the clip instead — it has the same "
                          "effect on the randomizer.",
             }
-        removed = store.delete_assets(self.config.assets_tag, [name])
+        removed = store.delete_assets(self.creative_tag, [name])
         local = self._archive_paths().get(name)
         if local is not None:
             local.unlink()
@@ -2124,7 +2247,7 @@ class WebApp:
     def plan(self) -> dict[str, Any]:
         renderer = FfmpegRenderer(self.config, self.log)
         store = self._store()
-        existing = store.list_assets(self.config.assets_tag) if store else []
+        existing = store.list_assets(self.creative_tag) if store else []
         plan = build_plan(self.inbox, existing, renderer, self.log)
         return {
             "ok": True,
@@ -2152,14 +2275,15 @@ class WebApp:
                          "GITHUB_TOKEN and GITHUB_REPOSITORY.",
             }
         renderer = FfmpegRenderer(self.config, self.log)
-        tag = self.config.assets_tag
+        tag = self.creative_tag
         plan = build_plan(self.inbox, store.list_assets(tag), renderer, self.log)
         if not plan.uploadable:
             return {"ok": False, "error": "Nothing uploadable in the inbox."}
 
         uploaded = apply_plan(
             plan, self.inbox, store, tag, self.log,
-            staging=self.repo_root / "work" / self.config.slug / "staging",
+            staging=self.repo_root / "work" / self.config.slug / "staging"
+                    / self.creative.name,
         )
         return {"ok": True, "uploaded": uploaded, "skipped": len(plan.rejected)}
 
@@ -2322,6 +2446,8 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
                 self._json(app.metrics())
             elif route == "/api/clips":
                 self._json(app.clips(refresh="refresh" in self._query()))
+            elif route == "/api/creatives":
+                self._json({"creatives": app.creatives_info()})
             elif route == "/api/clip":
                 self._serve_clip((self._query().get("name") or [""])[0])
             elif route == "/api/plan":
@@ -2354,6 +2480,13 @@ def make_handler(app: WebApp) -> type[BaseHTTPRequestHandler]:
 
                 elif route == "/api/campaigns":
                     self._json(app.create(json.loads(self._body() or b"{}")))
+
+                elif route == "/api/creatives":
+                    self._json(app.create_creative(json.loads(self._body() or b"{}")))
+
+                elif route == "/api/select-creative":
+                    payload = json.loads(self._body() or b"{}")
+                    self._json(app.select_creative(str(payload.get("name", ""))))
 
                 elif route == "/api/publish":
                     payload = json.loads(self._body() or b"{}")
@@ -2731,6 +2864,24 @@ PAGE = """<!doctype html>
   .net.invalid::after {
     content:"error"; font-size:9.5px; letter-spacing:.05em;
     text-transform:uppercase; opacity:.85;
+  }
+
+  /* Creative picker, inside the Assets section rather than the page header —
+     it scopes which pool the drop zones below it write into, so it lives
+     right next to what it controls. Reuses .net for the pill itself. */
+  .creatives-row {
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .creatives-row .lbl {
+    font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--ink-3); margin-right:2px;
+  }
+  .creatives-row .net .w {
+    font-size:10.5px; opacity:.8; font-variant-numeric:tabular-nums;
+  }
+  .creatives-row .add {
+    padding:5px 12px; border-radius:999px; font-size:12.5px; font-weight:600;
   }
 
 
@@ -3432,6 +3583,30 @@ PAGE = """<!doctype html>
 
   <section>
     <h2>Assets <small>drag files in — names don't matter</small></h2>
+    <div class="creatives-row" id="creatives-row"></div>
+    <div id="new-creative-panel" style="display:none">
+      <div class="card pad" style="margin-bottom:16px">
+        <h2 style="margin-bottom:15px">New creative</h2>
+        <div class="frow">
+          <label>Name<input type="text" id="fc-name" placeholder="second"
+            autocomplete="off"></label>
+          <label>Weight<input type="number" id="fc-weight" min="0.01" step="0.1"
+            value="1"></label>
+        </div>
+        <div class="hint" style="margin:8px 0 0">
+          Its own hooks/bodies/music pool — clips never mix with another
+          creative, and each gets its own dedupe, cooldowns and licence
+          record. Uses the same shared caption bank as every other creative
+          in this campaign. Weight is relative chance of being picked for a
+          slot, not a percentage.
+        </div>
+        <div class="row" style="margin-top:12px">
+          <button id="create-creative-btn">Create creative</button>
+          <button class="ghost" id="cancel-creative-btn">Cancel</button>
+        </div>
+        <div id="new-creative-msgs"></div>
+      </div>
+    </div>
     <div id="shared-note"></div>
     <div class="zones" id="zones"></div>
     <div class="row">
@@ -3621,6 +3796,60 @@ async function remove(kind, name){
   refresh();
 }
 
+/* The creative picker: which self-contained hook/body/music pool the drop
+   zones above write into. Rebuilt from the state poll, same as everything
+   else in Assets, so it never drifts from what the server actually has
+   selected. */
+function renderCreatives(creatives, selected){
+  const pills = creatives.map(c => `
+    <button class="net" role="tab" aria-selected="${c.name === selected}"
+            title="${esc(c.tag)}" onclick="pickCreative('${c.name}')">
+      ${esc(c.name)}${creatives.length > 1
+        ? `<span class="w">×${c.weight}</span>` : ""}
+    </button>`).join("");
+  $("#creatives-row").innerHTML =
+    `<span class="lbl">creative</span>${pills}` +
+    `<button class="ghost add" id="new-creative-btn">+ New creative</button>`;
+  $("#new-creative-btn").onclick = () => {
+    const p = $("#new-creative-panel");
+    const opening = p.style.display === "none";
+    p.style.display = opening ? "block" : "none";
+    if (opening){
+      $("#new-creative-msgs").innerHTML = "";
+      $("#fc-name").value = "";
+      $("#fc-weight").value = "1";
+      $("#fc-name").focus();
+    }
+  };
+}
+
+async function pickCreative(name){
+  const r = await (await fetch("/api/select-creative", {method:"POST",
+    body: JSON.stringify({name})})).json();
+  if (!r.ok){ alert(r.error); return; }
+  await refresh();
+}
+
+$("#cancel-creative-btn").onclick = () => {
+  $("#new-creative-panel").style.display = "none";
+};
+
+$("#create-creative-btn").onclick = async (e) => {
+  const nm = $("#new-creative-msgs"); nm.innerHTML = "";
+  const name = $("#fc-name").value.trim().toLowerCase();
+  const weight = +$("#fc-weight").value || 1;
+  if (!name){ msg(nm, "bad", "Name is required."); return; }
+  e.target.disabled = true;
+  const r = await (await fetch("/api/creatives", {method:"POST",
+    body: JSON.stringify({name, weight})})).json();
+  e.target.disabled = false;
+  if (!r.ok){ msg(nm, "bad", r.error); return; }
+  msg(nm, "ok", `Created <b>${esc(r.creative)}</b> and switched to it — its ` +
+    `pool is empty, drop clips into the zones below.`);
+  $("#new-creative-panel").style.display = "none";
+  await refresh();
+};
+
 function render(s){
   STATE = s;
   // The service moved into the campaign tab, where it belongs — it names
@@ -3629,6 +3858,8 @@ function render(s){
   const dry = $("#t-dry");
   dry.textContent = s.dry_run ? "paused" : "live";
   dry.className = "pill " + (s.dry_run ? "paused" : "live");
+
+  renderCreatives(s.creatives || [], s.creative || "");
 
   const lib = s.library || {campaigns: [s.campaign]};
   $("#shared-note").innerHTML = lib.campaigns.length > 1
