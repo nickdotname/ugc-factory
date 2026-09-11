@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter
+from dataclasses import dataclass
 import os
 import sys
 import uuid
@@ -38,7 +39,13 @@ from src.assets import (
     github_token_from_env,
 )
 from src.clips import filter_library, kind_of, load_roster, roster_path, save_roster
-from src.config import CampaignConfig, NotifyEvent, TitleStrategy, load_campaign
+from src.config import (
+    CampaignConfig,
+    CreativeConfig,
+    NotifyEvent,
+    TitleStrategy,
+    load_campaign,
+)
 from src.descriptions import Description, load_bank, parse_bank, validate_bank
 from src.errors import AuthError, ConfigError, QuotaError, SelectionError, UgcError
 from src.ingest import (
@@ -52,6 +59,7 @@ from src.ingest import (
 )
 from src.logging import StructuredLogger, get_logger
 from src.models import (
+    DEFAULT_CREATIVE,
     History,
     HistoryEntry,
     PartKind,
@@ -238,6 +246,110 @@ def _library_from(
     )
 
 
+def _resolve_creative(config: CampaignConfig, name: str | None) -> CreativeConfig:
+    """The named creative, or the campaign's first one when none is given."""
+    if name is None:
+        return config.creatives[0]
+    for creative in config.creatives:
+        if creative.name == name:
+            return creative
+    known = ", ".join(c.name for c in config.creatives)
+    raise ConfigError(
+        f"{config.slug} has no creative named {name!r} — known: {known}"
+    )
+
+
+@dataclass(frozen=True)
+class _CreativeResources:
+    """One creative's downloaded library, ready to select from.
+
+    ``history`` holds only this creative's own entries — HANDOFF phase 1:
+    "clips never mix across creatives," so cooldowns, tuple dedupe and LRU
+    weighting for this creative must never see what another creative did.
+    """
+
+    creative: CreativeConfig
+    library: AssetLibrary
+    history: History
+    by_name: dict[str, Path]
+    ceiling: int
+    distinct_visuals: int
+
+
+def _load_creative_resources(
+    config: CampaignConfig,
+    creative: CreativeConfig,
+    campaign_dir: Path,
+    work: Path,
+    store: MediaStore,
+    full_history: History,
+    renderer: Renderer,
+    descriptions: list[Description],
+    log: StructuredLogger,
+) -> tuple[_CreativeResources, list[str]]:
+    """Download, filter and probe one creative's pool. Returns (resources, missing licences).
+
+    Every creative gets its own subdirectory under ``work/`` so two creatives
+    can never resolve a filename to the wrong file, even if they happen to
+    reuse a number (``hook_01.mp4`` in creative A is a different file from
+    ``hook_01.mp4`` in creative B once each lives in its own Release tag).
+    """
+    assets_dir = work / "assets" / creative.name
+    tag = config.creative_assets_tag(creative)
+    store.download_assets(tag, assets_dir)
+
+    paths = filter_library(
+        LocalLibrary.from_directory(assets_dir),
+        load_roster(roster_path(campaign_dir)),
+        log,
+    )
+
+    missing_licenses = check_music_licenses(
+        paths.music, config.creative_licenses_path(campaign_dir, creative), log
+    )
+
+    durations: dict[str, float] = {}
+    if config.composition.music_random_start:
+        for track in paths.music:
+            try:
+                durations[track.name] = renderer.probe(track).duration_sec
+            except UgcError as exc:
+                log.warning(
+                    "music_probe_failed", creative=creative.name,
+                    track=track.name, error=str(exc),
+                )
+
+    library = _library_from(paths, descriptions, config, durations)
+    history = History(
+        entries=[e for e in full_history.entries if e.creative == creative.name]
+    )
+    bodies_per_video = config.composition.bodies_per_video
+    bodies_max = config.composition.bodies_per_video_max
+    ceiling = library.ceiling(bodies_per_video, bodies_max)
+    log.info(
+        "combinatorial_ceiling",
+        creative=creative.name,
+        hooks=len(library.hooks), bodies=len(library.bodies),
+        music=len(library.music), captions=len(library.captions),
+        bodies_per_video=bodies_per_video,
+        total_combinations=ceiling,
+        distinct_visuals=library.distinct_visuals(bodies_per_video, bodies_max),
+        used_combinations=len(history.entries),
+    )
+
+    return (
+        _CreativeResources(
+            creative=creative,
+            library=library,
+            history=history,
+            by_name=paths.by_name(),
+            ceiling=ceiling,
+            distinct_visuals=library.distinct_visuals(bodies_per_video, bodies_max),
+        ),
+        missing_licenses,
+    )
+
+
 def _load_captions(
     path: Path, service: Service, strategy: TitleStrategy | None = None
 ) -> list[Description]:
@@ -287,50 +399,43 @@ def _render(
 ) -> int:
     campaign_dir = _campaign_dir(config.slug)
     work = REPO_ROOT / "work" / config.slug
-    assets_dir = work / "assets"
     out_dir = work / "out"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     store = _build_store(env, log, clock)
-    store.download_assets(_assets_tag(config), assets_dir)
-    # Muted clips are removed before anything downstream counts them, so the
-    # ceiling logged below is the ceiling of what is actually in rotation.
-    paths = filter_library(
-        LocalLibrary.from_directory(assets_dir),
-        load_roster(roster_path(campaign_dir)),
-        log,
-    )
-
-    missing_licenses = check_music_licenses(
-        paths.music, assets_dir / "LICENSES.md", log
-    )
-    if missing_licenses:
-        notifier.notify(
-            NotifyEvent.LICENSE_MISSING,
-            f"⚠️ {config.slug}: music tracks with no LICENSES.md entry: "
-            + ", ".join(missing_licenses[:20]),
-        )
-
     descriptions = _load_captions(
         campaign_dir / "captions.txt", config.buffer.service,
         config.buffer.title_strategy,
     )
     renderer: Renderer = FfmpegRenderer(config, log)
+    full_history = load_history(campaign_dir / "history.json")
 
-    # Probing every track once up front is what lets the selector cut a long
-    # song into segments; without durations it degrades to one bed per track
-    # starting at 0:00.
-    durations: dict[str, float] = {}
-    if config.composition.music_random_start:
-        for track in paths.music:
-            try:
-                durations[track.name] = renderer.probe(track).duration_sec
-            except UgcError as exc:
-                log.warning("music_probe_failed", track=track.name, error=str(exc))
+    # Every creative is its own self-contained pool (HANDOFF phase 1): its own
+    # download, its own licence check, its own combination ceiling. A campaign
+    # with the default single creative resolves this to exactly what it did
+    # before creatives existed — same tag, same files, same numbers.
+    resources: dict[str, _CreativeResources] = {}
+    missing_by_creative: dict[str, list[str]] = {}
+    for creative in config.creatives:
+        res, missing = _load_creative_resources(
+            config, creative, campaign_dir, work, store, full_history,
+            renderer, descriptions, log,
+        )
+        resources[creative.name] = res
+        if missing:
+            missing_by_creative[creative.name] = missing
 
-    library = _library_from(paths, descriptions, config, durations)
+    if missing_by_creative:
+        parts = [
+            f"{name} ({', '.join(tracks[:20])})"
+            for name, tracks in missing_by_creative.items()
+        ]
+        notifier.notify(
+            NotifyEvent.LICENSE_MISSING,
+            f"⚠️ {config.slug}: music tracks with no LICENSES.md entry — "
+            + "; ".join(parts),
+        )
 
-    history = load_history(campaign_dir / "history.json")
     # Seeded from the render date so a given day is reproducible, while
     # successive days still differ (SPEC §2.2).
     today = clock.now()
@@ -364,10 +469,12 @@ def _render(
         carried=len(carried), expired=len(expired), target=target,
         rendering=count, posts_per_day=config.posting.posts_per_day,
     )
+    total_weight = sum(c.weight for c in config.creatives)
     if getattr(args, "plan", False):
-        # Everything above is read-only: the library is cached, the queue was
-        # loaded, nothing has been rendered, uploaded or written. Stopping here
-        # answers "what would tonight do" without doing it.
+        # Everything above is read-only: every library is cached, the queue
+        # was loaded, nothing has been rendered, uploaded or written. Stopping
+        # here answers "what would tonight do" without doing it.
+        carried_by_creative = Counter(i.creative for i in carried)
         print(f"\n  {config.slug} · render plan")
         print(f"    carried forward     {len(carried)}")
         print(f"    expired, dropped    {len(expired)}")
@@ -375,15 +482,19 @@ def _render(
               f"  ({config.posting.posts_per_day}/day x "
               f"{config.posting.max_backlog_days} days)")
         print(f"    would render        {count}")
+        for creative in config.creatives:
+            res = resources[creative.name]
+            share = creative.weight / total_weight
+            print(
+                f"\n    {creative.name} (weight {creative.weight:g}, "
+                f"~{share:.0%} of slots)"
+            )
+            print(f"      carried forward       {carried_by_creative.get(creative.name, 0)}")
+            print(f"      expected tonight      ~{count * share:.1f}")
+            print(f"      combinations, used    {res.ceiling:,}, {len(res.history.entries):,}")
+            print(f"      distinct visuals      {res.distinct_visuals:,}")
         if count == 0:
             print("\n  Backlog is full — tonight would render nothing.")
-        else:
-            ceiling = library.ceiling(
-                config.composition.bodies_per_video,
-                config.composition.bodies_per_video_max,
-            )
-            print(f"\n  {ceiling:,} combinations available, "
-                  f"{len(history.entries):,} already used.")
         return 0
 
     if count == 0:
@@ -410,24 +521,35 @@ def _render(
         return 0
 
     # What has actually performed, from this campaign's own posts — which are
-    # all one network, so no cross-network pooling is possible here.
-    performance = _performance_medians(config, history, log)
+    # all one network, so no cross-network pooling is possible here. Computed
+    # per creative from that creative's own history slice: two creatives can
+    # legitimately reuse a filename (each has its own Release tag), so
+    # ranking off the whole campaign's history would risk crediting one
+    # creative's views to a same-named clip in another.
+    performance = {
+        name: medians
+        for name, res in resources.items()
+        if (medians := _performance_medians(config, res.history, log)) is not None
+    }
 
-    outcomes = selector.select_batch(
-        library, history, count, config.composition.bodies_per_video,
+    pools = {name: (res.library, res.history) for name, res in resources.items()}
+    weights = {c.name: c.weight for c in config.creatives}
+    picks = selector.select_batch_multi(
+        pools, weights, count, config.composition.bodies_per_video,
         config.composition.bodies_per_video_max,
         performance=performance,
     )
-    relaxed = [o for o in outcomes if o.relaxation is not Relaxation.NONE]
+    relaxed = [(name, o) for name, o in picks if o.relaxation is not Relaxation.NONE]
     if relaxed:
+        by_creative = Counter(name for name, _ in relaxed)
+        detail = ", ".join(f"{name}: {n}" for name, n in by_creative.items())
         notifier.notify(
             NotifyEvent.DEDUPE_RELAXED,
-            f"⚠️ {config.slug}: {len(relaxed)}/{len(outcomes)} selections needed "
-            f"relaxed dedupe ({relaxed[0].relaxation.value}). The library is too "
-            f"small for {config.posting.posts_per_day} posts/day.",
+            f"⚠️ {config.slug}: {len(relaxed)}/{len(picks)} selections needed "
+            f"relaxed dedupe ({relaxed[0][1].relaxation.value}) — {detail}. "
+            f"The library is too small for {config.posting.posts_per_day} "
+            f"posts/day.",
         )
-
-    by_name = paths.by_name()
 
     # Title lookup by description body: Selection carries only the body (that
     # is what dedupe keys on), so the title is re-attached here from the bank.
@@ -439,7 +561,7 @@ def _render(
     # there, visible and deletable, until its slot arrives.
     slots = upcoming_slots(
         today,
-        len(outcomes),
+        len(picks),
         config.posting.start_hour,
         config.posting.end_hour,
         config.posting.posts_per_day,
@@ -448,15 +570,16 @@ def _render(
         # published minutes apart, which is the failure the schedule prevents.
         exclude={i.scheduled_for for i in carried},
     )
-    if len(slots) < len(outcomes):
+    if len(slots) < len(picks):
         raise ConfigError(
-            f"only {len(slots)} slots available for {len(outcomes)} videos; "
+            f"only {len(slots)} slots available for {len(picks)} videos; "
             f"posts_per_day is {config.posting.posts_per_day}"
         )
 
-    rendered: list[tuple[QueueItem, Selection]] = []
-    for outcome, slot in zip(outcomes, slots):
+    rendered: list[tuple[QueueItem, Selection, str]] = []
+    for (creative_name, outcome), slot in zip(picks, slots):
         selection = outcome.selection
+        by_name = resources[creative_name].by_name
         item_id = str(uuid.uuid4())
         request = RenderRequest(
             item_id=item_id,
@@ -482,21 +605,26 @@ def _render(
                     "music_offset_sec": f"{selection.music_offset_sec:.0f}",
                 },
                 treatment=result.treatment,
+                creative=creative_name,
             ),
             selection,
+            creative_name,
         ))
-        log.info("item_rendered", item_id=item_id, path=str(result.output_path))
+        log.info(
+            "item_rendered", item_id=item_id, creative=creative_name,
+            path=str(result.output_path),
+        )
 
     tag = _render_tag(config.slug, today)
-    published = store.publish(tag, [out_dir / f"{i.id}.mp4" for i, _ in rendered])
+    published = store.publish(tag, [out_dir / f"{i.id}.mp4" for i, _, _ in rendered])
     urls = {a.name: a.url for a in published}
-    for item, _ in rendered:
+    for item, _, _ in rendered:
         item.video_url = urls[f"{item.id}.mp4"]
 
     queue = Queue(
         generated_at=today,
         items=sorted(
-            [*carried, *(i for i, _ in rendered)],
+            [*carried, *(i for i, _, _ in rendered)],
             key=lambda i: i.scheduled_for,
         ),
     )
@@ -517,22 +645,34 @@ def _render(
                 # Carried from the queue item so history and queue cannot
                 # disagree about what was actually rendered.
                 treatment=item.treatment,
+                creative=creative_name,
             )
-            for item, sel in rendered
+            for item, sel, creative_name in rendered
         ],
     )
 
-    runway = days_until_first_repeat(
-        library, history, config.composition.bodies_per_video,
-        config.posting.posts_per_day,
-    )
-    log.info("render_complete", items=len(rendered), tag=tag, runway_days=runway)
-    if runway < 7:
-        notifier.notify(
-            NotifyEvent.QUEUE_EMPTY,
-            f"⚠️ {config.slug}: only {runway:.0f} days of unique combinations "
-            f"remain. Add hooks, bodies or captions.",
+    log.info("render_complete", items=len(rendered), tag=tag)
+    for creative in config.creatives:
+        res = resources[creative.name]
+        # Per-creative rate estimate from its share of the weighted draw —
+        # posts_per_day is campaign-wide, so a creative that only wins a
+        # fraction of slots exhausts its own pool proportionally slower.
+        share = creative.weight / total_weight
+        creative_rate = config.posting.posts_per_day * share
+        runway = days_until_first_repeat(
+            res.library, res.history, config.composition.bodies_per_video,
+            max(creative_rate, 1e-9),
         )
+        log.info(
+            "creative_runway", creative=creative.name, runway_days=runway,
+            ceiling=res.ceiling, distinct_visuals=res.distinct_visuals,
+        )
+        if runway < 7:
+            notifier.notify(
+                NotifyEvent.QUEUE_EMPTY,
+                f"⚠️ {config.slug}/{creative.name}: only {runway:.0f} days of "
+                f"unique combinations remain. Add hooks, bodies or captions.",
+            )
     return 0
 
 
@@ -900,64 +1040,100 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
         descriptions = []
 
     if env.get("GITHUB_REPOSITORY") and _secret("GITHUB_TOKEN", env):
-        try:
-            store = _build_store(env, log, clock)
-            work = REPO_ROOT / "work" / config.slug / "assets"
-            store.download_assets(_assets_tag(config), work)
-            paths = filter_library(
-                LocalLibrary.from_directory(work),
-                load_roster(roster_path(_campaign_dir(config.slug))),
-                log,
-            )
-
-            # Probe music exactly as the render job does. Without durations the
-            # library reports one bed per track and the runway comes out ~12x
-            # short, failing a check the real render would pass.
-            renderer: Renderer = FfmpegRenderer(config, log)
-            durations: dict[str, float] = {}
-            if config.composition.music_random_start:
-                for track in paths.music:
-                    try:
-                        durations[track.name] = renderer.probe(track).duration_sec
-                    except UgcError as exc:
-                        log.warning(
-                            "music_probe_failed", track=track.name, error=str(exc)
-                        )
-
-            # Duration is decided by which clips get picked, and the selector
-            # cannot know that — it never probes the video parts. So the check
-            # happens here, where the files are already downloaded, rather than
-            # at 05:00 when an over-length cut fails validation after it has
-            # been rendered.
-            problems += _duration_headroom(paths, config, renderer, log)
-            for note in config_conflicts(
-                config.buffer.service,
-                config.video.max_duration_sec,
-                config.video.max_file_mb,
-            ):
-                print(f"WARN {note}", file=sys.stderr)
-
-            library = _library_from(paths, descriptions, config, durations)
-            library.validate()
-            ceiling = library.ceiling(config.composition.bodies_per_video)
-            runway = ceiling / max(1, config.posting.posts_per_day)
-            log.info(
-                "preflight_library_ok",
-                hooks=len(library.hooks), bodies=len(library.bodies),
-                music=len(library.music),
-                music_beds=library.total_music_options(),
-                captions=len(library.captions),
-                combinations=ceiling, runway_days=runway,
-            )
-            if runway < config.selection.min_runway_days:
-                problems.append(
-                    f"library yields only {runway:.0f} days of unique combos at "
-                    f"{config.posting.posts_per_day}/day; "
-                    f"selection.min_runway_days is "
-                    f"{config.selection.min_runway_days}"
+        campaign_dir = _campaign_dir(config.slug)
+        total_weight = sum(c.weight for c in config.creatives)
+        for creative in config.creatives:
+            prefix = f"{creative.name}: "
+            try:
+                store = _build_store(env, log, clock)
+                work = REPO_ROOT / "work" / config.slug / "assets" / creative.name
+                tag = config.creative_assets_tag(creative)
+                store.download_assets(tag, work)
+                paths = filter_library(
+                    LocalLibrary.from_directory(work),
+                    load_roster(roster_path(campaign_dir)),
+                    log,
                 )
-        except (UgcError, SelectionError) as exc:
-            problems.append(f"library: {exc}")
+
+                missing = check_music_licenses(
+                    paths.music,
+                    config.creative_licenses_path(campaign_dir, creative),
+                    log,
+                )
+                if missing:
+                    problems.append(
+                        f"{prefix}music tracks with no LICENSES.md entry: "
+                        + ", ".join(missing[:20])
+                    )
+
+                # Probe music exactly as the render job does. Without
+                # durations the library reports one bed per track and the
+                # runway comes out ~12x short, failing a check the real
+                # render would pass.
+                renderer: Renderer = FfmpegRenderer(config, log)
+                durations: dict[str, float] = {}
+                if config.composition.music_random_start:
+                    for track in paths.music:
+                        try:
+                            durations[track.name] = renderer.probe(track).duration_sec
+                        except UgcError as exc:
+                            log.warning(
+                                "music_probe_failed", creative=creative.name,
+                                track=track.name, error=str(exc),
+                            )
+
+                # Duration is decided by which clips get picked, and the
+                # selector cannot know that — it never probes the video
+                # parts. So the check happens here, where the files are
+                # already downloaded, rather than at 05:00 when an
+                # over-length cut fails validation after it has been
+                # rendered.
+                problems += [
+                    prefix + p
+                    for p in _duration_headroom(paths, config, renderer, log)
+                ]
+                for note in config_conflicts(
+                    config.buffer.service,
+                    config.video.max_duration_sec,
+                    config.video.max_file_mb,
+                ):
+                    print(f"WARN {prefix}{note}", file=sys.stderr)
+
+                library = _library_from(paths, descriptions, config, durations)
+                library.validate()
+                bodies_max = config.composition.bodies_per_video_max
+                ceiling = library.ceiling(
+                    config.composition.bodies_per_video, bodies_max
+                )
+                # Weighted, not flat: a creative that only wins a fraction of
+                # slots exhausts its own pool proportionally slower than
+                # posts_per_day alone would suggest (mirrors the render job's
+                # own runway math).
+                share = creative.weight / total_weight
+                rate = max(config.posting.posts_per_day * share, 1e-9)
+                runway = ceiling / rate
+                log.info(
+                    "preflight_library_ok",
+                    creative=creative.name,
+                    hooks=len(library.hooks), bodies=len(library.bodies),
+                    music=len(library.music),
+                    music_beds=library.total_music_options(),
+                    captions=len(library.captions),
+                    combinations=ceiling,
+                    distinct_visuals=library.distinct_visuals(
+                        config.composition.bodies_per_video, bodies_max
+                    ),
+                    runway_days=runway,
+                )
+                if runway < config.selection.min_runway_days:
+                    problems.append(
+                        f"{prefix}library yields only {runway:.0f} days of "
+                        f"unique combos at ~{config.posting.posts_per_day * share:.1f}/day; "
+                        f"selection.min_runway_days is "
+                        f"{config.selection.min_runway_days}"
+                    )
+            except (UgcError, SelectionError) as exc:
+                problems.append(f"{prefix}library: {exc}")
     else:
         log.warning("preflight_library_skipped", reason="no GitHub credentials")
 
@@ -1081,12 +1257,13 @@ def _duration_headroom(
 
 
 def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
-    """Upload dropped files to the assets Release under correct names."""
+    """Upload dropped files to a creative's assets Release under correct names."""
     clock: Clock = SystemClock()
     log = get_logger(command="ingest", campaign=args.campaign)
     config = load_campaign(CAMPAIGNS_DIR, args.campaign)
+    creative = _resolve_creative(config, getattr(args, "creative", None))
 
-    inbox = REPO_ROOT / INBOX_ROOT / config.library_key
+    inbox = REPO_ROOT / INBOX_ROOT / config.creative_library_key(creative)
     ensure_inbox(inbox)
 
     try:
@@ -1100,12 +1277,13 @@ def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
         )
         return 1
 
-    tag = _assets_tag(config)
+    tag = config.creative_assets_tag(creative)
     existing = store.list_assets(tag)
     renderer: Renderer = FfmpegRenderer(config, log)
 
     plan = build_plan(inbox, existing, renderer, log)
-    print(f"\ninbox: {inbox}")
+    print(f"\ncreative: {creative.name}")
+    print(f"inbox: {inbox}")
     print(plan.render_table())
 
     if plan.rejected:
@@ -1120,16 +1298,20 @@ def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
 
     uploaded = apply_plan(
         plan, inbox, store, tag, log,
-        staging=REPO_ROOT / "work" / config.slug / "staging",
+        staging=REPO_ROOT / "work" / config.slug / "staging" / creative.name,
     )
     print(f"\nUploaded {len(uploaded)} file(s) to release {tag}.")
 
-    _print_library_health(config, store, tag, log)
+    _print_library_health(config, creative, store, tag, log)
     return 0
 
 
 def _print_library_health(
-    config: CampaignConfig, store: MediaStore, tag: str, log: StructuredLogger
+    config: CampaignConfig,
+    creative: CreativeConfig,
+    store: MediaStore,
+    tag: str,
+    log: StructuredLogger,
 ) -> None:
     """Tell the human, while they are still holding the files, if it is enough.
 
@@ -1150,15 +1332,18 @@ def _print_library_health(
 
     per_video = config.composition.bodies_per_video
     total = combinations(hooks, bodies, music, captions, per_video)
-    runway = total / max(1, config.posting.posts_per_day)
+    # Weighted, not flat: this creative only wins its own share of slots.
+    total_weight = sum(c.weight for c in config.creatives)
+    rate = max(config.posting.posts_per_day * (creative.weight / total_weight), 1e-9)
+    runway = total / rate
 
     print(
-        f"\nlibrary: {hooks} hooks · {bodies} bodies · {music} music · "
-        f"{captions} captions"
+        f"\nlibrary ({creative.name}): {hooks} hooks · {bodies} bodies · "
+        f"{music} music · {captions} captions"
     )
     print(
         f"         {total} combinations = {runway:.0f} days at "
-        f"{config.posting.posts_per_day}/day "
+        f"~{rate:.1f}/day "
         f"(target {config.selection.min_runway_days})"
     )
 
@@ -2012,9 +2197,13 @@ def build_parser() -> argparse.ArgumentParser:
     common(preflight)
 
     ingest = sub.add_parser(
-        "ingest", help="upload files from inbox/ to the assets Release"
+        "ingest", help="upload files from inbox/ to a creative's assets Release"
     )
     common(ingest)
+    ingest.add_argument(
+        "--creative", default=None,
+        help="which creative to upload into (default: the campaign's first)",
+    )
 
     diagnose = sub.add_parser("diagnose", help="why did a queued post not publish")
     common(diagnose)

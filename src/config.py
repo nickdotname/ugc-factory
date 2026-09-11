@@ -24,6 +24,7 @@ import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from src.errors import ConfigError
+from src.models import DEFAULT_CREATIVE
 from src.platforms import Service
 
 
@@ -625,6 +626,47 @@ class NotifyConfig(StrictModel):
         return v
 
 
+#: A creative name becomes a directory name (``campaigns/<slug>/creatives/
+#: <name>/``) and a log/history field, so it is held to the same "safe
+#: anywhere" bar as a campaign slug — see ``CampaignConfig._slug_is_path_safe``.
+_CREATIVE_NAME = re.compile(r"^[a-z][a-z0-9_]{0,63}$")
+
+
+class CreativeConfig(StrictModel):
+    """One self-contained clip pool within a campaign (HANDOFF phase 1).
+
+    A creative owns its own hooks, bodies and music — its own Release tag,
+    its own licence record — and nothing else. Captions stay campaign-wide on
+    purpose: HANDOFF describes a creative as "its own hook/body/music pool"
+    only, and phase 3's AI captions take the creative as an *input* rather
+    than drawing from a per-creative bank, so splitting the caption bank now
+    would just have to be undone.
+    """
+
+    name: str = DEFAULT_CREATIVE
+    #: Relative chance of being picked for a slot, not a percentage — two
+    #: creatives at weight 1 split evenly regardless of a third at weight 5.
+    #: Uniform by default (SPEC-style: every creative equally likely until a
+    #: campaign says otherwise).
+    weight: float = Field(default=1.0, gt=0.0)
+    #: This creative's own asset Release tag. None falls back to the
+    #: campaign's own ``assets_tag`` — which is what makes the *first*
+    #: creative of an existing campaign a zero-change migration: same tag,
+    #: same filenames, same numbering.
+    assets_release: str | None = None
+
+    @field_validator("name")
+    @classmethod
+    def _name_is_safe(cls, v: str) -> str:
+        if not _CREATIVE_NAME.match(v):
+            raise ValueError(
+                f"creative name {v!r} must be lowercase letters, digits and "
+                f"underscore, starting with a letter — it becomes a "
+                f"directory name under campaigns/<slug>/creatives/"
+            )
+        return v
+
+
 class CampaignConfig(StrictModel):
     """One campaign: a brand, its assets, its channel, its cadence."""
 
@@ -634,6 +676,10 @@ class CampaignConfig(StrictModel):
     # ``assets-<slug>``, but several campaigns posting the same content to
     # different networks should point at ONE library rather than each holding
     # a duplicate copy of every clip.
+    #
+    # This is the campaign-level fallback a creative with no assets_release of
+    # its own resolves to (``creative_assets_tag``) — it is not itself "the"
+    # library once a campaign has more than one creative.
     assets_release: str | None = None
     posting: PostingConfig = PostingConfig()
     video: VideoConfig = VideoConfig()
@@ -644,6 +690,22 @@ class CampaignConfig(StrictModel):
     buffer: BufferConfig
     notify: NotifyConfig
     analytics: AnalyticsConfig = AnalyticsConfig()
+    #: One self-contained clip pool by default — a campaign that has never
+    #: heard of creatives keeps working exactly as before (SPEC §2.2: a
+    #: campaign without a feature must not have to know the feature exists).
+    creatives: tuple[CreativeConfig, ...] = (CreativeConfig(),)
+
+    @field_validator("creatives")
+    @classmethod
+    def _creatives_non_empty_unique(
+        cls, v: tuple[CreativeConfig, ...]
+    ) -> tuple[CreativeConfig, ...]:
+        if not v:
+            raise ValueError("campaign must declare at least one creative")
+        names = [c.name for c in v]
+        if len(set(names)) != len(names):
+            raise ValueError(f"creatives has duplicate names: {names}")
+        return v
 
     @field_validator("slug")
     @classmethod
@@ -683,6 +745,36 @@ class CampaignConfig(StrictModel):
         what ``assets-<slug>`` reduces to, so nothing moves for those.
         """
         return self.assets_tag.removeprefix("assets-") or self.slug
+
+    def creative_assets_tag(self, creative: CreativeConfig) -> str:
+        """Release tag holding one creative's source clips.
+
+        Falls back to the campaign's own tag, so a campaign's first creative
+        — the one with no ``assets_release`` of its own — resolves to exactly
+        the tag it already used before creatives existed.
+        """
+        return creative.assets_release or self.assets_tag
+
+    def creative_library_key(self, creative: CreativeConfig) -> str:
+        """Name of the drop folder feeding one creative's clip library.
+
+        Mirrors ``library_key``, but per creative: a creative with its own
+        Release tag gets its own ``inbox/`` folder, so dropping files for the
+        second creative can never land in the first creative's pool.
+        """
+        tag = self.creative_assets_tag(creative)
+        return tag.removeprefix("assets-") or f"{self.slug}-{creative.name}"
+
+    def creative_licenses_path(self, campaign_dir: Path, creative: CreativeConfig) -> Path:
+        """Where this creative's music licence record is committed in git.
+
+        Deliberately a file *in the repo*, not inside the downloaded Release:
+        the two used to be separate copies an operator kept in sync by hand,
+        which is exactly the kind of silent drift SPEC §9's "fail loud, never
+        a silent default" exists to rule out. One committed file per creative
+        is the only copy now.
+        """
+        return campaign_dir / "creatives" / creative.name / "LICENSES.md"
 
     @property
     def zone(self) -> zoneinfo.ZoneInfo:

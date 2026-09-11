@@ -19,6 +19,15 @@ from typing import ClassVar
 
 from pydantic import BaseModel, ConfigDict, Field
 
+#: Name of the creative every pre-Phase-1 history/queue entry implicitly
+#: belongs to. Old rows have no ``creative`` field at all; Pydantic fills this
+#: default in on load, so an entry written before creatives existed still
+#: matches the campaign's first creative — as long as that creative is named
+#: ``"default"`` too (see ``config.CreativeConfig``). That equality is what
+#: makes migrating an existing campaign's clips into "the first creative" cost
+#: nothing: no row in history.json or queue.json has to be rewritten.
+DEFAULT_CREATIVE = "default"
+
 
 class Model(BaseModel):
     """Base: unknown fields are errors, instances are immutable."""
@@ -156,6 +165,11 @@ class QueueItem(Model):
     #: changes, the recipe behind an older winner is unrecoverable unless it
     #: was written down.
     treatment: dict[str, float] | None = None
+    #: Which of the campaign's creatives this video was drawn from. Recorded
+    #: on the item (not just in history) so the queue itself can be read
+    #: creative-by-creative — the dashboard and the digest both want that
+    #: without re-deriving it from history.json.
+    creative: str = DEFAULT_CREATIVE
     status: QueueStatus = QueueStatus.PENDING
     attempts: int = Field(default=0, ge=0)
     buffer_post_id: str | None = None
@@ -197,6 +211,11 @@ class HistoryEntry(Model):
     music_offset_sec: float = 0.0
     caption: str
     title: str | None = None
+    #: See ``QueueItem.creative``. Selection is scoped to look only at the
+    #: matching creative's own entries for cooldowns and dedupe — clips never
+    #: mix across creatives, so history for one must never suppress a pick in
+    #: another.
+    creative: str = DEFAULT_CREATIVE
     #: See ``QueueItem.treatment``. History is append-only and never pruned,
     #: so this is the lasting record a performance figure can be joined to.
     treatment: dict[str, float] | None = None

@@ -357,3 +357,84 @@ class TestShippedCaptionsMeetDemand:
                 f"{floor * 100:.0f}% floor. Unmet: "
                 f"{[t.query for t in gap.worst(6)]}"
             )
+
+
+class TestCreatives:
+    """HANDOFF phase 1: multiple creatives per campaign."""
+
+    def test_a_campaign_with_no_creatives_block_gets_one_default(
+        self, tmp_path: Path
+    ) -> None:
+        cfg = load_config(write(tmp_path, MINIMAL))
+        assert len(cfg.creatives) == 1
+        assert cfg.creatives[0].name == "default"
+        assert cfg.creatives[0].weight == 1.0
+        # No override — resolves to exactly the campaign's own tag, which is
+        # what makes an existing campaign's clips "the first creative" a
+        # zero-change migration.
+        assert cfg.creative_assets_tag(cfg.creatives[0]) == cfg.assets_tag
+
+    def test_a_second_creative_can_point_at_its_own_release(
+        self, tmp_path: Path
+    ) -> None:
+        cfg = load_config(write(tmp_path, MINIMAL + """
+creatives:
+  - name: default
+  - name: second
+    weight: 2.5
+    assets_release: assets-demo-second
+"""))
+        assert [c.name for c in cfg.creatives] == ["default", "second"]
+        first, second = cfg.creatives
+        assert cfg.creative_assets_tag(first) == cfg.assets_tag
+        assert cfg.creative_assets_tag(second) == "assets-demo-second"
+        assert second.weight == 2.5
+        assert cfg.creative_library_key(second) == "demo-second"
+
+    def test_duplicate_creative_names_are_rejected(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError):
+            load_config(write(tmp_path, MINIMAL + """
+creatives:
+  - name: dupe
+  - name: dupe
+"""))
+
+    def test_creative_name_must_be_path_safe(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError):
+            load_config(write(tmp_path, MINIMAL + """
+creatives:
+  - name: "Not Safe!"
+"""))
+
+    def test_creative_weight_must_be_positive(self, tmp_path: Path) -> None:
+        with pytest.raises(ConfigError):
+            load_config(write(tmp_path, MINIMAL + """
+creatives:
+  - name: default
+    weight: 0
+"""))
+
+    def test_licenses_path_is_per_creative_under_the_campaign_dir(
+        self, tmp_path: Path
+    ) -> None:
+        cfg = load_config(write(tmp_path, MINIMAL))
+        campaign_dir = Path("campaigns/demo")
+        path = cfg.creative_licenses_path(campaign_dir, cfg.creatives[0])
+        assert path == campaign_dir / "creatives" / "default" / "LICENSES.md"
+
+
+class TestShippedClubsCreatives:
+    def test_clubs_declares_its_first_creative_explicitly(self) -> None:
+        cfg = load_campaign(REPO_ROOT / "campaigns", "clubs")
+        assert [c.name for c in cfg.creatives] == ["default"]
+        assert cfg.creative_assets_tag(cfg.creatives[0]) == cfg.assets_tag
+
+    def test_clubs_default_creative_licenses_file_exists(self) -> None:
+        cfg = load_campaign(REPO_ROOT / "campaigns", "clubs")
+        path = cfg.creative_licenses_path(
+            REPO_ROOT / "campaigns" / "clubs", cfg.creatives[0]
+        )
+        assert path.is_file(), (
+            "the committed licence file must live at the per-creative path "
+            "now, not campaigns/clubs/LICENSES.md"
+        )

@@ -5,6 +5,7 @@ Pure and fast: no ffmpeg, no network, no wall clock.
 
 from __future__ import annotations
 
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 
 import pytest
@@ -700,3 +701,130 @@ class TestPerformanceWeighting:
         assert picks["h5"] > picks["h0"], "the better hook should win more slots"
         # Recency weighting still spreads underneath, so nothing is starved.
         assert all(picks[f"h{i}"] >= 5 for i in range(6))
+
+
+class TestSelectBatchMulti:
+    """HANDOFF phase 1: multiple creatives per campaign.
+
+    ``select_batch_multi`` is the seam this delegates to — ``select_one``
+    itself is untouched, so these are really testing that a weighted creative
+    is picked per slot and that each creative's own history/recency/dedupe
+    stays walled off from every other creative's.
+    """
+
+    def _two_libraries(self, *, same_names: bool = False):
+        if same_names:
+            # Deliberately reused filenames: two creatives each have their
+            # own Release tag, so "hook_00.mp4" in creative A and creative B
+            # are different files that happen to share a name. Isolation must
+            # hold even then.
+            a = make_library(hooks=4, bodies=4, music=0, captions=20)
+            b = make_library(hooks=4, bodies=4, music=0, captions=20)
+        else:
+            a = AssetLibrary(
+                hooks=tuple(f"a_hook_{i:02d}.mp4" for i in range(4)),
+                bodies=tuple(f"a_body_{i:02d}.mp4" for i in range(4)),
+                music=(), captions=tuple(f"a caption {i}" for i in range(20)),
+            )
+            b = AssetLibrary(
+                hooks=tuple(f"b_hook_{i:02d}.mp4" for i in range(4)),
+                bodies=tuple(f"b_body_{i:02d}.mp4" for i in range(4)),
+                music=(), captions=tuple(f"b caption {i}" for i in range(20)),
+            )
+        return a, b
+
+    def test_never_mixes_clips_across_creatives(self) -> None:
+        a, b = self._two_libraries()
+        sel = make_selector(seed=11, hook_cooldown_days=0, caption_cooldown_days=0)
+        pools = {"a": (a, History()), "b": (b, History())}
+        picks = sel.select_batch_multi(pools, {"a": 1.0, "b": 1.0}, 60, 1)
+
+        assert len(picks) == 60
+        assert {name for name, _ in picks} == {"a", "b"}, \
+            "both creatives should win at least one slot at equal weight"
+        for name, outcome in picks:
+            selection = outcome.selection
+            pool = a if name == "a" else b
+            other = b if name == "a" else a
+            assert selection.hook in pool.hooks
+            assert selection.hook not in other.hooks
+            assert set(selection.bodies) <= set(pool.bodies)
+            assert not set(selection.bodies) & set(other.bodies)
+
+    def test_one_creatives_exhausted_history_does_not_touch_another(self) -> None:
+        """The whole point of separate pools: A being tapped out cannot cool
+        down or relax B, even when their filenames are identical."""
+        a, b = self._two_libraries(same_names=True)
+        sel = make_selector(seed=3, hook_cooldown_days=3, caption_cooldown_days=14)
+
+        # Every one of A's hooks was used an hour ago — all within the 3-day
+        # hook cooldown, so A cannot pick at Relaxation.NONE and must relax.
+        # B's history is empty and, if pools are properly isolated from each
+        # other, must never need to.
+        now = NOW
+        exhausted = History(entries=[
+            entry(
+                Selection(hook=h, bodies=(bd,), music=None, caption=c),
+                now - timedelta(hours=1),
+            )
+            for h in a.hooks for bd in a.bodies for c in a.captions[:1]
+        ])
+        pools = {"a": (a, exhausted), "b": (b, History())}
+
+        picks = sel.select_batch_multi(pools, {"a": 1.0, "b": 1.0}, 40, 1)
+        by_creative = {"a": [], "b": []}
+        for name, outcome in picks:
+            by_creative[name].append(outcome)
+
+        assert by_creative["b"], "expected at least one slot to land on b"
+        assert all(
+            o.relaxation is Relaxation.NONE for o in by_creative["b"]
+        ), "b's history is untouched and empty — it must never need to relax"
+
+    def test_weights_shift_the_pick_rate(self) -> None:
+        a, b = self._two_libraries()
+        sel = make_selector(seed=5, hook_cooldown_days=0, caption_cooldown_days=0)
+        pools = {"a": (a, History()), "b": (b, History())}
+
+        skewed = sel.select_batch_multi(pools, {"a": 9.0, "b": 1.0}, 200, 1)
+        counts = Counter(name for name, _ in skewed)
+        # 9:1 over 200 draws should land nowhere near even — a wide margin
+        # keeps this from being sensitive to the exact seed while still
+        # proving the weight, not chance, drives the split.
+        assert counts["a"] > 130
+        assert counts["b"] < 70
+        assert counts["a"] > counts["b"] * 2
+
+    def test_equal_weights_split_roughly_evenly(self) -> None:
+        a, b = self._two_libraries()
+        sel = make_selector(seed=9, hook_cooldown_days=0, caption_cooldown_days=0)
+        pools = {"a": (a, History()), "b": (b, History())}
+
+        even = sel.select_batch_multi(pools, {"a": 1.0, "b": 1.0}, 200, 1)
+        counts = Counter(name for name, _ in even)
+        assert 70 < counts["a"] < 130
+        assert 70 < counts["b"] < 130
+
+    def test_performance_is_looked_up_per_creative(self) -> None:
+        """Two creatives can share a filename; a performance boost recorded
+        for A's clip must never be applied to B's same-named clip."""
+        a, b = self._two_libraries(same_names=True)
+        sel = make_selector(seed=13, hook_cooldown_days=0, caption_cooldown_days=0,
+                            performance_weight=1.0)
+        pools = {"a": (a, History()), "b": (b, History())}
+        # Only A's performance is provided; B gets none at all.
+        performance = {"a": {"hook": {a.hooks[0]: 999.0, a.hooks[1]: 1.0}}}
+
+        picks = sel.select_batch_multi(
+            pools, {"a": 1.0, "b": 1.0}, 80, 1, performance=performance
+        )
+        a_hooks = Counter(o.selection.hook for name, o in picks if name == "a")
+        b_hooks = Counter(o.selection.hook for name, o in picks if name == "b")
+
+        # a's boosted hook wins far more of a's own slots than its unboosted
+        # sibling of the same name.
+        assert a_hooks[a.hooks[0]] > a_hooks[a.hooks[1]]
+        # b has no performance data at all, so its identically-named hooks[0]
+        # must not inherit a's boost — recency weighting alone governs b, and
+        # every one of its hooks stays reachable.
+        assert all(b_hooks[h] > 0 for h in b.hooks)

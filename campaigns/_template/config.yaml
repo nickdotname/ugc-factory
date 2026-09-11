@@ -5,6 +5,18 @@
 slug: CHANGEME                # must match the directory name exactly
 timezone: America/New_York    # IANA zone; drives local posting times
 
+# Optional: multiple creatives, each its own self-contained hook/body/music
+# pool with its own licences (its own Release tag — see
+# `assets_release` below, and campaigns/<slug>/creatives/<name>/LICENSES.md).
+# Leave this out entirely for a single-pool campaign — that is the default,
+# and it behaves exactly as if this block did not exist. To add a second
+# creative:
+#   creatives:
+#     - name: default
+#     - name: second_creative
+#       weight: 1              # relative chance of being picked, uniform by default
+#       assets_release: assets-CHANGEME-second_creative
+
 posting:
   posts_per_day: 6            # 1-24. Start at 6 (SPEC §4.5).
   start_hour: 9               # local hour of the first slot

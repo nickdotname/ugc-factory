@@ -1,6 +1,17 @@
 slug: clubs
 timezone: America/New_York
 
+# Multiple creatives per campaign (see HANDOFF.md phase 1): each is a
+# self-contained hook/body/music pool with its own licences. This is the
+# original clip library, named explicitly as the first creative — its
+# assets_release is left unset, which resolves to this campaign's own tag
+# (assets-clubs), so it is the exact same files under the exact same names.
+# Its licence record now lives at campaigns/clubs/creatives/default/LICENSES.md
+# — that committed file is the only copy; nothing is duplicated into the
+# Release itself any more.
+creatives:
+  - name: default
+
 posting:
   # 12/day = one post every two hours across the 24-hour window below.
   #

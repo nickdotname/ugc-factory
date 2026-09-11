@@ -136,6 +136,31 @@ class AssetLibrary:
         music_options = self.total_music_options()
         return len(self.hooks) * body_combos * music_options * len(self.captions)
 
+    def distinct_visuals(
+        self, bodies_per_video: int, bodies_max: int | None = None
+    ) -> int:
+        """Hook x body combinations only — what a viewer can actually see.
+
+        CONTEXT §3: every runway figure ``ceiling()`` reports counts music and
+        caption permutations too, which are a dedupe guarantee, not a variety
+        measure — a caption or music-offset change is invisible. This is the
+        number that answers "how many different-looking videos exist," which
+        is a much smaller and more honest figure to weigh a cadence against.
+        """
+        from math import comb
+
+        if len(self.bodies) < bodies_per_video:
+            return 0
+        top = min(
+            max(bodies_max or bodies_per_video, bodies_per_video),
+            len(self.bodies),
+        )
+        body_combos = sum(
+            comb(len(self.bodies), n)
+            for n in range(bodies_per_video, top + 1)
+        )
+        return len(self.hooks) * body_combos
+
 
 @dataclass(frozen=True)
 class SelectionOutcome:
@@ -381,6 +406,75 @@ class Selector:
             outcomes.append(outcome)
         return outcomes
 
+    def select_batch_multi(
+        self,
+        pools: Mapping[str, tuple[AssetLibrary, History]],
+        weights: Mapping[str, float],
+        count: int,
+        bodies_per_video: int,
+        bodies_max: int | None = None,
+        performance: Mapping[str, Mapping[str, Mapping[str, float]]] | None = None,
+    ) -> list[tuple[str, SelectionOutcome]]:
+        """Pick ``count`` combinations, weighted-choosing a creative per slot.
+
+        HANDOFF phase 1: "clips never mix across creatives." Each creative in
+        ``pools`` gets its own within-batch dedupe set and its own recency
+        tracking, built only from *that* creative's ``History`` — so a pick in
+        one creative can never be blocked, cooled down, or LRU-weighted by
+        what another creative did. This is exactly ``select_one`` used the way
+        ``select_batch`` already uses it, just called once per slot against
+        whichever creative that slot's weighted draw lands on, instead of
+        always the same single library.
+
+        ``performance``, when given, is keyed by creative name first and then
+        by dimension — the same shape ``select_one`` expects, just one level
+        deeper. Two creatives can legitimately reuse a filename (each has its
+        own Release tag), so a single dimension-keyed dict shared across every
+        creative would silently attribute one creative's measured views to a
+        same-named clip in another.
+        """
+        if count <= 0:
+            return []
+        names = tuple(pools)
+        if not names:
+            return []
+        for library, _ in pools.values():
+            library.validate()
+
+        w = tuple(max(0.0, weights.get(name, 1.0)) for name in names)
+        now = self._clock.now()
+        recent: dict[str, list[HistoryEntry]] = {name: [] for name in names}
+        batch_hashes: dict[str, set[str]] = {name: set() for name in names}
+        picks: list[tuple[str, SelectionOutcome]] = []
+
+        for _ in range(count):
+            name = self._rng.weighted_choice(names, w)
+            library, history = pools[name]
+            outcome = self.select_one(
+                library, history, bodies_per_video,
+                exclude=batch_hashes[name], recent=recent[name],
+                bodies_max=bodies_max,
+                performance=(performance or {}).get(name),
+            )
+            selection = outcome.selection
+            digest = tuple_hash(selection, self._config.dedupe_on)
+            batch_hashes[name].add(digest)
+            recent[name].append(
+                HistoryEntry(
+                    tuple_hash=digest,
+                    timestamp=now + timedelta(microseconds=len(recent[name])),
+                    item_id="",
+                    hook=selection.hook,
+                    bodies=selection.bodies,
+                    music=selection.music,
+                    music_offset_sec=selection.music_offset_sec,
+                    caption=selection.caption,
+                    creative=name,
+                )
+            )
+            picks.append((name, outcome))
+        return picks
+
     def select_one(
         self,
         library: AssetLibrary,
@@ -591,9 +685,14 @@ class Selector:
 
 
 def days_until_first_repeat(
-    library: AssetLibrary, history: History, bodies_per_video: int, posts_per_day: int
+    library: AssetLibrary, history: History, bodies_per_video: int, posts_per_day: float
 ) -> float:
-    """Runway before the library is exhausted, for the weekly digest (SPEC §12)."""
+    """Runway before the library is exhausted, for the weekly digest (SPEC §12).
+
+    ``posts_per_day`` accepts a fraction: a creative that only wins part of a
+    campaign's weighted draw exhausts its own pool at less than the
+    campaign's full cadence (see ``cli._render``'s per-creative call).
+    """
     if posts_per_day <= 0:
         return float("inf")
     remaining = library.ceiling(bodies_per_video) - len(history.entries)
