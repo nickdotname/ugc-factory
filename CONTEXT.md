@@ -293,10 +293,29 @@ Check what the code actually does before theorising about it.
 
 **Ranked by expected value, not by effort.**
 
-1. **Shoot more clips.** Six hooks and four bodies caps everything — how hard
-   the weighting can favour winners, how fast any channel can scale, how long
-   before fatigue. Replace `body_04` first; shoot hooks at 2+ seconds. This is
-   the only item that raises the ceiling rather than tuning under it.
+1. **Shoot more clips — the shoot brief.** Six hooks and four bodies caps
+   everything: how hard the weighting can favour winners, how fast any
+   channel can scale, how long before fatigue. This is the only item that
+   raises the ceiling rather than tuning under it.
+   - **Study the winners first.** hook_02 and hook_06 are 61.9% of all
+     breakouts between them (§3). Rewatch both and shoot variations of
+     whatever they're doing — premise, pacing, framing, on-screen text.
+   - **Replace `body_04` first.** A quarter of all posts, zero breakouts,
+     p ≈ 0.002 against that being chance (§3). Its replacement goes into
+     the existing pool, not a new one.
+   - **Hooks at 2+ seconds.** Both sub-1.5s hooks are among the worst
+     performers and have never broken out in 44 posts.
+   - **Hooks matter more than bodies.** Shoot as many as possible.
+   - **Same concept → grow the existing pool. Different concept → new
+     creative.** Clips inside one pool multiply — 12 hooks × 8 bodies = 96
+     distinct visuals. Separate creatives only add — 24 + 24 = 48. A second
+     creative (`campaigns/clubs/config.yaml`'s `creatives:` block) earns its
+     place on a genuinely different concept, not on wanting more of the same
+     one.
+   - **Specs:** vertical 9:16, 1080×1920, mp4/mov. Match whatever the
+     winning hooks do on-screen text.
+   - **New music stays royalty-free**, licence recorded per creative —
+     `campaigns/clubs/creatives/<name>/LICENSES.md`.
 
 2. **Ask for follows.** Zero across 719 posts is the worst signal these accounts
    emit, and it costs one caption rewrite to stop emitting it.
