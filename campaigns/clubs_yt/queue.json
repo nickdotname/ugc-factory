@@ -3,7 +3,7 @@
   "items": [
     {
       "id": "5a6f73ed-20c8-4309-a679-e3959b7f2b21",
-      "scheduled_for": "2026-09-11T07:00:00-04:00",
+      "scheduled_for": "2026-09-11T12:20:00-04:00",
       "rendered_at": "2026-09-11T09:22:00.098716Z",
       "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs_yt-2026-09-11/5a6f73ed-20c8-4309-a679-e3959b7f2b21.mp4",
       "caption": "Where actors, singers and filmmakers find open casting calls, student films and music collaborations in one place. Link in the channel description.\n\nTags: #shorts #acting #castingcall #filmmaking",
@@ -28,7 +28,7 @@
         "music_tempo": 0.9971,
         "music_tilt_db": 0.21
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
