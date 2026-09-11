@@ -6474,7 +6474,7 @@
         {
           "type": "views",
           "name": "Video Views",
-          "value": 0.0,
+          "value": 2.0,
           "unit": "count"
         }
       ]
@@ -6700,6 +6700,192 @@
       "post_id": "6aa157214cb222af4f43c3aa",
       "service": "youtube",
       "sent_at": "2026-09-09T16:20:09.825000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa2a80c98d1587af523a4bb": {
+      "post_id": "6aa2a80c98d1587af523a4bb",
+      "service": "youtube",
+      "sent_at": "2026-09-11T07:00:44.913000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa2a809df56ba8a23992754": {
+      "post_id": "6aa2a809df56ba8a23992754",
+      "service": "youtube",
+      "sent_at": "2026-09-11T03:00:19.520000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa2a8056a121c39ae4e8ba5": {
+      "post_id": "6aa2a8056a121c39ae4e8ba5",
+      "service": "youtube",
+      "sent_at": "2026-09-10T23:00:49.125000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa2a80198d1587af523a476": {
+      "post_id": "6aa2a80198d1587af523a476",
+      "service": "youtube",
+      "sent_at": "2026-09-10T19:00:57.122000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa2a7fe4198cdbfa7677e66": {
+      "post_id": "6aa2a7fe4198cdbfa7677e66",
+      "service": "youtube",
+      "sent_at": "2026-09-10T15:00:40.997000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 0.0,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Video Views",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ]
+    },
+    "6aa2a7fa98d1587af523a3be": {
+      "post_id": "6aa2a7fa98d1587af523a3be",
+      "service": "youtube",
+      "sent_at": "2026-09-10T16:20:03.326000Z",
       "metrics": [
         {
           "type": "reactions",
