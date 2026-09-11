@@ -18,7 +18,7 @@ posting:
   # RECOVERY CADENCE. Both networks stopped serving this account at 12-15/day.
   # 3/day is a deliberate floor while distribution is broken; raise it only
   # once views per post recover.
-  posts_per_day: 6
+  posts_per_day: 4
   # One post an hour, starting 15:00 Mountain. start == end means a FULL
   # 24-hour window beginning at that hour, so the run wraps past midnight and
   # the later slots land on the following calendar day.
