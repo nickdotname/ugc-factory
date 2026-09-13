@@ -7342,6 +7342,126 @@
         "music_tilt_db": -0.57
       },
       "buffer_post_id": "6aa54056c637430b6b55a5e2"
+    },
+    {
+      "tuple_hash": "df888b7f7cdabda06c51c0bb5635737ac7603644ce022fe5dda6814fcf152070",
+      "timestamp": "2026-09-13T09:59:29.041928Z",
+      "item_id": "60b33baa-d9d8-41dd-8a03-fb3729124eb0",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_01.mp4",
+        "body_02.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Actors, singers, dancers, writers and filmmakers finding each other and building work together. Link in the channel description.\n\nTags: #shorts #creatives #performingarts #artist",
+      "title": "Creative Community for Artists",
+      "creative": "default",
+      "treatment": {
+        "zoom": 0.0082,
+        "anchor_x": 0.591,
+        "anchor_y": 0.583,
+        "rotate_deg": 0.037,
+        "brightness": -0.0158,
+        "saturation": 0.9658,
+        "hue_deg": 2.34,
+        "grain": 0.71,
+        "speed": 1.0022,
+        "mirror": 0.0,
+        "music_tempo": 1.0145,
+        "music_tilt_db": -1.44
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "3bcef70e61a9a553defdf130399dc5d53bdb77a9e24b65b65b395a101f158834",
+      "timestamp": "2026-09-13T09:59:29.041928Z",
+      "item_id": "62574345-9c34-4b87-adfa-2a89e5f5f592",
+      "hook": "hook_02.mov",
+      "bodies": [
+        "body_03.mp4",
+        "body_01.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "How people outside film programs find the same projects and collaborators students do. Link in the channel description.\n\nTags: #shorts #filmschool #filmmaking #studentfilm",
+      "title": "Film School Without Film School",
+      "creative": "default",
+      "treatment": {
+        "zoom": 0.0198,
+        "anchor_x": 0.697,
+        "anchor_y": 0.472,
+        "rotate_deg": -0.167,
+        "brightness": -0.0265,
+        "saturation": 0.947,
+        "hue_deg": -2.34,
+        "grain": 5.04,
+        "speed": 0.9742,
+        "mirror": 0.0,
+        "music_tempo": 1.0149,
+        "music_tilt_db": 0.19
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "726b7976bac67a5e5f201f9da0258cdf65aefb4d8a8f80b6b1f744db6faffb2f",
+      "timestamp": "2026-09-13T09:59:29.041928Z",
+      "item_id": "6d7526eb-70fb-4225-9eae-154618b0c6c3",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_01.mp4",
+        "body_03.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Dancers and performers use this to find auditions, shows and creative projects to join. Link in the channel description.\n\nTags: #shorts #dance #auditions #performingarts",
+      "title": "Find Dance Auditions Online",
+      "creative": "default",
+      "treatment": {
+        "zoom": 0.0443,
+        "anchor_x": 0.601,
+        "anchor_y": 0.283,
+        "rotate_deg": -0.355,
+        "brightness": 0.0055,
+        "saturation": 1.0662,
+        "hue_deg": -1.68,
+        "grain": 5.76,
+        "speed": 1.0142,
+        "mirror": 0.0,
+        "music_tempo": 1.0006,
+        "music_tilt_db": 0.7
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "0824ebad80130e588a30b6752131e740cbb80d2e6ffb5d04f6ebba483e980cc7",
+      "timestamp": "2026-09-13T09:59:29.041928Z",
+      "item_id": "40d5de25-54b6-4daa-955e-6cfe76273c87",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_01.mp4",
+        "body_02.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "A free way for filmmakers to find cast, crew and collaborators for indie and student projects. Link in the channel description.\n\nTags: #shorts #filmmaking #indiefilm #studentfilm",
+      "title": "Find Film Collaborators Free",
+      "creative": "default",
+      "treatment": {
+        "zoom": 0.0222,
+        "anchor_x": 0.487,
+        "anchor_y": 0.689,
+        "rotate_deg": -0.273,
+        "brightness": 0.0215,
+        "saturation": 0.9558,
+        "hue_deg": -1.84,
+        "grain": 1.04,
+        "speed": 0.9733,
+        "mirror": 0.0,
+        "music_tempo": 0.9954,
+        "music_tilt_db": 0.99
+      },
+      "buffer_post_id": null
     }
   ]
 }
