@@ -11,7 +11,6 @@ timezone: America/New_York
 # Release itself any more.
 creatives:
   - name: default
-
 posting:
   # 12/day = one post every two hours across the 24-hour window below.
   #
@@ -34,14 +33,14 @@ posting:
   # whole backlog instead of into the next free hour. That is how the
   # front of the schedule emptied while Buffer still read full at 10.
   max_backlog_days: 1
-  # LIVE. Posts are pushed to Buffer and publish on their scheduled slot.
-  # Set back to true to pause posting without touching the workflows; the
-  # render job keeps building batches either way.
-  dry_run: false
-  # HANDOFF §2 go-live sequence. Prepped ahead of the BUFFER_API_KEY fix so
-  # preflight (music mute check) and config validation can run early, but
-  # the dashboard has NOT been restarted and this is not yet live-verified —
-  # do not treat this flag alone as "fan-out is on."
+  # PAUSED for a clip-library reset (2026-09-14): the whole asset library
+  # was wiped so fresh creatives could be imported clean. Posting to a live
+  # queue against zero hooks/bodies would either fail loud or, worse, pick
+  # up half-uploaded assets mid-import. Set back to false once the new
+  # creative(s) are fully uploaded and preflight passes.
+  dry_run: true
+  # Fan-out went live 2026-09-14: pushed to main, dashboard restarted,
+  # confirmed reaches=6 via /api/campaigns. Verified working.
   fan_out: true
 
 video:
