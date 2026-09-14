@@ -55,7 +55,9 @@ from src.config import (
 )
 from src.descriptions import (
     Description,
+    bank_path_for,
     derive_title,
+    load_network_banks,
     load_bank,
     parse_bank,
     validate_bank,
@@ -159,6 +161,7 @@ from src.queue import (
 from src.render import FfmpegRenderer, Renderer
 from src.selector import (
     AssetLibrary,
+    pick_by_recency,
     Relaxation,
     Selector,
     days_until_first_repeat,
@@ -271,6 +274,46 @@ def _library_from(
             composition.music_skip_intro_sec if composition else 0.0
         ),
     )
+
+
+def _extra_network_banks(
+    config: CampaignConfig, campaign_dir: Path, log: StructuredLogger
+) -> dict[Service, list[Description]]:
+    """Each network's own description bank, excluding the campaign's own.
+
+    Only networks with a ``captions/<network>.txt`` of their own appear: one
+    falling back to the shared bank needs no separate pick, because the
+    shared bank is already what the item carries.
+    """
+    banks: dict[Service, list[Description]] = {}
+    for service in Service:
+        if service is config.buffer.service:
+            continue
+        if not bank_path_for(campaign_dir, service).is_file():
+            continue
+        banks[service] = load_network_banks(
+            campaign_dir, [service], {service: TitleStrategy.DERIVE}
+        )[service]
+        log.info(
+            "network_bank_loaded", network=service.value,
+            descriptions=len(banks[service]),
+        )
+    return banks
+
+
+def _caption_last_used(
+    history: History, service: Service
+) -> dict[str, datetime]:
+    """When each of this network's descriptions was last posted to it."""
+    seen: dict[str, datetime] = {}
+    for entry in history.entries:
+        text = entry.captions.get(service.value)
+        if not text:
+            continue
+        prior = seen.get(text)
+        if prior is None or entry.timestamp > prior:
+            seen[text] = entry.timestamp
+    return seen
 
 
 def _resolve_creative(config: CampaignConfig, name: str | None) -> CreativeConfig:
@@ -582,6 +625,16 @@ def _render(
     # is what dedupe keys on), so the title is re-attached here from the bank.
     titles = {d.body: d.title for d in descriptions}
 
+    # Under fan-out one video reaches several networks, and their copy is
+    # genuinely different rather than one caption rephrased — so each network
+    # with a bank of its own gets its own pick here, where the recency
+    # weighting and cooldowns already live. Push time only looks them up.
+    extra_banks = _extra_network_banks(config, campaign_dir, log)
+    network_last_used = {
+        service: _caption_last_used(full_history, service)
+        for service in extra_banks
+    }
+
     # Fill the next free slots rather than deferring the whole batch a day.
     # SPEC §4.2 wanted the render->push gap as a review window, but the review
     # window that actually matters is Buffer's own queue: a pushed post sits
@@ -617,6 +670,28 @@ def _render(
             output_path=out_dir / f"{item_id}.mp4",
         )
         result = renderer.render(request)
+
+        # One pick per network with copy of its own, each against that
+        # network's own recency — so TikTok repeating a caption says nothing
+        # about when Instagram last used one of its own.
+        net_captions: dict[str, str] = {}
+        net_titles: dict[str, str] = {}
+        for service, bank in extra_banks.items():
+            bodies = [d.body for d in bank]
+            chosen = pick_by_recency(
+                bodies, network_last_used[service], today, rng,
+                config.selection.caption_cooldown_days,
+            )
+            net_captions[service.value] = chosen
+            title = next((d.title for d in bank if d.body == chosen), None)
+            if title:
+                net_titles[service.value] = title
+            # Within this batch too: without it a night's videos could hand
+            # one network the same caption several times over.
+            network_last_used[service][chosen] = today + timedelta(
+                microseconds=len(net_captions)
+            )
+
         rendered.append((
             QueueItem(
                 id=item_id,
@@ -625,6 +700,8 @@ def _render(
                 video_url="",  # filled in after upload
                 caption=selection.caption,
                 title=titles.get(selection.caption),
+                captions=net_captions,
+                titles=net_titles,
                 parts={
                     "hook": selection.hook,
                     "bodies": ",".join(selection.bodies),
@@ -671,6 +748,7 @@ def _render(
                 title=item.title,
                 # Carried from the queue item so history and queue cannot
                 # disagree about what was actually rendered.
+                captions=item.captions,
                 treatment=item.treatment,
                 creative=creative_name,
             )
@@ -978,16 +1056,19 @@ def _push_to_account(
         taken.add(due)
         post.scheduled_for = due
 
-        # One render now feeds networks with different rules about titles.
-        # An item rendered for a network that has no title field carries
-        # none, and YouTube refuses a Short without one — so the title is
-        # resolved per account, here, rather than baked in at render time
-        # when the destination was still a single channel.
-        title = item.title
+        # This network's own copy if it has any, the shared bank otherwise.
+        network = account.network.value
+        text = item.captions.get(network, item.caption)
+        title = item.titles.get(network, item.title)
+
+        # An item rendered for a network with no title field carries none,
+        # and YouTube refuses a Short without one — so a missing title is
+        # derived here rather than being baked in at render time, when the
+        # destination was still a single channel.
         limits = limits_for(account.network)
         if title is None and limits.has_title:
             assert limits.title_max is not None
-            title = derive_title(item.caption, limits.title_max)
+            title = derive_title(text, limits.title_max)
 
         transition_post(post, QueueStatus.CLAIMED, item.id, log=log)
         sync_status(item)
@@ -1003,7 +1084,7 @@ def _push_to_account(
             result = publisher.create_post(
                 PublishRequest(
                     channel_id=channel,
-                    text=item.caption,
+                    text=text,
                     title=title,
                     service=account.network,
                     video_url=item.video_url,

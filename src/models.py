@@ -215,6 +215,16 @@ class QueueItem(Model):
     #: exactly as before. Once it is populated they become a rollup of it —
     #: see ``queue.recompute_status``.
     posts: list[AccountPost] = Field(default_factory=list)
+    #: The text this video posts with on each network, keyed by
+    #: ``Service`` value. Fan-out sends one video to several networks whose
+    #: copy is genuinely different — not one caption rephrased, a different
+    #: caption — so each network's is chosen at render time, where the
+    #: cooldowns and recency weighting already live, and simply looked up at
+    #: push time. A network with no entry falls back to ``caption``.
+    captions: dict[str, str] = Field(default_factory=dict)
+    #: Per-network titles, same keying. Only networks with a separate title
+    #: field (YouTube today) have one.
+    titles: dict[str, str] = Field(default_factory=dict)
     status: QueueStatus = QueueStatus.PENDING
     attempts: int = Field(default=0, ge=0)
     buffer_post_id: str | None = None
@@ -261,6 +271,10 @@ class HistoryEntry(Model):
     #: mix across creatives, so history for one must never suppress a pick in
     #: another.
     creative: str = DEFAULT_CREATIVE
+    #: What each network was given, keyed by ``Service`` value. Recorded so a
+    #: network's own caption cooldown has something to look back at — without
+    #: it, per-network copy would repeat as often as chance allowed.
+    captions: dict[str, str] = Field(default_factory=dict)
     #: See ``QueueItem.treatment``. History is append-only and never pruned,
     #: so this is the lasting record a performance figure can be joined to.
     treatment: dict[str, float] | None = None

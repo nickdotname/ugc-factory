@@ -684,6 +684,38 @@ class Selector:
         return tuple(chosen)
 
 
+def pick_by_recency(
+    pool: Sequence[str],
+    last_used: Mapping[str, datetime],
+    now: datetime,
+    rng: Rng,
+    cooldown_days: int = 0,
+) -> str:
+    """Pick one option, favouring whatever has gone longest unused.
+
+    The same rank-based weighting ``_lru_weights`` gives the main selector,
+    exposed for a dimension picked outside the combination tuple — a
+    network's own caption under fan-out, where the copy differs per network
+    and so cannot be part of one shared tuple.
+
+    Options inside the cooldown are held back, and the cooldown is dropped
+    rather than failing if that would leave nothing: a caption repeating
+    sooner than intended beats a video that cannot post at all.
+    """
+    if not pool:
+        raise SelectionError("cannot pick from an empty description bank")
+
+    floor = datetime.min.replace(tzinfo=now.tzinfo)
+    eligible = list(pool)
+    if cooldown_days > 0:
+        cutoff = now - timedelta(days=cooldown_days)
+        cooled = [c for c in pool if last_used.get(c, floor) <= cutoff]
+        if cooled:
+            eligible = cooled
+
+    return rng.weighted_choice(eligible, _lru_weights(eligible, last_used, now))
+
+
 def days_until_first_repeat(
     library: AssetLibrary, history: History, bodies_per_video: int, posts_per_day: float
 ) -> float:

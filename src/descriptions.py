@@ -26,6 +26,7 @@ description and its title cannot drift out of sync or out of order.
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Sequence
 
 import re
@@ -203,6 +204,53 @@ def validate_bank(
         ):
             notes.append(f"description #{index}: {note}")
     return errors, notes
+
+
+#: Where a network's own copy lives, under the campaign directory.
+BANK_DIR = "captions"
+
+
+def bank_path_for(campaign_dir: "Path", service: Service) -> "Path":
+    """Where this network's own description bank would live."""
+    return campaign_dir / BANK_DIR / f"{service.value}.txt"
+
+
+def load_network_banks(
+    campaign_dir: "Path",
+    services: "Sequence[Service]",
+    strategies: "dict[Service, TitleStrategy]",
+) -> dict[Service, list[Description]]:
+    """Every network's own bank, falling back to the campaign's shared one.
+
+    Fan-out sends one video to several networks at once, and the copy that
+    works on each is genuinely different — not one caption rephrased, but a
+    different caption. So a campaign may carry ``captions/<network>.txt`` per
+    network, and whichever network has no file of its own falls back to
+    ``captions.txt``.
+
+    Validated per network, because the limits differ: a description that fits
+    Instagram can be refused by YouTube, and only the network it is destined
+    for can say.
+    """
+    from pathlib import Path as _Path  # local: keeps the module import-light
+
+    shared_path = _Path(campaign_dir) / "captions.txt"
+    banks: dict[Service, list[Description]] = {}
+    for service in services:
+        own = bank_path_for(_Path(campaign_dir), service)
+        path = own if own.is_file() else shared_path
+        if not path.is_file():
+            raise ConfigError(
+                f"no description bank for {service.value}: expected "
+                f"{own} or {shared_path}"
+            )
+        banks[service] = load_bank(
+            path.read_text(encoding="utf-8"),
+            service,
+            source=str(path),
+            strategy=strategies.get(service),
+        )
+    return banks
 
 
 def load_bank(
