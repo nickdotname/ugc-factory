@@ -38,6 +38,11 @@ posting:
   # Set back to true to pause posting without touching the workflows; the
   # render job keeps building batches either way.
   dry_run: false
+  # HANDOFF §2 go-live sequence. Prepped ahead of the BUFFER_API_KEY fix so
+  # preflight (music mute check) and config validation can run early, but
+  # the dashboard has NOT been restarted and this is not yet live-verified —
+  # do not treat this flag alone as "fan-out is on."
+  fan_out: true
 
 video:
   width: 1080
