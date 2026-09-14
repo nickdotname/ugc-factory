@@ -342,8 +342,16 @@ class TestShippedCaptionsMeetDemand:
             # the alert itself groups them.
             corpus = ""
             for other in list_campaigns(REPO_ROOT / "campaigns"):
-                if other.valid and other.assets_tag == summary.assets_tag:
-                    bank = REPO_ROOT / "campaigns" / other.slug / "captions.txt"
+                if not (other.valid and other.assets_tag == summary.assets_tag):
+                    continue
+                directory = REPO_ROOT / "campaigns" / other.slug
+                # The shared bank plus every network's own: under fan-out the
+                # copy a searcher might meet is spread across all of them, so
+                # scoring only captions.txt would measure a third of what
+                # actually gets posted.
+                banks = [directory / "captions.txt"]
+                banks += sorted((directory / "captions").glob("*.txt"))
+                for bank in banks:
                     if bank.is_file():
                         corpus += "\n" + bank.read_text(encoding="utf-8")
             gap = vocabulary_gap(

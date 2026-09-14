@@ -1526,6 +1526,11 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
     if env.get("GITHUB_REPOSITORY") and _secret("GITHUB_TOKEN", env):
         campaign_dir = _campaign_dir(config.slug)
         total_weight = sum(c.weight for c in config.creatives)
+        fanout_targets = (
+            accounts_for(load_accounts(REPO_ROOT / ACCOUNTS_FILE), config.accounts)
+            if config.posting.fan_out
+            else ()
+        )
         for creative in config.creatives:
             prefix = f"{creative.name}: "
             try:
@@ -1549,6 +1554,25 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
                         f"{prefix}music tracks with no LICENSES.md entry: "
                         + ", ".join(missing[:20])
                     )
+
+                # Fan-out renders ONE file and sends it everywhere, so a music
+                # bed is no longer a per-network choice. This campaign used to
+                # keep music on Instagram and muted on the networks that
+                # fingerprint it — the split that ended a TikTok outage
+                # (CONTEXT §4). One file cannot do both, and the failure mode
+                # is silent: everything publishes and the posts reach nobody.
+                if config.posting.fan_out and paths.music:
+                    networks = {a.network.value for a in fanout_targets}
+                    at_risk = networks & {"tiktok", "youtube"}
+                    if at_risk:
+                        problems.append(
+                            f"{prefix}fan_out is on and {len(paths.music)} music "
+                            f"track(s) are still in rotation, but the same file "
+                            f"goes to {', '.join(sorted(at_risk))}, which "
+                            f"fingerprint audio. Either mute them "
+                            f"(`ugc clips --off <track>`) or replace them with "
+                            f"royalty-free tracks before going live."
+                        )
 
                 # Probe music exactly as the render job does. Without
                 # durations the library reports one bed per track and the

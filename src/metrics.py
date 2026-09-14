@@ -97,29 +97,46 @@ class MetricsHistory(BaseModel):
     snapshots: list[Snapshot] = Field(default_factory=list)
 
     def upsert(self, snapshot: Snapshot) -> None:
-        """Replace today's snapshot for this scope, or append it.
+        """Replace today's snapshot for this scope and network, or append it.
 
-        Keyed on (date, scope): a lifetime and a rolling snapshot from the same
-        day are different measurements and must not overwrite each other.
+        Keyed on (date, scope, service): a lifetime and a rolling snapshot
+        from the same day are different measurements, and so — once one
+        campaign posts to several networks — are Instagram's and TikTok's
+        figures for the same day. Keying on the first two alone let the last
+        network fetched overwrite the others.
         """
         for index, existing in enumerate(self.snapshots):
-            if existing.date == snapshot.date and existing.scope is snapshot.scope:
+            if (
+                existing.date == snapshot.date
+                and existing.scope is snapshot.scope
+                and existing.service == snapshot.service
+            ):
                 self.snapshots[index] = snapshot
                 break
         else:
             self.snapshots.append(snapshot)
-        self.snapshots.sort(key=lambda s: (s.date, s.scope.value))
+        self.snapshots.sort(key=lambda s: (s.date, s.scope.value, s.service))
 
-    def of(self, scope: Scope) -> list[Snapshot]:
-        return [s for s in self.snapshots if s.scope is scope]
+    def of(self, scope: Scope, service: str | None = None) -> list[Snapshot]:
+        """Snapshots for one scope, optionally narrowed to one network."""
+        return [
+            s for s in self.snapshots
+            if s.scope is scope and (service is None or s.service == service)
+        ]
 
-    def latest(self, scope: Scope = Scope.ROLLING) -> Snapshot | None:
-        snaps = self.of(scope)
+    def services(self) -> list[str]:
+        """Every network these snapshots cover, in a stable order."""
+        return sorted({s.service for s in self.snapshots if s.service})
+
+    def latest(
+        self, scope: Scope = Scope.ROLLING, service: str | None = None
+    ) -> Snapshot | None:
+        snaps = self.of(scope, service)
         return snaps[-1] if snaps else None
 
-    def lifetime(self) -> Snapshot | None:
+    def lifetime(self, service: str | None = None) -> Snapshot | None:
         """Totals since the campaign began, or None if never fetched."""
-        return self.latest(Scope.LIFETIME)
+        return self.latest(Scope.LIFETIME, service)
 
     def series(
         self, metric_type: str, scope: Scope = Scope.ROLLING

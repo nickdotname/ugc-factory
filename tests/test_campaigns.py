@@ -183,7 +183,10 @@ class TestShippedRepoStillWorks:
     def test_real_campaigns_all_load(self) -> None:
         root = Path(__file__).resolve().parents[1] / "campaigns"
         summaries = list_campaigns(root)
-        assert len(summaries) >= 3
+        # No count assertion: one brand used to need three campaigns because
+        # each was one channel, and fan-out is what collapsed them. What
+        # matters is that every campaign present actually loads.
+        assert summaries
         for s in summaries:
             assert s.valid, f"{s.slug}: {s.error}"
 

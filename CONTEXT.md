@@ -26,10 +26,23 @@ State lives in the repo, one directory per campaign, committed by the jobs
 themselves. There is no database and no server — GitHub Actions plus a local
 read-only dashboard (`ugc web`, port 8765).
 
-**One campaign is one channel.** `clubs`, `clubs_tt`, `clubs_yt` are the same
-brand posting the same clips to three networks, grouped by a shared
-`assets_release`. That grouping is the unit that matters for anything
-product-side, because all three drive one product.
+**One campaign used to be one channel.** `clubs`, `clubs_tt` and `clubs_yt`
+were the same brand posting the same clips to three networks, split three
+ways only because the Buffer channel binding lived inside the campaign.
+
+As of 2026-09-14 they are **one campaign, `clubs`**. The channels moved to a
+repo-level `accounts.yaml` (six of them: nickdotname and knick.creates, on
+all three networks each), and top-up posts one rendered video to every
+account. Their measurement was merged rather than discarded — 838 posts,
+1,163 history entries and 162 metric snapshots, each keyed by the account it
+came from, so every per-network figure in §2 and §4 is still recoverable.
+
+"nickdotname" and "clubs" are the same three channels: `clubs` was this
+project's internal codename for the content, nickdotname is the Buffer login
+it posts through.
+
+Fan-out is built but **off** (`posting.fan_out`), because switching it on
+changes where real posts land.
 
 `campaigns/_knick_creates*` is a second brand, scaffolded and never finished.
 The `_` prefix removes it from discovery. It is parked, not deleted — rename
@@ -145,7 +158,21 @@ with no subscribers, and Shorts gives that almost nothing. Unlike TikTok there
 is no fixable fault — which also means the distribution alert (§6) deliberately
 will not page about it, because it never had a healthy stretch to fall from.
 
-### The music question
+### The music question — now forced by fan-out
+
+The split below (music on for Instagram, muted for TikTok and YouTube) was
+enforced by three separate campaigns with three separate mute lists. **One
+campaign rendering one file cannot do that.** The same video now goes to
+every network, so the three copyrighted tracks are either in it everywhere or
+nowhere.
+
+Nowhere is the safe default, and it costs almost nothing: the bed sits at 10%
+under voiceover, and TikTok recovered with no music at all. Royalty-free
+replacements are the real fix — see §9. Preflight refuses to pass with
+`fan_out` on while those tracks are still in rotation, so this cannot be
+forgotten on the way to going live.
+
+
 
 `campaigns/clubs/LICENSES.md` records this in full. Short version: the three
 tracks are copyrighted, they stay muted on TikTok and YouTube, and they stay

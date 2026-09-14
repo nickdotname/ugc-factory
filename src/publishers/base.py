@@ -101,6 +101,15 @@ class PostMetrics(BaseModel):
     service: str
     sent_at: datetime | None = None
     metrics: tuple["MetricRow", ...] = ()
+    #: Which account in ``accounts.yaml`` published this (HANDOFF phase 2).
+    #: ``service`` alone stopped being enough the moment two accounts shared
+    #: a network: without this, one brand's Instagram figures and another's
+    #: would pool into a single number nobody could take apart again.
+    #:
+    #: Optional because every post fetched before fan-out predates the idea,
+    #: and a campaign that posts to one channel needs no dimension to tell
+    #: its posts apart.
+    account: str | None = None
 
     def value(self, metric_type: str) -> float | None:
         for row in self.metrics:

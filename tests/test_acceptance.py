@@ -31,6 +31,19 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 NOW = datetime(2026, 8, 13, 5, 0, tzinfo=timezone.utc)
 
 
+def shipped_slugs() -> list[str]:
+    """Every campaign actually in the repo.
+
+    Discovered rather than listed: naming them is the coupling that made
+    collapsing three channel-shaped campaigns into one brand break five
+    unrelated tests, and it is the same coupling the workflow matrices
+    already dropped.
+    """
+    from src.campaigns import list_campaigns
+
+    return [c.slug for c in list_campaigns(REPO_ROOT / "campaigns")]
+
+
 def log() -> StructuredLogger:
     return StructuredLogger({}, io.StringIO())
 
@@ -420,7 +433,7 @@ class TestShippedCampaign:
         # decision about spam-classifier risk, not something a test should pin.
         assert 1 <= cfg.posting.posts_per_day <= 24
 
-    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
+    @pytest.mark.parametrize("slug", shipped_slugs())
     def test_cooldowns_are_satisfiable_by_the_real_bank(self, slug: str) -> None:
         """A cooldown of N days at P posts/day needs N×P distinct assets.
 
@@ -460,7 +473,12 @@ class TestShippedCampaign:
                 f"{summary.slug} and {identities[identity]} both target {identity}"
             )
             identities[identity] = summary.slug
-        assert len(identities) >= 3
+        # No count assertion. Campaigns used to BE channels, so counting them
+        # counted channels; under fan-out the channels live in accounts.yaml
+        # and their distinctness is guaranteed there instead (see
+        # tests/test_accounts.py). What stays true here is the rule itself:
+        # no two campaigns may point at one channel.
+        assert identities
 
     def test_queue_and_history_files_are_valid_json(self) -> None:
         """Parse, not emptiness — these files carry real state once live."""
@@ -500,7 +518,7 @@ class TestDigestIsActuallyEnabled:
     weekly digest silently no-opped.
     """
 
-    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
+    @pytest.mark.parametrize("slug", shipped_slugs())
     def test_campaign_has_digest_enabled(self, slug: str) -> None:
         from src.config import NotifyEvent
 
@@ -509,7 +527,7 @@ class TestDigestIsActuallyEnabled:
             f"{slug} would never report that it is alive"
         )
 
-    @pytest.mark.parametrize("slug", ["clubs", "clubs_tt", "clubs_yt"])
+    @pytest.mark.parametrize("slug", shipped_slugs())
     def test_campaign_alerts_on_failure(self, slug: str) -> None:
         from src.config import NotifyEvent
 
