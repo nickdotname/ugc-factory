@@ -18,7 +18,7 @@ import re
 import zoneinfo
 from enum import Enum
 from pathlib import Path
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -123,7 +123,7 @@ class PostType(str, Enum):
     SHORT = "short"
 
 
-class _Yaml12Loader(yaml.SafeLoader):
+class Yaml12Loader(yaml.SafeLoader):
     """A YAML loader that does NOT treat ``on``/``off``/``yes``/``no`` as booleans.
 
     PyYAML implements YAML 1.1, where those four words resolve to booleans. That
@@ -138,11 +138,11 @@ class _Yaml12Loader(yaml.SafeLoader):
 
 
 # Rebuild the bool resolver for this loader only, matching just true/false.
-_Yaml12Loader.yaml_implicit_resolvers = {
+Yaml12Loader.yaml_implicit_resolvers = {
     key: [(tag, regex) for tag, regex in resolvers if tag != "tag:yaml.org,2002:bool"]
     for key, resolvers in yaml.SafeLoader.yaml_implicit_resolvers.items()
 }
-_Yaml12Loader.add_implicit_resolver(  # type: ignore[no-untyped-call]
+Yaml12Loader.add_implicit_resolver(  # type: ignore[no-untyped-call]
     "tag:yaml.org,2002:bool",
     re.compile(r"^(?:true|True|TRUE|false|False|FALSE)$"),
     list("tTfF"),
@@ -445,6 +445,33 @@ class SelectionConfig(StrictModel):
         return v
 
 
+#: Which post types each network actually accepts. A YouTube channel
+#: configured to post ``reel``, or an Instagram channel posting ``short``, is
+#: a copy-paste error that would otherwise surface as an opaque Buffer
+#: rejection at publish time.
+#:
+#: Module-level rather than buried in a validator because the same rule binds
+#: a Buffer *channel* wherever it is described — on a campaign today, on an
+#: account under fan-out (see ``src/accounts.py``). One copy, one place to fix
+#: when a network changes what it takes.
+POST_TYPES_BY_SERVICE: dict[Service, set[PostType]] = {
+    Service.INSTAGRAM: {PostType.REEL, PostType.POST, PostType.STORY},
+    Service.TIKTOK: {PostType.POST},
+    Service.YOUTUBE: {PostType.SHORT, PostType.POST},
+}
+
+
+def check_post_type(service: Service, post_type: PostType) -> None:
+    """Raise ``ValueError`` if this network will not take this post type."""
+    permitted = POST_TYPES_BY_SERVICE[service]
+    if post_type not in permitted:
+        raise ValueError(
+            f"post_type {post_type.value!r} is not valid for "
+            f"{service.value}; expected one of "
+            f"{sorted(p.value for p in permitted)}"
+        )
+
+
 #: How many separate Buffer accounts the workflows are wired for.
 #: GitHub refuses to run a workflow that dumps the secrets context, so a
 #: dynamic campaign list cannot discover per-campaign secret names. Fixed
@@ -508,21 +535,7 @@ class BufferConfig(StrictModel):
 
     @model_validator(mode="after")
     def _post_type_suits_service(self) -> "BufferConfig":
-        # A YouTube channel configured to post `reel`, or an Instagram channel
-        # posting `short`, is a copy-paste error that would otherwise surface as
-        # an opaque Buffer rejection at publish time.
-        allowed: dict[Service, set[PostType]] = {
-            Service.INSTAGRAM: {PostType.REEL, PostType.POST, PostType.STORY},
-            Service.TIKTOK: {PostType.POST},
-            Service.YOUTUBE: {PostType.SHORT, PostType.POST},
-        }
-        permitted = allowed[self.service]
-        if self.post_type not in permitted:
-            raise ValueError(
-                f"post_type {self.post_type.value!r} is not valid for "
-                f"{self.service.value}; expected one of "
-                f"{sorted(p.value for p in permitted)}"
-            )
+        check_post_type(self.service, self.post_type)
         return self
 
     @field_validator("api_key_secret")
@@ -632,6 +645,39 @@ class NotifyConfig(StrictModel):
 _CREATIVE_NAME = re.compile(r"^[a-z][a-z0-9_]{0,63}$")
 
 
+class AccountFilter(StrictModel):
+    """Which accounts a campaign fans out to (HANDOFF phase 2).
+
+    Defaults to **every** account, which is the confirmed intent: every
+    campaign posts to every connected Buffer account. This exists so opting
+    one out later is a line of config rather than a refactor — ``block`` with
+    an empty list is "block nothing".
+
+    There is deliberately no dashboard control for it.
+    """
+
+    mode: Literal["allow", "block"] = "block"
+    names: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def _allow_nothing_is_a_mistake(self) -> "AccountFilter":
+        # `allow` with an empty list reads as "allow everything" and means the
+        # opposite — a campaign that renders nightly and posts nowhere, with
+        # nothing failing to say so.
+        if self.mode == "allow" and not self.names:
+            raise ValueError(
+                "accounts.mode 'allow' with no names would post to nothing; "
+                "list the accounts to allow, or use mode 'block'"
+            )
+        return self
+
+    def allows(self, name: str) -> bool:
+        """Whether this campaign reaches the named account."""
+        if self.mode == "allow":
+            return name in self.names
+        return name not in self.names
+
+
 class CreativeConfig(StrictModel):
     """One self-contained clip pool within a campaign (HANDOFF phase 1).
 
@@ -694,6 +740,10 @@ class CampaignConfig(StrictModel):
     #: heard of creatives keeps working exactly as before (SPEC §2.2: a
     #: campaign without a feature must not have to know the feature exists).
     creatives: tuple[CreativeConfig, ...] = (CreativeConfig(),)
+    #: Which of the repo's Buffer accounts this campaign posts to. Empty
+    #: block list = all of them, which is the intended default under fan-out
+    #: (HANDOFF phase 2). Ignored until the fan-out publisher lands.
+    accounts: AccountFilter = AccountFilter()
 
     @field_validator("creatives")
     @classmethod
@@ -821,7 +871,7 @@ def load_config(path: Path) -> CampaignConfig:
         raise ConfigError(f"config not found: {path}")
 
     try:
-        raw: Any = yaml.load(path.read_text(encoding="utf-8"), Loader=_Yaml12Loader)
+        raw: Any = yaml.load(path.read_text(encoding="utf-8"), Loader=Yaml12Loader)
     except yaml.YAMLError as exc:
         raise ConfigError(f"{path} is not valid YAML: {exc}") from exc
 

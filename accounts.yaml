@@ -1,0 +1,76 @@
+# Every Buffer channel this repo can post to (HANDOFF phase 2).
+#
+# An account is a PLACE CONTENT GOES. It is deliberately not owned by any
+# campaign: under fan-out every campaign reaches every account here, so a
+# channel binding cannot live inside a campaign the way SPEC §9 originally
+# put it. That split is what lets clubs / clubs_tt / clubs_yt — one brand,
+# one clip library, one caption bank, split three ways only because each was
+# one channel — collapse back into a single campaign.
+#
+# Adding an account is this file plus, if it is a new Buffer login, one
+# `gh secret set BUFFER_API_KEY_<n>`. Never a workflow edit: the workflows
+# name a fixed set of key slots because GitHub refuses to let a workflow
+# enumerate its own secrets (see BUFFER_KEY_SLOTS in src/config.py).
+#
+# channel_id and organization_id are NOT secrets — they identify a channel
+# and grant nothing without the key — so they belong here in the open.
+# Only secret *names* are ever written down.
+
+accounts:
+  # ── nickdotname ──────────────────────────────────────────────────────
+  # The three channels the repo currently calls clubs / clubs_tt / clubs_yt.
+  # "clubs" was only ever this project's internal codename for the content;
+  # nickdotname is the actual Buffer login those channels live under.
+  - name: nickdotname_ig
+    network: instagram
+    api_key_secret: BUFFER_API_KEY
+    organization_id: 6a1dc863e8cbb15ba8fdb4ab
+    channel_id: 6a7d1f03b2d9d57743694aa7
+    post_type: reel
+    title_strategy: derive
+
+  - name: nickdotname_tt
+    network: tiktok
+    api_key_secret: BUFFER_API_KEY
+    organization_id: 6a1dc863e8cbb15ba8fdb4ab
+    channel_id: 6a1dc9e4c687a22dd44c7e3d
+    post_type: post
+    title_strategy: derive
+
+  - name: nickdotname_yt
+    network: youtube
+    api_key_secret: BUFFER_API_KEY
+    organization_id: 6a1dc863e8cbb15ba8fdb4ab
+    channel_id: 6a1dca06c687a22dd44c7f8a
+    post_type: short
+    # YouTube is the one network with a separate title field, and it caps a
+    # Short's title at 100 characters — so it asks for a written one rather
+    # than deriving from the description's first line.
+    title_strategy: require
+
+  # ── knick.creates ────────────────────────────────────────────────────
+  # A second Buffer login, its own key slot. Channel ids read from Buffer's
+  # own API on 2026-09-11 rather than assumed.
+  - name: knick_creates_ig
+    network: instagram
+    api_key_secret: BUFFER_API_KEY_2
+    organization_id: 6a86335e7667b936ca8e2ca1
+    channel_id: 6a863bb4ccaf649a67dc5e49
+    post_type: reel
+    title_strategy: derive
+
+  - name: knick_creates_tt
+    network: tiktok
+    api_key_secret: BUFFER_API_KEY_2
+    organization_id: 6a86335e7667b936ca8e2ca1
+    channel_id: 6a863b68ccaf649a67dc590d
+    post_type: post
+    title_strategy: derive
+
+  - name: knick_creates_yt
+    network: youtube
+    api_key_secret: BUFFER_API_KEY_2
+    organization_id: 6a86335e7667b936ca8e2ca1
+    channel_id: 6a8639cbccaf649a67dc364b
+    post_type: short
+    title_strategy: require
