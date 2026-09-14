@@ -2866,6 +2866,31 @@ PAGE = """<!doctype html>
     text-transform:uppercase; opacity:.85;
   }
 
+  /* ── Page tabs ─────────────────────────────────────────────────────────
+     A third, orthogonal axis under Brand and Network: not which content or
+     which channel, but which *view* of it — performance, the clip library,
+     or day-to-day operation. Styled closer to the brand tabs (an underline,
+     not a pill) since this is the primary structural switch on the page,
+     one level above the pill-style choices nested under it. */
+  .pagetabs {
+    position:sticky; top:104px; z-index:18;
+    display:flex; gap:4px; padding:0 28px; max-width:1220px; margin:0 auto;
+    background:color-mix(in srgb,var(--bg) 92%, transparent);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .pagetab {
+    position:relative; padding:11px 4px; margin-right:20px;
+    border:none; background:transparent; box-shadow:none;
+    color:var(--ink-3); font-size:13.5px; font-weight:600;
+  }
+  .pagetab:hover { color:var(--ink); filter:none; box-shadow:none; }
+  .pagetab[aria-selected="true"] { color:var(--ink); }
+  .pagetab[aria-selected="true"]::after {
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    border-radius:2px 2px 0 0; background:var(--grad-accent);
+  }
+
   /* Creative picker, inside the Assets section rather than the page header —
      it scopes which pool the drop zones below it write into, so it lives
      right next to what it controls. Reuses .net for the pill itself. */
@@ -3381,6 +3406,15 @@ PAGE = """<!doctype html>
 
 <div id="nets" class="nets" role="tablist" aria-label="Network"></div>
 
+<nav class="pagetabs" role="tablist" aria-label="View">
+  <button class="pagetab" data-tab="analytics" role="tab"
+          onclick="showPageTab('analytics')">Analytics</button>
+  <button class="pagetab" data-tab="creatives" role="tab"
+          onclick="showPageTab('creatives')">Creatives</button>
+  <button class="pagetab" data-tab="operations" role="tab"
+          onclick="showPageTab('operations')">Operations</button>
+</nav>
+
 <main>
   <div id="sync-bar" style="display:none">
     <div class="sync">
@@ -3421,12 +3455,12 @@ PAGE = """<!doctype html>
     </div>
   </div>
 
-  <section>
+  <section data-tab="analytics">
     <h2>All time <small>every campaign, since the first post</small></h2>
     <div id="overall"></div>
   </section>
 
-  <section>
+  <section data-tab="analytics">
     <h2>Growth
       <small>what the posting produced — signups, not reach</small>
     </h2>
@@ -3526,7 +3560,7 @@ PAGE = """<!doctype html>
     </div>
   </section>
 
-  <section>
+  <section data-tab="analytics">
     <h2>Trend
       <small>validated palette · terracotta Instagram · teal TikTok · violet YouTube</small>
     </h2>
@@ -3565,23 +3599,23 @@ PAGE = """<!doctype html>
     </div>
   </section>
 
-  <section>
+  <section data-tab="analytics">
     <h2>By platform <small id="perf-note"></small></h2>
     <div id="perf"></div>
   </section>
 
-  <section>
+  <section data-tab="analytics">
     <h2>Findings <small>what the data on disk already says</small></h2>
     <div id="insights"></div>
   </section>
 
-  <section>
+  <section data-tab="operations">
     <h2>Queue <small>what goes out next — pull anything before it publishes</small></h2>
     <div id="quota"></div>
     <div id="queue"></div>
   </section>
 
-  <section>
+  <section data-tab="creatives">
     <h2>Assets <small>drag files in — names don't matter</small></h2>
     <div class="creatives-row" id="creatives-row"></div>
     <div id="new-creative-panel" style="display:none">
@@ -3618,7 +3652,7 @@ PAGE = """<!doctype html>
       font-family:'IBM Plex Mono',monospace;font-size:12px;white-space:pre-wrap"></div>
   </section>
 
-  <section>
+  <section data-tab="analytics">
     <h2>Revenue <small>what it earned, against what it reached</small></h2>
     <div id="rev-top"></div>
     <div class="grid2" style="margin-top:16px">
@@ -3658,17 +3692,17 @@ PAGE = """<!doctype html>
     </div>
   </section>
 
-  <section>
+  <section data-tab="operations">
     <h2>Settings <small>writes to this campaign's config.yaml</small></h2>
     <div id="settings"></div>
   </section>
 
-  <section>
+  <section data-tab="operations">
     <h2>Keys <small>paste once — stored on this laptop and on GitHub</small></h2>
     <div id="secrets"></div>
   </section>
 
-  <section>
+  <section data-tab="creatives">
     <h2>Randomizer <small>switch a clip off to hold it back — nothing is deleted</small></h2>
     <div class="card pad" style="margin-bottom:14px">
       <div class="row" style="margin:0;align-items:baseline">
@@ -3688,7 +3722,7 @@ PAGE = """<!doctype html>
     <div id="mix"></div>
   </section>
 
-  <section>
+  <section data-tab="creatives">
     <h2>Descriptions <small>the text each video is posted with</small></h2>
     <textarea id="bank" spellcheck="false"
       placeholder="One description per record, separated by a line of ---"></textarea>
@@ -3699,7 +3733,7 @@ PAGE = """<!doctype html>
     <div id="bank-msgs"></div>
   </section>
 
-  <section>
+  <section data-tab="creatives">
     <h2>Library</h2>
     <div class="card">
       <div class="hero" id="stats"></div>
@@ -5555,6 +5589,34 @@ $("#c-table").onclick = e => {
 };
 addEventListener("resize", () => { clearTimeout(window._cr);
   window._cr = setTimeout(drawCharts, 180); });
+
+/* Analytics / Creatives / Operations — one view of the same campaign, not
+   three different pages, so switching is a local show/hide rather than a
+   navigation. Every section already carries its own data-tab; nothing here
+   needs to know what is inside any of them.
+
+   Remembered in localStorage rather than reset to a default on every load:
+   whoever is staring at Operations while wiring up a new key does not want
+   to be bounced back to Analytics on a refresh. Charts are pixel-measured
+   from their container's live width (see drawCharts/barsV/etc.), so a chart
+   drawn while its tab was hidden gets a 0-width fallback — redrawing on
+   arrival is what makes a chart you return to actually match the screen. */
+function showPageTab(name){
+  document.querySelectorAll("main section[data-tab]").forEach(s => {
+    s.style.display = s.dataset.tab === name ? "" : "none";
+  });
+  document.querySelectorAll(".pagetab").forEach(b =>
+    b.setAttribute("aria-selected", String(b.dataset.tab === name)));
+  try { localStorage.setItem("ugc_page_tab", name); } catch {}
+  if (name === "analytics"){ drawCharts(); loadGrowth(); loadMetrics(); }
+}
+
+let INITIAL_TAB = "analytics";
+try {
+  const saved = localStorage.getItem("ugc_page_tab");
+  if (saved) INITIAL_TAB = saved;
+} catch {}
+showPageTab(INITIAL_TAB);
 
 buildZones(); loadCampaigns(); refresh(); loadClips(); loadSettings();
 loadInsights();
