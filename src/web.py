@@ -1700,12 +1700,16 @@ class WebApp:
                 config = load_campaign(self.campaigns_dir, summary.slug)
             except UgcError:
                 continue
-            service = config.buffer.service.value
-            if service not in services:
-                services.append(service)
-
             history = load_metrics(directory / "metrics.json")
+            # Filed under each snapshot's OWN network, not the campaign's
+            # configured one. Those were the same thing while a campaign was
+            # a channel; under fan-out one campaign holds all three networks'
+            # snapshots, and crediting them to config.buffer.service drew
+            # TikTok's and YouTube's numbers as Instagram's.
             for snapshot in history.of(Scope.ROLLING):
+                service = snapshot.service or config.buffer.service.value
+                if service not in services:
+                    services.append(service)
                 for metric in snapshot.metrics:
                     if metric.type == "postCount":
                         continue
@@ -1713,13 +1717,19 @@ class WebApp:
                         service, []
                     ).append([snapshot.date, metric.value])
 
-            life = history.lifetime()
-            if life:
+            # One lifetime total per network, for the same reason: asking for
+            # "the" lifetime of a campaign that posts to three of them
+            # returns whichever sorts last and labels it with whatever
+            # `service` the loop above happened to leave behind.
+            for network in history.services():
+                life = history.lifetime(network)
+                if not life:
+                    continue
                 for metric in life.metrics:
                     if metric.unit == "percentage" or metric.type == "postCount":
                         continue
                     share.setdefault(metric.type, []).append(
-                        {"service": service, "value": metric.value}
+                        {"service": network, "value": metric.value}
                     )
 
             # history.json is append-only and complete — no API window to miss.
@@ -1937,8 +1947,6 @@ class WebApp:
             if directory.name not in mine:
                 continue
             history = load_metrics(directory / "metrics.json")
-            latest = history.latest()
-            life = history.lifetime()
             # Posts ever published, straight from the append-only history —
             # true all-time regardless of what any metrics window covers.
             try:
@@ -1947,46 +1955,68 @@ class WebApp:
                 ever_posted = len(load_history(directory / "history.json").entries)
             except UgcError:
                 ever_posted = 0
-            if latest is None:
+
+            # One card per NETWORK, not per campaign. A campaign used to be a
+            # channel, so the two were the same thing; under fan-out one
+            # campaign carries three networks' snapshots, and asking for "the
+            # latest" without saying which network returns whichever sorts
+            # last — YouTube's figures under the brand's name.
+            networks = history.services()
+            if not networks:
                 out.append({
                     "campaign": directory.name, "service": None,
                     "has_data": False, "metrics": [], "series": {},
                     "lifetime": None, "ever_posted": ever_posted,
                 })
                 continue
-            out.append({
-                "campaign": directory.name,
-                "service": latest.service,
-                "has_data": True,
-                "date": latest.date,
-                "updated_at": latest.metrics_updated_at,
-                "post_count": latest.post_count,
-                "metrics": [
-                    {
-                        "type": m.type, "name": m.name, "value": m.value,
-                        "unit": m.unit,
-                        "change": history.change(m.type, days=7),
-                    }
-                    for m in latest.metrics
-                ],
-                "series": {
-                    m.type: history.series(m.type) for m in latest.metrics
-                },
-                "ever_posted": ever_posted,
-                "lifetime": None if life is None else {
-                    "since": life.window_start,
-                    "post_count": life.post_count,
+
+            for network in networks:
+                latest = history.latest(service=network)
+                life = history.lifetime(network)
+                if latest is None:
+                    continue
+                out.append({
+                    "campaign": directory.name,
+                    "service": network,
+                    "has_data": True,
+                    "date": latest.date,
+                    "updated_at": latest.metrics_updated_at,
+                    "post_count": latest.post_count,
                     "metrics": [
-                        {"type": m.type, "name": m.name, "value": m.value,
-                         "unit": m.unit}
-                        for m in life.metrics
+                        {
+                            "type": m.type, "name": m.name, "value": m.value,
+                            "unit": m.unit,
+                            "change": history.change(
+                                m.type, days=7, service=network
+                            ),
+                        }
+                        for m in latest.metrics
                     ],
                     "series": {
-                        m.type: history.series(m.type, Scope.LIFETIME)
-                        for m in life.metrics
+                        m.type: history.series(m.type, service=network)
+                        for m in latest.metrics
                     },
-                },
-            })
+                    # What THIS network published. The campaign-wide count
+                    # of rendered videos means something else entirely now
+                    # that one render feeds every network, and showing it per
+                    # card would claim each network posted all of them.
+                    "ever_posted": life.post_count if life else 0,
+                    "lifetime": None if life is None else {
+                        "since": life.window_start,
+                        "post_count": life.post_count,
+                        "metrics": [
+                            {"type": m.type, "name": m.name, "value": m.value,
+                             "unit": m.unit}
+                            for m in life.metrics
+                        ],
+                        "series": {
+                            m.type: history.series(
+                                m.type, Scope.LIFETIME, service=network
+                            )
+                            for m in life.metrics
+                        },
+                    },
+                })
 
         # Totals across every campaign. Percentages are deliberately excluded:
         # an engagement RATE cannot be summed, and averaging rates weighted by
@@ -5608,7 +5638,12 @@ function showPageTab(name){
   document.querySelectorAll(".pagetab").forEach(b =>
     b.setAttribute("aria-selected", String(b.dataset.tab === name)));
   try { localStorage.setItem("ugc_page_tab", name); } catch {}
-  if (name === "analytics"){ drawCharts(); loadGrowth(); loadMetrics(); }
+  if (name === "analytics"){
+    // After the reflow, not during it: these charts measure their
+    // container's live width, and reading it in the same tick as the
+    // display change gets the width it had while hidden.
+    requestAnimationFrame(() => { drawCharts(); loadGrowth(); loadMetrics(); });
+  }
 }
 
 let INITIAL_TAB = "analytics";

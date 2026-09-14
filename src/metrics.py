@@ -139,13 +139,20 @@ class MetricsHistory(BaseModel):
         return self.latest(Scope.LIFETIME, service)
 
     def series(
-        self, metric_type: str, scope: Scope = Scope.ROLLING
+        self, metric_type: str, scope: Scope = Scope.ROLLING,
+        service: str | None = None,
     ) -> list[tuple[str, float]]:
-        """(date, value) pairs for one metric, for charting."""
-        return [(s.date, s.get(metric_type)) for s in self.of(scope)]
+        """(date, value) pairs for one metric, for charting.
+
+        Narrow to a network once a campaign posts to several, or three
+        networks' values interleave into one line and read as wild daily
+        swings that never happened.
+        """
+        return [(s.date, s.get(metric_type)) for s in self.of(scope, service)]
 
     def change(
-        self, metric_type: str, days: int = 7, scope: Scope = Scope.ROLLING
+        self, metric_type: str, days: int = 7, scope: Scope = Scope.ROLLING,
+        service: str | None = None,
     ) -> float | None:
         """Percent change over the last ``days`` snapshots, or None.
 
@@ -153,7 +160,7 @@ class MetricsHistory(BaseModel):
         and "no change" are different claims and a dashboard must not conflate
         them.
         """
-        snaps = self.of(scope)
+        snaps = self.of(scope, service)
         if len(snaps) < 2:
             return None
         recent = snaps[-1].get(metric_type)
