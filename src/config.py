@@ -625,6 +625,16 @@ class NotifyConfig(StrictModel):
     #: day happens; three in a row is a channel, not a batch.
     distribution_days: int = Field(default=3, ge=2, le=14)
 
+    #: Search terms to leave out of the demand calculation entirely.
+    #:
+    #: For queries the copy could not sensibly answer — a person's name, some
+    #: other product someone searched for. They are real searches, but a
+    #: caption cannot serve them, and counting them means the only way to
+    #: clear the floor is to write them into the copy: the number improves
+    #: while the writing gets worse. Keep this short, and only for terms you
+    #: have actually looked at.
+    demand_ignore: tuple[str, ...] = ()
+
     #: Alert when captions speak to less than this share of search volume.
     #: The gap sat at 53% before anyone looked and rose to 92% once the
     #: missing words went in; a floor between the two catches the drift

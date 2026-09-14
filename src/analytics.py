@@ -367,14 +367,32 @@ class VocabularyGap:
 
 
 def vocabulary_gap(
-    demand: Sequence[tuple[str, int]], corpus: str
+    demand: Sequence[tuple[str, int]],
+    corpus: str,
+    ignore: Sequence[str] = (),
 ) -> VocabularyGap:
     """Match search terms against the words our captions actually use.
 
     Stem-insensitive at the prefix, so "model" matches "modelling" and
     "actor" matches "actors" — without it the gap would be full of false
     positives that are really plurals.
+
+    ``ignore`` drops queries the copy could not sensibly cover — a person's
+    name, a brand someone searched for, a product that is not this one. They
+    are real searches, but a caption cannot answer them, and leaving them in
+    means the only way to make the number go green is to write them into the
+    copy: the metric improves while the writing gets worse. Matched
+    case-insensitively against the whole query and against each of its words,
+    so "azure" also drops "azure modeling".
     """
+    unwanted = {w.strip().lower() for w in ignore if w.strip()}
+    if unwanted:
+        demand = [
+            (query, count) for query, count in demand
+            if query.strip().lower() not in unwanted
+            and not (set(_tokens(query)) & unwanted)
+        ]
+
     vocabulary = set(_tokens(corpus))
     stems = {w[:5] for w in vocabulary}
     terms: list[DemandTerm] = []

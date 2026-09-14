@@ -355,7 +355,8 @@ class TestShippedCaptionsMeetDemand:
                     if bank.is_file():
                         corpus += "\n" + bank.read_text(encoding="utf-8")
             gap = vocabulary_gap(
-                [(s["label"], int(s["value"])) for s in searches], corpus
+                [(s["label"], int(s["value"])) for s in searches], corpus,
+                config.notify.demand_ignore,
             )
             assert gap.coverage is not None
             floor = config.notify.demand_coverage_floor

@@ -2516,11 +2516,19 @@ def cmd_analytics(args: argparse.Namespace, env: dict[str, str]) -> int:
     # product's search log.
     corpus = ""
     for slug in siblings:
-        captions = _campaign_dir(slug) / "captions.txt"
-        if captions.is_file():
-            corpus += "\n" + captions.read_text(encoding="utf-8", errors="replace")
+        directory = _campaign_dir(slug)
+        # The shared bank plus every network's own: the copy a searcher might
+        # meet is spread across all of them now.
+        banks = [directory / "captions.txt"]
+        banks += sorted((directory / "captions").glob("*.txt"))
+        for captions in banks:
+            if captions.is_file():
+                corpus += "\n" + captions.read_text(
+                    encoding="utf-8", errors="replace"
+                )
     gap = vocabulary_gap(
-        [(s.label, int(s.value)) for s in overview.top_searches], corpus
+        [(s.label, int(s.value)) for s in overview.top_searches], corpus,
+        config.notify.demand_ignore,
     )
     floor = config.notify.demand_coverage_floor
     if gap.coverage is not None:

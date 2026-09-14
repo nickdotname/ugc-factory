@@ -1596,7 +1596,8 @@ class WebApp:
                         encoding="utf-8", errors="replace"
                     )
             gap = vocabulary_gap(
-                [(l.label, int(l.value)) for l in latest.top_searches], corpus
+                [(l.label, int(l.value)) for l in latest.top_searches], corpus,
+                self.config.notify.demand_ignore,
             )
 
             extra = {
