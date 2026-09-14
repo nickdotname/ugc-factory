@@ -37,6 +37,7 @@ from typing import Any, Callable
 from urllib.parse import parse_qs, urlparse
 
 from src.assets import GitHubReleasesStore, LocalLibrary, MediaStore
+from src.accounts import ACCOUNTS_FILE, accounts_for, load_accounts
 from src.campaigns import create_campaign, list_campaigns, slug_error
 from src.clips import ClipRoster, kind_of, load_roster, roster_path, save_roster
 from src.config import CampaignConfig, CreativeConfig, load_campaign
@@ -434,16 +435,30 @@ class WebApp:
         sharing an assets Release are, by construction, the same brand posting
         the same material to different places.
         """
-        summaries = [
-            {
+        # How many places this brand's videos actually land. A campaign used
+        # to be one channel, so counting campaigns counted channels; under
+        # fan-out one campaign reaches every account in the registry, and the
+        # old count would say "1 channel" for something posting to six.
+        registry = load_accounts(self.repo_root / ACCOUNTS_FILE)
+        summaries = []
+        for c in list_campaigns(self.campaigns_dir):
+            reaches, fan_out = 1, False
+            if c.valid:
+                try:
+                    cfg = load_campaign(self.campaigns_dir, c.slug)
+                    fan_out = cfg.posting.fan_out
+                    if fan_out:
+                        reaches = len(accounts_for(registry, cfg.accounts))
+                except UgcError:
+                    pass
+            summaries.append({
                 "slug": c.slug, "service": c.service, "post_type": c.post_type,
                 "posts_per_day": c.posts_per_day, "dry_run": c.dry_run,
                 "timezone": c.timezone, "assets_tag": c.assets_tag,
                 "valid": c.valid, "error": c.error,
+                "fan_out": fan_out, "reaches": reaches,
                 "group": c.assets_tag.removeprefix("assets-") or c.slug,
-            }
-            for c in list_campaigns(self.campaigns_dir)
-        ]
+            })
 
         groups: list[dict[str, Any]] = []
         for row in summaries:
@@ -458,15 +473,10 @@ class WebApp:
             "selected": self.config.slug,
             "selected_group": self.config.library_key,
             "groups": groups,
-            "campaigns": [
-                {
-                    "slug": c.slug, "service": c.service, "post_type": c.post_type,
-                    "posts_per_day": c.posts_per_day, "dry_run": c.dry_run,
-                    "timezone": c.timezone, "assets_tag": c.assets_tag,
-                    "valid": c.valid, "error": c.error,
-                }
-                for c in list_campaigns(self.campaigns_dir)
-            ],
+            # The same rows the groups are built from, rather than a second
+            # pass over the directory: rebuilding them separately is how the
+            # flat list came to be missing fields the grouped one had.
+            "campaigns": summaries,
         }
 
     def create(self, payload: dict[str, Any]) -> dict[str, Any]:
@@ -3354,7 +3364,7 @@ PAGE = """<!doctype html>
   }
   .sync span { flex:1; }
 
-  /* ── New campaign ──────────────────────────────────────────────────── */
+  /* ── New brand ─────────────────────────────────────────────────────── */
   .frow { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:13px; }
   .frow label { display:flex; flex-direction:column; gap:5px;
                 font-size:11px; color:var(--ink-3); letter-spacing:.03em; }
@@ -3432,7 +3442,7 @@ PAGE = """<!doctype html>
   <span class="spacer"></span>
   <span class="pill" id="t-cadence">—</span>
   <span class="pill" id="t-dry">—</span>
-  <button class="ghost" id="new-btn">New campaign</button>
+  <button class="ghost" id="new-btn">New brand</button>
 </header>
 
 <div id="nets" class="nets" role="tablist" aria-label="Network"></div>
@@ -3456,7 +3466,7 @@ PAGE = """<!doctype html>
 
   <div id="new-panel" style="display:none">
     <div class="card pad" style="margin-bottom:16px">
-      <h2 style="margin-bottom:15px">New campaign</h2>
+      <h2 style="margin-bottom:15px">New brand</h2>
       <div class="frow">
         <label>Buffer account<select id="f-key"></select></label>
         <label>Channel<select id="f-channel"><option value="">loading…</option></select></label>
@@ -3479,7 +3489,7 @@ PAGE = """<!doctype html>
       <label class="chk"><input type="checkbox" id="f-copy" checked>
         Copy the current descriptions</label>
       <div class="row">
-        <button id="create-btn">Create campaign</button>
+        <button id="create-btn">Create brand</button>
         <button class="ghost" id="cancel-btn">Cancel</button>
       </div>
       <div id="new-msgs"></div>
@@ -3487,7 +3497,7 @@ PAGE = """<!doctype html>
   </div>
 
   <section data-tab="analytics">
-    <h2>All time <small>every campaign, since the first post</small></h2>
+    <h2>All time <small>every network, since the first post</small></h2>
     <div id="overall"></div>
   </section>
 
@@ -3662,7 +3672,7 @@ PAGE = """<!doctype html>
           Its own hooks/bodies/music pool — clips never mix with another
           creative, and each gets its own dedupe, cooldowns and licence
           record. Uses the same shared caption bank as every other creative
-          in this campaign. Weight is relative chance of being picked for a
+          in this brand. Weight is relative chance of being picked for a
           slot, not a percentage.
         </div>
         <div class="row" style="margin-top:12px">
@@ -3724,7 +3734,7 @@ PAGE = """<!doctype html>
   </section>
 
   <section data-tab="operations">
-    <h2>Settings <small>writes to this campaign's config.yaml</small></h2>
+    <h2>Settings <small>writes to this brand's config.yaml</small></h2>
     <div id="settings"></div>
   </section>
 
@@ -4225,7 +4235,7 @@ function renderRevenue(){
       latest === null ? "—" : money(latest, cur)}</div>
       <div class="k">per 1,000 views</div></div>
     <div class="stat"><div class="v num">${money(o.revenue, cur)}</div>
-      <div class="k">every campaign</div></div>
+      <div class="k">every network</div></div>
     <div class="stat"><div class="v num">${
       o.rpm === null ? "—" : money(o.rpm, cur)}</div>
       <div class="k">blended per 1,000</div></div>
@@ -4668,7 +4678,7 @@ function renderOverall(r){
   const n = r.campaigns.filter(c=>c.lifetime).length;
   el.innerHTML = `<div class="card">
     <div class="hero">${cells.join("")}</div>
-    <div class="foot">Summed across ${n} campaign${n>1?"s":""}${
+    <div class="foot">Summed across ${n} network${n>1?"s":""}${
       since ? ` since ${new Date(since).toLocaleDateString()}` : ""}.
       Rates are excluded — an engagement rate cannot be added up.</div>
   </div>`;
@@ -4728,7 +4738,7 @@ async function loadPending(){
      stale world says. Four "the dashboard is broken" reports were this. */
   $("#sync-text").innerHTML = stale
     ? `<b>This dashboard is running older code than the files on disk.</b>
-       Something changed in <code>src/</code> or a campaign config since it
+       Something changed in <code>src/</code> or a brand's config since it
        started — after a <code>git pull</code>, usually. Everything below is
        whatever the old build makes of the new files, so restart it before
        believing any of it &mdash; <code>pkill -f "src.cli web"</code>, then
@@ -4758,6 +4768,18 @@ $("#publish-btn").onclick = async (e) => {
 
 let GROUPS = null;
 
+/* What this brand posts to. Fanned out, that is every connected account;
+   otherwise it is still one channel per campaign, as it always was. */
+function reach(g){
+  const out = g.campaigns.filter(c => c.fan_out).map(c => c.reaches);
+  if (out.length){
+    const n = Math.max(...out);
+    return n + " account" + (n === 1 ? "" : "s");
+  }
+  const n = g.campaigns.length;
+  return n + " channel" + (n === 1 ? "" : "s");
+}
+
 async function loadCampaigns(){
   const r = await (await fetch("/api/campaigns")).json();
   GROUPS = r;
@@ -4772,8 +4794,7 @@ async function loadCampaigns(){
             role="tab" aria-selected="${g.key === r.selected_group}"
             onclick="pickGroup('${g.key}')">
       <span>${esc(g.key)}</span>
-      <span class="svc">${g.campaigns.length} channel${
-        g.campaigns.length === 1 ? "" : "s"}${
+      <span class="svc">${reach(g)}${
         broken ? " · error" : live ? "" : " · paused"}</span>
     </button>`;
   }).join("");
