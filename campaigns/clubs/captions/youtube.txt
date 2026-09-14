@@ -1,0 +1,218 @@
+# DESCRIPTION BANK — YouTube Shorts (campaign clubs_yt)
+#
+# Written for YouTube specifically:
+#   - Every record carries an explicit "title:" line, kept at or under 40
+#     characters. Shorts displays about 40 in-feed; the previous bank derived
+#     titles from Instagram caption openers and all 18 of them were truncated
+#     mid-word. Config uses title_strategy: require so a missing title fails
+#     preflight rather than silently deriving a bad one.
+#   - Titles are written for search. YouTube matches Shorts on title and topic
+#     far more than Instagram matches on caption text, so the title leads with
+#     the thing someone would actually type.
+#   - No "comment and I'll DM you" CTA. Shorts has no DM mechanic, so the ask
+#     is both unactionable and spam-shaped.
+#
+# NOTE: a line may not START with "#" — the parser treats that as a comment.
+# Hashtags therefore trail a text line.
+#
+# Records are separated by a line of ---
+
+---
+
+title: How to Find Casting Calls Online
+
+Where actors, singers and filmmakers find open casting calls, student films and music collaborations in one place. Link in the channel description.
+
+Tags: #shorts #acting #castingcall #filmmaking
+
+---
+
+title: Find Student Film Roles
+
+How actors with no credits and no agent get cast in student films and short films. Link in the channel description.
+
+Tags: #shorts #acting #studentfilm #actorslife
+
+---
+
+title: Where Actors & Models Find Work
+
+A place to find open auditions, casting calls, modeling shoots and short film roles without an agent or industry connections. Link in the channel description.
+
+Tags: #shorts #auditions #acting #castingcalls
+
+---
+
+title: Creative Networking in NYC & LA
+
+How actors, models, singers and filmmakers in New York, Los Angeles, Paris and Michigan find collaborators. Link in the channel description.
+
+Tags: #shorts #acting #creatives #filmmaking
+
+---
+
+title: How Film Students Find Crew
+
+Film students use this to find cast, crew and collaborators for student films and short film projects. Link in the channel description.
+
+Tags: #shorts #filmschool #studentfilm #filmmaking
+
+---
+
+title: Find Music Collaborators Online
+
+Singers, songwriters and producers use this to find each other for indie music collaborations. Link in the channel description.
+
+Tags: #shorts #musiccollab #songwriter #indieartist
+
+---
+
+title: Get Cast With No Experience
+
+How to get cast in short films and student films with no credits, no agent and no connections. Link in the channel description.
+
+Tags: #shorts #acting #actorslife #studentfilm
+
+---
+
+title: Find Short Film Roles
+
+Open casting calls for short films, student films and indie projects, updated by the people making them. Link in the channel description.
+
+Tags: #shorts #shortfilm #acting #indiefilm
+
+---
+
+title: Where Screenwriters Find Directors
+
+Screenwriters, directors and producers use this to find each other and get projects made. Link in the channel description.
+
+Tags: #shorts #screenwriter #filmmaking #director
+
+---
+
+title: Casting Calls for New Actors
+
+Open casting calls aimed at new and emerging actors, including student films and short films. Link in the channel description.
+
+Tags: #shorts #castingcall #acting #auditions
+
+---
+
+title: Find Dance Auditions Online
+
+Dancers and performers use this to find auditions, shows and creative projects to join. Link in the channel description.
+
+Tags: #shorts #dance #auditions #performingarts
+
+---
+
+title: Break Into Film With No Credits
+
+How people with no credits and no industry contacts are getting onto real film sets. Link in the channel description.
+
+Tags: #shorts #filmmaking #acting #indiefilm
+
+---
+
+title: Find Modeling & Acting Work
+
+Actors, models, writers and designers find projects looking for exactly what they do. Link in the channel description.
+
+Tags: #shorts #creatives #acting #musician
+
+---
+
+title: Find Film Collaborators Free
+
+A free way for filmmakers to find cast, crew and collaborators for indie and student projects. Link in the channel description.
+
+Tags: #shorts #filmmaking #indiefilm #studentfilm
+
+---
+
+title: How Singers Find Collabs
+
+Singers and vocalists use this to find producers, songwriters and bands looking to collaborate. Link in the channel description.
+
+Tags: #shorts #singer #musiccollab #indieartist
+
+---
+
+title: Student Film Casting Explained
+
+How student film casting actually works, and where the open calls get posted. Link in the channel description.
+
+Tags: #shorts #studentfilm #filmschool #acting
+
+---
+
+title: Find Your First Film Role
+
+Where to look for your first short film or student film role when you are starting from zero. Link in the channel description.
+
+Tags: #shorts #acting #shortfilm #actorslife
+
+---
+
+title: Acting Auditions With No Agent
+
+How to find real auditions and casting calls without representation. Link in the channel description.
+
+Tags: #shorts #auditions #acting #castingcalls
+
+---
+
+title: Where Filmmakers Find Actors
+
+Directors and producers use this to cast short films, student films and indie features. Link in the channel description.
+
+Tags: #shorts #filmmaking #director #castingcall
+
+---
+
+title: Find Indie Film Projects
+
+Indie and student film projects looking for cast, crew and collaborators. Link in the channel description.
+
+Tags: #shorts #indiefilm #studentfilm #filmmaking
+
+---
+
+title: Creative Community for Artists
+
+Actors, singers, dancers, writers and filmmakers finding each other and building work together. Link in the channel description.
+
+Tags: #shorts #creatives #performingarts #artist
+
+---
+
+title: Find Voice, Band & Podcast Work
+
+Bands, podcasters, voice actors and mixers use this to find vocalists, producers and writers. Link in the channel description.
+
+Tags: #shorts #indieartist #musiccollab #musician
+
+---
+
+title: How Actors Find Work Online
+
+Where actors look for casting calls, auditions and short film roles that are actually open. Link in the channel description.
+
+Tags: #shorts #acting #auditions #actorslife
+
+---
+
+title: Film School Without Film School
+
+How people outside film programs find the same projects and collaborators students do. Link in the channel description.
+
+Tags: #shorts #filmschool #filmmaking #studentfilm
+
+---
+
+title: Find Performers for Your Project
+
+Casting a short film, music video or student project? This is where performers are looking. Link in the channel description.
+
+Tags: #shorts #castingcall #filmmaking #shortfilm
