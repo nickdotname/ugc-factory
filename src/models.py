@@ -19,6 +19,8 @@ from typing import ClassVar
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from src.platforms import Service
+
 #: Name of the creative every pre-Phase-1 history/queue entry implicitly
 #: belongs to. Old rows have no ``creative`` field at all; Pydantic fills this
 #: default in on load, so an entry written before creatives existed still
@@ -143,6 +145,40 @@ class QueueStatus(str, Enum):
     CANCELLED = "cancelled"
 
 
+class AccountPost(Model):
+    """One rendered video's trip to one Buffer channel (HANDOFF phase 2).
+
+    Fan-out renders once and posts everywhere, so "did this publish" stops
+    being a property of the video and becomes a property of the pairing. Each
+    account tracks its own attempts, its own Buffer post id and its own
+    failure: a channel rejecting a post — a stale slot, a disconnected
+    account — must have no bearing on the other five.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=False)
+
+    #: Name from ``accounts.yaml``. Half of the (campaign, creative, account,
+    #: network) key everything downstream is filed under.
+    account: str
+    network: Service
+    status: QueueStatus = QueueStatus.PENDING
+    attempts: int = Field(default=0, ge=0)
+    buffer_post_id: str | None = None
+    last_error: str | None = None
+    #: When this channel was actually told to publish. Separate from the
+    #: item's own slot because accounts are staggered — the same video landing
+    #: on two accounts of one network at the same minute is a visible double
+    #: to anyone following both.
+    scheduled_for: datetime | None = None
+
+    @property
+    def is_terminal(self) -> bool:
+        return self.status in (QueueStatus.PUSHED, QueueStatus.CANCELLED) or (
+            self.status is QueueStatus.FAILED
+            and self.attempts >= QueueItem.MAX_ATTEMPTS
+        )
+
+
 class QueueItem(Model):
     """One rendered video awaiting publication (SPEC §11)."""
 
@@ -170,6 +206,15 @@ class QueueItem(Model):
     #: creative-by-creative — the dashboard and the digest both want that
     #: without re-deriving it from history.json.
     creative: str = DEFAULT_CREATIVE
+    #: One entry per account this video is going to (HANDOFF phase 2). Empty
+    #: means "not expanded yet": top-up fills it in from the resolved accounts
+    #: at push time, which is what lets a video rendered before fan-out
+    #: existed still fan out, and keeps render itself unchanged.
+    #:
+    #: While this is empty the fields below are the item's own publish state,
+    #: exactly as before. Once it is populated they become a rollup of it —
+    #: see ``queue.recompute_status``.
+    posts: list[AccountPost] = Field(default_factory=list)
     status: QueueStatus = QueueStatus.PENDING
     attempts: int = Field(default=0, ge=0)
     buffer_post_id: str | None = None

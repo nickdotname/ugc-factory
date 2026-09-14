@@ -36,6 +36,7 @@ accounts:
     channel_id: 6a1dc9e4c687a22dd44c7e3d
     post_type: post
     title_strategy: derive
+    slot_offset_min: 40
 
   - name: nickdotname_yt
     network: youtube
@@ -47,6 +48,7 @@ accounts:
     # Short's title at 100 characters — so it asks for a written one rather
     # than deriving from the description's first line.
     title_strategy: require
+    slot_offset_min: 80
 
   # ── knick.creates ────────────────────────────────────────────────────
   # A second Buffer login, its own key slot. Channel ids read from Buffer's
@@ -58,6 +60,7 @@ accounts:
     channel_id: 6a863bb4ccaf649a67dc5e49
     post_type: reel
     title_strategy: derive
+    slot_offset_min: 20
 
   - name: knick_creates_tt
     network: tiktok
@@ -66,6 +69,7 @@ accounts:
     channel_id: 6a863b68ccaf649a67dc590d
     post_type: post
     title_strategy: derive
+    slot_offset_min: 60
 
   - name: knick_creates_yt
     network: youtube
@@ -74,3 +78,5 @@ accounts:
     channel_id: 6a8639cbccaf649a67dc364b
     post_type: short
     title_strategy: require
+    slot_offset_min: 100
+

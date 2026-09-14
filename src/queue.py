@@ -22,16 +22,19 @@ import os
 import tempfile
 from datetime import datetime, timedelta, timezone, tzinfo
 from pathlib import Path
+from typing import Sequence
 
 from src.errors import ValidationError
 from src.logging import StructuredLogger
 from src.models import (
+    AccountPost,
     History,
     HistoryEntry,
     Queue,
     QueueItem,
     QueueStatus,
 )
+from src.platforms import Service
 
 #: Legal transitions. Anything not listed here is a bug, and raising on it is
 #: what keeps a partially-understood failure from corrupting the queue further.
@@ -186,6 +189,164 @@ def stranded(queue: Queue) -> list[QueueItem]:
     publisher's own record of what exists at that scheduled time.
     """
     return [i for i in queue.items if i.status is QueueStatus.CLAIMED]
+
+
+# --------------------------------------------------------------- fan-out
+#
+# Under fan-out one rendered video goes to several channels, so "pending"
+# stops being a property of the item and becomes a property of the
+# (item, account) pairing. The helpers below are the per-account twins of
+# claimable/stranded/mark_pushed above; the item-level ones keep working
+# unchanged for a campaign that has no accounts resolved.
+
+
+def post_for(item: QueueItem, account: str) -> AccountPost | None:
+    """This item's record for one account, or None if it has none yet."""
+    return next((p for p in item.posts if p.account == account), None)
+
+
+def ensure_posts(
+    item: QueueItem, accounts: Sequence[tuple[str, Service]]
+) -> list[AccountPost]:
+    """Give this item a record per account, adding only what is missing.
+
+    Idempotent, and deliberately additive: an account that appears in the
+    registry later starts receiving already-queued videos, and one that is
+    removed keeps its history on the items it already went to rather than
+    having it deleted out from under the metrics.
+    """
+    added: list[AccountPost] = []
+    for name, network in accounts:
+        if post_for(item, name) is None:
+            post = AccountPost(account=name, network=network)
+            item.posts.append(post)
+            added.append(post)
+    return added
+
+
+def claimable_for(queue: Queue, account: str) -> list[QueueItem]:
+    """Items this account has still to publish, earliest slot first."""
+    ready = [
+        i for i in queue.items
+        if (p := post_for(i, account)) is not None
+        and p.status is QueueStatus.PENDING
+    ]
+    return sorted(ready, key=lambda i: i.scheduled_for)
+
+
+def stranded_for(queue: Queue, account: str) -> list[QueueItem]:
+    """Items left ``claimed`` for this account by a job that died mid-push."""
+    return [
+        i for i in queue.items
+        if (p := post_for(i, account)) is not None
+        and p.status is QueueStatus.CLAIMED
+    ]
+
+
+def transition_post(
+    post: AccountPost, to: QueueStatus, item_id: str, *, log: StructuredLogger
+) -> AccountPost:
+    """Move one account's record to a new state, or raise ``IllegalTransition``.
+
+    Same state machine as ``transition``, applied one channel at a time — the
+    ``claimed``-then-commit guarantee of SPEC §11 has to hold per account, not
+    per video, or a crash mid-fan-out could not say which channels were
+    already told.
+    """
+    if to not in ALLOWED_TRANSITIONS[post.status]:
+        raise IllegalTransition(
+            f"item {item_id} account {post.account}: {post.status.value} -> "
+            f"{to.value} is not a legal transition (allowed: "
+            f"{sorted(s.value for s in ALLOWED_TRANSITIONS[post.status]) or 'none'})"
+        )
+    log.info(
+        "account_post_transition", item_id=item_id, account=post.account,
+        was=post.status.value, now=to.value,
+    )
+    post.status = to
+    return post
+
+
+def mark_post_failed(
+    post: AccountPost, error: str, item_id: str, *, log: StructuredLogger
+) -> AccountPost:
+    """Record a failure against one account only."""
+    post.attempts += 1
+    post.last_error = error[:500]
+    if post.status is not QueueStatus.FAILED:
+        transition_post(post, QueueStatus.FAILED, item_id, log=log)
+    else:
+        log.info(
+            "account_post_retry_failed", item_id=item_id,
+            account=post.account, attempts=post.attempts,
+        )
+    return post
+
+
+def mark_post_pushed(
+    post: AccountPost, post_id: str, item_id: str, *, log: StructuredLogger
+) -> AccountPost:
+    """Record a successful publish to one account."""
+    transition_post(post, QueueStatus.PUSHED, item_id, log=log)
+    post.buffer_post_id = post_id
+    post.last_error = None
+    return post
+
+
+def reset_post_for_retry(
+    post: AccountPost, item_id: str, *, log: StructuredLogger
+) -> AccountPost:
+    """Return one account's failed record to ``pending`` if attempts remain."""
+    if post.status is not QueueStatus.FAILED:
+        raise IllegalTransition(
+            f"item {item_id} account {post.account} is {post.status.value}, "
+            f"only failed records retry"
+        )
+    if post.attempts >= QueueItem.MAX_ATTEMPTS:
+        raise IllegalTransition(
+            f"item {item_id} account {post.account} has used all "
+            f"{QueueItem.MAX_ATTEMPTS} attempts"
+        )
+    return transition_post(post, QueueStatus.PENDING, item_id, log=log)
+
+
+def recompute_status(item: QueueItem) -> QueueStatus:
+    """Roll the per-account records up into the item's own status.
+
+    Everything that reads a queue — the dashboard panel, ``carry_forward``,
+    the digest — asks the item whether it published. Once an item has account
+    records that question has no single answer, so this defines one: the item
+    is done when every account is done, failed when nothing is left to try and
+    at least one ended badly, and otherwise still in flight.
+
+    Stored rather than computed on read so those callers need no change, and
+    recomputed in exactly one place so the rollup cannot drift from its parts.
+    """
+    if not item.posts:
+        return item.status
+
+    statuses = [p.status for p in item.posts]
+    if all(s is QueueStatus.PUSHED for s in statuses):
+        return QueueStatus.PUSHED
+    if all(s is QueueStatus.CANCELLED for s in statuses):
+        return QueueStatus.CANCELLED
+    if any(s is QueueStatus.CLAIMED for s in statuses):
+        return QueueStatus.CLAIMED
+    if any(s is QueueStatus.PENDING for s in statuses):
+        return QueueStatus.PENDING
+    # Nothing pending and nothing in flight: whatever is left is terminal, and
+    # a failure among them is the part worth surfacing.
+    return (
+        QueueStatus.FAILED
+        if any(s is QueueStatus.FAILED for s in statuses)
+        else QueueStatus.PUSHED
+    )
+
+
+def sync_status(item: QueueItem) -> QueueItem:
+    """Apply ``recompute_status`` to the item in place."""
+    item.status = recompute_status(item)
+    return item
 
 
 def depth_needed(queue_depth: int, max_queue: int) -> int:

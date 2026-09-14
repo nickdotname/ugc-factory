@@ -31,6 +31,13 @@ from pathlib import Path
 from typing import Any, Sequence
 
 from src.keys import read_env
+from src.accounts import (
+    ACCOUNTS_FILE,
+    AccountConfig,
+    AccountsConfig,
+    accounts_for,
+    load_accounts,
+)
 from src.assets import (
     GitHubReleasesStore,
     LocalLibrary,
@@ -46,7 +53,13 @@ from src.config import (
     TitleStrategy,
     load_campaign,
 )
-from src.descriptions import Description, load_bank, parse_bank, validate_bank
+from src.descriptions import (
+    Description,
+    derive_title,
+    load_bank,
+    parse_bank,
+    validate_bank,
+)
 from src.errors import AuthError, ConfigError, QuotaError, SelectionError, UgcError
 from src.ingest import (
     ARCHIVE_DIR,
@@ -88,7 +101,12 @@ from src.attribution import (
     posts_path,
     save_posts,
 )
-from src.platforms import Service, config_conflicts, effective_video_limits
+from src.platforms import (
+    Service,
+    config_conflicts,
+    effective_video_limits,
+    limits_for,
+)
 from src.quota import (
     MONTHLY_ALLOWANCE,
     WINDOW_DAYS,
@@ -117,17 +135,26 @@ from src.queue import (
     cancel,
     carry_forward,
     claimable,
+    claimable_for,
     depth_needed,
+    ensure_posts,
     load_history,
     load_queue,
     mark_failed,
+    mark_post_failed,
+    mark_post_pushed,
     mark_pushed,
+    post_for,
     reset_for_retry,
+    reset_post_for_retry,
     save_queue,
     spread_schedule,
     stranded,
+    stranded_for,
+    sync_status,
     upcoming_slots,
     transition,
+    transition_post,
 )
 from src.render import FfmpegRenderer, Renderer
 from src.selector import (
@@ -690,11 +717,369 @@ def cmd_topup(args: argparse.Namespace, env: dict[str, str]) -> int:
     notifier = notifier_for(config, log, env)
 
     try:
+        if config.posting.fan_out:
+            registry = load_accounts(REPO_ROOT / ACCOUNTS_FILE)
+            return _topup_fanout(args, env, config, log, notifier, clock, registry)
         return _topup(args, env, config, log, notifier, clock)
     except UgcError as exc:
         log.exception("topup_failed", exc)
         notifier.failure("topup", exc, campaign=config.slug)
         return 1
+
+
+def _account_channel(account: AccountConfig, env: dict[str, str]) -> str:
+    """Resolve one account's channel id from config, or from its secret."""
+    if account.channel_id:
+        return account.channel_id
+    assert account.channel_id_secret is not None  # enforced by the schema
+    channel = _secret(account.channel_id_secret, env)
+    if not channel:
+        raise ConfigError(
+            f"{account.channel_id_secret} is not set — account "
+            f"{account.name!r} has no Buffer channel to post to"
+        )
+    return channel
+
+
+def _account_publishers(
+    accounts: Sequence[AccountConfig],
+    config: CampaignConfig,
+    env: dict[str, str],
+    log: StructuredLogger,
+) -> dict[str, Publisher]:
+    """One publisher per key slot, not per account.
+
+    Accounts under one Buffer login share a key, and must also share the
+    request tally that ``_report_quota`` sums against the 3,000/30-day
+    allowance — a publisher each would count the same budget several times
+    over and never reach the alert.
+    """
+    publishers: dict[str, Publisher] = {}
+    for account in accounts:
+        slot = account.api_key_secret
+        if slot in publishers:
+            continue
+        if config.posting.dry_run:
+            log.info("dry_run_enabled", campaign=config.slug, slot=slot)
+            publishers[slot] = DryRunPublisher(log)
+            continue
+        api_key = _secret(slot, env)
+        if not api_key:
+            raise ConfigError(
+                f"{slot} is not set — cannot publish to {account.name}. "
+                f"Set the secret, or set posting.dry_run: true."
+            )
+        publishers[slot] = BufferPublisher(
+            api_key, log, organization_id=account.organization_id
+        )
+    return publishers
+
+
+def _topup_fanout(
+    args: argparse.Namespace,
+    env: dict[str, str],
+    config: CampaignConfig,
+    log: StructuredLogger,
+    notifier: Notifier,
+    clock: Clock,
+    registry: AccountsConfig,
+) -> int:
+    """Push each rendered video to every account this campaign reaches.
+
+    The same video, once per channel, each channel tracked independently:
+    one account rejecting a post leaves the other five untouched, and a
+    channel that is behind catches up on its own without holding anyone back.
+
+    Expansion happens here rather than at render time, which is what lets a
+    video rendered before fan-out existed still reach every account, and keeps
+    the render job entirely unaware that accounts exist.
+    """
+    campaign_dir = _campaign_dir(config.slug)
+    queue_path = campaign_dir / "queue.json"
+    history_path = campaign_dir / "history.json"
+
+    targets = accounts_for(registry, config.accounts)
+    if not targets:
+        log.warning(
+            "no_accounts_resolved", campaign=config.slug,
+            registry_size=len(registry.accounts),
+        )
+        print(
+            f"{config.slug}: fan_out is on but no account in "
+            f"{ACCOUNTS_FILE} is both enabled and allowed by this campaign.",
+            file=sys.stderr,
+        )
+        return 1
+
+    queue = load_queue(queue_path)
+    publishers = _account_publishers(targets, config, env, log)
+    vcs: Vcs = (
+        NullVcs(log)
+        if config.posting.dry_run or args.no_commit
+        else GitVcs(REPO_ROOT, log)
+    )
+
+    # Give every item still in flight a record per account. Items already
+    # finished before fan-out existed keep their own terminal status and are
+    # left alone — back-filling those would re-post a video that has already
+    # been out for weeks.
+    pairs = [(a.name, a.network) for a in targets]
+    expanded = 0
+    for item in queue.items:
+        if not item.posts and item.status in (
+            QueueStatus.PUSHED, QueueStatus.CANCELLED, QueueStatus.FAILED
+        ):
+            continue
+        expanded += len(ensure_posts(item, pairs))
+        sync_status(item)
+    if expanded:
+        log.info("fanout_expanded", campaign=config.slug, records=expanded,
+                 accounts=[a.name for a in targets])
+        save_queue(queue_path, queue)
+
+    pushed_total = 0
+    for account in targets:
+        publisher = publishers[account.api_key_secret]
+        channel = (
+            "dry-run-channel" if config.posting.dry_run
+            else _account_channel(account, env)
+        )
+        alog = log.bind(account=account.name, network=account.network.value)
+
+        # SPEC §11 — reconcile anything a previous run left mid-flight for
+        # THIS account before considering new work for it.
+        _reconcile_stranded_account(
+            queue, account, publisher, channel, queue_path, history_path, alog, vcs
+        )
+
+        revived = 0
+        for item in queue.items:
+            post = post_for(item, account.name)
+            if (
+                post is not None
+                and post.status is QueueStatus.FAILED
+                and post.attempts < QueueItem.MAX_ATTEMPTS
+            ):
+                reset_post_for_retry(post, item.id, log=alog)
+                sync_status(item)
+                revived += 1
+        if revived:
+            alog.info("revived_failed_records", count=revived)
+            save_queue(queue_path, queue)
+
+        state = publisher.queue_state(channel)
+        need = depth_needed(state.depth, account.max_buffer_queue)
+        ready = claimable_for(queue, account.name)
+        to_push = ready[:need]
+        gap = state.gap_hours(clock.now())
+
+        alog.info(
+            "topup_plan",
+            buffer_depth=state.depth, cap=account.max_buffer_queue, need=need,
+            available=len(ready), pushing=len(to_push),
+            next_due_in_hours=None if gap is None else round(gap, 1),
+        )
+
+        limit = config.notify.max_schedule_gap_hours
+        if gap is not None and gap > limit and not to_push:
+            alog.warning(
+                "schedule_gap", next_due_in_hours=round(gap, 1), limit=limit,
+                depth=state.depth,
+            )
+            notifier.notify(
+                NotifyEvent.SCHEDULE_GAP,
+                f"{config.slug} → {account.name}: Buffer holds {state.depth} "
+                f"post(s) but the next one is {gap:.0f}h away, over the "
+                f"{limit:.0f}h limit. Nothing has failed — the slots are "
+                f"simply too far out.",
+            )
+        if not to_push:
+            if not ready and state.depth == 0:
+                notifier.notify(
+                    NotifyEvent.QUEUE_EMPTY,
+                    f"⚠️ {config.slug} → {account.name}: Buffer queue is empty "
+                    f"and nothing is pending. Nothing will publish to this "
+                    f"account until the next render.",
+                )
+            continue
+
+        pushed_total += _push_to_account(
+            to_push, account, publisher, channel, config, queue, queue_path,
+            history_path, clock, notifier, alog, vcs,
+        )
+
+    _report_quota_count(
+        sum(getattr(p, "request_count", 0) for p in publishers.values()),
+        notifier, config, log, clock, vcs,
+    )
+    log.info("topup_complete", pushed=pushed_total, accounts=len(targets))
+    return 0
+
+
+def _push_to_account(
+    to_push: list[QueueItem],
+    account: AccountConfig,
+    publisher: Publisher,
+    channel: str,
+    config: CampaignConfig,
+    queue: Queue,
+    queue_path: Path,
+    history_path: Path,
+    clock: Clock,
+    notifier: Notifier,
+    log: StructuredLogger,
+    vcs: Vcs,
+) -> int:
+    """Push a batch of items to one account, claiming each before it goes."""
+    offset = timedelta(minutes=account.slot_offset_min)
+    now = clock.now()
+    lead = timedelta(minutes=10)
+
+    # Buffer rejects a past-dated post outright and the rejection is not
+    # retryable, so slots that have gone by are reassigned — but onto
+    # *successive* free slots, never all onto one. Pinning every stale item to
+    # "now plus a bit" would hand this channel three videos on the same
+    # minute, which is the failure the schedule exists to prevent.
+    taken = {
+        p.scheduled_for
+        for i in queue.items
+        for p in i.posts
+        if p.account == account.name and p.scheduled_for is not None
+    }
+    fresh = [
+        slot
+        for slot in upcoming_slots(
+            now,
+            len(to_push) + 8,
+            config.posting.start_hour,
+            config.posting.end_hour,
+            config.posting.posts_per_day,
+            config.zone,
+            offset_min=account.slot_offset_min,
+        )
+        if slot not in taken
+    ]
+
+    pushed = 0
+    for item in to_push:
+        post = post_for(item, account.name)
+        assert post is not None  # claimable_for only returns items with one
+
+        due = item.scheduled_for + offset
+        if due <= now + lead:
+            if not fresh:
+                log.warning("reslot_exhausted", item_id=item.id)
+                break
+            was, due = due, fresh.pop(0)
+            log.info(
+                "reslot_stale_record", item_id=item.id,
+                was=was.isoformat(), now_at=due.isoformat(),
+            )
+        taken.add(due)
+        post.scheduled_for = due
+
+        # One render now feeds networks with different rules about titles.
+        # An item rendered for a network that has no title field carries
+        # none, and YouTube refuses a Short without one — so the title is
+        # resolved per account, here, rather than baked in at render time
+        # when the destination was still a single channel.
+        title = item.title
+        limits = limits_for(account.network)
+        if title is None and limits.has_title:
+            assert limits.title_max is not None
+            title = derive_title(item.caption, limits.title_max)
+
+        transition_post(post, QueueStatus.CLAIMED, item.id, log=log)
+        sync_status(item)
+        save_queue(queue_path, queue)
+        # The commit is the durable claim: a crash after this leaves the
+        # record `claimed` in git, so the next run reconciles rather than
+        # pushing this channel a second copy (SPEC §11).
+        vcs.commit(
+            [queue_path], f"claim {item.id[:8]} for {account.name}"
+        )
+
+        try:
+            result = publisher.create_post(
+                PublishRequest(
+                    channel_id=channel,
+                    text=item.caption,
+                    title=title,
+                    service=account.network,
+                    video_url=item.video_url,
+                    scheduled_for=due,
+                    first_comment=account.first_comment or None,
+                    notify_subscribers=account.notify_subscribers,
+                    post_type=account.post_type,
+                )
+            )
+        except UgcError as exc:
+            log.exception("push_failed", exc, item_id=item.id)
+            mark_post_failed(post, str(exc), item.id, log=log)
+            sync_status(item)
+            save_queue(queue_path, queue)
+            vcs.commit([queue_path], f"fail {item.id[:8]} for {account.name}")
+            if isinstance(exc, (AuthError, QuotaError)):
+                # Properties of the ACCOUNT, not of this item: a bad key or an
+                # exhausted quota rejects everything behind it too. Stop this
+                # account rather than marching its whole queue into `failed`.
+                notifier.failure("topup.push", exc, item_id=item.id)
+                raise
+            notifier.failure("topup.push", exc, item_id=item.id)
+            continue
+
+        mark_post_pushed(post, result.post_id, item.id, log=log)
+        sync_status(item)
+        # History carries one Buffer id, and fan-out produces several. The
+        # first success wins it, which keeps attribution joining exactly as it
+        # did when this campaign had one channel; the per-account ids live on
+        # the queue records. Keying metrics per account is its own step.
+        if not any(
+            p.buffer_post_id for p in item.posts if p.account != account.name
+        ):
+            backfill_post_id(history_path, item.id, result.post_id)
+        save_queue(queue_path, queue)
+        vcs.commit(
+            [queue_path, history_path], f"push {item.id[:8]} for {account.name}"
+        )
+        pushed += 1
+    return pushed
+
+
+def _reconcile_stranded_account(
+    queue: Queue,
+    account: AccountConfig,
+    publisher: Publisher,
+    channel: str,
+    queue_path: Path,
+    history_path: Path,
+    log: StructuredLogger,
+    vcs: Vcs,
+) -> None:
+    """Resolve records left ``claimed`` for one account (SPEC §11)."""
+    for item in stranded_for(queue, account.name):
+        post = post_for(item, account.name)
+        assert post is not None
+        log.warning("stranded_record_found", item_id=item.id)
+        due = post.scheduled_for or item.scheduled_for
+        existing = publisher.find_scheduled_post(channel, due)
+        if existing is not None:
+            # The previous run did reach Buffer. Record it rather than
+            # pushing a duplicate that would then need deleting by hand.
+            log.info(
+                "stranded_record_already_published",
+                item_id=item.id, post_id=existing.post_id,
+            )
+            mark_post_pushed(post, existing.post_id, item.id, log=log)
+        else:
+            log.info("stranded_record_released", item_id=item.id)
+            transition_post(post, QueueStatus.PENDING, item.id, log=log)
+        sync_status(item)
+        save_queue(queue_path, queue)
+        vcs.commit(
+            [queue_path, history_path],
+            f"reconcile {item.id[:8]} for {account.name}",
+        )
 
 
 def _topup(
@@ -957,7 +1342,25 @@ def _report_quota(
     campaign sharing the key, because the allowance belongs to the Buffer
     account rather than to any one campaign.
     """
-    count = getattr(publisher, "request_count", 0)
+    _report_quota_count(
+        getattr(publisher, "request_count", 0), notifier, config, log, clock, vcs
+    )
+
+
+def _report_quota_count(
+    count: int,
+    notifier: Notifier,
+    config: CampaignConfig,
+    log: StructuredLogger,
+    clock: Clock | None = None,
+    vcs: Vcs | None = None,
+) -> None:
+    """As ``_report_quota``, given a request count rather than a publisher.
+
+    Fan-out spends its requests across one publisher per Buffer login, so the
+    figure to record is their sum — asking any single one of them would
+    undercount the run.
+    """
     log.info("buffer_requests_this_run", count=count)
 
     today = (clock.now() if clock else SystemClock().now()).astimezone(

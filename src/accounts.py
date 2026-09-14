@@ -78,6 +78,13 @@ class AccountConfig(StrictModel):
     #: YouTube: push each Short to subscribers. Off by default — notifying a
     #: subscriber list several times a day is a good way to lose it.
     notify_subscribers: bool = False
+    #: Shifts this account's publish times this many minutes past the item's
+    #: own slot. Fan-out sends one video to every channel, so without a
+    #: stagger two accounts on the same network publish it on the same minute
+    #: — nothing collides, but anyone following both sees a double, which is
+    #: the same failure ``posting.slot_offset_min`` exists to prevent between
+    #: campaigns.
+    slot_offset_min: int = Field(default=0, ge=0, le=1439)
     #: SPEC §4.1 — Buffer's free plan holds 10 queued posts per channel. A
     #: per-account figure because it is a property of the channel's plan, not
     #: of whatever campaign happens to be filling it.

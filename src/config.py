@@ -186,6 +186,16 @@ class PostingConfig(StrictModel):
     #: and converges on the channel's real publish rate within a week.
     max_backlog_days: int = Field(default=2, ge=1, le=14)
     dry_run: bool = False
+    #: Post every rendered video to every account in ``accounts.yaml`` rather
+    #: than to this campaign's own single Buffer channel (HANDOFF phase 2).
+    #:
+    #: Off by default, and deliberately a switch rather than "on as soon as a
+    #: registry exists": turning it on changes where real posts land. It must
+    #: only be switched on for a campaign that is the *sole* source of its
+    #: content — several campaigns carrying the same clips would each fan the
+    #: same video out to every channel, and each channel would publish it
+    #: once per campaign.
+    fan_out: bool = False
 
     @property
     def window_hours(self) -> int:
