@@ -78,9 +78,9 @@
         {
           "account": "knick_creates_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aaca2deaf631ff6b18059a2",
           "last_error": null,
           "scheduled_for": "2026-09-18T04:40:00-04:00"
         }
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "Student Film Casting Explained"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
