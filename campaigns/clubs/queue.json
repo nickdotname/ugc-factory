@@ -243,9 +243,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aad345c5c5a5e3eefd7113a",
           "last_error": null,
           "scheduled_for": "2026-09-18T22:20:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Casting Calls for New Actors"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
