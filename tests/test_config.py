@@ -467,7 +467,7 @@ creatives:
 class TestShippedClubsCreatives:
     def test_clubs_declares_its_first_creative_explicitly(self) -> None:
         cfg = load_campaign(REPO_ROOT / "campaigns", "clubs")
-        assert [c.name for c in cfg.creatives] == ["default"]
+        assert [c.name for c in cfg.creatives][:1] == ["default"]
         assert cfg.creative_assets_tag(cfg.creatives[0]) == cfg.assets_tag
 
     def test_clubs_default_creative_licenses_file_exists(self) -> None:

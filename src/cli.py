@@ -1044,7 +1044,15 @@ def _push_to_account(
         assert post is not None  # claimable_for only returns items with one
 
         due = item.scheduled_for + offset
-        if due <= now + lead:
+        # A slot can need reassigning for two different reasons: it has aged
+        # into the past, or — since this account's own natural due time is
+        # computed independently per item — it happens to already match a
+        # slot this same batch just handed to another item via the branch
+        # below. Checking staleness alone missed the second case: a stale
+        # item reslotted onto some fresh slot, and a separate item whose own
+        # due was never stale could still land on that identical slot with
+        # no check at all, and both went out on the same minute.
+        if due <= now + lead or due in taken:
             if not fresh:
                 log.warning("reslot_exhausted", item_id=item.id)
                 break

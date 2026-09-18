@@ -140,6 +140,32 @@ notify:
     return slug_dir
 
 
+@pytest.fixture
+def fanout_campaign(campaign: Path, tmp_path: Path) -> Path:
+    """The same e2e campaign, with fan_out on and one registered account.
+
+    One account, offset 0, is enough to reproduce the collision: it is the
+    account every other one is staggered *from*, so nothing hides it there.
+    """
+    text = (campaign / "config.yaml").read_text(encoding="utf-8")
+    (campaign / "config.yaml").write_text(
+        text.replace("posting:\n", "posting:\n  fan_out: true\n", 1),
+        encoding="utf-8",
+    )
+    (tmp_path / "accounts.yaml").write_text(
+        """
+accounts:
+  - name: only_ig
+    network: instagram
+    api_key_secret: BUFFER_API_KEY
+    channel_id: aaa111
+    post_type: reel
+""".strip(),
+        encoding="utf-8",
+    )
+    return campaign
+
+
 def render_args(**kw) -> argparse.Namespace:
     return argparse.Namespace(
         command="render", campaign="e2e", dry_run=True, count=None,
@@ -441,3 +467,46 @@ class TestStaleSlotRecovery:
         cli.cmd_topup(topup_args(), {})
         times = [i.scheduled_for for i in load_queue(campaign / "queue.json").items]
         assert len(set(times)) == len(times), "reslot collided with a pending slot"
+
+    def test_fanout_reslot_does_not_collide_with_a_slot_never_marked_stale(
+        self, fanout_campaign: Path
+    ) -> None:
+        """Fan-out's own per-account reslot (``_push_to_account``) checked
+        staleness only, never whether the slot it picked already belonged
+        to a different item in the same push whose own due was never stale
+        in the first place. Two videos landed on the one account at the
+        same minute — reported live after go-live on 2026-09-18.
+        """
+        from datetime import datetime, timedelta, timezone
+        from zoneinfo import ZoneInfo
+
+        from src.queue import save_queue, upcoming_slots
+
+        cli.cmd_render(render_args(), {})
+        q = load_queue(fanout_campaign / "queue.json")
+
+        # The slot _push_to_account will hand the stale item is the first
+        # candidate its own reslot pool offers — the same helper it uses
+        # internally. Pin the second item to that exact slot: this is what
+        # "the item's own due was never stale, but happens to equal a slot
+        # only just freed up for reslotting" looks like in practice, without
+        # depending on incidental timing.
+        now = datetime.now(timezone.utc)
+        target = next(iter(upcoming_slots(
+            now, 5, 9, 21, 3, ZoneInfo("America/New_York"), offset_min=0,
+        )))
+        q.items[0].scheduled_for = now - timedelta(hours=6)
+        q.items[1].scheduled_for = target
+        save_queue(fanout_campaign / "queue.json", q)
+
+        cli.cmd_topup(topup_args(), {})
+        after = load_queue(fanout_campaign / "queue.json")
+        times = [
+            p.scheduled_for
+            for i in after.items
+            for p in i.posts
+            if p.scheduled_for is not None
+        ]
+        assert len(set(times)) == len(times), (
+            "two accounts posts landed on the same slot for one account"
+        )
