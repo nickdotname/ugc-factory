@@ -261,11 +261,11 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-09-18T22:00:00-04:00"
         },
         {
           "account": "knick_creates_yt",
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Casting Calls for New Actors"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
