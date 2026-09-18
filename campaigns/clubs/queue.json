@@ -1,4 +1,169 @@
 {
-  "generated_at": "2026-09-14T20:56:40.973440Z",
-  "items": []
+  "generated_at": "2026-09-18T02:30:28.288771Z",
+  "items": [
+    {
+      "id": "fc5843fb-7560-4a30-b73e-9b4527abedba",
+      "scheduled_for": "2026-09-18T03:00:00-04:00",
+      "rendered_at": "2026-09-18T02:30:28.288771Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-18/fc5843fb-7560-4a30-b73e-9b4527abedba.mp4",
+      "caption": "for every aspiring actor, singer, or filmmaker still trying to figure out where to start\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, singers, filmmakers, emerging artists, get involved, creative community]",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mov",
+        "bodies": "body_01.mov",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0494,
+        "anchor_x": 0.399,
+        "anchor_y": 0.601,
+        "rotate_deg": 0.488,
+        "brightness": 0.0312,
+        "saturation": 1.0417,
+        "hue_deg": 0.24,
+        "grain": 5.84,
+        "speed": 0.9931,
+        "mirror": 0.0,
+        "music_tempo": 1.0178,
+        "music_tilt_db": -1.3
+      },
+      "creative": "tinder_projects",
+      "posts": [],
+      "captions": {
+        "tiktok": "film students: this is where the projects actually are\n\nit's in my bio #filmschool #studentfilm #filmstudent #indiefilm",
+        "youtube": "How student film casting actually works, and where the open calls get posted. Link in the channel description.\n\nTags: #shorts #studentfilm #filmschool #acting"
+      },
+      "titles": {
+        "youtube": "Student Film Casting Explained"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "4ed7c1af-b4a8-47fc-9e39-cfcb4659e851",
+      "scheduled_for": "2026-09-18T09:00:00-04:00",
+      "rendered_at": "2026-09-18T02:30:28.288771Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-18/4ed7c1af-b4a8-47fc-9e39-cfcb4659e851.mp4",
+      "caption": "aspiring actors and models — bookmark this one\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, models, modeling, casting calls, emerging artists]",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mov",
+        "bodies": "body_02.mp4",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0349,
+        "anchor_x": 0.47,
+        "anchor_y": 0.717,
+        "rotate_deg": 0.006,
+        "brightness": -0.0115,
+        "saturation": 1.0631,
+        "hue_deg": 0.83,
+        "grain": 3.67,
+        "speed": 1.0206,
+        "mirror": 0.0,
+        "music_tempo": 0.9787,
+        "music_tilt_db": -1.02
+      },
+      "creative": "tinder_projects",
+      "posts": [],
+      "captions": {
+        "tiktok": "no agent, no credits, no connections — still got cast\n\nit's in my bio #acting #actorslife #auditions #studentfilm",
+        "youtube": "How actors, models, singers and filmmakers in New York, Los Angeles, Paris and Michigan find collaborators. Link in the channel description.\n\nTags: #shorts #acting #creatives #filmmaking"
+      },
+      "titles": {
+        "youtube": "Creative Networking in NYC & LA"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7086b69a-2bda-49da-b529-0ed7fe3e6af4",
+      "scheduled_for": "2026-09-18T15:00:00-04:00",
+      "rendered_at": "2026-09-18T02:30:28.288771Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-18/7086b69a-2bda-49da-b529-0ed7fe3e6af4.mp4",
+      "caption": "i wish someone told me about this before film school\n\ncomment \"create\" and I'll send it over\n\n[film students, student films, filmmakers, nyu tisch, creative community]",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mov",
+        "bodies": "body_01.mp4",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0186,
+        "anchor_x": 0.611,
+        "anchor_y": 0.477,
+        "rotate_deg": 0.049,
+        "brightness": -0.0039,
+        "saturation": 0.9382,
+        "hue_deg": -1.4,
+        "grain": 4.28,
+        "speed": 1.0055,
+        "mirror": 0.0,
+        "music_tempo": 1.0229,
+        "music_tilt_db": 0.24
+      },
+      "creative": "default",
+      "posts": [],
+      "captions": {
+        "tiktok": "stop scrolling instagram looking for auditions\n\nlink in bio #auditions #acting #castingcalls #actorslife",
+        "youtube": "Open casting calls for short films, student films and indie projects, updated by the people making them. Link in the channel description.\n\nTags: #shorts #shortfilm #acting #indiefilm"
+      },
+      "titles": {
+        "youtube": "Find Short Film Roles"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "82e4c2c0-fd8a-47da-8d21-928aefeed6a6",
+      "scheduled_for": "2026-09-18T21:00:00-04:00",
+      "rendered_at": "2026-09-18T02:30:28.288771Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-18/82e4c2c0-fd8a-47da-8d21-928aefeed6a6.mp4",
+      "caption": "aspiring actors and models — bookmark this one\n\ncomment \"create\" and I'll send the link\n\n[aspiring actors, models, modeling, casting calls, emerging artists]",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "body_02.mp4",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0494,
+        "anchor_x": 0.689,
+        "anchor_y": 0.619,
+        "rotate_deg": 0.037,
+        "brightness": -0.0378,
+        "saturation": 1.0587,
+        "hue_deg": -0.17,
+        "grain": 5.95,
+        "speed": 1.0091,
+        "mirror": 0.0,
+        "music_tempo": 0.9994,
+        "music_tilt_db": -1.16
+      },
+      "creative": "default",
+      "posts": [],
+      "captions": {
+        "tiktok": "singers and producers are finding each other here\n\nlink in bio #musiccollab #singer #producer #indieartist",
+        "youtube": "A place to find open auditions, casting calls, modeling shoots and short film roles without an agent or industry connections. Link in the channel description.\n\nTags: #shorts #auditions #acting #castingcalls"
+      },
+      "titles": {
+        "youtube": "Where Actors & Models Find Work"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    }
+  ]
 }
