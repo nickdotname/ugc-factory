@@ -129,9 +129,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aad34165c5a5e3eefd70a61",
           "last_error": null,
           "scheduled_for": "2026-09-18T15:00:00-04:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "How Film Students Find Crew"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
