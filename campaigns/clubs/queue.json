@@ -129,9 +129,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aaca2a4ea02db373de06f4e",
           "last_error": null,
           "scheduled_for": "2026-09-18T09:00:00-04:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "Creative Networking in NYC & LA"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
