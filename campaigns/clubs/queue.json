@@ -339,9 +339,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aaca2c23193d9f800290afa",
           "last_error": null,
           "scheduled_for": "2026-09-18T22:20:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Where Actors & Models Find Work"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
