@@ -69,9 +69,9 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aad3473ea358f5e34ecacca",
           "last_error": null,
           "scheduled_for": "2026-09-18T10:00:00-04:00"
         },
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "Acting Auditions With No Agent"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
