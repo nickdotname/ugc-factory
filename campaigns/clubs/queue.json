@@ -348,9 +348,9 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aad346f5c7c4c6d22fd74fd",
           "last_error": null,
           "scheduled_for": "2026-09-19T03:20:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Find Music Collaborators Online"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
