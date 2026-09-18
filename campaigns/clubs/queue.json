@@ -321,9 +321,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aad341dd7a2d94521e73d5f",
           "last_error": null,
           "scheduled_for": "2026-09-19T03:00:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Find Music Collaborators Online"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
