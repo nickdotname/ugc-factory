@@ -35,12 +35,11 @@ posting:
   # whole backlog instead of into the next free hour. That is how the
   # front of the schedule emptied while Buffer still read full at 10.
   max_backlog_days: 1
-  # PAUSED for a clip-library reset (2026-09-14): the whole asset library
-  # was wiped so fresh creatives could be imported clean. Posting to a live
-  # queue against zero hooks/bodies would either fail loud or, worse, pick
-  # up half-uploaded assets mid-import. Set back to false once the new
-  # creative(s) are fully uploaded and preflight passes.
-  dry_run: true
+  # LIVE (2026-09-18). New creatives (default, tinder_projects) uploaded,
+  # preflight clean on both. music_01/02.mp3 muted campaign-wide — source
+  # wasn't confirmed as cleared, so treated the same as the tracks that
+  # caused the TikTok outage rather than risk repeating it.
+  dry_run: false
   # Fan-out went live 2026-09-14: pushed to main, dashboard restarted,
   # confirmed reaches=6 via /api/campaigns. Verified working.
   fan_out: true
