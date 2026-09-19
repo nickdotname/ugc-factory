@@ -348,11 +348,11 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-09-20T03:20:00-04:00"
         },
         {
           "account": "knick_creates_tt",
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "How Singers Find Collabs"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
