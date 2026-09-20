@@ -234,9 +234,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aafd8ca8d048c06b4058f3c",
           "last_error": null,
           "scheduled_for": "2026-09-20T21:40:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Your First Film Role"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
