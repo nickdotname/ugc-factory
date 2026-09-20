@@ -174,11 +174,11 @@
         {
           "account": "knick_creates_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-09-20T16:40:00-04:00"
         }
       ],
       "captions": {
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "How Actors Find Work Online"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
