@@ -51,10 +51,10 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 1,
-          "buffer_post_id": null,
-          "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
+          "buffer_post_id": "6ab191e1cbf92765bbec3753",
+          "last_error": null,
           "scheduled_for": "2026-09-22T16:20:00-04:00"
         },
         {
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "Student Film Casting Explained"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
