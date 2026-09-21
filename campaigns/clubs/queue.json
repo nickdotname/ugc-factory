@@ -1,300 +1,12 @@
 {
-  "generated_at": "2026-09-20T09:36:15.739439Z",
+  "generated_at": "2026-09-21T10:24:42.141802Z",
   "items": [
     {
-      "id": "e01b9e0f-3b52-4859-adde-fd0ea3a32f70",
-      "scheduled_for": "2026-09-20T09:00:00-04:00",
-      "rendered_at": "2026-09-20T09:36:15.739439Z",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-20/e01b9e0f-3b52-4859-adde-fd0ea3a32f70.mp4",
-      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, models, writers, artists, design, creative projects]",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mov",
-        "bodies": "body_01.mov",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.002,
-        "anchor_x": 0.374,
-        "anchor_y": 0.693,
-        "rotate_deg": -0.433,
-        "brightness": -0.0049,
-        "saturation": 1.0085,
-        "hue_deg": -3.12,
-        "grain": 4.31,
-        "speed": 1.0025,
-        "mirror": 0.0,
-        "music_tempo": 0.9914,
-        "music_tilt_db": 0.37
-      },
-      "creative": "tinder_projects",
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8b8549cbb1779866896",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T15:00:00-04:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8c435dc00a609719d97",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T09:40:00-04:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8d0a490f1cf65e542d7",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T10:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8e435dc00a60971ae67",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T09:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8f535dc00a60971b85e",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T10:00:00-04:00"
-        },
-        {
-          "account": "knick_creates_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd90335dc00a60971c2c9",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T10:40:00-04:00"
-        }
-      ],
-      "captions": {
-        "tiktok": "singers and producers are finding each other here\n\nlink in bio #musiccollab #singer #producer #indieartist",
-        "youtube": "Actors, models, writers and designers find projects looking for exactly what they do. Link in the channel description.\n\nTags: #shorts #creatives #acting #musician"
-      },
-      "titles": {
-        "youtube": "Find Modeling & Acting Work"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "e77f4258-0d81-47aa-91cf-da4d4175c353",
-      "scheduled_for": "2026-09-20T15:00:00-04:00",
-      "rendered_at": "2026-09-20T09:36:15.739439Z",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-20/e77f4258-0d81-47aa-91cf-da4d4175c353.mp4",
-      "caption": "if you're an actor, model, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, models, singers, filmmakers, creative networking, aspiring actors]",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mov",
-        "bodies": "body_02.mp4",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0147,
-        "anchor_x": 0.275,
-        "anchor_y": 0.354,
-        "rotate_deg": -0.461,
-        "brightness": -0.0271,
-        "saturation": 0.9344,
-        "hue_deg": 1.52,
-        "grain": 5.62,
-        "speed": 0.9834,
-        "mirror": 0.0,
-        "music_tempo": 1.0107,
-        "music_tilt_db": -1.16
-      },
-      "creative": "default",
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8bb13d908add21a8b8a",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T21:00:00-04:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8c7566e1a89bc2f5715",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T15:40:00-04:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8d78d048c06b40593cf",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T16:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8e8566e1a89bc2f6235",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T15:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8faa490f1cf65e56343",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T16:00:00-04:00"
-        },
-        {
-          "account": "knick_creates_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd906549cbb1779869c91",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T16:40:00-04:00"
-        }
-      ],
-      "captions": {
-        "tiktok": "stop scrolling instagram looking for auditions\n\nlink in bio #auditions #acting #castingcalls #actorslife",
-        "youtube": "Where actors look for casting calls, auditions and short film roles that are actually open. Link in the channel description.\n\nTags: #shorts #acting #auditions #actorslife"
-      },
-      "titles": {
-        "youtube": "How Actors Find Work Online"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "e8cf56c5-5fc4-4756-8f93-b3da0ba7c360",
-      "scheduled_for": "2026-09-20T21:00:00-04:00",
-      "rendered_at": "2026-09-20T09:36:15.739439Z",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-20/e8cf56c5-5fc4-4756-8f93-b3da0ba7c360.mp4",
-      "caption": "the creative networking hack that actually works\n\ncomment \"create\" and I'll DM you the site\n\n[creative networking, creative community, get involved, creative collaboration]",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mov",
-        "bodies": "body_02.mp4",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0045,
-        "anchor_x": 0.681,
-        "anchor_y": 0.738,
-        "rotate_deg": 0.296,
-        "brightness": -0.0061,
-        "saturation": 0.9507,
-        "hue_deg": 0.3,
-        "grain": 3.91,
-        "speed": 0.9724,
-        "mirror": 0.0,
-        "music_tempo": 1.0215,
-        "music_tilt_db": -1.04
-      },
-      "creative": "tinder_projects",
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8be566e1a89bc2f568a",
-          "last_error": null,
-          "scheduled_for": "2026-09-21T03:00:00-04:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8ca8d048c06b4058f3c",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T21:40:00-04:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8dd566e1a89bc2f5d89",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T22:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8eb549cbb17798685c7",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T21:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8fd549cbb177986996f",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T22:00:00-04:00"
-        },
-        {
-          "account": "knick_creates_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd909549cbb1779869db6",
-          "last_error": null,
-          "scheduled_for": "2026-09-20T22:40:00-04:00"
-        }
-      ],
-      "captions": {
-        "tiktok": "i wish i had this before film school\n\nlink in bio #filmschool #filmstudent #filmmaking #studentfilm",
-        "youtube": "Where to look for your first short film or student film role when you are starting from zero. Link in the channel description.\n\nTags: #shorts #acting #shortfilm #actorslife"
-      },
-      "titles": {
-        "youtube": "Find Your First Film Role"
-      },
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "5f86badc-178e-4c26-adab-0ca53eabd7af",
-      "scheduled_for": "2026-09-21T03:00:00-04:00",
-      "rendered_at": "2026-09-20T09:36:15.739439Z",
-      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-20/5f86badc-178e-4c26-adab-0ca53eabd7af.mp4",
-      "caption": "filmmakers + models + songwriters + dancers — this one's for you\n\ncomment \"create\" for the link\n\n[filmmakers, models, songwriters, dancers, performers, new york, los angeles]",
+      "id": "059b876c-50e1-448d-b6f6-fce8e2ae39ce",
+      "scheduled_for": "2026-09-21T09:00:00-04:00",
+      "rendered_at": "2026-09-21T10:24:42.141802Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-21/059b876c-50e1-448d-b6f6-fce8e2ae39ce.mp4",
+      "caption": "this site has been the cheat code to getting involved creatively 🎬🎤\n\ncomment \"create\" and I'll send it over\n\n[creative collaboration, actors, singers, filmmakers, creative community, get involved]",
       "title": null,
       "parts": {
         "hook": "hook_01.mov",
@@ -303,84 +15,152 @@
         "music_offset_sec": "0"
       },
       "treatment": {
-        "zoom": 0.0324,
-        "anchor_x": 0.503,
-        "anchor_y": 0.564,
-        "rotate_deg": -0.206,
-        "brightness": -0.0158,
-        "saturation": 0.9445,
-        "hue_deg": -2.37,
-        "grain": 0.66,
-        "speed": 1.0131,
+        "zoom": 0.042,
+        "anchor_x": 0.65,
+        "anchor_y": 0.37,
+        "rotate_deg": -0.276,
+        "brightness": 0.0322,
+        "saturation": 0.9784,
+        "hue_deg": 3.34,
+        "grain": 5.48,
+        "speed": 1.0147,
         "mirror": 0.0,
-        "music_tempo": 1.0086,
-        "music_tilt_db": 0.75
+        "music_tempo": 0.9829,
+        "music_tilt_db": 1.3
       },
       "creative": "tinder_projects",
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8c18d048c06b4058ea9",
-          "last_error": null,
-          "scheduled_for": "2026-09-21T09:00:00-04:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8cea490f1cf65e54279",
-          "last_error": null,
-          "scheduled_for": "2026-09-21T03:40:00-04:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8e0a490f1cf65e54986",
-          "last_error": null,
-          "scheduled_for": "2026-09-21T04:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd8ee8d048c06b4059fab",
-          "last_error": null,
-          "scheduled_for": "2026-09-21T03:20:00-04:00"
-        },
-        {
-          "account": "knick_creates_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd900549cbb1779869a37",
-          "last_error": null,
-          "scheduled_for": "2026-09-21T04:00:00-04:00"
-        },
-        {
-          "account": "knick_creates_yt",
-          "network": "youtube",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aafd90c549cbb1779869ea3",
-          "last_error": null,
-          "scheduled_for": "2026-09-21T04:40:00-04:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "tiktok": "your first film role is closer than you think\n\nit's in my bio #acting #actorslife #shortfilm #filmtok",
-        "youtube": "Dancers and performers use this to find auditions, shows and creative projects to join. Link in the channel description.\n\nTags: #shorts #dance #auditions #performingarts"
+        "tiktok": "how people with zero credits are getting on set\n\nit's in my bio #filmmaking #acting #studentfilm #indiefilm",
+        "youtube": "How student film casting actually works, and where the open calls get posted. Link in the channel description.\n\nTags: #shorts #studentfilm #filmschool #acting"
       },
       "titles": {
-        "youtube": "Find Dance Auditions Online"
+        "youtube": "Student Film Casting Explained"
       },
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "9c4a06b4-202e-4fec-8959-e532f19c0f6e",
+      "scheduled_for": "2026-09-21T15:00:00-04:00",
+      "rendered_at": "2026-09-21T10:24:42.141802Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-21/9c4a06b4-202e-4fec-8959-e532f19c0f6e.mp4",
+      "caption": "the creative networking site nobody's talking about (yet)\n\ncomment \"create\" and I'll send it over\n\n[creative networking, nyc, los angeles, paris, michigan, mixers, meetups]",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mov",
+        "bodies": "body_01.mov",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0359,
+        "anchor_x": 0.672,
+        "anchor_y": 0.305,
+        "rotate_deg": -0.3,
+        "brightness": -0.0234,
+        "saturation": 1.0693,
+        "hue_deg": 2.15,
+        "grain": 5.65,
+        "speed": 1.0232,
+        "mirror": 0.0,
+        "music_tempo": 0.9848,
+        "music_tilt_db": -1.32
+      },
+      "creative": "tinder_projects",
+      "posts": [],
+      "captions": {
+        "tiktok": "got cast in my first short film from this\n\nit's in my bio #acting #shortfilm #actorslife #castingcall",
+        "youtube": "How actors, models, singers and filmmakers in New York, Los Angeles, Paris and Michigan find collaborators. Link in the channel description.\n\nTags: #shorts #acting #creatives #filmmaking"
+      },
+      "titles": {
+        "youtube": "Creative Networking in NYC & LA"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "b4f87cad-de43-4f88-ac2f-c1f3c2d7f4b4",
+      "scheduled_for": "2026-09-21T21:00:00-04:00",
+      "rendered_at": "2026-09-21T10:24:42.141802Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-21/b4f87cad-de43-4f88-ac2f-c1f3c2d7f4b4.mp4",
+      "caption": "i wish someone told me about this before film school\n\ncomment \"create\" and I'll send it over\n\n[film students, student films, filmmakers, nyu tisch, creative community]",
+      "title": null,
+      "parts": {
+        "hook": "hook_05.mov",
+        "bodies": "body_02.mp4",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0124,
+        "anchor_x": 0.617,
+        "anchor_y": 0.252,
+        "rotate_deg": 0.429,
+        "brightness": 0.0215,
+        "saturation": 1.0311,
+        "hue_deg": 0.05,
+        "grain": 5.86,
+        "speed": 1.0011,
+        "mirror": 0.0,
+        "music_tempo": 1.0175,
+        "music_tilt_db": 0.22
+      },
+      "creative": "default",
+      "posts": [],
+      "captions": {
+        "tiktok": "the reason people keep asking how i got on set\n\nit's in my bio #acting #filmtok #shortfilm #actorslife",
+        "youtube": "A free way for filmmakers to find cast, crew and collaborators for indie and student projects. Link in the channel description.\n\nTags: #shorts #filmmaking #indiefilm #studentfilm"
+      },
+      "titles": {
+        "youtube": "Find Film Collaborators Free"
+      },
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ffd26983-3a8d-4add-a176-612068a94370",
+      "scheduled_for": "2026-09-22T03:00:00-04:00",
+      "rendered_at": "2026-09-21T10:24:42.141802Z",
+      "video_url": "https://github.com/nickdotname/ugc-factory/releases/download/render-clubs-2026-09-21/ffd26983-3a8d-4add-a176-612068a94370.mp4",
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "parts": {
+        "hook": "hook_05.mov",
+        "bodies": "body_01.mov",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0475,
+        "anchor_x": 0.748,
+        "anchor_y": 0.632,
+        "rotate_deg": 0.147,
+        "brightness": 0.0259,
+        "saturation": 1.0794,
+        "hue_deg": -2.62,
+        "grain": 5.18,
+        "speed": 1.0091,
+        "mirror": 0.0,
+        "music_tempo": 0.9916,
+        "music_tilt_db": 0.56
+      },
+      "creative": "tinder_projects",
+      "posts": [],
+      "captions": {
+        "tiktok": "directors, producers and editors are all on here\n\nlink in bio #filmmaking #director #producer #filmtok",
+        "youtube": "Screenwriters, directors and producers use this to find each other and get projects made. Link in the channel description.\n\nTags: #shorts #screenwriter #filmmaking #director"
+      },
+      "titles": {
+        "youtube": "Where Screenwriters Find Directors"
+      },
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
