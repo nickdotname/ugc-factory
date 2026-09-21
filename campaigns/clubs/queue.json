@@ -165,11 +165,11 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "failed",
+          "status": "claimed",
           "attempts": 1,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
-          "scheduled_for": "2026-09-21T22:00:00-04:00"
+          "scheduled_for": "2026-09-22T16:00:00-04:00"
         },
         {
           "account": "knick_creates_yt",
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "Creative Networking in NYC & LA"
       },
-      "status": "failed",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
