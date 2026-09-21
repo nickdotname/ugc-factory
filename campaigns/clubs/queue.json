@@ -270,9 +270,9 @@
         {
           "account": "knick_creates_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab147615d8ba22c02581f84",
           "last_error": null,
           "scheduled_for": "2026-09-22T04:40:00-04:00"
         }
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Film Collaborators Free"
       },
-      "status": "claimed",
+      "status": "failed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
