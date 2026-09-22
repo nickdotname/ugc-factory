@@ -69,9 +69,9 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab280752f30e64179d85070",
           "last_error": null,
           "scheduled_for": "2026-09-22T10:00:00-04:00"
         },
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "Find Modeling & Acting Work"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
