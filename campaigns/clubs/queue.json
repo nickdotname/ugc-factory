@@ -234,9 +234,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab2804bb093a512d28e3cd9",
           "last_error": null,
           "scheduled_for": "2026-09-22T21:40:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Student Film Roles"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
