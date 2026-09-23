@@ -330,9 +330,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab3d50ac81095d33c98e6c2",
           "last_error": null,
           "scheduled_for": "2026-09-24T09:40:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Find Short Film Roles"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
