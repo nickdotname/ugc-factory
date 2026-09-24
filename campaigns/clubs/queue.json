@@ -330,9 +330,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab52584c5da0890db84cec9",
           "last_error": null,
           "scheduled_for": "2026-09-25T03:40:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Where Actors & Models Find Work"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
