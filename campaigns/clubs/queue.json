@@ -165,9 +165,9 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab525b70e453245460ebfe5",
           "last_error": null,
           "scheduled_for": "2026-09-24T16:00:00-04:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "How to Find Casting Calls Online"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
