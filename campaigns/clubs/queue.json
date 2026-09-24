@@ -234,11 +234,11 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-09-24T21:40:00-04:00"
         },
         {
           "account": "nickdotname_yt",
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Dance Auditions Online"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
