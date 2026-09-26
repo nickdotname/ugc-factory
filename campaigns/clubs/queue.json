@@ -225,11 +225,11 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-09-27T03:00:00-04:00"
         },
         {
           "account": "nickdotname_tt",
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Short Film Roles"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
