@@ -138,9 +138,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab7c0c79f89edbefe71e549",
           "last_error": null,
           "scheduled_for": "2026-09-26T15:40:00-04:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "Creative Community for Artists"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
