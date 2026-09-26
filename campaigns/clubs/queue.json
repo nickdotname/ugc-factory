@@ -321,9 +321,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab7c0c2ccccb9429c2d09f9",
           "last_error": null,
           "scheduled_for": "2026-09-27T09:00:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Where Screenwriters Find Directors"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
