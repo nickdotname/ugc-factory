@@ -147,9 +147,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab91e87612c9e6ac9262d9b",
           "last_error": null,
           "scheduled_for": "2026-09-27T16:20:00-04:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "How Singers Find Collabs"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
