@@ -174,9 +174,9 @@
         {
           "account": "knick_creates_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ab91eae43493a0ede90a1d5",
           "last_error": null,
           "scheduled_for": "2026-09-27T16:40:00-04:00"
         }
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "How Singers Find Collabs"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
