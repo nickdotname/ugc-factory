@@ -348,9 +348,9 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6abd21c5d23fd11c28d272eb",
           "last_error": null,
           "scheduled_for": "2026-10-01T09:20:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Find Voice, Band & Podcast Work"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
