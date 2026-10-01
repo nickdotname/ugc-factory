@@ -69,9 +69,9 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6abe7a7a577c982901474415",
           "last_error": null,
           "scheduled_for": "2026-10-01T16:00:00-04:00"
         },
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "Break Into Film With No Credits"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
