@@ -252,9 +252,9 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6abfc25e0adf17f48c4e8b5e",
           "last_error": null,
           "scheduled_for": "2026-10-03T03:20:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Performers for Your Project"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
