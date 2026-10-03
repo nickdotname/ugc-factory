@@ -321,9 +321,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ac0fff83bfd38430fe1e67d",
           "last_error": null,
           "scheduled_for": "2026-10-04T09:00:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Find Film Collaborators Free"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
