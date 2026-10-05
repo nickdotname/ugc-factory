@@ -243,9 +243,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ac3d8578c74e278c8f36b72",
           "last_error": null,
           "scheduled_for": "2026-10-06T04:20:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Where Filmmakers Find Actors"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
