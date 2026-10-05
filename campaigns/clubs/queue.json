@@ -165,9 +165,9 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ac3d86d00f193294b78f7c6",
           "last_error": null,
           "scheduled_for": "2026-10-05T22:00:00-04:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "Find Music Collaborators Online"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
