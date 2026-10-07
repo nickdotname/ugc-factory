@@ -357,9 +357,9 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ac664e4c0d59d54e0247ef5",
           "last_error": null,
           "scheduled_for": "2026-10-08T10:00:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Creative Community for Artists"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
