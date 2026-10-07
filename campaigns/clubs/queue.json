@@ -225,9 +225,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ac664a8e94c2c45e006f3bc",
           "last_error": null,
           "scheduled_for": "2026-10-08T03:00:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Student Film Roles"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
