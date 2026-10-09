@@ -330,9 +330,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ac9041e810582311ae60ee6",
           "last_error": null,
           "scheduled_for": "2026-10-10T09:40:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Find Film Collaborators Free"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
