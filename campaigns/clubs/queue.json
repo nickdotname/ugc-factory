@@ -357,9 +357,9 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ac9044557c4b87d9cf7ba3b",
           "last_error": null,
           "scheduled_for": "2026-10-10T10:00:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Find Film Collaborators Free"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
