@@ -330,9 +330,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aca4a8db07d37ac97763c56",
           "last_error": null,
           "scheduled_for": "2026-10-11T09:40:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Casting Calls for New Actors"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
