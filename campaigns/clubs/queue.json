@@ -330,9 +330,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6acd1bbc187b44b7a44d7cb0",
           "last_error": null,
           "scheduled_for": "2026-10-13T09:40:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "How to Find Casting Calls Online"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
