@@ -29,7 +29,62 @@
         "music_tilt_db": -0.91
       },
       "creative": "default",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-10-12T15:00:00-04:00"
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "tiktok": "directors, producers and editors are all on here\n\nlink in bio #filmmaking #director #producer #filmtok",
         "youtube": "How actors with no credits and no agent get cast in student films and short films. Link in the channel description.\n\nTags: #shorts #acting #studentfilm #actorslife"
@@ -37,7 +92,7 @@
       "titles": {
         "youtube": "Find Student Film Roles"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -70,7 +125,62 @@
         "music_tilt_db": 1.38
       },
       "creative": "tinder_projects",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "tiktok": "student films are always looking for people\n\nlink in bio #studentfilm #filmstudent #acting #filmschool",
         "youtube": "Where actors look for casting calls, auditions and short film roles that are actually open. Link in the channel description.\n\nTags: #shorts #acting #auditions #actorslife"
@@ -111,7 +221,62 @@
         "music_tilt_db": 0.72
       },
       "creative": "default",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "tiktok": "nyc and la creatives should have this bookmarked\n\nlink in bio #nyc #losangeles #acting #creatives",
         "youtube": "How to find real auditions and casting calls without representation. Link in the channel description.\n\nTags: #shorts #auditions #acting #castingcalls"
@@ -152,7 +317,62 @@
         "music_tilt_db": -0.03
       },
       "creative": "default",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "knick_creates_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "tiktok": "where dancers actually find auditions\n\nit's in my bio #dance #dancer #auditions #performingarts",
         "youtube": "Where actors, singers and filmmakers find open casting calls, student films and music collaborations in one place. Link in the channel description.\n\nTags: #shorts #acting #castingcall #filmmaking"
