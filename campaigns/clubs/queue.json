@@ -78,9 +78,9 @@
         {
           "account": "knick_creates_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6acd1be1a736ed5b0f09f071",
           "last_error": null,
           "scheduled_for": "2026-10-12T16:40:00-04:00"
         }
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "Find Student Film Roles"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
