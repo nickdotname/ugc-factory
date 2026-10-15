@@ -252,9 +252,9 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ad0d27d83984e92dc1e90d3",
           "last_error": null,
           "scheduled_for": "2026-10-16T03:20:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Film School Without Film School"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
