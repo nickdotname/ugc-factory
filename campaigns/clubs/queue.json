@@ -33,9 +33,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ad4bc930b0d72757a20ae7e",
           "last_error": null,
           "scheduled_for": "2026-10-18T09:00:00-04:00"
         },
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "How Actors Find Work Online"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
