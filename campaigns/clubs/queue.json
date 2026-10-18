@@ -243,9 +243,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ad4bcb1938409f1d0cdc5d8",
           "last_error": null,
           "scheduled_for": "2026-10-18T22:20:00-04:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Modeling & Acting Work"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
