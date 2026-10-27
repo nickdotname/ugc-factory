@@ -321,9 +321,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ae0b2b801a7b9ebe43b3507",
           "last_error": null,
           "scheduled_for": "2026-10-28T09:00:00-04:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Get Cast With No Experience"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
