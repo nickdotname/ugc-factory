@@ -129,9 +129,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ae0b2af01a7b9ebe43b3343",
           "last_error": null,
           "scheduled_for": "2026-10-27T21:00:00-04:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "Find Voice, Band & Podcast Work"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
