@@ -321,9 +321,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ae5fad6f0984eef3313274c",
           "last_error": null,
           "scheduled_for": "2026-11-01T09:00:00-05:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "How Singers Find Collabs"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
