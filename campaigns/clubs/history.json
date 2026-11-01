@@ -5939,6 +5939,138 @@
         "music_tilt_db": 1.06
       },
       "buffer_post_id": "6ae5fad6f0984eef3313274c"
+    },
+    {
+      "tuple_hash": "e4bdb0e8f3f127461a9ba39dcba2b05350bb0d653531c1acd95587821c2ed0ee",
+      "timestamp": "2026-11-01T11:41:14.946481Z",
+      "item_id": "7b9619ae-d8c1-4177-b2e5-c196f231c3d3",
+      "hook": "hook_01.mov",
+      "bodies": [
+        "body_01.mov"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "if you're trying to get more involved in the creative world, start here\n\ncomment \"create\" and I'll send it over\n\n[get involved, models, writers, artists, design, creative projects]",
+      "title": null,
+      "creative": "tinder_projects",
+      "captions": {
+        "tiktok": "actors, models, singers, dancers — this one is for you\n\nlink in bio #acting #model #dance #performingarts",
+        "youtube": "How actors with no credits and no agent get cast in student films and short films. Link in the channel description.\n\nTags: #shorts #acting #studentfilm #actorslife"
+      },
+      "treatment": {
+        "zoom": 0.0441,
+        "anchor_x": 0.366,
+        "anchor_y": 0.397,
+        "rotate_deg": 0.178,
+        "brightness": -0.0111,
+        "saturation": 1.0549,
+        "hue_deg": 0.14,
+        "grain": 4.12,
+        "speed": 1.0236,
+        "mirror": 0.0,
+        "music_tempo": 1.0091,
+        "music_tilt_db": 1.38
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "5e1926564c4c9a7fc3b46d60dabff454612f204e933a096c922ea061a5e5b054",
+      "timestamp": "2026-11-01T11:41:14.946481Z",
+      "item_id": "05ebf8da-c4d8-4573-a111-9621cebbbf4d",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "this is how indie filmmakers and musicians are finding collaborators right now\n\ncomment \"create\"\n\n[indie music, bands, podcast, filmmakers, music collabs, songwriters]",
+      "title": null,
+      "creative": "default",
+      "captions": {
+        "tiktok": "screenwriters looking for directors, directors looking for scripts\n\nlink in bio #screenwriter #filmmaking #indiefilm #filmtok",
+        "youtube": "Bands, podcasters, voice actors and mixers use this to find vocalists, producers and writers. Link in the channel description.\n\nTags: #shorts #indieartist #musiccollab #musician"
+      },
+      "treatment": {
+        "zoom": 0.0335,
+        "anchor_x": 0.558,
+        "anchor_y": 0.477,
+        "rotate_deg": 0.233,
+        "brightness": -0.035,
+        "saturation": 0.9539,
+        "hue_deg": 1.46,
+        "grain": 5.34,
+        "speed": 0.998,
+        "mirror": 0.0,
+        "music_tempo": 0.9733,
+        "music_tilt_db": -0.42
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "27c5a167d941d6011fe8e1073815b1b7d7e563c7466a448a771ad3a346ff6d9d",
+      "timestamp": "2026-11-01T11:41:14.946481Z",
+      "item_id": "ab6b9107-b481-420b-a368-fe313c52b0a8",
+      "hook": "hook_05.mov",
+      "bodies": [
+        "body_01.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "if you're an actor, model, singer, or filmmaker trying to get involved — this site is unfair\n\ncomment \"create\" and I'll drop the link\n\n[actors, models, singers, filmmakers, creative networking, aspiring actors]",
+      "title": null,
+      "creative": "default",
+      "captions": {
+        "tiktok": "open casting calls, modeling shoots and music collabs in one place\n\nlink in bio #castingcall #modeling #shortfilm #musiccollab",
+        "youtube": "Singers, songwriters and producers use this to find each other for indie music collaborations. Link in the channel description.\n\nTags: #shorts #musiccollab #songwriter #indieartist"
+      },
+      "treatment": {
+        "zoom": 0.029,
+        "anchor_x": 0.481,
+        "anchor_y": 0.279,
+        "rotate_deg": -0.12,
+        "brightness": -0.0061,
+        "saturation": 1.0198,
+        "hue_deg": 3.78,
+        "grain": 1.15,
+        "speed": 1.0018,
+        "mirror": 0.0,
+        "music_tempo": 1.0109,
+        "music_tilt_db": -1.36
+      },
+      "buffer_post_id": null
+    },
+    {
+      "tuple_hash": "298160d48d849c08a2532799a86c32f47190ca7cd0ca3f884f8a6729a5fc9ae3",
+      "timestamp": "2026-11-01T11:41:14.946481Z",
+      "item_id": "3f9f6a45-2206-4557-99e3-b5274bee02f8",
+      "hook": "hook_03.mov",
+      "bodies": [
+        "body_02.mp4"
+      ],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "from casting calls to music collabs — this site does it all\n\ncomment \"create\" for access\n\n[casting calls, music collabs, creative projects, actors, indie music]",
+      "title": null,
+      "creative": "default",
+      "captions": {
+        "tiktok": "the site actors, models and filmmakers keep sending each other\n\nit's in my bio #acting #model #filmtok #castingcall",
+        "youtube": "Directors and producers use this to cast short films, student films and indie features. Link in the channel description.\n\nTags: #shorts #filmmaking #director #castingcall"
+      },
+      "treatment": {
+        "zoom": 0.0153,
+        "anchor_x": 0.54,
+        "anchor_y": 0.521,
+        "rotate_deg": -0.429,
+        "brightness": -0.0318,
+        "saturation": 1.0373,
+        "hue_deg": -3.37,
+        "grain": 4.75,
+        "speed": 1.0086,
+        "mirror": 0.0,
+        "music_tempo": 1.0065,
+        "music_tilt_db": 0.78
+      },
+      "buffer_post_id": null
     }
   ]
 }
