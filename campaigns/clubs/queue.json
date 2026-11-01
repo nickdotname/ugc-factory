@@ -174,9 +174,9 @@
         {
           "account": "knick_creates_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ae752f0cd0d0de2bf804c22",
           "last_error": null,
           "scheduled_for": "2026-11-01T16:40:00-05:00"
         }
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "Find Voice, Band & Podcast Work"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
