@@ -234,9 +234,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6ae8d1715020dab66a8b1445",
           "last_error": null,
           "scheduled_for": "2026-11-03T03:40:00-05:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "How Actors Find Work Online"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
