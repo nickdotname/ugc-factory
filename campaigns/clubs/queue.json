@@ -78,9 +78,9 @@
         {
           "account": "knick_creates_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aeb8a8d8ee551b5aa78c3b5",
           "last_error": null,
           "scheduled_for": "2026-11-04T16:40:00-05:00"
         }
@@ -92,7 +92,7 @@
       "titles": {
         "youtube": "Find Music Collaborators Online"
       },
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
