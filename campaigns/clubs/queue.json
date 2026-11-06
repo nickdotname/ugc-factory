@@ -321,9 +321,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aedf73976f34a8272790f9a",
           "last_error": null,
           "scheduled_for": "2026-11-07T09:00:00-05:00"
         },
@@ -380,7 +380,7 @@
       "titles": {
         "youtube": "Creative Community for Artists"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
