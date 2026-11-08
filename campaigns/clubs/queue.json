@@ -156,9 +156,9 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6af08dd451492b796e442764",
           "last_error": null,
           "scheduled_for": "2026-11-08T21:20:00-05:00"
         },
@@ -188,7 +188,7 @@
       "titles": {
         "youtube": "Casting Calls for New Actors"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
