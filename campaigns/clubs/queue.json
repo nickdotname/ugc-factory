@@ -243,9 +243,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6af390568cf622448db8f19e",
           "last_error": null,
           "scheduled_for": "2026-11-11T10:20:00-05:00"
         },
@@ -284,7 +284,7 @@
       "titles": {
         "youtube": "Find Student Film Roles"
       },
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
