@@ -499,21 +499,35 @@ def append_history(path: Path, entries: list[HistoryEntry]) -> History:
     return history
 
 
-def backfill_post_id(path: Path, item_id: str, post_id: str) -> None:
+def backfill_post_id(
+    path: Path,
+    item_id: str,
+    post_id: str,
+    *,
+    account: str | None = None,
+    primary: bool = True,
+) -> None:
     """Record a publisher's post id against an existing history entry.
 
     History is append-only in the sense that entries are never *removed* (SPEC
     §11) — the combination was consumed at render time and stays consumed. The
     post id is simply not known until the top-up job runs, so it is filled in
     afterwards rather than duplicating the entry.
+
+    Under fan-out there is one id per account. ``account`` files this one
+    under its name in ``post_ids``; ``primary`` also writes it to the single
+    ``buffer_post_id`` field older readers join on.
     """
     history = load_history(path)
     for index, entry in enumerate(history.entries):
         if entry.item_id == item_id:
+            update: dict[str, object] = {}
+            if primary:
+                update["buffer_post_id"] = post_id
+            if account is not None:
+                update["post_ids"] = {**entry.post_ids, account: post_id}
             # HistoryEntry is frozen: replace the element rather than mutating
             # it, so the immutability guarantee holds everywhere else.
-            history.entries[index] = entry.model_copy(
-                update={"buffer_post_id": post_id}
-            )
+            history.entries[index] = entry.model_copy(update=update)
             _atomic_write(path, history.model_dump_json(indent=2) + "\n")
             return

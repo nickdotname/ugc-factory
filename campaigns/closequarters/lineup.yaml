@@ -1,0 +1,26 @@
+# Hand-picked posts. Each one is posted exactly as written, once.
+# Anything not listed here is filled by the randomizer (unless
+# selection.auto_fill is false in config.yaml).
+#
+#   ./ugc render --campaign closequarters --plan     # what would happen
+#   ./ugc queue  --campaign closequarters            # what is queued
+#
+# posts:
+#   - id: bro-moving-01              # any unique name; marks it as done
+#     creative: default              # which song's clips and track
+#     hook: hook_03.mp4              # the clip
+#     bodies: []                     # more clips to cut to, in order
+#     music: music_01.mp3            # leave out for no music
+#     music_start: 42.5              # seconds into the track
+#     overlay: how bro starts moving | when this comes on
+#     caption: |
+#       Song Title – Close Quarters
+#       out now everywhere
+#     title: Song Title – Close Quarters      # YouTube only; optional
+#     captions:                      # optional per-network versions
+#       tiktok: song title by close quarters #newmusic
+#     accounts: [nickdotname_tt]     # leave out = everywhere the song goes
+#     at: 2026-11-14 18:00           # New York time; leave out = next slot
+#     skip: false                    # true = keep it here but do not post
+
+posts: []

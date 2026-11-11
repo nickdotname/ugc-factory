@@ -93,7 +93,11 @@ jobs:
           # records them, and a ledger written on an ephemeral runner without
           # being committed is gone before anything reads it. --ignore-missing
           # keeps the step working on a run that never got as far as writing it.
-          git add --ignore-removal campaigns/${{ matrix.campaign }}/metrics.json
+          # `|| true` on each: a campaign that is paused or in dry run writes
+          # none of these, and a missing path must not fail the job — a job
+          # that is red every day for a campaign that is not running is how
+          # real failures stop being noticed.
+          git add --ignore-removal campaigns/${{ matrix.campaign }}/metrics.json || true
           git add campaigns/${{ matrix.campaign }}/quota.json || true
           # posts.json is the per-post metric cache that attribution joins
           # against. It accumulates — Buffer stops returning a post once it

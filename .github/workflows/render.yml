@@ -1,6 +1,7 @@
 name: render
 
-# SPEC §5 — nightly batch render, ~05:00 UTC.
+# SPEC §5 — nightly batch render, ~04:23 UTC. Deliberately off the hour: runs
+# scheduled for :00 queue behind everyone else's and were starting 6-8 hours late.
 # SPEC §12 — cron drift is real: scheduled workflows routinely fire 5-30 minutes
 # late. That is harmless here because Buffer controls actual publish timing, so
 # nothing downstream may assume an exact fire time.
@@ -20,7 +21,7 @@ on:
         required: false
         default: ""
   schedule:
-    - cron: "0 5 * * *"
+    - cron: "23 4 * * *"
 
 permissions:
   contents: write   # commits queue.json/history.json and creates Releases

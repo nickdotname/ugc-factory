@@ -186,6 +186,12 @@ class PostingConfig(StrictModel):
     #: and converges on the channel's real publish rate within a week.
     max_backlog_days: int = Field(default=2, ge=1, le=14)
     dry_run: bool = False
+    #: Stop this campaign without parking its folder: render and top-up exit
+    #: cleanly having done nothing. Unlike ``dry_run`` nothing is rendered or
+    #: uploaded, and unlike renaming the folder its history and metrics stay
+    #: where every tool expects them. Posts already sitting in Buffer still
+    #: publish — withdraw those with ``ugc queue --discard pushed``.
+    paused: bool = False
     #: Post every rendered video to every account in ``accounts.yaml`` rather
     #: than to this campaign's own single Buffer channel (HANDOFF phase 2).
     #:
@@ -292,7 +298,9 @@ class VideoConfig(StrictModel):
 class CompositionConfig(StrictModel):
     """How the parts are assembled (SPEC §9 ``composition``)."""
 
-    bodies_per_video: int = Field(default=1, ge=1, le=10)
+    #: 0 makes every video a single clip (the "hook" alone) — the shape of a
+    #: meme reel, where there is nothing to cut to.
+    bodies_per_video: int = Field(default=1, ge=0, le=10)
     #: When set above ``bodies_per_video``, each video picks a count in that
     #: range instead of always using the same number. Structural variation
     #: rather than cosmetic: a two-body cut is a different shape *and* a
@@ -301,6 +309,21 @@ class CompositionConfig(StrictModel):
     bodies_per_video_max: int | None = Field(default=None, ge=1, le=10)
     # SPEC §6: flat 10% for the whole video. No ducking, no per-section levels.
     music_volume: float = Field(default=0.10, ge=0.0, le=1.0)
+    #: Level of the clips' own sound. 1.0 leaves it alone, which is right when
+    #: the clip carries a voice and the music is a bed under it. 0 silences
+    #: the clips entirely — with ``music_volume: 1.0`` that is the music-first
+    #: mix, where the song IS the content and the picture rides on it.
+    clip_volume: float = Field(default=1.0, ge=0.0, le=1.0)
+    #: Repeat a cut that comes out shorter than the platform's minimum length
+    #: until it clears it, instead of failing the render. A three-second meme
+    #: clip is a normal thing to have and a looped one is a normal thing to
+    #: post; without this, short clips simply cannot be used.
+    loop_to_min: bool = False
+    #: The music is yours to post everywhere (you own it, or hold a licence
+    #: covering every network). Preflight otherwise refuses a fan-out
+    #: campaign with music in rotation, because third-party tracks are what
+    #: took TikTok to zero views (CONTEXT §4).
+    music_cleared: bool = False
     music_fade_out_sec: float = Field(default=1.5, ge=0.0, le=10.0)
 
     # Take the bed from a random point in the track rather than always from
@@ -372,6 +395,113 @@ class VariationConfig(StrictModel):
     #: end; negative does the reverse. A different balance per variant.
     music_tilt_db: float = Field(default=1.5, ge=0.0, le=6.0)
 
+    #: Shave up to this many seconds off the head of each video's first clip.
+    trim_start_max_sec: float = Field(default=0.0, ge=0.0, le=3.0)
+    #: Move the on-screen text up or down by up to this fraction of the frame
+    #: height.
+    overlay_shift_max: float = Field(default=0.0, ge=0.0, le=0.2)
+
+    #: Render a separate version of every video for every account it goes to,
+    #: instead of sending all of them the same file.
+    #:
+    #: This is the setting that matters. Platforms compare what a video
+    #: *shows and sounds like*, and their matching is built to survive a
+    #: crop, a grade or a speed change — so the knobs above make two files
+    #: different without making two videos different. What does make them
+    #: different is listed in ``per_account_vary``.
+    per_account: bool = False
+    #: What actually differs between two accounts' versions of one post:
+    #:   clip    — a different clip from the same creative
+    #:   caption — a different record from the bank: different on-screen
+    #:             line, different caption, different title
+    #:   cue     — a different start point in the song
+    #: Each is used only as far as the library allows; with one clip there is
+    #: nothing to vary and every account gets that clip.
+    per_account_vary: tuple[Literal["clip", "caption", "cue"], ...] = (
+        "clip", "caption", "cue",
+    )
+
+
+class OverlayConfig(StrictModel):
+    """On-screen text, drawn by the renderer (see ``src/render.py``).
+
+    The text itself comes from the description bank: a record may open with
+    an ``overlay:`` line, and that line is drawn on the video the record is
+    posted with. No ``overlay:`` line, no text — so a bank without any keeps
+    producing clean video whatever this block says.
+    """
+
+    enabled: bool = True
+    #: Font file, relative to the repo root. Bundled rather than looked up on
+    #: the machine: a render on a Mac and a render on the Actions runner must
+    #: produce the same picture.
+    font_file: str = "fonts/Montserrat-ExtraBold.ttf"
+    #: Glyph height as a fraction of frame WIDTH, so the look holds across
+    #: output sizes. 0.06 is ~65px on a 1080-wide frame.
+    size: float = Field(default=0.06, gt=0.0, le=0.3)
+    #: Vertical position of the text block's top edge, as a fraction of frame
+    #: height. The default sits under the top UI of every app and above the
+    #: caption/handle overlay at the bottom.
+    y: float = Field(default=0.16, ge=0.0, le=0.95)
+    #: Wrap after this many characters per line.
+    max_chars: int = Field(default=24, ge=6, le=80)
+    color: str = "white"
+    outline_color: str = "black"
+    #: Outline thickness as a fraction of the glyph height.
+    outline: float = Field(default=0.09, ge=0.0, le=0.5)
+
+    @field_validator("color", "outline_color")
+    @classmethod
+    def _plain_colour(cls, v: str) -> str:
+        # Goes straight into an ffmpeg filter string, where a colon or comma
+        # would start a new option.
+        if not re.fullmatch(r"[A-Za-z]+|#?[0-9A-Fa-f]{6}", v):
+            raise ValueError(
+                f"{v!r} must be a colour name or a 6-digit hex value"
+            )
+        return v
+
+
+class FunnelConfig(StrictModel):
+    """Where every post is trying to send the viewer.
+
+    A view is not the goal; a stream or an install is. This block is the one
+    place that goal is stated, and everything that can carry it — the
+    caption, the first comment, the last seconds of the video — is filled in
+    from here, so a campaign cannot post something that asks for nothing.
+
+    ``{link}`` and ``{name}`` in any text are replaced with the creative's
+    own ``link`` and ``title`` when it has them, this block's otherwise.
+    """
+
+    #: The one place people should end up: a smart link, a store page.
+    link: str = ""
+    #: What is being promoted, as a viewer would say it.
+    name: str = ""
+    #: Lines appended to the caption, rotated so the ask is not word for word
+    #: the same on every post.
+    cta: tuple[str, ...] = ()
+    #: A network's own lines, when the ask differs there — YouTube
+    #: descriptions carry a clickable link, Instagram captions do not.
+    cta_by_network: dict[Service, tuple[str, ...]] = Field(default_factory=dict)
+    #: 1 puts the ask on every post, 2 on every other, and so on. An ask on
+    #: every single post reads as an advert; none at all converts nobody.
+    cta_every: int = Field(default=1, ge=1, le=20)
+    #: Posted as the first comment where the network allows it (Instagram),
+    #: rotated. A link belongs here rather than in a caption.
+    first_comment: tuple[str, ...] = ()
+    #: Drawn on the last seconds of the video — the title and where to hear
+    #: it, at the moment someone has just decided they like it. ``|`` breaks
+    #: the line.
+    end_card: str = ""
+    end_card_sec: float = Field(default=2.0, gt=0.0, le=10.0)
+    #: Vertical position of the end card, as a fraction of frame height.
+    end_card_y: float = Field(default=0.68, ge=0.0, le=0.95)
+
+    @property
+    def active(self) -> bool:
+        return bool(self.cta or self.cta_by_network or self.first_comment or self.end_card)
+
 
 class SeoConfig(StrictModel):
     """What this campaign wants to be found for (SPEC §9 addendum).
@@ -442,6 +572,11 @@ class SelectionConfig(StrictModel):
     #: ranking measures the floor rather than the clip. See
     #: ``attribution.Statistic``.
     performance_statistic: Statistic = Statistic.MEDIAN
+
+    #: Let the randomizer fill whatever slots the lineup leaves empty. Turn
+    #: off and the campaign posts ONLY what ``lineup.yaml`` spells out — every
+    #: clip, song, start point and caption chosen by hand.
+    auto_fill: bool = True
 
     @field_validator("dedupe_on")
     @classmethod
@@ -720,6 +855,35 @@ class CreativeConfig(StrictModel):
     #: creative of an existing campaign a zero-change migration: same tag,
     #: same filenames, same numbering.
     assets_release: str | None = None
+    #: Exact start points for this creative's music, in seconds, by track
+    #: filename: ``{music_01.mp3: [42, 73.5]}``. A track listed here only
+    #: ever starts at one of its cues — the drop, the hook, the line the meme
+    #: is about — instead of at a random point on the segment grid. Tracks
+    #: not listed keep the grid.
+    music_cues: dict[str, tuple[float, ...]] = Field(default_factory=dict)
+    #: Accounts this creative posts to, by name from ``accounts.yaml``. Empty
+    #: means every account the campaign reaches. Narrows the campaign's own
+    #: ``accounts`` filter, never widens it.
+    accounts: tuple[str, ...] = ()
+    #: What this creative is called to a viewer — a song title — and where it
+    #: lives. Fill ``{name}`` and ``{link}`` in the campaign's funnel text.
+    title: str = ""
+    link: str = ""
+
+    @field_validator("music_cues")
+    @classmethod
+    def _cues_are_real_times(
+        cls, v: dict[str, tuple[float, ...]]
+    ) -> dict[str, tuple[float, ...]]:
+        for track, cues in v.items():
+            if not cues:
+                raise ValueError(
+                    f"music_cues[{track!r}] is empty; list at least one start "
+                    f"time or remove the entry"
+                )
+            if any(c < 0 for c in cues):
+                raise ValueError(f"music_cues[{track!r}] has a negative time")
+        return v
 
     @field_validator("name")
     @classmethod
@@ -753,6 +917,8 @@ class CampaignConfig(StrictModel):
     selection: SelectionConfig = SelectionConfig()
     seo: SeoConfig = SeoConfig()
     variation: VariationConfig = VariationConfig()
+    overlay: OverlayConfig = OverlayConfig()
+    funnel: FunnelConfig = FunnelConfig()
     buffer: BufferConfig
     notify: NotifyConfig
     analytics: AnalyticsConfig = AnalyticsConfig()
@@ -862,6 +1028,10 @@ class CampaignConfig(StrictModel):
         """
         tag = self.creative_assets_tag(creative)
         return tag.removeprefix("assets-") or f"{self.slug}-{creative.name}"
+
+    def creative_dir(self, campaign_dir: Path, creative: CreativeConfig) -> Path:
+        """Where one creative's own committed files live."""
+        return campaign_dir / "creatives" / creative.name
 
     def creative_licenses_path(self, campaign_dir: Path, creative: CreativeConfig) -> Path:
         """Where this creative's music licence record is committed in git.

@@ -46,6 +46,7 @@ from src.platforms import (
 )
 
 _TITLE_LINE = re.compile(r"^title:\s*(.*)$", re.IGNORECASE)
+_OVERLAY_LINE = re.compile(r"^overlay:\s*(.*)$", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -54,6 +55,9 @@ class Description:
 
     body: str
     title: str | None = None
+    #: Text drawn on the video this record posts with — the meme line. The
+    #: one field here that IS on-screen; a ``|`` forces a line break.
+    overlay: str | None = None
 
     @property
     def key(self) -> str:
@@ -98,16 +102,30 @@ def parse_bank(text: str) -> list[Description]:
         if not lines:
             continue
 
+        # ``title:`` and ``overlay:`` head the record, in either order.
         title: str | None = None
-        match = _TITLE_LINE.match(lines[0].strip())
-        if match:
-            title = match.group(1).strip()
+        overlay: str | None = None
+        while lines:
+            head = lines[0].strip()
+            title_match = _TITLE_LINE.match(head)
+            overlay_match = _OVERLAY_LINE.match(head)
+            if title_match and title is None:
+                title = title_match.group(1).strip()
+                if not title:
+                    raise ConfigError(
+                        "a 'title:' line is present but empty; give it text "
+                        "or remove the line"
+                    )
+            elif overlay_match and overlay is None:
+                overlay = overlay_match.group(1).strip()
+                if not overlay:
+                    raise ConfigError(
+                        "an 'overlay:' line is present but empty; give it "
+                        "text or remove the line"
+                    )
+            else:
+                break
             lines = lines[1:]
-            if not title:
-                raise ConfigError(
-                    "a 'title:' line is present but empty; give it text or "
-                    "remove the line"
-                )
 
         # "\n".join keeps internal blank lines intact, which is the whole
         # point of the --- separator form.
@@ -116,7 +134,7 @@ def parse_bank(text: str) -> list[Description]:
             raise ConfigError(
                 f"description record has a title ({title!r}) but no body text"
             )
-        records.append(Description(body=body, title=title))
+        records.append(Description(body=body, title=title, overlay=overlay))
     return records
 
 
@@ -174,6 +192,7 @@ def resolve_titles(
             Description(
                 body=description.body,
                 title=derive_title(description.body, limits.title_max),
+                overlay=description.overlay,
             )
         )
     return resolved

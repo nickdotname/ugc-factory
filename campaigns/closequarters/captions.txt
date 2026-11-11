@@ -1,0 +1,30 @@
+# Fallback bank: used by any creative (song) that has no captions.txt of its
+# own at creatives/<name>/captions.txt. Replace these before going live.
+#
+# Each record, separated by ---, is one post's text. Two optional first lines:
+#   overlay:  drawn ON the video (the meme line). A | forces a line break.
+#             No emoji here; they cannot be drawn.
+#   title:    YouTube title (max 100 chars). Derived from the first caption
+#             line when left out.
+# Everything after is the caption posted alongside the video.
+
+overlay: how bro starts moving | when this comes on
+title: Close Quarters – Education
+Education – Close Quarters
+the whole album is out now
+
+#closequarters #newmusic #indiepop
+---
+overlay: pov: you finally found | a song nobody else knows
+title: Close Quarters – Education (out now)
+Close Quarters – Education
+out everywhere, link in bio
+
+#closequarters #newmusic #experimentalpop
+---
+overlay: this part. | every single time.
+title: Education by Close Quarters
+Education by Close Quarters
+full album streaming now
+
+#closequarters #newalbum #indiemusic

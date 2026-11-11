@@ -107,17 +107,22 @@ class DimensionReport:
         return self.options[0].score / worst if worst else None
 
 
-def _parts_of(entry: HistoryEntry) -> dict[str, list[str]]:
+def _parts_of(
+    entry: HistoryEntry, account: str | None = None
+) -> dict[str, list[str]]:
     """The dimensions one post can be attributed to.
 
     Bodies are listed individually rather than as a tuple: the question is
     which *clip* performs, and a clip appearing in several combinations is
     exactly the evidence needed.
     """
+    # An account that was rendered its own version is credited with what it
+    # was actually shown, not with the pick its version was varied from.
+    own = entry.variants.get(account, {}) if account else {}
     parts: dict[str, list[str]] = {
-        "hook": [entry.hook],
+        "hook": [own.get("hook") or entry.hook],
         "body": list(entry.bodies),
-        "caption": [entry.caption],
+        "caption": [own.get("caption") or entry.caption],
     }
     if entry.music:
         parts["music"] = [entry.music]
@@ -142,20 +147,27 @@ def attribute(
     samples: dict[str, dict[str, list[float]]] = {}
 
     for entry in history:
-        if not entry.buffer_post_id:
-            continue
-        post = posts.get(entry.buffer_post_id)
-        if post is None:
-            continue
-        if service and post.service != service:
-            continue
-        value = post.value(metric)
-        if value is None:
-            continue
-        for dimension, options in _parts_of(entry).items():
-            bucket = samples.setdefault(dimension, {})
-            for option in options:
-                bucket.setdefault(option, []).append(value)
+        # Every channel's copy is its own sample: under fan-out one video is
+        # several posts, and each one is evidence about the clips in it.
+        owners = {post_id: name for name, post_id in entry.post_ids.items()}
+        post_ids = dict.fromkeys(
+            [entry.buffer_post_id, *entry.post_ids.values()]
+        )
+        for post_id in post_ids:
+            if not post_id:
+                continue
+            post = posts.get(post_id)
+            if post is None:
+                continue
+            if service and post.service != service:
+                continue
+            value = post.value(metric)
+            if value is None:
+                continue
+            for dimension, options in _parts_of(entry, owners.get(post_id)).items():
+                bucket = samples.setdefault(dimension, {})
+                for option in options:
+                    bucket.setdefault(option, []).append(value)
 
     reports: list[DimensionReport] = []
     for dimension, by_option in samples.items():

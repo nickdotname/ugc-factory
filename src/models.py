@@ -78,7 +78,9 @@ class Selection(Model):
     """
 
     hook: str
-    bodies: tuple[str, ...] = Field(min_length=1)
+    #: Empty for a single-clip video (``composition.bodies_per_video: 0``):
+    #: a meme reel is one clip under one song, with nothing to cut to.
+    bodies: tuple[str, ...] = ()
     music: str | None
     #: The text the video is posted with — Instagram's caption box, TikTok's
     #: caption, YouTube's description. Never drawn onto the video.
@@ -104,10 +106,17 @@ class RenderRequest(Model):
 
     item_id: str
     hook_path: Path
-    body_paths: tuple[Path, ...] = Field(min_length=1)
+    body_paths: tuple[Path, ...] = ()
     music_path: Path | None
     music_offset_sec: float = Field(default=0.0, ge=0.0)
     output_path: Path
+    #: Text drawn onto the frame for the whole video, or None for a clean
+    #: picture. The one place this pipeline writes on a video: a meme format
+    #: is a clip plus a line of text, and baking the line into the clip by
+    #: hand means re-exporting the clip for every line.
+    overlay_text: str | None = None
+    #: Text drawn over the last seconds only (see ``config.FunnelConfig``).
+    end_card_text: str | None = None
 
 
 class RenderResult(Model):
@@ -179,6 +188,21 @@ class AccountPost(Model):
         )
 
 
+class Variant(Model):
+    """One account's own version of a video (``variation.per_account``).
+
+    Everything that can differ between two accounts' copies of one post:
+    the file itself, and whatever went into it.
+    """
+
+    video_url: str = ""
+    caption: str | None = None
+    title: str | None = None
+    overlay: str | None = None
+    parts: dict[str, str] = Field(default_factory=dict)
+    treatment: dict[str, float] | None = None
+
+
 class QueueItem(Model):
     """One rendered video awaiting publication (SPEC §11)."""
 
@@ -206,6 +230,21 @@ class QueueItem(Model):
     #: creative-by-creative — the dashboard and the digest both want that
     #: without re-deriving it from history.json.
     creative: str = DEFAULT_CREATIVE
+    #: On-screen text this video was rendered with, if any.
+    overlay: str | None = None
+    #: Which accounts this video may go to. None means every account the
+    #: campaign reaches; a list narrows it — set from the creative's own
+    #: ``accounts`` or from a hand-written lineup entry, so one song can live
+    #: on one account while another song runs everywhere.
+    accounts: list[str] | None = None
+    #: The lineup entry this video was made from, when it was hand-picked
+    #: rather than drawn by the randomizer.
+    lineup_id: str | None = None
+    #: Per-account versions, keyed by account name. An account with no entry
+    #: (one connected after this rendered) gets the item's own video.
+    variants: dict[str, Variant] = Field(default_factory=dict)
+    #: First comment to post with this video where the network takes one.
+    first_comment: str | None = None
     #: One entry per account this video is going to (HANDOFF phase 2). Empty
     #: means "not expanded yet": top-up fills it in from the resolved accounts
     #: at push time, which is what lets a video rendered before fan-out
@@ -279,6 +318,18 @@ class HistoryEntry(Model):
     #: so this is the lasting record a performance figure can be joined to.
     treatment: dict[str, float] | None = None
     buffer_post_id: str | None = None
+    #: Every account's own Buffer post id, keyed by account name. Fan-out
+    #: produces one per channel and ``buffer_post_id`` can hold only the
+    #: first; queue items are pruned once they finish, so without this the
+    #: other channels' figures could never be joined back to the clips.
+    post_ids: dict[str, str] = Field(default_factory=dict)
+    overlay: str | None = None
+    lineup_id: str | None = None
+    #: What each account's own version was made of, keyed by account name:
+    #: ``{"hook": ..., "caption": ..., "music_offset_sec": ...}``. Without it
+    #: an account that was shown a different clip would be credited with the
+    #: base one.
+    variants: dict[str, dict[str, str]] = Field(default_factory=dict)
 
 
 class History(Model):

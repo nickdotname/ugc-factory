@@ -65,18 +65,19 @@ class AssetLibrary:
     #: Grid the offsets snap to. Mirrors composition.music_segment_sec.
     music_segment_sec: float = 15.0
     music_skip_intro_sec: float = 0.0
+    #: Track filename -> exact start points. A track with cues starts only at
+    #: one of them; the grid above is for tracks that have none.
+    music_cues: Mapping[str, tuple[float, ...]] = field(default_factory=dict)
+    #: False for a single-clip campaign, where an empty body pool is the
+    #: intended shape rather than a missing upload.
+    bodies_required: bool = True
 
     def validate(self) -> None:
         """Fail loud on an unusable library rather than picking from nothing."""
-        empty = [
-            name
-            for name, pool in (
-                ("hooks", self.hooks),
-                ("bodies", self.bodies),
-                ("captions", self.captions),
-            )
-            if not pool
-        ]
+        required = [("hooks", self.hooks), ("captions", self.captions)]
+        if self.bodies_required:
+            required.insert(1, ("bodies", self.bodies))
+        empty = [name for name, pool in required if not pool]
         if empty:
             raise SelectionError(
                 f"asset library is missing required parts: {', '.join(empty)}"
@@ -88,6 +89,9 @@ class AssetLibrary:
         Because the renderer loops the track, an offset near the end is fine —
         it wraps. So this depends only on track length, not on video length.
         """
+        cues = self.music_cues.get(track)
+        if cues:
+            return len(cues)
         duration = self.music_durations.get(track, 0.0)
         usable = duration - self.music_skip_intro_sec
         if usable <= 0 or self.music_segment_sec <= 0:
@@ -96,6 +100,9 @@ class AssetLibrary:
 
     def offset_for(self, track: str, segment: int) -> float:
         """Start time in seconds for a given segment index."""
+        cues = self.music_cues.get(track)
+        if cues:
+            return cues[segment % len(cues)]
         return self.music_skip_intro_sec + segment * self.music_segment_sec
 
     def total_music_options(self) -> int:
