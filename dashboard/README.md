@@ -17,9 +17,9 @@ runs. Uploading clips and previewing samples stay in the local dashboard
 1. **Cloudflare → Workers & Pages → Create → Pages → Connect to Git**, pick
    `nickdotname/ugc-factory`.
    - Production branch: `main`
+   - Root directory (under "Advanced"): `dashboard`
    - Build command: *(leave empty)*
-   - Build output directory: `dashboard`
-   - Root directory: `dashboard`
+   - Build output directory: *(leave empty — the root directory is the site)*
 2. **GitHub → Settings → Developer settings → Fine-grained tokens → Generate.**
    Repository access: only `ugc-factory`. Permissions: **Contents: Read and
    write**, **Actions: Read and write**. Nothing else.
