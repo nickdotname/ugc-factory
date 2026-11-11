@@ -404,7 +404,10 @@ def _load_creative_resources(
         log,
     )
 
-    missing_licenses = check_music_licenses(
+    # Music declared as the campaign's own needs no per-track paperwork: the
+    # licence file exists to stop third-party tracks slipping in, and
+    # ``music_cleared`` is the owner saying there are none.
+    missing_licenses = [] if config.composition.music_cleared else check_music_licenses(
         paths.music, config.creative_licenses_path(campaign_dir, creative), log
     )
 
@@ -1962,7 +1965,7 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
                     log,
                 )
 
-                missing = check_music_licenses(
+                missing = [] if config.composition.music_cleared else check_music_licenses(
                     paths.music,
                     config.creative_licenses_path(campaign_dir, creative),
                     log,

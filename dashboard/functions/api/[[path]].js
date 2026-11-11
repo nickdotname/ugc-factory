@@ -31,7 +31,7 @@ const READABLE = [
 // Files it may WRITE. Narrower on purpose: queue.json and the like are the
 // pipeline's own state, and accounts.yaml is changed with `ugc connect`.
 const WRITABLE = [
-  /^campaigns\/[a-z0-9_-]+\/(config\.yaml|lineup\.yaml|captions\.txt)$/,
+  /^campaigns\/[a-z0-9_-]+\/(config\.yaml|lineup\.yaml|captions\.txt|clips\.json)$/,
   /^campaigns\/[a-z0-9_-]+\/captions\/(instagram|tiktok|youtube)\.txt$/,
   /^campaigns\/[a-z0-9_-]+\/creatives\/[a-z0-9_]+\/(captions\.txt|LICENSES\.md)$/,
   /^campaigns\/[a-z0-9_-]+\/creatives\/[a-z0-9_]+\/captions\/(instagram|tiktok|youtube)\.txt$/,
@@ -45,6 +45,7 @@ const WORKFLOWS = {
   metrics: ["campaign"],
   diagnose: ["campaign"],
   queue: ["campaign", "discard", "video_id", "account"],
+  ingest: ["campaign", "creative"],
 };
 
 const INPUT_SHAPE = {
@@ -54,6 +55,7 @@ const INPUT_SHAPE = {
   discard: /^(pending|pushed|all)$/,
   video_id: /^[0-9a-f-]{4,36}$/,
   account: /^[a-z0-9_]{1,64}$/,
+  creative: /^[a-z0-9_]{1,64}$/,
 };
 
 // Files a brand-new campaign needs that nobody edits by hand. Their content
@@ -63,7 +65,18 @@ const SEEDED = {
   "history.json": '{\n  "entries": []\n}\n',
 };
 const SLUG = /^[a-z][a-z0-9_]{1,40}$/;
-const ASSET_TAG = /^assets-[a-z0-9_-]{1,80}$/;
+const ASSET_TAG = /^(assets|inbox)-[a-z0-9_-]{1,80}$/;
+const LIBRARY_TAG = /^assets-[a-z0-9_-]{1,80}$/;
+
+// What can be dropped in, by the role it will play. The same lists the
+// engine's own ingest accepts (src/assets.py).
+const UPLOADS = {
+  hook: [".mp4", ".mov", ".m4v", ".webm"],
+  body: [".mp4", ".mov", ".m4v", ".webm"],
+  music: [".mp3", ".m4a", ".wav"],
+};
+// A Pages Function holds the whole file in memory on its way through.
+const MAX_UPLOAD_BYTES = 95 * 1024 * 1024;
 
 const MAX_FILE_BYTES = 400_000;
 const MAX_FILES_PER_COMMIT = 12;
@@ -267,6 +280,65 @@ async function commit(env, branch, body) {
   };
 }
 
+// A dropped file goes to a holding area — a release named inbox-<library> —
+// not into the library itself. The ingest job picks it up from there, checks
+// that it really is a playable clip or track, gives it its proper name and
+// only then adds it to the library the renderer draws from. Nothing a browser
+// sends is trusted to be what its filename says.
+async function upload(env, url, request) {
+  const tag = url.searchParams.get("tag") || "";
+  const kind = url.searchParams.get("kind") || "";
+  const original = url.searchParams.get("name") || "";
+  if (!LIBRARY_TAG.test(tag)) throw new Refused(400, "bad library name");
+  if (!UPLOADS[kind]) throw new Refused(400, "bad file role");
+  const dot = original.lastIndexOf(".");
+  const ext = dot === -1 ? "" : original.slice(dot).toLowerCase();
+  if (!UPLOADS[kind].includes(ext)) {
+    throw new Refused(415, `${original || "that file"} can't be used here. Use ${UPLOADS[kind].join(", ")}.`);
+  }
+  const declared = Number(request.headers.get("content-length") || 0);
+  if (declared > MAX_UPLOAD_BYTES) throw new Refused(413, `${original} is over 95 MB. Export it smaller and try again.`);
+  const bytes = await request.arrayBuffer();
+  if (!bytes.byteLength) throw new Refused(400, `${original} is empty`);
+  if (bytes.byteLength > MAX_UPLOAD_BYTES) throw new Refused(413, `${original} is over 95 MB. Export it smaller and try again.`);
+
+  const holding = `inbox-${tag.slice("assets-".length)}`;
+  let release = await gh(env, `/releases/tags/${holding}`);
+  if (release.status === 404) {
+    release = await gh(env, "/releases", {
+      method: "POST",
+      body: JSON.stringify({
+        tag_name: holding, name: holding, prerelease: true,
+        body: "Files dropped into the dashboard, waiting to be checked and added to the library.",
+      }),
+    });
+    // Two files dropped at once can both try to create it; the loser reads it.
+    if (release.status === 422) release = await gh(env, `/releases/tags/${holding}`);
+  }
+  if (!release.ok) throw new Error(`GitHub ${release.status} opening the upload area`);
+  const id = (await release.json()).id;
+
+  const stem = original.slice(0, dot).replace(/[^A-Za-z0-9_-]+/g, "_").slice(0, 60) || "file";
+  const unique = crypto.randomUUID().slice(0, 8);
+  const name = `${kind}__${unique}__${stem}${ext}`;
+  const repo = env.GITHUB_REPO || DEFAULT_REPO;
+  const sent = await fetch(
+    `https://uploads.github.com/repos/${repo}/releases/${id}/assets?name=${encodeURIComponent(name)}`,
+    {
+      method: "POST",
+      body: bytes,
+      headers: {
+        authorization: `Bearer ${env.GITHUB_TOKEN}`,
+        accept: "application/vnd.github+json",
+        "content-type": "application/octet-stream",
+        "user-agent": "ugc-factory-dashboard",
+      },
+    },
+  );
+  if (!sent.ok) throw new Error(`GitHub ${sent.status} storing ${original}`);
+  return { ok: true, name };
+}
+
 // --------------------------------------------------------------------- routes
 
 export async function onRequest({ request, env }) {
@@ -281,15 +353,18 @@ export async function onRequest({ request, env }) {
 
   // Anything that changes something must be a deliberate request from this
   // page: a JSON body and a header no cross-site form can send.
+  // An upload carries the file itself as its body, so it is the one request
+  // that is not JSON. The custom header still has to be there.
+  const isUpload = route === "upload" && method === "POST";
   if (method !== "GET") {
     if (request.headers.get("x-ugc") !== "1"
-        || !(request.headers.get("content-type") || "").includes("application/json")) {
+        || (!isUpload && !(request.headers.get("content-type") || "").includes("application/json"))) {
       return json({ error: "bad request" }, 400);
     }
   }
 
   let body = {};
-  if (method !== "GET") {
+  if (method !== "GET" && !isUpload) {
     try {
       const raw = await request.text();
       if (raw.length > MAX_FILE_BYTES + 2000) return json({ error: "too large" }, 413);
@@ -320,6 +395,10 @@ export async function onRequest({ request, env }) {
   try {
     if (route === "state" && method === "GET") {
       return json(await state(env, branch));
+    }
+
+    if (isUpload) {
+      return json(await upload(env, url, request));
     }
 
     if (route === "commit" && method === "POST") {
