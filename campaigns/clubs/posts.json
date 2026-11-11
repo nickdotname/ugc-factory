@@ -17026,7 +17026,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 1450.0,
+          "value": 1451.0,
           "unit": "count"
         },
         {
@@ -17044,7 +17044,7 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 102.32,
+          "value": 102.35,
           "unit": "count"
         },
         {
@@ -17770,7 +17770,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 923.0,
+          "value": 924.0,
           "unit": "count"
         },
         {
@@ -17788,13 +17788,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 68.38,
+          "value": 68.39,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.33,
+          "value": 5.32,
           "unit": "count"
         },
         {
@@ -18368,18 +18368,11 @@
       "post_id": "6af3903a80d21acacab32c0f",
       "service": "instagram",
       "sent_at": "2026-11-11T02:00:49.036000Z",
-      "metrics": [],
-      "account": "nickdotname_ig"
-    },
-    "6af212ee29f60b1cda27a0bd": {
-      "post_id": "6af212ee29f60b1cda27a0bd",
-      "service": "instagram",
-      "sent_at": "2026-11-10T14:03:15.081000Z",
       "metrics": [
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 1.0,
+          "value": 0.0,
           "unit": "count"
         },
         {
@@ -18391,19 +18384,19 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 0.95,
+          "value": 1.44,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 254.0,
+          "value": 157.0,
           "unit": "count"
         },
         {
           "type": "shares",
           "name": "Shares",
-          "value": 0.0,
+          "value": 1.0,
           "unit": "count"
         },
         {
@@ -18415,19 +18408,81 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 16.48,
+          "value": 11.45,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.62,
+          "value": 4.94,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 211.0,
+          "value": 139.0,
+          "unit": "count"
+        }
+      ],
+      "account": "nickdotname_ig"
+    },
+    "6af212ee29f60b1cda27a0bd": {
+      "post_id": "6af212ee29f60b1cda27a0bd",
+      "service": "instagram",
+      "sent_at": "2026-11-10T14:03:15.081000Z",
+      "metrics": [
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 2.49,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 334.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 20.98,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.43,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 281.0,
           "unit": "count"
         }
       ],
@@ -18441,7 +18496,7 @@
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 1.0,
+          "value": 5.0,
           "unit": "count"
         },
         {
@@ -18453,13 +18508,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 1.4,
+          "value": 3.86,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 258.0,
+          "value": 314.0,
           "unit": "count"
         },
         {
@@ -18471,25 +18526,25 @@
         {
           "type": "saves",
           "name": "Saves",
-          "value": 1.0,
+          "value": 4.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 18.16,
+          "value": 22.33,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.95,
+          "value": 5.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 214.0,
+          "value": 259.0,
           "unit": "count"
         }
       ],
@@ -18515,13 +18570,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 1.44,
+          "value": 1.88,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 324.0,
+          "value": 373.0,
           "unit": "count"
         },
         {
@@ -18533,25 +18588,25 @@
         {
           "type": "saves",
           "name": "Saves",
-          "value": 0.0,
+          "value": 2.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 24.68,
+          "value": 28.86,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.31,
+          "value": 5.41,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 278.0,
+          "value": 319.0,
           "unit": "count"
         }
       ],
@@ -18577,13 +18632,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 1.93,
+          "value": 1.92,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 242.0,
+          "value": 243.0,
           "unit": "count"
         },
         {
@@ -18601,19 +18656,19 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 13.56,
+          "value": 13.57,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.86,
+          "value": 3.84,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 207.0,
+          "value": 208.0,
           "unit": "count"
         }
       ],
@@ -18639,13 +18694,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 8.07,
+          "value": 8.04,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 1230.0,
+          "value": 1233.0,
           "unit": "count"
         },
         {
@@ -18663,19 +18718,19 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 201.87,
+          "value": 201.97,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 12.25,
+          "value": 12.22,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 979.0,
+          "value": 982.0,
           "unit": "count"
         }
       ],
@@ -18707,7 +18762,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 1491.0,
+          "value": 1495.0,
           "unit": "count"
         },
         {
@@ -18725,13 +18780,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 124.02,
+          "value": 124.45,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 6.3,
+          "value": 6.31,
           "unit": "count"
         },
         {
@@ -18825,43 +18880,43 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 10.9,
+          "value": 10.95,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 1621.0,
+          "value": 1637.0,
           "unit": "count"
         },
         {
           "type": "shares",
           "name": "Shares",
-          "value": 47.0,
+          "value": 48.0,
           "unit": "count"
         },
         {
           "type": "saves",
           "name": "Saves",
-          "value": 55.0,
+          "value": 56.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 122.22,
+          "value": 123.28,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.67,
+          "value": 5.66,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 1275.0,
+          "value": 1288.0,
           "unit": "count"
         }
       ],
@@ -18887,13 +18942,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 3.78,
+          "value": 3.76,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 505.0,
+          "value": 507.0,
           "unit": "count"
         },
         {
@@ -18911,19 +18966,19 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 30.77,
+          "value": 30.82,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.34,
+          "value": 4.33,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 423.0,
+          "value": 425.0,
           "unit": "count"
         }
       ],
@@ -19079,7 +19134,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 957.0,
+          "value": 959.0,
           "unit": "count"
         },
         {
@@ -19097,13 +19152,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 76.26,
+          "value": 76.32,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 6.03,
+          "value": 6.02,
           "unit": "count"
         },
         {
@@ -19451,7 +19506,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 194.0,
+          "value": 195.0,
           "unit": "count"
         },
         {
@@ -19469,13 +19524,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 11.87,
+          "value": 11.88,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.63,
+          "value": 4.6,
           "unit": "count"
         },
         {
@@ -19817,13 +19872,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 12.44,
+          "value": 12.34,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 1346.0,
+          "value": 1349.0,
           "unit": "count"
         },
         {
@@ -19835,19 +19890,19 @@
         {
           "type": "saves",
           "name": "Saves",
-          "value": 46.0,
+          "value": 45.0,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 102.36,
+          "value": 102.62,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.89,
+          "value": 5.9,
           "unit": "count"
         },
         {
@@ -20195,7 +20250,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 2512.0,
+          "value": 2515.0,
           "unit": "count"
         },
         {
@@ -20213,7 +20268,7 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 213.98,
+          "value": 214.02,
           "unit": "count"
         },
         {
@@ -20567,7 +20622,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 2393.0,
+          "value": 2395.0,
           "unit": "count"
         },
         {
@@ -20585,13 +20640,13 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 177.35,
+          "value": 177.59,
           "unit": "count"
         },
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.35,
+          "value": 5.36,
           "unit": "count"
         },
         {
@@ -21063,7 +21118,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 2528.0,
+          "value": 2529.0,
           "unit": "count"
         },
         {
@@ -21081,7 +21136,7 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 217.97,
+          "value": 218.05,
           "unit": "count"
         },
         {
@@ -21553,13 +21608,13 @@
         {
           "type": "engagementRate",
           "name": "Eng. Rate",
-          "value": 4.52,
+          "value": 4.51,
           "unit": "percentage"
         },
         {
           "type": "views",
           "name": "Views",
-          "value": 1828.0,
+          "value": 1829.0,
           "unit": "count"
         },
         {
@@ -21577,7 +21632,7 @@
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 148.2,
+          "value": 148.24,
           "unit": "count"
         },
         {
@@ -21589,7 +21644,7 @@
         {
           "type": "reach",
           "name": "Reach",
-          "value": 1460.0,
+          "value": 1462.0,
           "unit": "count"
         }
       ],
@@ -57083,7 +57138,7 @@
         {
           "type": "views",
           "name": "Video Views",
-          "value": 0.0,
+          "value": 2.0,
           "unit": "count"
         }
       ],
