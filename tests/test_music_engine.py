@@ -767,3 +767,41 @@ class TestEndCard:
         assert frame_bytes(plain, 3.5) == frame_bytes(with_card, 3.5)
         # ...and different in the last second, where the card is drawn.
         assert frame_bytes(plain, length - 0.4) != frame_bytes(with_card, length - 0.4)
+
+
+class TestSilentAccountAlert:
+    def test_an_account_that_stopped_publishing_is_reported(
+        self, release: Path, monkeypatch
+    ) -> None:
+        """Buffer accepts the post, the queue says pushed, the network refuses
+        it afterwards: only the absence shows."""
+        now = datetime.now(UTC)
+
+        class Stale(_FakeBuffer):
+            def fetch_post_metrics(self, channel, limit=200):
+                when = now if channel == "tt111" else now - timedelta(days=40)
+                return [_post(f"post-{channel}", 10.0).model_copy(
+                    update={"sent_at": when}
+                )]
+
+        sent: list[str] = []
+
+        class Recorder:
+            def notify(self, event, message):
+                sent.append(message)
+                return True
+
+            def failure(self, *a, **k):
+                sent.append("failure")
+
+        config = release / "config.yaml"
+        config.write_text(config.read_text().replace("dry_run: true", "dry_run: false"))
+        monkeypatch.setattr(cli, "BufferPublisher", Stale)
+        monkeypatch.setattr(cli, "notifier_for", lambda *a, **k: Recorder())
+        assert cli.cmd_metrics(
+            argparse.Namespace(command="metrics", campaign="rel", dry_run=False, days=30),
+            {"BUFFER_API_KEY": "k1", "BUFFER_API_KEY_2": "k2"},
+        ) == 0
+        alerts = [m for m in sent if "nothing has published" in m]
+        assert len(alerts) == 1
+        assert "side_ig" in alerts[0] and "main_tt since" not in alerts[0]

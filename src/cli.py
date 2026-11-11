@@ -2367,26 +2367,59 @@ def cmd_diagnose(args: argparse.Namespace, env: dict[str, str]) -> int:
     config = load_campaign(CAMPAIGNS_DIR, args.campaign)
     clock: Clock = SystemClock()
 
-    api_key = _secret(config.buffer.api_key_secret, env)
-    if not api_key:
-        print(f"{config.buffer.api_key_secret} is not set", file=sys.stderr)
-        return 1
-    publisher = BufferPublisher(
-        api_key, log, organization_id=config.buffer.organization_id
-    )
-    posts = publisher.diagnose_posts(_channel_id(config, env), limit=args.limit)
+    # Every account the campaign posts to, each through its own login. Under
+    # fan-out the campaign's own channel is one of several, and the one that
+    # has quietly stopped publishing is rarely the one anybody looks at.
+    sources: list[tuple[str, str, str | None, str, str]] = []
+    if config.posting.fan_out:
+        registry = load_accounts(REPO_ROOT / ACCOUNTS_FILE)
+        for account in accounts_for(registry, config.accounts):
+            sources.append((
+                account.name, account.api_key_secret, account.organization_id,
+                _account_channel(account, env), account.network.value,
+            ))
+    else:
+        sources.append((
+            config.slug, config.buffer.api_key_secret,
+            config.buffer.organization_id, _channel_id(config, env),
+            config.buffer.service.value,
+        ))
+
+    publishers: dict[str, BufferPublisher] = {}
+    spent = 0
+    exit_code = 0
+    for name, slot, org, channel, network in sources:
+        api_key = _secret(slot, env)
+        if not api_key:
+            print(f"\n  {name}: {slot} is not set", file=sys.stderr)
+            exit_code = 1
+            continue
+        if slot not in publishers:
+            publishers[slot] = BufferPublisher(api_key, log, organization_id=org)
+        try:
+            posts = publishers[slot].diagnose_posts(channel, limit=args.limit)
+        except UgcError as exc:
+            print(f"\n  {name}: Buffer refused — {exc}", file=sys.stderr)
+            exit_code = 1
+            continue
+        _print_diagnosis(name, network, posts)
+    spent = sum(p.request_count for p in publishers.values())
     # Diagnose is run by hand and rarely, but its requests come out of the same
     # allowance; a tally that only counts scheduled jobs drifts low over time.
     record_run(
         quota_path(_campaign_dir(config.slug)),
         clock.now().astimezone(config.zone).date(),
-        getattr(publisher, "request_count", 0),
+        spent,
     )
+    return exit_code
 
-    print(f"\n  {config.slug} · {config.buffer.service.value} · {len(posts)} posts\n")
+
+def _print_diagnosis(name: str, network: str, posts: list[dict[str, Any]]) -> None:
+    """One channel's recent posts, with whatever the network said back."""
+    print(f"\n  {name} · {network} · {len(posts)} posts\n")
     if not posts:
         print("  Buffer has no posts for this channel at all.")
-        return 0
+        return
 
     counts: dict[str, int] = {}
     for post in posts:
@@ -2413,7 +2446,6 @@ def cmd_diagnose(args: argparse.Namespace, env: dict[str, str]) -> int:
         print("\n  Nothing has published yet. If a due time has passed with no")
         print("  error, Buffer has accepted the post but not dispatched it —")
         print("  usually the channel needs reconnecting in Buffer.")
-    return 0
 
 
 # ----------------------------------------------------------------- command: metrics
@@ -2559,6 +2591,42 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                 fetched=len(fresh), total=len(cache.posts), campaign=config.slug,
                 accounts=len(sources),
             )
+            # An account can stop publishing with nothing failing: Buffer
+            # accepts every post, the queue says "pushed", and the network
+            # refuses each one afterwards. Only the absence shows — so an
+            # account whose newest published post is days behind its
+            # siblings' is reported.
+            if len(sources) > 1:
+                newest: dict[str, datetime] = {}
+                for cached_post in cache.posts.values():
+                    if cached_post.account and cached_post.sent_at:
+                        seen = newest.get(cached_post.account)
+                        if seen is None or cached_post.sent_at > seen:
+                            newest[cached_post.account] = cached_post.sent_at
+                if newest:
+                    front = max(newest.values())
+                    silent = sorted(
+                        name for name, _, _ in sources
+                        if name and (
+                            name not in newest
+                            or front - newest[name] > timedelta(days=3)
+                        )
+                    )
+                    if silent:
+                        log.warning("accounts_silent", accounts=silent)
+                        notifier.notify(
+                            NotifyEvent.FAILURE,
+                            f"⚠️ {config.slug}: nothing has published on "
+                            + ", ".join(
+                                f"{n} since {newest[n]:%d %b}" if n in newest
+                                else f"{n} (ever)" for n in silent
+                            )
+                            + ", while the other accounts are posting. Buffer "
+                            "is accepting the posts and the network is "
+                            "refusing them — run `ugc diagnose` for its "
+                            "reason; usually the channel needs reconnecting "
+                            "in Buffer.",
+                        )
             if lifetime_refused is not None:
                 # Buffer will not total the campaign's whole life, but the
                 # per-post cache holds every post ever fetched and is never
