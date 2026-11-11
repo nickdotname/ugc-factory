@@ -249,11 +249,11 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-11T21:40:00-05:00"
         },
         {
           "account": "nickdotname_yt",
@@ -299,7 +299,7 @@
       "titles": {
         "youtube": "Find a Sketch Comedy Cast"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
