@@ -15,6 +15,7 @@ on:
       - "campaigns/**"
       - "src/**"
       - "tests/**"
+      - "dashboard/**"
       - "requirements*.txt"
   pull_request:
 
@@ -66,6 +67,11 @@ jobs:
       # integration test never to be part of CI.
       - name: Unit tests
         run: pytest -q
+
+      # The hosted dashboard's server function holds the one credential that
+      # can change what posts, so what it refuses is tested on every push.
+      - name: Dashboard function tests
+        run: node --test dashboard/test/api.test.mjs
 
   config:
     needs: discover

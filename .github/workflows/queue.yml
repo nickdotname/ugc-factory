@@ -23,6 +23,14 @@ on:
         default: ""
         type: choice
         options: ["", "pending", "pushed", "all"]
+      video_id:
+        description: only this video (a prefix of its id); blank = all
+        required: false
+        default: ""
+      account:
+        description: only this account's copy; blank = every account
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -73,9 +81,15 @@ jobs:
           BUFFER_API_KEY_7: ${{ secrets.BUFFER_API_KEY_7 }}
           BUFFER_API_KEY_8: ${{ secrets.BUFFER_API_KEY_8 }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          # Free text goes through the environment, never into the script
+          # itself: interpolated straight into `run:` it would be shell.
+          QUEUE_ID: ${{ inputs.video_id }}
+          QUEUE_ACCOUNT: ${{ inputs.account }}
         run: |
           python -m src.cli queue --campaign "${{ matrix.campaign }}" \
-            ${{ inputs.discard && format('--discard {0}', inputs.discard) || '' }}
+            ${{ inputs.discard && format('--discard {0}', inputs.discard) || '' }} \
+            ${QUEUE_ID:+--id "$QUEUE_ID"} \
+            ${QUEUE_ACCOUNT:+--account "$QUEUE_ACCOUNT"}
 
       - name: Commit any withdrawal
         if: ${{ inputs.discard != '' && (inputs.campaign == '' || inputs.campaign == matrix.campaign) }}
