@@ -70,8 +70,8 @@ jobs:
 
       # The hosted dashboard's server function holds the one credential that
       # can change what posts, so what it refuses is tested on every push.
-      - name: Dashboard function tests
-        run: node --test dashboard/test/api.test.mjs
+      - name: Dashboard tests
+        run: node --test dashboard/test/api.test.mjs dashboard/test/lib.test.mjs
 
   config:
     needs: discover
