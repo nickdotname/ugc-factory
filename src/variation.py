@@ -57,6 +57,12 @@ class Treatment:
     music_tempo: float = 1.0
     #: Shelf tilt on the bed in dB: positive is brighter, negative warmer.
     music_tilt_db: float = 0.0
+    #: Seconds shaved off the head of the first clip. Moves every cut point
+    #: and every frame's timing, which a grade change does not.
+    trim_start: float = 0.0
+    #: Where the on-screen text sits, as a signed fraction of frame height
+    #: added to ``overlay.y``.
+    overlay_shift: float = 0.0
 
     @property
     def rotate_rad(self) -> float:
@@ -181,6 +187,13 @@ class Treatment:
             "mirror": self.mirror,
             "music_tempo": round(self.music_tempo, 4),
             "music_tilt_db": round(self.music_tilt_db, 2),
+            # Only when in use, so a recipe recorded before these existed and
+            # one recorded after still compare key for key.
+            **({"trim_start": round(self.trim_start, 3)} if self.trim_start else {}),
+            **(
+                {"overlay_shift": round(self.overlay_shift, 4)}
+                if self.overlay_shift else {}
+            ),
         }
 
 
@@ -230,4 +243,6 @@ def treatment_for(variant_id: str, config: VariationConfig) -> Treatment:
         mirror=bool(config.allow_mirror and draw[9] > 0.5),
         music_tempo=1.0 + spread(10, config.music_tempo_max),
         music_tilt_db=spread(11, config.music_tilt_db),
+        trim_start=draw[12] * config.trim_start_max_sec,
+        overlay_shift=spread(13, config.overlay_shift_max),
     )

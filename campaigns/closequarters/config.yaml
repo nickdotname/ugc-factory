@@ -58,19 +58,57 @@ composition:
   music_skip_intro_sec: 0
 
 variation:
-  # Small per-video differences in crop, grade and grain so six accounts are
-  # not posting byte-identical pictures. The music is never touched.
   enabled: true
+  # Every account gets its OWN version of each post. What differs between
+  # them is real: a different clip, a different on-screen line and caption,
+  # a different moment of the song — as far as the song's library has spares.
+  # This is what keeps accounts from posting the same video; the cosmetic
+  # knobs below do not do that on their own (see PLAYBOOK §8).
+  per_account: true
+  per_account_vary: [clip, caption, cue]
+
+  # Cosmetic differences on top. Set any of them to 0 to switch it off.
+  zoom_max: 0.05              # punch-in, up to 5%
+  rotate_max_deg: 0.4
+  brightness_max: 0.03
+  saturation_max: 0.06
+  hue_max_deg: 3
+  grain_max: 5
+  trim_start_max_sec: 0.4     # shave the head of the clip
+  overlay_shift_max: 0.03     # nudge the on-screen text up or down
+  allow_mirror: false         # would flip any text in the footage
+
+  # Never touched: it is the song, and the platforms recognising it as the
+  # song is the point.
   speed_max: 0.0
   music_tempo_max: 0.0
   music_tilt_db: 0.0
-  allow_mirror: false
 
 overlay:
   enabled: true
   size: 0.06
   y: 0.16
   max_chars: 24
+
+# Where every post sends people. {name} and {link} come from the song's own
+# `title:` and `link:` under creatives, or from here when a song has none.
+funnel:
+  name: Education by Close Quarters
+  link: ""                    # your smart link — fill this in before going live
+  cta:
+    - "full song: {name} — link in bio"
+    - "{name} is out now. link in bio"
+    - "the whole thing is on spotify: {name}"
+  cta_by_network:
+    youtube:                  # YouTube descriptions carry a real link
+      - "Full song — {name}: {link}"
+      - "Listen to {name}: {link}"
+  cta_every: 1
+  first_comment:              # Instagram only
+    - "full song → link in bio"
+    - "{name} — streaming everywhere, link in bio"
+  end_card: "{name} | full song on Spotify"
+  end_card_sec: 2.0
 
 selection:
   dedupe_on: [hook, music, caption]

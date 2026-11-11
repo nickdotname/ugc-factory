@@ -74,6 +74,10 @@ class LineupEntry(StrictModel):
     at: datetime | None = None
     #: Keep an entry in the file without posting it.
     skip: bool = False
+    #: Add the campaign's funnel — the caption's closing ask, the first
+    #: comment, the end card — as on any other post. False posts the entry
+    #: exactly as written and nothing more.
+    funnel: bool = True
 
     @field_validator("id")
     @classmethod

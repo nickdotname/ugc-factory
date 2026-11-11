@@ -115,6 +115,8 @@ class RenderRequest(Model):
     #: is a clip plus a line of text, and baking the line into the clip by
     #: hand means re-exporting the clip for every line.
     overlay_text: str | None = None
+    #: Text drawn over the last seconds only (see ``config.FunnelConfig``).
+    end_card_text: str | None = None
 
 
 class RenderResult(Model):
@@ -186,6 +188,21 @@ class AccountPost(Model):
         )
 
 
+class Variant(Model):
+    """One account's own version of a video (``variation.per_account``).
+
+    Everything that can differ between two accounts' copies of one post:
+    the file itself, and whatever went into it.
+    """
+
+    video_url: str = ""
+    caption: str | None = None
+    title: str | None = None
+    overlay: str | None = None
+    parts: dict[str, str] = Field(default_factory=dict)
+    treatment: dict[str, float] | None = None
+
+
 class QueueItem(Model):
     """One rendered video awaiting publication (SPEC §11)."""
 
@@ -223,6 +240,11 @@ class QueueItem(Model):
     #: The lineup entry this video was made from, when it was hand-picked
     #: rather than drawn by the randomizer.
     lineup_id: str | None = None
+    #: Per-account versions, keyed by account name. An account with no entry
+    #: (one connected after this rendered) gets the item's own video.
+    variants: dict[str, Variant] = Field(default_factory=dict)
+    #: First comment to post with this video where the network takes one.
+    first_comment: str | None = None
     #: One entry per account this video is going to (HANDOFF phase 2). Empty
     #: means "not expanded yet": top-up fills it in from the resolved accounts
     #: at push time, which is what lets a video rendered before fan-out
@@ -303,6 +325,11 @@ class HistoryEntry(Model):
     post_ids: dict[str, str] = Field(default_factory=dict)
     overlay: str | None = None
     lineup_id: str | None = None
+    #: What each account's own version was made of, keyed by account name:
+    #: ``{"hook": ..., "caption": ..., "music_offset_sec": ...}``. Without it
+    #: an account that was shown a different clip would be credited with the
+    #: base one.
+    variants: dict[str, dict[str, str]] = Field(default_factory=dict)
 
 
 class History(Model):

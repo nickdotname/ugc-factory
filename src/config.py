@@ -395,6 +395,32 @@ class VariationConfig(StrictModel):
     #: end; negative does the reverse. A different balance per variant.
     music_tilt_db: float = Field(default=1.5, ge=0.0, le=6.0)
 
+    #: Shave up to this many seconds off the head of each video's first clip.
+    trim_start_max_sec: float = Field(default=0.0, ge=0.0, le=3.0)
+    #: Move the on-screen text up or down by up to this fraction of the frame
+    #: height.
+    overlay_shift_max: float = Field(default=0.0, ge=0.0, le=0.2)
+
+    #: Render a separate version of every video for every account it goes to,
+    #: instead of sending all of them the same file.
+    #:
+    #: This is the setting that matters. Platforms compare what a video
+    #: *shows and sounds like*, and their matching is built to survive a
+    #: crop, a grade or a speed change — so the knobs above make two files
+    #: different without making two videos different. What does make them
+    #: different is listed in ``per_account_vary``.
+    per_account: bool = False
+    #: What actually differs between two accounts' versions of one post:
+    #:   clip    — a different clip from the same creative
+    #:   caption — a different record from the bank: different on-screen
+    #:             line, different caption, different title
+    #:   cue     — a different start point in the song
+    #: Each is used only as far as the library allows; with one clip there is
+    #: nothing to vary and every account gets that clip.
+    per_account_vary: tuple[Literal["clip", "caption", "cue"], ...] = (
+        "clip", "caption", "cue",
+    )
+
 
 class OverlayConfig(StrictModel):
     """On-screen text, drawn by the renderer (see ``src/render.py``).
@@ -434,6 +460,47 @@ class OverlayConfig(StrictModel):
                 f"{v!r} must be a colour name or a 6-digit hex value"
             )
         return v
+
+
+class FunnelConfig(StrictModel):
+    """Where every post is trying to send the viewer.
+
+    A view is not the goal; a stream or an install is. This block is the one
+    place that goal is stated, and everything that can carry it — the
+    caption, the first comment, the last seconds of the video — is filled in
+    from here, so a campaign cannot post something that asks for nothing.
+
+    ``{link}`` and ``{name}`` in any text are replaced with the creative's
+    own ``link`` and ``title`` when it has them, this block's otherwise.
+    """
+
+    #: The one place people should end up: a smart link, a store page.
+    link: str = ""
+    #: What is being promoted, as a viewer would say it.
+    name: str = ""
+    #: Lines appended to the caption, rotated so the ask is not word for word
+    #: the same on every post.
+    cta: tuple[str, ...] = ()
+    #: A network's own lines, when the ask differs there — YouTube
+    #: descriptions carry a clickable link, Instagram captions do not.
+    cta_by_network: dict[Service, tuple[str, ...]] = Field(default_factory=dict)
+    #: 1 puts the ask on every post, 2 on every other, and so on. An ask on
+    #: every single post reads as an advert; none at all converts nobody.
+    cta_every: int = Field(default=1, ge=1, le=20)
+    #: Posted as the first comment where the network allows it (Instagram),
+    #: rotated. A link belongs here rather than in a caption.
+    first_comment: tuple[str, ...] = ()
+    #: Drawn on the last seconds of the video — the title and where to hear
+    #: it, at the moment someone has just decided they like it. ``|`` breaks
+    #: the line.
+    end_card: str = ""
+    end_card_sec: float = Field(default=2.0, gt=0.0, le=10.0)
+    #: Vertical position of the end card, as a fraction of frame height.
+    end_card_y: float = Field(default=0.68, ge=0.0, le=0.95)
+
+    @property
+    def active(self) -> bool:
+        return bool(self.cta or self.cta_by_network or self.first_comment or self.end_card)
 
 
 class SeoConfig(StrictModel):
@@ -798,6 +865,10 @@ class CreativeConfig(StrictModel):
     #: means every account the campaign reaches. Narrows the campaign's own
     #: ``accounts`` filter, never widens it.
     accounts: tuple[str, ...] = ()
+    #: What this creative is called to a viewer — a song title — and where it
+    #: lives. Fill ``{name}`` and ``{link}`` in the campaign's funnel text.
+    title: str = ""
+    link: str = ""
 
     @field_validator("music_cues")
     @classmethod
@@ -847,6 +918,7 @@ class CampaignConfig(StrictModel):
     seo: SeoConfig = SeoConfig()
     variation: VariationConfig = VariationConfig()
     overlay: OverlayConfig = OverlayConfig()
+    funnel: FunnelConfig = FunnelConfig()
     buffer: BufferConfig
     notify: NotifyConfig
     analytics: AnalyticsConfig = AnalyticsConfig()

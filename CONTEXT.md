@@ -400,3 +400,18 @@ Music-first rendering (`clip_volume`, `music_cues`, `bodies_per_video: 0`,
 account lists, the lineup, `posting.paused`, `ugc connect`, and a fuller `ugc
 queue`. All described in `PLAYBOOK.md`. Every one is off or neutral by
 default: the `clubs` campaign renders exactly as it did.
+
+### Second pass, same day
+
+- **Per-account versions** (`variation.per_account`). Fan-out was sending one
+  file to every account, which on any one network is the same video posted
+  several times. Each account can now get its own render that differs in
+  clip, on-screen line, caption and song cue. Research into how the platforms
+  match duplicates is summarised in `PLAYBOOK.md` §8: cosmetic changes alone
+  do not separate two videos.
+- **Funnel** (`funnel:`): closing ask on captions, first comment, end card.
+- Render validation now holds a file to the strictest network it is going to,
+  not just the campaign's nominal one.
+- The Clubs caption banks gained records for sketch comedy, jazz and DPs —
+  the searches the demand alert had been flagging — and `divanomics` joined
+  `demand_ignore`. The whole suite is green.

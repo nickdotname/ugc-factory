@@ -94,6 +94,8 @@ version goes in `creatives/sunday_song/captions/tiktok.txt` (same format).
 | a different caption per network | `captions/<network>.txt` |
 | stop a campaign without losing anything | `posting.paused: true` |
 | nothing random at all | `selection.auto_fill: false` + the lineup |
+| every post to push the song / the app | the `funnel:` block (section 7) |
+| each account to get a different video | `variation.per_account` (section 8) |
 
 ## 4. The lineup — exact posts
 
@@ -117,7 +119,9 @@ posts:
 Lineup posts render before anything random. Each `id` posts once and is then
 remembered, so finished entries can stay in the file. A timed post renders up
 to two days ahead; if its time passes before it ever rendered, it is reported
-to Discord and **not** posted late.
+to Discord and **not** posted late. Hand-picked posts are never re-picked per
+account: with `per_account` on, their versions differ only cosmetically, so
+give one a single account, or write one entry per account.
 
 ## 5. See it, and pull it
 
@@ -144,7 +148,96 @@ and deletable, until its time.
 3. `./ugc preflight --campaign closequarters`.
 4. `dry_run: false`. The next render and top-up post for real.
 
-## 7. Limits worth knowing
+## 7. The funnel — every post asks for the same thing
+
+A view is not the goal; a stream or an install is. State the goal once and the
+engine carries it on every post:
+
+```yaml
+funnel:
+  name: Education by Close Quarters
+  link: https://your.smart.link
+  cta:                              # appended to the caption, rotated
+    - "full song: {name} — link in bio"
+    - "{name} is out now. link in bio"
+  cta_by_network:
+    youtube:                        # YouTube descriptions carry a real link
+      - "Full song — {name}: {link}"
+  cta_every: 1                      # 2 = every other post
+  first_comment:                    # Instagram only
+    - "full song → link in bio"
+  end_card: "{name} | full song on Spotify"   # drawn over the last seconds
+  end_card_sec: 2.0
+```
+
+`{name}` and `{link}` come from the song's own `title:` and `link:` under
+`creatives`, falling back to this block. A line that needs a link nobody has
+set is skipped rather than posted with a blank. A lineup entry gets the funnel
+too unless it says `funnel: false`.
+
+For an app instead of a song it is the same block: `name` is the app, `link`
+the store page, and the lines say "download".
+
+What the engine cannot do, and you set once by hand on each account: the
+**bio link** (the same smart link everywhere), the **bio line** (the thing's
+name, so a profile visit answers "what was that?"), and a **pinned post**.
+Every ask above points at the bio, so an account without the link converts
+nobody.
+
+## 8. Micro-edits, and what actually keeps accounts from colliding
+
+```yaml
+variation:
+  enabled: true
+  per_account: true                       # a separate video per account
+  per_account_vary: [clip, caption, cue]  # what differs between them
+  zoom_max: 0.05          # each of these: 0 switches it off
+  rotate_max_deg: 0.4
+  brightness_max: 0.03
+  saturation_max: 0.06
+  hue_max_deg: 3
+  grain_max: 5
+  trim_start_max_sec: 0.4
+  overlay_shift_max: 0.03
+  speed_max: 0.0          # leave at 0 for music
+  music_tempo_max: 0.0    # leave at 0 for music
+  music_tilt_db: 0.0
+```
+
+Every value used is recorded per video in the queue and in `history.json`, so
+any post can be traced to its exact recipe.
+
+**The cosmetic knobs are not what protects you.** Instagram, TikTok and YouTube
+match on what a video looks and sounds like, with fingerprints built to
+survive a crop, a filter, a speed change or a re-encode — and Instagram and
+TikTok both name those specific tricks as not counting. When Instagram finds
+two matching videos it recommends one and drops the other from recommendations
+without telling anyone. So two accounts posting one clip with different grain
+are, to the platform, two accounts posting one clip.
+
+What does count is a different video: a different clip, different words on
+screen, a different moment of the song. That is what `per_account` does, and
+it can only vary what the library has spares of. **A song with one clip gives
+every account the same picture no matter what is set here** — `./ugc queue`
+shows each account's clip, line and cue, so a collision is visible before it
+posts. Rule of thumb: at least as many clips per song as accounts it goes to,
+and more caption records than that.
+
+The music is never altered. It is your song; the platforms recognising it as
+that song is the point.
+
+Three account-level things matter as much as any setting:
+
+- **Volume plus sameness is the pattern platforms act on.** YouTube's
+  "inauthentic content" policy targets templated uploads with little variation
+  between them, and it judges the whole channel. Fewer, more different posts
+  beat more, more similar ones.
+- **Do not have the accounts comment on or boost each other's posts.**
+- **AI labels**: required where a post shows realistic AI-made people or
+  scenes. Real footage with text and a grade on it needs none. The engine does
+  not set the label — if you post AI-generated clips, label them in the app.
+
+## 9. Limits worth knowing
 
 - **No official sounds.** Buffer can only post a finished video file, so the
   song is baked into the audio. A post made this way is not attached to the

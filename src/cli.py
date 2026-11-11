@@ -76,6 +76,7 @@ from src.lineup import LineupEntry, due_entries, lineup_path, load_lineup, resol
 from src.logging import StructuredLogger, get_logger
 from src.models import (
     DEFAULT_CREATIVE,
+    Variant,
     History,
     HistoryEntry,
     PartKind,
@@ -517,7 +518,18 @@ def _render(
     out_dir.mkdir(parents=True, exist_ok=True)
 
     store = _build_store(env, log, clock)
-    renderer: Renderer = FfmpegRenderer(config, log)
+    # Which accounts exist — for checking the names a creative or a lineup
+    # entry asks for, and for knowing every network a file must be valid on.
+    registry = (
+        load_accounts(REPO_ROOT / ACCOUNTS_FILE)
+        if config.posting.fan_out else AccountsConfig()
+    )
+    reachable = accounts_for(registry, config.accounts)
+    renderer: Renderer = FfmpegRenderer(
+        config, log,
+        services=sorted({a.network for a in reachable}, key=lambda s: s.value)
+        or None,
+    )
     full_history = load_history(campaign_dir / "history.json")
 
     # Every creative is its own self-contained pool (HANDOFF phase 1): its own
@@ -673,15 +685,8 @@ def _render(
         )
         return 0
 
-    # Which accounts exist, for checking the names a creative or a lineup
-    # entry asks for. A typo there would otherwise render a video that no
+    # A typo in an account name would otherwise render a video that no
     # account ever claims, and it would sit in the queue until it aged out.
-    registry = (
-        load_accounts(REPO_ROOT / ACCOUNTS_FILE)
-        if config.posting.fan_out else AccountsConfig()
-    )
-    reachable = accounts_for(registry, config.accounts)
-
     def _targets(names: Sequence[str], what: str) -> list[str] | None:
         if not names:
             return None
@@ -824,10 +829,61 @@ def _render(
         )
     free = iter(slots)
 
-    rendered: list[tuple[QueueItem, Selection, str]] = []
-    for creative_name, selection, pinned in planned:
+    funnel = config.funnel
+    bodies_by_variant: dict[tuple[str, str], str] = {}
+    by_account = {a.name: a for a in reachable}
+    per_account = (
+        config.posting.fan_out and config.variation.enabled
+        and config.variation.per_account
+    )
+    vary = set(config.variation.per_account_vary)
+
+    def _fill(text: str, creative: CreativeConfig) -> str:
+        """Funnel text with this creative's own name and link filled in.
+
+        Empty when the text asks for a link or a name nobody has supplied:
+        "listen here: " with nothing after it is worse than no ask at all.
+        """
+        link = creative.link or funnel.link
+        name = creative.title or funnel.name
+        if ("{link}" in text and not link) or ("{name}" in text and not name):
+            return ""
+        return text.replace("{link}", link).replace("{name}", name).strip()
+
+    def _with_cta(
+        text: str, service: Service, creative: CreativeConfig, turn: int
+    ) -> str:
+        """The caption with this post's ask appended, if it is due one."""
+        if turn % funnel.cta_every:
+            return text
+        # A network's own lines first; the shared ones if none of those can
+        # be filled in (a link nobody has set yet).
+        ask = ""
+        for lines in (funnel.cta_by_network.get(service, ()), funnel.cta):
+            usable = [line for line in (_fill(l, creative) for l in lines) if line]
+            if usable:
+                ask = usable[(turn // funnel.cta_every) % len(usable)]
+                break
+        if not ask or ask.lower() in text.lower():
+            return text
+        joined = f"{text.rstrip()}\n\n{ask}"
+        if check_description(joined, service):
+            # Too long with the ask on: the caption someone wrote wins.
+            log.warning("cta_dropped_too_long", network=service.value)
+            return text
+        return joined
+
+    # (item, base selection, creative, [(account or None, file, variant)])
+    rendered: list[
+        tuple[QueueItem, Selection, str, list[tuple[str | None, Path, Variant]]]
+    ] = []
+    for index, (creative_name, selection, pinned) in enumerate(planned):
         res = resources[creative_name]
+        creative = res.creative
         by_name = res.by_name
+        # Counts every post this campaign has ever made, so the rotation of
+        # asks carries on across nights instead of restarting at the first.
+        turn = len(full_history.entries) + index
         slot = (
             timed_slots[pinned.id] if pinned is not None and pinned.at is not None
             else next(free)
@@ -839,22 +895,13 @@ def _render(
         title = selection.title if pinned is not None else (
             record.title if record else None
         )
+        use_funnel = pinned is None or pinned.funnel
         item_id = str(uuid.uuid4())
-        request = RenderRequest(
-            item_id=item_id,
-            hook_path=by_name[selection.hook],
-            body_paths=tuple(by_name[b] for b in selection.bodies),
-            music_path=by_name[selection.music] if selection.music else None,
-            music_offset_sec=selection.music_offset_sec,
-            output_path=out_dir / f"{item_id}.mp4",
-            overlay_text=overlay,
-        )
-        result = renderer.render(request)
 
         net_captions: dict[str, str] = {}
         net_titles: dict[str, str] = {}
         if pinned is not None:
-            # Hand-written: the pinned's own per-network text, nothing drawn
+            # Hand-written: the entry's own per-network text, nothing drawn
             # from a bank.
             net_captions = {svc.value: text for svc, text in pinned.captions.items()}
         else:
@@ -881,47 +928,167 @@ def _render(
             _targets(pinned.accounts, f"lineup {pinned.id!r}")
             if pinned is not None else None
         ) or creative_accounts[creative_name]
+        going_to = [
+            a.name for a in reachable if accounts is None or a.name in accounts
+        ]
+
+        # One version per account when asked for, otherwise one for everyone.
+        # The first account keeps the pick as made; each later one is varied
+        # in whatever ways the library has room for. A hand-picked post is
+        # never re-picked — its versions differ only by treatment.
+        versions: list[tuple[str | None, Selection, str | None, str | None]] = []
+        if per_account and len(going_to) > 1:
+            used_hooks = {selection.hook}
+            used_captions = {selection.caption}
+            used_offsets = {selection.music_offset_sec}
+            for position, dest_account in enumerate(going_to):
+                if position == 0 or pinned is not None:
+                    versions.append((dest_account, selection, overlay, title))
+                    continue
+                hook, caption, offset = (
+                    selection.hook, selection.caption, selection.music_offset_sec
+                )
+                v_overlay, v_title = overlay, title
+                if "clip" in vary:
+                    spare = tuple(h for h in res.library.hooks if h not in used_hooks)
+                    if spare:
+                        hook = rng.choice(spare)
+                        used_hooks.add(hook)
+                if "caption" in vary:
+                    fresh = tuple(
+                        d for d in res.descriptions if d.body not in used_captions
+                    )
+                    if fresh:
+                        other = rng.choice(fresh)
+                        caption, v_overlay, v_title = other.body, other.overlay, other.title
+                        used_captions.add(caption)
+                if "cue" in vary and selection.music:
+                    cues = tuple(
+                        o for o in (
+                            res.library.offset_for(selection.music, n)
+                            for n in range(res.library.segments_for(selection.music))
+                        )
+                        if o not in used_offsets
+                    )
+                    if cues:
+                        offset = rng.choice(cues)
+                        used_offsets.add(offset)
+                versions.append((
+                    dest_account,
+                    selection.model_copy(update={
+                        "hook": hook, "caption": caption,
+                        "music_offset_sec": offset,
+                    }),
+                    v_overlay, v_title,
+                ))
+        else:
+            versions.append((None, selection, overlay, title))
+
+        end_card = _fill(funnel.end_card, creative) if use_funnel else ""
+        files: list[tuple[str | None, Path, Variant]] = []
+        version_account: str | None
+        for version_account, version, v_overlay, v_title in versions:
+            account_name = version_account
+            render_id = item_id if account_name is None else f"{item_id}-{account_name}"
+            result = renderer.render(RenderRequest(
+                item_id=render_id,
+                hook_path=by_name[version.hook],
+                body_paths=tuple(by_name[b] for b in version.bodies),
+                music_path=by_name[version.music] if version.music else None,
+                music_offset_sec=version.music_offset_sec,
+                output_path=out_dir / f"{render_id}.mp4",
+                overlay_text=v_overlay,
+                end_card_text=end_card or None,
+            ))
+            # What this account posts with: its own varied caption if it got
+            # one, else its network's, else the shared one — then the ask.
+            text = version.caption
+            if account_name is not None:
+                bodies_by_variant[(item_id, account_name)] = version.caption
+                network = by_account[account_name].network
+                if version.caption == selection.caption:
+                    text = net_captions.get(network.value, version.caption)
+                    v_title = net_titles.get(network.value, v_title)
+                if use_funnel:
+                    text = _with_cta(text, network, creative, turn)
+            files.append((
+                account_name,
+                result.output_path,
+                Variant(
+                    caption=text, title=v_title, overlay=v_overlay,
+                    parts={
+                        "hook": version.hook,
+                        "bodies": ",".join(version.bodies),
+                        "music": version.music or "",
+                        "music_offset_sec": f"{version.music_offset_sec:g}",
+                    },
+                    treatment=result.treatment,
+                ),
+            ))
+
+        first = files[0][2]
+        caption = selection.caption
+        if use_funnel:
+            # The shared texts carry the ask too, for any account that has no
+            # version of its own.
+            networks = {a.network for a in reachable} or {config.buffer.service}
+            for service in networks:
+                base = net_captions.get(service.value, selection.caption)
+                asked = _with_cta(base, service, creative, turn)
+                if asked != base:
+                    net_captions[service.value] = asked
+            if not config.posting.fan_out:
+                caption = _with_cta(caption, config.buffer.service, creative, turn)
+        comments = [
+            line for line in (_fill(c, creative) for c in funnel.first_comment)
+            if line
+        ] if use_funnel else []
+        first_comment = comments[turn % len(comments)] if comments else None
         rendered.append((
             QueueItem(
                 id=item_id,
                 scheduled_for=slot,
                 rendered_at=today,
                 video_url="",  # filled in after upload
-                caption=selection.caption,
+                caption=caption,
                 title=title,
                 captions=net_captions,
                 titles=net_titles,
-                parts={
-                    "hook": selection.hook,
-                    "bodies": ",".join(selection.bodies),
-                    "music": selection.music or "",
-                    "music_offset_sec": f"{selection.music_offset_sec:g}",
-                },
-                treatment=result.treatment,
+                parts=first.parts,
+                treatment=first.treatment,
                 creative=creative_name,
                 overlay=overlay,
                 accounts=accounts,
                 lineup_id=pinned.id if pinned is not None else None,
+                first_comment=first_comment or None,
             ),
             selection,
             creative_name,
+            files,
         ))
         log.info(
             "item_rendered", item_id=item_id, creative=creative_name,
             lineup_id=pinned.id if pinned is not None else None,
-            path=str(result.output_path),
+            versions=len(files),
         )
 
     tag = _render_tag(config.slug, today)
-    published = store.publish(tag, [out_dir / f"{i.id}.mp4" for i, _, _ in rendered])
+    published = store.publish(
+        tag, [path for _, _, _, files in rendered for _, path, _ in files]
+    )
     urls = {a.name: a.url for a in published}
-    for item, _, _ in rendered:
-        item.video_url = urls[f"{item.id}.mp4"]
+    for item, _, _, files in rendered:
+        item.video_url = urls[files[0][1].name]
+        for owner, path, made in files:
+            if owner is not None:
+                item.variants[owner] = made.model_copy(
+                    update={"video_url": urls[path.name]}
+                )
 
     queue = Queue(
         generated_at=today,
         items=sorted(
-            [*carried, *(i for i, _, _ in rendered)],
+            [*carried, *(i for i, _, _, _ in rendered)],
             key=lambda i: i.scheduled_for,
         ),
     )
@@ -946,8 +1113,18 @@ def _render(
                 creative=creative_name,
                 overlay=item.overlay,
                 lineup_id=item.lineup_id,
+                variants={
+                    name: {
+                        "hook": v.parts.get("hook", ""),
+                        # The bank record it was drawn from, before any ask
+                        # was appended — that is what attribution ranks.
+                        "caption": bodies_by_variant.get((item.id, name), ""),
+                        "music_offset_sec": v.parts.get("music_offset_sec", "0"),
+                    }
+                    for name, v in item.variants.items()
+                },
             )
-            for item, sel, creative_name in rendered
+            for item, sel, creative_name, _ in rendered
         ],
     )
 
@@ -1275,10 +1452,22 @@ def _push_to_account(
         taken.add(due)
         post.scheduled_for = due
 
-        # This network's own copy if it has any, the shared bank otherwise.
+        # This account's own version if it has one; otherwise this network's
+        # own copy if it has any, the shared bank otherwise.
         network = account.network.value
-        text = item.captions.get(network, item.caption)
-        title = item.titles.get(network, item.title)
+        variant = item.variants.get(account.name)
+        text: str = (
+            variant.caption if variant is not None and variant.caption
+            else item.captions.get(network, item.caption)
+        )
+        title: str | None = (
+            variant.title if variant is not None and variant.title
+            else item.titles.get(network) or item.title
+        )
+        video_url = (
+            variant.video_url if variant is not None and variant.video_url
+            else item.video_url
+        )
 
         # An item rendered for a network with no title field carries none,
         # and YouTube refuses a Short without one — so a missing title is
@@ -1306,9 +1495,9 @@ def _push_to_account(
                     text=text,
                     title=title,
                     service=account.network,
-                    video_url=item.video_url,
+                    video_url=video_url,
                     scheduled_for=due,
-                    first_comment=account.first_comment or None,
+                    first_comment=account.first_comment or item.first_comment or None,
                     notify_subscribers=account.notify_subscribers,
                     post_type=account.post_type,
                 )
@@ -2834,6 +3023,16 @@ def _queue_lines(item: QueueItem, zone: Any) -> list[str]:
         lines.append(f"            on screen: {item.overlay}")
     first = next((ln for ln in item.caption.splitlines() if ln.strip()), "")
     lines.append(f"            caption:   {first[:90]}")
+    for name, variant in item.variants.items():
+        clip = variant.parts.get("hook", "")
+        cue = variant.parts.get("music_offset_sec", "")
+        lines.append(
+            f"            {name}: {clip}"
+            + (f" @{cue}s" if variant.parts.get("music") else "")
+            + (f" · \"{variant.overlay}\"" if variant.overlay else "")
+        )
+    if item.first_comment:
+        lines.append(f"            first comment: {item.first_comment[:80]}")
     if item.posts:
         lines.append(
             "            "

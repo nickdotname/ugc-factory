@@ -31,7 +31,7 @@ from src.config import CampaignConfig
 from src.errors import RenderError, ValidationError
 from src.logging import StructuredLogger
 from src.models import MediaProbe, RenderRequest, RenderResult
-from src.platforms import effective_video_limits
+from src.platforms import Service, effective_video_limits
 from src.variation import NEUTRAL, Treatment, treatment_for
 
 #: Sample rate Instagram expects for Reels audio (SPEC §4.3).
@@ -150,12 +150,35 @@ class FfmpegRenderer(Renderer):
         ffmpeg: str = "ffmpeg",
         ffprobe: str = "ffprobe",
         workdir: Path | None = None,
+        services: Sequence[Service] | None = None,
     ) -> None:
+        #: Every network the output must be valid on. Under fan-out one file
+        #: goes to several, so it has to clear the strictest of them — not
+        #: just the campaign's own nominal one.
+        self._services: tuple[Service, ...] = tuple(
+            dict.fromkeys(services or (config.buffer.service,))
+        )
         self._config = config
         self._log = log
         self._ffmpeg = ffmpeg
         self._ffprobe = ffprobe
         self._workdir = workdir
+
+    def _limits(self) -> tuple[float, float, float, Service, Service]:
+        """(floor, ceiling, max MB, network setting the floor, the ceiling)."""
+        v = self._config.video
+        per = {
+            svc: effective_video_limits(
+                svc, v.min_duration_sec, v.max_duration_sec, v.max_file_mb
+            )
+            for svc in self._services
+        }
+        floor_svc = max(per, key=lambda k: per[k][0])
+        ceiling_svc = min(per, key=lambda k: per[k][1])
+        return (
+            per[floor_svc][0], per[ceiling_svc][1],
+            min(limit[2] for limit in per.values()), floor_svc, ceiling_svc,
+        )
 
     # ---------------------------------------------------------------- probing
 
@@ -210,7 +233,16 @@ class FfmpegRenderer(Renderer):
 
     # --------------------------------------------------------------- stage one
 
-    def _overlay_filters(self, text: str | None, workdir: Path) -> str:
+    def _overlay_filters(
+        self,
+        text: str | None,
+        workdir: Path,
+        *,
+        y: float | None = None,
+        scale: float = 1.0,
+        tag: str = "overlay",
+        enable: str = "",
+    ) -> str:
         """drawtext filters for one video's on-screen text, or ``""``.
 
         One filter per line, each centred on its own width: a single
@@ -231,26 +263,27 @@ class FfmpegRenderer(Renderer):
                 f"relative to the repo root)"
             )
         v = self._config.video
-        size = max(8, round(v.width * o.size))
+        size = max(8, round(v.width * o.size * scale))
         line_height = round(size * 1.28)
         border = round(size * o.outline)
-        top = round(v.height * o.y)
+        top = round(v.height * min(0.95, max(0.0, o.y if y is None else y)))
+        when = f":enable='{enable}'" if enable else ""
         filters: list[str] = []
         for index, line in enumerate(lines):
-            textfile = workdir / f"overlay-{index:02d}.txt"
+            textfile = workdir / f"{tag}-{index:02d}.txt"
             textfile.write_text(line, encoding="utf-8")
             filters.append(
                 f"drawtext=fontfile={_filter_path(font)}"
                 f":textfile={_filter_path(textfile.resolve())}"
                 f":fontsize={size}:fontcolor={o.color}"
                 f":borderw={border}:bordercolor={o.outline_color}"
-                f":x=(w-text_w)/2:y={top + index * line_height}"
+                f":x=(w-text_w)/2:y={top + index * line_height}{when}"
             )
         return ",".join(filters)
 
     def _normalize(
         self, src: Path, dest: Path, treatment: "Treatment | None" = None,
-        overlay: str = "",
+        overlay: str = "", trim_start: float = 0.0,
     ) -> None:
         """Re-encode one clip to the campaign's exact output shape.
 
@@ -271,6 +304,10 @@ class FfmpegRenderer(Renderer):
         # for and makes the acceptance tests unfalsifiable.
         argv += ["-fflags", "+bitexact"]
 
+        # Only when it leaves a usable clip: trimming a two-second clip by
+        # most of a second would change what the video is, not nudge it.
+        if trim_start > 0 and probe.duration_sec - trim_start >= 2.0:
+            argv += ["-ss", f"{trim_start:.3f}"]
         argv += ["-i", str(src)]
 
         if not probe.has_audio:
@@ -353,15 +390,12 @@ class FfmpegRenderer(Renderer):
         workdir: Path,
         music_offset_sec: float = 0.0,
         treatment: "Treatment | None" = None,
+        final_part: Path | None = None,
     ) -> None:
         """Concatenate normalized parts and lay music under the whole video."""
         c = self._config.composition
         if c.loop_to_min:
-            v = self._config.video
-            floor, _, _ = effective_video_limits(
-                self._config.buffer.service, v.min_duration_sec,
-                v.max_duration_sec, v.max_file_mb,
-            )
+            floor = self._limits()[0]
             once = sum(self.probe(p).duration_sec for p in parts)
             if 0 < once < floor:
                 # A hair over, so encoder rounding cannot land it back under.
@@ -371,6 +405,10 @@ class FfmpegRenderer(Renderer):
                     floor=floor,
                 )
                 parts = list(parts) * repeats
+        if final_part is not None:
+            # The end card belongs on the last thing a viewer sees, once —
+            # not on every pass of a looped clip.
+            parts = [*list(parts)[:-1], final_part]
 
         listfile = workdir / "concat.txt"
         # The concat demuxer's own quoting rules: single quotes around the path,
@@ -506,17 +544,43 @@ class FfmpegRenderer(Renderer):
             if treatment is not NEUTRAL:
                 log.info("variant_treatment", **treatment.as_dict())
 
-            overlay = self._overlay_filters(request.overlay_text, workdir)
+            overlay = self._overlay_filters(
+                request.overlay_text, workdir,
+                y=self._config.overlay.y + treatment.overlay_shift,
+            )
             normalized: list[Path] = []
             for index, src in enumerate(sources):
                 temp = workdir / f"norm-{index:03d}.mp4"
-                self._normalize(src, temp, treatment, overlay)
+                self._normalize(
+                    src, temp, treatment, overlay,
+                    trim_start=treatment.trim_start if index == 0 else 0.0,
+                )
                 normalized.append(temp)
                 log.debug("normalized", source=src.name, temp=temp.name)
 
+            final_part: Path | None = None
+            funnel = self._config.funnel
+            if request.end_card_text:
+                # A second copy of the last clip carrying the end card, timed
+                # against that clip's own finished length.
+                length = self.probe(normalized[-1]).duration_sec
+                start = max(0.0, length - funnel.end_card_sec)
+                card = self._overlay_filters(
+                    request.end_card_text, workdir,
+                    y=funnel.end_card_y, scale=0.8, tag="endcard",
+                    enable=f"gte(t,{start:.3f})",
+                )
+                if card:
+                    final_part = workdir / "norm-end.mp4"
+                    self._normalize(
+                        sources[-1], final_part, treatment,
+                        ",".join(f for f in (overlay, card) if f),
+                        trim_start=treatment.trim_start if len(sources) == 1 else 0.0,
+                    )
+
             self._concat_and_mix(
                 normalized, request.music_path, request.output_path, workdir,
-                request.music_offset_sec, treatment,
+                request.music_offset_sec, treatment, final_part,
             )
         finally:
             # Temps are large; leaving them behind fills a CI runner's disk
@@ -550,14 +614,7 @@ class FfmpegRenderer(Renderer):
         gate stays hard.
         """
         v = self._config.video
-        service = self._config.buffer.service
-        # The tighter of config and platform. A campaign config is preference;
-        # the platform's number is a fact, and the old code enforced only the
-        # former — while naming every limit "Reels" regardless of where the
-        # video was actually going.
-        floor, ceiling, max_mb = effective_video_limits(
-            service, v.min_duration_sec, v.max_duration_sec, v.max_file_mb
-        )
+        floor, ceiling, max_mb, floor_svc, ceiling_svc = self._limits()
         problems: list[str] = []
 
         if not probe.has_video:
@@ -567,13 +624,12 @@ class FfmpegRenderer(Renderer):
         if probe.duration_sec < floor:
             problems.append(
                 f"duration {probe.duration_sec:.2f}s is under the {floor:.0f}s "
-                f"floor for {service.value}"
+                f"floor for {floor_svc.value}"
             )
         if probe.duration_sec > ceiling:
             problems.append(
                 f"duration {probe.duration_sec:.2f}s exceeds the {ceiling:.0f}s "
-                f"ceiling for {service.value} "
-                f"({self._config.buffer.post_type.value})"
+                f"ceiling for {ceiling_svc.value}"
             )
         if (probe.width, probe.height) != (v.width, v.height):
             problems.append(
@@ -583,8 +639,7 @@ class FfmpegRenderer(Renderer):
         size_mb = probe.size_bytes / 1_000_000
         if size_mb > max_mb:
             problems.append(
-                f"file is {size_mb:.1f} MB, over the {max_mb:.0f} MB cap for "
-                f"{service.value}"
+                f"file is {size_mb:.1f} MB, over the {max_mb:.0f} MB cap"
             )
 
         if problems:

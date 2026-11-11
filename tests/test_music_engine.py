@@ -596,3 +596,174 @@ class TestMetricsUnderFanOut:
         cached = load_posts(posts_path(release)).posts
         assert cached["post-tt111"].account == "main_tt"
         assert cached["post-ig222"].account == "side_ig"
+
+
+# ------------------------------------------------- per-account versions, funnel
+
+
+@pytest.fixture
+def network(release: Path) -> Path:
+    """The release campaign, with a version per account and a funnel."""
+    config = release / "config.yaml"
+    text = config.read_text()
+    text = text.replace("    accounts: [main_tt]\n", "    title: Song A\n")
+    text += """
+variation:
+  enabled: true
+  per_account: true
+  speed_max: 0.0
+  music_tempo_max: 0.0
+  music_tilt_db: 0.0
+  trim_start_max_sec: 0.3
+  overlay_shift_max: 0.02
+funnel:
+  name: The Album
+  cta:
+    - "full song: {name}, link in bio"
+  cta_by_network:
+    instagram:
+      - "listen: {link}"
+  first_comment:
+    - "{name} is out now"
+  end_card: "{name} | on Spotify"
+  end_card_sec: 1.0
+"""
+    config.write_text(text)
+    (release / "lineup.yaml").write_text("posts: []\n")
+    return release
+
+
+@needs_ffmpeg
+class TestPerAccountVersions:
+    def test_each_account_gets_a_different_video_not_a_regraded_copy(
+        self, network: Path, tmp_path: Path
+    ) -> None:
+        assert _render() == 0
+        items = load_queue(network / "queue.json").items
+        assert len(items) == 3
+        for item in items:
+            assert set(item.variants) == {"main_tt", "side_ig"}
+            a, b = item.variants["main_tt"], item.variants["side_ig"]
+            assert a.video_url != b.video_url
+            # Structurally different, which is the part that counts.
+            assert a.parts["hook"] != b.parts["hook"]
+            assert a.overlay != b.overlay
+            assert a.parts["music_offset_sec"] != b.parts["music_offset_sec"]
+            # And each recorded with its own recipe.
+            assert a.treatment != b.treatment
+            assert item.video_url == a.video_url
+        assert len(list((tmp_path / "published").glob("*.mp4"))) == 6
+
+    def test_the_song_itself_is_never_retimed(self, network: Path) -> None:
+        _render()
+        for item in load_queue(network / "queue.json").items:
+            for variant in item.variants.values():
+                assert variant.treatment["music_tempo"] == 1.0
+                assert variant.treatment["speed"] == 1.0
+
+    def test_every_caption_carries_the_ask_for_its_network(
+        self, network: Path
+    ) -> None:
+        _render()
+        for item in load_queue(network / "queue.json").items:
+            # The creative's own title fills {name}, not the campaign's.
+            assert item.variants["main_tt"].caption.endswith(
+                "full song: Song A, link in bio"
+            )
+            # Instagram's own line needs a link nobody set, so it falls back
+            # to the shared one rather than posting "listen: ".
+            assert item.variants["side_ig"].caption.endswith(
+                "full song: Song A, link in bio"
+            )
+            assert item.first_comment == "Song A is out now"
+
+    def test_push_sends_each_account_its_own_file_and_text(
+        self, network: Path, monkeypatch
+    ) -> None:
+        from src.publishers.base import DryRunPublisher
+
+        sent: list = []
+        original = DryRunPublisher.create_post
+
+        def capture(self, request):
+            sent.append(request)
+            return original(self, request)
+
+        monkeypatch.setattr(DryRunPublisher, "create_post", capture)
+        _render()
+        assert _topup() == 0
+        items = {i.id: i for i in load_queue(network / "queue.json").items}
+        assert len(sent) == 6
+        for request in sent:
+            owner = next(
+                (i, name) for i in items.values()
+                for name, v in i.variants.items() if v.video_url == request.video_url
+            )
+            item, name = owner
+            assert request.text == item.variants[name].caption
+            assert request.first_comment == "Song A is out now"
+
+    def test_history_records_what_each_account_was_shown(self, network: Path) -> None:
+        _render()
+        for entry in load_history(network / "history.json").entries:
+            assert set(entry.variants) == {"main_tt", "side_ig"}
+            assert entry.variants["main_tt"]["hook"] == entry.hook
+            assert entry.variants["side_ig"]["hook"] != entry.hook
+
+    def test_attribution_credits_the_clip_each_account_actually_posted(self) -> None:
+        history = [
+            _entry(
+                f"v{i}", post_ids={"x": f"a{i}", "y": f"b{i}"},
+                variants={"x": {"hook": "hook_01.mp4"}, "y": {"hook": "hook_02.mp4"}},
+            )
+            for i in range(8)
+        ]
+        posts = {f"a{i}": _post(f"a{i}", 100) for i in range(8)}
+        posts |= {f"b{i}": _post(f"b{i}", 900) for i in range(8)}
+        hook = next(r for r in attribute(history, posts) if r.dimension == "hook")
+        assert [(o.option, o.median) for o in hook.options] == [
+            ("hook_02.mp4", 900), ("hook_01.mp4", 100),
+        ]
+
+
+@needs_ffmpeg
+class TestEndCard:
+    def test_end_card_appears_only_at_the_end(
+        self, config, logger, clips: dict[str, Path], tmp_path: Path
+    ) -> None:
+        import subprocess
+
+        from src.config import FunnelConfig
+        from src.models import RenderRequest
+        from src.render import FfmpegRenderer
+
+        carded = config.model_copy(update={
+            "composition": CompositionConfig(bodies_per_video=0, loop_to_min=True),
+            "funnel": FunnelConfig(end_card="Song A | on Spotify", end_card_sec=1.0),
+        })
+
+        def frame_bytes(path: Path, at: float) -> bytes:
+            return subprocess.run(
+                ["ffmpeg", "-v", "error", "-ss", str(at), "-i", str(path),
+                 "-frames:v", "1", "-vf", "crop=iw:ih*0.2:0:ih*0.66,scale=64:16",
+                 "-f", "rawvideo", "-pix_fmt", "gray", "-"],
+                capture_output=True, timeout=60,
+            ).stdout
+
+        renderer = FfmpegRenderer(carded, logger)
+        plain = tmp_path / "plain.mp4"
+        with_card = tmp_path / "card.mp4"
+        base = dict(
+            hook_path=clips["portrait"], body_paths=(), music_path=None,
+        )
+        renderer.render(RenderRequest(item_id="p", output_path=plain, **base))
+        renderer.render(RenderRequest(
+            item_id="p", output_path=with_card,
+            end_card_text="Song A | on Spotify", **base,
+        ))
+        length = renderer.probe(with_card).duration_sec
+        # Identical early on (including the first pass of the looped clip)...
+        assert frame_bytes(plain, 1.0) == frame_bytes(with_card, 1.0)
+        assert frame_bytes(plain, 3.5) == frame_bytes(with_card, 3.5)
+        # ...and different in the last second, where the card is drawn.
+        assert frame_bytes(plain, length - 0.4) != frame_bytes(with_card, length - 0.4)
