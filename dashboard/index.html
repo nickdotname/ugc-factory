@@ -158,7 +158,16 @@ async function load() {
   try {
     STATE = await api("state");
   } catch (err) {
-    if (err.message !== "sign in") say(err.message, "bad");
+    if (err.message !== "sign in") {
+      // Before anyone is signed in there is no app to show the message in —
+      // without this a server that is not set up yet is just a blank page.
+      if ($("#app").classList.contains("hidden")) {
+        showLogin();
+        const out = $("#login-msg");
+        out.textContent = err.message;
+        out.className = "msg show bad";
+      } else say(err.message, "bad");
+    }
     return;
   }
   $("#app").classList.remove("hidden");
