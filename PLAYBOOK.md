@@ -246,5 +246,8 @@ Three account-level things matter as much as any setting:
 - **Buffer's free plan**: 10 queued posts per channel, 3,000 API requests per
   login per 30 days, 31 days of metrics history.
 - **Text**: the bundled font has no emoji; they are dropped from overlays.
-- **The dashboard** shows and pulls queued posts and previews samples, but the
-  lineup and cue points are edited in their files.
+- **Two dashboards.** The hosted one (`dashboard/`, see its README) works
+  from any device: it shows the queue, pulls posts, edits the lineup, captions
+  and settings, pauses a campaign and starts jobs. The local one (`./ugc web`)
+  is still where clips are uploaded and samples previewed, because those need
+  your files and ffmpeg.
