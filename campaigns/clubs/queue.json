@@ -240,11 +240,11 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 1,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
-          "scheduled_for": "2026-11-11T21:00:00-05:00"
+          "scheduled_for": "2026-11-12T21:00:00-05:00"
         },
         {
           "account": "nickdotname_tt",
@@ -299,7 +299,7 @@
       "titles": {
         "youtube": "Find a Sketch Comedy Cast"
       },
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
