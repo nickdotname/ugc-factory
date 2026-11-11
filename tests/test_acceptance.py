@@ -468,6 +468,11 @@ class TestShippedCampaign:
         identities: dict[str, str] = {}
         for summary in list_campaigns(REPO_ROOT / "campaigns"):
             cfg = load_campaign(REPO_ROOT / "campaigns", summary.slug)
+            if cfg.posting.fan_out:
+                # A fan-out campaign posts through accounts.yaml; its own
+                # `buffer:` block is a nominal binding, and two campaigns
+                # sharing accounts is the whole point of fan-out.
+                continue
             identity = cfg.buffer.channel_id or f"secret:{cfg.buffer.channel_id_secret}"
             assert identity not in identities, (
                 f"{summary.slug} and {identities[identity]} both target {identity}"
@@ -477,8 +482,7 @@ class TestShippedCampaign:
         # counted channels; under fan-out the channels live in accounts.yaml
         # and their distinctness is guaranteed there instead (see
         # tests/test_accounts.py). What stays true here is the rule itself:
-        # no two campaigns may point at one channel.
-        assert identities
+        # no two single-channel campaigns may point at one channel.
 
     def test_queue_and_history_files_are_valid_json(self) -> None:
         """Parse, not emptiness — these files carry real state once live."""

@@ -42,9 +42,9 @@ test("fails closed when nothing is configured", async () => {
   assert.equal(res.status, 503);
 });
 
-test("nothing is readable without signing in", async () => {
-  for (const path of ["state", "runs"]) assert.equal((await call(path)).status, 401);
-  const write = await call("file", { method: "PUT", body: { path: "campaigns/a/config.yaml", text: "x" } });
+test("nothing is readable or writable without signing in", async () => {
+  for (const path of ["state", "runs", "assets?tag=assets-a"]) assert.equal((await call(path)).status, 401);
+  const write = await call("commit", { method: "POST", body: { files: [{ path: "campaigns/a/config.yaml", text: "x" }] } });
   assert.equal(write.status, 401);
 });
 
@@ -70,53 +70,138 @@ test("the session cookie is locked down", async () => {
 
 test("a cross-site style write is refused even when signed in", async () => {
   const cookie = await login();
-  const res = await call("file", {
-    method: "PUT", cookie, headers: { "x-ugc": "0" },
-    body: { path: "campaigns/a/config.yaml", text: "x" },
+  const res = await call("commit", {
+    method: "POST", cookie, headers: { "x-ugc": "0" },
+    body: { files: [{ path: "campaigns/a/config.yaml", text: "x" }] },
   });
   assert.equal(res.status, 400);
 });
 
-test("only the editable files can be written", async () => {
+// A stand-in for the Git data API: one branch, a few existing files.
+function repo(existing = {}) {
+  const writes = [];
+  const calls = mockGithub((url, init) => {
+    const method = init.method || "GET";
+    if (url.includes("/git/ref/")) return ok({ object: { sha: "head1" } });
+    if (url.includes("/git/commits/head1")) return ok({ tree: { sha: "tree1" } });
+    if (url.includes("/git/trees/tree1")) {
+      return ok({ tree: Object.entries(existing).map(([path, sha]) => ({ path, sha, type: "blob" })) });
+    }
+    if (url.endsWith("/git/trees") && method === "POST") { writes.push(JSON.parse(init.body)); return ok({ sha: "tree2" }); }
+    if (url.endsWith("/git/commits") && method === "POST") return ok({ sha: "commit2" });
+    if (url.includes("/git/refs/heads/") && method === "PATCH") return ok({});
+    return new Response("{}", { status: 404 });
+  });
+  return { calls, writes };
+}
+
+const save = (cookie, body) => call("commit", { method: "POST", cookie, body });
+
+test("only the editable files can be committed", async () => {
   const cookie = await login();
-  const calls = mockGithub(() => ok({ content: { sha: "new" } }));
+  const { calls } = repo();
   const refused = [
     "accounts.yaml", "campaigns/a/queue.json", "campaigns/a/history.json",
     "src/cli.py", ".github/workflows/render.yml", "campaigns/a/../../src/cli.py",
-    "campaigns/a/config.yaml/../../../src/cli.py", "ugc",
+    "campaigns/a/config.yaml/../../../src/cli.py", "ugc", "dashboard/app.js",
   ];
   for (const path of refused) {
-    const res = await call("file", { method: "PUT", cookie, body: { path, text: "x: 1" } });
+    const res = await save(cookie, { files: [{ path, text: "x: 1" }] });
     assert.equal(res.status, 403, path);
   }
+  // One bad file refuses the whole save.
+  const mixed = await save(cookie, { files: [{ path: "campaigns/a/lineup.yaml", text: "posts: []" }, { path: "src/cli.py", text: "x" }] });
+  assert.equal(mixed.status, 403);
   assert.equal(calls.length, 0, "nothing reached GitHub");
+});
 
-  const allowed = [
-    "campaigns/closequarters/config.yaml", "campaigns/closequarters/lineup.yaml",
-    "campaigns/closequarters/creatives/song_a/captions.txt",
-    "campaigns/clubs/captions/tiktok.txt",
-  ];
-  for (const path of allowed) {
-    const res = await call("file", { method: "PUT", cookie, body: { path, text: "x: 1", sha: "old" } });
-    assert.equal(res.status, 200, path);
-  }
-  const sent = JSON.parse(calls[0].init.body);
-  assert.equal(sent.sha, "old");
-  assert.equal(sent.branch, "main");
-  assert.equal(calls[0].init.headers.authorization, "Bearer ghp_secret");
+test("several files land in one commit, on top of the version that was edited", async () => {
+  const cookie = await login();
+  const { calls, writes } = repo({ "campaigns/cq/config.yaml": "sha-old" });
+  const res = await save(cookie, {
+    message: "add a song\nwith a second line",
+    files: [
+      { path: "campaigns/cq/config.yaml", text: "slug: cq", sha: "sha-old" },
+      { path: "campaigns/cq/creatives/song_a/captions.txt", text: "hello" },
+    ],
+  });
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.files.length, 2);
+  assert.match(body.files[0].sha, /^[0-9a-f]{40}$/);
+  assert.equal(writes.length, 1);
+  assert.equal(writes[0].base_tree, "tree1");
+  assert.deepEqual(writes[0].tree.map((t) => [t.path, t.content]), [
+    ["campaigns/cq/config.yaml", "slug: cq\n"],
+    ["campaigns/cq/creatives/song_a/captions.txt", "hello\n"],
+  ]);
+  const made = JSON.parse(calls.find((c) => c.url.endsWith("/git/commits")).init.body);
+  assert.equal(made.message, "dashboard: add a song with a second line");
+  assert.deepEqual(made.parents, ["head1"]);
+  const moved = JSON.parse(calls.find((c) => c.init.method === "PATCH").init.body);
+  assert.equal(moved.force, false);
+});
+
+test("the blob sha it reports is the one git would compute", async () => {
+  const cookie = await login();
+  repo();
+  const res = await save(cookie, { files: [{ path: "campaigns/a/lineup.yaml", text: "hello" }] });
+  // git hash-object for "hello\n"
+  assert.equal((await res.json()).files[0].sha, "ce013625030ba8dba906f756967f9e9ca394464a");
+});
+
+test("a stale edit is refused, never forced", async () => {
+  const cookie = await login();
+  const { writes } = repo({ "campaigns/a/lineup.yaml": "sha-new" });
+  const stale = await save(cookie, { files: [{ path: "campaigns/a/lineup.yaml", text: "posts: []", sha: "sha-old" }] });
+  assert.equal(stale.status, 409);
+  // Creating a file that turns out to exist already is the same mistake.
+  const clobber = await save(cookie, { files: [{ path: "campaigns/a/lineup.yaml", text: "posts: []" }] });
+  assert.equal(clobber.status, 409);
+  assert.equal(writes.length, 0);
 });
 
 test("an empty save is refused", async () => {
   const cookie = await login();
-  const res = await call("file", { method: "PUT", cookie, body: { path: "campaigns/a/lineup.yaml", text: "  " } });
-  assert.equal(res.status, 400);
+  repo();
+  assert.equal((await save(cookie, { files: [] })).status, 400);
+  assert.equal((await save(cookie, { files: [{ path: "campaigns/a/lineup.yaml", text: "  " }] })).status, 400);
 });
 
-test("a stale edit is reported, not forced", async () => {
+test("a new campaign gets its seed files, and cannot overwrite an existing one", async () => {
   const cookie = await login();
-  mockGithub(() => new Response("{}", { status: 409 }));
-  const res = await call("file", { method: "PUT", cookie, body: { path: "campaigns/a/lineup.yaml", text: "posts: []", sha: "old" } });
-  assert.equal(res.status, 409);
+  const { writes } = repo({ "campaigns/clubs/config.yaml": "s1" });
+  const files = [{ path: "campaigns/demo/config.yaml", text: "slug: demo" }];
+  const res = await save(cookie, { new_campaign: "demo", files });
+  assert.equal(res.status, 200);
+  const written = Object.fromEntries(writes[0].tree.map((t) => [t.path, t.content]));
+  assert.deepEqual(JSON.parse(written["campaigns/demo/queue.json"]).items, []);
+  assert.deepEqual(JSON.parse(written["campaigns/demo/history.json"]).entries, []);
+
+  const taken = await save(cookie, { new_campaign: "clubs", files: [{ path: "campaigns/clubs/config.yaml", text: "slug: clubs" }] });
+  assert.equal(taken.status, 409);
+  const elsewhere = await save(cookie, { new_campaign: "demo2", files: [
+    { path: "campaigns/demo2/config.yaml", text: "slug: demo2" },
+    { path: "campaigns/clubs/captions.txt", text: "hijack" },
+  ] });
+  assert.equal(elsewhere.status, 403);
+  for (const bad of ["../x", "Demo", "a b", "_parked"]) {
+    assert.equal((await save(cookie, { new_campaign: bad, files })).status, 400, bad);
+  }
+});
+
+test("clip libraries are listed by name only for asset releases", async () => {
+  const cookie = await login();
+  const calls = mockGithub((url) => (url.includes("assets-none")
+    ? new Response("{}", { status: 404 })
+    : ok({ assets: [{ name: "hook_01.mp4", size: 5, browser_download_url: "https://x/hook_01.mp4", uploader: { login: "n" } }] })));
+  const res = await call("assets?tag=assets-clubs", { cookie });
+  assert.deepEqual(await res.json(), { assets: [{ name: "hook_01.mp4", size: 5, url: "https://x/hook_01.mp4" }] });
+  assert.deepEqual(await (await call("assets?tag=assets-none", { cookie })).json(), { assets: [] });
+  for (const tag of ["render-clubs-2026-11-10", "v1.0", "assets-../x", ""]) {
+    assert.equal((await call(`assets?tag=${encodeURIComponent(tag)}`, { cookie })).status, 400, tag);
+  }
+  assert.equal(calls.length, 2);
 });
 
 test("only known workflows start, with only well-formed inputs", async () => {

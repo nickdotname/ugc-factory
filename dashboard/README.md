@@ -1,16 +1,34 @@
 # Hosted dashboard
 
-A password-protected page for running the engine from anywhere: see what is
-queued (and watch it), pull a post back, edit the lineup, captions and
-settings, pause or resume a campaign, and start a render, a push, a check or a
-metrics refresh.
+A password-protected page for running the engine from a phone or a laptop.
 
-It is one static page (`index.html`) and one server function
-(`functions/api/[[path]].js`). The function is the only thing holding a
-credential, and it can do exactly four things against fixed allowlists: read
-campaign files, write the files a person edits, start a workflow, list recent
-runs. Uploading clips and previewing samples stay in the local dashboard
-(`./ugc web`), which has your files and ffmpeg.
+| tab | what it is for |
+|---|---|
+| **Schedule** | Every video lined up, by day and time: what is on screen, the caption, which accounts, each account's own version. Watch one, or pull it back. |
+| **Content** | The songs (or sets) in a campaign: add one, write its captions, set where its track starts, choose its accounts and how often it posts. |
+| **Plan** | Posts spelled out by hand: this clip, this second of the track, these words, this time. |
+| **Setup** | Posting hours, sound, a different video per account, the link and closing lines every post carries, which accounts. The full settings file is at the bottom. |
+| **Jobs** | Make videos now, send to Buffer now, check everything, refresh numbers, ask why something did not post. |
+
+The pill at the top right says whether the campaign is **Paused**, in **Test
+mode** or **Live**, and is how you change it. "New campaign…" is in the
+campaign menu; a new campaign always starts paused.
+
+Uploading clips and tracks stays in the local dashboard (`./ugc web`), which
+has your files and ffmpeg.
+
+## How it is built
+
+- `index.html`, `app.css`, `app.js` — the page. No build step.
+- `lib/yamledit.js` — changes one setting in a config file in place, so the
+  comments explaining every setting survive an edit from a form.
+- `lib/bank.js` — reads and writes caption files.
+- `lib/template.js` — the files a new campaign starts with.
+- `functions/api/[[path]].js` — the only server code, and the only thing
+  holding a credential. It works from fixed allowlists: which files can be
+  read, which can be committed, which jobs can be started with which inputs.
+  Saves are single commits made on top of the exact version that was edited,
+  so a stale tab can never overwrite newer work.
 
 ## Deploy on Cloudflare Pages
 
@@ -43,8 +61,8 @@ in front of the domain and allow only your email.
 
 ```bash
 node dashboard/test/dev-server.mjs     # http://localhost:8788, password: dev
-node --test dashboard/test/api.test.mjs
+node --test dashboard/test/api.test.mjs dashboard/test/lib.test.mjs
 ```
 
 The dev server runs the real function against this checkout's files with
-GitHub stubbed out: nothing is read from or written to the network.
+GitHub stubbed out. Saves stay in memory, so everything is safe to click.

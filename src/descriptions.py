@@ -99,6 +99,12 @@ def parse_bank(text: str) -> list[Description]:
             continue
         # A block that is entirely comment lines is a note, not a record.
         lines = [ln for ln in stripped.splitlines() if not ln.lstrip().startswith("#")]
+        # A file that opens with a comment block and a blank line, then its
+        # first record, leaves that blank line at the head of the record.
+        # Left there it hides the record's `overlay:` / `title:` lines from
+        # the check below and they are posted as part of the caption.
+        while lines and not lines[0].strip():
+            lines = lines[1:]
         if not lines:
             continue
 

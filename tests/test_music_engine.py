@@ -70,6 +70,25 @@ class TestOverlayLine:
             ("second line", "Other", "body two"),
         ]
 
+    def test_a_comment_header_does_not_hide_the_first_records_fields(self) -> None:
+        """A header comment, a blank line, then the first record: its overlay
+        and title must still be read as fields, not posted in the caption."""
+        bank = parse_bank(
+            "# notes about this file\n# more notes\n\n"
+            "overlay: on screen\ntitle: The Title\nthe caption\n---\nsecond"
+        )
+        assert (bank[0].overlay, bank[0].title, bank[0].body) == (
+            "on screen", "The Title", "the caption",
+        )
+
+    def test_shipped_banks_never_post_a_field_line_as_caption_text(self) -> None:
+        from pathlib import Path
+
+        root = Path(__file__).resolve().parents[1] / "campaigns"
+        for path in root.glob("[!_]*/**/captions*.txt"):
+            for record in parse_bank(path.read_text(encoding="utf-8")):
+                assert not record.body.lower().startswith(("overlay:", "title:")), path
+
     def test_a_record_without_one_has_no_overlay(self) -> None:
         assert parse_bank("just a caption")[0].overlay is None
 

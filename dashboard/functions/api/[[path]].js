@@ -1,9 +1,9 @@
 // The hosted dashboard's whole server side: a small, deliberately narrow
 // bridge between a logged-in browser and this repository on GitHub.
 //
-// It can do exactly four things, each against an allowlist: read campaign
-// files, write the handful of files a person edits, start a workflow, and
-// list recent runs. It holds the only credential (a GitHub token scoped to
+// It can do exactly five things, each against an allowlist: read campaign
+// files, commit changes to the handful of files a person edits, list a
+// clip library, start a workflow, and list recent runs. It holds the only credential (a GitHub token scoped to
 // this one repo) and never sends it to the browser.
 //
 // Environment (Cloudflare Pages → Settings → Variables and Secrets):
@@ -56,7 +56,17 @@ const INPUT_SHAPE = {
   account: /^[a-z0-9_]{1,64}$/,
 };
 
+// Files a brand-new campaign needs that nobody edits by hand. Their content
+// is fixed here; whatever the browser sends for them is ignored.
+const SEEDED = {
+  "queue.json": '{\n  "generated_at": "1970-01-01T00:00:00Z",\n  "items": []\n}\n',
+  "history.json": '{\n  "entries": []\n}\n',
+};
+const SLUG = /^[a-z][a-z0-9_]{1,40}$/;
+const ASSET_TAG = /^assets-[a-z0-9_-]{1,80}$/;
+
 const MAX_FILE_BYTES = 400_000;
+const MAX_FILES_PER_COMMIT = 12;
 
 function json(body, status = 200, headers = {}) {
   return new Response(JSON.stringify(body), {
@@ -164,6 +174,99 @@ async function state(env, branch) {
   return { repo: env.GITHUB_REPO || DEFAULT_REPO, branch, campaigns, files };
 }
 
+// What git itself would call this content, so the browser knows the new
+// version of a file without asking again.
+async function blobSha(text) {
+  const body = new TextEncoder().encode(text);
+  const head = new TextEncoder().encode(`blob ${body.length}\0`);
+  const all = new Uint8Array(head.length + body.length);
+  all.set(head); all.set(body, head.length);
+  const digest = await crypto.subtle.digest("SHA-1", all);
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+class Refused extends Error {
+  constructor(status, message) { super(message); this.status = status; }
+}
+
+// One commit for any number of edited files: either every change lands or
+// none does, and the checks on push run once.
+async function commit(env, branch, body) {
+  const files = Array.isArray(body.files) ? body.files : [];
+  if (!files.length) throw new Refused(400, "nothing to save");
+  if (files.length > MAX_FILES_PER_COMMIT) throw new Refused(400, "too many files in one save");
+
+  const fresh = typeof body.new_campaign === "string" ? body.new_campaign : "";
+  if (fresh && !SLUG.test(fresh)) throw new Refused(400, "campaign name must be lowercase letters, digits and underscores");
+
+  const wanted = new Map();
+  for (const f of files) {
+    if (!f || !matches(WRITABLE, f.path)) throw new Refused(403, "that file cannot be edited here");
+    if (fresh && !f.path.startsWith(`campaigns/${fresh}/`)) throw new Refused(403, "a new campaign can only write its own files");
+    if (typeof f.text !== "string" || !f.text.trim()) throw new Refused(400, `refusing to save an empty file: ${f.path}`);
+    if (new TextEncoder().encode(f.text).length > MAX_FILE_BYTES) throw new Refused(413, "too large");
+    wanted.set(f.path, { text: f.text.endsWith("\n") ? f.text : `${f.text}\n`, sha: f.sha || "" });
+  }
+  if (fresh) {
+    if (!wanted.has(`campaigns/${fresh}/config.yaml`)) throw new Refused(400, "a new campaign needs its config");
+    for (const [name, text] of Object.entries(SEEDED)) {
+      wanted.set(`campaigns/${fresh}/${name}`, { text, sha: "", seeded: true });
+    }
+  }
+
+  const ref = await gh(env, `/git/ref/heads/${encodeURIComponent(branch)}`);
+  if (!ref.ok) throw new Error(`GitHub ${ref.status} reading the branch`);
+  const head = (await ref.json()).object.sha;
+  const parent = await gh(env, `/git/commits/${head}`);
+  if (!parent.ok) throw new Error(`GitHub ${parent.status} reading the latest commit`);
+  const baseTree = (await parent.json()).tree.sha;
+  const listing = await gh(env, `/git/trees/${baseTree}?recursive=1`);
+  if (!listing.ok) throw new Error(`GitHub ${listing.status} listing the repository`);
+  const current = new Map((await listing.json()).tree.map((n) => [n.path, n.sha]));
+
+  if (fresh && current.has(`campaigns/${fresh}/config.yaml`)) {
+    throw new Refused(409, `a campaign called ${fresh} already exists`);
+  }
+  for (const [path, file] of wanted) {
+    const existing = current.get(path) || "";
+    // The version the editor loaded must still be the version on the
+    // branch: a workflow or another tab may have moved it on since.
+    if (existing !== file.sha) {
+      throw new Refused(409, existing
+        ? `${path} changed since you opened it. Reload, then make the change again.`
+        : `${path} no longer exists. Reload.`);
+    }
+  }
+
+  const tree = await gh(env, "/git/trees", {
+    method: "POST",
+    body: JSON.stringify({
+      base_tree: baseTree,
+      tree: [...wanted].map(([path, f]) => ({ path, mode: "100644", type: "blob", content: f.text })),
+    }),
+  });
+  if (!tree.ok) throw new Error(`GitHub ${tree.status} writing the files`);
+  const note = String(body.message || "update").replace(/[\r\n]+/g, " ").slice(0, 100);
+  const made = await gh(env, "/git/commits", {
+    method: "POST",
+    body: JSON.stringify({ message: `dashboard: ${note}`, tree: (await tree.json()).sha, parents: [head] }),
+  });
+  if (!made.ok) throw new Error(`GitHub ${made.status} creating the commit`);
+  const moved = await gh(env, `/git/refs/heads/${encodeURIComponent(branch)}`, {
+    method: "PATCH",
+    body: JSON.stringify({ sha: (await made.json()).sha, force: false }),
+  });
+  if (!moved.ok) {
+    // Something else committed in the last second (the pipeline does, all
+    // day). Nothing was overwritten; the save just has to be tried again.
+    throw new Refused(409, "The repository changed while saving. Nothing was lost — save again.");
+  }
+  return {
+    ok: true,
+    files: await Promise.all([...wanted].map(async ([path, f]) => ({ path, sha: await blobSha(f.text), text: f.text }))),
+  };
+}
+
 // --------------------------------------------------------------------- routes
 
 export async function onRequest({ request, env }) {
@@ -219,28 +322,21 @@ export async function onRequest({ request, env }) {
       return json(await state(env, branch));
     }
 
-    if (route === "file" && method === "PUT") {
-      const { path, text, sha } = body;
-      if (!matches(WRITABLE, path)) return json({ error: "that file cannot be edited here" }, 403);
-      if (typeof text !== "string" || !text.trim()) return json({ error: "refusing to save an empty file" }, 400);
-      if (new TextEncoder().encode(text).length > MAX_FILE_BYTES) return json({ error: "too large" }, 413);
-      const res = await gh(env, `/contents/${path}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          message: `dashboard: update ${path}`,
-          content: b64encode(text.endsWith("\n") ? text : `${text}\n`),
-          branch,
-          // The version the editor loaded. If the file moved on since — a
-          // workflow, another tab — GitHub refuses rather than overwriting.
-          ...(typeof sha === "string" && sha ? { sha } : {}),
-        }),
-      });
-      if (res.status === 409 || res.status === 422) {
-        return json({ error: "this file changed since you opened it — reload and redo the edit" }, 409);
-      }
-      if (!res.ok) return json({ error: `GitHub ${res.status} saving ${path}` }, 502);
-      const saved = await res.json();
-      return json({ ok: true, sha: saved.content.sha });
+    if (route === "commit" && method === "POST") {
+      return json(await commit(env, branch, body));
+    }
+
+    if (route === "assets" && method === "GET") {
+      const tag = url.searchParams.get("tag") || "";
+      if (!ASSET_TAG.test(tag)) return json({ error: "bad library name" }, 400);
+      const res = await gh(env, `/releases/tags/${tag}`);
+      // No release yet just means nothing has been uploaded.
+      if (res.status === 404) return json({ assets: [] });
+      if (!res.ok) return json({ error: `GitHub ${res.status} listing the library` }, 502);
+      const assets = ((await res.json()).assets || []).map((a) => ({
+        name: a.name, size: a.size, url: a.browser_download_url,
+      }));
+      return json({ assets });
     }
 
     if (route === "run" && method === "POST") {
@@ -273,7 +369,8 @@ export async function onRequest({ request, env }) {
       return json({ runs });
     }
   } catch (err) {
-    return json({ error: String(err && err.message ? err.message : err) }, 502);
+    const status = err instanceof Refused ? err.status : 502;
+    return json({ error: String(err && err.message ? err.message : err) }, status);
   }
 
   return json({ error: "not found" }, 404);
