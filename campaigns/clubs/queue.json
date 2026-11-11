@@ -175,8 +175,8 @@
         {
           "account": "knick_creates_tt",
           "network": "tiktok",
-          "status": "claimed",
-          "attempts": 1,
+          "status": "failed",
+          "attempts": 2,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
           "scheduled_for": "2026-11-12T16:00:00-05:00"
@@ -198,7 +198,7 @@
       "titles": {
         "youtube": "How Singers Find Collabs"
       },
-      "status": "claimed",
+      "status": "failed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
