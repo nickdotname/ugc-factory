@@ -1,0 +1,98 @@
+# Close Quarters — music marketing for "Education".
+#
+# Music-first: the song is the content. Clips are silenced, the track plays at
+# full level from an exact cue, and the meme line is drawn on screen.
+# How to run it day to day: PLAYBOOK.md at the repo root.
+
+slug: closequarters
+timezone: America/New_York
+
+# One creative per SONG is the intended shape: its own clips, its own track
+# and cue points, its own captions, and (optionally) its own accounts. Add a
+# song by copying the commented block and creating
+# campaigns/closequarters/creatives/<name>/captions.txt.
+creatives:
+  - name: default
+  # - name: song_title_here
+  #   assets_release: assets-closequarters-song_title_here
+  #   weight: 2                       # twice as likely to be picked per slot
+  #   music_cues:
+  #     music_01.mp3: [42.5, 73]      # seconds; the moments worth posting
+  #   accounts: [nickdotname_tt, nickdotname_ig]   # omit = every account
+
+posting:
+  posts_per_day: 3
+  start_hour: 11
+  end_hour: 23
+  max_buffer_queue: 10
+  max_backlog_days: 1
+  # Keeps these posts off the minute another campaign uses on the same
+  # accounts.
+  slot_offset_min: 10
+  fan_out: true
+  # Both switches are ON so nothing can post until you have looked at a
+  # sample. To go live: paused -> false, then dry_run -> false.
+  paused: true
+  dry_run: true
+
+video:
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 21
+  preset: veryfast
+  min_duration_sec: 5
+  max_duration_sec: 60
+  max_file_mb: 100
+
+composition:
+  bodies_per_video: 0          # one clip per video
+  loop_to_min: true            # a 3-second clip loops instead of failing
+  music_volume: 1.0            # the song, at full level
+  clip_volume: 0.0             # the clip's own sound, off
+  music_cleared: true          # it is your music
+  music_fade_in_sec: 0.05      # a cue should hit, not swell
+  music_fade_out_sec: 0.4
+  music_random_start: true     # only for tracks with no music_cues
+  music_segment_sec: 15
+  music_skip_intro_sec: 0
+
+variation:
+  # Small per-video differences in crop, grade and grain so six accounts are
+  # not posting byte-identical pictures. The music is never touched.
+  enabled: true
+  speed_max: 0.0
+  music_tempo_max: 0.0
+  music_tilt_db: 0.0
+  allow_mirror: false
+
+overlay:
+  enabled: true
+  size: 0.06
+  y: 0.16
+  max_chars: 24
+
+selection:
+  dedupe_on: [hook, music, caption]
+  caption_cooldown_days: 0
+  hook_cooldown_days: 0
+  min_runway_days: 7
+  performance_weight: 0.5
+  performance_statistic: mean
+  # false = post ONLY what lineup.yaml spells out.
+  auto_fill: true
+
+# Legacy single-channel binding. Fan-out posts through accounts.yaml; this
+# only decides which network's limits captions are checked against first.
+buffer:
+  api_key_secret: BUFFER_API_KEY
+  channel_id: 6a1dc9e4c687a22dd44c7e3d
+  post_type: post
+  service: tiktok
+  organization_id: 6a1dc863e8cbb15ba8fdb4ab
+  title_strategy: derive
+
+notify:
+  webhook_secret: DISCORD_WEBHOOK
+  on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed,
+       queue_stale, distribution_lost, schedule_gap, digest]

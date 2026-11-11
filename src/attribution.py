@@ -142,20 +142,26 @@ def attribute(
     samples: dict[str, dict[str, list[float]]] = {}
 
     for entry in history:
-        if not entry.buffer_post_id:
-            continue
-        post = posts.get(entry.buffer_post_id)
-        if post is None:
-            continue
-        if service and post.service != service:
-            continue
-        value = post.value(metric)
-        if value is None:
-            continue
-        for dimension, options in _parts_of(entry).items():
-            bucket = samples.setdefault(dimension, {})
-            for option in options:
-                bucket.setdefault(option, []).append(value)
+        # Every channel's copy is its own sample: under fan-out one video is
+        # several posts, and each one is evidence about the clips in it.
+        post_ids = dict.fromkeys(
+            [entry.buffer_post_id, *entry.post_ids.values()]
+        )
+        for post_id in post_ids:
+            if not post_id:
+                continue
+            post = posts.get(post_id)
+            if post is None:
+                continue
+            if service and post.service != service:
+                continue
+            value = post.value(metric)
+            if value is None:
+                continue
+            for dimension, options in _parts_of(entry).items():
+                bucket = samples.setdefault(dimension, {})
+                for option in options:
+                    bucket.setdefault(option, []).append(value)
 
     reports: list[DimensionReport] = []
     for dimension, by_option in samples.items():

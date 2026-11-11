@@ -1,7 +1,15 @@
 # ugc-factory
 
-Unattended pipeline that assembles short vertical videos from a library of parts
-and publishes them to Instagram Reels on a schedule. See [SPEC.md](SPEC.md).
+Unattended pipeline that assembles short vertical videos from a library of
+parts and publishes them to Instagram, TikTok and YouTube through Buffer, on a
+schedule, for any number of campaigns and accounts.
+
+**Start with [PLAYBOOK.md](PLAYBOOK.md)** — connecting a Buffer login, setting
+up a campaign or a song, choosing exactly what posts, and pulling a post back.
+[CONTEXT.md](CONTEXT.md) is what four weeks of running it taught;
+[SPEC.md](SPEC.md) is the original contract. Sections below this point are the
+original build log and are accurate for the single-channel design they
+describe, but predate fan-out, creatives and the lineup.
 
 ---
 

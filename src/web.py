@@ -598,14 +598,20 @@ class WebApp:
         paths = filter_library(
             LocalLibrary.from_directory(assets), self._roster(), self.log
         )
+        # The creative's own bank when it has one, as the render job does.
+        own_bank = (
+            self.config.creative_dir(self.bank_path.parent, self.creative)
+            / "captions.txt"
+        )
+        bank = own_bank if own_bank.is_file() else self.bank_path
         try:
             descriptions = load_bank(
-                self.bank_path.read_text(encoding="utf-8"),
+                bank.read_text(encoding="utf-8"),
                 self.config.buffer.service,
-                source=str(self.bank_path),
+                source=str(bank),
                 strategy=self.config.buffer.title_strategy,
             )
-        except UgcError as exc:
+        except (UgcError, OSError) as exc:
             return {"ok": False, "error": f"descriptions: {exc}"}
         if not descriptions:
             return {"ok": False, "error": "no descriptions written yet"}
@@ -633,6 +639,8 @@ class WebApp:
                 if composition.music_random_start else 0.0
             ),
             music_skip_intro_sec=composition.music_skip_intro_sec,
+            music_cues=dict(self.creative.music_cues),
+            bodies_required=composition.bodies_per_video > 0,
         )
 
         from src.models import History as _History
@@ -664,6 +672,7 @@ class WebApp:
         if missing:
             return {"ok": False,
                     "error": f"library is missing {', '.join(missing)}"}
+        overlays = {d.body: d.overlay for d in descriptions}
         samples = work / "samples"
         samples.mkdir(parents=True, exist_ok=True)
         # One file, reused: samples are disposable and an unbounded pile of
@@ -677,6 +686,7 @@ class WebApp:
                 music_path=by_name[selection.music] if selection.music else None,
                 music_offset_sec=selection.music_offset_sec,
                 output_path=output,
+                overlay_text=overlays.get(selection.caption),
             ))
         except UgcError as exc:
             return {"ok": False, "error": f"render failed: {exc}"}
@@ -693,6 +703,7 @@ class WebApp:
             "music_offset_sec": selection.music_offset_sec,
             "caption": selection.caption,
             "title": titles.get(selection.caption),
+            "overlay": overlays.get(selection.caption),
             "relaxation": outcome.relaxation.value,
             "size": output.stat().st_size,
         }
@@ -950,34 +961,84 @@ class WebApp:
 
         removed_remotely = False
         warning = ""
-        if item.buffer_post_id:
-            key = self.buffer_key()
-            if not key:
-                return {
-                    "ok": False,
-                    "error": f"This post is already in Buffer, and removing it "
-                             f"needs the {self.config.buffer.api_key_secret} key. "
-                             f"Paste it in the Keys panel first — cancelling "
-                             f"here alone would not stop Buffer publishing it.",
-                }
-            from src.publishers.buffer import BufferPublisher
+        from src.accounts import ACCOUNTS_FILE, load_accounts
+        from src.models import QueueStatus
+        from src.publishers.buffer import BufferPublisher
+        from src.queue import sync_status, transition_post
 
-            publisher = BufferPublisher(
-                key, self.log,
-                organization_id=self.config.buffer.organization_id,
-            )
+        # Where Buffer is holding a copy: one per account under fan-out, or
+        # the item's own single post for a one-channel campaign. Each entry is
+        # (post id, key slot, organization id, the account record or None).
+        registry = load_accounts(self.campaigns_dir.parent / ACCOUNTS_FILE)
+        held: list[tuple[str, str, str | None, Any]] = []
+        for post in item.posts:
+            if post.status is QueueStatus.PUSHED and post.buffer_post_id:
+                account = registry.by_name(post.account)
+                held.append((
+                    post.buffer_post_id,
+                    account.api_key_secret if account
+                    else self.config.buffer.api_key_secret,
+                    account.organization_id if account
+                    else self.config.buffer.organization_id,
+                    post,
+                ))
+        if not item.posts and item.buffer_post_id:
+            held.append((
+                item.buffer_post_id, self.config.buffer.api_key_secret,
+                self.config.buffer.organization_id, None,
+            ))
+
+        missing = sorted({slot for _, slot, _, _ in held if not self.buffer_key(slot)})
+        if missing:
+            return {
+                "ok": False,
+                "error": f"This post is already in Buffer, and removing it "
+                         f"needs the {', '.join(missing)} key. "
+                         f"Paste it in the Keys panel first — cancelling "
+                         f"here alone would not stop Buffer publishing it.",
+            }
+
+        stuck: list[str] = []
+        for post_id, slot, org, post in held:
+            key = self.buffer_key(slot)
+            assert key is not None
             try:
-                publisher.delete_post(item.buffer_post_id)
+                BufferPublisher(key, self.log, organization_id=org).delete_post(post_id)
                 removed_remotely = True
             except UgcError as exc:
                 # Most often: the network already published it, so Buffer no
-                # longer has a post to delete. Recording the cancellation is
-                # still right — it stops any retry — but the operator must know
-                # the video is live.
-                warning = (
-                    f"Buffer would not remove it: {exc}. If it has already "
-                    f"published, take it down on the network itself."
-                )
+                # longer has a post to delete. The operator must know which
+                # copies are live.
+                stuck.append(f"{post.account if post else 'the post'}: {exc}")
+        if stuck:
+            warning = (
+                "Buffer would not remove " + "; ".join(stuck) + ". Anything "
+                "already published has to be taken down on the network itself."
+            )
+
+        if item.posts:
+            # Record by record: the item-level state machine has no single
+            # answer once some accounts have published and others have not.
+            try:
+                for post in item.posts:
+                    if post.status in (
+                        QueueStatus.PENDING, QueueStatus.PUSHED, QueueStatus.FAILED
+                    ):
+                        transition_post(
+                            post, QueueStatus.CANCELLED, item.id, log=self.log
+                        )
+                sync_status(item)
+            except UgcError as exc:
+                return {"ok": False, "error": str(exc)}
+            save_queue(path, queue)
+            self.log.info(
+                "queue_item_pulled", item_id=item_id,
+                campaign=self.config.slug, from_buffer=removed_remotely,
+            )
+            return {
+                "ok": True, "id": item_id, "from_buffer": removed_remotely,
+                "warning": warning,
+            }
 
         try:
             cancel(item, log=self.log)

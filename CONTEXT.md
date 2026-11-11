@@ -360,3 +360,43 @@ Check what the code actually does before theorising about it.
 What is *not* worth doing: tuning YouTube (§4), cross-campaign dedupe (networks
 do not share fingerprint databases), or trusting any single coverage or runway
 percentage without looking at what it counts.
+
+---
+
+## 10. Audit, 2026-11-10
+
+What a full read of the code and the live state turned up, and what changed.
+
+### Found broken
+
+- **Metrics had failed every day since 2026-10-17 (24 runs).** Buffer's free
+  plan now answers only the last 31 days, the lifetime window is older than
+  that, and the refusal aborted the run *before* per-post figures were
+  fetched. So `posts.json` froze: `performance_weight` kept ranking clips on
+  three-week-old numbers and `distribution_lost` could not have fired. The
+  lifetime window is now best-effort, and all-time totals are summed from the
+  per-post cache instead.
+- **Five of six accounts were never measured.** Metrics read only the
+  campaign's own `buffer.channel_id` (nickdotname Instagram). Under fan-out it
+  now reads every account the campaign reaches, each through its own login,
+  and `history.json` keeps every account's post id (`post_ids`) so those
+  figures can be joined back to clips.
+- **A pushed post could not be pulled under fan-out.** Both `ugc queue
+  --discard pushed` and the dashboard's Pull button looked for a post id on
+  the item, and fan-out stores them per account. Both now delete each
+  account's copy through the right login.
+- **Crons ran 6–8 hours late.** Render scheduled for 05:00 UTC was starting
+  11:30–13:30; top-up managed about three runs a day instead of six. Both
+  moved off the top of the hour.
+- `tests/test_config.py::TestShippedCaptionsMeetDemand` fails on live data
+  (captions cover 61% of search volume against a 75% floor). That is the
+  demand alert doing its job inside the test suite, not a code fault — it
+  needs caption work on the Clubs bank, or a lower floor.
+
+### Added
+
+Music-first rendering (`clip_volume`, `music_cues`, `bodies_per_video: 0`,
+`loop_to_min`, on-screen `overlay:` text), per-creative caption banks and
+account lists, the lineup, `posting.paused`, `ugc connect`, and a fuller `ugc
+queue`. All described in `PLAYBOOK.md`. Every one is off or neutral by
+default: the `clubs` campaign renders exactly as it did.

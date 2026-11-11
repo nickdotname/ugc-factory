@@ -39,6 +39,44 @@ AUDIO_RATE = 48000
 AUDIO_CHANNELS = 2
 AUDIO_BITRATE = "128k"
 
+#: Fonts are named relative to the repo root (``overlay.font_file``).
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
+def wrap_overlay(text: str, max_chars: int) -> list[str]:
+    """Break on-screen text into lines that fit the frame.
+
+    ffmpeg's drawtext does not wrap, so the wrapping is decided here, on
+    word boundaries. A ``|`` in the text is a line break the writer chose and
+    is always honoured. Characters outside the Basic Multilingual Plane are
+    dropped: that is emoji, which a text font has no glyphs for and would
+    draw as empty boxes.
+    """
+    cleaned = "".join(
+        ch for ch in text
+        if ord(ch) < 0x2190 or 0x2C00 <= ord(ch) < 0xFE00
+    )
+    lines: list[str] = []
+    for chunk in cleaned.split("|"):
+        current = ""
+        for word in chunk.split():
+            candidate = f"{current} {word}".strip()
+            if current and len(candidate) > max_chars:
+                lines.append(current)
+                current = word
+            else:
+                current = candidate
+        if current:
+            lines.append(current)
+    return lines
+
+
+def _filter_path(path: Path) -> str:
+    """A path quoted for use inside an ffmpeg filter option."""
+    escaped = str(path).replace("\\", "/").replace("'", r"\'").replace(":", r"\:")
+    return f"'{escaped}'"
+
+
 #: How long ffmpeg may run on a single invocation before we treat it as hung.
 #: Generous: a 90s 1080x1920 encode on a cold CI runner is slow but not slower
 #: than this, and a hang here would otherwise block the whole nightly job.
@@ -172,8 +210,47 @@ class FfmpegRenderer(Renderer):
 
     # --------------------------------------------------------------- stage one
 
+    def _overlay_filters(self, text: str | None, workdir: Path) -> str:
+        """drawtext filters for one video's on-screen text, or ``""``.
+
+        One filter per line, each centred on its own width: a single
+        multi-line drawtext left-aligns its lines to the widest one, which
+        reads as a paragraph rather than a caption. Each line goes through a
+        text file so no caption punctuation can break the filter string.
+        """
+        o = self._config.overlay
+        if not text or not o.enabled:
+            return ""
+        lines = wrap_overlay(text, o.max_chars)
+        if not lines:
+            return ""
+        font = REPO_ROOT / o.font_file
+        if not font.is_file():
+            raise RenderError(
+                f"overlay font not found: {font} (overlay.font_file is "
+                f"relative to the repo root)"
+            )
+        v = self._config.video
+        size = max(8, round(v.width * o.size))
+        line_height = round(size * 1.28)
+        border = round(size * o.outline)
+        top = round(v.height * o.y)
+        filters: list[str] = []
+        for index, line in enumerate(lines):
+            textfile = workdir / f"overlay-{index:02d}.txt"
+            textfile.write_text(line, encoding="utf-8")
+            filters.append(
+                f"drawtext=fontfile={_filter_path(font)}"
+                f":textfile={_filter_path(textfile.resolve())}"
+                f":fontsize={size}:fontcolor={o.color}"
+                f":borderw={border}:bordercolor={o.outline_color}"
+                f":x=(w-text_w)/2:y={top + index * line_height}"
+            )
+        return ",".join(filters)
+
     def _normalize(
-        self, src: Path, dest: Path, treatment: "Treatment | None" = None
+        self, src: Path, dest: Path, treatment: "Treatment | None" = None,
+        overlay: str = "",
     ) -> None:
         """Re-encode one clip to the campaign's exact output shape.
 
@@ -230,6 +307,12 @@ class FfmpegRenderer(Renderer):
                 f"format=yuv420p"  # broad player/Instagram compatibility
             )
 
+        if overlay:
+            # Last in the chain, after any treatment: the text must sit square
+            # and sharp on the finished frame, not be zoomed, rotated or
+            # regraded along with the footage under it.
+            vf = f"{vf},{overlay}"
+
         audio_filters = treatment.audio_filters() if treatment else ""
         argv += [
             "-map", "0:v:0",
@@ -272,6 +355,23 @@ class FfmpegRenderer(Renderer):
         treatment: "Treatment | None" = None,
     ) -> None:
         """Concatenate normalized parts and lay music under the whole video."""
+        c = self._config.composition
+        if c.loop_to_min:
+            v = self._config.video
+            floor, _, _ = effective_video_limits(
+                self._config.buffer.service, v.min_duration_sec,
+                v.max_duration_sec, v.max_file_mb,
+            )
+            once = sum(self.probe(p).duration_sec for p in parts)
+            if 0 < once < floor:
+                # A hair over, so encoder rounding cannot land it back under.
+                repeats = int((floor + 0.25) // once) + 1
+                self._log.info(
+                    "looped_to_min", once_sec=round(once, 2), repeats=repeats,
+                    floor=floor,
+                )
+                parts = list(parts) * repeats
+
         listfile = workdir / "concat.txt"
         # The concat demuxer's own quoting rules: single quotes around the path,
         # with any literal single quote escaped as '\''.
@@ -283,10 +383,25 @@ class FfmpegRenderer(Renderer):
             encoding="utf-8",
         )
 
-        c = self._config.composition
         argv: list[str] = [self._ffmpeg, "-y", "-nostdin", "-fflags", "+bitexact"]
         # -safe 0 permits absolute paths in the list file.
         argv += ["-f", "concat", "-safe", "0", "-i", str(listfile)]
+
+        clip_volume = c.clip_volume
+        if music is None and clip_volume != 1.0:
+            # No bed to mix, but the clips' own level is being changed, so the
+            # audio is re-encoded while the picture is still copied.
+            argv += [
+                "-af", f"volume={clip_volume}",
+                "-c:v", "copy",
+                "-c:a", "aac", "-b:a", AUDIO_BITRATE,
+                "-ar", str(AUDIO_RATE), "-ac", str(AUDIO_CHANNELS),
+                "-map_metadata", "-1",
+                "-movflags", "+faststart",
+                str(dest),
+            ]
+            _run(argv, timeout=FFMPEG_TIMEOUT_SEC, log=self._log, stage="concat")
+            return
 
         if music is None:
             # No music: the concatenated audio is the final audio, and the whole
@@ -334,7 +449,10 @@ class FfmpegRenderer(Renderer):
             f"asetpts=PTS-STARTPTS,"
             f"afade=t=in:st=0:d={fade_in:.3f},"
             f"afade=t=out:st={fade_start:.3f}:d={c.music_fade_out_sec}[music];"
-            f"[0:a][music]amix=inputs=2:duration=first:normalize=0[aout]"
+            # The clips' own sound at its configured level: untouched under a
+            # bed, silent when the song is the content.
+            f"[0:a]volume={clip_volume}[clips];"
+            f"[clips][music]amix=inputs=2:duration=first:normalize=0[aout]"
         )
 
         argv += [
@@ -388,10 +506,11 @@ class FfmpegRenderer(Renderer):
             if treatment is not NEUTRAL:
                 log.info("variant_treatment", **treatment.as_dict())
 
+            overlay = self._overlay_filters(request.overlay_text, workdir)
             normalized: list[Path] = []
             for index, src in enumerate(sources):
                 temp = workdir / f"norm-{index:03d}.mp4"
-                self._normalize(src, temp, treatment)
+                self._normalize(src, temp, treatment, overlay)
                 normalized.append(temp)
                 log.debug("normalized", source=src.name, temp=temp.name)
 

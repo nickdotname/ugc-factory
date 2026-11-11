@@ -60,6 +60,20 @@ selection:
   dedupe_on: [hook, body, music, caption]
   caption_cooldown_days: 14
   hook_cooldown_days: 3
+  # auto_fill: false          # post ONLY what lineup.yaml spells out
+
+# Music-first campaigns (the song is the content) — see PLAYBOOK.md:
+#   composition:
+#     bodies_per_video: 0      # one clip per video
+#     loop_to_min: true        # loop clips shorter than the platform floor
+#     music_volume: 1.0
+#     clip_volume: 0.0         # silence the clips' own sound
+#     music_cleared: true      # the music is yours to post everywhere
+#   creatives:
+#     - name: song_name
+#       assets_release: assets-CHANGEME-song_name
+#       music_cues: {music_01.mp3: [42.5, 73]}
+#       accounts: [account_name]
 
 buffer:
   api_key_secret: BUFFER_API_KEY          # name of the env var, never the key
