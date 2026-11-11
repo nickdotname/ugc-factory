@@ -106,17 +106,39 @@ async function commit(files, message, extra = {}) {
   return res;
 }
 
-async function assetsFor(creative) {
+async function assetsFor(creative, fresh = false) {
   const tag = tagFor(creative);
+  if (fresh) ASSETS.delete(tag);
   if (!ASSETS.has(tag)) {
-    try { ASSETS.set(tag, (await api(`assets?tag=${encodeURIComponent(tag)}`)).assets); }
-    catch { ASSETS.set(tag, []); }
+    const get = async (t) => { try { return (await api(`assets?tag=${encodeURIComponent(t)}`)).assets; } catch { return []; } };
+    const [library, waiting] = await Promise.all([get(tag), get(`inbox-${tag.slice(7)}`)]);
+    ASSETS.set(tag, { library, waiting });
   }
-  const all = ASSETS.get(tag);
-  return {
-    clips: all.filter((a) => /^(hook|body)/i.test(a.name)),
-    music: all.filter((a) => /^music/i.test(a.name)),
-  };
+  const { library, waiting } = ASSETS.get(tag);
+  const by = (prefix) => library.filter((a) => a.name.toLowerCase().startsWith(prefix)).sort((x, y) => x.name.localeCompare(y.name));
+  return { hooks: by("hook"), bodies: by("body"), clips: [...by("hook"), ...by("body")], music: by("music"), waiting };
+}
+
+const roster = () => { try { return JSON.parse(ctext("clips.json") || "{}").disabled || []; } catch { return []; } };
+
+// One file at a time, so a phone on a weak connection is not juggling five
+// uploads, and each gets a real progress bar.
+function sendFile(tag, kind, f, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `/api/upload?tag=${encodeURIComponent(tag)}&kind=${kind}&name=${encodeURIComponent(f.name)}`);
+    xhr.setRequestHeader("x-ugc", "1");
+    xhr.setRequestHeader("content-type", "application/octet-stream");
+    xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
+    xhr.onload = () => {
+      let data = {};
+      try { data = JSON.parse(xhr.responseText); } catch { /* handled below */ }
+      if (xhr.status === 200) resolve(data);
+      else reject(new Error(data.error || `${f.name} could not be uploaded (${xhr.status}).`));
+    };
+    xhr.onerror = () => reject(new Error(`${f.name} could not be uploaded. Check your connection.`));
+    xhr.send(f);
+  });
 }
 
 async function load() {
@@ -229,11 +251,12 @@ function viewSchedule() {
       </div></article>`;
   }).join("");
 
+  const live = mode().key === "live";
   $("#view").innerHTML = head("Schedule", `${items.length ? `${items.length} video${items.length === 1 ? "" : "s"} lined up` : "Nothing lined up"} for ${esc(slug())}.`,
     `<button type="button" class="btn compact" data-reload>Refresh</button>`)
-    + (rows || `<div class="panel empty"><b>Nothing is scheduled</b>${mode().key === "paused"
-      ? "This campaign is paused. Tap “Paused” at the top to switch it on."
-      : "The next batch is made overnight. To make it now, open Jobs and tap “Make videos now”."}</div>`);
+    + (live ? "" : `<section class="panel" id="steps"><h3>Getting ${esc(slug())} ready</h3><div data-steps class="muted small" style="margin-top:8px">Checking…</div></section>`)
+    + (rows || (live ? `<div class="panel empty"><b>Nothing is scheduled</b>The next batch is made overnight. To make it now, open Jobs and tap “Make videos now”.</div>` : ""));
+  if (!live) checklist(items.length);
 
   $("[data-reload]").addEventListener("click", (e) => busy(e.target, load));
   $$("[data-watch]").forEach((b) => b.addEventListener("click", () => {
@@ -249,6 +272,49 @@ function viewSchedule() {
     await api("run", { method: "POST", body: { workflow: "queue", inputs: { campaign: slug(), discard: "all", video_id: b.dataset.pull, account } } });
     toast("Pulling. Refresh in about a minute to see it gone.");
   })));
+}
+
+// What stands between a campaign and its first post, in order, each with the
+// one button that deals with it.
+async function checklist(queued) {
+  const here = slug();
+  const libs = await Promise.all(creatives().map((c) => assetsFor(c)));
+  const el = $("[data-steps]");
+  if (!el || slug() !== here || TAB !== "Schedule") return;
+  const config = conf();
+  const music = isMusic();
+  const videos = libs.reduce((n, l) => n + l.hooks.length, 0);
+  const tracks = libs.reduce((n, l) => n + l.music.length, 0);
+  const waiting = libs.reduce((n, l) => n + l.waiting.length, 0);
+  const captions = creatives().reduce((n, c) => n + parseBank((file(bankPathFor(c)) || {}).text || "").records.length, 0);
+  const link = (config.funnel || {}).link || creatives().some((c) => c.link);
+  const m = mode().key;
+  const steps = [
+    [videos > 0, "Add your videos", videos ? `${videos} added` : waiting ? "Being checked…" : "Drop in the clips to post", "Content", "Add videos"],
+    ...(music ? [[tracks > 0, "Add your song clips", tracks ? `${tracks} added` : waiting ? "Being checked…" : "The audio that plays over them", "Content", "Add song clips"]] : []),
+    [captions > 0, "Write captions", captions ? `${captions} written` : "The words on the video and under it", "Content", "Write captions"],
+    [Boolean(link), "Add your link", link ? "Set" : "Where every post sends people", "Setup", "Add link"],
+    [m !== "paused", "Switch to Test mode", m !== "paused" ? "On" : "Makes videos without posting them", "mode", "Switch on"],
+    [queued > 0, "Make test videos and watch them", queued ? `${queued} made — they're below` : "See exactly what would go out", "render", "Make videos"],
+    [false, "Go live", "Start posting for real", "mode", "Go live"],
+  ];
+  const next = steps.findIndex(([done]) => !done);
+  el.className = "";
+  el.innerHTML = steps.map(([done, title, text, go, label], i) => `<div class="step ${done ? "done" : ""} ${i === next ? "next" : ""}">
+      <span class="mark">${done ? "✓" : i + 1}</span>
+      <span class="grow"><b>${title}</b><span>${esc(text)}</span></span>
+      ${i === next ? `<button type="button" class="btn primary compact" data-go="${go}">${label}</button>` : ""}</div>`).join("");
+  const btn = $("[data-go]", el);
+  if (btn) btn.addEventListener("click", () => busy(btn, async () => {
+    const go = btn.dataset.go;
+    if (go === "mode") { openMode(); return; }
+    if (go === "render") {
+      await api("run", { method: "POST", body: { workflow: "render", inputs: { campaign: here, dry_run: "true" } } });
+      toast("Making them now. Tap Refresh in about five minutes.");
+      return;
+    }
+    TAB = go; render();
+  }));
 }
 
 // ------------------------------------------------------------------- content
@@ -279,39 +345,138 @@ function bankPathFor(creative) {
   return file(own) ? own : cpath("captions.txt");
 }
 
-function viewContent() {
-  const word = setWord();
-  const cards = creatives().map((c, index) => {
-    const bank = parseBank((file(bankPathFor(c)) || {}).text || "");
-    const shared = !file(cpath(`creatives/${c.name}/captions.txt`));
-    const cues = Object.values(c.music_cues || {}).flat();
-    return `<div class="panel" data-creative="${index}">
-      <div class="row"><h3 class="grow">${esc(c.title || c.name)}</h3>
-        ${Number(c.weight || 1) !== 1 ? `<span class="tag">posts ${Number(c.weight)}× as often</span>` : ""}</div>
-      <p class="muted small" data-library>Checking clips…</p>
-      <p class="small" style="margin-top:6px">${bank.records.length} caption${bank.records.length === 1 ? "" : "s"}${shared ? " (shared with the campaign)" : ""}
-        · ${cues.length ? `starts at ${cues.map((s) => `${s}s`).join(", ")}` : "starts anywhere in the track"}
-        · ${(c.accounts || []).length ? `posts to ${c.accounts.join(", ")}` : "posts to every account"}</p>
-      <div class="row" style="margin-top:12px">
-        <button type="button" class="btn compact" data-captions="${index}">Captions</button>
-        <button type="button" class="btn compact" data-edit="${index}">Details</button>
-      </div></div>`;
-  }).join("");
-  $("#view").innerHTML = head("Content", `Each ${word} has its own clips, track and captions.`,
-    `<button type="button" class="btn primary compact" data-add>Add a ${word}</button>`) + cards
-    + `<p class="note" style="margin-top:14px">Clips and tracks are uploaded from your computer (run <b>./ugc web</b> and drop them in). Everything else about a ${word} is edited here.</p>`;
+let SET = 0;          // which song/set the Content tab is showing
+let watchTimer = 0;
 
-  creatives().forEach(async (c, index) => {
-    const { clips, music } = await assetsFor(c);
-    const el = $(`[data-creative="${index}"] [data-library]`);
-    if (!el) return;
-    el.textContent = clips.length || music.length
-      ? `${clips.length} clip${clips.length === 1 ? "" : "s"}, ${music.length} track${music.length === 1 ? "" : "s"} uploaded`
-      : "No clips uploaded yet.";
-  });
+const ZONES = {
+  hook: { accept: ".mp4,.mov,.m4v,.webm,video/*", exts: [".mp4", ".mov", ".m4v", ".webm"] },
+  body: { accept: ".mp4,.mov,.m4v,.webm,video/*", exts: [".mp4", ".mov", ".m4v", ".webm"] },
+  music: { accept: ".mp3,.m4a,.wav,audio/*", exts: [".mp3", ".m4a", ".wav"] },
+};
+
+function viewContent() {
+  clearTimeout(watchTimer);
+  const word = setWord();
+  const sets = creatives();
+  if (SET >= sets.length) SET = 0;
+  const c = sets[SET];
+  const music = isMusic();
+  const twoClips = Number((conf().composition || {}).bodies_per_video ?? 1) > 0;
+  const bank = parseBank((file(bankPathFor(c)) || {}).text || "");
+  const off = roster();
+
+  const zone = (kind, title, help) => `<section class="panel" data-zone="${kind}">
+      <div class="row"><h3 class="grow">${title}</h3><span class="tag" data-count></span></div>
+      <p class="muted small" style="margin:2px 0 12px">${help}</p>
+      <label class="drop" tabindex="0">
+        <input type="file" multiple accept="${ZONES[kind].accept}" hidden>
+        <b>Drop files here</b><span>or tap to choose them</span>
+      </label>
+      <div class="uploads"></div>
+      <div class="files" data-files><p class="muted small">Looking…</p></div>
+    </section>`;
+
+  $("#view").innerHTML = head("Content", `What ${esc(slug())} posts. Add as many as you like; each video is built from a random pick.`)
+    + `<div class="chips" role="tablist">${sets.map((x, i) => `<button type="button" class="chip ${i === SET ? "on" : ""}" data-set="${i}">${esc(x.title || x.name)}</button>`).join("")}
+        <button type="button" class="chip add" data-add>+ Add a ${word}</button></div>`
+    + (twoClips
+      ? zone("hook", "Opening clips", "The first thing people see. One is picked to start each video.")
+        + zone("body", "Second clips", "What each video cuts to after the opening.")
+      : zone("hook", "Videos", "Every video you drop here goes into the pool. One is picked for each post."))
+    + zone("music", music ? "Song clips" : "Music",
+      music ? "The audio that plays over the videos. One is picked for each post." : "Plays quietly under the clips. Optional.")
+    + `<section class="panel"><div class="row"><h3 class="grow">Captions</h3><span class="tag">${bank.records.length} written</span></div>
+        <p class="muted small" style="margin:2px 0 12px">The words on the video and under it. One is picked for each post.</p>
+        <button type="button" class="btn" data-captions>Write captions</button></section>
+      <section class="panel"><div class="row"><h3 class="grow">${esc(c.title || c.name)}</h3>
+          ${Number(c.weight || 1) !== 1 ? `<span class="tag">posts ${Number(c.weight)}× as often</span>` : ""}</div>
+        <p class="muted small" style="margin:2px 0 12px">${(c.accounts || []).length ? `Posts to ${esc(c.accounts.join(", "))}.` : "Posts to every account."}
+          ${c.link ? ` Sends people to ${esc(c.link)}.` : ""}</p>
+        <button type="button" class="btn" data-edit>Name, link, accounts and start points</button></section>`;
+
+  $$("[data-set]").forEach((b) => b.addEventListener("click", () => { SET = Number(b.dataset.set); viewContent(); }));
   $("[data-add]").addEventListener("click", () => editCreative(-1));
-  $$("[data-edit]").forEach((b) => b.addEventListener("click", () => editCreative(Number(b.dataset.edit))));
-  $$("[data-captions]").forEach((b) => b.addEventListener("click", () => editCaptions(creatives()[Number(b.dataset.captions)])));
+  $("[data-edit]").addEventListener("click", () => editCreative(SET));
+  $("[data-captions]").addEventListener("click", () => editCaptions(c));
+
+  const fill = async (fresh = false) => {
+    const lib = await assetsFor(c, fresh);
+    if (TAB !== "Content" || creatives()[SET] !== c && creatives()[SET]?.name !== c.name) return lib;
+    for (const [kind, list] of [["hook", lib.hooks], ["body", lib.bodies], ["music", lib.music]]) {
+      const el = $(`[data-zone="${kind}"]`);
+      if (!el) continue;
+      const waiting = lib.waiting.filter((w) => w.name.startsWith(`${kind}__`));
+      $("[data-count]", el).textContent = `${list.length} added`;
+      $("[data-files]", el).innerHTML = (waiting.length
+        ? `<p class="note">${waiting.length} file${waiting.length === 1 ? " is" : "s are"} being checked. ${waiting.length === 1 ? "It appears" : "They appear"} below in a minute or two.</p>` : "")
+        + (list.length ? list.map((a) => {
+          const isOff = off.includes(a.name);
+          return `<div class="file ${isOff ? "off" : ""}">
+            <button type="button" class="play" data-play="${esc(a.url)}" data-audio="${kind === "music" ? 1 : ""}" aria-label="Play ${esc(a.name)}">▶</button>
+            <span class="grow name">${esc(a.name)}<small>${isOff ? "Not being used" : `${(a.size / 1048576).toFixed(1)} MB`}</small></span>
+            <button type="button" class="btn compact" data-toggle="${esc(a.name)}">${isOff ? "Use it" : "Stop using"}</button></div>`;
+        }).join("") : waiting.length ? "" : `<p class="muted small">Nothing here yet.</p>`);
+    }
+    $$("[data-play]").forEach((b) => b.addEventListener("click", () => {
+      const row = b.closest(".file");
+      const open = row.nextElementSibling;
+      if (open && open.classList.contains("player")) { open.remove(); return; }
+      const media = document.createElement(b.dataset.audio ? "audio" : "video");
+      media.className = "player"; media.controls = true; media.autoplay = true; media.playsInline = true; media.src = b.dataset.play;
+      row.after(media);
+    }));
+    $$("[data-toggle]").forEach((b) => b.addEventListener("click", () => busy(b, async () => {
+      const name = b.dataset.toggle;
+      const next = roster().includes(name) ? roster().filter((n) => n !== name) : [...roster(), name].sort();
+      await commit([{ path: cpath("clips.json"), text: `${JSON.stringify({ disabled: next }, null, 2)}\n` }], `${next.includes(name) ? "stop using" : "use"} ${name}`);
+      viewContent();
+    })));
+    // Keep looking while something is still being checked.
+    if (lib.waiting.length) watchTimer = setTimeout(() => fill(true), 20000);
+    return lib;
+  };
+  fill();
+
+  $$("[data-zone]").forEach((el) => {
+    const kind = el.dataset.zone;
+    const drop = $(".drop", el);
+    const input = $("input", drop);
+    const take = async (picked) => {
+      const files = [...picked];
+      if (!files.length) return;
+      const bad = files.filter((f) => !ZONES[kind].exts.some((x) => f.name.toLowerCase().endsWith(x)));
+      const big = files.filter((f) => f.size > 95 * 1024 * 1024);
+      const good = files.filter((f) => !bad.includes(f) && !big.includes(f));
+      const list = $(".uploads", el);
+      const problems = [
+        ...bad.map((f) => `${f.name} isn't a ${kind === "music" ? "song" : "video"} file this can use (${ZONES[kind].exts.join(", ")}).`),
+        ...big.map((f) => `${f.name} is over 95 MB. Export it smaller.`),
+      ];
+      list.innerHTML = problems.map((t) => `<p class="small" style="color:var(--hold)">${esc(t)}</p>`).join("")
+        + good.map((f, i) => `<div class="upload" data-u="${i}"><span class="grow name">${esc(f.name)}</span><span class="pct">Waiting</span><i></i></div>`).join("");
+      let sent = 0;
+      for (const [i, f] of good.entries()) {
+        const row = $(`[data-u="${i}"]`, list);
+        try {
+          await sendFile(tagFor(c), kind, f, (p) => { $(".pct", row).textContent = `${Math.round(p * 100)}%`; $("i", row).style.width = `${p * 100}%`; });
+          $(".pct", row).textContent = "Uploaded"; $("i", row).style.width = "100%"; row.classList.add("done");
+          sent += 1;
+        } catch (err) { $(".pct", row).textContent = "Failed"; row.classList.add("failed"); toast(err.message, true); }
+      }
+      input.value = "";
+      if (!sent) return;
+      try {
+        await api("run", { method: "POST", body: { workflow: "ingest", inputs: { campaign: slug(), creative: c.name } } });
+        toast(`${sent} file${sent === 1 ? "" : "s"} uploaded. Checking ${sent === 1 ? "it" : "them"} now — about two minutes.`);
+      } catch (err) { toast(`Uploaded, but the check didn't start: ${err.message}`, true); }
+      setTimeout(() => { list.innerHTML = ""; fill(true); }, 2500);
+    };
+    input.addEventListener("change", () => take(input.files));
+    drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } });
+    ["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add("over"); }));
+    ["dragleave", "drop"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
+    drop.addEventListener("drop", (e) => take(e.dataTransfer.files));
+  });
 }
 
 async function editCreative(index) {
@@ -352,6 +517,7 @@ async function editCreative(index) {
   const remove = $("[data-remove]", el);
   if (remove) remove.addEventListener("click", () => busy(remove, async () => {
     if (!confirm(`Remove ${c.title || c.name}? Its clips and captions stay in the repository; it just stops posting.`)) return;
+    SET = 0;
     await save(list.filter((_, i) => i !== index), `remove ${c.name}`);
     toast("Removed.");
   }));
@@ -381,8 +547,9 @@ async function editCreative(index) {
         extra.push({ path: `${base}/LICENSES.md`, text: `# Music licences — ${slug()} / ${updated.name}\n\n| file | source | licence |\n|---|---|---|\n` });
         list.push(updated);
       } else list[index] = updated;
+      if (isNew) SET = list.length - 1;
       await save(list, `${isNew ? "add" : "update"} ${updated.name}`, extra);
-      toast(isNew ? `Added. Now write its captions and upload its clips.` : "Saved.");
+      toast(isNew ? "Added. Drop in its videos and song clips." : "Saved.");
     });
   });
 }
@@ -781,7 +948,7 @@ function viewNewCampaign() {
       $("#campaign").value = name;
       TAB = "Content";
       render();
-      toast("Created, and switched off. Add its clips and captions next.");
+      toast("Created, and switched off. Drop in your videos to start.");
     });
   });
 }

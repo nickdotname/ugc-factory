@@ -20,6 +20,9 @@ const port = Number(process.env.PORT || 8788);
 
 export const saved = new Map();      // path -> text, for anything "committed" this run
 const trees = new Map();      // fake tree sha -> entries waiting on a commit
+const staged = new Map();     // inbox tag -> files dropped, not yet checked
+const holding = new Map();    // release id -> inbox tag
+const library = new Map();    // assets tag -> files added this run
 export const log = [];        // what the page asked GitHub to do
 
 const sha = (text) => createHash("sha1").update(`blob ${Buffer.byteLength(text)}\0${text}`).digest("hex");
@@ -41,7 +44,7 @@ globalThis.fetch = async (url, init = {}) => {
   const path = String(url).replace(/^https:\/\/api\.github\.com\/repos\/[^/]+\/[^/]+/, "");
   const method = init.method || "GET";
   const reply = (body, status = 200) => new Response(JSON.stringify(body), { status });
-  if (method !== "GET") log.push({ method, path, body: init.body ? JSON.parse(init.body) : null });
+  if (method !== "GET" && typeof init.body === "string") log.push({ method, path, body: JSON.parse(init.body) });
 
   if (path.startsWith("/git/ref/")) return reply({ object: { sha: "head" } });
   if (path.startsWith("/git/commits/")) return reply({ tree: { sha: "base" } });
@@ -61,10 +64,45 @@ globalThis.fetch = async (url, init = {}) => {
     const text = read(file);
     return reply({ sha: sha(text), encoding: "base64", content: Buffer.from(text).toString("base64") });
   }
+  if (String(url).startsWith("https://uploads.github.com/")) {
+    const name = new URL(String(url)).searchParams.get("name");
+    const tag = holding.get(Number(String(url).match(/releases\/(\d+)\//)[1]));
+    staged.get(tag).push({ name, size: init.body.byteLength, browser_download_url: `https://example.test/${name}` });
+    log.push({ method: "UPLOAD", path: name, bytes: init.body.byteLength });
+    return reply({ name }, 201);
+  }
+  if (path === "/releases" && method === "POST") {
+    const tag = JSON.parse(init.body).tag_name;
+    if (!staged.has(tag)) { staged.set(tag, []); holding.set(holding.size + 1, tag); }
+    return reply({ id: [...holding].find(([, t]) => t === tag)[0] }, 201);
+  }
   if (path.startsWith("/releases/tags/")) {
-    return reply({ assets: ["hook_01.mp4", "hook_02.mp4", "hook_03.mp4", "music_01.mp3"].map((name) => ({
-      name, size: 1_000_000, browser_download_url: `https://example.test/${name}`,
-    })) });
+    const tag = decodeURIComponent(path.slice("/releases/tags/".length));
+    if (tag.startsWith("inbox-")) {
+      if (!staged.has(tag)) return reply({}, 404);
+      return reply({ id: [...holding].find(([, t]) => t === tag)[0], assets: staged.get(tag) });
+    }
+    // The existing campaign has a library; anything new starts empty.
+    const seeded = tag.startsWith("assets-clubs") ? ["hook_01.mp4", "hook_02.mp4", "body_01.mp4", "music_01.mp3"] : [];
+    return reply({ assets: [...seeded.map((name) => ({ name, size: 4_200_000, browser_download_url: `https://example.test/${name}` })), ...(library.get(tag) || [])] });
+  }
+  if (path.includes("/workflows/ingest.yml/dispatches")) {
+    // Stand in for the ingest job: a moment later, everything staged has
+    // been checked, renamed and added to the library.
+    setTimeout(() => {
+      for (const [tag, files] of staged) {
+        const dest = `assets-${tag.slice(6)}`;
+        const have = library.get(dest) || [];
+        for (const f of files.splice(0)) {
+          const kind = f.name.split("__")[0];
+          const n = have.filter((x) => x.name.startsWith(kind)).length + 1;
+          const name = `${kind}_${String(n).padStart(2, "0")}${f.name.slice(f.name.lastIndexOf("."))}`;
+          have.push({ name, size: f.size, browser_download_url: `https://example.test/${name}` });
+        }
+        library.set(dest, have);
+      }
+    }, Number(process.env.INGEST_MS || 1500));
+    return new Response(null, { status: 204 });
   }
   if (path.includes("/dispatches")) return new Response(null, { status: 204 });
   if (path.startsWith("/actions/runs")) {

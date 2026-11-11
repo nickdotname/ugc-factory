@@ -4,8 +4,8 @@ A password-protected page for running the engine from a phone or a laptop.
 
 | tab | what it is for |
 |---|---|
-| **Schedule** | Every video lined up, by day and time: what is on screen, the caption, which accounts, each account's own version. Watch one, or pull it back. |
-| **Content** | The songs (or sets) in a campaign: add one, write its captions, set where its track starts, choose its accounts and how often it posts. |
+| **Schedule** | A checklist that walks a new campaign to its first post, then every video lined up, by day and time: what is on screen, the caption, which accounts, each account's own version. Watch one, or pull it back. |
+| **Content** | Drop in a batch of videos and a batch of song clips; each post is built from a random pick of each. Write captions, switch a clip off, add another song. |
 | **Plan** | Posts spelled out by hand: this clip, this second of the track, these words, this time. |
 | **Setup** | Posting hours, sound, a different video per account, the link and closing lines every post carries, which accounts. The full settings file is at the bottom. |
 | **Jobs** | Make videos now, send to Buffer now, check everything, refresh numbers, ask why something did not post. |
@@ -14,8 +14,10 @@ The pill at the top right says whether the campaign is **Paused**, in **Test
 mode** or **Live**, and is how you change it. "New campaign…" is in the
 campaign menu; a new campaign always starts paused.
 
-Uploading clips and tracks stays in the local dashboard (`./ugc web`), which
-has your files and ffmpeg.
+**Adding videos and song clips** is drag and drop (or tap to choose) on the
+Content tab. Dropped files go to a holding area; the `ingest` job then checks
+each one really plays, gives it its proper name and adds it to the pool —
+about two minutes, and the page updates itself. Files up to 95 MB each.
 
 ## How it is built
 

@@ -198,7 +198,7 @@ test("clip libraries are listed by name only for asset releases", async () => {
   const res = await call("assets?tag=assets-clubs", { cookie });
   assert.deepEqual(await res.json(), { assets: [{ name: "hook_01.mp4", size: 5, url: "https://x/hook_01.mp4" }] });
   assert.deepEqual(await (await call("assets?tag=assets-none", { cookie })).json(), { assets: [] });
-  for (const tag of ["render-clubs-2026-11-10", "v1.0", "assets-../x", ""]) {
+  for (const tag of ["render-clubs-2026-11-10", "v1.0", "assets-../x", "inbox-../x", ""]) {
     assert.equal((await call(`assets?tag=${encodeURIComponent(tag)}`, { cookie })).status, 400, tag);
   }
   assert.equal(calls.length, 2);
@@ -255,4 +255,65 @@ test("state returns campaign files and never the token", async () => {
   assert.deepEqual(body.campaigns, ["clubs"]);
   assert.deepEqual(body.files.map((f) => f.path), ["accounts.yaml", "campaigns/clubs/config.yaml"]);
   assert.equal(body.files[1].text, "slug: clubs — ok\n");
+});
+
+// ------------------------------------------------------------------ uploads
+
+function drop(path, { cookie, bytes = new Uint8Array([1, 2, 3]), headers = {} } = {}) {
+  const init = { method: "POST", body: bytes, headers: { "x-ugc": "1", "content-type": "application/octet-stream", ...headers } };
+  if (cookie) init.headers.cookie = cookie;
+  return onRequest({ request: new Request(`https://x.test/api/${path}`, init), env });
+}
+
+test("an upload needs a session and the page's own header", async () => {
+  assert.equal((await drop("upload?tag=assets-a&kind=hook&name=a.mp4")).status, 401);
+  const cookie = await login();
+  assert.equal((await drop("upload?tag=assets-a&kind=hook&name=a.mp4", { cookie, headers: { "x-ugc": "" } })).status, 400);
+});
+
+test("only video and audio files are taken, each in its own place", async () => {
+  const cookie = await login();
+  const calls = mockGithub(() => ok({ id: 7 }));
+  const refused = [
+    "upload?tag=assets-a&kind=hook&name=notes.pdf",
+    "upload?tag=assets-a&kind=hook&name=song.mp3",       // audio in a video slot
+    "upload?tag=assets-a&kind=music&name=clip.mp4",      // video in a music slot
+    "upload?tag=assets-a&kind=hook&name=evil.mp4.exe",
+    "upload?tag=assets-a&kind=hook&name=noextension",
+  ];
+  for (const path of refused) assert.equal((await drop(path, { cookie })).status, 415, path);
+  for (const path of [
+    "upload?tag=inbox-a&kind=hook&name=a.mp4",           // straight into a holding area
+    "upload?tag=render-a-2026&kind=hook&name=a.mp4",
+    "upload?tag=assets-a&kind=script&name=a.mp4",
+  ]) assert.equal((await drop(path, { cookie })).status, 400, path);
+  assert.equal((await drop("upload?tag=assets-a&kind=hook&name=a.mp4", { cookie, bytes: new Uint8Array(0) })).status, 400);
+  assert.equal(calls.length, 0, "nothing reached GitHub");
+});
+
+test("a dropped file lands in the holding area, never the library", async () => {
+  const cookie = await login();
+  const calls = mockGithub((url, init) => {
+    if (url.includes("/releases/tags/inbox-cq-song")) return new Response("{}", { status: 404 });
+    if (url.endsWith("/releases") && init.method === "POST") return ok({ id: 42 });
+    if (url.startsWith("https://uploads.github.com/")) return ok({ name: "x" });
+    return new Response("{}", { status: 500 });
+  });
+  const res = await drop("upload?tag=assets-cq-song&kind=music&name=" + encodeURIComponent("My Song (final) v2!.MP3"), { cookie });
+  assert.equal(res.status, 200);
+  const { name } = await res.json();
+  assert.match(name, /^music__[0-9a-f]{8}__My_Song_final_v2_\.mp3$/);
+  assert.equal(JSON.parse(calls[1].init.body).tag_name, "inbox-cq-song");
+  const sent = calls[2];
+  assert.ok(sent.url.startsWith("https://uploads.github.com/repos/nickdotname/ugc-factory/releases/42/assets?name=music__"));
+  assert.equal(sent.init.body.byteLength, 3);
+  assert.equal(sent.init.headers.authorization, "Bearer ghp_secret");
+});
+
+test("the ingest job can be started for one creative only with clean names", async () => {
+  const cookie = await login();
+  const calls = mockGithub(() => new Response(null, { status: 204 }));
+  assert.equal((await call("run", { method: "POST", cookie, body: { workflow: "ingest", inputs: { campaign: "cq", creative: "x; ls" } } })).status, 400);
+  assert.equal((await call("run", { method: "POST", cookie, body: { workflow: "ingest", inputs: { campaign: "cq", creative: "sunday_song" } } })).status, 200);
+  assert.equal(calls.length, 1);
 });

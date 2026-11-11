@@ -187,3 +187,50 @@ video { width: 100%; max-width: 260px; border-radius: 11px; background: #000; di
 table { width: 100%; border-collapse: collapse; }
 td { padding: 10px 0; border-top: 1px solid var(--line); vertical-align: top; }
 tr:first-child td { border-top: 0; }
+
+/* -------------------------------------------------------- pools and uploads */
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 14px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { flex: none; min-height: 40px; padding: 0 15px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-weight: 600; cursor: pointer; white-space: nowrap; }
+.chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip.add { border-style: dashed; color: var(--action); background: none; }
+
+.drop {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: 112px; padding: 18px; text-align: center; cursor: pointer;
+  border: 2px dashed var(--line); border-radius: 13px; background: var(--tint);
+  transition: border-color .12s, background .12s;
+}
+.drop b { font-size: 17px; }
+.drop span { color: var(--muted); font-size: 14px; }
+.drop:hover, .drop.over { border-color: var(--action); background: color-mix(in srgb, var(--action) 9%, var(--surface)); }
+.drop.over b::after { content: " — let go"; }
+@media (prefers-reduced-motion: reduce) { .drop { transition: none; } }
+
+.uploads:not(:empty) { margin-top: 10px; }
+.upload { position: relative; display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 10px; background: var(--tint); overflow: hidden; font-size: 14px; }
+.upload + .upload { margin-top: 6px; }
+.upload i { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--action); transition: width .2s; }
+.upload.done i { background: var(--go); }
+.upload.failed .pct { color: var(--hold); }
+.upload .pct { color: var(--muted); font-weight: 600; flex: none; }
+.name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.name small { display: block; color: var(--muted); font-size: 13px; }
+
+.files { margin-top: 12px; }
+.file { display: flex; gap: 10px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); }
+.file:first-child { border-top: 0; }
+.file.off .name { color: var(--muted); text-decoration: line-through; }
+.file.off .name small { display: inline-block; width: 100%; text-decoration: none; }
+.play { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 13px; padding-left: 3px; }
+.player { display: block; width: 100%; max-width: 260px; margin: 4px 0 10px 50px; border-radius: 11px; }
+audio.player { max-width: 100%; margin-left: 0; }
+
+.step { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.step:first-child { border-top: 0; }
+.step .mark { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 650; font-size: 14px; border: 1.5px solid var(--line); color: var(--muted); }
+.step.done .mark { background: var(--go); border-color: var(--go); color: #fff; }
+.step.next .mark { border-color: var(--action); color: var(--action); }
+.step b { display: block; color: var(--ink); }
+.step span.grow > span { color: var(--muted); font-size: 14px; }
+.step:not(.done):not(.next) b { color: var(--muted); font-weight: 550; }

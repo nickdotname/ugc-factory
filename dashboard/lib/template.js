@@ -27,6 +27,7 @@ timezone: ${timezone}
 
 creatives:
   - name: default
+    title: ${yamlString(title)}
 
 posting:
   posts_per_day: ${postsPerDay}
