@@ -267,8 +267,8 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "claimed",
-          "attempts": 2,
+          "status": "failed",
+          "attempts": 3,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
           "scheduled_for": "2026-11-13T09:20:00-05:00"
@@ -299,7 +299,7 @@
       "titles": {
         "youtube": "Find a Sketch Comedy Cast"
       },
-      "status": "claimed",
+      "status": "failed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
