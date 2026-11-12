@@ -65,11 +65,11 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "failed",
+          "status": "claimed",
           "attempts": 2,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
-          "scheduled_for": "2026-11-12T09:20:00-05:00"
+          "scheduled_for": "2026-11-11T21:20:00-05:00"
         },
         {
           "account": "knick_creates_tt",
@@ -97,7 +97,7 @@
       "titles": {
         "youtube": "Find Short Film Roles"
       },
-      "status": "failed",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -166,7 +166,7 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "failed",
+          "status": "pending",
           "attempts": 2,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
@@ -198,7 +198,7 @@
       "titles": {
         "youtube": "How Singers Find Collabs"
       },
-      "status": "failed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -267,7 +267,7 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "failed",
+          "status": "pending",
           "attempts": 2,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
@@ -299,7 +299,7 @@
       "titles": {
         "youtube": "Find a Sketch Comedy Cast"
       },
-      "status": "failed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -368,7 +368,7 @@
         {
           "account": "knick_creates_ig",
           "network": "instagram",
-          "status": "failed",
+          "status": "pending",
           "attempts": 2,
           "buffer_post_id": null,
           "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
@@ -400,7 +400,7 @@
       "titles": {
         "youtube": "Film School Without Film School"
       },
-      "status": "failed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
