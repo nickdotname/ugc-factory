@@ -855,6 +855,12 @@ class CreativeConfig(StrictModel):
     #: creative of an existing campaign a zero-change migration: same tag,
     #: same filenames, same numbering.
     assets_release: str | None = None
+    #: Draw the *videos* from the campaign's own library and only the music
+    #: from this creative's. This is what a song is: its own track, its own
+    #: captions, cut over any clip in the pool every song shares. Without it
+    #: every song needs its own copy of every video, and a clip added for one
+    #: is invisible to the rest.
+    shared_videos: bool = False
     #: Exact start points for this creative's music, in seconds, by track
     #: filename: ``{music_01.mp3: [42, 73.5]}``. A track listed here only
     #: ever starts at one of its cues — the drop, the hook, the line the meme
@@ -954,6 +960,12 @@ class CampaignConfig(StrictModel):
         failure rather than a runway/dedupe number that just looks a little
         off.
         """
+        for creative in self.creatives:
+            if creative.shared_videos and not creative.assets_release:
+                raise ValueError(
+                    f"creative {creative.name!r} sets shared_videos but has no "
+                    f"assets_release — it needs its own Release for its music"
+                )
         by_tag: dict[str, list[str]] = {}
         for creative in self.creatives:
             by_tag.setdefault(self.creative_assets_tag(creative), []).append(
@@ -1018,6 +1030,16 @@ class CampaignConfig(StrictModel):
         the tag it already used before creatives existed.
         """
         return creative.assets_release or self.assets_tag
+
+    def creative_video_tag(self, creative: CreativeConfig) -> str:
+        """Release tag holding the videos one creative cuts from.
+
+        The campaign's own library for a creative that shares the pool, its
+        own Release otherwise.
+        """
+        if creative.shared_videos:
+            return self.assets_tag
+        return self.creative_assets_tag(creative)
 
     def creative_library_key(self, creative: CreativeConfig) -> str:
         """Name of the drop folder feeding one creative's clip library.

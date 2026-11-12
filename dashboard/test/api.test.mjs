@@ -196,7 +196,7 @@ test("clip libraries are listed by name only for asset releases", async () => {
     ? new Response("{}", { status: 404 })
     : ok({ assets: [{ name: "hook_01.mp4", size: 5, browser_download_url: "https://x/hook_01.mp4", uploader: { login: "n" } }] })));
   const res = await call("assets?tag=assets-clubs", { cookie });
-  assert.deepEqual(await res.json(), { assets: [{ name: "hook_01.mp4", size: 5, url: "https://x/hook_01.mp4" }] });
+  assert.deepEqual(await res.json(), { assets: [{ name: "hook_01.mp4", size: 5, url: "https://x/hook_01.mp4", note: "" }] });
   assert.deepEqual(await (await call("assets?tag=assets-none", { cookie })).json(), { assets: [] });
   for (const tag of ["render-clubs-2026-11-10", "v1.0", "assets-../x", "inbox-../x", ""]) {
     assert.equal((await call(`assets?tag=${encodeURIComponent(tag)}`, { cookie })).status, 400, tag);
@@ -316,4 +316,42 @@ test("the ingest job can be started for one creative only with clean names", asy
   assert.equal((await call("run", { method: "POST", cookie, body: { workflow: "ingest", inputs: { campaign: "cq", creative: "x; ls" } } })).status, 400);
   assert.equal((await call("run", { method: "POST", cookie, body: { workflow: "ingest", inputs: { campaign: "cq", creative: "sunday_song" } } })).status, 200);
   assert.equal(calls.length, 1);
+});
+
+test("only a refused upload can be cleared, and only from a holding area", async () => {
+  const cookie = await login();
+  const calls = mockGithub((url, init) => (init.method === "DELETE"
+    ? new Response(null, { status: 204 })
+    : ok({ assets: [{ id: 7, name: "rejected__hook__1a2b3c4d__clip.mp4" }, { id: 8, name: "hook__5e6f7a8b__fine.mp4" }] })));
+  const bad = [
+    { tag: "assets-clubs", name: "rejected__hook__1a2b3c4d__clip.mp4" },
+    { tag: "inbox-clubs", name: "hook__5e6f7a8b__fine.mp4" },
+    { tag: "inbox-../x", name: "rejected__x.mp4" },
+    { tag: "render-clubs-2026-11-10", name: "rejected__x.mp4" },
+  ];
+  for (const body of bad) {
+    assert.equal((await call("discard", { method: "POST", cookie, body })).status, 400, JSON.stringify(body));
+  }
+  assert.equal(calls.length, 0);
+  assert.equal((await call("discard", { method: "POST", body: bad[0] })).status, 401);
+
+  const res = await call("discard", { method: "POST", cookie, body: { tag: "inbox-clubs", name: "rejected__hook__1a2b3c4d__clip.mp4" } });
+  assert.equal(res.status, 200);
+  assert.equal(calls.at(-1).init.method, "DELETE");
+  assert.ok(calls.at(-1).url.endsWith("/releases/assets/7"));
+});
+
+test("the run history can be narrowed to one known job", async () => {
+  const cookie = await login();
+  const calls = mockGithub(() => ok({ workflow_runs: [
+    { name: "ingest", event: "workflow_dispatch", status: "completed", conclusion: "startup_failure", run_started_at: null, created_at: "2026-11-11T20:33:18Z", html_url: "https://x/1" },
+  ] }));
+  assert.equal((await call("runs?workflow=../../x", { cookie })).status, 400);
+  assert.equal(calls.length, 0);
+  const res = await call("runs?workflow=ingest", { cookie });
+  assert.ok(calls[0].url.includes("/actions/workflows/ingest.yml/runs?"));
+  assert.deepEqual((await res.json()).runs[0], {
+    name: "ingest", event: "workflow_dispatch", status: "completed", conclusion: "startup_failure",
+    started: "2026-11-11T20:33:18Z", url: "https://x/1",
+  });
 });

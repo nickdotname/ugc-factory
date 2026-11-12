@@ -23,6 +23,8 @@ const trees = new Map();      // fake tree sha -> entries waiting on a commit
 const staged = new Map();     // inbox tag -> files dropped, not yet checked
 const holding = new Map();    // release id -> inbox tag
 const library = new Map();    // assets tag -> files added this run
+let assetIds = 0;
+const ingestRuns = [];        // what the upload check has done, oldest first
 export const log = [];        // what the page asked GitHub to do
 
 const sha = (text) => createHash("sha1").update(`blob ${Buffer.byteLength(text)}\0${text}`).digest("hex");
@@ -67,7 +69,7 @@ globalThis.fetch = async (url, init = {}) => {
   if (String(url).startsWith("https://uploads.github.com/")) {
     const name = new URL(String(url)).searchParams.get("name");
     const tag = holding.get(Number(String(url).match(/releases\/(\d+)\//)[1]));
-    staged.get(tag).push({ name, size: init.body.byteLength, browser_download_url: `https://example.test/${name}` });
+    staged.get(tag).push({ id: ++assetIds, name, size: init.body.byteLength, browser_download_url: `https://example.test/${name}` });
     log.push({ method: "UPLOAD", path: name, bytes: init.body.byteLength });
     return reply({ name }, 201);
   }
@@ -86,14 +88,39 @@ globalThis.fetch = async (url, init = {}) => {
     const seeded = tag.startsWith("assets-clubs") ? ["hook_01.mp4", "hook_02.mp4", "body_01.mp4", "music_01.mp3"] : [];
     return reply({ assets: [...seeded.map((name) => ({ name, size: 4_200_000, browser_download_url: `https://example.test/${name}` })), ...(library.get(tag) || [])] });
   }
+  if (path.startsWith("/releases/assets/") && method === "DELETE") {
+    const id = Number(path.split("/").pop());
+    for (const files of staged.values()) {
+      const at = files.findIndex((f) => f.id === id);
+      if (at >= 0) files.splice(at, 1);
+    }
+    return new Response(null, { status: 204 });
+  }
+  if (path.includes("/workflows/ingest.yml/runs")) {
+    return reply({ workflow_runs: ingestRuns.slice(-5).reverse() });
+  }
+  if (path.includes("/workflows/ingest.yml/dispatches") && process.env.INGEST_BROKEN) {
+    // The job that never gets going: recorded, fails at startup, moves nothing.
+    ingestRuns.push({ name: "ingest", event: "workflow_dispatch", status: "completed", conclusion: "startup_failure", created_at: new Date().toISOString(), html_url: "https://example.test/ingest" });
+    return new Response(null, { status: 204 });
+  }
   if (path.includes("/workflows/ingest.yml/dispatches")) {
     // Stand in for the ingest job: a moment later, everything staged has
     // been checked, renamed and added to the library.
+    const run = { name: "ingest", event: "workflow_dispatch", status: "in_progress", conclusion: null, run_started_at: new Date().toISOString(), html_url: "https://example.test/ingest" };
+    ingestRuns.push(run);
     setTimeout(() => {
+      run.status = "completed"; run.conclusion = "success";
       for (const [tag, files] of staged) {
         const dest = `assets-${tag.slice(6)}`;
         const have = library.get(dest) || [];
         for (const f of files.splice(0)) {
+          if (f.name.startsWith("rejected__")) { files.push(f); continue; }
+          // A file with "broken" in its name stands in for one ffprobe refuses.
+          if (f.name.includes("broken")) {
+            files.push({ ...f, id: f.id, name: `rejected__${f.name}`, label: "This file has no video in it." });
+            continue;
+          }
           const kind = f.name.split("__")[0];
           const n = have.filter((x) => x.name.startsWith(kind)).length + 1;
           const name = `${kind}_${String(n).padStart(2, "0")}${f.name.slice(f.name.lastIndexOf("."))}`;

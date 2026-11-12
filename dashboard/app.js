@@ -106,18 +106,42 @@ async function commit(files, message, extra = {}) {
   return res;
 }
 
-async function assetsFor(creative, fresh = false) {
-  const tag = tagFor(creative);
+// The campaign's own library: the videos every song that shares the pool cuts from.
+const poolTag = () => conf().assets_release || `assets-${slug()}`;
+const videoTagFor = (c) => (c.shared_videos ? poolTag() : tagFor(c));
+
+async function tagAssets(tag, fresh = false) {
   if (fresh) ASSETS.delete(tag);
   if (!ASSETS.has(tag)) {
     const get = async (t) => { try { return (await api(`assets?tag=${encodeURIComponent(t)}`)).assets; } catch { return []; } };
-    const [library, waiting] = await Promise.all([get(tag), get(`inbox-${tag.slice(7)}`)]);
-    ASSETS.set(tag, { library, waiting });
+    const inbox = `inbox-${tag.slice(7)}`;
+    const [library, held] = await Promise.all([get(tag), get(inbox)]);
+    ASSETS.set(tag, { library, held: held.map((h) => ({ ...h, inbox })) });
   }
-  const { library, waiting } = ASSETS.get(tag);
-  const by = (prefix) => library.filter((a) => a.name.toLowerCase().startsWith(prefix)).sort((x, y) => x.name.localeCompare(y.name));
-  return { hooks: by("hook"), bodies: by("body"), clips: [...by("hook"), ...by("body")], music: by("music"), waiting };
+  return ASSETS.get(tag);
 }
+
+// Videos from wherever this song's videos live, music from its own library.
+// `waiting` are uploads not yet checked; `refused` are ones the check turned down.
+async function assetsFor(creative, fresh = false) {
+  const ownTag = tagFor(creative);
+  const videoTag = videoTagFor(creative);
+  const own = await tagAssets(ownTag, fresh);
+  const pool = videoTag === ownTag ? own : await tagAssets(videoTag, fresh);
+  const by = (lib, prefix) => lib.library.filter((a) => a.name.toLowerCase().startsWith(prefix)).sort((x, y) => x.name.localeCompare(y.name));
+  const held = [
+    ...pool.held.filter((h) => /^(rejected__)?(hook|body)__/.test(h.name)),
+    ...own.held.filter((h) => /^(rejected__)?music__/.test(h.name)),
+  ];
+  const hooks = by(pool, "hook");
+  const bodies = by(pool, "body");
+  return { hooks, bodies, clips: [...hooks, ...bodies], music: by(own, "music"),
+    waiting: held.filter((h) => !h.name.startsWith("rejected__")),
+    refused: held.filter((h) => h.name.startsWith("rejected__")) };
+}
+
+// "hook__1a2b3c4d__my clip.mp4" -> "my clip.mp4"
+const droppedName = (name) => name.replace(/^rejected__/, "").replace(/^(hook|body|music)__[0-9a-f]{8}__/, "");
 
 const roster = () => { try { return JSON.parse(ctext("clips.json") || "{}").disabled || []; } catch { return []; } };
 
@@ -327,6 +351,7 @@ function creativesBlock(list) {
     if (c.link) lines.push(`    link: ${yamlString(c.link)}`);
     if (c.weight && Number(c.weight) !== 1) lines.push(`    weight: ${Number(c.weight)}`);
     if (c.assets_release) lines.push(`    assets_release: ${c.assets_release}`);
+    if (c.shared_videos) lines.push("    shared_videos: true");
     const cues = Object.entries(c.music_cues || {}).filter(([, v]) => Array.isArray(v) && v.length);
     if (cues.length) {
       lines.push("    music_cues:");
@@ -354,6 +379,32 @@ const ZONES = {
   music: { accept: ".mp3,.m4a,.wav,audio/*", exts: [".mp3", ".m4a", ".wav"] },
 };
 
+// When this page last started the upload check for a song, and how often,
+// so a check that never ran is retried a couple of times and then reported.
+const KICKS = new Map();
+
+async function startCheck(c) {
+  const k = KICKS.get(c.name) || { count: 0, at: 0 };
+  KICKS.set(c.name, { count: k.count + 1, at: Date.now() });
+  await api("run", { method: "POST", body: { workflow: "ingest", inputs: { campaign: slug(), creative: c.name } } });
+}
+
+// What to tell someone whose uploads are still waiting, and whether to act.
+async function checkProgress(c, manual = false) {
+  let last = null;
+  try { last = (await api("runs?workflow=ingest")).runs[0] || null; } catch { /* say what we can */ }
+  const k = KICKS.get(c.name) || { count: 0, at: 0 };
+  const justStarted = Date.now() - k.at < 90000;
+  if ((last && last.status !== "completed") || (justStarted && !manual)) return { state: "checking" };
+  if (manual || k.count < 2) {
+    try { await startCheck(c); return { state: "checking" }; }
+    catch (err) { return { state: "stuck", why: `The check couldn't start: ${err.message}`, url: last && last.url }; }
+  }
+  const failed = last && last.conclusion !== "success";
+  return { state: "stuck", url: last && last.url,
+    why: failed ? "The check stopped before it finished." : "The check ran but left these behind." };
+}
+
 function viewContent() {
   clearTimeout(watchTimer);
   const word = setWord();
@@ -361,9 +412,12 @@ function viewContent() {
   if (SET >= sets.length) SET = 0;
   const c = sets[SET];
   const music = isMusic();
+  const shared = Boolean(c.shared_videos);
   const twoClips = Number((conf().composition || {}).bodies_per_video ?? 1) > 0;
   const bank = parseBank((file(bankPathFor(c)) || {}).text || "");
+  const ownBank = bankPathFor(c) !== cpath("captions.txt");
   const off = roster();
+  const label = c.title || c.name;
 
   const zone = (kind, title, help) => `<section class="panel" data-zone="${kind}">
       <div class="row"><h3 class="grow">${title}</h3><span class="tag" data-count></span></div>
@@ -376,19 +430,26 @@ function viewContent() {
       <div class="files" data-files><p class="muted small">Looking…</p></div>
     </section>`;
 
-  $("#view").innerHTML = head("Content", `What ${esc(slug())} posts. Add as many as you like; each video is built from a random pick.`)
-    + `<div class="chips" role="tablist">${sets.map((x, i) => `<button type="button" class="chip ${i === SET ? "on" : ""}" data-set="${i}">${esc(x.title || x.name)}</button>`).join("")}
-        <button type="button" class="chip add" data-add>+ Add a ${word}</button></div>`
-    + (twoClips
-      ? zone("hook", "Opening clips", "The first thing people see. One is picked to start each video.")
-        + zone("body", "Second clips", "What each video cuts to after the opening.")
-      : zone("hook", "Videos", "Every video you drop here goes into the pool. One is picked for each post."))
-    + zone("music", music ? "Song clips" : "Music",
-      music ? "The audio that plays over the videos. One is picked for each post." : "Plays quietly under the clips. Optional.")
-    + `<section class="panel"><div class="row"><h3 class="grow">Captions</h3><span class="tag">${bank.records.length} written</span></div>
-        <p class="muted small" style="margin:2px 0 12px">The words on the video and under it. One is picked for each post.</p>
+  const videos = twoClips
+    ? zone("hook", "Opening clips", `The first thing people see. One is picked to start each video.${shared ? ` Every ${word} uses these.` : ""}`)
+      + zone("body", "Second clips", "What each video cuts to after the opening.")
+    : zone("hook", "Videos", shared
+      ? `One shared pool. Every ${word} picks its videos from here, so a clip you add works with all of them.`
+      : "Every video you drop here goes into the pool. One is picked for each post.");
+  const chips = `<div class="chips" role="tablist">${sets.map((x, i) => `<button type="button" class="chip ${i === SET ? "on" : ""}" data-set="${i}">${esc(x.title || x.name)}</button>`).join("")}
+        <button type="button" class="chip add" data-add>+ Add a ${word}</button></div>`;
+
+  $("#view").innerHTML = head("Content", shared
+      ? `What ${esc(slug())} posts. Each video is one clip from the pool with one ${word} over it and one of that ${word}'s captions.`
+      : `What ${esc(slug())} posts. Add as many as you like; each video is built from a random pick.`)
+    + (shared ? videos + `<h3 style="margin:22px 0 8px">${music ? "Songs" : "Sets"}</h3>` + chips : chips + videos)
+    + zone("music", music ? (shared ? `Audio for ${esc(label)}` : "Song clips") : "Music",
+      music ? (shared ? "The part of the song that plays. Add more than one cut and each post picks one." : "The audio that plays over the videos. One is picked for each post.")
+        : "Plays quietly under the clips. Optional.")
+    + `<section class="panel"><div class="row"><h3 class="grow">${shared || ownBank ? `Captions for ${esc(label)}` : "Captions"}</h3><span class="tag">${bank.records.length} written</span></div>
+        <p class="muted small" style="margin:2px 0 12px">The words on the video and under it. ${ownBank ? `Only ever posted with this ${word}.` : "One is picked for each post."}</p>
         <button type="button" class="btn" data-captions>Write captions</button></section>
-      <section class="panel"><div class="row"><h3 class="grow">${esc(c.title || c.name)}</h3>
+      <section class="panel"><div class="row"><h3 class="grow">${esc(label)}</h3>
           ${Number(c.weight || 1) !== 1 ? `<span class="tag">posts ${Number(c.weight)}× as often</span>` : ""}</div>
         <p class="muted small" style="margin:2px 0 12px">${(c.accounts || []).length ? `Posts to ${esc(c.accounts.join(", "))}.` : "Posts to every account."}
           ${c.link ? ` Sends people to ${esc(c.link)}.` : ""}</p>
@@ -399,24 +460,41 @@ function viewContent() {
   $("[data-edit]").addEventListener("click", () => editCreative(SET));
   $("[data-captions]").addEventListener("click", () => editCaptions(c));
 
-  const fill = async (fresh = false) => {
+  const fill = async (fresh = false, manual = false) => {
     const lib = await assetsFor(c, fresh);
-    if (TAB !== "Content" || creatives()[SET] !== c && creatives()[SET]?.name !== c.name) return lib;
+    const progress = lib.waiting.length ? await checkProgress(c, manual) : null;
+    if (TAB !== "Content" || creatives()[SET]?.name !== c.name) return lib;
     for (const [kind, list] of [["hook", lib.hooks], ["body", lib.bodies], ["music", lib.music]]) {
       const el = $(`[data-zone="${kind}"]`);
       if (!el) continue;
       const waiting = lib.waiting.filter((w) => w.name.startsWith(`${kind}__`));
+      const refused = lib.refused.filter((w) => w.name.startsWith(`rejected__${kind}__`));
+      const many = waiting.length !== 1;
       $("[data-count]", el).textContent = `${list.length} added`;
-      $("[data-files]", el).innerHTML = (waiting.length
-        ? `<p class="note">${waiting.length} file${waiting.length === 1 ? " is" : "s are"} being checked. ${waiting.length === 1 ? "It appears" : "They appear"} below in a minute or two.</p>` : "")
+      $("[data-files]", el).innerHTML = (waiting.length ? (progress.state === "checking"
+          ? `<p class="note">${waiting.length} file${many ? "s are" : " is"} being checked. ${many ? "They appear" : "It appears"} below in a minute or two.</p>`
+          : `<div class="note bad"><b>${waiting.length} file${many ? "s are" : " is"} uploaded but not added yet.</b> ${esc(progress.why)}
+              <div class="row" style="margin-top:8px"><button type="button" class="btn compact" data-recheck>Check again</button>
+              ${progress.url ? `<a href="${esc(progress.url)}" target="_blank" rel="noopener">What went wrong</a>` : ""}</div></div>`) : "")
+        + refused.map((r) => `<div class="file refused">
+            <span class="grow name">${esc(droppedName(r.name))}<small>Not added. ${esc(r.note || "The check couldn't use this file.")}</small></span>
+            <button type="button" class="btn compact" data-discard="${esc(r.name)}" data-inbox="${esc(r.inbox)}">Clear</button></div>`).join("")
         + (list.length ? list.map((a) => {
           const isOff = off.includes(a.name);
           return `<div class="file ${isOff ? "off" : ""}">
             <button type="button" class="play" data-play="${esc(a.url)}" data-audio="${kind === "music" ? 1 : ""}" aria-label="Play ${esc(a.name)}">▶</button>
             <span class="grow name">${esc(a.name)}<small>${isOff ? "Not being used" : `${(a.size / 1048576).toFixed(1)} MB`}</small></span>
             <button type="button" class="btn compact" data-toggle="${esc(a.name)}">${isOff ? "Use it" : "Stop using"}</button></div>`;
-        }).join("") : waiting.length ? "" : `<p class="muted small">Nothing here yet.</p>`);
+        }).join("") : waiting.length || refused.length ? "" : `<p class="muted small">Nothing here yet.</p>`);
     }
+    $$("[data-recheck]").forEach((b) => b.addEventListener("click", () => busy(b, async () => {
+      await fill(true, true);
+      toast("Checking again.");
+    })));
+    $$("[data-discard]").forEach((b) => b.addEventListener("click", () => busy(b, async () => {
+      await api("discard", { method: "POST", body: { tag: b.dataset.inbox, name: b.dataset.discard } });
+      await fill(true);
+    })));
     $$("[data-play]").forEach((b) => b.addEventListener("click", () => {
       const row = b.closest(".file");
       const open = row.nextElementSibling;
@@ -432,7 +510,8 @@ function viewContent() {
       viewContent();
     })));
     // Keep looking while something is still being checked.
-    if (lib.waiting.length) watchTimer = setTimeout(() => fill(true), 20000);
+    clearTimeout(watchTimer);
+    if (lib.waiting.length && progress.state === "checking") watchTimer = setTimeout(() => fill(true), 20000);
     return lib;
   };
   fill();
@@ -455,10 +534,11 @@ function viewContent() {
       list.innerHTML = problems.map((t) => `<p class="small" style="color:var(--hold)">${esc(t)}</p>`).join("")
         + good.map((f, i) => `<div class="upload" data-u="${i}"><span class="grow name">${esc(f.name)}</span><span class="pct">Waiting</span><i></i></div>`).join("");
       let sent = 0;
+      const dest = kind === "music" ? tagFor(c) : videoTagFor(c);
       for (const [i, f] of good.entries()) {
         const row = $(`[data-u="${i}"]`, list);
         try {
-          await sendFile(tagFor(c), kind, f, (p) => { $(".pct", row).textContent = `${Math.round(p * 100)}%`; $("i", row).style.width = `${p * 100}%`; });
+          await sendFile(dest, kind, f, (p) => { $(".pct", row).textContent = `${Math.round(p * 100)}%`; $("i", row).style.width = `${p * 100}%`; });
           $(".pct", row).textContent = "Uploaded"; $("i", row).style.width = "100%"; row.classList.add("done");
           sent += 1;
         } catch (err) { $(".pct", row).textContent = "Failed"; row.classList.add("failed"); toast(err.message, true); }
@@ -466,9 +546,10 @@ function viewContent() {
       input.value = "";
       if (!sent) return;
       try {
-        await api("run", { method: "POST", body: { workflow: "ingest", inputs: { campaign: slug(), creative: c.name } } });
+        KICKS.delete(c.name);
+        await startCheck(c);
         toast(`${sent} file${sent === 1 ? "" : "s"} uploaded. Checking ${sent === 1 ? "it" : "them"} now — about two minutes.`);
-      } catch (err) { toast(`Uploaded, but the check didn't start: ${err.message}`, true); }
+      } catch (err) { KICKS.delete(c.name); toast(`Uploaded, but the check didn't start: ${err.message}`, true); }
       setTimeout(() => { list.innerHTML = ""; fill(true); }, 2500);
     };
     input.addEventListener("change", () => take(input.files));
@@ -542,14 +623,22 @@ async function editCreative(index) {
         updated.name = slugify(title);
         if (list.some((x) => x.name === updated.name)) throw new Error(`There is already one called ${updated.name}.`);
         updated.assets_release = `assets-${slug()}-${updated.name}`;
+        // A song is a track and its captions over the campaign's shared videos.
+        if (isMusic()) {
+          updated.shared_videos = true;
+          // The starter set only existed to hold the first videos. With no
+          // track of its own it cannot post, so the first real song replaces it.
+          const starter = list.findIndex((x) => x.name === "default" && !x.assets_release && !x.shared_videos);
+          if (starter >= 0 && !(await assetsFor(list[starter])).music.length) list.splice(starter, 1);
+        }
         const base = cpath(`creatives/${updated.name}`);
-        extra.push({ path: `${base}/captions.txt`, text: `# Captions for ${title}.\n\noverlay: ${isMusic() ? "this part. | every single time." : "wait for it"}\ntitle: ${title}\n${title}\n` });
+        extra.push({ path: `${base}/captions.txt`, text: `# Captions for ${title}. Only ever posted with this one.\n\noverlay: ${isMusic() ? "this part. | every single time." : "wait for it"}\ntitle: ${title}\n${title}\n` });
         extra.push({ path: `${base}/LICENSES.md`, text: `# Music licences — ${slug()} / ${updated.name}\n\n| file | source | licence |\n|---|---|---|\n` });
         list.push(updated);
       } else list[index] = updated;
       if (isNew) SET = list.length - 1;
       await save(list, `${isNew ? "add" : "update"} ${updated.name}`, extra);
-      toast(isNew ? "Added. Drop in its videos and song clips." : "Saved.");
+      toast(isNew ? (updated.shared_videos ? "Added. Drop in its audio and write its captions." : "Added. Drop in its videos and song clips.") : "Saved.");
     });
   });
 }
@@ -890,8 +979,9 @@ async function runs() {
   if (!el) return;
   try {
     const { runs: list } = await api("runs");
-    const light = (r) => (r.conclusion === "success" ? "go" : r.conclusion === "failure" ? "hold" : "standby");
-    const word = (r) => (r.conclusion === "success" ? "Done" : r.conclusion === "failure" ? "Failed" : r.conclusion || "Running");
+    const bad = (r) => ["failure", "startup_failure", "timed_out"].includes(r.conclusion);
+    const light = (r) => (r.conclusion === "success" ? "go" : bad(r) ? "hold" : "standby");
+    const word = (r) => (r.conclusion === "success" ? "Done" : r.conclusion === "startup_failure" ? "Didn't start" : bad(r) ? "Failed" : r.conclusion === "cancelled" ? "Cancelled" : r.conclusion || "Running");
     el.innerHTML = list.length ? `<table>${list.map((r) => `<tr>
       <td><span class="row" style="gap:8px;flex-wrap:nowrap"><span class="dot ${light(r)}"></span><b>${esc(r.name)}</b></span>
         <div class="muted small">${esc(new Date(r.started).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" }))} · ${word(r)}</div></td>

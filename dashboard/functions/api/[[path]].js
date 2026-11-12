@@ -413,9 +413,26 @@ export async function onRequest({ request, env }) {
       if (res.status === 404) return json({ assets: [] });
       if (!res.ok) return json({ error: `GitHub ${res.status} listing the library` }, 502);
       const assets = ((await res.json()).assets || []).map((a) => ({
-        name: a.name, size: a.size, url: a.browser_download_url,
+        name: a.name, size: a.size, url: a.browser_download_url, note: a.label || "",
       }));
       return json({ assets });
+    }
+
+    // Clear away a file the check refused, once its owner has read why.
+    if (route === "discard" && method === "POST") {
+      const tag = String(body.tag || "");
+      const name = String(body.name || "");
+      if (!ASSET_TAG.test(tag) || !tag.startsWith("inbox-") || !name.startsWith("rejected__")) {
+        return json({ error: "only a refused upload can be cleared" }, 400);
+      }
+      const res = await gh(env, `/releases/tags/${tag}`);
+      if (!res.ok) return json({ error: `GitHub ${res.status} finding the upload` }, 502);
+      const asset = ((await res.json()).assets || []).find((a) => a.name === name);
+      if (asset) {
+        const gone = await gh(env, `/releases/assets/${asset.id}`, { method: "DELETE" });
+        if (!gone.ok && gone.status !== 404) return json({ error: `GitHub ${gone.status} clearing the upload` }, 502);
+      }
+      return json({ ok: true });
     }
 
     if (route === "run" && method === "POST") {
@@ -439,11 +456,13 @@ export async function onRequest({ request, env }) {
     }
 
     if (route === "runs" && method === "GET") {
-      const res = await gh(env, `/actions/runs?per_page=20&branch=${encodeURIComponent(branch)}`);
+      const only = url.searchParams.get("workflow") || "";
+      if (only && !WORKFLOWS[only]) return json({ error: "unknown workflow" }, 400);
+      const res = await gh(env, `/actions${only ? `/workflows/${only}.yml` : ""}/runs?per_page=${only ? 5 : 20}&branch=${encodeURIComponent(branch)}`);
       if (!res.ok) return json({ error: `GitHub ${res.status} listing runs` }, 502);
       const runs = (await res.json()).workflow_runs.map((r) => ({
         name: r.name, event: r.event, status: r.status, conclusion: r.conclusion,
-        started: r.run_started_at, url: r.html_url,
+        started: r.run_started_at || r.created_at, url: r.html_url,
       }));
       return json({ runs });
     }
