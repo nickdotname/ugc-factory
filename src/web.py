@@ -36,7 +36,9 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import parse_qs, urlparse
 
-from src.assets import GitHubReleasesStore, LocalLibrary, MediaStore
+from src.assets import (
+    SHARED_POOL_DIR, GitHubReleasesStore, LocalLibrary, MediaStore, fetch_library,
+)
 from src.accounts import ACCOUNTS_FILE, accounts_for, load_accounts
 from src.campaigns import create_campaign, list_campaigns, slug_error
 from src.clips import ClipRoster, kind_of, load_roster, roster_path, save_roster
@@ -583,7 +585,10 @@ class WebApp:
                              "to fetch them. Run `gh auth login`, or render once "
                              "from the CLI to populate work/.",
                 }
-            store.download_assets(self.creative_tag, assets)
+            fetch_library(
+                store, work / "assets", self.creative.name, self.creative_tag,
+                self.config.creative_video_tag(self.creative),
+            )
 
         if not assets.is_dir() or not any(assets.iterdir()):
             # download_assets succeeding with nothing to download is normal for
@@ -595,9 +600,12 @@ class WebApp:
                          "first.",
             }
 
-        paths = filter_library(
-            LocalLibrary.from_directory(assets), self._roster(), self.log
-        )
+        local = LocalLibrary.from_directory(assets)
+        if self.creative.shared_videos:
+            shared = work / "assets" / SHARED_POOL_DIR
+            if shared.is_dir():
+                local = local.with_videos_from(LocalLibrary.from_directory(shared))
+        paths = filter_library(local, self._roster(), self.log)
         # The creative's own bank when it has one, as the render job does.
         own_bank = (
             self.config.creative_dir(self.bank_path.parent, self.creative)

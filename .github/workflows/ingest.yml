@@ -63,62 +63,90 @@ jobs:
         run: pip install -q -r requirements.txt
 
       - name: Collect the dropped files
-        id: collect
         run: |
-          KEY=$(python -c "
+          # A song that shares the campaign's videos has two holding areas:
+          # its own (the track) and the campaign's (videos for the pool).
+          python -c "
           import os
           from pathlib import Path
           from src.config import load_campaign
           c = load_campaign(Path('campaigns'), os.environ['CAMPAIGN'])
           cr = next(x for x in c.creatives if x.name == os.environ['CREATIVE'])
-          print(c.creative_library_key(cr))
-          ")
-          echo "key=$KEY" >> "$GITHUB_OUTPUT"
-          mkdir -p staged "inbox/$KEY/hooks" "inbox/$KEY/bodies" "inbox/$KEY/music"
-          if ! gh release view "inbox-$KEY" >/dev/null 2>&1; then
-            echo "Nothing has been dropped for this library."
-            exit 0
-          fi
-          gh release download "inbox-$KEY" --dir staged --pattern '*' || true
-          # Exactly what this run picked up — so the last step removes these
-          # and nothing dropped while the job was running.
-          ls -1 staged > collected.txt 2>/dev/null || true
+          keys = [c.creative_library_key(cr)]
+          if c.creative_video_tag(cr) != c.creative_assets_tag(cr):
+              keys.append(c.library_key)
+          print('\n'.join(dict.fromkeys(keys)))
+          " > keys.txt
+          : > collected.txt
           shopt -s nullglob
-          for f in staged/*; do
-            base=$(basename "$f")
-            case "${base%%__*}" in
-              hook) dir=hooks ;;
-              body) dir=bodies ;;
-              music) dir=music ;;
-              *) continue ;;
-            esac
-            mv "$f" "inbox/$KEY/$dir/${base#*__}"
-          done
-          find "inbox/$KEY" -type f | sort
+          while read -r KEY; do
+            mkdir -p "staged/$KEY" "inbox/$KEY/hooks" "inbox/$KEY/bodies" "inbox/$KEY/music"
+            if ! gh release view "inbox-$KEY" >/dev/null 2>&1; then
+              echo "Nothing waiting in inbox-$KEY."
+              continue
+            fi
+            gh release download "inbox-$KEY" --dir "staged/$KEY" --pattern '*' || true
+            for f in "staged/$KEY"/*; do
+              base=$(basename "$f")
+              # Exactly what this run picked up, so the last step removes
+              # these and nothing dropped while the job was running.
+              case "${base%%__*}" in
+                hook) dir=hooks ;;
+                body) dir=bodies ;;
+                music) dir=music ;;
+                # Anything else is a file already refused on an earlier run,
+                # kept so the dashboard can say why.
+                *) continue ;;
+              esac
+              printf '%s\t%s\n' "$KEY" "$base" >> collected.txt
+              mv "$f" "inbox/$KEY/$dir/${base#*__}"
+            done
+          done < keys.txt
+          find inbox -type f | sort
 
       - name: Check, name and add to the library
         run: |
           set +e
-          python -m src.cli ingest --campaign "$CAMPAIGN" --creative "$CREATIVE" 2>ingest.log | tee ingest.out
-          status=${PIPESTATUS[0]}
+          python -m src.cli ingest --campaign "$CAMPAIGN" --creative "$CREATIVE" --report ingest.json 2>ingest.log | tee ingest.out
           {
             echo "### Uploads for $CAMPAIGN / $CREATIVE"
             echo '```'
             cat ingest.out
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-          # A rejected file is reported, not a reason to leave the good ones
-          # behind: they are already in the library by this point.
-          if [ "$status" -ne 0 ]; then
-            echo "::warning::Some dropped files could not be used. See the summary."
+          if [ ! -s collected.txt ]; then
+            echo "Nothing was waiting."
+            exit 0
           fi
-          exit 0
+          # No report means nothing was settled — a broken config, a failed
+          # upload. Fail loudly and leave every file where it is, so the
+          # dashboard shows the failure and the next run picks them up.
+          if [ ! -s ingest.json ]; then
+            tail -n 40 ingest.log
+            echo "::error::The dropped files could not be checked. They are still waiting."
+            exit 1
+          fi
 
       - name: Empty the holding area
-        env:
-          KEY: ${{ steps.collect.outputs.key }}
         run: |
-          [ -s collected.txt ] || exit 0
-          while read -r name; do
-            gh release delete-asset "inbox-$KEY" "$name" --yes || true
+          [ -s collected.txt ] && [ -s ingest.json ] || exit 0
+          while IFS=$'\t' read -r key name; do
+            verdict=$(jq -r --arg k "$key" --arg n "$name" \
+              '[.[] | select(.inbox == $k and .asset == $n)][0].verdict // ""' ingest.json)
+            case "$verdict" in
+              ok|warned)
+                gh release delete-asset "inbox-$key" "$name" --yes || true ;;
+              rejected)
+                # Kept under a new name with the reason attached, so the
+                # dashboard can tell whoever dropped it what was wrong.
+                reason=$(jq -r --arg k "$key" --arg n "$name" \
+                  '[.[] | select(.inbox == $k and .asset == $n)][0].notes | join(" ")' ingest.json)
+                id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/inbox-$key" \
+                  | jq -r --arg n "$name" '.assets[] | select(.name == $n) | .id')
+                [ -n "$id" ] && gh api -X PATCH "repos/$GITHUB_REPOSITORY/releases/assets/$id" \
+                  -f name="rejected__$name" -f label="${reason:0:180}" >/dev/null \
+                  || gh release delete-asset "inbox-$key" "$name" --yes || true ;;
+              *)
+                echo "Leaving $name where it is: it was not looked at." ;;
+            esac
           done < collected.txt

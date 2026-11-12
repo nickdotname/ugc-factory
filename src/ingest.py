@@ -99,13 +99,19 @@ class IngestPlan:
         return "\n".join(lines)
 
 
-def next_index(existing: list[str], kind: PartKind) -> int:
+def next_index(existing: list[str], kind: PartKind, label: str = "") -> int:
     """First free number for a role, continuing any existing sequence.
 
     Looks at what is already in the Release rather than at the inbox, so a
     second ingest run appends ``hook_07`` instead of overwriting ``hook_01``.
     """
     highest = 0
+    if label:
+        labelled = re.compile(rf"^{kind.value}_{re.escape(label)}_(\d+)", re.IGNORECASE)
+        for name in existing:
+            if found := labelled.match(name):
+                highest = max(highest, int(found.group(1)))
+        return highest + 1
     for name in existing:
         match = _NUMBERED.match(name)
         if match and match.group(1).lower() == kind.value:
@@ -169,12 +175,26 @@ def build_plan(
     existing: list[str],
     renderer: Renderer,
     log: StructuredLogger,
+    *,
+    kinds: tuple[PartKind, ...] = tuple(PartKind),
+    music_label: str = "",
 ) -> IngestPlan:
-    """Inspect every dropped file and decide its fate. Changes nothing."""
+    """Inspect every dropped file and decide its fate. Changes nothing.
+
+    ``kinds`` limits which roles this plan picks up, for a library that only
+    takes some of them. ``music_label`` names tracks ``music_<label>_NN`` —
+    used for a song, so its track is recognisable in the history and the
+    numbers rather than being a second ``music_01`` next to another song's.
+    """
     plan = IngestPlan()
-    counters = {kind: next_index(existing, kind) for kind in PartKind}
+    labels = {PartKind.MUSIC: music_label}
+    counters = {
+        kind: next_index(existing, kind, labels.get(kind, "")) for kind in PartKind
+    }
 
     for kind, dirname in INBOX_DIRS.items():
+        if kind not in kinds:
+            continue
         folder = inbox / dirname
         if not folder.is_dir():
             continue
@@ -202,8 +222,10 @@ def build_plan(
                 # Extension is normalised to lowercase; the rest of the name is
                 # generated, so spaces and unicode in the original cannot reach
                 # the ffmpeg concat list or a URL.
+                label = labels.get(kind, "")
+                stem = f"{kind.value}_{label}" if label else kind.value
                 candidate.target_name = (
-                    f"{kind.value}_{counters[kind]:02d}{path.suffix.lower()}"
+                    f"{stem}_{counters[kind]:02d}{path.suffix.lower()}"
                 )
                 counters[kind] += 1
             plan.candidates.append(candidate)

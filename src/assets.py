@@ -434,9 +434,50 @@ class LocalLibrary:
             music=pick("music", cls.AUDIO_SUFFIXES),
         )
 
+    def with_videos_from(self, pool: "LocalLibrary") -> "LocalLibrary":
+        """This library's music over another library's videos."""
+        return LocalLibrary(hooks=pool.hooks, bodies=pool.bodies, music=self.music)
+
     def by_name(self) -> dict[str, Path]:
         """Filename -> path, for resolving a Selection back to real files."""
         return {p.name: p for p in (*self.hooks, *self.bodies, *self.music)}
+
+
+#: Directory name for the campaign-wide video pool under a work directory.
+#: Creative names must start with a letter, so this can never be one.
+SHARED_POOL_DIR = "_shared"
+
+
+def fetch_library(
+    store: "MediaStore",
+    root: Path,
+    name: str,
+    tag: str,
+    video_tag: str,
+) -> LocalLibrary:
+    """Download one creative's clips into ``root`` and group them.
+
+    ``tag`` holds the creative's own files; ``video_tag`` is where its videos
+    come from. They differ for a creative that shares the campaign's video
+    pool, in which case only the music is taken from its own Release — and a
+    missing own Release just means no track has been added yet.
+    """
+    own_dir = root / name
+    if tag == video_tag:
+        store.download_assets(tag, own_dir)
+        # A store with nothing to download may not create the directory.
+        own_dir.mkdir(parents=True, exist_ok=True)
+        return LocalLibrary.from_directory(own_dir)
+
+    own_dir.mkdir(parents=True, exist_ok=True)
+    if store.list_assets(tag):
+        store.download_assets(tag, own_dir)
+    shared_dir = root / SHARED_POOL_DIR
+    store.download_assets(video_tag, shared_dir)
+    shared_dir.mkdir(parents=True, exist_ok=True)
+    return LocalLibrary.from_directory(own_dir).with_videos_from(
+        LocalLibrary.from_directory(shared_dir)
+    )
 
 
 def check_music_licenses(

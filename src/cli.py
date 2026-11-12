@@ -44,6 +44,7 @@ from src.assets import (
     MediaStore,
     check_music_licenses,
     github_token_from_env,
+    fetch_library,
 )
 from src.clips import filter_library, kind_of, load_roster, roster_path, save_roster
 from src.config import (
@@ -66,6 +67,7 @@ from src.errors import AuthError, ConfigError, QuotaError, SelectionError, UgcEr
 from src.ingest import (
     ARCHIVE_DIR,
     INBOX_DIRS,
+    IngestPlan,
     apply_plan,
     build_plan,
     combinations,
@@ -394,12 +396,12 @@ def _load_creative_resources(
     reuse a number (``hook_01.mp4`` in creative A is a different file from
     ``hook_01.mp4`` in creative B once each lives in its own Release tag).
     """
-    assets_dir = work / "assets" / creative.name
-    tag = config.creative_assets_tag(creative)
-    store.download_assets(tag, assets_dir)
-
     paths = filter_library(
-        LocalLibrary.from_directory(assets_dir),
+        fetch_library(
+            store, work / "assets", creative.name,
+            config.creative_assets_tag(creative),
+            config.creative_video_tag(creative),
+        ),
         load_roster(roster_path(campaign_dir)),
         log,
     )
@@ -1956,11 +1958,13 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
             prefix = f"{creative.name}: "
             try:
                 store = _build_store(env, log, clock)
-                work = REPO_ROOT / "work" / config.slug / "assets" / creative.name
-                tag = config.creative_assets_tag(creative)
-                store.download_assets(tag, work)
                 paths = filter_library(
-                    LocalLibrary.from_directory(work),
+                    fetch_library(
+                        store, REPO_ROOT / "work" / config.slug / "assets",
+                        creative.name,
+                        config.creative_assets_tag(creative),
+                        config.creative_video_tag(creative),
+                    ),
                     load_roster(roster_path(campaign_dir)),
                     log,
                 )
@@ -2242,32 +2246,83 @@ def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
         return 1
 
     tag = config.creative_assets_tag(creative)
-    existing = store.list_assets(tag)
+    video_tag = config.creative_video_tag(creative)
     renderer: Renderer = FfmpegRenderer(config, log)
 
-    plan = build_plan(inbox, existing, renderer, log)
-    print(f"\ncreative: {creative.name}")
-    print(f"inbox: {inbox}")
-    print(plan.render_table())
+    # A song that shares the campaign's videos has two destinations: videos
+    # dropped for it join the pool every song cuts from, its track goes to
+    # its own Release. Each has its own drop folder.
+    jobs: list[tuple[Path, str, tuple[PartKind, ...], str]] = []
+    if video_tag != tag:
+        pool_inbox = REPO_ROOT / INBOX_ROOT / config.library_key
+        ensure_inbox(pool_inbox)
+        jobs.append((pool_inbox, video_tag, (PartKind.HOOK, PartKind.BODY), ""))
+        jobs.append((inbox, tag, (PartKind.MUSIC,), creative.name))
+    else:
+        jobs.append((inbox, tag, tuple(PartKind), ""))
 
-    if plan.rejected:
-        print(f"\n{len(plan.rejected)} file(s) will be skipped — see notes above.")
-    if not plan.uploadable:
+    print(f"\ncreative: {creative.name}")
+    plans = []
+    for folder, dest, kinds, label in jobs:
+        plan = build_plan(
+            folder, store.list_assets(dest), renderer, log,
+            kinds=kinds, music_label=label,
+        )
+        print(f"inbox: {folder}  →  {dest}")
+        print(plan.render_table())
+        plans.append((plan, folder, dest))
+
+    rejected = sum(len(plan.rejected) for plan, _, _ in plans)
+    if rejected:
+        print(f"\n{rejected} file(s) will be skipped — see notes above.")
+    if not any(plan.uploadable for plan, _, _ in plans):
         print("\nNothing to upload.")
-        return 1 if plan.rejected else 0
+        if not args.dry_run:
+            _write_ingest_report(args, plans)
+        return 1 if rejected else 0
 
     if args.dry_run:
         print(f"\nDry run — nothing uploaded. Drop --dry-run to upload.")
         return 0
 
-    uploaded = apply_plan(
-        plan, inbox, store, tag, log,
-        staging=REPO_ROOT / "work" / config.slug / "staging" / creative.name,
-    )
-    print(f"\nUploaded {len(uploaded)} file(s) to release {tag}.")
+    for plan, folder, dest in plans:
+        uploaded = apply_plan(
+            plan, folder, store, dest, log,
+            staging=REPO_ROOT / "work" / config.slug / "staging" / creative.name,
+        )
+        if uploaded:
+            print(f"\nUploaded {len(uploaded)} file(s) to release {dest}.")
 
+    _write_ingest_report(args, plans)
     _print_library_health(config, creative, store, tag, log)
-    return 0
+    return 1 if rejected else 0
+
+
+def _write_ingest_report(
+    args: argparse.Namespace, plans: list[tuple[IngestPlan, Path, str]]
+) -> None:
+    """Record what happened to every dropped file, for whoever dropped it.
+
+    The hosted dashboard has no terminal to read: without this, a refused file
+    simply never appears and nobody is told why. Written only once the
+    uploads have succeeded, so its absence means "nothing was settled, leave
+    the files where they are".
+    """
+    path = getattr(args, "report", None)
+    if not path:
+        return
+    rows = [
+        {
+            "inbox": folder.name,
+            "asset": f"{c.kind.value}__{c.source.name}",
+            "verdict": c.verdict.value,
+            "target": c.target_name,
+            "notes": c.notes,
+        }
+        for plan, folder, _ in plans
+        for c in plan.candidates
+    ]
+    Path(path).write_text(json.dumps(rows, indent=2) + "\n", encoding="utf-8")
 
 
 def _print_library_health(
@@ -2283,12 +2338,15 @@ def _print_library_health(
     5 a.m., long after the moment when adding another clip was easy.
     """
     names = store.list_assets(tag)
-    hooks = len([n for n in names if n.lower().startswith("hook")])
-    bodies = len([n for n in names if n.lower().startswith("body")])
+    video_tag = config.creative_video_tag(creative)
+    videos = names if video_tag == tag else store.list_assets(video_tag)
+    hooks = len([n for n in videos if n.lower().startswith("hook")])
+    bodies = len([n for n in videos if n.lower().startswith("body")])
     music = len([n for n in names if n.lower().startswith("music")])
     try:
         captions = len(_load_captions(
-            _campaign_dir(config.slug) / "captions.txt", config.buffer.service,
+            _creative_bank_path(config, creative, _campaign_dir(config.slug)),
+            config.buffer.service,
             config.buffer.title_strategy,
         ))
     except ConfigError:
@@ -3568,6 +3626,10 @@ def build_parser() -> argparse.ArgumentParser:
     ingest.add_argument(
         "--creative", default=None,
         help="which creative to upload into (default: the campaign's first)",
+    )
+    ingest.add_argument(
+        "--report", default=None,
+        help="write what happened to each file to this JSON path",
     )
 
     diagnose = sub.add_parser("diagnose", help="why did a queued post not publish")

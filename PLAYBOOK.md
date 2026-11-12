@@ -39,26 +39,33 @@ accounts:
 
 ## 2. Set up a song
 
-A **creative** is one self-contained pool: its own clips, its own track, its own
-captions. For music, make one per song.
+A **creative** is one song: its own track and its own captions. With
+`shared_videos: true` it cuts over the campaign's shared video pool
+(`assets-closequarters`), so a clip added once works under every song and a
+song's captions are never posted with another song. Leave `shared_videos` off
+and the song keeps its own private set of clips instead.
+
+On factory.nickbenak.com this is Content → **Add a song**: drop videos in the
+Videos panel, then per song drop its audio and write its captions.
 
 ```yaml
 # campaigns/closequarters/config.yaml
 creatives:
   - name: sunday_song
-    assets_release: assets-closequarters-sunday_song
+    assets_release: assets-closequarters-sunday_song   # holds its track
+    shared_videos: true               # videos come from the campaign pool
     weight: 2                         # picked twice as often
     music_cues:
-      music_01.mp3: [42.5, 73]        # the song only ever starts here
+      music_sunday_song_01.mp3: [42.5, 73]   # the song only ever starts here
     accounts: [nickdotname_tt, nickdotname_ig]   # omit = everywhere
 ```
 
 Then:
 
-1. Drop clips in `inbox/closequarters-sunday_song/hooks/` and the track in
-   `.../music/` (or use the dashboard: `./ugc web --campaign closequarters`),
-   and run `./ugc ingest --campaign closequarters --creative sunday_song`.
-   Files are renamed `hook_01.mp4`, `music_01.mp3`, … on upload.
+1. Drop clips in `inbox/closequarters/hooks/` (the shared pool) and the track
+   in `inbox/closequarters-sunday_song/music/`, and run
+   `./ugc ingest --campaign closequarters --creative sunday_song`.
+   Files are renamed `hook_01.mp4`, `music_sunday_song_01.mp3`, … on upload.
 2. Add the track to `campaigns/closequarters/creatives/sunday_song/LICENSES.md`.
 3. Write `campaigns/closequarters/creatives/sunday_song/captions.txt`:
 

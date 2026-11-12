@@ -234,3 +234,8 @@ audio.player { max-width: 100%; margin-left: 0; }
 .step b { display: block; color: var(--ink); }
 .step span.grow > span { color: var(--muted); font-size: 14px; }
 .step:not(.done):not(.next) b { color: var(--muted); font-weight: 550; }
+
+/* Uploads that need attention: a check that stalled, a file that was refused. */
+.note.bad { color: var(--ink); box-shadow: inset 3px 0 0 var(--hold); }
+.note.bad a { margin-left: 4px; }
+.file.refused .name small { color: var(--hold); white-space: normal; }
