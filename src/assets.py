@@ -513,3 +513,33 @@ def github_token_from_env(env: dict[str, str] | None = None) -> str:
             "Releases without it"
         )
     return token
+
+
+def assert_publicly_readable(
+    url: str, *, get: Callable[..., requests.Response] = requests.get
+) -> None:
+    """Fail unless ``url`` can be fetched by someone who is not signed in.
+
+    Buffer answers an unreadable link with "Video could not be read from its
+    URL" and that rejection is final, so pushing blind turns one broken
+    address into a queue full of permanently failed posts. Asking for the
+    first byte first costs nothing and leaves every item untouched.
+    """
+    try:
+        response = get(
+            url, headers={"Range": "bytes=0-0"}, stream=True, timeout=30,
+            allow_redirects=True,
+        )
+        status = response.status_code
+        response.close()
+    except requests.RequestException as exc:
+        raise MediaStoreError(
+            f"the rendered video at {url} could not be reached: {exc}. "
+            f"Nothing was sent to Buffer."
+        ) from exc
+    if status not in (200, 206):
+        raise MediaStoreError(
+            f"the rendered video at {url} is not publicly readable (HTTP "
+            f"{status}), so Buffer could not fetch it. Nothing was sent. Check "
+            f"that site.yaml's media_base_url is right and the site is up."
+        )

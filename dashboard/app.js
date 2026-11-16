@@ -285,10 +285,8 @@ function viewSchedule() {
   $("[data-reload]").addEventListener("click", (e) => busy(e.target, load));
   $$("[data-watch]").forEach((b) => b.addEventListener("click", () => {
     const next = b.closest(".row").nextElementSibling;
-    if (next && next.tagName === "VIDEO") { next.remove(); return; }
-    const v = document.createElement("video");
-    v.controls = true; v.playsInline = true; v.autoplay = true; v.src = b.dataset.watch;
-    b.closest(".row").after(v);
+    if (next && (next.tagName === "VIDEO" || next.classList.contains("playfail"))) { next.remove(); return; }
+    b.closest(".row").after(player(playable(b.dataset.watch), false));
   }));
   $$("[data-pull]").forEach((b) => b.addEventListener("click", () => busy(b, async () => {
     const account = b.dataset.account || "";
@@ -378,6 +376,27 @@ const ZONES = {
   body: { accept: ".mp4,.mov,.m4v,.webm,video/*", exts: [".mp4", ".mov", ".m4v", ".webm"] },
   music: { accept: ".mp3,.m4a,.wav,audio/*", exts: [".mp3", ".m4a", ".wav"] },
 };
+
+// A stored video's link as this site serves it. Older queue entries carry the
+// repository's own link, which only opens for someone signed in to GitHub.
+function playable(url) {
+  const m = /^https:\/\/github\.com\/[^/]+\/[^/]+\/releases\/download\/([^/]+)\/([^/?#]+)$/.exec(url || "");
+  return m ? `/api/media?tag=${encodeURIComponent(m[1])}&name=${encodeURIComponent(m[2])}` : url;
+}
+
+// A player that says so when the file will not play, instead of sitting blank.
+function player(src, audio) {
+  const media = document.createElement(audio ? "audio" : "video");
+  media.className = "player"; media.controls = true; media.autoplay = true; media.playsInline = true; media.preload = "metadata";
+  media.addEventListener("error", () => {
+    const note = document.createElement("p");
+    note.className = "note bad playfail";
+    note.textContent = `This ${audio ? "audio" : "video"} couldn't be played here. Try Refresh; if it still won't play, the file may have been removed.`;
+    media.replaceWith(note);
+  });
+  media.src = src;
+  return media;
+}
 
 // When this page last started the upload check for a song, and how often,
 // so a check that never ran is retried a couple of times and then reported.
@@ -498,10 +517,8 @@ function viewContent() {
     $$("[data-play]").forEach((b) => b.addEventListener("click", () => {
       const row = b.closest(".file");
       const open = row.nextElementSibling;
-      if (open && open.classList.contains("player")) { open.remove(); return; }
-      const media = document.createElement(b.dataset.audio ? "audio" : "video");
-      media.className = "player"; media.controls = true; media.autoplay = true; media.playsInline = true; media.src = b.dataset.play;
-      row.after(media);
+      if (open && (open.classList.contains("player") || open.classList.contains("playfail"))) { open.remove(); return; }
+      row.after(player(b.dataset.play, Boolean(b.dataset.audio)));
     }));
     $$("[data-toggle]").forEach((b) => b.addEventListener("click", () => busy(b, async () => {
       const name = b.dataset.toggle;

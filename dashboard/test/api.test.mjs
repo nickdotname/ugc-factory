@@ -6,6 +6,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { onRequest } from "../functions/api/[[path]].js";
+import { onRequest as publicVideo } from "../functions/v/[[path]].js";
 
 const env = { DASH_PASSWORD: "correct horse", GITHUB_TOKEN: "ghp_secret" };
 
@@ -196,7 +197,7 @@ test("clip libraries are listed by name only for asset releases", async () => {
     ? new Response("{}", { status: 404 })
     : ok({ assets: [{ name: "hook_01.mp4", size: 5, browser_download_url: "https://x/hook_01.mp4", uploader: { login: "n" } }] })));
   const res = await call("assets?tag=assets-clubs", { cookie });
-  assert.deepEqual(await res.json(), { assets: [{ name: "hook_01.mp4", size: 5, url: "https://x/hook_01.mp4", note: "" }] });
+  assert.deepEqual(await res.json(), { assets: [{ name: "hook_01.mp4", size: 5, note: "", url: "/api/media?tag=assets-clubs&name=hook_01.mp4" }] });
   assert.deepEqual(await (await call("assets?tag=assets-none", { cookie })).json(), { assets: [] });
   for (const tag of ["render-clubs-2026-11-10", "v1.0", "assets-../x", "inbox-../x", ""]) {
     assert.equal((await call(`assets?tag=${encodeURIComponent(tag)}`, { cookie })).status, 400, tag);
@@ -354,4 +355,92 @@ test("the run history can be narrowed to one known job", async () => {
     name: "ingest", event: "workflow_dispatch", status: "completed", conclusion: "startup_failure",
     started: "2026-11-11T20:33:18Z", url: "https://x/1",
   });
+});
+
+// A private repository's files, as GitHub serves them: the release lists the
+// asset, the asset answers with a redirect, the redirect serves the bytes.
+function mockStore(bytes = "0123456789") {
+  return mockGithub((url, init) => {
+    if (url.includes("/releases/tags/")) {
+      return ok({ assets: [
+        { id: 11, name: "hook_01.mp4", size: bytes.length },
+        { id: 12, name: "11111111-2222-3333-4444-555555555555.mp4", size: bytes.length },
+      ] });
+    }
+    if (url.includes("/releases/assets/")) return new Response(null, { status: 302, headers: { location: "https://signed.test/file?sig=abc" } });
+    if (url.startsWith("https://signed.test/")) {
+      const range = new Headers(init.headers || {}).get("range");
+      return range
+        ? new Response(bytes.slice(0, 2), { status: 206, headers: { "content-range": `bytes 0-1/${bytes.length}`, "content-length": "2", "content-type": "application/octet-stream" } })
+        : new Response(bytes, { status: 200, headers: { "content-length": String(bytes.length), "content-type": "application/octet-stream" } });
+    }
+    return new Response("unexpected", { status: 500 });
+  });
+}
+
+test("a clip plays through the site, with the token kept off the signed address", async () => {
+  const cookie = await login();
+  assert.equal((await call("media?tag=assets-clubs&name=hook_01.mp4")).status, 401);
+
+  const calls = mockStore();
+  const res = await call("media?tag=assets-clubs&name=hook_01.mp4", { cookie });
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get("content-type"), "video/mp4");
+  assert.equal(res.headers.get("accept-ranges"), "bytes");
+  assert.equal(await res.text(), "0123456789");
+  const signed = calls.find((c) => c.url.startsWith("https://signed.test/"));
+  assert.equal(new Headers(signed.init.headers || {}).get("authorization"), null);
+  assert.equal(calls.find((c) => c.url.includes("/releases/assets/11")).init.redirect, "manual");
+
+  const part = await call("media?tag=assets-clubs&name=hook_01.mp4", { cookie, headers: { range: "bytes=0-1" } });
+  assert.equal(part.status, 206);
+  assert.equal(part.headers.get("content-range"), "bytes 0-1/10");
+  assert.equal(await part.text(), "01");
+});
+
+test("the media route only reaches clips, by plain file name", async () => {
+  const cookie = await login();
+  const calls = mockStore();
+  for (const q of [
+    "tag=v1.0&name=hook_01.mp4", "tag=assets-../x&name=hook_01.mp4", "tag=assets-clubs&name=../config.yaml",
+    "tag=assets-clubs&name=hook_01.exe", "tag=assets-clubs&name=", "tag=assets-clubs&name=a/b.mp4",
+  ]) assert.equal((await call(`media?${q}`, { cookie })).status, 400, q);
+  assert.equal(calls.length, 0);
+  assert.equal((await call("media?tag=assets-clubs&name=missing.mp4", { cookie })).status, 404);
+});
+
+const video = (path, init = {}, e = env) => publicVideo({ request: new Request(`https://x.test${path}`, init), env: e });
+const RENDER = "/v/render-clubs-2026-11-11/11111111-2222-3333-4444-555555555555.mp4";
+
+test("a rendered video is readable without signing in, so Buffer can fetch it", async () => {
+  mockStore();
+  const res = await video(RENDER);
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get("content-type"), "video/mp4");
+  assert.equal(await res.text(), "0123456789");
+
+  const head = await video(RENDER, { method: "HEAD" });
+  assert.equal(head.status, 200);
+  assert.equal(head.headers.get("content-length"), "10");
+
+  const part = await video(RENDER, { headers: { range: "bytes=0-1" } });
+  assert.equal(part.status, 206);
+});
+
+test("the public address serves finished renders and nothing else", async () => {
+  const calls = mockStore();
+  for (const path of [
+    "/v/assets-clubs/hook_01.mp4",                                   // the clip library
+    "/v/inbox-clubs/hook__1a2b3c4d__x.mp4",                          // the holding area
+    "/v/render-clubs-2026-11-11/hook_01.mp4",                        // not a render's name
+    "/v/render-clubs-2026-11-11/..%2F..%2Fconfig.yaml",
+    "/v/render-clubs-2026-11-11",                                    // no listing
+    "/v/render-clubs-2026-11-11/11111111-2222-3333-4444-555555555555.mp4/extra",
+  ]) assert.equal((await video(path)).status, 404, path);
+  assert.equal(calls.length, 0);
+  assert.equal((await video(RENDER, { method: "POST" })).status, 405);
+  assert.equal((await video(RENDER, { method: "DELETE" })).status, 405);
+  assert.equal((await video(RENDER, {}, {})).status, 503);
+  // A well-formed name that does not exist is a plain 404, not an error page.
+  assert.equal((await video("/v/render-clubs-2026-11-11/99999999-2222-3333-4444-555555555555.mp4")).status, 404);
 });

@@ -69,7 +69,7 @@ globalThis.fetch = async (url, init = {}) => {
   if (String(url).startsWith("https://uploads.github.com/")) {
     const name = new URL(String(url)).searchParams.get("name");
     const tag = holding.get(Number(String(url).match(/releases\/(\d+)\//)[1]));
-    staged.get(tag).push({ id: ++assetIds, name, size: init.body.byteLength, browser_download_url: `https://example.test/${name}` });
+    staged.get(tag).push({ id: ++assetIds, name, size: init.body.byteLength, bytes: init.body, browser_download_url: `https://example.test/${name}` });
     log.push({ method: "UPLOAD", path: name, bytes: init.body.byteLength });
     return reply({ name }, 201);
   }
@@ -87,6 +87,13 @@ globalThis.fetch = async (url, init = {}) => {
     // The existing campaign has a library; anything new starts empty.
     const seeded = tag.startsWith("assets-clubs") ? ["hook_01.mp4", "hook_02.mp4", "body_01.mp4", "music_01.mp3"] : [];
     return reply({ assets: [...seeded.map((name) => ({ name, size: 4_200_000, browser_download_url: `https://example.test/${name}` })), ...(library.get(tag) || [])] });
+  }
+  if (path.startsWith("/releases/assets/") && method === "GET") {
+    // The file itself. (GitHub redirects to a signed address; serving the
+    // bytes directly exercises the same code without a second host.)
+    const id = Number(path.split("/").pop());
+    const found = [...library.values(), ...staged.values()].flat().find((f) => f.id === id);
+    return found && found.bytes ? new Response(found.bytes, { status: 200, headers: { "content-length": String(found.size) } }) : reply({}, 404);
   }
   if (path.startsWith("/releases/assets/") && method === "DELETE") {
     const id = Number(path.split("/").pop());
@@ -124,7 +131,7 @@ globalThis.fetch = async (url, init = {}) => {
           const kind = f.name.split("__")[0];
           const n = have.filter((x) => x.name.startsWith(kind)).length + 1;
           const name = `${kind}_${String(n).padStart(2, "0")}${f.name.slice(f.name.lastIndexOf("."))}`;
-          have.push({ name, size: f.size, browser_download_url: `https://example.test/${name}` });
+          have.push({ id: f.id, name, size: f.size, bytes: f.bytes, browser_download_url: `https://example.test/${name}` });
         }
         library.set(dest, have);
       }
@@ -154,7 +161,7 @@ export const server = createServer(async (req, res) => {
     });
     const out = await onRequest({ request, env });
     res.writeHead(out.status, Object.fromEntries(out.headers));
-    res.end(await out.text());
+    res.end(Buffer.from(await out.arrayBuffer()));
     return;
   }
   const file = join(site, url.pathname === "/" ? "index.html" : url.pathname);

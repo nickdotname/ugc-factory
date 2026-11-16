@@ -38,7 +38,9 @@ from src.accounts import (
     accounts_for,
     load_accounts,
 )
+from src.site import media_base, public_media_url
 from src.assets import (
+    assert_publicly_readable,
     GitHubReleasesStore,
     LocalLibrary,
     MediaStore,
@@ -1081,7 +1083,8 @@ def _render(
     published = store.publish(
         tag, [path for _, _, _, files in rendered for _, path, _ in files]
     )
-    urls = {a.name: a.url for a in published}
+    base = media_base(REPO_ROOT)
+    urls = {a.name: public_media_url(a.url, base) for a in published}
     for item, _, _, files in rendered:
         item.video_url = urls[files[0][1].name]
         for owner, path, made in files:
@@ -1184,6 +1187,26 @@ def cmd_topup(args: argparse.Namespace, env: dict[str, str]) -> int:
         log.exception("topup_failed", exc)
         notifier.failure("topup", exc, campaign=config.slug)
         return 1
+
+
+#: Links already confirmed readable in this process, so a video going to six
+#: accounts is asked for once.
+_READABLE: set[str] = set()
+
+
+def _postable_url(url: str, config: CampaignConfig) -> str:
+    """The link to hand Buffer for one video, checked before anything is claimed.
+
+    Raises before the item is touched if the link cannot be read without
+    signing in — see ``assert_publicly_readable``. Only checked when the repo
+    names a public media address and the post is real.
+    """
+    base = media_base(REPO_ROOT)
+    public = public_media_url(url, base)
+    if base and not config.posting.dry_run and public not in _READABLE:
+        assert_publicly_readable(public)
+        _READABLE.add(public)
+    return public
 
 
 def _account_channel(account: AccountConfig, env: dict[str, str]) -> str:
@@ -1469,9 +1492,10 @@ def _push_to_account(
             variant.title if variant is not None and variant.title
             else item.titles.get(network) or item.title
         )
-        video_url = (
+        video_url = _postable_url(
             variant.video_url if variant is not None and variant.video_url
-            else item.video_url
+            else item.video_url,
+            config,
         )
 
         # An item rendered for a network with no title field carries none,
@@ -1679,6 +1703,7 @@ def _topup(
 
     pushed = 0
     for item in to_push:
+        video_url = _postable_url(item.video_url, config)
         transition(item, QueueStatus.CLAIMED, log=log)
         save_queue(queue_path, queue)
         # The commit is the durable claim. A crash after this point leaves the
@@ -1693,7 +1718,7 @@ def _topup(
                     text=item.caption,
                     title=item.title,
                     service=config.buffer.service,
-                    video_url=item.video_url,
+                    video_url=video_url,
                     scheduled_for=item.scheduled_for,
                     first_comment=config.buffer.first_comment or None,
                     notify_subscribers=config.buffer.notify_subscribers,
