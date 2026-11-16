@@ -68,3 +68,17 @@ node --test dashboard/test/api.test.mjs dashboard/test/lib.test.mjs
 
 The dev server runs the real function against this checkout's files with
 GitHub stubbed out. Saves stay in memory, so everything is safe to click.
+
+## Media and the private repository
+
+The repository is private, so the GitHub links its clips and rendered videos
+are stored under only open for someone signed in to GitHub. The site serves
+them instead:
+
+- `/api/media?tag=…&name=…` — behind the login. What the Play buttons use.
+- `/v/<render tag>/<id>.mp4` — no login, finished renders only, by exact
+  random name. This is the link Buffer and the networks are given; the base
+  address is `media_base_url` in `site.yaml` at the repo root.
+
+Both use the same `GITHUB_TOKEN`; nothing new to set up. If the site is down,
+posting stops (and says so) rather than queueing posts Buffer will reject.

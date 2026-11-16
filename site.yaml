@@ -1,0 +1,11 @@
+# Where rendered videos are fetched from by Buffer and the networks.
+#
+# This repository is private, so the GitHub Release links the videos are
+# stored under cannot be opened by anyone who is not signed in — Buffer
+# included. The dashboard's site serves each rendered video at
+#   <media_base_url>/<release tag>/<file name>
+# without a sign-in. The file name is a random id, so a link is only known to
+# whoever it was handed to.
+#
+# Leave this empty only if the repository is public again.
+media_base_url: https://factory.nickbenak.com/v

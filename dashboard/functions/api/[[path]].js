@@ -15,6 +15,8 @@
 //
 // Anything missing fails closed: no password configured means nobody gets in.
 
+import { streamAsset } from "../../lib/media.js";
+
 const DEFAULT_REPO = "nickdotname/ugc-factory";
 const SESSION_DAYS = 7;
 const COOKIE = "ugc_session";
@@ -66,6 +68,8 @@ const SEEDED = {
 };
 const SLUG = /^[a-z][a-z0-9_]{1,40}$/;
 const ASSET_TAG = /^(assets|inbox)-[a-z0-9_-]{1,80}$/;
+const MEDIA_TAG = /^(assets|inbox|render)-[a-z0-9_-]{1,80}$/;
+const MEDIA_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,180}\.(mp4|mov|m4v|webm|mp3|m4a|wav|aac|ogg)$/;
 const LIBRARY_TAG = /^assets-[a-z0-9_-]{1,80}$/;
 
 // What can be dropped in, by the role it will play. The same lists the
@@ -413,9 +417,20 @@ export async function onRequest({ request, env }) {
       if (res.status === 404) return json({ assets: [] });
       if (!res.ok) return json({ error: `GitHub ${res.status} listing the library` }, 502);
       const assets = ((await res.json()).assets || []).map((a) => ({
-        name: a.name, size: a.size, url: a.browser_download_url, note: a.label || "",
+        // Played through this site: the repository's own links only open
+        // for someone signed in to GitHub.
+        name: a.name, size: a.size, note: a.label || "",
+        url: `/api/media?tag=${encodeURIComponent(tag)}&name=${encodeURIComponent(a.name)}`,
       }));
       return json({ assets });
+    }
+
+    // Play one clip from a library, a holding area or a day's renders.
+    if (route === "media" && (method === "GET" || method === "HEAD")) {
+      const tag = url.searchParams.get("tag") || "";
+      const name = url.searchParams.get("name") || "";
+      if (!MEDIA_TAG.test(tag) || !MEDIA_NAME.test(name)) return json({ error: "bad file" }, 400);
+      return streamAsset((path, init) => gh(env, path, init), tag, name, request);
     }
 
     // Clear away a file the check refused, once its owner has read why.
