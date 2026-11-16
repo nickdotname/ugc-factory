@@ -38,9 +38,9 @@ creatives:
     shared_videos: true
 
 posting:
-  posts_per_day: 3
-  start_hour: 11
-  end_hour: 23
+  posts_per_day: 12
+  start_hour: 0
+  end_hour: 0
   max_buffer_queue: 10
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
@@ -92,7 +92,7 @@ variation:
   hue_max_deg: 3
   grain_max: 5
   trim_start_max_sec: 0.4     # shave the head of the clip
-  overlay_shift_max: 0.03     # nudge the on-screen text up or down
+  overlay_shift_max: 0.01     # a small nudge only: the line sits just above the clips' own text
   allow_mirror: false         # would flip any text in the footage
 
   # Never touched: it is the song, and the platforms recognising it as the
@@ -102,12 +102,11 @@ variation:
   music_tilt_db: 0.0
 
 overlay:
-  enabled: false              # off: the uploaded clips already have their
-                              # own text on screen in the same spot, and two
-                              # lines on top of each other are unreadable.
-                              # Turn on for clips with no text of their own.
-  size: 0.06
-  y: 0.16
+  enabled: true               # the meme line from each caption, on screen
+  size: 0.05
+  # High on the frame on purpose: several of the clips already have their own
+  # text burned in around a quarter of the way down, and this sits above it.
+  y: 0.085
   max_chars: 24
 
 # Where every post sends people. {name} and {link} come from the song's own
