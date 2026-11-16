@@ -21,6 +21,10 @@ creatives:
     title: "Notta Problem"
     assets_release: assets-closequarters-notta_problem
     shared_videos: true
+  - name: wont_be_the_same_again
+    title: "Wont Be The Same Again"
+    assets_release: assets-closequarters-wont_be_the_same_again
+    shared_videos: true
   # - name: song_title_here
   #   assets_release: assets-closequarters-song_title_here
   #   weight: 2                       # twice as likely to be picked per slot
