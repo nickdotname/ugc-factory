@@ -130,9 +130,8 @@ funnel:
       - "Full song — {name}: {link}"
       - "Listen to {name}: {link}"
   cta_every: 1
-  first_comment:              # Instagram only
-    - "link in bio to stream {name}"
-    - "send {name} to a friend. link in bio to stream"
+  # Off: Buffer's free plan refuses posts that carry a first comment.
+  first_comment: []
   end_card: "{name} | link in bio to stream"
   end_card_sec: 2.0
 
