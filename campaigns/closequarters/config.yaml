@@ -32,7 +32,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true
+  paused: false
   dry_run: true
 
 video:
