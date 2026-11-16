@@ -429,6 +429,7 @@ def _load_creative_resources(
     descriptions = _load_captions(
         _creative_bank_path(config, creative, campaign_dir),
         config.buffer.service, config.buffer.title_strategy,
+        _caption_names(config, creative),
     )
     creative_dir = config.creative_dir(campaign_dir, creative)
     network_banks = tuple(
@@ -468,8 +469,17 @@ def _load_creative_resources(
     )
 
 
+def _caption_names(config: CampaignConfig, creative: CreativeConfig) -> dict[str, str]:
+    """What ``{name}`` and ``{link}`` stand for in one creative's captions."""
+    return {
+        "{name}": creative.title or config.funnel.name,
+        "{link}": creative.link or config.funnel.link,
+    }
+
+
 def _load_captions(
-    path: Path, service: Service, strategy: TitleStrategy | None = None
+    path: Path, service: Service, strategy: TitleStrategy | None = None,
+    names: dict[str, str] | None = None,
 ) -> list[Description]:
     """Read and validate the description bank for the campaign's platform.
 
@@ -480,10 +490,14 @@ def _load_captions(
     """
     if not path.is_file():
         raise ConfigError(f"description bank not found: {path}")
-    return load_bank(
-        path.read_text(encoding="utf-8"), service, source=str(path),
-        strategy=strategy,
-    )
+    text = path.read_text(encoding="utf-8")
+    # A caption can say {name} and be written once for every song: it is
+    # filled with the song it is posted with, on the video and under it.
+    # Left as written when there is nothing to fill it with.
+    for token, value in (names or {}).items():
+        if value:
+            text = text.replace(token, value)
+    return load_bank(text, service, source=str(path), strategy=strategy)
 
 
 # ------------------------------------------------------------------ command: render
@@ -2065,6 +2079,7 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
                 creative_bank = _load_captions(
                     _creative_bank_path(config, creative, campaign_dir),
                     config.buffer.service, config.buffer.title_strategy,
+                    _caption_names(config, creative),
                 )
                 unknown_cues = sorted(
                     set(creative.music_cues) - {p.name for p in paths.music}

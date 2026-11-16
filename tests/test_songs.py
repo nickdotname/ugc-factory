@@ -271,3 +271,64 @@ class TestRender:
             assert item.caption.startswith(f"about {song}")
             assert item.parts["hook"] in {"hook_00.mp4", "hook_01.mp4", "hook_02.mp4"}
         assert seen == {"first_song", "second_song"}
+
+
+class TestSongNameInCaptions:
+    def test_a_shared_caption_names_the_song_it_is_posted_with(
+        self, album: Path
+    ) -> None:
+        # Drop both songs' own captions so they fall back to the campaign's.
+        for song in ("first_song", "second_song"):
+            (album / "creatives" / song / "captions.txt").unlink()
+        (album / "captions.txt").write_text(
+            "overlay: how we move | when {name} comes on\n"
+            "title: {name} – Band\n"
+            "{name} – Band\nsend it to a friend\n",
+            encoding="utf-8",
+        )
+        config = load_campaign(album.parent, "album")
+        for creative, title in zip(config.creatives, ("First Song", "Second Song")):
+            (record,) = cli._load_captions(
+                album / "captions.txt", config.buffer.service,
+                config.buffer.title_strategy, cli._caption_names(config, creative),
+            )
+            assert record.body.startswith(f"{title} – Band")
+            assert record.overlay == f"how we move | when {title} comes on"
+            assert record.title == f"{title} – Band"
+
+    def test_a_name_nobody_supplied_is_left_as_written(self, tmp_path: Path) -> None:
+        bank = tmp_path / "captions.txt"
+        bank.write_text("{name} is out now", encoding="utf-8")
+        from src.models import Service
+
+        (record,) = cli._load_captions(bank, Service.INSTAGRAM, None, {"{name}": ""})
+        assert record.body == "{name} is out now"
+
+    def test_close_quarters_captions_all_name_the_song(self) -> None:
+        repo = Path(__file__).resolve().parent.parent
+        config = load_campaign(repo / "campaigns", "closequarters")
+        song = config.creatives[0].model_copy(update={"title": "Night Bus"})
+        records = cli._load_captions(
+            repo / "campaigns" / "closequarters" / "captions.txt",
+            config.buffer.service, config.buffer.title_strategy,
+            cli._caption_names(config, song),
+        )
+        assert len(records) == 8
+        for record in records:
+            assert "Night Bus" in record.body and "{" not in record.body
+            assert record.overlay and "{" not in record.overlay
+
+
+class TestEndCardWithoutOverlay:
+    def test_the_end_card_survives_turning_the_on_screen_line_off(
+        self, config: CampaignConfig, logger, tmp_path: Path
+    ) -> None:
+        off = config.model_copy(
+            update={"overlay": config.overlay.model_copy(update={"enabled": False})}
+        )
+        renderer = FfmpegRenderer(off, logger)
+        assert renderer._overlay_filters("meme line", tmp_path) == ""
+        card = renderer._overlay_filters(
+            "Night Bus | link in bio to stream", tmp_path, tag="endcard"
+        )
+        assert card.count("drawtext") == 2

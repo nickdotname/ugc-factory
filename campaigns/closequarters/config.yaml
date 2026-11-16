@@ -85,7 +85,10 @@ variation:
   music_tilt_db: 0.0
 
 overlay:
-  enabled: true
+  enabled: false              # off: the uploaded clips already have their
+                              # own text on screen in the same spot, and two
+                              # lines on top of each other are unreadable.
+                              # Turn on for clips with no text of their own.
   size: 0.06
   y: 0.16
   max_chars: 24
@@ -96,18 +99,18 @@ funnel:
   name: Education by Close Quarters
   link: ""                    # your smart link — fill this in before going live
   cta:
-    - "full song: {name} — link in bio"
-    - "{name} is out now. link in bio"
-    - "the whole thing is on spotify: {name}"
+    - "link in bio to stream {name}"
+    - "stream {name}: link in bio"
+    - "{name} is out now. link in bio to stream it"
   cta_by_network:
     youtube:                  # YouTube descriptions carry a real link
       - "Full song — {name}: {link}"
       - "Listen to {name}: {link}"
   cta_every: 1
   first_comment:              # Instagram only
-    - "full song → link in bio"
-    - "{name} — streaming everywhere, link in bio"
-  end_card: "{name} | full song on Spotify"
+    - "link in bio to stream {name}"
+    - "send {name} to a friend. link in bio to stream"
+  end_card: "{name} | link in bio to stream"
   end_card_sec: 2.0
 
 selection:
