@@ -1,3 +1,211 @@
 {
-  "entries": []
+  "entries": [
+    {
+      "tuple_hash": "e875e5f36705946a64ed10a585e7b5a35484dd3042582a884054aabf4c9d2107",
+      "timestamp": "2026-11-16T21:22:16.943705Z",
+      "item_id": "55634842-d7d1-4643-9ad5-6ff573ff54c2",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": "music_02.m4a",
+      "music_offset_sec": 210.0,
+      "caption": "Education – Close Quarters\nthe whole album is out now",
+      "title": "Close Quarters – Education",
+      "creative": "default",
+      "captions": {
+        "tiktok": "Education – Close Quarters\nthe whole album is out now\n\nfull song: Education by Close Quarters — link in bio",
+        "instagram": "Education – Close Quarters\nthe whole album is out now\n\nfull song: Education by Close Quarters — link in bio",
+        "youtube": "Education – Close Quarters\nthe whole album is out now\n\nfull song: Education by Close Quarters — link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0051,
+        "anchor_x": 0.552,
+        "anchor_y": 0.268,
+        "rotate_deg": 0.337,
+        "brightness": -0.0218,
+        "saturation": 1.0558,
+        "hue_deg": -0.79,
+        "grain": 2.86,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0,
+        "trim_start": 0.398,
+        "overlay_shift": 0.0107
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "how bro starts moving | when this comes on",
+      "lineup_id": null,
+      "variants": {
+        "nickdotname_ig": {
+          "hook": "hook_02.mp4",
+          "caption": "Education – Close Quarters\nthe whole album is out now",
+          "music_offset_sec": "210"
+        },
+        "nickdotname_tt": {
+          "hook": "hook_08.mp4",
+          "caption": "Education by Close Quarters\nfull album streaming now",
+          "music_offset_sec": "120"
+        },
+        "nickdotname_yt": {
+          "hook": "hook_06.mp4",
+          "caption": "Close Quarters – Education\nout everywhere, link in bio",
+          "music_offset_sec": "45"
+        },
+        "knick_creates_ig": {
+          "hook": "hook_13.mp4",
+          "caption": "Education – Close Quarters\nthe whole album is out now",
+          "music_offset_sec": "105"
+        },
+        "knick_creates_tt": {
+          "hook": "hook_10.mp4",
+          "caption": "Education – Close Quarters\nthe whole album is out now",
+          "music_offset_sec": "150"
+        },
+        "knick_creates_yt": {
+          "hook": "hook_03.mp4",
+          "caption": "Education – Close Quarters\nthe whole album is out now",
+          "music_offset_sec": "165"
+        }
+      }
+    },
+    {
+      "tuple_hash": "5d188acdd4cb218faf2d563d867f068ac53038134d434e3438accb01c0590817",
+      "timestamp": "2026-11-16T21:22:16.943705Z",
+      "item_id": "451675ac-2ca7-4aa1-9ea1-d7fd3de676f1",
+      "hook": "hook_07.mp4",
+      "bodies": [],
+      "music": "music_03.m4a",
+      "music_offset_sec": 0.0,
+      "caption": "Education by Close Quarters\nfull album streaming now",
+      "title": "Education by Close Quarters",
+      "creative": "default",
+      "captions": {
+        "tiktok": "Education by Close Quarters\nfull album streaming now\n\nEducation by Close Quarters is out now. link in bio",
+        "instagram": "Education by Close Quarters\nfull album streaming now\n\nEducation by Close Quarters is out now. link in bio",
+        "youtube": "Education by Close Quarters\nfull album streaming now\n\nEducation by Close Quarters is out now. link in bio"
+      },
+      "treatment": {
+        "zoom": 0.021,
+        "anchor_x": 0.307,
+        "anchor_y": 0.409,
+        "rotate_deg": 0.322,
+        "brightness": 0.0114,
+        "saturation": 1.0586,
+        "hue_deg": -0.46,
+        "grain": 2.61,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0,
+        "trim_start": 0.342,
+        "overlay_shift": -0.0013
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "this part. | every single time.",
+      "lineup_id": null,
+      "variants": {
+        "nickdotname_ig": {
+          "hook": "hook_07.mp4",
+          "caption": "Education by Close Quarters\nfull album streaming now",
+          "music_offset_sec": "0"
+        },
+        "nickdotname_tt": {
+          "hook": "hook_04.mp4",
+          "caption": "Education – Close Quarters\nthe whole album is out now",
+          "music_offset_sec": "60"
+        },
+        "nickdotname_yt": {
+          "hook": "hook_12.mp4",
+          "caption": "Close Quarters – Education\nout everywhere, link in bio",
+          "music_offset_sec": "15"
+        },
+        "knick_creates_ig": {
+          "hook": "hook_05.mp4",
+          "caption": "Education by Close Quarters\nfull album streaming now",
+          "music_offset_sec": "90"
+        },
+        "knick_creates_tt": {
+          "hook": "hook_11.mp4",
+          "caption": "Education by Close Quarters\nfull album streaming now",
+          "music_offset_sec": "45"
+        },
+        "knick_creates_yt": {
+          "hook": "hook_06.mp4",
+          "caption": "Education by Close Quarters\nfull album streaming now",
+          "music_offset_sec": "75"
+        }
+      }
+    },
+    {
+      "tuple_hash": "d83aa1b28166d128f0781bd192c3e7e1508e419918dc31d1176d790a347b1fdb",
+      "timestamp": "2026-11-16T21:22:16.943705Z",
+      "item_id": "0568ce51-af65-4ef8-aa6b-68819890cba2",
+      "hook": "hook_08.mp4",
+      "bodies": [],
+      "music": "music_02.m4a",
+      "music_offset_sec": 45.0,
+      "caption": "Close Quarters – Education\nout everywhere, link in bio",
+      "title": "Close Quarters – Education (out now)",
+      "creative": "default",
+      "captions": {
+        "tiktok": "Close Quarters – Education\nout everywhere, link in bio\n\nthe whole thing is on spotify: Education by Close Quarters",
+        "instagram": "Close Quarters – Education\nout everywhere, link in bio\n\nthe whole thing is on spotify: Education by Close Quarters",
+        "youtube": "Close Quarters – Education\nout everywhere, link in bio\n\nthe whole thing is on spotify: Education by Close Quarters"
+      },
+      "treatment": {
+        "zoom": 0.0173,
+        "anchor_x": 0.666,
+        "anchor_y": 0.583,
+        "rotate_deg": -0.08,
+        "brightness": -0.0032,
+        "saturation": 1.0299,
+        "hue_deg": -2.41,
+        "grain": 1.55,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0,
+        "trim_start": 0.119,
+        "overlay_shift": 0.0159
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "pov: you finally found | a song nobody else knows",
+      "lineup_id": null,
+      "variants": {
+        "nickdotname_ig": {
+          "hook": "hook_08.mp4",
+          "caption": "Close Quarters – Education\nout everywhere, link in bio",
+          "music_offset_sec": "45"
+        },
+        "nickdotname_tt": {
+          "hook": "hook_04.mp4",
+          "caption": "Education – Close Quarters\nthe whole album is out now",
+          "music_offset_sec": "195"
+        },
+        "nickdotname_yt": {
+          "hook": "hook_09.mp4",
+          "caption": "Education by Close Quarters\nfull album streaming now",
+          "music_offset_sec": "30"
+        },
+        "knick_creates_ig": {
+          "hook": "hook_13.mp4",
+          "caption": "Close Quarters – Education\nout everywhere, link in bio",
+          "music_offset_sec": "15"
+        },
+        "knick_creates_tt": {
+          "hook": "hook_05.mp4",
+          "caption": "Close Quarters – Education\nout everywhere, link in bio",
+          "music_offset_sec": "150"
+        },
+        "knick_creates_yt": {
+          "hook": "hook_06.mp4",
+          "caption": "Close Quarters – Education\nout everywhere, link in bio",
+          "music_offset_sec": "165"
+        }
+      }
+    }
+  ]
 }
