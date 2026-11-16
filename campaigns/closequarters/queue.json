@@ -124,9 +124,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afb8188f83aaca8f38f3ab6",
           "last_error": null,
           "scheduled_for": "2026-11-16T21:50:00-05:00"
         },
@@ -146,7 +146,7 @@
         "youtube": "Notta Problem – Close Quarters\ntag who you're sending this to\n\nstream Notta Problem: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
