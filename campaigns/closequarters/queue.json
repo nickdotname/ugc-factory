@@ -58,11 +58,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-16T19:30:00-05:00"
         }
       ],
       "captions": {
@@ -71,7 +71,7 @@
         "youtube": "Notta Problem – Close Quarters\nplay it for somebody and watch their face at this part\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
