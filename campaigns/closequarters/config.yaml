@@ -37,8 +37,13 @@ creatives:
     assets_release: assets-closequarters-myth_of_sisyphus
     shared_videos: true
 
+# Only the nickdotname accounts. Everything else in accounts.yaml is left out.
+accounts:
+  mode: allow
+  names: [nickdotname_ig, nickdotname_tt, nickdotname_yt]
+
 posting:
-  posts_per_day: 12
+  posts_per_day: 8              # one every three hours, around the clock
   start_hour: 0
   end_hour: 0
   max_buffer_queue: 10
@@ -81,7 +86,9 @@ variation:
   # a different moment of the song — as far as the song's library has spares.
   # This is what keeps accounts from posting the same video; the cosmetic
   # knobs below do not do that on their own (see PLAYBOOK §8).
-  per_account: true
+  per_account: false          # one account per network now, so each post is
+                              # one render sent to all three. Turn back on if a
+                              # second account on the same network is added.
   per_account_vary: [clip, caption, cue]
 
   # Cosmetic differences on top. Set any of them to 0 to switch it off.
