@@ -190,10 +190,10 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 1,
-          "buffer_post_id": null,
-          "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: First comment requires a paid plan. Please upgrade to use this feature.",
+          "buffer_post_id": "6afb84f6797935b975c49362",
+          "last_error": null,
           "scheduled_for": "2026-11-17T09:10:00-05:00"
         },
         {
@@ -221,7 +221,7 @@
         "youtube": "Full Ride – Close Quarters\nplay it for somebody and watch their face at this part\n\nFull Ride is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
