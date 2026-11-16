@@ -13,6 +13,10 @@ timezone: America/New_York
 # campaigns/closequarters/creatives/<name>/captions.txt.
 creatives:
   - name: default
+  - name: full_ride
+    title: "Full Ride"
+    assets_release: assets-closequarters-full_ride
+    shared_videos: true
   # - name: song_title_here
   #   assets_release: assets-closequarters-song_title_here
   #   weight: 2                       # twice as likely to be picked per slot
