@@ -649,7 +649,14 @@ async function editCreative(index) {
           if (starter >= 0 && !(await assetsFor(list[starter])).music.length) list.splice(starter, 1);
         }
         const base = cpath(`creatives/${updated.name}`);
-        extra.push({ path: `${base}/captions.txt`, text: `# Captions for ${title}. Only ever posted with this one.\n\noverlay: ${isMusic() ? "this part. | every single time." : "wait for it"}\ntitle: ${title}\n${title}\n` });
+        // Start the song with the campaign's own caption lines, with its
+        // name written in wherever they say {name}.
+        const template = parseBank((file(cpath("captions.txt")) || {}).text || "");
+        const named = template.records.filter((r) => `${r.overlay || ""}${r.title || ""}${r.body || ""}`.includes("{name}"));
+        const seeded = named.length
+          ? serializeBank({ header: `# Captions for ${title}. Only ever posted with this one.`, records: named.map((r) => Object.fromEntries(Object.entries(r).map(([k, v]) => [k, typeof v === "string" ? v.replaceAll("{name}", title) : v]))) })
+          : `# Captions for ${title}. Only ever posted with this one.\n\noverlay: ${isMusic() ? "this part. | every single time." : "wait for it"}\ntitle: ${title}\n${title}\n`;
+        extra.push({ path: `${base}/captions.txt`, text: seeded });
         extra.push({ path: `${base}/LICENSES.md`, text: `# Music licences — ${slug()} / ${updated.name}\n\n| file | source | licence |\n|---|---|---|\n` });
         list.push(updated);
       } else list[index] = updated;

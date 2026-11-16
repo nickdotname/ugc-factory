@@ -251,7 +251,11 @@ class FfmpegRenderer(Renderer):
         text file so no caption punctuation can break the filter string.
         """
         o = self._config.overlay
-        if not text or not o.enabled:
+        # The switch is for the line drawn over the whole clip. The end card
+        # has its own (an empty funnel.end_card) and only borrows the styling:
+        # turning the meme line off for clips that already carry text must not
+        # also take away the one place the song is named on screen.
+        if not text or (tag == "overlay" and not o.enabled):
             return ""
         lines = wrap_overlay(text, o.max_chars)
         if not lines:

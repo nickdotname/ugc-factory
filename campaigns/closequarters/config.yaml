@@ -12,30 +12,40 @@ timezone: America/New_York
 # song by copying the commented block and creating
 # campaigns/closequarters/creatives/<name>/captions.txt.
 creatives:
-  - name: default
-  - name: full_ride
-    title: "Full Ride"
-    assets_release: assets-closequarters-full_ride
+  - name: fixation
+    title: "Fixation"
+    assets_release: assets-closequarters-fixation
     shared_videos: true
   - name: notta_problem
     title: "Notta Problem"
     assets_release: assets-closequarters-notta_problem
     shared_videos: true
+  - name: talk
+    title: "Talk"
+    assets_release: assets-closequarters-talk
+    shared_videos: true
+  - name: full_ride
+    title: "Full Ride"
+    assets_release: assets-closequarters-full_ride
+    shared_videos: true
   - name: wont_be_the_same_again
-    title: "Wont Be The Same Again"
+    title: "Won't Be the Same Again"
     assets_release: assets-closequarters-wont_be_the_same_again
     shared_videos: true
-  # - name: song_title_here
-  #   assets_release: assets-closequarters-song_title_here
-  #   weight: 2                       # twice as likely to be picked per slot
-  #   music_cues:
-  #     music_01.mp3: [42.5, 73]      # seconds; the moments worth posting
-  #   accounts: [nickdotname_tt, nickdotname_ig]   # omit = every account
+  - name: myth_of_sisyphus
+    title: "Myth of Sisyphus"
+    assets_release: assets-closequarters-myth_of_sisyphus
+    shared_videos: true
+
+# Only the nickdotname accounts. Everything else in accounts.yaml is left out.
+accounts:
+  mode: allow
+  names: [nickdotname_ig, nickdotname_tt, nickdotname_yt]
 
 posting:
-  posts_per_day: 3
-  start_hour: 11
-  end_hour: 23
+  posts_per_day: 8              # one every three hours, around the clock
+  start_hour: 0
+  end_hour: 0
   max_buffer_queue: 10
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
@@ -76,7 +86,9 @@ variation:
   # a different moment of the song — as far as the song's library has spares.
   # This is what keeps accounts from posting the same video; the cosmetic
   # knobs below do not do that on their own (see PLAYBOOK §8).
-  per_account: true
+  per_account: false          # one account per network now, so each post is
+                              # one render sent to all three. Turn back on if a
+                              # second account on the same network is added.
   per_account_vary: [clip, caption, cue]
 
   # Cosmetic differences on top. Set any of them to 0 to switch it off.
@@ -87,7 +99,7 @@ variation:
   hue_max_deg: 3
   grain_max: 5
   trim_start_max_sec: 0.4     # shave the head of the clip
-  overlay_shift_max: 0.03     # nudge the on-screen text up or down
+  overlay_shift_max: 0.01     # a small nudge only: the line sits just above the clips' own text
   allow_mirror: false         # would flip any text in the footage
 
   # Never touched: it is the song, and the platforms recognising it as the
@@ -97,9 +109,11 @@ variation:
   music_tilt_db: 0.0
 
 overlay:
-  enabled: true
-  size: 0.06
-  y: 0.16
+  enabled: true               # the meme line from each caption, on screen
+  size: 0.05
+  # High on the frame on purpose: several of the clips already have their own
+  # text burned in around a quarter of the way down, and this sits above it.
+  y: 0.085
   max_chars: 24
 
 # Where every post sends people. {name} and {link} come from the song's own
@@ -108,18 +122,18 @@ funnel:
   name: Education by Close Quarters
   link: ""                    # your smart link — fill this in before going live
   cta:
-    - "full song: {name} — link in bio"
-    - "{name} is out now. link in bio"
-    - "the whole thing is on spotify: {name}"
+    - "link in bio to stream {name}"
+    - "stream {name}: link in bio"
+    - "{name} is out now. link in bio to stream it"
   cta_by_network:
     youtube:                  # YouTube descriptions carry a real link
       - "Full song — {name}: {link}"
       - "Listen to {name}: {link}"
   cta_every: 1
   first_comment:              # Instagram only
-    - "full song → link in bio"
-    - "{name} — streaming everywhere, link in bio"
-  end_card: "{name} | full song on Spotify"
+    - "link in bio to stream {name}"
+    - "send {name} to a friend. link in bio to stream"
+  end_card: "{name} | link in bio to stream"
   end_card_sec: 2.0
 
 selection:

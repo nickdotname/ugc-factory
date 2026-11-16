@@ -1,5 +1,5 @@
-# Fallback bank: used by any creative (song) that has no captions.txt of its
-# own at creatives/<name>/captions.txt. Replace these before going live.
+# The caption set for every song. A song with no captions of its own uses
+# these, and a song added in the dashboard starts with a copy of them.
 #
 # Each record, separated by ---, is one post's text. Two optional first lines:
 #   overlay:  drawn ON the video (the meme line). A | forces a line break.
@@ -7,18 +7,63 @@
 #   title:    YouTube title (max 100 chars). Derived from the first caption
 #             line when left out.
 # Everything after is the caption posted alongside the video.
+#
+# {name} is replaced with the song the post features, so the caption always
+# tells the viewer which song they are hearing. The "link in bio to stream"
+# line is added to every post automatically (Setup, funnel); don't repeat it.
 
-overlay: how bro starts moving | when this comes on
-title: Close Quarters – Education
-Education – Close Quarters
-the whole album is out now
+overlay: how me and bro start moving | when {name} comes on
+title: {name} – Close Quarters
+{name} – Close Quarters
+send this to the bro you'd be moving with
+
+#closequarters #newmusic #indiepop
 ---
-overlay: pov: you finally found | a song nobody else knows
-title: Close Quarters – Education (out now)
-Close Quarters – Education
-out everywhere, link in bio
+overlay: pov: you just put the | whole group chat on | to {name}
+title: {name} – Close Quarters (out now)
+{name} – Close Quarters
+the group chat needs to hear this one
+
+#closequarters #newmusic #indiepop
+---
+overlay: me waiting for my friend | to get to the good part
+title: {name} – Close Quarters
+{name} – Close Quarters
+play it for somebody and watch their face at this part
+
+#closequarters #newmusic #indiepop
 ---
 overlay: this part. | every single time.
-title: Education by Close Quarters
-Education by Close Quarters
-full album streaming now
+title: {name} by Close Quarters
+{name} – Close Quarters
+run it back. you know the part.
+
+#closequarters #newmusic #indiepop
+---
+overlay: when the aux is finally | yours and you play | {name}
+title: {name} – Close Quarters
+{name} – Close Quarters
+aux cord approved. pass it on.
+
+#closequarters #newmusic #indiepop
+---
+overlay: tag the friend who needs | {name} on repeat
+title: {name} – Close Quarters
+{name} – Close Quarters
+tag who you're sending this to
+
+#closequarters #newmusic #indiepop
+---
+overlay: headphones in. | {name}. | all the way through.
+title: {name} – Close Quarters
+{name} – Close Quarters
+no skipping. listen to the whole thing once.
+
+#closequarters #newmusic #indiepop
+---
+overlay: the song I'm sending | everybody this week
+title: {name} – Close Quarters
+{name} – Close Quarters
+send it to one person who'd get it
+
+#closequarters #newmusic #indiepop
