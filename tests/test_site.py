@@ -133,3 +133,16 @@ class TestPostableUrl:
 
         monkeypatch.setattr(cli, "assert_publicly_readable", boom)
         assert cli._postable_url(GITHUB, self._live(config, dry_run=True)) == PUBLIC
+
+
+class TestFirstCommentOnFreePlan:
+    def test_buffers_free_plan_refusal_is_recognised(self) -> None:
+        from src.errors import InvalidPostError
+
+        refused = InvalidPostError(
+            "Buffer createPost failed (InvalidInputError): Invalid post: First "
+            "comment requires a paid plan. Please upgrade to use this feature."
+        )
+        assert cli._first_comment_refused(refused)
+        other = InvalidPostError("Invalid post: Video could not be read from its URL.")
+        assert not cli._first_comment_refused(other)

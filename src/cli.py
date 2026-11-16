@@ -65,7 +65,9 @@ from src.descriptions import (
     parse_bank,
     validate_bank,
 )
-from src.errors import AuthError, ConfigError, QuotaError, SelectionError, UgcError
+from src.errors import (
+    AuthError, ConfigError, InvalidPostError, QuotaError, SelectionError, UgcError,
+)
 from src.ingest import (
     ARCHIVE_DIR,
     INBOX_DIRS,
@@ -1203,6 +1205,12 @@ def cmd_topup(args: argparse.Namespace, env: dict[str, str]) -> int:
         return 1
 
 
+def _first_comment_refused(exc: Exception) -> bool:
+    """Whether Buffer rejected a post only because it carried a first comment."""
+    text = str(exc).lower()
+    return "first comment" in text and ("paid plan" in text or "upgrade" in text)
+
+
 #: Links already confirmed readable in this process, so a video going to six
 #: accounts is asked for once.
 _READABLE: set[str] = set()
@@ -1532,19 +1540,32 @@ def _push_to_account(
         )
 
         try:
-            result = publisher.create_post(
-                PublishRequest(
-                    channel_id=channel,
-                    text=text,
-                    title=title,
-                    service=account.network,
-                    video_url=video_url,
-                    scheduled_for=due,
-                    first_comment=account.first_comment or item.first_comment or None,
-                    notify_subscribers=account.notify_subscribers,
-                    post_type=account.post_type,
-                )
+            request = PublishRequest(
+                channel_id=channel,
+                text=text,
+                title=title,
+                service=account.network,
+                video_url=video_url,
+                scheduled_for=due,
+                first_comment=account.first_comment or item.first_comment or None,
+                notify_subscribers=account.notify_subscribers,
+                post_type=account.post_type,
             )
+            try:
+                result = publisher.create_post(request)
+            except InvalidPostError as exc:
+                # Buffer's free plan refuses any post that carries a first
+                # comment. The comment is a nicety; the post is the point —
+                # send it without rather than lose the post.
+                if not (request.first_comment and _first_comment_refused(exc)):
+                    raise
+                log.warning(
+                    "first_comment_dropped", item_id=item.id,
+                    account=account.name, reason=str(exc)[:160],
+                )
+                result = publisher.create_post(
+                    request.model_copy(update={"first_comment": None})
+                )
         except UgcError as exc:
             log.exception("push_failed", exc, item_id=item.id)
             mark_post_failed(post, str(exc), item.id, log=log)
