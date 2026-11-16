@@ -12,13 +12,30 @@ timezone: America/New_York
 # song by copying the commented block and creating
 # campaigns/closequarters/creatives/<name>/captions.txt.
 creatives:
-  - name: default
-  # - name: song_title_here
-  #   assets_release: assets-closequarters-song_title_here
-  #   weight: 2                       # twice as likely to be picked per slot
-  #   music_cues:
-  #     music_01.mp3: [42.5, 73]      # seconds; the moments worth posting
-  #   accounts: [nickdotname_tt, nickdotname_ig]   # omit = every account
+  - name: fixation
+    title: "Fixation"
+    assets_release: assets-closequarters-fixation
+    shared_videos: true
+  - name: notta_problem
+    title: "Notta Problem"
+    assets_release: assets-closequarters-notta_problem
+    shared_videos: true
+  - name: talk
+    title: "Talk"
+    assets_release: assets-closequarters-talk
+    shared_videos: true
+  - name: full_ride
+    title: "Full Ride"
+    assets_release: assets-closequarters-full_ride
+    shared_videos: true
+  - name: wont_be_the_same_again
+    title: "Won't Be the Same Again"
+    assets_release: assets-closequarters-wont_be_the_same_again
+    shared_videos: true
+  - name: myth_of_sisyphus
+    title: "Myth of Sisyphus"
+    assets_release: assets-closequarters-myth_of_sisyphus
+    shared_videos: true
 
 posting:
   posts_per_day: 3
