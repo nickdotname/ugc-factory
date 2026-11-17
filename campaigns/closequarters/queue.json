@@ -208,11 +208,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-17T16:30:00-05:00"
         }
       ],
       "captions": {
@@ -221,7 +221,7 @@
         "tiktok": "Notta Problem – Close Quarters\nrun it back. you know the part.\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
