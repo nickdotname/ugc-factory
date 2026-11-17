@@ -358,11 +358,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-17T22:30:00-05:00"
         }
       ],
       "captions": {
@@ -371,7 +371,7 @@
         "tiktok": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
