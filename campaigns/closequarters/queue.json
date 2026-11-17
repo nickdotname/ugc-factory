@@ -36,14 +36,42 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-17T09:10:00-05:00"
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Myth of Sisyphus – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Myth of Sisyphus",
         "youtube": "Myth of Sisyphus – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Myth of Sisyphus",
         "tiktok": "Myth of Sisyphus – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -83,7 +111,35 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Notta Problem – Close Quarters\nthe group chat needs to hear this one\n\nstream Notta Problem: link in bio",
         "youtube": "Notta Problem – Close Quarters\nthe group chat needs to hear this one\n\nstream Notta Problem: link in bio",
@@ -130,7 +186,35 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Notta Problem – Close Quarters\nrun it back. you know the part.\n\nNotta Problem is out now. link in bio to stream it",
         "youtube": "Notta Problem – Close Quarters\nrun it back. you know the part.\n\nNotta Problem is out now. link in bio to stream it",
@@ -177,7 +261,35 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Notta Problem – Close Quarters\nsend it to one person who'd get it\n\nlink in bio to stream Notta Problem",
         "youtube": "Notta Problem – Close Quarters\nsend it to one person who'd get it\n\nlink in bio to stream Notta Problem",
@@ -224,7 +336,35 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nstream Myth of Sisyphus: link in bio",
         "youtube": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nstream Myth of Sisyphus: link in bio",
@@ -271,7 +411,35 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Fixation – Close Quarters\nplay it for somebody and watch their face at this part\n\nFixation is out now. link in bio to stream it",
         "youtube": "Fixation – Close Quarters\nplay it for somebody and watch their face at this part\n\nFixation is out now. link in bio to stream it",
@@ -318,7 +486,35 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Fixation – Close Quarters\nrun it back. you know the part.\n\nlink in bio to stream Fixation",
         "youtube": "Fixation – Close Quarters\nrun it back. you know the part.\n\nlink in bio to stream Fixation",
@@ -365,7 +561,35 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_yt",
+          "network": "youtube",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Myth of Sisyphus – Close Quarters\nrun it back. you know the part.\n\nstream Myth of Sisyphus: link in bio",
         "youtube": "Myth of Sisyphus – Close Quarters\nrun it back. you know the part.\n\nstream Myth of Sisyphus: link in bio",
