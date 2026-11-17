@@ -49,9 +49,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afc5cd51a8213804426e794",
           "last_error": null,
           "scheduled_for": "2026-11-17T09:50:00-05:00"
         },
@@ -71,7 +71,7 @@
         "tiktok": "Myth of Sisyphus – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
