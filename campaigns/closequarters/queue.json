@@ -508,9 +508,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afc5d017800fe3d4dc42d7e",
           "last_error": null,
           "scheduled_for": "2026-11-18T04:30:00-05:00"
         }
@@ -521,7 +521,7 @@
         "tiktok": "Fixation – Close Quarters\nrun it back. you know the part.\n\nlink in bio to stream Fixation"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
