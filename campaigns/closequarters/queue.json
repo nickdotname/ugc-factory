@@ -574,9 +574,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afc5ceb7800fe3d4dc42841",
           "last_error": null,
           "scheduled_for": "2026-11-18T06:50:00-05:00"
         },
@@ -596,7 +596,7 @@
         "tiktok": "Myth of Sisyphus – Close Quarters\nrun it back. you know the part.\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
