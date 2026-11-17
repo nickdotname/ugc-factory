@@ -265,9 +265,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afc5cbc3d121456741caa5d",
           "last_error": null,
           "scheduled_for": "2026-11-17T18:10:00-05:00"
         },
@@ -296,7 +296,7 @@
         "tiktok": "Notta Problem – Close Quarters\nsend it to one person who'd get it\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
