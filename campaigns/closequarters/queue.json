@@ -283,9 +283,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afc5cf83d121456741cc3e3",
           "last_error": null,
           "scheduled_for": "2026-11-17T19:30:00-05:00"
         }
@@ -296,7 +296,7 @@
         "tiktok": "Notta Problem – Close Quarters\nsend it to one person who'd get it\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
