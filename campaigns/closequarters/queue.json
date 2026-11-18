@@ -58,11 +58,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-18T13:30:00-05:00"
         }
       ],
       "captions": {
@@ -71,7 +71,7 @@
         "youtube": "Myth of Sisyphus – Close Quarters\nno skipping. listen to the whole thing once.\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
