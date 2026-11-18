@@ -40,9 +40,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afde27733817c1785c1ab7c",
           "last_error": null,
           "scheduled_for": "2026-11-18T15:10:00-05:00"
         },
@@ -71,7 +71,7 @@
         "youtube": "Myth of Sisyphus – Close Quarters\nno skipping. listen to the whole thing once.\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
