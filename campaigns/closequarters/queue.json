@@ -208,11 +208,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-18T19:30:00-05:00"
         }
       ],
       "captions": {
@@ -221,7 +221,7 @@
         "youtube": "Won't Be the Same Again – Close Quarters\nthe group chat needs to hear this one\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
