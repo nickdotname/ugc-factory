@@ -508,11 +508,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-19T07:30:00-05:00"
         }
       ],
       "captions": {
@@ -521,7 +521,7 @@
         "youtube": "Full Ride – Close Quarters\nsend this to the bro you'd be moving with\n\nFull Ride is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
