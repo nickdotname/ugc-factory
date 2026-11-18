@@ -583,11 +583,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-19T10:30:00-05:00"
         }
       ],
       "captions": {
@@ -596,7 +596,7 @@
         "youtube": "Won't Be the Same Again – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
