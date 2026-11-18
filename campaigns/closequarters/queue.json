@@ -133,9 +133,9 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6afde2f0a11f24337a0e3cf4",
           "last_error": null,
           "scheduled_for": "2026-11-18T16:30:00-05:00"
         }
@@ -146,7 +146,7 @@
         "youtube": "Notta Problem – Close Quarters\nsend this to the bro you'd be moving with\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "failed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
