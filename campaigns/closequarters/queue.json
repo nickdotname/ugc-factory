@@ -49,9 +49,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aff0093b3b455c2f5716f96",
           "last_error": null,
           "scheduled_for": "2026-11-19T09:50:00-05:00"
         },
@@ -71,7 +71,7 @@
         "tiktok": "Won't Be the Same Again – Close Quarters\nsend it to one person who'd get it\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
