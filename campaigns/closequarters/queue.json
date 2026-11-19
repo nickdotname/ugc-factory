@@ -190,9 +190,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6aff0072fd08883b646d03d6",
           "last_error": null,
           "scheduled_for": "2026-11-19T15:10:00-05:00"
         },
@@ -221,7 +221,7 @@
         "tiktok": "Fixation – Close Quarters\ntag who you're sending this to\n\nlink in bio to stream Fixation"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
