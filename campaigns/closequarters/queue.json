@@ -115,10 +115,10 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 1,
-          "buffer_post_id": null,
-          "last_error": "Buffer createPost failed (InvalidInputError): Invalid post: Video could not be read from its URL.",
+          "buffer_post_id": "6afe59033802f5b9fc5d28f1",
+          "last_error": null,
           "scheduled_for": "2026-11-19T15:10:00-05:00"
         },
         {
@@ -146,7 +146,7 @@
         "youtube": "Notta Problem – Close Quarters\nsend this to the bro you'd be moving with\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
