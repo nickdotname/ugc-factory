@@ -208,11 +208,11 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-19T22:30:00-05:00"
         }
       ],
       "captions": {
@@ -221,7 +221,7 @@
         "tiktok": "Fixation – Close Quarters\ntag who you're sending this to\n\nlink in bio to stream Fixation"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
