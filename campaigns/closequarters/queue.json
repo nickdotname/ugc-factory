@@ -58,10 +58,10 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 1,
-          "buffer_post_id": null,
-          "last_error": "Buffer createPost failed (LimitReachedError): You have already scheduled the maximum number of posts YouTube allows in a day (2). Please consider scheduling this post for another day.",
+          "buffer_post_id": "6b0081c96f199ec35b696f81",
+          "last_error": null,
           "scheduled_for": "2026-11-20T13:30:00-05:00"
         }
       ],
@@ -71,7 +71,7 @@
         "tiktok": "Notta Problem – Close Quarters\nsend this to the bro you'd be moving with\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
