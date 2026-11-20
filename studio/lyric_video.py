@@ -295,7 +295,9 @@ def draw(kind, d, k, T, f, bands, beat):
 
 mode, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
 R = random.Random(seed * 7919 + (1 if mode == 'band' else 2))
-T0, T1 = SONG['windows'][mode]
+# CQ_WINDOW="start,end" renders a different stretch of the song than song.json names,
+# which is how one song yields a video per lyric section.
+T0, T1 = [float(x) for x in os.environ['CQ_WINDOW'].split(',')] if os.environ.get('CQ_WINDOW') else SONG['windows'][mode]
 has = lambda k, s: any(s in w.lower() for w, _ in LINES[k][1])
 # strong drum hits (for flashes)
 dy, dsr = sf.read(stem_path('Drums'), always_2d=True, dtype='float32'); dy = dy.mean(1)
@@ -530,6 +532,6 @@ if '--frames' in sys.argv:
 else:
     tmp = out[:-4] + '.tmp.mp4'
     p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', wav,
-                          '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
+                          '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '20'), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
     for f in range(n): p.stdin.write(fr(f).tobytes())
     p.stdin.close(); assert p.wait() == 0; os.replace(tmp, out); print('done', n, round(dur, 2))

@@ -1,0 +1,808 @@
+{
+ "note": "What each clip in this campaign's library is made of. Keyed by the name ingest gives the clip; `source` is the file it was uploaded as. Written by hand at upload time: check the two still match after an ingest.",
+ "clips": {
+  "hook_01.mp4": {
+   "source": "01_np_a_3.mp4",
+   "song": "notta-problem",
+   "style": "producer",
+   "seed": 3,
+   "window": [
+    27.3,
+    44.0
+   ],
+   "section": "verse 1, first half",
+   "background": "stars",
+   "palette": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     210,
+     60
+    ],
+    [
+     90,
+     220,
+     160
+    ],
+    [
+     255,
+     120,
+     200
+    ]
+   ],
+   "punch": 0.03,
+   "scanlines": false,
+   "chroma": 2,
+   "segments": [
+    {
+     "at": 27.58,
+     "focus_lane": 2,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 30.26,
+     "focus_lane": 1,
+     "zoom": 140,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    },
+    {
+     "at": 33.34,
+     "focus_lane": null,
+     "zoom": 84,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 36.16,
+     "focus_lane": 0,
+     "zoom": 140,
+     "overlays": [
+      "track",
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 37.96,
+     "focus_lane": 2,
+     "zoom": 110,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 39.62,
+     "focus_lane": 1,
+     "zoom": 140,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 42.58,
+     "focus_lane": 0,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 43.9,
+     "focus_lane": 2,
+     "zoom": 140,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    }
+   ]
+  },
+  "hook_02.mp4": {
+   "source": "02_np_a_12.mp4",
+   "song": "notta-problem",
+   "style": "producer",
+   "seed": 12,
+   "window": [
+    27.3,
+    44.0
+   ],
+   "section": "verse 1, first half",
+   "background": "grad",
+   "palette": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     210,
+     60
+    ],
+    [
+     90,
+     220,
+     160
+    ],
+    [
+     255,
+     120,
+     200
+    ]
+   ],
+   "punch": 0.03,
+   "scanlines": true,
+   "chroma": 0,
+   "segments": [
+    {
+     "at": 27.58,
+     "focus_lane": 2,
+     "zoom": 140,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 30.26,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 33.34,
+     "focus_lane": 3,
+     "zoom": 110,
+     "overlays": [
+      "invert"
+     ]
+    },
+    {
+     "at": 36.16,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 37.96,
+     "focus_lane": 0,
+     "zoom": 140,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 39.62,
+     "focus_lane": 3,
+     "zoom": 140,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 42.58,
+     "focus_lane": 0,
+     "zoom": 110,
+     "overlays": [
+      "invert"
+     ]
+    },
+    {
+     "at": 43.9,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "track"
+     ]
+    }
+   ]
+  },
+  "hook_03.mp4": {
+   "source": "03_np_a_27.mp4",
+   "song": "notta-problem",
+   "style": "producer",
+   "seed": 27,
+   "window": [
+    27.3,
+    44.0
+   ],
+   "section": "verse 1, first half",
+   "background": "rings",
+   "palette": [
+    [
+     120,
+     255,
+     170
+    ],
+    [
+     255,
+     150,
+     80
+    ],
+    [
+     110,
+     190,
+     255
+    ],
+    [
+     240,
+     240,
+     120
+    ]
+   ],
+   "punch": 0.03,
+   "scanlines": true,
+   "chroma": 0,
+   "segments": [
+    {
+     "at": 27.58,
+     "focus_lane": null,
+     "zoom": 110,
+     "overlays": [
+      "invert"
+     ]
+    },
+    {
+     "at": 30.26,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 33.34,
+     "focus_lane": 0,
+     "zoom": 140,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 36.16,
+     "focus_lane": null,
+     "zoom": 110,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 37.96,
+     "focus_lane": 2,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 39.62,
+     "focus_lane": null,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 42.58,
+     "focus_lane": 0,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    },
+    {
+     "at": 43.9,
+     "focus_lane": 3,
+     "zoom": 110,
+     "overlays": [
+      "track"
+     ]
+    }
+   ]
+  },
+  "hook_04.mp4": {
+   "source": "04_np_b_3.mp4",
+   "song": "notta-problem",
+   "style": "producer",
+   "seed": 3,
+   "window": [
+    41.2,
+    58.5
+   ],
+   "section": "verse 1, second half",
+   "background": "rings",
+   "palette": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     210,
+     60
+    ],
+    [
+     90,
+     220,
+     160
+    ],
+    [
+     255,
+     120,
+     200
+    ]
+   ],
+   "punch": 0.015,
+   "scanlines": false,
+   "chroma": 2,
+   "segments": [
+    {
+     "at": 27.58,
+     "focus_lane": 2,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 30.26,
+     "focus_lane": 1,
+     "zoom": 140,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    },
+    {
+     "at": 33.34,
+     "focus_lane": null,
+     "zoom": 84,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 36.16,
+     "focus_lane": 0,
+     "zoom": 140,
+     "overlays": [
+      "track",
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 37.96,
+     "focus_lane": 2,
+     "zoom": 110,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 39.62,
+     "focus_lane": 1,
+     "zoom": 140,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 42.58,
+     "focus_lane": 0,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 43.9,
+     "focus_lane": 2,
+     "zoom": 140,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 45.6,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 46.56,
+     "focus_lane": 0,
+     "zoom": 84,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 48.88,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 50.22,
+     "focus_lane": 0,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 52.88,
+     "focus_lane": 3,
+     "zoom": 84,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 55.22,
+     "focus_lane": null,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    }
+   ]
+  },
+  "hook_05.mp4": {
+   "source": "05_np_b_8.mp4",
+   "song": "notta-problem",
+   "style": "producer",
+   "seed": 8,
+   "window": [
+    41.2,
+    58.5
+   ],
+   "section": "verse 1, second half",
+   "background": "plasma",
+   "palette": [
+    [
+     255,
+     190,
+     110
+    ],
+    [
+     255,
+     90,
+     110
+    ],
+    [
+     150,
+     160,
+     255
+    ],
+    [
+     120,
+     220,
+     255
+    ]
+   ],
+   "punch": 0.015,
+   "scanlines": true,
+   "chroma": 2,
+   "segments": [
+    {
+     "at": 27.58,
+     "focus_lane": 1,
+     "zoom": 84,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 30.26,
+     "focus_lane": 2,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 33.34,
+     "focus_lane": 3,
+     "zoom": 84,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 36.16,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 37.96,
+     "focus_lane": 3,
+     "zoom": 140,
+     "overlays": [
+      "invert"
+     ]
+    },
+    {
+     "at": 39.62,
+     "focus_lane": 0,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    },
+    {
+     "at": 42.58,
+     "focus_lane": 2,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    },
+    {
+     "at": 43.9,
+     "focus_lane": 0,
+     "zoom": 84,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 45.6,
+     "focus_lane": null,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 46.56,
+     "focus_lane": 2,
+     "zoom": 140,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 48.88,
+     "focus_lane": null,
+     "zoom": 84,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 50.22,
+     "focus_lane": 2,
+     "zoom": 140,
+     "overlays": [
+      "invert",
+      "track"
+     ]
+    },
+    {
+     "at": 52.88,
+     "focus_lane": 1,
+     "zoom": 110,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    },
+    {
+     "at": 55.22,
+     "focus_lane": 0,
+     "zoom": 84,
+     "overlays": [
+      "stamp"
+     ]
+    }
+   ]
+  },
+  "hook_06.mp4": {
+   "source": "06_np_b_19.mp4",
+   "song": "notta-problem",
+   "style": "producer",
+   "seed": 19,
+   "window": [
+    41.2,
+    58.5
+   ],
+   "section": "verse 1, second half",
+   "background": "grad",
+   "palette": [
+    [
+     255,
+     190,
+     110
+    ],
+    [
+     255,
+     90,
+     110
+    ],
+    [
+     150,
+     160,
+     255
+    ],
+    [
+     120,
+     220,
+     255
+    ]
+   ],
+   "punch": 0.015,
+   "scanlines": true,
+   "chroma": 2,
+   "segments": [
+    {
+     "at": 27.58,
+     "focus_lane": 2,
+     "zoom": 84,
+     "overlays": [
+      "invert"
+     ]
+    },
+    {
+     "at": 30.26,
+     "focus_lane": 1,
+     "zoom": 84,
+     "overlays": [
+      "track"
+     ]
+    },
+    {
+     "at": 33.34,
+     "focus_lane": 0,
+     "zoom": 110,
+     "overlays": [
+      "invert"
+     ]
+    },
+    {
+     "at": 36.16,
+     "focus_lane": 1,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    },
+    {
+     "at": 37.96,
+     "focus_lane": 0,
+     "zoom": 140,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 39.62,
+     "focus_lane": null,
+     "zoom": 84,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 42.58,
+     "focus_lane": 3,
+     "zoom": 110,
+     "overlays": [
+      "invert"
+     ]
+    },
+    {
+     "at": 43.9,
+     "focus_lane": 0,
+     "zoom": 140,
+     "overlays": [
+      "track",
+      "invert"
+     ]
+    },
+    {
+     "at": 45.6,
+     "focus_lane": 2,
+     "zoom": 140,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 46.56,
+     "focus_lane": 0,
+     "zoom": 140,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 48.88,
+     "focus_lane": 2,
+     "zoom": 110,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 50.22,
+     "focus_lane": 0,
+     "zoom": 110,
+     "overlays": [
+      "invert",
+      "stamp"
+     ]
+    },
+    {
+     "at": 52.88,
+     "focus_lane": 1,
+     "zoom": 84,
+     "overlays": [
+      "stamp"
+     ]
+    },
+    {
+     "at": 55.22,
+     "focus_lane": null,
+     "zoom": 140,
+     "overlays": [
+      "track",
+      "stamp"
+     ]
+    }
+   ]
+  }
+ }
+}

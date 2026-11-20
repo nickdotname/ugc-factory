@@ -13,6 +13,13 @@ creatives:
   - name: default
   - name: tinder_projects
     assets_release: assets-clubs-tinder_projects
+# This brand fans out to every account in accounts.yaml EXCEPT the ones named
+# here. dylancantor23 is a personal music account fed by its own campaign;
+# without this line, un-pausing this brand would post these videos there too.
+accounts:
+  mode: block
+  names: [dylancantor23_ig]
+
 posting:
   # 12/day = one post every two hours across the 24-hour window below.
   #
