@@ -349,9 +349,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6b0081ba6f199ec35b696803",
           "last_error": null,
           "scheduled_for": "2026-11-20T15:50:00-05:00"
         },
@@ -371,7 +371,7 @@
         "instagram": "Talk – Close Quarters\nthe group chat needs to hear this one\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
