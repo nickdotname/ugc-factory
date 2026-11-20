@@ -29,6 +29,7 @@ many accounts exist (see ``BUFFER_KEY_SLOTS``).
 
 from __future__ import annotations
 
+from enum import Enum
 from pathlib import Path
 from typing import Any
 
@@ -37,6 +38,7 @@ from pydantic import Field, field_validator, model_validator
 
 from src.config import (
     BUFFER_KEY_SLOTS,
+    INSTAGRAM_TOKEN_SLOTS,
     PostType,
     StrictModel,
     TitleStrategy,
@@ -50,14 +52,45 @@ from src.platforms import Service
 ACCOUNTS_FILE = "accounts.yaml"
 
 
+class Provider(str, Enum):
+    """What actually publishes an account's posts."""
+
+    #: Buffer holds the post and publishes it at its slot.
+    BUFFER = "buffer"
+    #: Instagram's own API, with the repo holding posts until they are due
+    #: (see ``src/publishers/instagram.py``).
+    INSTAGRAM = "instagram"
+
+
+class InstagramLogin(str, Enum):
+    """Which of Instagram's two logins an account's token came from."""
+
+    INSTAGRAM = "instagram"
+    #: Needed to attach a track from Instagram's music catalogue.
+    FACEBOOK = "facebook"
+
+
+class TrialGraduation(str, Enum):
+    MANUAL = "MANUAL"
+    SS_PERFORMANCE = "SS_PERFORMANCE"
+
+
 class AccountConfig(StrictModel):
-    """One connected Buffer channel."""
+    """One connected channel: a Buffer channel, or an Instagram account."""
 
     #: Stable identity. Becomes part of the (campaign, creative, account,
     #: network) key that every post and metric is filed under, so renaming one
     #: orphans its history — pick a name you can live with.
     name: str = Field(min_length=1, max_length=64)
     network: Service
+    #: Defaults to Buffer so every account written before this existed keeps
+    #: posting exactly as it did.
+    provider: Provider = Provider.BUFFER
+    #: Direct Instagram only.
+    login: InstagramLogin = InstagramLogin.INSTAGRAM
+    #: Direct Instagram only: publish every post as a trial reel.
+    trial_reels: bool = False
+    trial_graduation: TrialGraduation = TrialGraduation.MANUAL
     #: Which key slot opens this account. Several accounts under one Buffer
     #: login share a slot; a separate login needs its own.
     api_key_secret: str = Field(min_length=1)
@@ -92,15 +125,33 @@ class AccountConfig(StrictModel):
     #: Disconnect an account without deleting its history or its entry.
     enabled: bool = True
 
-    @field_validator("api_key_secret")
-    @classmethod
-    def _key_slot_is_wired(cls, v: str) -> str:
-        if v not in BUFFER_KEY_SLOTS:
+    @model_validator(mode="after")
+    def _key_slot_is_wired(self) -> "AccountConfig":
+        slots = (
+            INSTAGRAM_TOKEN_SLOTS
+            if self.provider is Provider.INSTAGRAM
+            else BUFFER_KEY_SLOTS
+        )
+        if self.api_key_secret not in slots:
             raise ValueError(
-                f"api_key_secret must be one of {list(BUFFER_KEY_SLOTS)} — "
-                f"these are the slots the workflows pass through. Got {v!r}."
+                f"api_key_secret must be one of {list(slots)} — these are the "
+                f"slots the workflows pass through. Got {self.api_key_secret!r}."
             )
-        return v
+        return self
+
+    @model_validator(mode="after")
+    def _direct_instagram_is_instagram(self) -> "AccountConfig":
+        if self.provider is Provider.INSTAGRAM and self.network is not Service.INSTAGRAM:
+            raise ValueError(
+                f"account {self.name!r}: provider instagram can only post to "
+                f"the instagram network, not {self.network.value}"
+            )
+        if self.trial_reels and self.provider is not Provider.INSTAGRAM:
+            raise ValueError(
+                f"account {self.name!r}: trial_reels needs provider: instagram "
+                f"— Buffer cannot publish a trial reel"
+            )
+        return self
 
     @field_validator("api_key_secret", "channel_id_secret")
     @classmethod

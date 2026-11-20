@@ -1,0 +1,46 @@
+{
+ "slug": "notta-problem",
+ "title": "Notta Problem",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 12,
+ "tracks_total": 15,
+ "key": "G# minor",
+ "project": "firejam",
+ "offset_sec": -45.8,
+ "stems_start_sec": 26.0,
+ "melody_enters_beat": 248,
+ "hats_enter_beat": 256,
+ "melody_tracks": [
+  40
+ ],
+ "hat_tracks": [
+  0,
+  15
+ ],
+ "arrangement_rows": [
+  24,
+  25,
+  43,
+  44,
+  3,
+  4,
+  40,
+  0,
+  15,
+  12,
+  13,
+  14,
+  21
+ ],
+ "windows": {
+  "band": [
+   27.3,
+   52.9
+  ],
+  "producer": [
+   41.2,
+   58.5
+  ]
+ }
+}

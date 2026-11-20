@@ -629,6 +629,14 @@ BUFFER_KEY_SLOTS: tuple[str, ...] = (
 )
 
 
+#: The same idea for accounts that post to Instagram directly: a fixed set of
+#: token slots the workflows pass through.
+INSTAGRAM_TOKEN_SLOTS: tuple[str, ...] = (
+    "IG_TOKEN",
+    *(f"IG_TOKEN_{n}" for n in range(2, 9)),
+)
+
+
 class BufferConfig(StrictModel):
     """Buffer channel binding (SPEC §9 ``buffer``).
 

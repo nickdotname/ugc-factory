@@ -58,6 +58,19 @@ class PublishRequest(BaseModel):
     #: default for a channel posting many times a day, on is a reach lever
     #: for one posting a few.
     notify_subscribers: bool = False
+    #: Instagram only, and only when posting to it directly: publish as a
+    #: trial reel, which is shown to people who do not follow the account and
+    #: kept off its profile until it is graduated. ``trial_graduation`` is
+    #: Instagram's own switch for who decides that — ``MANUAL`` (in the app)
+    #: or ``SS_PERFORMANCE`` (Instagram, if it does well).
+    trial: bool = False
+    trial_graduation: str | None = None
+    #: Instagram only, Facebook Login only: a track from Instagram's music
+    #: catalogue to attach, so the Reel links to the song's own audio page
+    #: instead of being labelled "Original audio". Volumes are 1-100.
+    audio_id: str | None = None
+    audio_volume: int | None = Field(default=None, ge=1, le=100)
+    video_volume: int | None = Field(default=None, ge=1, le=100)
 
     @model_validator(mode="after")
     def _within_platform_limits(self) -> "PublishRequest":

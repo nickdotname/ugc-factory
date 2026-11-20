@@ -257,3 +257,40 @@ Three account-level things matter as much as any setting:
   everything from any device, including drag-and-drop uploads. The local one
   (`./ugc web`) is still there for previewing a sample render before
   anything is queued, and `./ugc connect` for adding a Buffer login.
+---
+
+## Posting to Instagram directly (no Buffer)
+
+An account can post through Instagram's own API instead of Buffer. It costs
+nothing per post and adds two things Buffer cannot do: trial reels, and
+attaching the song from Instagram's music catalogue.
+
+```yaml
+# accounts.yaml
+  - name: close_quarters_ig
+    network: instagram
+    provider: instagram        # the switch; leave it out and the account uses Buffer
+    api_key_secret: IG_TOKEN   # IG_TOKEN, IG_TOKEN_2 … IG_TOKEN_8
+    channel_id: "1784…"        # the account's Instagram user id
+    post_type: reel
+    login: instagram           # or facebook — needed to attach catalogue audio
+    trial_reels: false         # true = every post goes out as a trial reel
+    trial_graduation: MANUAL   # or SS_PERFORMANCE (Instagram graduates it if it does well)
+```
+
+How it differs from Buffer: Instagram has no "schedule for later", so `topup`
+writes each post to `outbox/` and the **publish** workflow (every 15 minutes)
+sends whatever is due. One post per account per run; a post more than six
+hours past its slot is dropped rather than sent late.
+
+```bash
+./ugc publish-due --dry-run     # what is held, and when it is due
+./ugc publish-due               # send what is due now
+```
+
+The token is a long-lived Instagram token and expires after 60 days. When it
+does, every post for that account stays held (nothing is lost) until a new
+token is stored in the same slot.
+
+Not yet verified against a live account: the first real post should be done
+by hand with `publish-due` while someone watches.

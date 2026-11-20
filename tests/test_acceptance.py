@@ -64,7 +64,12 @@ class TestAbstractionBoundaries:
     FORBIDDEN = {
         # analytics_api.py is the transport for a product's admin API,
         # and exists so src/analytics.py can stay pure arithmetic.
-        "requests": {"assets.py", "notify.py", "buffer.py", "analytics_api.py"},
+        # instagram.py is the second publisher: the transport for Instagram's
+        # own API, a boundary module for the same reason buffer.py is one.
+        "requests": {
+            "assets.py", "notify.py", "buffer.py", "instagram.py",
+            "analytics_api.py",
+        },
         "subprocess": {"render.py", "vcs.py", "keys.py"},
         "random": {"ports.py", "vcs.py"},
     }

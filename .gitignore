@@ -17,3 +17,10 @@ campaigns/*/assets/
 # Local Buffer key for the dashboard's channel picker. Never committed;
 # the workflows read the key from GitHub Secrets, not from here.
 .env
+
+# Song audio for studio/ (masters, stems, fetched pictures) and its renders.
+# Large, and the audio is the unreleased-quality source: kept off the tree.
+studio/songs/*/master.wav
+studio/songs/*/stems/
+studio/songs/*/media/
+studio/out/

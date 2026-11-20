@@ -1,0 +1,6 @@
+# For studio/ only. The posting pipeline (requirements.txt) needs none of this.
+numpy
+soundfile
+librosa
+opencv-python-headless
+Pillow

@@ -35,6 +35,7 @@ from src.accounts import (
     ACCOUNTS_FILE,
     AccountConfig,
     AccountsConfig,
+    Provider,
     accounts_for,
     load_accounts,
 )
@@ -131,6 +132,7 @@ from src.quota import (
 from src.ports import Clock, Rng, SeededRng, SystemClock
 from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
 from src.publishers.buffer import BufferPublisher
+from src.publishers.instagram import OUTBOX_DIR, InstagramPublisher
 from src.analytics import (
     cache_path as analytics_cache_path,
     correlate,
@@ -1273,10 +1275,38 @@ def _account_publishers(
                 f"{slot} is not set — cannot publish to {account.name}. "
                 f"Set the secret, or set posting.dry_run: true."
             )
-        publishers[slot] = BufferPublisher(
-            api_key, log, organization_id=account.organization_id
-        )
+        publishers[slot] = _real_publisher(account, api_key, log)
     return publishers
+
+
+def _real_publisher(
+    account: AccountConfig, secret: str, log: StructuredLogger
+) -> BufferPublisher | InstagramPublisher:
+    """The publisher one account posts through. Never a dry-run stand-in.
+
+    The one place that knows there is more than one kind: an account says
+    which with ``provider:`` in the accounts file, and everything else holds
+    a ``Publisher`` without caring.
+    """
+    if account.provider is Provider.INSTAGRAM:
+        return InstagramPublisher(
+            secret, log,
+            outbox_dir=REPO_ROOT / OUTBOX_DIR,
+            login=account.login.value,
+        )
+    return BufferPublisher(secret, log, organization_id=account.organization_id)
+
+
+def _held_post_paths(publisher: Publisher) -> list[Path]:
+    """Files a publisher wrote that must be committed with the queue.
+
+    Buffer holds a scheduled post on its own servers. A direct Instagram
+    account's are held in the repo, so a push that is not committed is a post
+    that will never go out.
+    """
+    if isinstance(publisher, InstagramPublisher) and publisher.touched:
+        return [REPO_ROOT / OUTBOX_DIR]
+    return []
 
 
 def _topup_fanout(
@@ -1550,6 +1580,10 @@ def _push_to_account(
                 first_comment=account.first_comment or item.first_comment or None,
                 notify_subscribers=account.notify_subscribers,
                 post_type=account.post_type,
+                trial=account.trial_reels,
+                trial_graduation=(
+                    account.trial_graduation.value if account.trial_reels else None
+                ),
             )
             try:
                 result = publisher.create_post(request)
@@ -1597,7 +1631,8 @@ def _push_to_account(
         )
         save_queue(queue_path, queue)
         vcs.commit(
-            [queue_path, history_path], f"push {item.id[:8]} for {account.name}"
+            [queue_path, history_path, *_held_post_paths(publisher)],
+            f"push {item.id[:8]} for {account.name}",
         )
         pushed += 1
     return pushed
@@ -2662,10 +2697,10 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         # and reading only it leaves every other account unmeasured — so each
         # account the campaign reaches is fetched, through its own login, and
         # every figure is filed under the account it came from.
-        sources: list[tuple[str | None, BufferPublisher, str]] = [
-            (None, publisher, channel)
-        ]
-        publishers: dict[str, BufferPublisher] = {
+        sources: list[
+            tuple[str | None, BufferPublisher | InstagramPublisher, str]
+        ] = [(None, publisher, channel)]
+        publishers: dict[str, BufferPublisher | InstagramPublisher] = {
             config.buffer.api_key_secret: publisher
         }
         if config.posting.fan_out:
@@ -2681,9 +2716,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                             reason=f"{slot} is not set",
                         )
                         continue
-                    publishers[slot] = BufferPublisher(
-                        key, log, organization_id=account.organization_id
-                    )
+                    publishers[slot] = _real_publisher(account, key, log)
                 sources.append(
                     (account.name, publishers[slot], _account_channel(account, env))
                 )
@@ -3287,7 +3320,11 @@ def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
     registry = load_accounts(REPO_ROOT / ACCOUNTS_FILE)
     publishers: dict[str, Publisher] = {}
 
-    def _publisher_for(slot: str, organization_id: str | None) -> Publisher:
+    def _publisher_for(
+        slot: str,
+        organization_id: str | None,
+        account: AccountConfig | None = None,
+    ) -> Publisher:
         # Built only when something actually has to be deleted remotely, so
         # the offline case never trips over a missing key it does not need.
         if slot not in publishers:
@@ -3298,10 +3335,12 @@ def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
                 if not key:
                     raise ConfigError(
                         f"{slot} is not set — it is needed to remove a post "
-                        f"Buffer is already holding"
+                        f"that is already being held"
                     )
-                publishers[slot] = BufferPublisher(
-                    key, log, organization_id=organization_id
+                publishers[slot] = (
+                    _real_publisher(account, key, log)
+                    if account is not None
+                    else BufferPublisher(key, log, organization_id=organization_id)
                 )
         return publishers[slot]
 
@@ -3349,7 +3388,7 @@ def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
             slot = account.api_key_secret if account else config.buffer.api_key_secret
             org = account.organization_id if account else config.buffer.organization_id
             try:
-                _publisher_for(slot, org).delete_post(post_id)
+                _publisher_for(slot, org, account).delete_post(post_id)
             except UgcError as exc:
                 # Most likely already published, which is exactly the case
                 # that cannot be undone. Leave the record alone so it keeps
@@ -3375,6 +3414,69 @@ def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
     )
     print("Commit and push campaigns/ for the change to reach the workflows.")
     return 0
+
+
+def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
+    """Send every held Instagram post whose slot has arrived.
+
+    Accounts that post through Buffer need nothing like this: Buffer publishes
+    on its own. An account that posts to Instagram directly has its posts held
+    in ``outbox/`` (see ``src/publishers/instagram.py``), and this is what
+    sends them. It runs on a short timer and is safe to run at any moment —
+    a post not yet due is left alone, and one already sent is never sent
+    twice.
+
+    Not tied to a campaign: a held post already carries everything needed to
+    publish it, and an account can be fed by several campaigns.
+    """
+    log = get_logger(command="publish-due")
+    registry = load_accounts(REPO_ROOT / ACCOUNTS_FILE)
+    direct = [
+        a for a in registry.live
+        if a.provider is Provider.INSTAGRAM
+        and (not args.account or a.name == args.account)
+    ]
+    if not direct:
+        print("no account posts to Instagram directly; nothing to do")
+        return 0
+
+    by_slot: dict[str, list[AccountConfig]] = {}
+    for account in direct:
+        by_slot.setdefault(account.api_key_secret, []).append(account)
+
+    vcs: Vcs = (
+        NullVcs(log) if args.dry_run or args.no_commit else GitVcs(REPO_ROOT, log)
+    )
+    exit_code = 0
+    for slot, accounts in by_slot.items():
+        names = {_account_channel(a, env): a.name for a in accounts}
+        token = _secret(slot, env)
+        if not token:
+            print(f"{slot} is not set — cannot publish for "
+                  f"{', '.join(names.values())}", file=sys.stderr)
+            exit_code = 1
+            continue
+        publisher = _real_publisher(accounts[0], token, log)
+        assert isinstance(publisher, InstagramPublisher)  # filtered above
+        if args.dry_run:
+            for channel, name in names.items():
+                state = publisher.queue_state(channel)
+                print(f"{name}: {state.depth} held, next due {state.next_due}")
+            continue
+        changed = publisher.publish_due(channel_ids=set(names))
+        for item in changed:
+            name = names.get(str(item.get("channel_id")), "?")
+            status = item.get("status")
+            print(f"{name}: {str(item.get('id'))[:12]} {status}"
+                  + (f" — {item['error']}" if item.get("error") else ""))
+            if item.get("error"):
+                exit_code = 1
+        if publisher.touched:
+            vcs.commit(
+                [REPO_ROOT / OUTBOX_DIR],
+                f"publish {len(changed)} for {', '.join(sorted(names.values()))}",
+            )
+    return exit_code
 
 
 def cmd_analytics(args: argparse.Namespace, env: dict[str, str]) -> int:
@@ -3671,6 +3773,17 @@ def build_parser() -> argparse.ArgumentParser:
                         help="show what would be rendered and exit, changing "
                              "nothing")
 
+    publish_due = sub.add_parser(
+        "publish-due",
+        help="send held Instagram posts whose slot has arrived",
+    )
+    publish_due.add_argument("--account", default="",
+                             help="only this account (default: all)")
+    publish_due.add_argument("--dry-run", action="store_true",
+                             help="show what is held and send nothing")
+    publish_due.add_argument("--no-commit", action="store_true",
+                             help="skip git commits (local testing only)")
+
     topup = sub.add_parser("topup", help="fill Buffer's queue to its cap")
     common(topup)
     topup.add_argument("--no-commit", action="store_true",
@@ -3797,6 +3910,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "diagnose": cmd_diagnose,
         "cleanup": cmd_cleanup,
         "connect": cmd_connect,
+        "publish-due": cmd_publish_due,
     }
     try:
         return handlers[args.command](args, env)

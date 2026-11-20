@@ -38,9 +38,12 @@ creatives:
     shared_videos: true
 
 # Only the nickdotname accounts. Everything else in accounts.yaml is left out.
+# YouTube is left out too: the channel is limited to 2 scheduled posts a day
+# (every third push failed with LimitReachedError at 8 a day), and no post
+# there has passed 8 views since September. Add nickdotname_yt back to try it.
 accounts:
   mode: allow
-  names: [nickdotname_ig, nickdotname_tt, nickdotname_yt]
+  names: [nickdotname_ig, nickdotname_tt]
 
 posting:
   posts_per_day: 8              # one every three hours, around the clock
