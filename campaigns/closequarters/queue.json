@@ -274,9 +274,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6b0081b644c361911349a551",
           "last_error": null,
           "scheduled_for": "2026-11-20T12:50:00-05:00"
         },
@@ -296,7 +296,7 @@
         "instagram": "Talk – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
