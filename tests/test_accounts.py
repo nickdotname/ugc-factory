@@ -215,9 +215,9 @@ class TestShippedRegistry:
     def test_it_loads(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
         # Six Buffer channels, plus one account that posts to Instagram
-        # directly and is switched off until its first post has been checked.
+        # directly.
         assert len(cfg.accounts) == 7
-        assert len(cfg.live) == 6
+        assert len(cfg.live) == 7
 
     def test_it_covers_both_logins_on_all_three_networks(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
@@ -227,6 +227,8 @@ class TestShippedRegistry:
         assert by_slot == {
             "BUFFER_API_KEY": {Service.INSTAGRAM, Service.TIKTOK, Service.YOUTUBE},
             "BUFFER_API_KEY_2": {Service.INSTAGRAM, Service.TIKTOK, Service.YOUTUBE},
+            # The one account that posts to Instagram directly.
+            "IG_TOKEN": {Service.INSTAGRAM},
         }
 
     def test_every_shipped_campaign_channel_has_an_account(self) -> None:
