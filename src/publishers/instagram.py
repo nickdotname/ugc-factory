@@ -64,7 +64,7 @@ HOSTS: dict[str, str] = {
     "instagram": "https://graph.instagram.com",
     "facebook": "https://graph.facebook.com",
 }
-DEFAULT_API_VERSION = "v26.0"
+DEFAULT_API_VERSION = "v27.0"
 REQUEST_TIMEOUT_SEC = 60
 OUTBOX_DIR = "outbox"
 ID_PREFIX = "igo-"
