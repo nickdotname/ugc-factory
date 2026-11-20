@@ -1203,8 +1203,10 @@
         "trim_start": 0.045,
         "overlay_shift": -0.0027
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "6b0081a244c3619113499c35",
+      "post_ids": {
+        "nickdotname_ig": "6b0081a244c3619113499c35"
+      },
       "overlay": "pov: you just put the | whole group chat on | to Talk",
       "lineup_id": null,
       "variants": {}
