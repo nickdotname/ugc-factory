@@ -1243,8 +1243,10 @@
         "trim_start": 0.224,
         "overlay_shift": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "6b0081a7e3772ee0cf51b253",
+      "post_ids": {
+        "nickdotname_ig": "6b0081a7e3772ee0cf51b253"
+      },
       "overlay": "tag the friend who needs | Myth of Sisyphus on repeat",
       "lineup_id": null,
       "variants": {}
