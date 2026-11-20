@@ -1,0 +1,65 @@
+name: publish
+
+# Accounts that post to Instagram directly have their posts held in outbox/
+# until their slot (src/publishers/instagram.py). This sends whatever is due.
+# Accounts that post through Buffer are not touched: Buffer publishes those.
+#
+# Every 15 minutes. GitHub starts scheduled runs late under load, so a post
+# goes out some minutes after its slot rather than on it.
+on:
+  workflow_dispatch:
+    inputs:
+      account:
+        description: only this account (blank = all)
+        required: false
+        default: ""
+      dry_run:
+        description: show what is held and send nothing
+        type: boolean
+        default: true
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+
+permissions:
+  contents: write   # the outbox records what was sent, so nothing is sent twice
+
+# One at a time. Two runs reading the same outbox would both see the same post
+# as due, and a Reel that reaches Instagram twice cannot be recalled.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: pip install -q -r requirements.txt
+
+      - name: Publish what is due
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
+          IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
+          IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
+          IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
+          IG_TOKEN_7: ${{ secrets.IG_TOKEN_7 }}
+          IG_TOKEN_8: ${{ secrets.IG_TOKEN_8 }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          python -m src.cli publish-due \
+            ${{ inputs.account != '' && format('--account "{0}"', inputs.account) || '' }} \
+            ${{ inputs.dry_run == true && '--dry-run' || '' }}
