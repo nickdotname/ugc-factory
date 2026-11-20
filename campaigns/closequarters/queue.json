@@ -208,10 +208,10 @@
         {
           "account": "nickdotname_yt",
           "network": "youtube",
-          "status": "claimed",
-          "attempts": 0,
+          "status": "failed",
+          "attempts": 1,
           "buffer_post_id": null,
-          "last_error": null,
+          "last_error": "Buffer createPost failed (LimitReachedError): You have already scheduled the maximum number of posts YouTube allows in a day (2). Please consider scheduling this post for another day.",
           "scheduled_for": "2026-11-20T19:30:00-05:00"
         }
       ],
@@ -221,7 +221,7 @@
         "tiktok": "Talk – Close Quarters\nplay it for somebody and watch their face at this part\n\nTalk is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "failed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
