@@ -86,7 +86,7 @@ jobs:
           case "$slot" in
             06:45) gh workflow run studio.yml --ref main ;;                      # 1:45am New York: tonight's new videos
             14:15|17:15|21:15|01:15) gh workflow run carousel.yml --ref main ;;  # 9:15am, 12:15pm, 4:15pm, 8:15pm New York
-            15:45|23:45) gh workflow run factreel.yml --ref main ;;              # 10:45am, 6:45pm New York
+            15:45|18:45|22:45|01:45) gh workflow run factreel.yml --ref main ;;  # 10:45am, 1:45pm, 5:45pm, 8:45pm New York
           esac
 
       # A dead token or a refused post fails this job every 15 minutes with nobody told.
