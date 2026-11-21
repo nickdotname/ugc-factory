@@ -265,3 +265,15 @@ def test_publisher_is_picked_by_provider():
         name="old", network="instagram", api_key_secret="BUFFER_API_KEY",
         channel_id="c1", post_type="reel"))
     assert isinstance(cli._real_publisher(old, "k", log), BufferPublisher)
+
+
+def test_send_next_publishes_one_post_ahead_of_its_slot(tmp_path):
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request(scheduled_for=NOW + timedelta(hours=5)))
+    publisher.create_post(request(scheduled_for=NOW + timedelta(hours=9)))
+
+    changed = publisher.publish_due(send_next=True)
+    assert [i["status"] for i in changed] == [PUBLISHED]
+    assert publisher.queue_state(CHANNEL).depth == 1          # the later one still waits
+    assert publisher.publish_due() == []

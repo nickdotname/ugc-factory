@@ -17,6 +17,10 @@ on:
         description: show what is held and send nothing
         type: boolean
         default: true
+      now:
+        description: send the next held post right now, whatever its slot (give an account)
+        type: boolean
+        default: false
   schedule:
     - cron: "8,23,38,53 * * * *"
 
@@ -62,4 +66,5 @@ jobs:
           git config user.email "ugc-factory@users.noreply.github.com"
           python -m src.cli publish-due \
             ${{ inputs.account != '' && format('--account "{0}"', inputs.account) || '' }} \
-            ${{ inputs.dry_run == true && '--dry-run' || '' }}
+            ${{ inputs.dry_run == true && '--dry-run' || '' }} \
+            ${{ inputs.now == true && '--now' || '' }}
