@@ -294,3 +294,63 @@ def test_a_carousel_makes_one_container_per_slide_then_publishes(tmp_path):
     assert [c.kwargs["data"].get("image_url") for c in creates[:2]] == item["image_urls"]
     assert creates[2].kwargs["data"]["media_type"] == "CAROUSEL"
     assert creates[2].kwargs["data"]["children"] == "cont-1,cont-1"
+
+
+def test_the_reels_sound_is_named_when_asked(tmp_path):
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request(audio_name="Talk – Close Quarters"))
+    publisher.publish_due()
+    sent = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")][0]
+    assert sent.kwargs["data"]["audio_name"] == "Talk – Close Quarters"
+
+
+def test_a_catalogue_track_keeps_its_own_name(tmp_path):
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session, login="facebook")
+    publisher.create_post(request(audio_id="aud-7", audio_name="Talk – Close Quarters"))
+    publisher.publish_due()
+    sent = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")][0]
+    assert "audio_name" not in sent.kwargs["data"]
+
+
+def test_a_refused_sound_name_does_not_cost_the_post(tmp_path):
+    session = happy(FakeSession())
+
+    def create(call):
+        if "audio_name" in call.kwargs["data"]:
+            return FakeResponse(400, {"error": {
+                "message": "(#100) Param audio_name is not supported", "code": 100}})
+        return FakeResponse(200, {"id": "cont-1"})
+
+    session.route("POST", f"/{CHANNEL}/media", create)
+    session.route("POST", f"/{CHANNEL}/media_publish", FakeResponse(200, {"id": "media-9"}))
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request(audio_name="Talk – Close Quarters"))
+    changed = publisher.publish_due()
+    assert [i["status"] for i in changed] == [PUBLISHED]
+    assert changed[0]["audio_name"] is None
+
+
+def test_a_carousel_is_measured_without_the_reel_only_figures(tmp_path):
+    session = happy(FakeSession())
+
+    def insights(call):
+        if "ig_reels" in call.kwargs["params"]["metric"]:
+            return FakeResponse(400, {"error": {
+                "message": "(#100) The Media Insights API does not support the "
+                           "ig_reels_avg_watch_time metric for this media product type.",
+                "code": 100}})
+        return FakeResponse(200, {"data": [
+            {"name": "views", "values": [{"value": 88}]},
+            {"name": "saved", "values": [{"value": 4}]},
+        ]})
+
+    session.route("GET", "/media-9/insights", insights)
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request())
+    publisher.publish_due()
+    rows = publisher.fetch_post_metrics(CHANNEL)
+    assert rows[0].value("views") == 88
+    assert rows[0].value("saves") == 4
+    assert rows[0].value("averageTimeWatched") is None

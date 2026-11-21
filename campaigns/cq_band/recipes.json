@@ -1248,7 +1248,8 @@
     "punch": 0.035,
     "scan": true,
     "chroma": 0
-   }
+   },
+   "clip": "hook_03.mp4"
   },
   {
    "date": "2026-11-21",
@@ -1428,7 +1429,8 @@
     "punch": 0.02,
     "scan": true,
     "chroma": 2
-   }
+   },
+   "clip": "hook_07.mp4"
   },
   {
    "date": "2026-11-21",
@@ -1622,7 +1624,8 @@
     "punch": 0.05,
     "scan": true,
     "chroma": 0
-   }
+   },
+   "clip": "hook_07.mp4"
   },
   {
    "date": "2026-11-21",
@@ -1752,7 +1755,8 @@
     "punch": 0.035,
     "scan": false,
     "chroma": 0
-   }
+   },
+   "clip": "hook_09.mp4"
   },
   {
    "date": "2026-11-21",
@@ -1902,7 +1906,8 @@
     "punch": 0.035,
     "scan": true,
     "chroma": 2
-   }
+   },
+   "clip": "hook_04.mp4"
   },
   {
    "date": "2026-11-21",
@@ -2112,7 +2117,8 @@
     "punch": 0.02,
     "scan": true,
     "chroma": 0
-   }
+   },
+   "clip": "hook_03.mp4"
   },
   {
    "date": "2026-11-21",
@@ -2457,7 +2463,8 @@
     "punch": 0.02,
     "scan": true,
     "chroma": 0
-   }
+   },
+   "clip": "hook_03.mp4"
   },
   {
    "date": "2026-11-21",
@@ -2621,7 +2628,8 @@
     "punch": 0.02,
     "scan": true,
     "chroma": 4
-   }
+   },
+   "clip": "hook_03.mp4"
   },
   {
    "date": "2026-11-21",
@@ -2806,7 +2814,8 @@
     "punch": 0.035,
     "scan": true,
     "chroma": 4
-   }
+   },
+   "clip": "hook_08.mp4"
   },
   {
    "date": "2026-11-21",
@@ -3037,7 +3046,8 @@
     "punch": 0.035,
     "scan": true,
     "chroma": 0
-   }
+   },
+   "clip": "hook_04.mp4"
   },
   {
    "date": "2026-11-21",
@@ -3219,7 +3229,8 @@
     "punch": 0.02,
     "scan": true,
     "chroma": 0
-   }
+   },
+   "clip": "hook_04.mp4"
   },
   {
    "date": "2026-11-21",
@@ -3394,7 +3405,8 @@
     "punch": 0.035,
     "scan": false,
     "chroma": 0
-   }
+   },
+   "clip": "hook_08.mp4"
   },
   {
    "date": "2026-11-21",
@@ -3606,7 +3618,8 @@
     "punch": 0.02,
     "scan": true,
     "chroma": 4
-   }
+   },
+   "clip": "hook_05.mp4"
   },
   {
    "date": "2026-11-21",
@@ -3774,7 +3787,8 @@
     "punch": 0.035,
     "scan": true,
     "chroma": 2
-   }
+   },
+   "clip": "hook_04.mp4"
   },
   {
    "date": "2026-11-21",
@@ -3979,7 +3993,8 @@
     "punch": 0.05,
     "scan": true,
     "chroma": 2
-   }
+   },
+   "clip": "hook_04.mp4"
   },
   {
    "date": "2026-11-21",
@@ -4073,7 +4088,8 @@
     "punch": 0.02,
     "scan": true,
     "chroma": 0
-   }
+   },
+   "clip": "hook_10.mp4"
   }
  ]
 }

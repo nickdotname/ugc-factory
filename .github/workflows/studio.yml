@@ -52,8 +52,9 @@ jobs:
       - name: Install dependencies
         run: pip install -q -r requirements.txt -r studio/requirements.txt
 
+      # Never allowed to stop the videos being made: it reports what it could not read and carries on.
       - name: Read the numbers
-        run: python studio/learn.py
+        run: python studio/learn.py || echo "::warning::the learning step failed and was skipped"
 
       - name: Render and add to the libraries
         run: |
@@ -68,3 +69,14 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -q -m "studio: new videos [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+
+      # A token lasts about 60 days and nothing else warns before posting stops.
+      - name: Warn before an Instagram token runs out
+        if: always()
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
+          IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python scripts/ig_token_check.py --warn-days 7

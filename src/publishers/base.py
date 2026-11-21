@@ -71,6 +71,11 @@ class PublishRequest(BaseModel):
     audio_id: str | None = None
     audio_volume: int | None = Field(default=None, ge=1, le=100)
     video_volume: int | None = Field(default=None, ge=1, le=100)
+    #: Instagram only: what the Reel's own sound is called. Without it every
+    #: Reel's sound reads "Original audio" under the account's name; with it
+    #: the song and artist sit on every view, and on the sound's own page.
+    #: Instagram allows it to be set once, at creation.
+    audio_name: str | None = None
 
     @model_validator(mode="after")
     def _within_platform_limits(self) -> "PublishRequest":

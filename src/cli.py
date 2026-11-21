@@ -1569,6 +1569,19 @@ def _push_to_account(
             [queue_path], f"claim {item.id[:8]} for {account.name}"
         )
 
+        # Posting to Instagram directly, a Reel's sound can be given a name,
+        # which is otherwise "Original audio" under the account's own. The
+        # song is the creative's title, filled into the campaign's wording.
+        audio_name: str | None = None
+        if account.provider is Provider.INSTAGRAM and config.funnel.audio_name:
+            song = next(
+                (c.title for c in config.creatives if c.name == item.creative), ""
+            ) or config.funnel.name
+            if song or "{name}" not in config.funnel.audio_name:
+                audio_name = (
+                    config.funnel.audio_name.replace("{name}", song).strip() or None
+                )
+
         try:
             request = PublishRequest(
                 channel_id=channel,
@@ -1577,6 +1590,7 @@ def _push_to_account(
                 service=account.network,
                 video_url=video_url,
                 scheduled_for=due,
+                audio_name=audio_name,
                 first_comment=account.first_comment or item.first_comment or None,
                 notify_subscribers=account.notify_subscribers,
                 post_type=account.post_type,

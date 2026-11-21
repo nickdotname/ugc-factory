@@ -11,6 +11,9 @@ on:
         required: false
         default: ""
   push:
+    # main only: a branch with a pull request open is already checked by the
+    # pull_request run below, and checking it twice doubles the minutes.
+    branches: [main]
     paths:
       - "campaigns/**"
       - "src/**"

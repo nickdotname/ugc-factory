@@ -130,6 +130,8 @@ funnel:
   cta_every: 1
   # Off: Buffer's free plan refuses posts that carry a first comment.
   first_comment: []
+  # What each reel's sound is called on Instagram instead of "Original audio".
+  audio_name: "{name} – Close Quarters"
   end_card: ""               # the render loops cleanly; a card would break the loop
   end_card_sec: 2.0
 
