@@ -18,30 +18,33 @@ creatives:
   - name: notta_problem
     title: "Notta Problem"
     assets_release: assets-cq_producer-notta_problem
+    # Resting: its on-screen lyrics come from an unchecked draft. Raise this back to 1 once the
+    # lyrics are corrected and the song has been through studio/force_align.py like the others.
+    weight: 0.001
   - name: full_ride
     title: "Full Ride"
-    assets_release: assets-cq_producer-full_ride
+    assets_release: assets-cq_producer-full_ride-v2
   - name: hair_of_the_dog
     title: "Hair of the Dog"
-    assets_release: assets-cq_producer-hair_of_the_dog
+    assets_release: assets-cq_producer-hair_of_the_dog-v2
   - name: talk
     title: "Talk"
-    assets_release: assets-cq_producer-talk
+    assets_release: assets-cq_producer-talk-v2
   - name: fixation
     title: "Fixation"
-    assets_release: assets-cq_producer-fixation
+    assets_release: assets-cq_producer-fixation-v2
   - name: wont_be_the_same_again
     title: "Won't Be the Same Again"
-    assets_release: assets-cq_producer-wont_be_the_same_again
+    assets_release: assets-cq_producer-wont_be_the_same_again-v2
   - name: myth_of_sisyphus
     title: "Myth of Sisyphus"
-    assets_release: assets-cq_producer-myth_of_sisyphus
+    assets_release: assets-cq_producer-myth_of_sisyphus-v2
   - name: suspended
     title: "Suspended"
-    assets_release: assets-cq_producer-suspended
+    assets_release: assets-cq_producer-suspended-v2
   - name: prologue
     title: "Prologue: Before"
-    assets_release: assets-cq_producer-prologue
+    assets_release: assets-cq_producer-prologue-v2
 
 # dylancantor23 only, posted to Instagram directly as trial reels.
 accounts:
@@ -146,7 +149,7 @@ funnel:
 selection:
   dedupe_on: [hook, caption]
   caption_cooldown_days: 0
-  hook_cooldown_days: 0
+  hook_cooldown_days: 4      # a video is not posted again for four days; raise as the library grows
   min_runway_days: 7
   performance_weight: 0.5
   performance_statistic: mean

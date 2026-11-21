@@ -3,7 +3,12 @@
 # spread across every song in studio/songs that the campaign lists as a creative, and adds them
 # straight to that song's clip library. Raise per_night to grow a library faster; each video
 # costs roughly a minute of GitHub Actions time.
-min_confidence: 0.45        # lyric sections whose word timing prep was unsure about are skipped
+# A section's score is the share of its lyric lines whose every word passed three checks (studio/force_align.py).
+# Under this, the band and producer styles do not use the section at all; the visualiser uses it without lyrics.
+min_confidence: 0.8
+# Until a fresh library holds this many videos, the night makes enough to reach it (capped by first_fill_cap).
+first_fill: 14
+first_fill_cap: 16
 targets:
   - campaign: cq_producer   # dylancantor23: stems + playhead + lyrics
     style: producer
