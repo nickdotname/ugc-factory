@@ -269,12 +269,49 @@ def overlays(a, i):
         a[:] = np.asarray(im)
     return a
 
+CARDS = json.load(open(os.environ['CQ_CARDS'])) if os.environ.get('CQ_CARDS') else []      # fact reels: [[t0, t1, big, small], ...]
+_CF = {}
+def _cfont(name, size):
+    k = (name, size)
+    if k not in _CF:
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'fonts', name)
+        _CF[k] = ImageFont.truetype(p, size) if os.path.exists(p) else _font(size)
+    return _CF[k]
+
+def _wrap(d, text, f, width):
+    out, cur = [], ''
+    for w in text.split():
+        t = (cur + ' ' + w).strip()
+        if d.textlength(t, font=f) <= width or not cur: cur = t
+        else: out.append(cur); cur = w
+    return out + ([cur] if cur else [])
+
+def cards(a, t):
+    """A text card over the visuals: a big yellow word or two, then a sentence, on a dark band."""
+    c = next((c for c in CARDS if c[0] <= t < c[1]), None)
+    if not c: return a
+    H_, W_ = a.shape[:2]; im = Image.fromarray(a); lay = Image.new('RGBA', (W_, H_), (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
+    big, small = c[2] or '', c[3] or ''
+    fb = _cfont('Anton-Regular.ttf', 150); fs = _cfont('Poppins-Bold.ttf', 62 if big else 88)      # a card with no big word is the opening line: make it big
+    bl = _wrap(d, big.upper(), fb, W_ * .86); sl = _wrap(d, small, fs, W_ * .84)
+    lh = 80 if big else 112
+    h = len(bl) * 165 + (30 if bl and sl else 0) + len(sl) * lh; y = H_ * .5 - h / 2
+    pop = min(1.0, (t - c[0]) / .18); alpha = int(215 * pop)
+    d.rectangle([0, y - 60, W_, y + h + 60], fill=(8, 6, 14, alpha))
+    for ln in bl:
+        d.text(((W_ - d.textlength(ln, font=fb)) / 2, y), ln, font=fb, fill=(255, 226, 60, int(255 * pop))); y += 165
+    y += 30 if bl and sl else 0
+    for ln in sl:
+        d.text(((W_ - d.textlength(ln, font=fs)) / 2, y), ln, font=fs, fill=(255, 255, 255, int(255 * pop))); y += lh
+    im.paste(lay, (0, 0), lay); return np.asarray(im)
+
 def finish(img, i):
     a = cv2.resize((np.clip(img, 0, 1) * 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST if plan['field'] == 'bryce' else cv2.INTER_CUBIC)
     if plan['grain']:
         g = np.random.default_rng(seed * 100003 + i).integers(-9, 10, (H // 2, W // 2, 1), dtype=np.int16)
         a = np.clip(a.astype(np.int16) + cv2.resize(g.astype(np.float32), (W, H), interpolation=cv2.INTER_NEAREST)[..., None].astype(np.int16), 0, 255).astype(np.uint8)
     a = _hook.draw(overlays(np.ascontiguousarray(a), i), plan['hook'], i / FPS)
+    if CARDS: a = cards(np.ascontiguousarray(a), i / FPS)
     # No fade-in: Instagram uses the first frame as the cover, and a black one is a black square on the profile.
     # The end only dips (never to black) so the loop back to frame one is a breath, not a blink.
     return a                       # no dip at the end either: the sound crossfades into its own start, so the video loops
