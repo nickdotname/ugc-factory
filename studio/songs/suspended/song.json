@@ -12,53 +12,54 @@
  "sections": [
   {
    "id": "s01",
-   "start": 8.51,
-   "end": 30.8,
+   "start": 5.13,
+   "end": 27.5,
    "lines": [
     0,
-    12
+    10
    ],
-   "confidence": 0.56
+   "confidence": 1.0
   },
   {
    "id": "s02",
-   "start": 30.51,
-   "end": 53.74,
+   "start": 27.33,
+   "end": 44.23,
    "lines": [
-    13,
-    25
+    11,
+    20
    ],
-   "confidence": 0.65
+   "confidence": 0.98
   },
   {
    "id": "s03",
-   "start": 53.09,
-   "end": 74.86,
+   "start": 44.39,
+   "end": 67.3,
    "lines": [
-    26,
-    38
+    21,
+    31
    ],
-   "confidence": 0.64
+   "confidence": 1.0
   },
   {
    "id": "s04",
-   "start": 74.21,
-   "end": 95.96,
+   "start": 66.81,
+   "end": 89.38,
    "lines": [
-    39,
-    50
+    32,
+    47
    ],
-   "confidence": 0.75
+   "confidence": 1.0
   },
   {
    "id": "s05",
-   "start": 95.31,
-   "end": 111.84,
+   "start": 89.15,
+   "end": 113.01,
    "lines": [
-    51,
+    48,
     57
    ],
-   "confidence": 0.5
+   "confidence": 1.0
   }
- ]
+ ],
+ "aligned": "global"
 }
