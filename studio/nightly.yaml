@@ -1,0 +1,19 @@
+# What the nightly studio job makes (see .github/workflows/studio.yml and studio/nightly.py).
+# One entry per account style. Each night it renders `per_night` NEW videos for the campaign,
+# spread across every song in studio/songs that the campaign lists as a creative, and adds them
+# straight to that song's clip library. Raise per_night to grow a library faster; each video
+# costs roughly a minute of GitHub Actions time.
+min_confidence: 0.45        # lyric sections whose word timing prep was unsure about are skipped
+targets:
+  - campaign: cq_producer   # dylancantor23: stems + playhead + lyrics
+    style: producer
+    per_night: 8
+    join: 45                # glue neighbouring sections into videos up to this many seconds
+  - campaign: cq_band       # close__quarters: retro desktop lyric videos
+    style: band
+    per_night: 8
+    join: 50
+  - campaign: psy_station   # psychedelic.station: audio-reactive visuals
+    style: psy
+    per_night: 10
+    join: 40

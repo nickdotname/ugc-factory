@@ -216,8 +216,8 @@ class TestShippedRegistry:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
         # Six Buffer channels, plus two accounts that post to Instagram
         # directly.
-        assert len(cfg.accounts) == 8
-        assert len(cfg.live) == 8
+        assert len(cfg.accounts) == 9
+        assert len(cfg.live) == 9
 
     def test_it_covers_both_logins_on_all_three_networks(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")

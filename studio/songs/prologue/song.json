@@ -1,0 +1,114 @@
+{
+ "slug": "prologue",
+ "title": "Prologue: Before",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 1,
+ "tracks_total": 15,
+ "key": "",
+ "tempo": 112.35,
+ "offset_sec": 4.063,
+ "stems_start_sec": 0.0,
+ "sections": [
+  {
+   "id": "s01",
+   "start": 12.21,
+   "end": 25.52,
+   "lines": [
+    0,
+    7
+   ],
+   "confidence": 0.69
+  },
+  {
+   "id": "s02",
+   "start": 24.87,
+   "end": 59.59,
+   "lines": [
+    8,
+    8
+   ],
+   "confidence": 0.5
+  },
+  {
+   "id": "s03",
+   "start": 68.83,
+   "end": 86.0,
+   "lines": [
+    9,
+    13
+   ],
+   "confidence": 0.95
+  },
+  {
+   "id": "s04",
+   "start": 86.97,
+   "end": 109.28,
+   "lines": [
+    14,
+    18
+   ],
+   "confidence": 0.71
+  },
+  {
+   "id": "s05",
+   "start": 109.23,
+   "end": 130.54,
+   "lines": [
+    19,
+    23
+   ],
+   "confidence": 0.84
+  },
+  {
+   "id": "s06",
+   "start": 130.75,
+   "end": 153.22,
+   "lines": [
+    24,
+    34
+   ],
+   "confidence": 0.71
+  },
+  {
+   "id": "s07",
+   "start": 152.57,
+   "end": 175.12,
+   "lines": [
+    35,
+    47
+   ],
+   "confidence": 0.72
+  },
+  {
+   "id": "s08",
+   "start": 174.47,
+   "end": 190.87,
+   "lines": [
+    48,
+    58
+   ],
+   "confidence": 0.86
+  },
+  {
+   "id": "s09",
+   "start": 191.23,
+   "end": 209.23,
+   "lines": [
+    59,
+    68
+   ],
+   "confidence": 0.85
+  },
+  {
+   "id": "s10",
+   "start": 226.01,
+   "end": 243.81,
+   "lines": [
+    69,
+    80
+   ],
+   "confidence": 0.77
+  }
+ ]
+}

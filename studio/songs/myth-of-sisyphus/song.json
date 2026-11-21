@@ -1,0 +1,54 @@
+{
+ "slug": "myth-of-sisyphus",
+ "title": "Myth of Sisyphus",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 3,
+ "tracks_total": 15,
+ "key": "",
+ "tempo": 136.0,
+ "offset_sec": 1.927,
+ "stems_start_sec": 0.0,
+ "sections": [
+  {
+   "id": "s01",
+   "start": 29.65,
+   "end": 49.94,
+   "lines": [
+    0,
+    5
+   ],
+   "confidence": 0.65
+  },
+  {
+   "id": "s02",
+   "start": 56.71,
+   "end": 79.7,
+   "lines": [
+    6,
+    17
+   ],
+   "confidence": 0.54
+  },
+  {
+   "id": "s03",
+   "start": 127.95,
+   "end": 150.07,
+   "lines": [
+    21,
+    38
+   ],
+   "confidence": 0.33
+  },
+  {
+   "id": "s04",
+   "start": 149.49,
+   "end": 169.65,
+   "lines": [
+    39,
+    63
+   ],
+   "confidence": 0.36
+  }
+ ]
+}
