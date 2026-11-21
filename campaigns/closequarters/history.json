@@ -1337,6 +1337,80 @@
       "overlay": "me waiting for my friend | to get to the good part",
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "da2a8b72dd1f7d94ed00b433ebffcaa2ff610ab6de66db81a50be752429727c9",
+      "timestamp": "2026-11-21T12:49:28.741305Z",
+      "item_id": "bcc1e0e1-a806-4e67-b4db-87471283a5fd",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": "music_myth_of_sisyphus_01.m4a",
+      "music_offset_sec": 135.0,
+      "caption": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with",
+      "title": "Myth of Sisyphus – Close Quarters",
+      "creative": "myth_of_sisyphus",
+      "captions": {
+        "instagram": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with\n\nMyth of Sisyphus is out now. link in bio to stream it",
+        "tiktok": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0192,
+        "anchor_x": 0.66,
+        "anchor_y": 0.599,
+        "rotate_deg": -0.127,
+        "brightness": -0.0208,
+        "saturation": 1.0388,
+        "hue_deg": -1.96,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0,
+        "trim_start": 0.113,
+        "overlay_shift": 0.008
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "how me and bro start moving | when Myth of Sisyphus comes on",
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "3fbb7d0c473cd6de2878c5150532a7d0b595fa1fbd548fa0ca614dfda0574a3a",
+      "timestamp": "2026-11-21T12:49:28.741305Z",
+      "item_id": "98ddd3f7-1e21-41d8-bc79-b81afbbe3c05",
+      "hook": "hook_15.mp4",
+      "bodies": [],
+      "music": "music_fixation_01.m4a",
+      "music_offset_sec": 75.0,
+      "caption": "Fixation – Close Quarters\nthe group chat needs to hear this one",
+      "title": "Fixation – Close Quarters (out now)",
+      "creative": "fixation",
+      "captions": {
+        "instagram": "Fixation – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Fixation",
+        "tiktok": "Fixation – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Fixation"
+      },
+      "treatment": {
+        "zoom": 0.0276,
+        "anchor_x": 0.466,
+        "anchor_y": 0.383,
+        "rotate_deg": -0.036,
+        "brightness": -0.0229,
+        "saturation": 1.0205,
+        "hue_deg": 1.35,
+        "grain": 2.04,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0,
+        "trim_start": 0.251,
+        "overlay_shift": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "pov: you just put the | whole group chat on | to Fixation",
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
