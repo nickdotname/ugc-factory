@@ -26,6 +26,7 @@ on:
 
 permissions:
   contents: write   # the outbox records what was sent, so nothing is sent twice
+  actions: write    # starts the daily studio and carousel jobs at their times (see the last step)
 
 # One at a time. Two runs reading the same outbox would both see the same post
 # as due, and a Reel that reaches Instagram twice cannot be recalled.
@@ -68,3 +69,22 @@ jobs:
             ${{ inputs.account != '' && format('--account "{0}"', inputs.account) || '' }} \
             ${{ inputs.dry_run == true && '--dry-run' || '' }} \
             ${{ inputs.now == true && '--now' || '' }}
+
+      # GitHub's own schedules skip runs, and this job is started every 15 minutes
+      # by an outside timer that does not. So it is the clock for the daily jobs
+      # too: the run that starts in the first minutes of a job's quarter-hour starts
+      # it. GitHub's own backup runs (at :08, :23, :38, :53) and runs started by hand
+      # later in the quarter-hour start nothing, so a job is not started twice.
+      - name: Start the daily jobs when their time comes
+        if: inputs.dry_run != true && inputs.now != true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          m=$(( 10#$(date -u +%M) ))
+          [ $(( m % 15 )) -lt 7 ] || exit 0
+          slot=$(date -u +%H:)$(printf '%02d' $(( m / 15 * 15 )))
+          case "$slot" in
+            06:45) gh workflow run studio.yml --ref main ;;                      # 1:45am New York: tonight's new videos
+            16:15|20:15|00:15) gh workflow run carousel.yml --ref main ;;        # 11:15am, 3:15pm, 7:15pm New York
+          esac
+

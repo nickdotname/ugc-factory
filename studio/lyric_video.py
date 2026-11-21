@@ -546,9 +546,12 @@ def prod_frame(f, feat, plan, ctx, rng):
     return caption(a, k, T, 215, 76, 1000) if k is not None else a
 
 plan = plan_band() if mode == 'band' else plan_prod()
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
+plan['hook'] = _hook.pick(mode, seed)                       # the line shown for the first two seconds ('' = none)
 wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav); feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
 json.dump(json.loads(json.dumps(dict(mode=mode, seed=seed, song=SONG['slug'], window=[T0, T1], plan=plan)).replace(SONG_DIR + '/', '')), open(out[:-4] + '.json', 'w'), indent=1)
-fr = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: prod_frame(f, feat, plan, ctx, rng))
+fr0 = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: prod_frame(f, feat, plan, ctx, rng))
+fr = lambda f: _hook.draw(np.asarray(fr0(f)), plan['hook'], f / FPS)
 if '--frames' in sys.argv:
     fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
     s = Image.new('RGB', (324 * len(fs), 576))

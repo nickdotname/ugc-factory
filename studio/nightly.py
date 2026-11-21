@@ -17,6 +17,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 ap = argparse.ArgumentParser(); ap.add_argument('--only', default=''); ap.add_argument('--count', type=int, default=0); ap.add_argument('--no-ingest', action='store_true')
 a = ap.parse_args(); cfg = yaml.safe_load(open(os.path.join(HERE, 'nightly.yaml'))); today = datetime.date.today().isoformat()
 MINC = cfg.get('min_confidence', 0.45); failed = False
+LEARNED = (json.load(open(os.path.join(HERE, 'weights.json'))) if os.path.exists(os.path.join(HERE, 'weights.json')) else {}).get('campaigns', {})   # from learn.py
 
 def stretches(song, join):
     """Each usable section on its own, plus neighbours glued together up to `join` seconds."""
@@ -31,8 +32,12 @@ def stretches(song, join):
     return {k: v for k, v in out.items() if v[1] - v[0] >= 11}
 
 def render(job):
-    song_dir, style, seed, out, (t0, t1) = job
+    song_dir, style, seed, out, (t0, t1) = job[:5]
     env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', '28'), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'), CQ_MAXRATE=os.environ.get('CQ_MAXRATE', '2M'))
+    for var, dim in (('CQ_HOOK', 'hook'), ('CQ_FIELD', 'look')):          # half the time, lean towards what has been watched; the other half stays a free draw
+        opts = {o: w for o, w in (job[5].get(dim) or {}).items() if o != '(none)' and (dim != 'look' or style == 'psy')} if len(job) > 5 else {}
+        r = random.Random(seed * 31 + len(var))
+        if opts and r.random() < 0.5: env[var] = r.choices(list(opts), weights=[w ** 2 for w in opts.values()])[0]
     cmd = [sys.executable, os.path.join(HERE, 'psy_video.py'), song_dir, str(seed), out] if style == 'psy' else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
@@ -56,7 +61,9 @@ for t in cfg['targets']:
         song = json.load(open(os.path.join(sd, 'song.json')))
         if not any(os.path.exists(os.path.join(sd, 'master' + e)) for e in ('.wav', '.flac', '.ogg')): continue
         for sid, win in stretches(song, t.get('join', 0)).items(): cands.append((slug, cr, sid, win))
-    rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: uses.get((c[0], c[2]), 0))
+    W = (LEARNED.get(camp) or {}).get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
+    # fewest videos first, but a song or section that gets watched counts as having fewer (so it gets more), and vice versa
+    rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get(c[2], 1.0)))
     picked, per_song, want = [], {}, a.count or t['per_night']
     for lap in range(1, 6):                                   # go round the songs so one night is not all one track
         for c in cands:
@@ -67,7 +74,7 @@ for t in cfg['targets']:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
         seeds.add(seed); inbox = os.path.join(REPO, 'inbox', '%s-%s' % (camp, cr), 'hooks'); os.makedirs(inbox, exist_ok=True)
-        out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win)); meta.append((cr, slug, sid))
+        out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, W)); meta.append((cr, slug, sid))
     print('== %s: %d videos (%s)' % (camp, len(jobs), style), flush=True)
     with ThreadPoolExecutor(max(1, min(4, os.cpu_count() or 2))) as ex: oks = list(ex.map(render, jobs))
     done = set()
@@ -79,7 +86,12 @@ for t in cfg['targets']:
         rec.setdefault('nightly', []).append(dict(date=today, creative=cr, file=os.path.basename(out), song=slug, section=sid, style=style, seed=job[2], window=list(job[4]), plan=r.get('plan'))); done.add(cr)
     if not a.no_ingest:
         for cr in sorted(done):
-            r = subprocess.run([sys.executable, '-m', 'src.cli', 'ingest', '--campaign', camp, '--creative', cr], cwd=REPO)
+            rep = os.path.join(REPO, 'work', 'ingest-%s-%s.json' % (camp, cr)); os.makedirs(os.path.dirname(rep), exist_ok=True)
+            r = subprocess.run([sys.executable, '-m', 'src.cli', 'ingest', '--campaign', camp, '--creative', cr, '--report', rep], cwd=REPO)
             if r.returncode != 0: failed = True; print('::error::ingest failed for %s / %s' % (camp, cr))
+            if os.path.exists(rep):                         # which library name each video was given: that name is what a post records
+                named = {row['asset'].split('__', 1)[-1]: row.get('target') for row in json.load(open(rep))}
+                for e in rec['nightly']:
+                    if e.get('creative') == cr and e.get('date') == today and e.get('file') in named: e['clip'] = named[e['file']]
     json.dump(rec, open(recp, 'w'), indent=1)
 sys.exit(1 if failed else 0)
