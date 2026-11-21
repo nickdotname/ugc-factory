@@ -26,7 +26,7 @@ concurrency:
 jobs:
   studio:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 170
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

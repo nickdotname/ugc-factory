@@ -99,7 +99,13 @@ def learn(camp, zone, now):
     posts = load(os.path.join(cdir, 'posts.json'), {}).get('posts') or {}
     if isinstance(posts, list):                              # older caches were a list
         posts = {p.get('post_id'): p for p in posts if isinstance(p, dict)}
-    made = recipes(load(os.path.join(cdir, 'recipes.json'), {}))
+    rec = load(os.path.join(cdir, 'recipes.json'), {})
+    made = recipes(rec)
+    # When a campaign's libraries are started afresh the clip names start again too, so a post is read against
+    # the videos its own library held: the archive before `since`, the current ones after.
+    before = recipes(rec.get('archive') or {})
+    since = rec.get('since') if rec.get('archive') else None
+    since = datetime.datetime.fromisoformat(str(since).replace('Z', '+00:00')) if since else None
     rows, young = [], 0
     for h in load(os.path.join(cdir, 'history.json'), {}).get('entries') or []:
         ids = set((h.get('post_ids') or {}).values()) | {h.get('buffer_post_id')}
@@ -112,7 +118,10 @@ def learn(camp, zone, now):
             if (now - when).total_seconds() < MIN_AGE_H * 3600:
                 young += 1
                 continue
-            a = made.get((h.get('creative'), h.get('hook'))) or {}
+            queued = h.get('timestamp')
+            queued = datetime.datetime.fromisoformat(str(queued).replace('Z', '+00:00')) if queued else when
+            book = made if not rec.get('archive') or (since is not None and queued >= since) else before
+            a = book.get((h.get('creative'), h.get('hook'))) or {}
             secs = a.get('seconds') or 0
             opts = {
                 'song': h.get('creative'),

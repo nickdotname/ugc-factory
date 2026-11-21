@@ -46,7 +46,7 @@ PALS = {'acid': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, .33, .67)], 'sunset'
 plan = dict(field=os.environ.get('CQ_FIELD') or rng.choice(['kaleido', 'tunnel', 'marble', 'rings', 'cells', 'bryce', 'bryce', 'bryce']), sym=rng.choice([3, 4, 5, 6, 8, 12]),
             pal=rng.choice(sorted(PALS)), feedback=rng.random() < .6, spin=rng.choice([-1, 1]) * rng.uniform(.03, .12),
             warp=rng.uniform(.6, 1.6), mirror=rng.random() < .35, grain=rng.random() < .5, strobe=rng.random() < .3,
-            lyrics=rng.choice(['word', 'word', 'word', 'line', 'line', None]), ring=rng.random() < .5,
+            lyrics=(lambda pick: None if os.environ.get('CQ_LYRICS') == 'none' else pick)(rng.choice(['word', 'word', 'word', 'line', 'line', None])), ring=rng.random() < .5,
             motif=rng.choice([None, None, 'poly', 'star', 'eye', 'cube']), contour=rng.random() < .55, poster=rng.random() < .3,
             font=rng.choice(['Poppins-Bold.ttf', 'Poppins-Black.ttf', 'DejaVuSerif-Bold.ttf']), word_y=rng.choice([.5, .5, .72]),
             scale=rng.uniform(2.2, 4.5), second=rng.choice([None, 'kaleido', 'rings', 'marble']), flip_at=rng.uniform(.4, .65))
