@@ -16,19 +16,25 @@ ap = argparse.ArgumentParser(); ap.add_argument('--spec', default=''); ap.add_ar
 posted = json.load(open(os.path.join(CDIR, 'posted.json'))) if os.path.exists(os.path.join(CDIR, 'posted.json')) else []
 RP = os.path.join(CDIR, 'reeled.json'); reeled = json.load(open(RP)) if os.path.exists(RP) else []
 specs = {json.load(open(f))['slug']: f for f in glob.glob(os.path.join(CDIR, '*.json')) if os.path.basename(f) not in ('posted.json', 'reeled.json')}
+# Each posted carousel gets two reels: part 1 tells slides 1-3, part 2 picks up at slide 4 for people who
+# saw part 1 (and its own hook for people who didn't). Oldest carousel first, part 1 before any part 2.
+count = {}
+for r in reeled: count[r['slug']] = count.get(r['slug'], 0) + 1
 if a.spec: slug = a.spec
 else:
-    done = {r['slug'] for r in reeled}; todo = [p['slug'] for p in posted if p['slug'] not in done and p['slug'] in specs]
+    todo = [(count.get(p['slug'], 0), i, p['slug']) for i, p in enumerate(posted) if p['slug'] in specs and count.get(p['slug'], 0) < 2]
     if not todo: print('no carousel waiting for a reel'); sys.exit(0)
-    slug = todo[0]
+    slug = min(todo)[2]
+part = count.get(slug, 0) + 1
 spec = json.load(open(specs[slug])); name = a.account or spec.get('account') or ''
 acct = next((x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.yaml')))['accounts'] if x['name'] == name), None)
 if not acct: sys.exit('no such account: %r' % name)
-rng = random.Random(slug + datetime.date.today().isoformat())
+rng = random.Random(slug + datetime.date.today().isoformat() + str(part))
 
 # the cards: hook, three slides, the pointer. ~3.3s each, so ~16.5s and it loops.
-slides = spec['slides'][:3]; D = 3.3
-cards = [[0, D, '', spec['headline']]] + [[D * (k + 1), D * (k + 2), b, t] for k, (b, t) in enumerate(slides)]
+slides = spec['slides'][:3] if part == 1 else spec['slides'][3:6]; D = 3.3
+opener = spec['headline'] if part == 1 else 'Part 2: ' + spec['headline'][0].lower() + spec['headline'][1:]
+cards = [[0, D, '', opener]] + [[D * (k + 1), D * (k + 2), b, t] for k, (b, t) in enumerate(slides)]
 cards.append([D * 4, D * 5, 'swipe the full story', 'it is on our page. 6 slides, sources on the last one.'])
 dur = D * 5
 
@@ -58,14 +64,14 @@ if subprocess.run(['gh', 'release', 'view', tag], capture_output=True, cwd=REPO)
     subprocess.run(['gh', 'release', 'create', tag, '--title', tag, '--notes', 'Fact reels, served to Instagram by the site.'], check=True, cwd=REPO)
 subprocess.run(['gh', 'release', 'upload', tag, os.path.join(tmp, nm)], check=True, cwd=REPO)
 base = yaml.safe_load(open(os.path.join(REPO, 'site.yaml')))['media_base_url'].rstrip('/')
-first = spec['caption'].split('\n')[0]
+first = spec['caption'].split('\n')[0] if part == 1 else 'part 2 of ' + spec['headline'].rstrip('.').lower()
 caption = '%s\nthe full story is the carousel on our page\n🎧 %s – @close__quarters #psychedelic #declassified #rabbithole #conspiracy #history' % (first, title)
 pid = 'igo-' + str(uuid.uuid4())
 item = dict(id=pid, channel_id=str(acct['channel_id']), status='queued', video_url='%s/%s/%s' % (base, tag, nm), caption=caption, first_comment=None,
             share_to_feed=True, trial=False, trial_graduation=None, audio_id=None, audio_volume=None, video_volume=None,
             audio_name='%s – Close Quarters' % title, scheduled_for=now.isoformat(), created_at=now.isoformat(), attempts=0)
 json.dump(item, open(os.path.join(REPO, 'outbox', pid + '.json'), 'w'), indent=2, sort_keys=True)
-reeled.append(dict(slug=slug, date=now.strftime('%Y-%m-%d'), post=pid, account=name, song=os.path.basename(sd), window=[t0, round(t0 + dur, 2)], seed=seed))
+reeled.append(dict(slug=slug, part=part, date=now.strftime('%Y-%m-%d'), post=pid, account=name, song=os.path.basename(sd), window=[t0, round(t0 + dur, 2)], seed=seed))
 json.dump(reeled, open(RP, 'w'), indent=1)
 print('held', pid, 'for', name)
 if os.environ.get('GITHUB_OUTPUT'): open(os.environ['GITHUB_OUTPUT'], 'a').write('account=%s\n' % name)
