@@ -21,6 +21,7 @@ campaigns/*/assets/
 # Song audio for studio/ (masters, stems, fetched pictures) and its renders.
 # Large, and the audio is the unreleased-quality source: kept off the tree.
 studio/songs/*/master.wav
-studio/songs/*/stems/
+studio/songs/*/stems/*.flac
+studio/songs/*/stems/*.wav
 studio/songs/*/media/
 studio/out/
