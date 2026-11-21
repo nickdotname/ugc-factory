@@ -20,7 +20,7 @@ posted = json.load(open(POSTED)) if os.path.exists(POSTED) else []
 done = {p['slug'] for p in posted}
 if a.spec: path = a.spec if os.path.exists(a.spec) else os.path.join(CDIR, a.spec + '.json')
 else:
-    todo = [f for f in sorted(glob.glob(os.path.join(CDIR, '*.json'))) if os.path.basename(f) != 'posted.json' and json.load(open(f))['slug'] not in done]
+    todo = [f for f in sorted(glob.glob(os.path.join(CDIR, '*.json'))) if os.path.basename(f) not in ('posted.json', 'reeled.json') and json.load(open(f))['slug'] not in done]
     if not todo: print('no carousel waiting'); sys.exit(0)
     path = todo[0]
 spec = json.load(open(path)); name = a.account or spec.get('account') or ''
