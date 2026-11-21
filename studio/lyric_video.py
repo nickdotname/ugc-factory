@@ -24,11 +24,16 @@ if len(sys.argv) < 5:
 SONG_DIR = os.path.abspath(sys.argv[1]); sys.argv = [sys.argv[0]] + sys.argv[2:]
 SONG = json.load(open(os.path.join(SONG_DIR, 'song.json')))
 MASTER = os.path.join(SONG_DIR, 'master.wav')
-D = json.load(open(os.path.join(SONG_DIR, 'arrangement.json'))); SPB = 60 / D['tempo']; TR = D['tracks']
+# A song with its Ableton arrangement (arrangement.json) gets the piano-roll and
+# arrangement scenes drawn from the real notes. Without one, the same scenes are
+# drawn from the four stems, and the beat grid comes from the detected tempo.
+_arr = os.path.join(SONG_DIR, 'arrangement.json'); HAS_ARR = os.path.exists(_arr) and 'arrangement_rows' in SONG
+D = json.load(open(_arr)) if HAS_ARR else dict(tempo=SONG['tempo'], tracks=[])
+SPB = 60 / D['tempo']; TR = D['tracks']
 OFF = SONG['offset_sec']            # master_time = beat * SPB + OFF
-PROJECT = SONG['project']
-MUSIC_ROWS = SONG['arrangement_rows']
-STEMS_START = SONG['stems_start_sec']
+PROJECT = SONG.get('project', SONG['slug'])
+MUSIC_ROWS = SONG.get('arrangement_rows', [])
+STEMS_START = SONG.get('stems_start_sec', 0.0)
 LINES = [(e, [(w, t) for w, t in ws]) for e, ws in json.load(open(os.path.join(SONG_DIR, 'lines.json')))]
 stem_path = lambda name: os.path.join(SONG_DIR, 'stems', name + '.flac')
 
@@ -207,6 +212,18 @@ def sc_player(d, f, bands, big=True):
 def sc_arr(d, beat, ppb=46):
     x0, y0, x1, y1 = STAGE; win(d, x0, y0, x1, y1, PROJECT + '.als - Arrangement')
     ix0, iy0, ix1, iy1 = x0 + 14, y0 + 64, x1 - 14, y1 - 14; inset(d, ix0, iy0, ix1, iy1, (38, 38, 42))
+    if not HAS_ARR:                      # four stem lanes instead of the project's clips
+        ph = ix0 + int((ix1 - ix0) * 0.38); rh = (iy1 - iy0 - 8) / 4
+        for b in range(int(beat) - 10, int(beat) + 16):
+            x = ph + (b - beat) * ppb
+            if ix0 + 3 < x < ix1 - 3 and b % 4 == 0: d.line([x, iy0 + 3, x, iy1 - 3], fill=(86, 86, 92), width=1)
+        for r, nm in enumerate(('Vocals', 'Drums', 'Bass', 'Other')):
+            mid = iy0 + 4 + r * rh + rh / 2; col = PAL[(r * 3 + 1) % len(PAL)]
+            d.text((ix0 + 10, mid - rh / 2 + 6), nm.upper(), font=F(MONO, 24), fill=(170, 170, 176))
+            for x in range(ix0 + 4, ix1 - 4, 4):
+                v = ev(nm, b2t(beat + (x - ph) / ppb)) * rh * 0.44
+                d.line([x, mid - v, x, mid + v], fill=col if x > ph else tuple(int(c * .5) for c in col), width=3)
+        d.line([ph, iy0 + 3, ph, iy1 - 3], fill=(255, 255, 255), width=3); return
     ph = ix0 + int((ix1 - ix0) * 0.38); rh = (iy1 - iy0 - 8) / len(MUSIC_ROWS); bx = lambda b: ph + (b - beat) * ppb
     for b in range(int(beat) - 10, int(beat) + 16):
         x = bx(b)
@@ -249,9 +266,9 @@ def sc_clock(d, k, T):
 def env_of(name):
     y, sr = sf.read(stem_path(name), always_2d=True, dtype='float32'); y = np.abs(y).max(1)
     st = sr // 200; e = y[:len(y) // st * st].reshape(-1, st).max(1); return e / np.percentile(e, 99.5)
-ENV = {n: env_of(n) for n in ('Vocals', 'Drums', 'Other')}
+ENV = {n: env_of(n) for n in ('Vocals', 'Drums', 'Bass', 'Other') if os.path.exists(stem_path(n))}
 ev = lambda n, T: float(ENV[n][min(len(ENV[n]) - 1, max(0, int((T - STEMS_START) * 200)))])
-MEL_T, HAT_T = b2t(SONG['melody_enters_beat']), b2t(SONG['hats_enter_beat'])
+MEL_T, HAT_T = (b2t(SONG['melody_enters_beat']), b2t(SONG['hats_enter_beat'])) if HAS_ARR else (-1e9, -1e9)
 
 def sc_paint(d, k, T):
     x0, y0, x1, y1 = STAGE; win(d, x0, y0, x1, y1, 'word.bmp - Paint')
@@ -291,13 +308,15 @@ def draw(kind, d, k, T, f, bands, beat):
     elif kind == 'messages': sc_messages(d, k, T)
     elif kind == 'clock': sc_arr(d, beat, ppb=60); sc_clock(d, k, T)
     elif kind in ('dialogs', 'flood'):
-        sc_arr(d, beat, ppb=60); sc_dialogs(d, k, T, "That's not a problem." if k == 5 else "It's not a problem.", many=kind == 'flood')
+        sc_arr(d, beat, ppb=60); sc_dialogs(d, k, T, "It's not a problem.", many=kind == 'flood')
 
 mode, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
 R = random.Random(seed * 7919 + (1 if mode == 'band' else 2))
 # CQ_WINDOW="start,end" renders a different stretch of the song than song.json names,
 # which is how one song yields a video per lyric section.
 T0, T1 = [float(x) for x in os.environ['CQ_WINDOW'].split(',')] if os.environ.get('CQ_WINDOW') else SONG['windows'][mode]
+# only the lines inside the window matter to a render
+LINES = [L for L in LINES if L[0] > T0 - 0.2 and L[1][0][1] < T1] or LINES[:1]
 has = lambda k, s: any(s in w.lower() for w, _ in LINES[k][1])
 # strong drum hits (for flashes)
 dy, dsr = sf.read(stem_path('Drums'), always_2d=True, dtype='float32'); dy = dy.mean(1)
@@ -361,13 +380,16 @@ def pick_ov():
     return o
 
 PIC_P = float(os.environ.get('CQ_PIC_P', '0.6'))
+def caption(a, k, T, y, size, maxw):
+    im = Image.fromarray(a); karaoke(ImageDraw.Draw(im), k, T, y, size=size, maxw=maxw, outline=True); return np.asarray(im)
+
 def plan_band():
     themes = [((0, 128, 128), 'teal'), ((58, 110, 165), 'blue'), ((85, 60, 130), 'purple'), ((20, 20, 24), 'black'), ((0, 110, 70), 'green')]
     theme = R.choice(themes); segs = []; prev = [None]
     def pick(k, st):
         pool = ['notepad', 'cmd', 'paint', 'paint', 'wave', 'player', 'arr']
-        if st >= MEL_T + 0.3: pool += ['roll_mel'] * 2
-        if st >= HAT_T + 0.3: pool += ['roll_hat'] * 2
+        if HAS_ARR and st >= MEL_T + 0.3: pool += ['roll_mel'] * 2
+        if HAS_ARR and st >= HAT_T + 0.3: pool += ['roll_hat'] * 2
         if has(k, 'problem'): pool += ['dialogs'] * 4 + ['flood'] * 4
         if has(k, 'messages'): pool += ['messages'] * 8
         if has(k, '4:20'): pool += ['clock'] * 8
@@ -448,15 +470,17 @@ def band_frame(f, feat, plan, ctx, rng):
         x = 60 + q * 230; d.rectangle([x + 40, 86, x + 110, 150], fill=(255, 255, 255), outline=(0, 0, 0), width=3)
         d.rectangle([x + 52, 98, x + 98, 118], fill=PAL[q * 3]); fw = d.textlength(nm, font=F(SANS, 26)); d.text((x + 75 - fw / 2, 158), nm, font=F(SANS, 26), fill=(255, 255, 255))
     d.text((54, 214), SONG['album'], font=F(INTER_XB, 76), fill=(255, 255, 255))
-    d.text((56, 304), 'lesson %d of %d: %s' % (SONG['track'], SONG['tracks_total'], SONG['title']), font=F(INTER_SB, 40), fill=(225, 240, 255))
+    d.text((56, 304), 'lesson %d of %d: %s' % (SONG['track'], SONG.get('tracks_total', SONG['track']), SONG['title']), font=F(INTER_SB, 40), fill=(225, 240, 255))
     if kind.startswith('pic|'): _, pth, sty = kind.split('|'); sc_pic(d, pth, sty, T, st, (10, 10, 30), mixc(plan['bg'], (255, 255, 255), .75))
     else: draw(kind, d, k, T, f, bands, beat)
     overlays_pil(im, ImageDraw.Draw(im), ov, k, T, f, bands); d = ImageDraw.Draw(im)
-    if k is not None and (kind not in OWN_TEXT) and T < LINES[k][0] + 0.4: karaoke(d, k, T, 1340, size=64)
     d.rectangle([0, H - 84, W, H], fill=(192, 192, 192)); d.line([0, H - 84, W, H - 84], fill=(255, 255, 255), width=3)
     button(d, 10, H - 72, 190, H - 14, 'Start'); inset(d, W - 220, H - 72, W - 12, H - 14, (192, 192, 192))
-    d.text((W - 190, H - 60), '4:20 PM' if T > 53.48 else '4:19 PM', font=F(SANS, 30), fill=(0, 0, 0))
-    return fx(np.asarray(im), T, f, plan, ov, st, STAGE, ctx, rng)
+    d.text((W - 190, H - 60), '4:20 PM' if any('4:20' in w and t < T for e, ws in LINES for w, t in ws) else '4:19 PM', font=F(SANS, 30), fill=(0, 0, 0))
+    a = fx(np.asarray(im), T, f, plan, ov, st, STAGE, ctx, rng)
+    # The lyric goes on last, over every overlay and effect, so nothing can cover it.
+    kl = line_at(T)
+    return caption(a, kl, T, 1340, 64, 980) if kl is not None else a
 
 def plan_prod():
     pals = [[(255, 190, 110), (255, 90, 110), (150, 160, 255), (120, 220, 255)], [(255, 255, 255), (255, 210, 60), (90, 220, 160), (255, 120, 200)], [(120, 255, 170), (255, 150, 80), (110, 190, 255), (240, 240, 120)]]
@@ -467,18 +491,18 @@ def plan_prod():
         segs.append([ws[0][1], [c, R.choice([84, 110, 140])], k, [x for x in pick_ov() if x in ('track', 'invert', 'stamp')] or ['stamp']])
     pal_ = R.choice(pals); bg_ = R.choice([(11, 13, 16), (16, 12, 22), (8, 16, 18)])
     return dict(wall=R.choice(['plasma', 'rings', 'grad', 'stars']), acc=mixc(bg_, pal_[R.randrange(4)], .28), pal=pal_, segs=segs, bg=bg_, punch=R.choice([0.015, 0.03]), scan=R.random() < 0.5, chroma=R.choice([0, 2]))
-PLN = [('VOCAL', 'Vocals'), ('DRUMS', 'Drums'), ('INSTRUMENTS', 'Other'), ('MELODY + HATS  (MIDI)', None)]
+PLN = [('VOCAL', 'Vocals'), ('DRUMS', 'Drums'), ('INSTRUMENTS', 'Other'), ('MELODY + HATS  (MIDI)', None) if HAS_ARR else ('BASS', 'Bass')]
 def prod_frame(f, feat, plan, ctx, rng):
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T); k = line_at(T); si = seg_at(plan, T); st, (foc, ppb), kk, ov = plan['segs'][si]
     if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
     if foc == 3 and T < MEL_T: foc = 0
     im = Image.fromarray(make_bg(plan['wall'], T, plan['bg'], plan['acc'])); d = ImageDraw.Draw(im)
-    sub = '%s - %s   %d BPM   %s' % (SONG['artist'], SONG['title'], round(60 / SPB), SONG['key']); f2 = F(INTER_SB, 32); w = d.textlength(sub, font=f2); d.text(((W - w) / 2, 150), sub, font=f2, fill=(150, 160, 175))
+    sub = ('%s - %s   %d BPM   %s' % (SONG['artist'], SONG['title'], round(60 / SPB), SONG.get('key', ''))).rstrip(); f2 = F(INTER_SB, 32); w = d.textlength(sub, font=f2); d.text(((W - w) / 2, 150), sub, font=f2, fill=(150, 160, 175))
     total = 860; hs = [total * (0.55 if i == foc else 0.15) for i in range(4)] if foc is not None else [total / 4] * 4
     ph = 330; x_of = lambda b: ph + (b - beat) * ppb; y = 540; vis = W / ppb
     for li, (label, stem) in enumerate(PLN):
         h = int(hs[li]); col = tuple(plan['pal'][li]); d.text((40, y), label, font=F(MONO, 28), fill=col)
-        if li == 3:
+        if stem is None:
             info = 'enters in %.1f s' % (MEL_T - T) if T < MEL_T else 'real notes from the project file'
             tw = d.textlength(info, font=F(MONO, 28)); d.text((W - 40 - tw, y), info, font=F(MONO, 28), fill=(150, 160, 175))
         py0 = y + 40; py1 = py0 + h; d.rectangle([0, py0, W, py1], fill=(22, 25, 31))
@@ -490,11 +514,13 @@ def prod_frame(f, feat, plan, ctx, rng):
             for x in range(0, W, 4):
                 v = ev(stem, b2t(beat + (x - ph) / ppb)) * (h * 0.46); d.line([x, mid - v, x, mid + v], fill=col if x > ph else tuple(int(c * .45) for c in col), width=3)
             if li == 0 and foc == 0:
-                fw = F(INTER_XB, 44)
+                fw = F(INTER_XB, 44); lastx = {}
                 for e, ws in LINES:
                     for wi, (wd, s0) in enumerate(ws):
                         x = x_of(t2b(s0))
+                        if x < lastx.get(wi % 3, -1e9): continue      # fast lines: skip a word instead of printing over the last
                         if -200 < x < W:
+                            lastx[wi % 3] = x + d.textlength(wd, font=fw) + 14
                             nxt = ws[wi + 1][1] if wi + 1 < len(ws) else e
                             d.text((x, py0 + 4 + (wi % 3) * ((h - 60) / 2)), wd, font=fw, fill=(255, 255, 255) if s0 <= T < nxt else ((110, 115, 125) if s0 < T else (225, 225, 230)), stroke_width=4, stroke_fill=(22, 25, 31))
         else:
@@ -516,8 +542,8 @@ def prod_frame(f, feat, plan, ctx, rng):
         v = float(bands[b, max(0, fi - 1):fi + 1].mean()); d.rectangle([40 + b * bw, 1800 - int(v * 90), 40 + (b + 1) * bw - 5, 1800], fill=(70, 80, 96))
     if 'stamp' in ov and k is not None: overlays_pil(im, ImageDraw.Draw(im), ['stamp'], k, T, f, bands)
     d = ImageDraw.Draw(im)
-    if k is not None: karaoke(d, k, T, 215, size=76, maxw=1000, outline=True)
-    return fx(np.asarray(im), T, f, plan, [o for o in ov if o != 'stamp'], st, (0, 580, W, 1560), ctx, rng)
+    a = fx(np.asarray(im), T, f, plan, [o for o in ov if o != 'stamp'], st, (0, 580, W, 1560), ctx, rng)
+    return caption(a, k, T, 215, 76, 1000) if k is not None else a
 
 plan = plan_band() if mode == 'band' else plan_prod()
 wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav); feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
@@ -532,6 +558,6 @@ if '--frames' in sys.argv:
 else:
     tmp = out[:-4] + '.tmp.mp4'
     p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', wav,
-                          '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '20'), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
+                          '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '20'), *(['-maxrate', os.environ['CQ_MAXRATE'], '-bufsize', '6M'] if os.environ.get('CQ_MAXRATE') else []), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
     for f in range(n): p.stdin.write(fr(f).tobytes())
     p.stdin.close(); assert p.wait() == 0; os.replace(tmp, out); print('done', n, round(dur, 2))

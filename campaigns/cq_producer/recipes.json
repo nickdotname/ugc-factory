@@ -803,6 +803,1091 @@
      ]
     }
    ]
+  },
+  "full_ride": {
+   "hook_01.mp4": {
+    "source": "01_full-ride_s01_producer_1.mp4",
+    "song": "full-ride",
+    "style": "producer",
+    "seed": 1,
+    "section": "s01",
+    "window": [
+     7.31,
+     29.22
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      null,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_full-ride_s02_producer_18.mp4",
+    "song": "full-ride",
+    "style": "producer",
+    "seed": 18,
+    "section": "s02",
+    "window": [
+     28.93,
+     54.16
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": true,
+    "chroma": 0,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_03.mp4": {
+    "source": "03_full-ride_s03_producer_35.mp4",
+    "song": "full-ride",
+    "style": "producer",
+    "seed": 35,
+    "section": "s03",
+    "window": [
+     53.51,
+     75.8
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": false,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_04.mp4": {
+    "source": "04_full-ride_s04_producer_52.mp4",
+    "song": "full-ride",
+    "style": "producer",
+    "seed": 52,
+    "section": "s04",
+    "window": [
+     76.49,
+     95.74
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   }
+  },
+  "hair_of_the_dog": {
+   "hook_01.mp4": {
+    "source": "01_hair-of-the-dog_s01_producer_1.mp4",
+    "song": "hair-of-the-dog",
+    "style": "producer",
+    "seed": 1,
+    "section": "s01",
+    "window": [
+     12.55,
+     35.55
+    ],
+    "background": "plasma",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      null,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_hair-of-the-dog_s02_producer_18.mp4",
+    "song": "hair-of-the-dog",
+    "style": "producer",
+    "seed": 18,
+    "section": "s02",
+    "window": [
+     34.9,
+     58.46
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      null,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_03.mp4": {
+    "source": "03_hair-of-the-dog_s03_producer_35.mp4",
+    "song": "hair-of-the-dog",
+    "style": "producer",
+    "seed": 35,
+    "section": "s03",
+    "window": [
+     57.81,
+     67.2
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": false,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "track"
+    ]
+   }
+  },
+  "talk": {
+   "hook_01.mp4": {
+    "source": "01_talk_s01_producer_1.mp4",
+    "song": "talk",
+    "style": "producer",
+    "seed": 1,
+    "section": "s01",
+    "window": [
+     22.99,
+     46.2
+    ],
+    "background": "plasma",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 0,
+    "scenes": [
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_talk_s02_producer_18.mp4",
+    "song": "talk",
+    "style": "producer",
+    "seed": 18,
+    "section": "s02",
+    "window": [
+     45.55,
+     68.0
+    ],
+    "background": "plasma",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_03.mp4": {
+    "source": "03_talk_s05_producer_69.mp4",
+    "song": "talk",
+    "style": "producer",
+    "seed": 69,
+    "section": "s05",
+    "window": [
+     102.07,
+     117.08
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      1,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_04.mp4": {
+    "source": "04_talk_s06_producer_86.mp4",
+    "song": "talk",
+    "style": "producer",
+    "seed": 86,
+    "section": "s06",
+    "window": [
+     117.41,
+     144.83
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      null,
+      84
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      3,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_05.mp4": {
+    "source": "05_talk_s07_producer_103.mp4",
+    "song": "talk",
+    "style": "producer",
+    "seed": 103,
+    "section": "s07",
+    "window": [
+     174.37,
+     189.84
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   }
   }
  }
 }

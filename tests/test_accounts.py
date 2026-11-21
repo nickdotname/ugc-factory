@@ -214,10 +214,10 @@ class TestShippedRegistry:
 
     def test_it_loads(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
-        # Six Buffer channels, plus one account that posts to Instagram
+        # Six Buffer channels, plus two accounts that post to Instagram
         # directly.
-        assert len(cfg.accounts) == 7
-        assert len(cfg.live) == 7
+        assert len(cfg.accounts) == 8
+        assert len(cfg.live) == 8
 
     def test_it_covers_both_logins_on_all_three_networks(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
@@ -227,7 +227,7 @@ class TestShippedRegistry:
         assert by_slot == {
             "BUFFER_API_KEY": {Service.INSTAGRAM, Service.TIKTOK, Service.YOUTUBE},
             "BUFFER_API_KEY_2": {Service.INSTAGRAM, Service.TIKTOK, Service.YOUTUBE},
-            # The one account that posts to Instagram directly.
+            # The accounts that post to Instagram directly share one token.
             "IG_TOKEN": {Service.INSTAGRAM},
         }
 

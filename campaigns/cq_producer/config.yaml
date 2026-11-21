@@ -18,6 +18,15 @@ creatives:
   - name: notta_problem
     title: "Notta Problem"
     assets_release: assets-cq_producer-notta_problem
+  - name: full_ride
+    title: "Full Ride"
+    assets_release: assets-cq_producer-full_ride
+  - name: hair_of_the_dog
+    title: "Hair of the Dog"
+    assets_release: assets-cq_producer-hair_of_the_dog
+  - name: talk
+    title: "Talk"
+    assets_release: assets-cq_producer-talk
 
 # dylancantor23 only, posted to Instagram directly as trial reels.
 accounts:
@@ -25,9 +34,9 @@ accounts:
   names: [dylancantor23_ig]
 
 posting:
-  posts_per_day: 2              # start small; raise it as more songs are added
-  start_hour: 11
-  end_hour: 21
+  posts_per_day: 6              # six trial reels a day across the songs below
+  start_hour: 9
+  end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
