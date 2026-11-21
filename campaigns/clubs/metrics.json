@@ -6247,6 +6247,154 @@
         }
       ],
       "metrics_updated_at": "2026-11-19T18:52:41.392000Z"
+    },
+    {
+      "date": "2026-11-21",
+      "scope": "lifetime",
+      "fetched_at": "2026-11-21T14:53:28.114279Z",
+      "window_start": "2026-09-17T00:00:00Z",
+      "window_end": "2026-11-22T00:00:00Z",
+      "service": "instagram",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 448.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1181.73,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 222.0,
+          "unit": "count"
+        },
+        {
+          "type": "follows",
+          "name": "Follows",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 110745.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1902.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 2599.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1560.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 8347.230000000001,
+          "unit": "count"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 135604.0,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": null
+    },
+    {
+      "date": "2026-11-21",
+      "scope": "rolling",
+      "fetched_at": "2026-11-21T14:53:28.114279Z",
+      "window_start": "2026-10-22T00:00:00Z",
+      "window_end": "2026-11-21T00:00:00Z",
+      "service": "instagram",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 107.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1054.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 131.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 5.99,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 72993.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 849.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1479.0,
+          "unit": "count"
+        },
+        {
+          "type": "follows",
+          "name": "Follows",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 59608.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 5638.16,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.38,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-11-20T17:52:47.585000Z"
     }
   ]
 }
