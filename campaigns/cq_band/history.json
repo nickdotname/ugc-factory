@@ -28,8 +28,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-daf52e17-c2f0-4c4c-86c4-8bffe9b195ea",
+      "post_ids": {
+        "close_quarters_ig": "igo-daf52e17-c2f0-4c4c-86c4-8bffe9b195ea"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
