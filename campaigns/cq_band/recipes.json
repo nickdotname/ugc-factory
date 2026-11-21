@@ -2630,6 +2630,1466 @@
     "chroma": 4
    },
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "talk",
+   "file": "talk_s01_band_306104.mp4",
+   "song": "talk",
+   "section": "s01",
+   "style": "band",
+   "seed": 306104,
+   "window": [
+    22.99,
+    46.38
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     122,
+     140,
+     110
+    ],
+    "theme": "purple",
+    "bg": [
+     85,
+     60,
+     130
+    ],
+    "segs": [
+     [
+      23.34,
+      "player",
+      0,
+      [
+       "pip",
+       "trail"
+      ]
+     ],
+     [
+      25.0,
+      "cmd",
+      0,
+      [
+       "trail",
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      25.98,
+      "notepad",
+      1,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      27.62,
+      "player",
+      1,
+      [
+       "trail",
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      29.62,
+      "paint",
+      2,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      31.34,
+      "notepad",
+      2,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      33.0,
+      "paint",
+      3,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      34.24,
+      "wave",
+      3,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      35.54,
+      "paint",
+      4,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      37.0,
+      "notepad",
+      4,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      38.34,
+      "wave",
+      5,
+      [
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      40.26,
+      "cmd",
+      6,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      41.56,
+      "notepad",
+      6,
+      [
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      43.98,
+      "paint",
+      7,
+      [
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      46.08,
+      "cmd",
+      8,
+      [
+       "pip",
+       "invert"
+      ]
+     ],
+     [
+      46.5,
+      "paint",
+      8,
+      [
+       "pip",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": true,
+    "chroma": 4
+   },
+   "clip": "hook_08.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "full_ride",
+   "file": "full-ride_s04_band_863303.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "band",
+   "seed": 863303,
+   "window": [
+    73.05,
+    95.74
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     156,
+     107,
+     131
+    ],
+    "theme": "blue",
+    "bg": [
+     58,
+     110,
+     165
+    ],
+    "segs": [
+     [
+      71.76,
+      "notepad",
+      0,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      73.4,
+      "cmd",
+      1,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      73.86,
+      "wave",
+      2,
+      [
+       "invert",
+       "track"
+      ]
+     ],
+     [
+      74.06,
+      "arr",
+      3,
+      [
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      74.34,
+      "notepad",
+      4,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      74.63,
+      "arr",
+      null,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      77.06,
+      "player",
+      5,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      78.64,
+      "arr",
+      6,
+      [
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      80.34,
+      "notepad",
+      7,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      82.06,
+      "arr",
+      8,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      83.34,
+      "notepad",
+      9,
+      [
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      83.6,
+      "arr",
+      10,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      85.08,
+      "cmd",
+      11,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      86.08,
+      "wave",
+      11,
+      [
+       "pipwave",
+       "trail"
+      ]
+     ],
+     [
+      87.56,
+      "cmd",
+      12,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      89.14,
+      "arr",
+      13,
+      [
+       "trail",
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      90.22,
+      "cmd",
+      14,
+      [
+       "trail",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      91.04,
+      "player",
+      15,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      93.08,
+      "notepad",
+      16,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      93.68,
+      "paint",
+      16,
+      [
+       "track",
+       "pip"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": true,
+    "chroma": 0
+   },
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "fixation",
+   "file": "fixation_s01_band_886692.mp4",
+   "song": "fixation",
+   "section": "s01",
+   "style": "band",
+   "seed": 886692,
+   "window": [
+    76.65,
+    98.3
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     126,
+     181,
+     110
+    ],
+    "theme": "green",
+    "bg": [
+     0,
+     110,
+     70
+    ],
+    "segs": [
+     [
+      77.0,
+      "paint",
+      0,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      81.56,
+      "wave",
+      0,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      82.5,
+      "paint",
+      1,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      83.56,
+      "wave",
+      1,
+      [
+       "trail",
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      84.82,
+      "cmd",
+      2,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      85.02,
+      "player",
+      3,
+      [
+       "trail",
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      86.88,
+      "notepad",
+      4,
+      [
+       "trail",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      88.7,
+      "player",
+      5,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      90.42,
+      "notepad",
+      6,
+      [
+       "trail",
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      91.7,
+      "paint",
+      7,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      92.98,
+      "arr",
+      8,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      94.4,
+      "paint",
+      9,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      96.0,
+      "cmd",
+      10,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      96.4,
+      "player",
+      11,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      98.0,
+      "paint",
+      12,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 0
+   },
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "prologue",
+   "file": "prologue_s05_band_594313.mp4",
+   "song": "prologue",
+   "section": "s05",
+   "style": "band",
+   "seed": 594313,
+   "window": [
+    125.87,
+    148.9
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     156,
+     107,
+     131
+    ],
+    "theme": "blue",
+    "bg": [
+     58,
+     110,
+     165
+    ],
+    "segs": [
+     [
+      122.84,
+      "paint",
+      0,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      126.22,
+      "player",
+      1,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      128.2,
+      "wave",
+      1,
+      [
+       "trail",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      130.24,
+      "paint",
+      2,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      132.66,
+      "cmd",
+      2,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      134.8,
+      "wave",
+      3,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      138.02,
+      "player",
+      null,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      140.14,
+      "cmd",
+      4,
+      [
+       "trail",
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      141.62,
+      "player",
+      5,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      143.12,
+      "arr",
+      6,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      144.58,
+      "wave",
+      7,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      145.6,
+      "paint",
+      8,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      146.62,
+      "player",
+      9,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      148.6,
+      "arr",
+      10,
+      [
+       "trail",
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": false,
+    "chroma": 0
+   },
+   "clip": "hook_08.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "suspended",
+   "file": "suspended_s04_band_194362.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "band",
+   "seed": 194362,
+   "window": [
+    66.81,
+    89.38
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     79,
+     140,
+     81
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      64.84,
+      "player",
+      0,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      67.16,
+      "arr",
+      1,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      68.38,
+      "paint",
+      2,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      69.68,
+      "player",
+      3,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      70.28,
+      "paint",
+      4,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      71.0,
+      "player",
+      5,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      72.68,
+      "paint",
+      6,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      73.1,
+      "cmd",
+      7,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      74.54,
+      "paint",
+      8,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      75.76,
+      "player",
+      9,
+      [
+       "trail",
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      76.44,
+      "arr",
+      10,
+      [
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      77.72,
+      "paint",
+      11,
+      [
+       "trail",
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      79.5,
+      "notepad",
+      12,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      81.3,
+      "paint",
+      13,
+      [
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      82.92,
+      "notepad",
+      14,
+      [
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      84.42,
+      "paint",
+      14,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      86.18,
+      "notepad",
+      15,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      87.68,
+      "paint",
+      16,
+      [
+       "pipwave",
+       "invert"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 4
+   },
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s03_band_734137.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s03",
+   "style": "band",
+   "seed": 734137,
+   "window": [
+    126.41,
+    148.58
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     50,
+     155,
+     162
+    ],
+    "theme": "green",
+    "bg": [
+     0,
+     110,
+     70
+    ],
+    "segs": [
+     [
+      126.76,
+      "notepad",
+      0,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      128.93,
+      "wave",
+      1,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      130.74,
+      "cmd",
+      2,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      132.22,
+      "arr",
+      3,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      134.26,
+      "wave",
+      4,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      135.9,
+      "paint",
+      5,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      137.78,
+      "player",
+      6,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      139.7,
+      "cmd",
+      7,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      141.32,
+      "arr",
+      8,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      142.7,
+      "cmd",
+      9,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      144.02,
+      "notepad",
+      10,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      145.04,
+      "paint",
+      11,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      145.76,
+      "wave",
+      12,
+      [
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      147.58,
+      "cmd",
+      13,
+      [
+       "trail",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": true,
+    "chroma": 2
+   },
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_band_762725.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "band",
+   "seed": 762725,
+   "window": [
+    33.95,
+    56.12
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     68,
+     128,
+     162
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      32.68,
+      "cmd",
+      0,
+      [
+       "pip",
+       "track"
+      ]
+     ],
+     [
+      34.3,
+      "arr",
+      1,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      35.82,
+      "notepad",
+      2,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      37.3,
+      "paint",
+      3,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      38.71,
+      "wave",
+      null,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      39.96,
+      "notepad",
+      4,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      41.2,
+      "player",
+      5,
+      [
+       "pip",
+       "trail"
+      ]
+     ],
+     [
+      43.34,
+      "wave",
+      6,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      44.58,
+      "paint",
+      7,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      46.34,
+      "notepad",
+      8,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      48.1,
+      "paint",
+      9,
+      [
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      50.08,
+      "player",
+      10,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      51.7,
+      "notepad",
+      11,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      52.86,
+      "wave",
+      12,
+      [
+       "trail",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      53.24,
+      "notepad",
+      13,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      54.42,
+      "wave",
+      13,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      55.82,
+      "arr",
+      14,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      56.96,
+      "player",
+      14,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 2
+   },
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-21",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s06_band_764757.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s06",
+   "style": "band",
+   "seed": 764757,
+   "window": [
+    169.41,
+    191.38
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     50,
+     155,
+     162
+    ],
+    "theme": "green",
+    "bg": [
+     0,
+     110,
+     70
+    ],
+    "segs": [
+     [
+      169.76,
+      "notepad",
+      0,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      171.54,
+      "player",
+      null,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      172.95,
+      "arr",
+      1,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      175.54,
+      "paint",
+      2,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      177.82,
+      "arr",
+      3,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      179.88,
+      "paint",
+      4,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 0
+   },
+   "clip": "hook_10.mp4"
   }
  ]
 }
