@@ -21,7 +21,7 @@ SHOW, FADE = 2.2, 0.4
 _FONT = {}
 
 def pick(style, seed):
-    if os.environ.get('CQ_HOOK'): return os.environ['CQ_HOOK']          # the nightly job leaning towards a line that has worked
+    if os.environ.get('CQ_HOOK'): return '' if os.environ['CQ_HOOK'] == 'none' else os.environ['CQ_HOOK']          # the nightly job leaning towards a line that has worked
     r = random.Random(seed * 7919 + 11)
     return '' if r.random() < 0.25 else r.choice(HOOKS.get(style, HOOKS['psy']))
 
