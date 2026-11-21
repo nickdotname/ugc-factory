@@ -431,8 +431,12 @@ class InstagramPublisher(Publisher):
         max_per_channel: int = 1,
         max_late: timedelta = DEFAULT_MAX_LATE,
         max_attempts: int = 3,
+        send_next: bool = False,
     ) -> list[dict[str, Any]]:
         """Send every held post whose slot has arrived. Returns what changed.
+
+        ``send_next`` sends each account's earliest held post now, whatever its
+        slot: the "post one right now" switch, for a first post or a check.
 
         At most ``max_per_channel`` per account per run, oldest first, so an
         account that fell behind catches up one slot at a time rather than
@@ -454,9 +458,11 @@ class InstagramPublisher(Publisher):
         for item in waiting:
             channel = str(item.get("channel_id"))
             due = _parse_dt(item.get("scheduled_for"))
-            if due is None or due > now or channel in blocked:
-                continue
             if sent.get(channel, 0) >= max_per_channel:
+                continue
+            if send_next and due is not None and due > now and item.get("status") == QUEUED:
+                due = now
+            if due is None or due > now or channel in blocked:
                 continue
             if item.get("status") == QUEUED and now - due > max_late:
                 item["status"] = FAILED

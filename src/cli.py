@@ -3463,7 +3463,9 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
                 state = publisher.queue_state(channel)
                 print(f"{name}: {state.depth} held, next due {state.next_due}")
             continue
-        changed = publisher.publish_due(channel_ids=set(names))
+        changed = publisher.publish_due(
+            channel_ids=set(names), send_next=bool(getattr(args, "now", False))
+        )
         for item in changed:
             name = names.get(str(item.get("channel_id")), "?")
             status = item.get("status")
@@ -3783,6 +3785,9 @@ def build_parser() -> argparse.ArgumentParser:
                              help="show what is held and send nothing")
     publish_due.add_argument("--no-commit", action="store_true",
                              help="skip git commits (local testing only)")
+    publish_due.add_argument("--now", action="store_true",
+                             help="send each account's next held post now, "
+                                  "whatever its slot")
 
     topup = sub.add_parser("topup", help="fill Buffer's queue to its cap")
     common(topup)
