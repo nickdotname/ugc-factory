@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-11-21T00:20:13.099508Z",
+  "generated_at": "2026-11-21T12:49:36.243511Z",
   "items": [
     {
-      "id": "e47df837-eadc-490b-8246-9315a0fa4796",
-      "scheduled_for": "2026-11-20T21:10:00-05:00",
-      "rendered_at": "2026-11-21T00:20:13.099508Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/e47df837-eadc-490b-8246-9315a0fa4796.mp4",
-      "caption": "Talk – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes",
+      "id": "d640d183-2fb8-40a8-a36a-a05bdf7fd7fe",
+      "scheduled_for": "2026-11-21T09:30:00-05:00",
+      "rendered_at": "2026-11-21T12:49:36.243511Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/d640d183-2fb8-40a8-a36a-a05bdf7fd7fe.mp4",
+      "caption": "i produced this. here's every layer of it.\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.668,
-        "anchor_y": 0.548,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.27,
+        "anchor_y": 0.701,
+        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -28,91 +28,28 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "talk",
+      "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-bea55ce0-0df3-4428-9aeb-ac5b5540fab6",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T21:10:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "Talk – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes\n\nTalk is out now. link in bio to stream it"
+        "instagram": "i produced this. here's every layer of it.\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "eede6310-488e-416b-b085-95cff6ceacdb",
-      "scheduled_for": "2026-11-21T09:30:00-05:00",
-      "rendered_at": "2026-11-21T00:20:13.099508Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/eede6310-488e-416b-b085-95cff6ceacdb.mp4",
-      "caption": "Hair of the Dog – Close Quarters\nthe stems from the session, cut to the verse",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.299,
-        "anchor_y": 0.47,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "hair_of_the_dog",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-7258b7ba-665e-4a04-a495-0bc2a92b949b",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T09:30:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Hair of the Dog – Close Quarters\nthe stems from the session, cut to the verse\n\nlink in bio to stream Hair of the Dog"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "32e6d51b-7876-421e-b797-0ec4bda078ec",
+      "id": "cf87bc66-d8f7-4e17-9eb7-f76794cee6ed",
       "scheduled_for": "2026-11-21T11:50:00-05:00",
-      "rendered_at": "2026-11-21T00:20:13.099508Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/32e6d51b-7876-421e-b797-0ec4bda078ec.mp4",
-      "caption": "Notta Problem – Close Quarters\nwhat the project file looks like while this verse plays",
+      "rendered_at": "2026-11-21T12:49:36.243511Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/cf87bc66-d8f7-4e17-9eb7-f76794cee6ed.mp4",
+      "caption": "this is what a song looks like before it's a song\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
       "title": null,
       "parts": {
         "hook": "hook_03.mp4",
@@ -122,50 +59,40 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.615,
-        "anchor_y": 0.711,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "anchor_x": 0.711,
+        "anchor_y": 0.438,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "notta_problem",
+      "creative": "wont_be_the_same_again",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b8fa9d8f-1791-4a40-9504-5c3d0e543f2b",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T11:50:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "Notta Problem – Close Quarters\nwhat the project file looks like while this verse plays\n\nstream Notta Problem: link in bio"
+        "instagram": "this is what a song looks like before it's a song\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "243495eb-ef6b-4ee6-87e2-26fc13359d7d",
+      "id": "2466287b-1d04-450a-aa7b-1604bb1220c5",
       "scheduled_for": "2026-11-21T14:10:00-05:00",
-      "rendered_at": "2026-11-21T00:20:13.099508Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/243495eb-ef6b-4ee6-87e2-26fc13359d7d.mp4",
-      "caption": "Hair of the Dog – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes",
+      "rendered_at": "2026-11-21T12:49:36.243511Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/2466287b-1d04-450a-aa7b-1604bb1220c5.mp4",
+      "caption": "this is what a song looks like before it's a song\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -175,115 +102,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.548,
-        "anchor_y": 0.47,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "hair_of_the_dog",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-f86fecea-7d28-49d6-b301-3832e872cb8c",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T14:10:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Hair of the Dog – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes\n\nHair of the Dog is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "e8ea187d-9a2e-41c9-9903-20f06184e62b",
-      "scheduled_for": "2026-11-21T16:30:00-05:00",
-      "rendered_at": "2026-11-21T00:20:13.099508Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/e8ea187d-9a2e-41c9-9903-20f06184e62b.mp4",
-      "caption": "Talk – Close Quarters\nevery word, timed to the take",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.452,
-        "anchor_y": 0.493,
+        "anchor_x": 0.538,
+        "anchor_y": 0.387,
         "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "talk",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-42e3d4d9-1f96-4f6d-92fe-4a01e2fb654e",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T16:30:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Talk – Close Quarters\nevery word, timed to the take\n\nlink in bio to stream Talk"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "1a05f0f1-7070-4eaf-a01c-3181c878048b",
-      "scheduled_for": "2026-11-21T18:50:00-05:00",
-      "rendered_at": "2026-11-21T00:20:13.099508Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/1a05f0f1-7070-4eaf-a01c-3181c878048b.mp4",
-      "caption": "Full Ride – Close Quarters\nthe stems from the session, cut to the verse",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.446,
-        "anchor_y": 0.64,
-        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -299,22 +120,141 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-184f5ecb-db37-42a7-8c25-06a12dab7307",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T18:50:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "Full Ride – Close Quarters\nthe stems from the session, cut to the verse\n\nstream Full Ride: link in bio"
+        "instagram": "this is what a song looks like before it's a song\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Full Ride: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "fddd6bb0-8397-4df4-ae6d-ab67614f06ac",
+      "scheduled_for": "2026-11-21T16:30:00-05:00",
+      "rendered_at": "2026-11-21T12:49:36.243511Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/fddd6bb0-8397-4df4-ae6d-ab67614f06ac.mp4",
+      "caption": "i produced this. here's every layer of it.\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.489,
+        "anchor_y": 0.572,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "i produced this. here's every layer of it.\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nWon't Be the Same Again is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "02ae9f60-24d9-4c64-96af-3734f84ea621",
+      "scheduled_for": "2026-11-21T18:50:00-05:00",
+      "rendered_at": "2026-11-21T12:49:36.243511Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/02ae9f60-24d9-4c64-96af-3734f84ea621.mp4",
+      "caption": "tag a producer who needs to hear this\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.274,
+        "anchor_y": 0.672,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "tag a producer who needs to hear this\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Prologue: Before"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "e208c7e0-653d-41b3-b403-247075cd42ab",
+      "scheduled_for": "2026-11-21T21:10:00-05:00",
+      "rendered_at": "2026-11-21T12:49:36.243511Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/e208c7e0-653d-41b3-b403-247075cd42ab.mp4",
+      "caption": "this is what a song looks like before it's a song\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.328,
+        "anchor_y": 0.66,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "fixation",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "this is what a song looks like before it's a song\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Fixation: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
