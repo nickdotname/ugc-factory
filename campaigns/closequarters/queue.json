@@ -486,13 +486,32 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-21T09:10:00-05:00"
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with\n\nMyth of Sisyphus is out now. link in bio to stream it",
         "tiktok": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -532,7 +551,26 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Fixation – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Fixation",
         "tiktok": "Fixation – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Fixation"
