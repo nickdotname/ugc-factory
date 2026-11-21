@@ -1888,6 +1888,2142 @@
      "track"
     ]
    }
+  },
+  "fixation": {
+   "hook_01.mp4": {
+    "source": "01_fixation_s03_producer_35.mp4",
+    "song": "fixation",
+    "style": "producer",
+    "seed": 35,
+    "section": "s03",
+    "window": [
+     79.81,
+     102.48
+    ],
+    "background": "plasma",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_fixation_s04_producer_52.mp4",
+    "song": "fixation",
+    "style": "producer",
+    "seed": 52,
+    "section": "s04",
+    "window": [
+     101.83,
+     111.24
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ]
+    ],
+    "overlays": [
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_03.mp4": {
+    "source": "03_fixation_s06_producer_86.mp4",
+    "song": "fixation",
+    "style": "producer",
+    "seed": 86,
+    "section": "s06",
+    "window": [
+     162.87,
+     185.48
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      null,
+      84
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      null,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   }
+  },
+  "wont_be_the_same_again": {
+   "hook_01.mp4": {
+    "source": "01_wont-be-the-same-again_s01_producer_1.mp4",
+    "song": "wont-be-the-same-again",
+    "style": "producer",
+    "seed": 1,
+    "section": "s01",
+    "window": [
+     41.63,
+     65.26
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      2,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_wont-be-the-same-again_s05_producer_69.mp4",
+    "song": "wont-be-the-same-again",
+    "style": "producer",
+    "seed": 69,
+    "section": "s05",
+    "window": [
+     129.96,
+     152.88
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      2,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_03.mp4": {
+    "source": "03_wont-be-the-same-again_s06_producer_86.mp4",
+    "song": "wont-be-the-same-again",
+    "style": "producer",
+    "seed": 86,
+    "section": "s06",
+    "window": [
+     152.23,
+     169.96
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      null,
+      84
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      null,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_04.mp4": {
+    "source": "04_wont-be-the-same-again_s07_producer_103.mp4",
+    "song": "wont-be-the-same-again",
+    "style": "producer",
+    "seed": 103,
+    "section": "s07",
+    "window": [
+     170.22,
+     181.96
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": true,
+    "chroma": 0,
+    "scenes": [
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_05.mp4": {
+    "source": "05_wont-be-the-same-again_s08_producer_120.mp4",
+    "song": "wont-be-the-same-again",
+    "style": "producer",
+    "seed": 120,
+    "section": "s08",
+    "window": [
+     195.41,
+     206.26
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      84
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   }
+  },
+  "myth_of_sisyphus": {
+   "hook_01.mp4": {
+    "source": "01_myth-of-sisyphus_s01_producer_1.mp4",
+    "song": "myth-of-sisyphus",
+    "style": "producer",
+    "seed": 1,
+    "section": "s01",
+    "window": [
+     29.65,
+     49.94
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_myth-of-sisyphus_s02_producer_18.mp4",
+    "song": "myth-of-sisyphus",
+    "style": "producer",
+    "seed": 18,
+    "section": "s02",
+    "window": [
+     56.71,
+     79.7
+    ],
+    "background": "plasma",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   }
+  },
+  "suspended": {
+   "hook_01.mp4": {
+    "source": "01_suspended_s01_producer_1.mp4",
+    "song": "suspended",
+    "style": "producer",
+    "seed": 1,
+    "section": "s01",
+    "window": [
+     8.51,
+     30.8
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      2,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_suspended_s02_producer_18.mp4",
+    "song": "suspended",
+    "style": "producer",
+    "seed": 18,
+    "section": "s02",
+    "window": [
+     30.51,
+     53.74
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      null,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_03.mp4": {
+    "source": "03_suspended_s03_producer_35.mp4",
+    "song": "suspended",
+    "style": "producer",
+    "seed": 35,
+    "section": "s03",
+    "window": [
+     53.09,
+     74.86
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_04.mp4": {
+    "source": "04_suspended_s04_producer_52.mp4",
+    "song": "suspended",
+    "style": "producer",
+    "seed": 52,
+    "section": "s04",
+    "window": [
+     74.21,
+     95.96
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_05.mp4": {
+    "source": "05_suspended_s05_producer_69.mp4",
+    "song": "suspended",
+    "style": "producer",
+    "seed": 69,
+    "section": "s05",
+    "window": [
+     95.31,
+     111.84
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   }
+  },
+  "prologue": {
+   "hook_01.mp4": {
+    "source": "01_prologue_s01_producer_1.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 1,
+    "section": "s01",
+    "window": [
+     12.21,
+     25.52
+    ],
+    "background": "plasma",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 0,
+    "scenes": [
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_02.mp4": {
+    "source": "02_prologue_s02_producer_18.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 18,
+    "section": "s02",
+    "window": [
+     24.87,
+     59.59
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      0,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_03.mp4": {
+    "source": "03_prologue_s03_producer_35.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 35,
+    "section": "s03",
+    "window": [
+     68.83,
+     86.0
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 0,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "track"
+    ]
+   },
+   "hook_04.mp4": {
+    "source": "04_prologue_s04_producer_52.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 52,
+    "section": "s04",
+    "window": [
+     86.97,
+     109.28
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": false,
+    "chroma": 2,
+    "scenes": [
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      84
+     ]
+    ],
+    "overlays": [
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_05.mp4": {
+    "source": "05_prologue_s05_producer_69.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 69,
+    "section": "s05",
+    "window": [
+     109.23,
+     130.54
+    ],
+    "background": "rings",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_06.mp4": {
+    "source": "06_prologue_s06_producer_86.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 86,
+    "section": "s06",
+    "window": [
+     130.75,
+     153.22
+    ],
+    "background": "stars",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 2,
+    "scenes": [
+     [
+      null,
+      84
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      84
+     ],
+     [
+      null,
+      84
+     ],
+     [
+      3,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_07.mp4": {
+    "source": "07_prologue_s07_producer_103.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 103,
+    "section": "s07",
+    "window": [
+     152.57,
+     175.12
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": true,
+    "chroma": 0,
+    "scenes": [
+     [
+      1,
+      110
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      2,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_08.mp4": {
+    "source": "08_prologue_s08_producer_120.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 120,
+    "section": "s08",
+    "window": [
+     174.47,
+     190.87
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 0,
+    "scenes": [
+     [
+      0,
+      84
+     ],
+     [
+      1,
+      140
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      3,
+      110
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      2,
+      140
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_09.mp4": {
+    "source": "09_prologue_s09_producer_137.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 137,
+    "section": "s09",
+    "window": [
+     191.23,
+     209.23
+    ],
+    "background": "grad",
+    "theme": null,
+    "palette": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "punch": 0.03,
+    "scanlines": true,
+    "chroma": 0,
+    "scenes": [
+     [
+      2,
+      84
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      84
+     ],
+     [
+      2,
+      84
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      null,
+      110
+     ],
+     [
+      0,
+      84
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   },
+   "hook_10.mp4": {
+    "source": "10_prologue_s10_producer_154.mp4",
+    "song": "prologue",
+    "style": "producer",
+    "seed": 154,
+    "section": "s10",
+    "window": [
+     226.01,
+     243.81
+    ],
+    "background": "plasma",
+    "theme": null,
+    "palette": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "punch": 0.015,
+    "scanlines": false,
+    "chroma": 2,
+    "scenes": [
+     [
+      0,
+      84
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      null,
+      140
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      3,
+      140
+     ],
+     [
+      2,
+      140
+     ],
+     [
+      3,
+      84
+     ],
+     [
+      0,
+      110
+     ],
+     [
+      1,
+      110
+     ],
+     [
+      0,
+      140
+     ],
+     [
+      2,
+      110
+     ],
+     [
+      3,
+      110
+     ]
+    ],
+    "overlays": [
+     "invert",
+     "stamp",
+     "track"
+    ]
+   }
   }
  }
 }

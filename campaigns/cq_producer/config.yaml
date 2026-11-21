@@ -27,6 +27,21 @@ creatives:
   - name: talk
     title: "Talk"
     assets_release: assets-cq_producer-talk
+  - name: fixation
+    title: "Fixation"
+    assets_release: assets-cq_producer-fixation
+  - name: wont_be_the_same_again
+    title: "Won't Be the Same Again"
+    assets_release: assets-cq_producer-wont_be_the_same_again
+  - name: myth_of_sisyphus
+    title: "Myth of Sisyphus"
+    assets_release: assets-cq_producer-myth_of_sisyphus
+  - name: suspended
+    title: "Suspended"
+    assets_release: assets-cq_producer-suspended
+  - name: prologue
+    title: "Prologue: Before"
+    assets_release: assets-cq_producer-prologue
 
 # dylancantor23 only, posted to Instagram directly as trial reels.
 accounts:
