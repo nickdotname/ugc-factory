@@ -51,6 +51,8 @@ plan = dict(field=os.environ.get('CQ_FIELD') or rng.choice(['kaleido', 'tunnel',
             font=rng.choice(['Poppins-Bold.ttf', 'Poppins-Black.ttf', 'DejaVuSerif-Bold.ttf']), word_y=rng.choice([.5, .5, .72]),
             scale=rng.uniform(2.2, 4.5), second=rng.choice([None, 'kaleido', 'rings', 'marble']), flip_at=rng.uniform(.4, .65))
 if plan['field'] == 'bryce': plan.update(motif=None, ring=False, strobe=False, word_y=.5)      # the landscape is busy enough: words only
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
+plan['hook'] = _hook.pick('psy', seed)                       # the line shown for the first two seconds ('' = none)
 ys, xs = np.mgrid[0:h, 0:w].astype(np.float32); X = (xs - w / 2) / (w / 2); Y = (ys - h / 2) / (w / 2)
 R = np.sqrt(X * X + Y * Y) + 1e-6; A = np.arctan2(Y, X)
 
@@ -272,7 +274,7 @@ def finish(img, i):
     if plan['grain']:
         g = np.random.default_rng(seed * 100003 + i).integers(-9, 10, (H // 2, W // 2, 1), dtype=np.int16)
         a = np.clip(a.astype(np.int16) + cv2.resize(g.astype(np.float32), (W, H), interpolation=cv2.INTER_NEAREST)[..., None].astype(np.int16), 0, 255).astype(np.uint8)
-    a = overlays(np.ascontiguousarray(a), i)
+    a = _hook.draw(overlays(np.ascontiguousarray(a), i), plan['hook'], i / FPS)
     fade = min(1.0, i / 8, (N - 1 - i) / 12)
     return a if fade >= 1 else (a * max(fade, 0)).astype(np.uint8)
 

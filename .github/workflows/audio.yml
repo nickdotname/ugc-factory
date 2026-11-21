@@ -1,0 +1,43 @@
+name: audio
+
+# Looks up which audio Instagram lets an account attach to a Reel through the
+# API (scripts/ig_audio_search.py). Run by hand; the matches are in the run's log.
+on:
+  workflow_dispatch:
+    inputs:
+      account:
+        description: account name from accounts.yaml
+        required: true
+        default: close_quarters_ig
+      query:
+        description: words to search for (blank = trending)
+        required: false
+        default: "close quarters"
+      type:
+        description: music or original_sound
+        required: false
+        default: music
+
+permissions:
+  contents: read
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -q -r requirements.txt
+      - name: Search
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          ACCOUNT: ${{ inputs.account }}
+          QUERY: ${{ inputs.query }}
+          TYPE: ${{ inputs.type }}
+        run: python scripts/ig_audio_search.py --account "$ACCOUNT" --query "$QUERY" --type "$TYPE" | tee -a "$GITHUB_STEP_SUMMARY"

@@ -11,9 +11,6 @@ on:
         description: which carousel (file name without .json; blank = next one waiting)
         required: false
         default: ""
-  schedule:
-    - cron: "12 16,20 * * *"  # 11:12am and 3:12pm New York
-    - cron: "12 0 * * *"      # 7:12pm New York
 
 permissions:
   contents: write
