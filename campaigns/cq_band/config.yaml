@@ -6,11 +6,35 @@
 # is drawn on top. One creative per SONG, so a caption always names the song
 # playing. What each clip is made of is in recipes.json beside this file.
 
-slug: _cq_band
+slug: cq_band
 timezone: America/New_York
 
-# PARKED (leading underscore) until its videos are uploaded: rename the folder
-# to cq_band and change slug to match.
+creatives:
+  - name: full_ride
+    title: "Full Ride"
+    assets_release: assets-cq_band-full_ride
+  - name: hair_of_the_dog
+    title: "Hair of the Dog"
+    assets_release: assets-cq_band-hair_of_the_dog
+  - name: talk
+    title: "Talk"
+    assets_release: assets-cq_band-talk
+  - name: fixation
+    title: "Fixation"
+    assets_release: assets-cq_band-fixation
+  - name: wont_be_the_same_again
+    title: "Won't Be the Same Again"
+    assets_release: assets-cq_band-wont_be_the_same_again
+  - name: myth_of_sisyphus
+    title: "Myth of Sisyphus"
+    assets_release: assets-cq_band-myth_of_sisyphus
+  - name: suspended
+    title: "Suspended"
+    assets_release: assets-cq_band-suspended
+  - name: prologue
+    title: "Prologue: Before"
+    assets_release: assets-cq_band-prologue
+
 # close__quarters only, posted to Instagram directly as trial reels.
 accounts:
   mode: allow
