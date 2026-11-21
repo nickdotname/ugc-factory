@@ -1,0 +1,54 @@
+{
+ "slug": "full-ride",
+ "title": "Full Ride",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 8,
+ "tracks_total": 15,
+ "key": "",
+ "tempo": 152.0,
+ "offset_sec": 0.093,
+ "stems_start_sec": 0.0,
+ "sections": [
+  {
+   "id": "s01",
+   "start": 7.31,
+   "end": 29.22,
+   "lines": [
+    0,
+    10
+   ],
+   "confidence": 0.69
+  },
+  {
+   "id": "s02",
+   "start": 28.93,
+   "end": 54.16,
+   "lines": [
+    11,
+    19
+   ],
+   "confidence": 0.66
+  },
+  {
+   "id": "s03",
+   "start": 53.51,
+   "end": 75.8,
+   "lines": [
+    20,
+    32
+   ],
+   "confidence": 0.46
+  },
+  {
+   "id": "s04",
+   "start": 76.49,
+   "end": 95.74,
+   "lines": [
+    33,
+    44
+   ],
+   "confidence": 0.67
+  }
+ ]
+}

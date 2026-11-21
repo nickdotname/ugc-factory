@@ -1,0 +1,74 @@
+{
+ "slug": "fixation",
+ "title": "Fixation",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 5,
+ "tracks_total": 15,
+ "key": "",
+ "tempo": 117.45,
+ "offset_sec": 12.655,
+ "stems_start_sec": 0.0,
+ "sections": [
+  {
+   "id": "s01",
+   "start": 22.13,
+   "end": 50.2,
+   "lines": [
+    0,
+    0
+   ],
+   "confidence": 0.0
+  },
+  {
+   "id": "s02",
+   "start": 53.43,
+   "end": 77.03,
+   "lines": [
+    1,
+    1
+   ],
+   "confidence": 0.0
+  },
+  {
+   "id": "s03",
+   "start": 79.81,
+   "end": 102.48,
+   "lines": [
+    2,
+    16
+   ],
+   "confidence": 0.76
+  },
+  {
+   "id": "s04",
+   "start": 101.83,
+   "end": 111.24,
+   "lines": [
+    17,
+    21
+   ],
+   "confidence": 0.66
+  },
+  {
+   "id": "s05",
+   "start": 110.59,
+   "end": 156.4,
+   "lines": [
+    22,
+    22
+   ],
+   "confidence": 0.38
+  },
+  {
+   "id": "s06",
+   "start": 162.87,
+   "end": 185.48,
+   "lines": [
+    23,
+    33
+   ],
+   "confidence": 0.69
+  }
+ ]
+}

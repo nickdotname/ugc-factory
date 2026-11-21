@@ -1,0 +1,44 @@
+{
+ "slug": "hair-of-the-dog",
+ "title": "Hair of the Dog",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 2,
+ "tracks_total": 15,
+ "key": "",
+ "tempo": 143.55,
+ "offset_sec": 9.474,
+ "stems_start_sec": 0.0,
+ "sections": [
+  {
+   "id": "s01",
+   "start": 12.55,
+   "end": 35.55,
+   "lines": [
+    0,
+    14
+   ],
+   "confidence": 0.65
+  },
+  {
+   "id": "s02",
+   "start": 34.9,
+   "end": 58.46,
+   "lines": [
+    15,
+    27
+   ],
+   "confidence": 0.61
+  },
+  {
+   "id": "s03",
+   "start": 57.81,
+   "end": 67.2,
+   "lines": [
+    28,
+    33
+   ],
+   "confidence": 0.9
+  }
+ ]
+}

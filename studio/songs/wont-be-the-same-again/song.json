@@ -1,0 +1,94 @@
+{
+ "slug": "wont-be-the-same-again",
+ "title": "Won't Be the Same Again",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 13,
+ "tracks_total": 15,
+ "key": "",
+ "tempo": 143.55,
+ "offset_sec": 14.164,
+ "stems_start_sec": 0.0,
+ "sections": [
+  {
+   "id": "s01",
+   "start": 41.63,
+   "end": 65.26,
+   "lines": [
+    0,
+    10
+   ],
+   "confidence": 0.97
+  },
+  {
+   "id": "s02",
+   "start": 64.61,
+   "end": 87.3,
+   "lines": [
+    11,
+    22
+   ],
+   "confidence": 0.24
+  },
+  {
+   "id": "s03",
+   "start": 86.65,
+   "end": 109.32,
+   "lines": [
+    23,
+    34
+   ],
+   "confidence": 0.17
+  },
+  {
+   "id": "s04",
+   "start": 108.67,
+   "end": 130.61,
+   "lines": [
+    35,
+    45
+   ],
+   "confidence": 0.4
+  },
+  {
+   "id": "s05",
+   "start": 129.96,
+   "end": 152.88,
+   "lines": [
+    46,
+    54
+   ],
+   "confidence": 0.47
+  },
+  {
+   "id": "s06",
+   "start": 152.23,
+   "end": 169.96,
+   "lines": [
+    55,
+    64
+   ],
+   "confidence": 0.54
+  },
+  {
+   "id": "s07",
+   "start": 170.22,
+   "end": 181.96,
+   "lines": [
+    65,
+    68
+   ],
+   "confidence": 0.56
+  },
+  {
+   "id": "s08",
+   "start": 195.41,
+   "end": 206.26,
+   "lines": [
+    69,
+    74
+   ],
+   "confidence": 0.84
+  }
+ ]
+}

@@ -18,7 +18,7 @@ creatives:
 # without this line, un-pausing this brand would post these videos there too.
 accounts:
   mode: block
-  names: [dylancantor23_ig, close_quarters_ig]
+  names: [dylancantor23_ig, close_quarters_ig, psychedelic_station_ig]
 
 posting:
   # 12/day = one post every two hours across the 24-hour window below.

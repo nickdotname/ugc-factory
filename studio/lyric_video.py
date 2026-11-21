@@ -23,7 +23,7 @@ if len(sys.argv) < 5:
     sys.exit(__doc__)
 SONG_DIR = os.path.abspath(sys.argv[1]); sys.argv = [sys.argv[0]] + sys.argv[2:]
 SONG = json.load(open(os.path.join(SONG_DIR, 'song.json')))
-MASTER = os.path.join(SONG_DIR, 'master.wav')
+MASTER = next((os.path.join(SONG_DIR, 'master' + e) for e in ('.wav', '.flac', '.ogg') if os.path.exists(os.path.join(SONG_DIR, 'master' + e))), os.path.join(SONG_DIR, 'master.wav'))
 # A song with its Ableton arrangement (arrangement.json) gets the piano-roll and
 # arrangement scenes drawn from the real notes. Without one, the same scenes are
 # drawn from the four stems, and the beat grid comes from the detected tempo.
@@ -35,7 +35,7 @@ PROJECT = SONG.get('project', SONG['slug'])
 MUSIC_ROWS = SONG.get('arrangement_rows', [])
 STEMS_START = SONG.get('stems_start_sec', 0.0)
 LINES = [(e, [(w, t) for w, t in ws]) for e, ws in json.load(open(os.path.join(SONG_DIR, 'lines.json')))]
-stem_path = lambda name: os.path.join(SONG_DIR, 'stems', name + '.flac')
+stem_path = lambda name: next((os.path.join(SONG_DIR, 'stems', name + e) for e in ('.flac', '.ogg') if os.path.exists(os.path.join(SONG_DIR, 'stems', name + e))), os.path.join(SONG_DIR, 'stems', name + '.flac'))
 
 
 def _font(*names):

@@ -1,0 +1,84 @@
+{
+ "slug": "talk",
+ "title": "Talk",
+ "artist": "Close Quarters",
+ "album": "EDUCATION",
+ "track": 7,
+ "tracks_total": 15,
+ "key": "",
+ "tempo": 123.05,
+ "offset_sec": 16.881,
+ "stems_start_sec": 0.0,
+ "sections": [
+  {
+   "id": "s01",
+   "start": 22.99,
+   "end": 46.2,
+   "lines": [
+    0,
+    7
+   ],
+   "confidence": 0.53
+  },
+  {
+   "id": "s02",
+   "start": 45.55,
+   "end": 68.0,
+   "lines": [
+    8,
+    18
+   ],
+   "confidence": 0.75
+  },
+  {
+   "id": "s03",
+   "start": 67.35,
+   "end": 85.13,
+   "lines": [
+    19,
+    23
+   ],
+   "confidence": 0.42
+  },
+  {
+   "id": "s04",
+   "start": 85.92,
+   "end": 101.46,
+   "lines": [
+    24,
+    24
+   ],
+   "confidence": 0.12
+  },
+  {
+   "id": "s05",
+   "start": 102.07,
+   "end": 117.08,
+   "lines": [
+    25,
+    30
+   ],
+   "confidence": 0.6
+  },
+  {
+   "id": "s06",
+   "start": 117.41,
+   "end": 144.83,
+   "lines": [
+    31,
+    44
+   ],
+   "confidence": 0.58
+  },
+  {
+   "id": "s07",
+   "start": 174.37,
+   "end": 189.84,
+   "lines": [
+    45,
+    50
+   ],
+   "confidence": 0.93
+  }
+ ]
+}

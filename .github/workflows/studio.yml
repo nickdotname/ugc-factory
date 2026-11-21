@@ -1,0 +1,69 @@
+name: studio
+
+# Makes new videos every night so the clip libraries keep growing on their own.
+# studio/nightly.py renders them from the songs in studio/songs (stems, lyrics,
+# timings) and adds them to each song's library, where the daily render picks
+# from. What it makes, and how many, is in studio/nightly.yaml.
+on:
+  workflow_dispatch:
+    inputs:
+      campaign:
+        description: only this campaign (blank = every target)
+        required: false
+        default: ""
+      count:
+        description: videos per target this run (blank = per_night)
+        required: false
+        default: ""
+  schedule:
+    - cron: "41 6 * * *"      # 1:41am New York, before the daily render
+
+permissions:
+  contents: write   # uploads to the clip libraries and records what was made
+
+concurrency:
+  group: studio
+  cancel-in-progress: false
+
+jobs:
+  studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      CAMPAIGN: ${{ inputs.campaign }}
+      COUNT: ${{ inputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            studio/requirements.txt
+
+      - name: Install ffmpeg and fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-liberation fonts-dejavu-core libsndfile1
+
+      - name: Install dependencies
+        run: pip install -q -r requirements.txt -r studio/requirements.txt
+
+      - name: Render and add to the libraries
+        run: |
+          python studio/nightly.py ${CAMPAIGN:+--only "$CAMPAIGN"} ${COUNT:+--count "$COUNT"}
+
+      - name: Record what was made
+        if: always()
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add campaigns/*/recipes.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "studio: new videos [skip ci]"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
