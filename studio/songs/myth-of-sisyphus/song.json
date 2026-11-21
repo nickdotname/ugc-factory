@@ -13,37 +13,37 @@
   {
    "id": "s01",
    "start": 46.38,
-   "end": 69.18,
+   "end": 68.64,
    "lines": [
     0,
-    12
+    11
    ],
-   "confidence": 0.18
+   "confidence": 0.5
   },
   {
    "id": "s02",
-   "start": 68.53,
-   "end": 89.26,
+   "start": 68.09,
+   "end": 89.34,
    "lines": [
-    13,
+    12,
     23
    ],
-   "confidence": 0.64
+   "confidence": 0.63
   },
   {
    "id": "s03",
-   "start": 126.41,
-   "end": 148.58,
+   "start": 126.57,
+   "end": 148.66,
    "lines": [
     24,
     37
    ],
-   "confidence": 0.95
+   "confidence": 0.99
   },
   {
    "id": "s04",
-   "start": 148.23,
-   "end": 170.96,
+   "start": 148.01,
+   "end": 171.07,
    "lines": [
     38,
     54
@@ -52,13 +52,13 @@
   },
   {
    "id": "s05",
-   "start": 170.31,
+   "start": 170.43,
    "end": 183.32,
    "lines": [
     55,
     63
    ],
-   "confidence": 0.93
+   "confidence": 0.97
   }
  ],
  "aligned": "global"
