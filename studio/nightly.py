@@ -33,7 +33,11 @@ def stretches(song, join):
 
 def render(job):
     song_dir, style, seed, out, (t0, t1) = job[:5]
-    env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', '28'), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'), CQ_MAXRATE=os.environ.get('CQ_MAXRATE', '2M'))
+    # Moving colour fields fall apart into blocks at a low bitrate, and Instagram re-encodes whatever it is given,
+    # so they get the most room; the flat-colour desktop and waveform styles need less.
+    crf, cap, buf = ('23', '6M', '12M') if style == 'psy' else ('24', '4M', '8M')
+    env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', crf), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'),
+               CQ_MAXRATE=os.environ.get('CQ_MAXRATE', cap), CQ_BUFSIZE=os.environ.get('CQ_BUFSIZE', buf))
     for var, dim in (('CQ_HOOK', 'hook'), ('CQ_FIELD', 'look')):          # half the time, lean towards what has been watched; the other half stays a free draw
         opts = {o: w for o, w in (job[5].get(dim) or {}).items() if o != '(none)' and (dim != 'look' or style == 'psy')} if len(job) > 5 else {}
         r = random.Random(seed * 31 + len(var))
@@ -63,7 +67,7 @@ for t in cfg['targets']:
         for sid, win in stretches(song, t.get('join', 0)).items(): cands.append((slug, cr, sid, win))
     W = (LEARNED.get(camp) or {}).get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
     # fewest videos first, but a song or section that gets watched counts as having fewer (so it gets more), and vice versa
-    rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get(c[2], 1.0)))
+    rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0)))
     picked, per_song, want = [], {}, a.count or t['per_night']
     for lap in range(1, 6):                                   # go round the songs so one night is not all one track
         for c in cands:

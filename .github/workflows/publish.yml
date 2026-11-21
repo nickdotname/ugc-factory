@@ -88,3 +88,19 @@ jobs:
             16:15|20:15|00:15) gh workflow run carousel.yml --ref main ;;        # 11:15am, 3:15pm, 7:15pm New York
           esac
 
+      # A dead token or a refused post fails this job every 15 minutes with nobody told.
+      # Once an hour is enough to be noticed without burying the channel.
+      - name: Say so when publishing fails
+        if: failure() && inputs.dry_run != true
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          m=$(( 10#$(date -u +%M) )); [ "$m" -lt 15 ] || exit 0
+          python - <<'PY' || true
+          import os, requests
+          from src.notify import extract_webhook_url
+          url = extract_webhook_url(os.environ.get("DISCORD_WEBHOOK", ""))
+          if url:
+              run = "%s/%s/actions/runs/%s" % (os.environ["GITHUB_SERVER_URL"], os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_RUN_ID"])
+              requests.post(url, json={"content": "⚠️ ugc-factory: publishing to Instagram is failing. Usually an expired token. " + run}, timeout=20)
+          PY

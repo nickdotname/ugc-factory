@@ -275,8 +275,10 @@ def finish(img, i):
         g = np.random.default_rng(seed * 100003 + i).integers(-9, 10, (H // 2, W // 2, 1), dtype=np.int16)
         a = np.clip(a.astype(np.int16) + cv2.resize(g.astype(np.float32), (W, H), interpolation=cv2.INTER_NEAREST)[..., None].astype(np.int16), 0, 255).astype(np.uint8)
     a = _hook.draw(overlays(np.ascontiguousarray(a), i), plan['hook'], i / FPS)
-    fade = min(1.0, i / 8, (N - 1 - i) / 12)
-    return a if fade >= 1 else (a * max(fade, 0)).astype(np.uint8)
+    # No fade-in: Instagram uses the first frame as the cover, and a black one is a black square on the profile.
+    # The end only dips (never to black) so the loop back to frame one is a breath, not a blink.
+    fade = min(1.0, .35 + .65 * (N - 1 - i) / 12)
+    return a if fade >= 1 else (a * fade).astype(np.uint8)
 
 recipe = dict(song=SONG['slug'], style='psy', seed=seed, window=[T0, T1], plan=plan)
 if '--frames' in sys.argv:
@@ -291,7 +293,7 @@ subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', str(T0), '-t', str(
                 '-af', f'afade=t=in:d=0.05,afade=t=out:st={T1 - T0 - .4}:d=0.4', wav], check=True)
 p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', wav,
                       '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '27'),
-                      '-maxrate', os.environ.get('CQ_MAXRATE', '2500k'), '-bufsize', '5M', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k',
+                      '-maxrate', os.environ.get('CQ_MAXRATE', '2500k'), '-bufsize', os.environ.get('CQ_BUFSIZE', '5M'), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k',
                       '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
 prev = None
 for i in range(N):

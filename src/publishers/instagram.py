@@ -96,6 +96,9 @@ _QUOTA_SUBCODES = {2207042}
 #: already reads (they were Buffer's, and attribution is written against
 #: them). ``scale`` converts units: Instagram reports watch time in
 #: milliseconds, the cache holds seconds and minutes.
+#: Instagram cuts a longer name short on its own; this keeps it deliberate.
+AUDIO_NAME_MAX = 80
+
 _INSIGHTS: tuple[tuple[str, str, str, float], ...] = (
     ("views", "views", "Views", 1.0),
     ("reach", "reach", "Reach", 1.0),
@@ -308,6 +311,7 @@ class InstagramPublisher(Publisher):
             "audio_id": request.audio_id,
             "audio_volume": request.audio_volume,
             "video_volume": request.video_volume,
+            "audio_name": request.audio_name,
             "scheduled_for": _utc(request.scheduled_for).isoformat(),
             "created_at": self._now().isoformat(),
             "attempts": 0,
@@ -365,6 +369,10 @@ class InstagramPublisher(Publisher):
                 if item.get(key) is not None:
                     audio[key] = int(item[key])
             params["audio_configuration"] = json.dumps(audio)
+        elif item.get("audio_name"):
+            # The Reel's own sound, named. A track from the catalogue already
+            # carries its own name, so this is only for original audio.
+            params["audio_name"] = str(item["audio_name"])[:AUDIO_NAME_MAX]
         return params
 
     def _wait_until_ready(self, container_id: str) -> str:
@@ -412,7 +420,23 @@ class InstagramPublisher(Publisher):
             if not item["container_id"]:
                 raise PublishError(f"Instagram returned no container id: {created}")
         if not item.get("container_id"):
-            created = self._call("POST", f"{channel}/media", self._container_params(item))
+            try:
+                created = self._call(
+                    "POST", f"{channel}/media", self._container_params(item)
+                )
+            except InvalidPostError as exc:
+                if not item.get("audio_name") or item.get("audio_id"):
+                    raise
+                # A name for the sound is a nicety; the post is the point. If
+                # Instagram will not take this one, send the Reel without it.
+                self._log.warning(
+                    "instagram_audio_name_refused",
+                    post_id=item["id"], error=str(exc)[:200],
+                )
+                item["audio_name"] = None
+                created = self._call(
+                    "POST", f"{channel}/media", self._container_params(item)
+                )
             item["container_id"] = str(created.get("id") or "")
             if not item["container_id"]:
                 raise PublishError(f"Instagram returned no container id: {created}")
@@ -540,10 +564,24 @@ class InstagramPublisher(Publisher):
 
     def _media_metrics(self, media_id: str) -> tuple[MetricRow, ...]:
         try:
-            body = self._call(
-                "GET", f"{media_id}/insights",
-                {"metric": ",".join(name for name, *_ in _INSIGHTS)},
-            )
+            try:
+                body = self._call(
+                    "GET", f"{media_id}/insights",
+                    {"metric": ",".join(name for name, *_ in _INSIGHTS)},
+                )
+            except InvalidPostError as exc:
+                if "ig_reels" not in str(exc):
+                    raise
+                # A carousel is not a Reel, and asking for a Reel-only figure
+                # makes Instagram refuse the whole request. Ask again for the
+                # figures every kind of post has.
+                body = self._call(
+                    "GET", f"{media_id}/insights",
+                    {"metric": ",".join(
+                        name for name, *_ in _INSIGHTS
+                        if not name.startswith("ig_reels")
+                    )},
+                )
         except InvalidPostError as exc:
             # A trial reel, or one too new to have figures, is refused rather
             # than returned empty. That is not worth losing the others for.

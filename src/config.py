@@ -490,6 +490,10 @@ class FunnelConfig(StrictModel):
     #: Posted as the first comment where the network allows it (Instagram),
     #: rotated. A link belongs here rather than in a caption.
     first_comment: tuple[str, ...] = ()
+    #: What a Reel's sound is called on Instagram, in place of "Original
+    #: audio": ``"{name} – Close Quarters"``. Only used when posting to
+    #: Instagram directly. Empty leaves Instagram's default.
+    audio_name: str = ""
     #: Drawn on the last seconds of the video — the title and where to hear
     #: it, at the moment someone has just decided they like it. ``|`` breaks
     #: the line.

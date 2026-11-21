@@ -551,7 +551,7 @@ plan['hook'] = _hook.pick(mode, seed)                       # the line shown for
 wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav); feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
 json.dump(json.loads(json.dumps(dict(mode=mode, seed=seed, song=SONG['slug'], window=[T0, T1], plan=plan)).replace(SONG_DIR + '/', '')), open(out[:-4] + '.json', 'w'), indent=1)
 fr0 = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: prod_frame(f, feat, plan, ctx, rng))
-fr = lambda f: _hook.draw(np.asarray(fr0(f)), plan['hook'], f / FPS)
+fr = lambda f: _hook.draw(np.asarray(fr0(f)), plan['hook'], f / FPS, y=0.43)      # mid-screen: both styles keep titles and lyrics at the top
 if '--frames' in sys.argv:
     fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
     s = Image.new('RGB', (324 * len(fs), 576))
@@ -561,6 +561,6 @@ if '--frames' in sys.argv:
 else:
     tmp = out[:-4] + '.tmp.mp4'
     p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', wav,
-                          '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '20'), *(['-maxrate', os.environ['CQ_MAXRATE'], '-bufsize', '6M'] if os.environ.get('CQ_MAXRATE') else []), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
+                          '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '20'), *(['-maxrate', os.environ['CQ_MAXRATE'], '-bufsize', os.environ.get('CQ_BUFSIZE', '6M')] if os.environ.get('CQ_MAXRATE') else []), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
     for f in range(n): p.stdin.write(fr(f).tobytes())
     p.stdin.close(); assert p.wait() == 0; os.replace(tmp, out); print('done', n, round(dur, 2))
