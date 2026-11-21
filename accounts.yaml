@@ -100,3 +100,17 @@ accounts:
     trial_reels: true
     trial_graduation: SS_PERFORMANCE
     title_strategy: derive
+
+  # ── close__quarters ──────────────────────────────────────────────────
+  # The band's own account. Same app and token as dylancantor23 (one Facebook
+  # login manages both Pages), posted to directly as trial reels.
+  - name: close_quarters_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN
+    channel_id: "17841467020770402"
+    post_type: reel
+    trial_reels: true
+    trial_graduation: SS_PERFORMANCE
+    title_strategy: derive
