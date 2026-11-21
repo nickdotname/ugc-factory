@@ -303,9 +303,9 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-f50a56e5-7aaf-4869-a80b-0d4612c236de",
           "last_error": null,
           "scheduled_for": "2026-11-21T21:30:00-05:00"
         }
@@ -314,7 +314,7 @@
         "instagram": "Fixation – Close Quarters\nlesson 5 of 15. EDUCATION is out now\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
