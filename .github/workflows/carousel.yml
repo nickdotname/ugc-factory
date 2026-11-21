@@ -2,8 +2,8 @@ name: carousel
 
 # Posts one information carousel: draws the slides from a spec in
 # studio/carousels/, uploads them where Instagram can fetch them, and sends the
-# post. Once a day it takes the next spec that has not been posted yet; when
-# none is waiting it does nothing.
+# post. Three times a day it takes the next spec that has not been posted yet;
+# when none is waiting it does nothing.
 on:
   workflow_dispatch:
     inputs:
@@ -12,7 +12,8 @@ on:
         required: false
         default: ""
   schedule:
-    - cron: "12 23 * * *"     # 6:12pm New York
+    - cron: "12 16,20 * * *"  # 11:12am and 3:12pm New York
+    - cron: "12 0 * * *"      # 7:12pm New York
 
 permissions:
   contents: write

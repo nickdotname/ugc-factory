@@ -41,7 +41,7 @@ accounts:
   names: [psychedelic_station_ig]
 
 posting:
-  posts_per_day: 6              # six reels a day across the songs below
+  posts_per_day: 12             # six reels a day across the songs below
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10
