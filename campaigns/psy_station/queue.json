@@ -356,18 +356,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-21T19:50:00-05:00"
         }
       ],
       "captions": {
         "instagram": "tag someone who needs 20 seconds of this\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
