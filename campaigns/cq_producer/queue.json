@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-11-20T23:11:40.504541Z",
+  "generated_at": "2026-11-21T00:20:13.099508Z",
   "items": [
     {
-      "id": "7e9865c7-72dc-40a0-bc24-26c49401cfd0",
-      "scheduled_for": "2026-11-21T11:30:00-05:00",
-      "rendered_at": "2026-11-20T23:11:40.504541Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-20/7e9865c7-72dc-40a0-bc24-26c49401cfd0.mp4",
-      "caption": "Notta Problem – Close Quarters\nthe stems and the actual midi from the session, nothing redrawn",
+      "id": "e47df837-eadc-490b-8246-9315a0fa4796",
+      "scheduled_for": "2026-11-20T21:10:00-05:00",
+      "rendered_at": "2026-11-21T00:20:13.099508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/e47df837-eadc-490b-8246-9315a0fa4796.mp4",
+      "caption": "Talk – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.528,
-        "anchor_y": 0.481,
+        "anchor_x": 0.668,
+        "anchor_y": 0.548,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -28,38 +28,28 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "notta_problem",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-95d206f3-0bb5-4aff-ad5b-78636f3b8051",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T11:30:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "Notta Problem – Close Quarters\nthe stems and the actual midi from the session, nothing redrawn\n\nlink in bio to stream Notta Problem"
+        "instagram": "Talk – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes\n\nTalk is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "a471219f-af0e-4390-bf5e-55bd45b4ed87",
-      "scheduled_for": "2026-11-21T16:30:00-05:00",
-      "rendered_at": "2026-11-20T23:11:40.504541Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-20/a471219f-af0e-4390-bf5e-55bd45b4ed87.mp4",
-      "caption": "Notta Problem – Close Quarters\nwhat the project file looks like while this verse plays",
+      "id": "eede6310-488e-416b-b085-95cff6ceacdb",
+      "scheduled_for": "2026-11-21T09:30:00-05:00",
+      "rendered_at": "2026-11-21T00:20:13.099508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/eede6310-488e-416b-b085-95cff6ceacdb.mp4",
+      "caption": "Hair of the Dog – Close Quarters\nthe stems from the session, cut to the verse",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -69,9 +59,52 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.719,
-        "anchor_y": 0.428,
+        "anchor_x": 0.299,
+        "anchor_y": 0.47,
         "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "hair_of_the_dog",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "Hair of the Dog – Close Quarters\nthe stems from the session, cut to the verse\n\nlink in bio to stream Hair of the Dog"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "32e6d51b-7876-421e-b797-0ec4bda078ec",
+      "scheduled_for": "2026-11-21T11:50:00-05:00",
+      "rendered_at": "2026-11-21T00:20:13.099508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/32e6d51b-7876-421e-b797-0ec4bda078ec.mp4",
+      "caption": "Notta Problem – Close Quarters\nwhat the project file looks like while this verse plays",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.615,
+        "anchor_y": 0.711,
+        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -79,7 +112,7 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
       "creative": "notta_problem",
       "overlay": null,
@@ -87,22 +120,141 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-c8c26562-8eb9-4181-9821-c45719e30152",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T16:30:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
         "instagram": "Notta Problem – Close Quarters\nwhat the project file looks like while this verse plays\n\nstream Notta Problem: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "243495eb-ef6b-4ee6-87e2-26fc13359d7d",
+      "scheduled_for": "2026-11-21T14:10:00-05:00",
+      "rendered_at": "2026-11-21T00:20:13.099508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/243495eb-ef6b-4ee6-87e2-26fc13359d7d.mp4",
+      "caption": "Hair of the Dog – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.548,
+        "anchor_y": 0.47,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "hair_of_the_dog",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "Hair of the Dog – Close Quarters\nvocal, drums, bass, everything else. this is the whole record in four lanes\n\nHair of the Dog is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "e8ea187d-9a2e-41c9-9903-20f06184e62b",
+      "scheduled_for": "2026-11-21T16:30:00-05:00",
+      "rendered_at": "2026-11-21T00:20:13.099508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/e8ea187d-9a2e-41c9-9903-20f06184e62b.mp4",
+      "caption": "Talk – Close Quarters\nevery word, timed to the take",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.452,
+        "anchor_y": 0.493,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "talk",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "Talk – Close Quarters\nevery word, timed to the take\n\nlink in bio to stream Talk"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "1a05f0f1-7070-4eaf-a01c-3181c878048b",
+      "scheduled_for": "2026-11-21T18:50:00-05:00",
+      "rendered_at": "2026-11-21T00:20:13.099508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/1a05f0f1-7070-4eaf-a01c-3181c878048b.mp4",
+      "caption": "Full Ride – Close Quarters\nthe stems from the session, cut to the verse",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.446,
+        "anchor_y": 0.64,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "Full Ride – Close Quarters\nthe stems from the session, cut to the verse\n\nstream Full Ride: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
