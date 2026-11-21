@@ -564,11 +564,11 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-21T12:50:00-05:00"
         }
       ],
       "captions": {
@@ -576,7 +576,7 @@
         "tiktok": "Fixation – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Fixation"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
