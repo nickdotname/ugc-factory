@@ -621,18 +621,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-21T22:10:00-05:00"
         }
       ],
       "captions": {
         "instagram": "send this to the friend who would stare at it for an hour\n🎧 Won't Be the Same Again – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
