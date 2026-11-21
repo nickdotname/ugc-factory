@@ -144,9 +144,9 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-e892c4bd-81d3-44c0-94d1-f4c8494759b9",
           "last_error": null,
           "scheduled_for": "2026-11-21T14:30:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Hair of the Dog – Close Quarters\nlesson 2 of 15. EDUCATION is out now\n\nHair of the Dog is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
