@@ -277,8 +277,7 @@ def finish(img, i):
     a = _hook.draw(overlays(np.ascontiguousarray(a), i), plan['hook'], i / FPS)
     # No fade-in: Instagram uses the first frame as the cover, and a black one is a black square on the profile.
     # The end only dips (never to black) so the loop back to frame one is a breath, not a blink.
-    fade = min(1.0, .35 + .65 * (N - 1 - i) / 12)
-    return a if fade >= 1 else (a * fade).astype(np.uint8)
+    return a                       # no dip at the end either: the sound crossfades into its own start, so the video loops
 
 recipe = dict(song=SONG['slug'], style='psy', seed=seed, window=[T0, T1], plan=plan)
 if '--frames' in sys.argv:
@@ -289,8 +288,13 @@ if '--frames' in sys.argv:
     cv2.imwrite(out, cv2.cvtColor(np.hstack(got), cv2.COLOR_RGB2BGR)); print(json.dumps(plan)); sys.exit(0)
 
 wav = out[:-4] + '.wav'; tmp = out[:-4] + '.part.mp4'
-subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', str(T0), '-t', str(T1 - T0), '-i', MASTER,
-                '-af', f'afade=t=in:d=0.05,afade=t=out:st={T1 - T0 - .4}:d=0.4', wav], check=True)
+import soundfile as _sf
+_sr = _sf.info(MASTER).samplerate; _n = int(0.12 * _sr); _a = int(T0 * _sr)
+_x, _ = _sf.read(MASTER, start=_a, stop=int(T1 * _sr), always_2d=True, dtype='float32')
+_pre, _ = _sf.read(MASTER, start=max(0, _a - _n), stop=_a, always_2d=True, dtype='float32')
+if len(_pre) == _n:                                    # the end fades into the sound just before the start, so it runs straight on into it
+    _r = np.linspace(0, 1, _n)[:, None]; _x[-_n:] = _x[-_n:] * (1 - _r) + _pre * _r
+_sf.write(wav, _x * min(1.0, 0.98 / (np.abs(_x).max() + 1e-9)), _sr)
 p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', wav,
                       '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '27'),
                       '-maxrate', os.environ.get('CQ_MAXRATE', '2500k'), '-bufsize', os.environ.get('CQ_BUFSIZE', '5M'), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k',

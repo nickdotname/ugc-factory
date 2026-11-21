@@ -57,12 +57,14 @@ INTER_SB = _font('Inter-SemiBold.otf', 'Montserrat-ExtraBold.ttf')
 def cut(audio_path, start, end, out_wav, xfade=0.12, fade_in=0.01):
     info = sf.info(audio_path); sr = info.samplerate
     x, _ = sf.read(audio_path, start=int(start * sr), stop=int(end * sr), always_2d=True, dtype="float32")
-    n = int(xfade * sr)
-    head = x[:n].copy()
+    n = int(xfade * sr); a = int(start * sr)
+    pre, _ = sf.read(audio_path, start=max(0, a - n), stop=a, always_2d=True, dtype="float32")
     ramp = np.linspace(0, 1, n)[:, None]
-    # tail fades out while a copy of the head fades in -> end sample ~= start sample
-    x[-n:] = x[-n:] * (1 - ramp) + head * ramp
-    fi = int(fade_in * sr); x[:fi] *= np.linspace(0, 1, fi)[:, None]
+    if len(pre) == n:
+        # the tail fades into the sound just before the start, so the loop runs straight on into the first sample
+        x[-n:] = x[-n:] * (1 - ramp) + pre * ramp
+    else:
+        fi = int(fade_in * sr); x[:fi] *= np.linspace(0, 1, fi)[:, None]
     peak = np.abs(x).max()
     if peak > 0.98: x *= 0.98 / peak
     sf.write(out_wav, x, sr)
