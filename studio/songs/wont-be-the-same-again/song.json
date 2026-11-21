@@ -12,83 +12,74 @@
  "sections": [
   {
    "id": "s01",
-   "start": 41.63,
+   "start": 41.67,
    "end": 65.26,
    "lines": [
     0,
     10
    ],
-   "confidence": 0.97
+   "confidence": 1.0
   },
   {
    "id": "s02",
    "start": 64.61,
-   "end": 87.3,
+   "end": 82.94,
    "lines": [
     11,
-    22
+    21
    ],
-   "confidence": 0.24
+   "confidence": 0.28
   },
   {
    "id": "s03",
-   "start": 86.65,
-   "end": 109.32,
+   "start": 109.45,
+   "end": 132.51,
    "lines": [
-    23,
+    22,
     34
    ],
-   "confidence": 0.17
+   "confidence": 0.03
   },
   {
    "id": "s04",
-   "start": 108.67,
-   "end": 130.61,
+   "start": 131.86,
+   "end": 153.84,
    "lines": [
     35,
-    45
+    55
    ],
-   "confidence": 0.4
+   "confidence": 0.14
   },
   {
    "id": "s05",
-   "start": 129.96,
-   "end": 152.88,
+   "start": 153.19,
+   "end": 168.48,
    "lines": [
-    46,
-    54
+    56,
+    63
    ],
-   "confidence": 0.47
+   "confidence": 0.93
   },
   {
    "id": "s06",
-   "start": 152.23,
-   "end": 169.96,
+   "start": 169.41,
+   "end": 191.38,
    "lines": [
-    55,
-    64
+    64,
+    68
    ],
-   "confidence": 0.54
+   "confidence": 0.95
   },
   {
    "id": "s07",
-   "start": 170.22,
-   "end": 181.96,
-   "lines": [
-    65,
-    68
-   ],
-   "confidence": 0.56
-  },
-  {
-   "id": "s08",
-   "start": 195.41,
-   "end": 206.26,
+   "start": 195.47,
+   "end": 206.41,
    "lines": [
     69,
     74
    ],
-   "confidence": 0.84
+   "confidence": 0.97
   }
- ]
+ ],
+ "aligned": "global"
 }
