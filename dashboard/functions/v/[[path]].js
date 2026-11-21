@@ -1,4 +1,4 @@
-// Rendered videos, readable without a login: /v/<release tag>/<file>.mp4
+// Rendered videos (and carousel slides), readable without a login: /v/<release tag>/<file>.mp4|.jpg
 //
 // Buffer, Instagram, TikTok and YouTube all fetch a post's video by URL, and
 // none of them can sign in to a private repository. This is the address the
@@ -13,7 +13,7 @@ import { streamAsset } from "../../lib/media.js";
 
 const DEFAULT_REPO = "nickdotname/ugc-factory";
 const TAG = /^render-[a-z0-9_-]{1,64}-\d{4}-\d{2}-\d{2}$/;
-const NAME = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(-[a-z0-9_]{1,64})?\.mp4$/;
+const NAME = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(-[a-z0-9_]{1,64})?\.(mp4|jpg)$/;
 
 export async function onRequest({ request, env }) {
   const text = (body, status) => new Response(body, { status, headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" } });

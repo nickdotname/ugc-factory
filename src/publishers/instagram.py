@@ -390,6 +390,27 @@ class InstagramPublisher(Publisher):
         channel = str(item["channel_id"])
         item["attempts"] = int(item.get("attempts") or 0) + 1
 
+        if item.get("image_urls") and not item.get("container_id"):
+            # A carousel: one container per slide, then one that holds them.
+            children = list(item.get("children") or [])
+            for url in list(item["image_urls"])[len(children):]:
+                made = self._call(
+                    "POST", f"{channel}/media",
+                    {"image_url": url, "is_carousel_item": "true"},
+                )
+                if not made.get("id"):
+                    raise PublishError(f"Instagram returned no id for a slide: {made}")
+                children.append(str(made["id"]))
+                item["children"] = children
+                self.touched.append(self.outbox.save(item))
+            created = self._call("POST", f"{channel}/media", {
+                "media_type": "CAROUSEL",
+                "children": ",".join(children),
+                "caption": item.get("caption") or "",
+            })
+            item["container_id"] = str(created.get("id") or "")
+            if not item["container_id"]:
+                raise PublishError(f"Instagram returned no container id: {created}")
         if not item.get("container_id"):
             created = self._call("POST", f"{channel}/media", self._container_params(item))
             item["container_id"] = str(created.get("id") or "")

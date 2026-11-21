@@ -8,6 +8,7 @@
 
 const TYPES = {
   mp4: "video/mp4", mov: "video/quicktime", m4v: "video/x-m4v", webm: "video/webm",
+  jpg: "image/jpeg", png: "image/png",
   mp3: "audio/mpeg", m4a: "audio/mp4", wav: "audio/wav", aac: "audio/aac", ogg: "audio/ogg",
 };
 

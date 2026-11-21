@@ -277,3 +277,20 @@ def test_send_next_publishes_one_post_ahead_of_its_slot(tmp_path):
     assert [i["status"] for i in changed] == [PUBLISHED]
     assert publisher.queue_state(CHANNEL).depth == 1          # the later one still waits
     assert publisher.publish_due() == []
+
+
+def test_a_carousel_makes_one_container_per_slide_then_publishes(tmp_path):
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    post = publisher.create_post(request())
+    item = next(i for i in publisher.outbox.items() if i["id"] == post.post_id)
+    item["image_urls"] = ["https://example.test/v/render-x/a.jpg", "https://example.test/v/render-x/b.jpg"]
+    item["video_url"] = None
+    publisher.outbox.save(item)
+
+    changed = publisher.publish_due()
+    assert [i["status"] for i in changed] == [PUBLISHED]
+    creates = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")]
+    assert [c.kwargs["data"].get("image_url") for c in creates[:2]] == item["image_urls"]
+    assert creates[2].kwargs["data"]["media_type"] == "CAROUSEL"
+    assert creates[2].kwargs["data"]["children"] == "cont-1,cont-1"
