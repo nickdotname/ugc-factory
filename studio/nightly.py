@@ -118,7 +118,11 @@ for t in cfg['targets']:
     if a.only and a.only != camp: continue
     cdir = os.path.join(REPO, 'campaigns', camp)
     if not os.path.exists(os.path.join(cdir, 'config.yaml')): print('skip', camp, '(no such campaign)'); continue
-    creatives = {c['name'] for c in (yaml.safe_load(open(os.path.join(cdir, 'config.yaml'))).get('creatives') or [])}
+    ccfg = yaml.safe_load(open(os.path.join(cdir, 'config.yaml'))).get('creatives') or []
+    creatives = {c['name'] for c in ccfg}
+    # The drop folder `ugc ingest` reads for a creative is its library's name without "assets-"
+    # (src/config.py creative_library_key): a fresh library (-v2) has a fresh folder.
+    folder = {c['name']: (c.get('assets_release') or '').removeprefix('assets-') or '%s-%s' % (camp, c['name']) for c in ccfg}
     recp = os.path.join(cdir, 'recipes.json'); rec = json.load(open(recp)) if os.path.exists(recp) else {'clips': {}}
     if 'archive' in rec and not rec.get('since'):         # the libraries were started afresh: posts queued from now on are from the new ones
         rec['since'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -154,7 +158,7 @@ for t in cfg['targets']:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
         if rng.random() < TIGHT: win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=style in VISUAL and rng.random() < SHORT)
-        seeds.add(seed); inbox = os.path.join(REPO, 'inbox', '%s-%s' % (camp, cr), 'hooks'); os.makedirs(inbox, exist_ok=True)
+        seeds.add(seed); inbox = os.path.join(REPO, 'inbox', folder.get(cr, '%s-%s' % (camp, cr)), 'hooks'); os.makedirs(inbox, exist_ok=True)
         out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, W, lyr)); meta.append((cr, slug, sid))
     print('== %s: %d videos (%s)' % (camp, len(jobs), style), flush=True)
     with ThreadPoolExecutor(max(1, min(4, os.cpu_count() or 2))) as ex: oks = list(ex.map(render, jobs))
