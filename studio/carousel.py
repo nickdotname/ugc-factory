@@ -72,10 +72,18 @@ im.save(os.path.join(out, '01.jpg'), quality=92)
 
 # ---- one fact a slide ----------------------------------------------------------------------
 n = len(spec['slides'])
-for i, (big, text) in enumerate(spec['slides'], 1):
-    a = (art(W, H, seed * 7 + 10 + i).astype(np.float32) * .28).astype(np.uint8); im = Image.fromarray(a); d = ImageDraw.Draw(im, 'RGBA')
-    d.text((60, 60), '%d / %d' % (i, n), font=font(BODY, 34), fill=(255, 255, 255, 190)); d.text((W - 60 - d.textlength('@' + spec['handle'], font=font(BODY, 30)), 64), '@' + spec['handle'], font=font(BODY, 30), fill=(255, 255, 255, 170))
-    fb, rb, sb = fit(d, big.upper(), HEAD, W - 120, 330, 260, 110); y = 250
+for i, sl in enumerate(spec['slides'], 1):
+    big, text = sl[0], sl[1]; ph = photos.slide_photos(sl)[:1]
+    a = (art(W, H, seed * 7 + 10 + i).astype(np.float32) * .28).astype(np.uint8)
+    if ph:                                                      # the slide's photo across the top, fading into the dark
+        top = 640; p_ = photos.fit_image(ph[0][0], W, top).astype(np.float32); t_ = art(W, top, seed * 7 + 10 + i).astype(np.float32)
+        g = p_.mean(axis=2, keepdims=True); p_ = np.clip(p_ * .88 + (g / 255.0) * t_ * .2, 0, 255)
+        fade = np.clip((top - np.arange(top)) / 220.0, 0, 1)[:, None, None]
+        a[:top] = (p_ * fade + a[:top].astype(np.float32) * (1 - fade)).astype(np.uint8)
+    im = Image.fromarray(a); d = ImageDraw.Draw(im, 'RGBA')
+    d.text((60, 60), '%d / %d' % (i, n), font=font(BODY, 34), fill=(255, 255, 255, 190), stroke_width=2 if ph else 0, stroke_fill=(0, 0, 0)); d.text((W - 60 - d.textlength('@' + spec['handle'], font=font(BODY, 30)), 64), '@' + spec['handle'], font=font(BODY, 30), fill=(255, 255, 255, 170), stroke_width=2 if ph else 0, stroke_fill=(0, 0, 0))
+    if ph: d.text((60, H - 40), ph[0][1][:95], font=font(BODY, 18), fill=(255, 255, 255, 150))
+    fb, rb, sb = fit(d, big.upper(), HEAD, W - 120, 230 if ph else 330, 200 if ph else 260, 90 if ph else 110); y = 600 if ph else 250
     for r_ in rb: d.text((60, y), r_, font=fb, fill=(255, 230, 60)); y += sb * 1.05
     ft, rt, st = fit(d, text, BODY, W - 120, H - y - 220, 62, 36, 1.32); y += 40
     for r_ in rt: d.text((60, y), r_, font=ft, fill=(255, 255, 255)); y += st * 1.32
@@ -88,8 +96,8 @@ f, rows, size = fit(d, 'FOLLOW FOR MORE OF WHAT THEY LEFT OUT', HEAD, W - 120, 5
 for r_ in rows: d.text(((W - d.textlength(r_, font=f)) / 2, y), r_, font=f, fill=(255, 255, 255), stroke_width=3, stroke_fill=(0, 0, 0)); y += size * 1.08
 h_ = '@' + spec['handle']; fh = font(BODY, 54); tag(d, (W - d.textlength(h_, font=fh)) / 2 - 12, y + 40, h_, fh)
 fs = font(BODY, 28); y = H - 230
-srcs = spec['sources'] + ('. Cover ' + PHOTO[1] if PHOTO else '')
-y = H - 230 - (40 if PHOTO else 0)
-for r_ in wrap(d, srcs, fs, W - 120): d.text((60, y), r_, font=fs, fill=(255, 255, 255, 200)); y += 40
+cr = photos.credits(spec); srcs = spec['sources'] + ('. Photos: ' + '; '.join(c.replace('photo: ', '') for c in cr) if cr else '')
+fs = font(BODY, 28 if len(srcs) < 260 else 22); rows_ = wrap(d, srcs, fs, W - 120); y = H - 120 - len(rows_) * (fs.size + 10)
+for r_ in rows_: d.text((60, y), r_, font=fs, fill=(255, 255, 255, 200)); y += fs.size + 10
 d.text((60, y + 16), spec.get('music', ''), font=font(BODY, 32), fill=(255, 230, 60))
 im.save(os.path.join(out, '%02d.jpg' % (n + 2)), quality=92); print('wrote', n + 2, 'slides to', out)
