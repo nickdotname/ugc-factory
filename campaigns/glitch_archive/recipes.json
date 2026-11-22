@@ -1,0 +1,173 @@
+{
+ "clips": {},
+ "menu": {
+  "glitch": {
+   "source": [
+    "water",
+    "nature",
+    "city",
+    "space",
+    "archive",
+    "mixed"
+   ],
+   "main": [
+    "mosh",
+    "track",
+    "sort",
+    "slit",
+    "points"
+   ],
+   "accent": [
+    "rgb",
+    "blocks",
+    "none"
+   ],
+   "tone": [
+    "natural",
+    "thermal",
+    "mono",
+    "duotone",
+    "xray",
+    "night"
+   ],
+   "pace": [
+    "1",
+    "2"
+   ],
+   "label": [
+    "rec",
+    "none"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s04_glitch_804393.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "glitch",
+   "seed": 804393,
+   "window": [
+    75.67,
+    86.37
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "space",
+    "main": "mosh",
+    "accent": "none",
+    "tone": "xray",
+    "pace": "2",
+    "label": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.69,
+    "bass": 0.69,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s04_glitch_202141.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "glitch",
+   "seed": 202141,
+   "window": [
+    72.44,
+    94.21
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "mixed",
+    "main": "track",
+    "accent": "blocks",
+    "tone": "night",
+    "pace": "2",
+    "label": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.67,
+    "bass": 0.49,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "fixation",
+   "file": "fixation_s03_glitch_561153.mp4",
+   "song": "fixation",
+   "section": "s03",
+   "style": "glitch",
+   "seed": 561153,
+   "window": [
+    103.81,
+    111.8
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "space",
+    "main": "points",
+    "accent": "blocks",
+    "tone": "xray",
+    "pace": "1",
+    "label": "rec",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.86,
+    "bass": 0.8,
+    "other": 0.49
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s05_glitch_471227.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s05",
+   "style": "glitch",
+   "seed": 471227,
+   "window": [
+    132.51,
+    146.55
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "mixed",
+    "main": "slit",
+    "accent": "blocks",
+    "tone": "mono",
+    "pace": "2",
+    "label": "rec",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.54,
+    "drums": 0.83,
+    "bass": 0.17,
+    "other": 0.45
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}

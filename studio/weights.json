@@ -2,220 +2,466 @@
  "updated": "2026-11-22",
  "campaigns": {
   "cq_producer": {
-   "posts": 2,
-   "waiting": 1,
-   "typical_views": 145.5,
+   "posts": 9,
+   "waiting": 5,
+   "typical_views": 46.0,
    "weights": {
     "opening line": {
      "without": 1.0
     },
     "song": {
-     "notta_problem": 1.09,
-     "talk": 0.92
+     "notta_problem": 1.1,
+     "talk": 0.94,
+     "hair_of_the_dog": 0.99,
+     "prologue": 0.98,
+     "wont_be_the_same_again": 1.02,
+     "full_ride": 0.97
     },
     "section": {
-     "notta_problem/verse 1, first half": 1.09,
-     "talk/s01": 0.92
+     "notta_problem/verse 1, first half": 1.1,
+     "talk/s01": 1.0,
+     "hair_of_the_dog/s01": 1.0,
+     "hair_of_the_dog/s02": 0.99,
+     "talk/s02": 0.93,
+     "prologue/s02": 0.98,
+     "wont_be_the_same_again/s06": 1.02,
+     "full_ride/s02": 0.97
     },
     "look": {
-     "grad": 1.09,
-     "plasma": 0.92
+     "grad": 1.06,
+     "plasma": 0.95,
+     "rings": 1.02,
+     "stars": 0.99
     },
     "palette": {
-     "#ffffff": 1.09,
-     "#ffbe6e": 0.92
+     "#ffffff": 1.01,
+     "#ffbe6e": 0.93,
+     "#78ffaa": 1.07
     },
     "length": {
-     "under 20s": 1.09,
-     "20-35s": 0.92
+     "under 20s": 1.1,
+     "20-35s": 0.93
     },
     "hour posted": {
-     "18:00": 1.09,
-     "21:00": 0.92
+     "18:00": 1.06,
+     "21:00": 1.0,
+     "10:00": 0.98,
+     "13:00": 1.07,
+     "14:00": 0.97,
+     "16:00": 0.93
     },
     "caption": {
-     "Notta Problem \u2013 Close Quarters": 1.09,
-     "Talk \u2013 Close Quarters": 0.92
+     "Notta Problem \u2013 Close Quarters": 1.1,
+     "Talk \u2013 Close Quarters": 0.94,
+     "Hair of the Dog \u2013 Close Quarters": 0.99,
+     "i produced this. here's every layer of it.": 0.98,
+     "this is what a song looks like before it's a song": 0.99
     }
    },
    "stats": {
     "opening line": {
      "without": [
-      2,
-      1.92,
+      9,
+      8.67,
       0.499
      ]
     },
     "song": {
      "notta_problem": [
-      1,
-      0.96,
-      0.875
+      2,
+      1.91,
+      0.753
      ],
      "talk": [
+      2,
+      1.92,
+      0.348
+     ],
+     "hair_of_the_dog": [
+      2,
+      1.93,
+      0.477
+     ],
+     "prologue": [
       1,
       0.96,
-      0.125
+      0.406
+     ],
+     "wont_be_the_same_again": [
+      1,
+      0.97,
+      0.584
+     ],
+     "full_ride": [
+      1,
+      0.97,
+      0.35
      ]
     },
     "section": {
      "notta_problem/verse 1, first half": [
-      1,
-      0.96,
-      0.875
+      2,
+      1.91,
+      0.753
      ],
      "talk/s01": [
       1,
+      0.95,
+      0.519
+     ],
+     "hair_of_the_dog/s01": [
+      1,
       0.96,
-      0.125
+      0.481
+     ],
+     "hair_of_the_dog/s02": [
+      1,
+      0.97,
+      0.472
+     ],
+     "talk/s02": [
+      1,
+      0.97,
+      0.181
+     ],
+     "prologue/s02": [
+      1,
+      0.96,
+      0.406
+     ],
+     "wont_be_the_same_again/s06": [
+      1,
+      0.97,
+      0.584
+     ],
+     "full_ride/s02": [
+      1,
+      0.97,
+      0.35
      ]
     },
     "look": {
      "grad": [
       1,
-      0.96,
-      0.875
+      0.94,
+      0.744
      ],
      "plasma": [
-      1,
-      0.96,
-      0.125
+      3,
+      2.89,
+      0.392
+     ],
+     "rings": [
+      3,
+      2.9,
+      0.547
+     ],
+     "stars": [
+      2,
+      1.94,
+      0.467
      ]
     },
     "palette": {
      "#ffffff": [
-      1,
-      0.96,
-      0.875
+      4,
+      3.85,
+      0.51
      ],
      "#ffbe6e": [
-      1,
-      0.96,
-      0.125
+      3,
+      2.89,
+      0.367
+     ],
+     "#78ffaa": [
+      2,
+      1.94,
+      0.673
      ]
     },
     "length": {
      "under 20s": [
-      1,
-      0.96,
-      0.875
+      3,
+      2.88,
+      0.696
      ],
      "20-35s": [
-      1,
-      0.96,
-      0.125
+      6,
+      5.79,
+      0.401
      ]
     },
     "hour posted": {
      "18:00": [
       1,
-      0.96,
-      0.875
+      0.94,
+      0.744
      ],
      "21:00": [
       1,
-      0.96,
-      0.125
+      0.95,
+      0.519
+     ],
+     "10:00": [
+      2,
+      1.93,
+      0.444
+     ],
+     "13:00": [
+      2,
+      1.94,
+      0.673
+     ],
+     "14:00": [
+      2,
+      1.94,
+      0.411
+     ],
+     "16:00": [
+      1,
+      0.97,
+      0.181
      ]
     },
     "caption": {
      "Notta Problem \u2013 Close Quarters": [
-      1,
-      0.96,
-      0.875
+      2,
+      1.91,
+      0.753
      ],
      "Talk \u2013 Close Quarters": [
+      2,
+      1.92,
+      0.348
+     ],
+     "Hair of the Dog \u2013 Close Quarters": [
+      2,
+      1.93,
+      0.477
+     ],
+     "i produced this. here's every layer of it.": [
       1,
       0.96,
-      0.125
+      0.406
+     ],
+     "this is what a song looks like before it's a song": [
+      2,
+      1.94,
+      0.467
      ]
     }
    },
    "retired": {}
   },
   "cq_band": {
-   "posts": 1,
-   "waiting": 1,
-   "typical_views": 152.0,
+   "posts": 7,
+   "waiting": 5,
+   "typical_views": 78.0,
    "weights": {
     "opening line": {
      "without": 1.0
     },
     "song": {
-     "fixation": 1.0
+     "prologue": 0.96,
+     "wont_be_the_same_again": 1.02,
+     "hair_of_the_dog": 0.97,
+     "fixation": 1.06
     },
     "section": {
-     "fixation/s03-s04": 1.0
+     "prologue/s01-s02": 1.02,
+     "wont_be_the_same_again/s05-s06": 0.99,
+     "hair_of_the_dog/s01-s02": 0.97,
+     "fixation/s03-s04": 1.06,
+     "prologue/s05-s06": 0.93,
+     "wont_be_the_same_again/s08": 1.03
     },
     "look": {
-     "rings": 1.0
+     "stars": 0.99,
+     "grad": 0.99,
+     "rings": 1.06,
+     "plasma": 0.97
     },
     "length": {
-     "20-35s": 1.0
+     "over 35s": 0.94,
+     "20-35s": 1.06,
+     "under 20s": 1.03
     },
     "hour posted": {
-     "22:00": 1.0
+     "10:00": 0.96,
+     "13:00": 1.02,
+     "14:00": 0.97,
+     "22:00": 1.06
     },
     "caption": {
-     "Fixation \u2013 Close Quarters": 1.0
+     "Prologue: Before \u2013 Close Quarters": 1.02,
+     "Won't Be the Same Again \u2013 Close Quarters": 0.99,
+     "Hair of the Dog \u2013 Close Quarters": 0.97,
+     "Fixation \u2013 Close Quarters": 1.06,
+     "lesson 1 of 15. class is in session.": 0.93,
+     "your family computer in 2001 if it had taste": 1.03
     }
    },
    "stats": {
     "opening line": {
      "without": [
-      1,
-      0.96,
-      0.5
+      6,
+      5.79,
+      0.498
      ]
     },
     "song": {
+     "prologue": [
+      2,
+      1.93,
+      0.393
+     ],
+     "wont_be_the_same_again": [
+      2,
+      1.94,
+      0.548
+     ],
+     "hair_of_the_dog": [
+      2,
+      1.94,
+      0.426
+     ],
      "fixation": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.765
      ]
     },
     "section": {
-     "fixation/s03-s04": [
+     "prologue/s01-s02": [
       1,
       0.96,
-      0.5
+      0.603
+     ],
+     "wont_be_the_same_again/s05-s06": [
+      1,
+      0.97,
+      0.463
+     ],
+     "hair_of_the_dog/s01-s02": [
+      1,
+      0.97,
+      0.343
+     ],
+     "fixation/s03-s04": [
+      1,
+      0.95,
+      0.765
+     ],
+     "prologue/s05-s06": [
+      1,
+      0.96,
+      0.183
+     ],
+     "wont_be_the_same_again/s08": [
+      1,
+      0.97,
+      0.633
      ]
     },
     "look": {
+     "stars": [
+      2,
+      1.94,
+      0.473
+     ],
+     "grad": [
+      1,
+      0.97,
+      0.463
+     ],
      "rings": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.765
+     ],
+     "plasma": [
+      2,
+      1.93,
+      0.409
      ]
     },
     "length": {
+     "over 35s": [
+      4,
+      3.87,
+      0.398
+     ],
      "20-35s": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.765
+     ],
+     "under 20s": [
+      1,
+      0.97,
+      0.633
      ]
     },
     "hour posted": {
+     "10:00": [
+      2,
+      1.93,
+      0.393
+     ],
+     "13:00": [
+      2,
+      1.94,
+      0.548
+     ],
+     "14:00": [
+      2,
+      1.94,
+      0.426
+     ],
      "22:00": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.765
      ]
     },
     "caption": {
-     "Fixation \u2013 Close Quarters": [
+     "Prologue: Before \u2013 Close Quarters": [
       1,
       0.96,
-      0.5
+      0.603
+     ],
+     "Won't Be the Same Again \u2013 Close Quarters": [
+      1,
+      0.97,
+      0.463
+     ],
+     "Hair of the Dog \u2013 Close Quarters": [
+      1,
+      0.97,
+      0.343
+     ],
+     "Fixation \u2013 Close Quarters": [
+      1,
+      0.95,
+      0.765
+     ],
+     "lesson 1 of 15. class is in session.": [
+      1,
+      0.96,
+      0.183
+     ],
+     "your family computer in 2001 if it had taste": [
+      2,
+      1.94,
+      0.571
      ]
     }
    },
    "retired": {}
   },
   "psy_station": {
-   "posts": 1,
-   "waiting": 1,
+   "posts": 9,
+   "waiting": 9,
    "typical_views": 57.0,
    "weights": {
     "style": {
@@ -225,99 +471,279 @@
      "without": 1.0
     },
     "song": {
-     "prologue": 1.0
+     "prologue": 1.01,
+     "wont_be_the_same_again": 0.99,
+     "hair_of_the_dog": 1.0
     },
     "section": {
-     "prologue/s02": 1.0
+     "prologue/s02": 1.0,
+     "wont_be_the_same_again/s05-s06": 0.95,
+     "hair_of_the_dog/s02": 1.03,
+     "wont_be_the_same_again/s05": 1.01,
+     "prologue/s09": 1.05,
+     "wont_be_the_same_again/s01": 1.02,
+     "hair_of_the_dog/s01": 0.98,
+     "prologue/s05": 0.96
     },
     "look": {
-     "kaleido": 1.0
+     "kaleido": 1.05,
+     "cells": 0.92,
+     "marble": 1.03,
+     "rings": 0.99,
+     "bryce": 1.02
     },
     "lyrics": {
-     "word": 1.0
+     "word": 0.96,
+     "line": 1.03
     },
     "palette": {
-     "ocean": 1.0
+     "ocean": 1.0,
+     "candy": 1.0,
+     "lava": 1.01,
+     "acid": 0.98
     },
     "length": {
-     "20-35s": 1.0
+     "20-35s": 1.0,
+     "over 35s": 0.95,
+     "under 20s": 1.05
     },
     "hour posted": {
-     "23:00": 1.0
+     "23:00": 1.0,
+     "11:00": 0.95,
+     "14:00": 0.99,
+     "16:00": 1.01,
+     "10:00": 1.08,
+     "12:00": 0.98,
+     "13:00": 0.99
     },
     "caption": {
-     "every colour change is a drum hit": 1.0
+     "every colour change is a drum hit": 1.0,
+     "this is what the bass looks like. watch the centre": 0.98,
+     "turn it up and stare at the middle": 1.01,
+     "sound all the way up. don't blink.": 1.04,
+     "stare at the centre for 15 seconds. then look at your hand.": 1.01,
+     "how far did you make it before you looked away?": 0.96
     }
    },
    "stats": {
     "style": {
      "psy": [
-      1,
-      0.96,
+      9,
+      8.7,
       0.5
      ]
     },
     "opening line": {
      "without": [
-      1,
-      0.96,
+      9,
+      8.7,
       0.5
      ]
     },
     "song": {
      "prologue": [
-      1,
-      0.96,
-      0.5
+      3,
+      2.88,
+      0.523
+     ],
+     "wont_be_the_same_again": [
+      4,
+      3.87,
+      0.48
+     ],
+     "hair_of_the_dog": [
+      2,
+      1.94,
+      0.506
      ]
     },
     "section": {
      "prologue/s02": [
       1,
+      0.95,
+      0.512
+     ],
+     "wont_be_the_same_again/s05-s06": [
+      1,
+      0.97,
+      0.269
+     ],
+     "hair_of_the_dog/s02": [
+      1,
+      0.97,
+      0.613
+     ],
+     "wont_be_the_same_again/s05": [
+      1,
+      0.97,
+      0.531
+     ],
+     "prologue/s09": [
+      1,
       0.96,
-      0.5
+      0.737
+     ],
+     "wont_be_the_same_again/s01": [
+      2,
+      1.93,
+      0.559
+     ],
+     "hair_of_the_dog/s01": [
+      1,
+      0.97,
+      0.4
+     ],
+     "prologue/s05": [
+      1,
+      0.97,
+      0.319
      ]
     },
     "look": {
      "kaleido": [
+      2,
+      1.91,
+      0.626
+     ],
+     "cells": [
+      2,
+      1.94,
+      0.294
+     ],
+     "marble": [
       1,
-      0.96,
-      0.5
+      0.97,
+      0.613
+     ],
+     "rings": [
+      2,
+      1.94,
+      0.466
+     ],
+     "bryce": [
+      2,
+      1.93,
+      0.559
      ]
     },
     "lyrics": {
      "word": [
-      1,
-      0.96,
-      0.5
+      3,
+      2.89,
+      0.41
+     ],
+     "line": [
+      5,
+      4.83,
+      0.547
      ]
     },
     "palette": {
      "ocean": [
       1,
-      0.96,
+      0.95,
+      0.512
+     ],
+     "candy": [
+      4,
+      3.87,
       0.5
+     ],
+     "lava": [
+      3,
+      2.91,
+      0.529
+     ],
+     "acid": [
+      1,
+      0.97,
+      0.4
      ]
     },
     "length": {
      "20-35s": [
+      7,
+      6.76,
+      0.499
+     ],
+     "over 35s": [
+      1,
+      0.97,
+      0.269
+     ],
+     "under 20s": [
       1,
       0.96,
-      0.5
+      0.737
      ]
     },
     "hour posted": {
      "23:00": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.512
+     ],
+     "11:00": [
+      1,
+      0.97,
+      0.269
+     ],
+     "14:00": [
+      2,
+      1.94,
+      0.466
+     ],
+     "16:00": [
+      1,
+      0.97,
+      0.531
+     ],
+     "10:00": [
+      2,
+      1.93,
+      0.691
+     ],
+     "12:00": [
+      1,
+      0.97,
+      0.4
+     ],
+     "13:00": [
+      1,
+      0.97,
+      0.475
      ]
     },
     "caption": {
      "every colour change is a drum hit": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.512
+     ],
+     "this is what the bass looks like. watch the centre": [
+      2,
+      1.94,
+      0.441
+     ],
+     "turn it up and stare at the middle": [
+      1,
+      0.97,
+      0.531
+     ],
+     "sound all the way up. don't blink.": [
+      2,
+      1.93,
+      0.606
+     ],
+     "stare at the centre for 15 seconds. then look at your hand.": [
+      2,
+      1.93,
+      0.522
+     ],
+     "how far did you make it before you looked away?": [
+      1,
+      0.97,
+      0.319
      ]
     }
    },
@@ -325,10 +751,35 @@
   },
   "nostalgia": {
    "posts": 0,
-   "waiting": 0,
+   "waiting": 1,
    "weights": {}
   },
   "nick_studio": {
+   "posts": 0,
+   "waiting": 0,
+   "weights": {}
+  },
+  "math_time": {
+   "posts": 0,
+   "waiting": 0,
+   "weights": {}
+  },
+  "glitch_archive": {
+   "posts": 0,
+   "waiting": 0,
+   "weights": {}
+  },
+  "physics_sims": {
+   "posts": 0,
+   "waiting": 0,
+   "weights": {}
+  },
+  "ascii_art": {
+   "posts": 0,
+   "waiting": 0,
+   "weights": {}
+  },
+  "earth_data": {
    "posts": 0,
    "waiting": 0,
    "weights": {}
