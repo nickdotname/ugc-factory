@@ -241,7 +241,32 @@ class Video:
         json.dump(K.record(), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
 
+def song_end(song_dir):
+    """Where the song ends, in master seconds (its stems' length past where they start), or None."""
+    song = json.load(open(os.path.join(song_dir, 'song.json')))
+    stems = os.path.join(song_dir, 'stems', 'Drums.ogg')
+    return sf.info(stems).duration + float(song.get('stems_start_sec') or 0) if os.path.exists(stems) else None
+
+
+def dead_air(hits, n, first=1.2, gap=4.0):
+    """Why this stretch would make a dull video, or None: the first collision too late, or a long wait between two."""
+    if not hits: return 'no collisions'
+    if hits[0] > first * FPS: return 'first collision at %.1f s' % (hits[0] / FPS)
+    waits = np.diff([0] + list(hits) + [n])
+    if waits.max() > gap * FPS: return 'a %.1f s wait between collisions' % (waits.max() / FPS)
+    return None
+
+
 if __name__ == '__main__':
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
     w = os.environ.get('CQ_WINDOW'); t0, t1 = (float(x) for x in w.split(',')) if w else (30.0, 45.0)
-    Video(song_dir, seed, t0, t1).render(out)
+    v = Video(song_dir, seed, t0, t1)
+    if v.hits and v.hits[0] > 0.8 * FPS:
+        # a section can open with bars of nothing (Prologue's intro): slide the stretch, same length, so the first
+        # collision comes in its first second, never past the end of the song
+        end = song_end(song_dir); shift = v.hits[0] / FPS - 0.3
+        if end: shift = max(0.0, min(shift, end - t1))
+        if shift > 0: t0, t1 = t0 + shift, t1 + shift; v = Video(song_dir, seed, t0, t1)
+    why = dead_air(v.hits, v.n)
+    if why: sys.exit('not rendered, the ball would sit still: %s (%s %.1f-%.1f s)' % (why, v.slug, t0, t1))
+    v.render(out)

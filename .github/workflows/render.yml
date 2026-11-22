@@ -110,6 +110,9 @@ jobs:
       # nightly commit is what keeps the schedule alive. Do not remove it as an
       # "optimization"; the pipeline would silently stop about two months later.
       - name: Commit queue and history
+        # a single-campaign dispatch skips every other campaign's render, and a
+        # campaign that has never rendered has no queue.json to add
+        if: ${{ inputs.campaign == '' || inputs.campaign == matrix.campaign }}
         run: |
           git config user.name  "ugc-factory"
           git config user.email "ugc-factory@users.noreply.github.com"
