@@ -10,9 +10,10 @@
   "id": "igo-5a003f7d-38a9-4406-82cb-2f3334b0f65f",
   "scheduled_for": "2026-11-22T19:35:00-05:00",
   "share_to_feed": true,
-  "status": "queued",
+  "status": "cancelled",
   "trial": false,
   "trial_graduation": null,
   "video_url": "https://factory.nickbenak.com/v/render-rocket_league-2026-11-22/24a7a2c3-0340-4efa-a51b-e4fce1d2cfef.mp4",
-  "video_volume": null
+  "video_volume": null,
+  "error": "duplicate: two topups ran at once and both queued this video"
 }
