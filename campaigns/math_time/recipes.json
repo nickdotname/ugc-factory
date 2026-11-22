@@ -38,6 +38,14 @@
    "chip": [
     "pill",
     "tag"
+   ],
+   "target": [
+    "moon",
+    "sun"
+   ],
+   "room": [
+    "night",
+    "day"
    ]
   }
  },
@@ -203,6 +211,134 @@
     "drums": 0.64,
     "bass": 0.56,
     "other": 0.89
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s03_math_472066.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "math",
+   "seed": 472066,
+   "window": [
+    51.26,
+    73.75
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "fold",
+    "target": "moon",
+    "room": "night",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.69,
+    "bass": 0.69,
+    "other": 0.6
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06-s07_math_740511.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06-s07",
+   "style": "math",
+   "seed": 740511,
+   "window": [
+    149.34,
+    181.99
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "integral",
+    "theme": "synth",
+    "font": "poppins",
+    "grid": "grid",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "tag",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.68,
+    "drums": 0.67,
+    "bass": 0.34,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_math_97801.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "math",
+   "seed": 97801,
+   "window": [
+    165.08,
+    182.04
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "fourier",
+    "theme": "synth",
+    "font": "inter",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.72,
+    "bass": 0.6,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s03_math_731796.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "math",
+   "seed": 731796,
+   "window": [
+    50.1,
+    73.09
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "fourier",
+    "theme": "chalk",
+    "font": "inter",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.66,
+    "bass": 0.3,
+    "other": 0.48
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
