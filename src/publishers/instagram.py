@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -109,6 +110,35 @@ _INSIGHTS: tuple[tuple[str, str, str, float], ...] = (
     ("ig_reels_avg_watch_time", "averageTimeWatched", "Avg. Watch Time (sec)", 1 / 1000),
     ("ig_reels_video_view_total_time", "totalTimeWatched", "Watch Time (min)", 1 / 60000),
 )
+
+#: Asked for separately: newer figures (Dec 2025) that an older post, a
+#: carousel or an API version may refuse, and that are not worth losing the
+#: others for. ``reels_skip_rate`` is the share of viewers who swiped away in
+#: the first three seconds: the most direct measure of an opening.
+_EXTRA_INSIGHTS: tuple[tuple[str, str, str, float], ...] = (
+    ("reels_skip_rate", "skipRate", "Skip Rate (%)", 1.0),
+    ("reposts", "reposts", "Reposts", 1.0),
+)
+
+#: Instagram allows five hashtags on a post or Reel (since December 2025).
+MAX_HASHTAGS = 5
+_HASHTAG = re.compile(r"(?<![\w#])#\w+")
+
+
+def cap_hashtags(caption: str, limit: int = MAX_HASHTAGS) -> str:
+    """The caption with only its first ``limit`` hashtags: the rest are dropped,
+    and the spaces they leave are tidied, so a post is never refused for them."""
+    seen = 0
+
+    def keep(match: re.Match[str]) -> str:
+        nonlocal seen
+        seen += 1
+        return match.group(0) if seen <= limit else ""
+
+    out = _HASHTAG.sub(keep, caption)
+    if seen <= limit:
+        return caption
+    return "\n".join(re.sub(r"[ \t]{2,}", " ", line).rstrip() for line in out.split("\n"))
 
 
 def _utc(value: datetime) -> datetime:
@@ -353,7 +383,7 @@ class InstagramPublisher(Publisher):
         params: dict[str, Any] = {
             "media_type": "REELS",
             "video_url": item["video_url"],
-            "caption": item.get("caption") or "",
+            "caption": cap_hashtags(item.get("caption") or ""),
         }
         if item.get("trial"):
             # A trial reel is shown to non-followers only, and Instagram
@@ -414,7 +444,7 @@ class InstagramPublisher(Publisher):
             created = self._call("POST", f"{channel}/media", {
                 "media_type": "CAROUSEL",
                 "children": ",".join(children),
-                "caption": item.get("caption") or "",
+                "caption": cap_hashtags(item.get("caption") or ""),
             })
             item["container_id"] = str(created.get("id") or "")
             if not item["container_id"]:
@@ -590,6 +620,15 @@ class InstagramPublisher(Publisher):
                 media_id=media_id, error=str(exc)[:200],
             )
             return ()
+        try:
+            extra = self._call(
+                "GET", f"{media_id}/insights",
+                {"metric": ",".join(name for name, *_ in _EXTRA_INSIGHTS)},
+            )
+            body = {"data": list(body.get("data") or []) + list(extra.get("data") or [])}
+        except (InvalidPostError, PublishError) as exc:
+            self._log.info("instagram_extra_insights_unavailable",
+                           media_id=media_id, error=str(exc)[:120])
         values: dict[str, float] = {}
         for row in body.get("data") or []:
             points = row.get("values") or []
@@ -600,7 +639,7 @@ class InstagramPublisher(Publisher):
                 continue
         return tuple(
             MetricRow(type=kind, name=label, value=values[name] * scale)
-            for name, kind, label, scale in _INSIGHTS
+            for name, kind, label, scale in _INSIGHTS + _EXTRA_INSIGHTS
             if name in values
         )
 

@@ -18,7 +18,7 @@ RP = os.path.join(CDIR, 'reeled.json'); reeled = json.load(open(RP)) if os.path.
 specs = {json.load(open(f))['slug']: f for f in glob.glob(os.path.join(CDIR, '**', '*.json'), recursive=True) if os.path.basename(f) not in ('posted.json', 'reeled.json')}
 ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.yaml')))['accounts']}
 # Per look: the renderer that draws the visuals and the tags the caption ends on.
-LOOKS = {'retro': ('liminal_video.py', '#nostalgia #2000s #90skids #childhood #liminalspaces #y2k'),
+LOOKS = {'retro': ('liminal_video.py', '#nostalgia #2000s #90skids #liminalspaces #y2k'),
          '':      ('psy_video.py',     '#psychedelic #declassified #rabbithole #conspiracy #history')}
 count = {}
 for r in reeled: count[r['slug']] = count.get(r['slug'], 0) + 1
