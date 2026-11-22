@@ -195,13 +195,37 @@ def learn(camp, zone, now):
     return dict(posts=len(rows), waiting=young, typical_views=med([r[0]['views'] for r in rows]), weights=weights), text
 
 
+LINK_NAMES = {'psy': 'psychedelic.station', 'nostalgia': 'nostalgia.hub.vhs', 'cq': 'close__quarters', 'dc': 'dylancantor23'}
+
+def clicks(now):
+    """Taps on each account's bio link (link/worker.js), last 7 days, kept in studio/clicks.json. This is the
+    one number that says whether the videos send people to the music."""
+    base = (yaml.safe_load(open(os.path.join(REPO, 'site.yaml'))) or {}).get('link_base') or ''
+    path = os.path.join(HERE, 'clicks.json')
+    if base:
+        try:
+            import urllib.request
+            req = urllib.request.Request(base.rstrip('/') + '/stats', headers={'User-Agent': 'Mozilla/5.0 (ugc-factory stats)'})
+            json.dump(json.loads(urllib.request.urlopen(req, timeout=20).read()), open(path, 'w'), indent=1, sort_keys=True)
+        except Exception as exc:
+            print('::warning::could not read bio link clicks: %r' % exc)
+    data = load(path, {})
+    if not data: return []
+    days = [(now - datetime.timedelta(days=k)).date().isoformat() for k in range(6, -1, -1)]
+    srcs = sorted({s for d in data.values() for s in d})
+    out = ['## Bio link taps, last 7 days', '', '| account | ' + ' | '.join(d[5:] for d in days) + ' | total |', '|---|' + '---|' * (len(days) + 1)]
+    for s in srcs:
+        row = [int((data.get(d) or {}).get(s, 0)) for d in days]
+        out.append('| %s | %s | %d |' % (LINK_NAMES.get(s, s), ' | '.join(str(x) for x in row), sum(row)))
+    return out + ['']
+
 def main():
     cfg = yaml.safe_load(open(os.path.join(HERE, 'nightly.yaml')))
     now = datetime.datetime.now(datetime.timezone.utc)
     out = {'updated': now.date().isoformat(), 'campaigns': {}}
     lines = ['# What the numbers say', '',
              'Updated %s by studio/learn.py. A weight of 1.0 is typical, 2.0 is consistently the best, 0.5 the worst.' % out['updated'],
-             'Each post is ranked on views (half), seconds watched (30%) and shares + saves per view (20%).', '']
+             'Each post is ranked on completion (30%), sends per reach (30%), views (15%), saves per reach (10%) and not being skipped (15%).', '']
     for t in cfg['targets']:
         camp = t['campaign']
         try:
@@ -212,6 +236,7 @@ def main():
             result, text = dict(posts=0, weights={}), ['Skipped: %r' % exc, '']
         out['campaigns'][camp] = result
         lines += ['## %s' % camp, ''] + text
+    lines += clicks(now)
     json.dump(out, open(os.path.join(HERE, 'weights.json'), 'w'), indent=1)
     open(os.path.join(HERE, 'LEARNED.md'), 'w').write('\n'.join(lines) + '\n')
     print('\n'.join(lines))

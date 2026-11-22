@@ -65,7 +65,7 @@ jobs:
         run: |
           git config user.name  "ugc-factory"
           git config user.email "ugc-factory@users.noreply.github.com"
-          git add campaigns/*/recipes.json studio/weights.json studio/LEARNED.md
+          git add campaigns/*/recipes.json studio/weights.json studio/LEARNED.md studio/clicks.json 2>/dev/null || git add campaigns/*/recipes.json studio/weights.json studio/LEARNED.md
           git diff --cached --quiet && exit 0
           git commit -q -m "studio: new videos [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done

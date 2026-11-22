@@ -67,11 +67,14 @@ def reel(slug, name):
     first = spec['caption'].split('\n')[0] if part == 1 else 'part 2 of ' + spec['headline'].rstrip('.').lower()
     caption = '%s\nthe full story is the carousel on our page\n🎧 %s – @close__quarters %s' % (first, title, tags)
     pid = 'igo-' + str(uuid.uuid4())
+    import collabs                                   # one collab post a day brings the band account in
+    collab = collabs.invite(name, sum(1 for r in reeled if r.get('account') == name and r.get('date') == now.strftime('%Y-%m-%d') and r.get('collab')))
     item = dict(id=pid, channel_id=str(acct['channel_id']), status='queued', video_url='%s/%s/%s' % (base, tag, nm), caption=caption, first_comment=None,
+                collaborators=collab or None,
                 share_to_feed=True, trial=False, trial_graduation=None, audio_id=None, audio_volume=None, video_volume=None,
                 audio_name='%s – Close Quarters' % title, scheduled_for=now.isoformat(), created_at=now.isoformat(), attempts=0)
     json.dump(item, open(os.path.join(REPO, 'outbox', pid + '.json'), 'w'), indent=2, sort_keys=True)
-    reeled.append(dict(slug=slug, part=part, date=now.strftime('%Y-%m-%d'), post=pid, account=name, song=os.path.basename(sd), window=[t0, round(t0 + dur, 2)], seed=seed))
+    reeled.append(dict(slug=slug, part=part, date=now.strftime('%Y-%m-%d'), post=pid, account=name, song=os.path.basename(sd), window=[t0, round(t0 + dur, 2)], seed=seed, collab=collab))
     count[slug] = part; json.dump(reeled, open(RP, 'w'), indent=1)
     print('held', pid, 'for', name); return name
 

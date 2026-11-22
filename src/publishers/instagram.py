@@ -141,6 +141,14 @@ def cap_hashtags(caption: str, limit: int = MAX_HASHTAGS) -> str:
     return "\n".join(re.sub(r"[ \t]{2,}", " ", line).rstrip() for line in out.split("\n"))
 
 
+def _collaborators(item: Mapping[str, Any]) -> str:
+    """The post's collaborators as Instagram takes them: a JSON list of up to
+    three usernames, without the @. Empty when there are none."""
+    names = [str(n).lstrip("@").strip() for n in (item.get("collaborators") or [])]
+    names = [n for n in names if n][:3]
+    return json.dumps(names) if names else ""
+
+
 def _utc(value: datetime) -> datetime:
     return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
 
@@ -393,6 +401,11 @@ class InstagramPublisher(Publisher):
             )
         else:
             params["share_to_feed"] = "true" if item.get("share_to_feed", True) else "false"
+            # A collab post shows on every collaborator's profile and to their
+            # followers. Instagram allows up to three, and not on a trial reel.
+            collab = _collaborators(item)
+            if collab:
+                params["collaborators"] = collab
         if item.get("audio_id"):
             audio: dict[str, Any] = {"audio_id": str(item["audio_id"])}
             for key in ("audio_volume", "video_volume"):
@@ -441,11 +454,26 @@ class InstagramPublisher(Publisher):
                 children.append(str(made["id"]))
                 item["children"] = children
                 self.touched.append(self.outbox.save(item))
-            created = self._call("POST", f"{channel}/media", {
+            carousel: dict[str, Any] = {
                 "media_type": "CAROUSEL",
                 "children": ",".join(children),
                 "caption": cap_hashtags(item.get("caption") or ""),
-            })
+            }
+            if _collaborators(item):
+                carousel["collaborators"] = _collaborators(item)
+            try:
+                created = self._call("POST", f"{channel}/media", carousel)
+            except InvalidPostError as exc:
+                if "collaborators" not in carousel:
+                    raise
+                self._log.warning(
+                    "instagram_collaborators_refused",
+                    post_id=item["id"], error=str(exc)[:200],
+                )
+                item["collaborators_refused"] = item.get("collaborators")
+                item["collaborators"] = None
+                del carousel["collaborators"]
+                created = self._call("POST", f"{channel}/media", carousel)
             item["container_id"] = str(created.get("id") or "")
             if not item["container_id"]:
                 raise PublishError(f"Instagram returned no container id: {created}")
@@ -455,15 +483,24 @@ class InstagramPublisher(Publisher):
                     "POST", f"{channel}/media", self._container_params(item)
                 )
             except InvalidPostError as exc:
-                if not item.get("audio_name") or item.get("audio_id"):
+                # A collaborator and a name for the sound are niceties; the
+                # post is the point. If Instagram will not take them, send the
+                # Reel without them (collaborators first: they are the newer ask).
+                if _collaborators(item):
+                    self._log.warning(
+                        "instagram_collaborators_refused",
+                        post_id=item["id"], error=str(exc)[:200],
+                    )
+                    item["collaborators_refused"] = item.get("collaborators")
+                    item["collaborators"] = None
+                elif item.get("audio_name") and not item.get("audio_id"):
+                    self._log.warning(
+                        "instagram_audio_name_refused",
+                        post_id=item["id"], error=str(exc)[:200],
+                    )
+                    item["audio_name"] = None
+                else:
                     raise
-                # A name for the sound is a nicety; the post is the point. If
-                # Instagram will not take this one, send the Reel without it.
-                self._log.warning(
-                    "instagram_audio_name_refused",
-                    post_id=item["id"], error=str(exc)[:200],
-                )
-                item["audio_name"] = None
                 created = self._call(
                     "POST", f"{channel}/media", self._container_params(item)
                 )
