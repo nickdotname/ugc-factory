@@ -62,15 +62,20 @@ class Video:
         self.trail = K.pick('trail', ['long', 'short', 'ribbon'], r)
         self.hook = K.pick('hook', ['song', 'hits', 'none'], r)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
-        self.kick = audio.hits(a['kicks'], n, 6.0); self.bass = np.convolve(a['bass'], np.ones(5) / 5, 'same')
-        ht = a.get('hit_times') or []
+        # every collision comes from the song's Ableton project: its MIDI notes and the attacks in its arranged audio
+        # clips, lined up with the master to a few milliseconds (studio/als_hits.py, studio/project_sync.py)
+        P = audio.project(self.slug, t0, t1)
+        if P is None: sys.exit('no project hits for %s: run studio/als_hits.py on its Ableton project, then studio/project_sync.py' % self.slug)
         to_f = lambda x: int(round(x * FPS))                      # the frame the hit is heard in
-        if self.source == 'drums': hits = [(to_f(x), st) for x, k, st in ht if k in ('kick', 'snare')]
-        elif self.source == 'kick': hits = [(to_f(x), st) for x, k, st in ht if k == 'kick']
-        else: hits = [(to_f(x), st) for x, st in stem_hits(song_dir, 'Bass' if self.source == 'bass' else 'Other', t0, t1)]
+        drums = P['kick'] + P['snare']
+        if len(thin([(to_f(x), st) for x, st in drums], n, 6)) < 8: drums = sorted(drums + P['drums'])   # a kit bounced as one loop
+        pick = {'drums': drums, 'kick': P['kick'] or drums, 'bass': P['bass'], 'melody': P['lead']}[self.source]
+        hits = [(to_f(x), st) for x, st in pick]
         gap = 6 if self.scene != 'pendulum' else 3
-        if len(thin(hits, n, gap)) < 8:                           # a quiet stem here: fall back to the drums
-            hits = [(to_f(x), st) for x, k, st in ht if k in ('kick', 'snare')]; self.source = 'drums'
+        if len(thin(hits, n, gap)) < 8:                           # that part is quiet here: the drums instead
+            hits = [(to_f(x), st) for x, st in drums + P['drums']]; self.source = 'drums'
+        self.kick = audio.hits(np.array([to_f(x) for x, _ in (P['kick'] or drums)], int), n, 6.0)
+        self.bass = np.convolve(a['bass'], np.ones(5) / 5, 'same')
         self.hits = [int(h) for h in thin(hits, n, gap)]
         self.flash = audio.hits(np.array(self.hits), n, 9.0)
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)

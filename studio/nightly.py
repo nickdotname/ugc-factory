@@ -60,6 +60,7 @@ def playing(lv, win):
 PLAYS = 0.25
 # Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
 VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_video.py', 'glitch': 'glitch_video.py', 'physics': 'physics_video.py'}
+NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 sys.path.insert(0, HERE); import hook as _hook
@@ -173,6 +174,7 @@ for t in cfg['targets']:
         if cr not in creatives or not os.path.exists(os.path.join(sd, 'song.json')): continue
         song = json.load(open(os.path.join(sd, 'song.json')))
         if not any(os.path.exists(os.path.join(sd, 'master' + e)) for e in ('.wav', '.flac', '.ogg')): continue
+        if style in NEEDS_PROJECT and not os.path.exists(os.path.join(sd, 'project_hits.json')): continue
         lv = levels(sd)
         sure = stretches(song, t.get('join', 0)); every = dict(sure)
         if style in VISUAL:                               # the visualiser can use any stretch: where the lyric timing is not proven it simply shows no lyrics

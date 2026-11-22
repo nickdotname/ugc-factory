@@ -65,6 +65,8 @@ studio/songs/<song>/
   song.json          title, track number, key, where the project lines up with the master
   lines.json         the lyrics, word by word, with times in seconds into the master
   arrangement.json   tempo, tracks and MIDI notes from the Ableton project
+  project_hits.json  every hit in the arranged project (MIDI notes and audio-clip attacks), each track's role,
+                     and where the project sits in the master; physics videos take every collision from it
   queries.json       search terms for pictures, per lyric line
   media_keep.json    which fetched pictures were kept
   master.wav         NOT in git — the released master
@@ -74,6 +76,12 @@ studio/songs/<song>/
 ```
 
 - `arrangement.json` comes from `python studio/als_arrangement.py project.als`.
+- `project_hits.json`: `python studio/als_hits.py project.als hits.json` on the machine with the project folder
+  (it reads the audio files the clips play), then `python studio/project_sync.py <song> hits.json`, which lines the
+  project up with the stems (shift and speed, to a few ms) and names untitled tracks ("14-Audio") by which stem's
+  kicks, snares or notes their hits land on. Songs with one: Prologue (closelydian), Hair of the Dog
+  (closequarterselectronic), Fixation (closeclose), Talk (talktoyobitch), Full Ride (earl), Suspended
+  (closesssssssllose). The physics style only renders songs that have it.
 - `stems/` come from any four-stem separator run on the stretch of the master
   the video uses; `stems_start_sec` in `song.json` says where that stretch begins.
 - `offset_sec` is the one number that has to be right: a project beat `b` sounds

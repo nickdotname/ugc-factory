@@ -846,5 +846,15 @@
   "R": 0.8,
   "median_ms": 5.9,
   "beats_on_a_hit": 0.54
+ },
+ "project": "closelydian.als",
+ "project_offset_sec": 0.0024,
+ "project_scale": 1.000007,
+ "project_fit": {
+  "offset_sec": 0.0024,
+  "scale": 1.000007,
+  "matched": 0.708,
+  "median_ms": 5.4,
+  "hits": 4435
  }
 }

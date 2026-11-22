@@ -78,6 +78,59 @@ def load(slug, t0, t1):
     return out
 
 
+def project(slug, t0, t1, merge=0.03, heard=0.03):
+    """The song's own hits, from its Ableton project rather than from listening to the mix: project_hits.json, made by
+    studio/als_hits.py (every MIDI note and every attack in every audio clip of the arrangement) and lined up with the
+    master by studio/project_sync.py. Returns {role: [(seconds from t0, strength 0..1)]} for kick, snare, hats, drums
+    (kit loops and untyped pads), bass and melody, plus 'lead': the one melodic track with the most notes in this
+    stretch (MIDI first), which is what a single moving thing can follow. Layered tracks playing the same hit (two kick
+    layers, a doubled synth) count once. None when the song has no project."""
+    path = os.path.join(SONGS, slug, 'project_hits.json')
+    if not os.path.exists(path): return None
+    P = json.load(open(path)); spb = 60.0 / P['tempo']; a, b = P.get('scale', 1.0), P['offset_sec']
+    out = {r: [] for r in ('kick', 'snare', 'hats', 'drums', 'bass', 'melody')}; leads = []
+    for tr in P['tracks']:
+        if not tr['on']: continue
+        # a track is trusted only if its hits are heard: enough of them land on an attack in the separated stems (a
+        # MIDI note is exact, so a lower bar; an audio track's attacks were found by ear, so a higher one)
+        if max((tr.get('match') or {'x': 1.0}).values()) < (0.5 if 'notes' in tr else 0.6): continue
+        mine = []
+        if 'notes' in tr:
+            for beat, key, vel in tr['notes']:
+                t = a * beat * spb + b - t0
+                if 0 <= t < t1 - t0:
+                    role = tr['role'] if tr['role'] != 'drums' else {'perc': 'drums'}.get(tr['pads'].get(str(key), 'perc'), tr['pads'].get(str(key)))
+                    if role in out: out[role].append((t, vel / 127.0)); mine.append((t, vel / 127.0))
+        else:
+            for beat, st in tr['hits']:
+                t = a * beat * spb + b - t0
+                if 0 <= t < t1 - t0 and tr['role'] in out: out[tr['role']].append((t, float(st))); mine.append((t, float(st)))
+        if tr['role'] == 'melody' and mine: leads.append(('notes' in tr, len(mine), mine))
+    def dedupe(h):
+        h = sorted(h); res = []
+        for t, st in h:
+            if res and t - res[-1][0] < merge: res[-1] = (res[-1][0], max(res[-1][1], st))
+            else: res.append((t, st))
+        return res
+    out = {k: dedupe(v) for k, v in out.items()}
+    out['lead'] = dedupe(max(leads, key=lambda l: (l[0], l[1]))[2]) if leads else []
+    if heard:
+        # each hit kept only if it is heard in this stretch of the released song: an attack in the stem it belongs to
+        # within 30 ms. The time kept is still the project's; the stems only confirm that the part is audible here
+        # (a muted clip, a fader pulled down, a part cut in the final mix all drop out)
+        sd = os.path.join(SONGS, slug); s0 = float(json.load(open(os.path.join(sd, 'song.json'))).get('stems_start_sec') or 0)
+        att = {}
+        for stem in ('Drums', 'Bass', 'Other'):
+            f = os.path.join(sd, 'stems', stem + '.ogg')
+            if os.path.exists(f): y, sr = read(f, t0 - s0, t1 - s0); att[stem] = onsets(y, sr)[0]
+        where = {'kick': ('Drums',), 'snare': ('Drums',), 'hats': ('Drums',), 'drums': ('Drums',), 'bass': ('Bass', 'Drums'),
+                 'melody': ('Other', 'Bass', 'Drums'), 'lead': ('Other', 'Bass', 'Drums')}
+        for role, hs in out.items():
+            ref = np.sort(np.concatenate([att[k] for k in where[role] if k in att] or [np.zeros(0)]))
+            if len(ref): out[role] = [(t, st) for t, st in hs if np.min(np.abs(ref - t)) <= heard]
+    return out
+
+
 # The song's beats, as measured from its drums by studio/beatmap.py (beat_times, seconds into the master; beat 0 is
 # the first downbeat). Songs without a measured map fall back to a straight grid from tempo and offset_sec.
 def _grid(song):
