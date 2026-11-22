@@ -2,69 +2,72 @@
  "updated": "2026-11-22",
  "campaigns": {
   "cq_producer": {
-   "posts": 11,
-   "waiting": 3,
-   "typical_views": 46.0,
+   "posts": 12,
+   "waiting": 2,
+   "typical_views": 35.0,
    "weights": {
     "opening line": {
      "without": 1.0
     },
     "song": {
      "notta_problem": 1.1,
-     "talk": 0.94,
-     "hair_of_the_dog": 0.98,
-     "prologue": 0.98,
+     "talk": 0.95,
+     "hair_of_the_dog": 0.99,
+     "prologue": 0.96,
      "wont_be_the_same_again": 1.02,
      "full_ride": 0.97
     },
     "section": {
      "notta_problem/verse 1, first half": 1.1,
-     "talk/s01": 1.0,
-     "hair_of_the_dog/s01": 0.99,
-     "hair_of_the_dog/s02": 0.99,
+     "talk/s01": 1.01,
+     "hair_of_the_dog/s01": 1.0,
+     "hair_of_the_dog/s02": 1.0,
      "talk/s02": 0.93,
      "prologue/s02": 0.98,
      "wont_be_the_same_again/s06": 1.03,
      "full_ride/s02": 0.97,
-     "wont_be_the_same_again/s07": 1.0
+     "wont_be_the_same_again/s07": 1.0,
+     "prologue/s03": 0.96
     },
     "look": {
      "grad": 1.04,
-     "stars": 1.0,
-     "plasma": 0.94,
-     "rings": 1.02
+     "stars": 1.01,
+     "plasma": 0.95,
+     "rings": 1.0
     },
     "palette": {
-     "#ffffff": 1.0,
-     "#ffbe6e": 0.93,
+     "#ffffff": 0.99,
+     "#ffbe6e": 0.94,
      "#78ffaa": 1.08
     },
     "length": {
-     "under 20s": 1.09,
-     "20-35s": 0.92
+     "under 20s": 1.07,
+     "20-35s": 0.94
     },
     "hour posted": {
      "18:00": 1.05,
-     "17:00": 1.01,
-     "21:00": 1.0,
-     "10:00": 0.97,
+     "17:00": 1.02,
+     "21:00": 1.01,
+     "10:00": 0.98,
      "13:00": 1.08,
-     "14:00": 0.96,
-     "16:00": 0.94
+     "14:00": 0.97,
+     "16:00": 0.94,
+     "19:00": 0.96
     },
     "caption": {
      "Notta Problem \u2013 Close Quarters": 1.1,
-     "Talk \u2013 Close Quarters": 0.94,
-     "Hair of the Dog \u2013 Close Quarters": 0.98,
-     "i produced this. here's every layer of it.": 0.98,
-     "this is what a song looks like before it's a song": 0.99
+     "Talk \u2013 Close Quarters": 0.95,
+     "Hair of the Dog \u2013 Close Quarters": 0.99,
+     "i produced this. here's every layer of it.": 0.99,
+     "this is what a song looks like before it's a song": 0.99,
+     "tag a producer who needs to hear this": 0.96
     }
    },
    "stats": {
     "opening line": {
      "without": [
-      11,
-      10.6,
+      12,
+      11.55,
       0.499
      ]
     },
@@ -72,27 +75,27 @@
      "notta_problem": [
       3,
       2.88,
-      0.679
+      0.69
      ],
      "talk": [
       2,
-      1.92,
-      0.348
+      1.91,
+      0.361
      ],
      "hair_of_the_dog": [
       2,
       1.93,
-      0.459
+      0.483
      ],
      "prologue": [
-      1,
-      0.96,
-      0.395
+      2,
+      1.93,
+      0.384
      ],
      "wont_be_the_same_again": [
       2,
-      1.94,
-      0.549
+      1.93,
+      0.558
      ],
      "full_ride": [
       1,
@@ -104,37 +107,37 @@
      "notta_problem/verse 1, first half": [
       3,
       2.88,
-      0.679
+      0.69
      ],
      "talk/s01": [
       1,
-      0.95,
-      0.515
+      0.94,
+      0.541
      ],
      "hair_of_the_dog/s01": [
       1,
       0.96,
-      0.455
+      0.486
      ],
      "hair_of_the_dog/s02": [
       1,
       0.97,
-      0.463
+      0.48
      ],
      "talk/s02": [
       1,
       0.97,
-      0.185
+      0.186
      ],
      "prologue/s02": [
       1,
       0.96,
-      0.395
+      0.432
      ],
      "wont_be_the_same_again/s06": [
       1,
       0.97,
-      0.613
+      0.616
      ],
      "full_ride/s02": [
       1,
@@ -144,122 +147,137 @@
      "wont_be_the_same_again/s07": [
       1,
       0.97,
-      0.485
+      0.5
+     ],
+     "prologue/s03": [
+      1,
+      0.97,
+      0.336
      ]
     },
     "look": {
      "grad": [
       2,
       1.91,
-      0.603
+      0.614
      ],
      "stars": [
       3,
-      2.91,
-      0.503
+      2.9,
+      0.511
      ],
      "plasma": [
       3,
       2.88,
-      0.384
+      0.403
      ],
      "rings": [
-      3,
-      2.9,
-      0.543
+      4,
+      3.87,
+      0.505
      ]
     },
     "palette": {
      "#ffffff": [
-      6,
-      5.79,
-      0.503
+      7,
+      6.75,
+      0.492
      ],
      "#ffbe6e": [
       3,
       2.88,
-      0.364
+      0.385
      ],
      "#78ffaa": [
       2,
       1.93,
-      0.691
+      0.694
      ]
     },
     "length": {
      "under 20s": [
-      5,
-      4.82,
-      0.627
+      6,
+      5.78,
+      0.586
      ],
      "20-35s": [
       6,
-      5.78,
-      0.393
+      5.77,
+      0.412
      ]
     },
     "hour posted": {
      "18:00": [
       1,
       0.94,
-      0.725
+      0.732
      ],
      "17:00": [
       1,
       0.97,
-      0.545
+      0.568
      ],
      "21:00": [
       1,
-      0.95,
-      0.515
+      0.94,
+      0.541
      ],
      "10:00": [
       2,
-      1.93,
-      0.425
+      1.92,
+      0.459
      ],
      "13:00": [
       2,
       1.93,
-      0.691
+      0.694
      ],
      "14:00": [
       2,
-      1.94,
-      0.406
+      1.93,
+      0.415
      ],
      "16:00": [
       2,
       1.94,
-      0.335
+      0.343
+     ],
+     "19:00": [
+      1,
+      0.97,
+      0.336
      ]
     },
     "caption": {
      "Notta Problem \u2013 Close Quarters": [
       3,
       2.88,
-      0.679
+      0.69
      ],
      "Talk \u2013 Close Quarters": [
       2,
-      1.92,
-      0.348
+      1.91,
+      0.361
      ],
      "Hair of the Dog \u2013 Close Quarters": [
       2,
       1.93,
-      0.459
+      0.483
      ],
      "i produced this. here's every layer of it.": [
       2,
-      1.94,
-      0.44
+      1.93,
+      0.466
      ],
      "this is what a song looks like before it's a song": [
       2,
-      1.94,
-      0.481
+      1.93,
+      0.483
+     ],
+     "tag a producer who needs to hear this": [
+      1,
+      0.97,
+      0.336
      ]
     }
    },
@@ -320,24 +338,24 @@
     "opening line": {
      "without": [
       7,
-      6.75,
+      6.74,
       0.508
      ]
     },
     "song": {
      "prologue": [
       2,
-      1.93,
+      1.92,
       0.394
      ],
      "wont_be_the_same_again": [
       4,
-      3.88,
+      3.87,
       0.531
      ],
      "hair_of_the_dog": [
       2,
-      1.94,
+      1.93,
       0.428
      ],
      "fixation": [
@@ -354,7 +372,7 @@
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
-      0.97,
+      0.96,
       0.45
      ],
      "hair_of_the_dog/s01-s02": [
@@ -391,7 +409,7 @@
      ],
      "grad": [
       2,
-      1.94,
+      1.93,
       0.519
      ],
      "rings": [
@@ -408,7 +426,7 @@
     "length": {
      "over 35s": [
       4,
-      3.86,
+      3.85,
       0.397
      ],
      "under 20s": [
@@ -425,7 +443,7 @@
     "hour posted": {
      "10:00": [
       2,
-      1.93,
+      1.92,
       0.394
      ],
      "13:00": [
@@ -435,7 +453,7 @@
      ],
      "14:00": [
       2,
-      1.94,
+      1.93,
       0.428
      ],
      "17:00": [
@@ -457,7 +475,7 @@
      ],
      "Won't Be the Same Again \u2013 Close Quarters": [
       2,
-      1.94,
+      1.93,
       0.519
      ],
      "Hair of the Dog \u2013 Close Quarters": [
@@ -477,7 +495,7 @@
      ],
      "your family computer in 2001 if it had taste": [
       2,
-      1.94,
+      1.93,
       0.581
      ],
      "lesson 13 of 15. class is in session.": [
@@ -490,9 +508,9 @@
    "retired": {}
   },
   "psy_station": {
-   "posts": 10,
-   "waiting": 8,
-   "typical_views": 49.5,
+   "posts": 13,
+   "waiting": 5,
+   "typical_views": 40.0,
    "weights": {
     "style": {
      "psy": 1.0
@@ -501,303 +519,351 @@
      "without": 1.0
     },
     "song": {
-     "prologue": 1.01,
-     "wont_be_the_same_again": 0.99,
-     "hair_of_the_dog": 1.0
+     "prologue": 1.0,
+     "wont_be_the_same_again": 1.01,
+     "hair_of_the_dog": 1.01,
+     "fixation": 0.95,
+     "full_ride": 1.02
     },
     "section": {
-     "prologue/s02": 1.0,
-     "wont_be_the_same_again/s05-s06": 0.95,
-     "hair_of_the_dog/s02": 1.02,
-     "wont_be_the_same_again/s05": 1.0,
-     "prologue/s09": 1.05,
-     "wont_be_the_same_again/s01": 1.01,
-     "hair_of_the_dog/s01": 0.98,
-     "prologue/s05": 0.96,
-     "wont_be_the_same_again/s06": 1.02
+     "prologue/s02": 0.97,
+     "wont_be_the_same_again/s05-s06": 0.96,
+     "hair_of_the_dog/s02": 1.03,
+     "wont_be_the_same_again/s05": 1.01,
+     "prologue/s09": 1.06,
+     "wont_be_the_same_again/s01": 1.02,
+     "hair_of_the_dog/s01": 0.99,
+     "prologue/s05": 0.98,
+     "fixation/s06": 0.95,
+     "wont_be_the_same_again/s06": 1.02,
+     "full_ride/s02": 1.02
     },
     "look": {
-     "kaleido": 1.04,
-     "cells": 0.93,
-     "marble": 1.02,
-     "rings": 0.98,
-     "bryce": 1.01,
+     "kaleido": 1.03,
+     "cells": 0.94,
+     "marble": 1.03,
+     "rings": 0.96,
+     "bryce": 1.02,
      "tunnel": 1.02
     },
     "lyrics": {
-     "word": 0.97,
-     "line": 1.02
+     "word": 0.95,
+     "line": 1.05
     },
     "palette": {
-     "ocean": 1.02,
+     "ocean": 0.99,
      "candy": 0.99,
-     "lava": 1.01,
-     "acid": 0.98
+     "lava": 1.03,
+     "acid": 0.99
     },
     "length": {
      "20-35s": 1.0,
-     "over 35s": 0.95,
-     "under 20s": 1.05
+     "over 35s": 0.96,
+     "under 20s": 1.06
     },
     "hour posted": {
-     "23:00": 1.0,
-     "11:00": 0.95,
-     "14:00": 0.99,
-     "16:00": 1.0,
-     "10:00": 1.07,
-     "12:00": 0.98,
+     "23:00": 1.01,
+     "11:00": 0.96,
+     "14:00": 1.0,
+     "16:00": 1.01,
+     "18:00": 0.93,
+     "10:00": 1.08,
+     "12:00": 0.99,
      "13:00": 0.99,
-     "17:00": 1.02
+     "17:00": 1.02,
+     "19:00": 1.02
     },
     "caption": {
-     "every colour change is a drum hit": 1.0,
-     "this is what the bass looks like. watch the centre": 0.98,
-     "turn it up and stare at the middle": 1.0,
-     "sound all the way up. don't blink.": 1.03,
-     "stare at the centre for 15 seconds. then look at your hand.": 1.0,
-     "how far did you make it before you looked away?": 0.96,
-     "loop it. it gets deeper every time.": 1.02
+     "every colour change is a drum hit": 1.01,
+     "this is what the bass looks like. watch the centre": 0.99,
+     "turn it up and stare at the middle": 1.01,
+     "sound on. the picture is listening": 0.96,
+     "sound all the way up. don't blink.": 1.04,
+     "stare at the centre for 15 seconds. then look at your hand.": 0.98,
+     "how far did you make it before you looked away?": 0.98,
+     "loop it. it gets deeper every time.": 1.02,
+     "send this to the friend who would stare at it for an hour": 1.02
     }
    },
    "stats": {
     "style": {
      "psy": [
-      10,
-      9.66,
+      13,
+      12.55,
       0.5
      ]
     },
     "opening line": {
      "without": [
-      10,
-      9.66,
+      13,
+      12.55,
       0.5
      ]
     },
     "song": {
      "prologue": [
-      3,
-      2.88,
-      0.518
+      4,
+      3.85,
+      0.498
      ],
      "wont_be_the_same_again": [
       5,
-      4.84,
-      0.491
+      4.83,
+      0.512
      ],
      "hair_of_the_dog": [
       2,
       1.93,
-      0.496
+      0.533
+     ],
+     "fixation": [
+      1,
+      0.97,
+      0.292
+     ],
+     "full_ride": [
+      1,
+      0.97,
+      0.587
      ]
     },
     "section": {
      "prologue/s02": [
-      1,
-      0.95,
-      0.517
+      2,
+      1.92,
+      0.425
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
-      0.97,
-      0.278
+      0.96,
+      0.304
      ],
      "hair_of_the_dog/s02": [
       1,
       0.97,
-      0.597
+      0.625
      ],
      "wont_be_the_same_again/s05": [
       1,
       0.97,
-      0.517
+      0.55
      ],
      "prologue/s09": [
       1,
       0.96,
-      0.711
+      0.742
      ],
      "wont_be_the_same_again/s01": [
       2,
       1.93,
-      0.536
+      0.554
      ],
      "hair_of_the_dog/s01": [
       1,
-      0.97,
-      0.394
+      0.96,
+      0.442
      ],
      "prologue/s05": [
       1,
       0.97,
-      0.328
+      0.4
+     ],
+     "fixation/s06": [
+      1,
+      0.97,
+      0.292
      ],
      "wont_be_the_same_again/s06": [
       1,
       0.97,
-      0.586
+      0.598
+     ],
+     "full_ride/s02": [
+      1,
+      0.97,
+      0.587
      ]
     },
     "look": {
      "kaleido": [
-      2,
-      1.91,
-      0.615
+      4,
+      3.85,
+      0.545
      ],
      "cells": [
       2,
       1.93,
-      0.303
+      0.352
      ],
      "marble": [
       1,
       0.97,
-      0.597
+      0.625
      ],
      "rings": [
-      2,
-      1.94,
-      0.456
+      3,
+      2.91,
+      0.428
      ],
      "bryce": [
       2,
       1.93,
-      0.536
+      0.554
      ],
      "tunnel": [
       1,
       0.97,
-      0.586
+      0.598
      ]
     },
     "lyrics": {
      "word": [
-      4,
-      3.86,
-      0.456
+      6,
+      5.79,
+      0.43
      ],
      "line": [
-      5,
-      4.83,
-      0.532
+      6,
+      5.79,
+      0.561
      ]
     },
     "palette": {
      "ocean": [
-      2,
-      1.92,
-      0.552
+      3,
+      2.89,
+      0.483
      ],
      "candy": [
-      4,
-      3.86,
-      0.487
+      6,
+      5.8,
+      0.486
      ],
      "lava": [
       3,
       2.9,
-      0.518
+      0.564
      ],
      "acid": [
       1,
-      0.97,
-      0.394
+      0.96,
+      0.442
      ]
     },
     "length": {
      "20-35s": [
-      8,
-      7.73,
-      0.501
+      11,
+      10.63,
+      0.496
      ],
      "over 35s": [
       1,
-      0.97,
-      0.278
+      0.96,
+      0.304
      ],
      "under 20s": [
       1,
       0.96,
-      0.711
+      0.742
      ]
     },
     "hour posted": {
      "23:00": [
       1,
       0.95,
-      0.517
+      0.542
      ],
      "11:00": [
       1,
-      0.97,
-      0.278
+      0.96,
+      0.304
      ],
      "14:00": [
       2,
-      1.94,
-      0.462
+      1.93,
+      0.512
      ],
      "16:00": [
       1,
       0.97,
-      0.517
+      0.55
+     ],
+     "18:00": [
+      2,
+      1.94,
+      0.301
      ],
      "10:00": [
       2,
-      1.93,
-      0.669
+      1.92,
+      0.698
      ],
      "12:00": [
       1,
-      0.97,
-      0.394
+      0.96,
+      0.442
      ],
      "13:00": [
       1,
       0.97,
-      0.444
+      0.454
      ],
      "17:00": [
       1,
       0.97,
-      0.586
+      0.598
+     ],
+     "19:00": [
+      1,
+      0.97,
+      0.587
      ]
     },
     "caption": {
      "every colour change is a drum hit": [
       1,
       0.95,
-      0.517
+      0.542
      ],
      "this is what the bass looks like. watch the centre": [
       2,
       1.93,
-      0.438
+      0.465
      ],
      "turn it up and stare at the middle": [
       1,
       0.97,
-      0.517
+      0.55
+     ],
+     "sound on. the picture is listening": [
+      1,
+      0.97,
+      0.31
      ],
      "sound all the way up. don't blink.": [
       2,
       1.93,
-      0.578
+      0.598
      ],
      "stare at the centre for 15 seconds. then look at your hand.": [
-      2,
-      1.93,
-      0.511
+      3,
+      2.9,
+      0.462
      ],
      "how far did you make it before you looked away?": [
       1,
       0.97,
-      0.328
+      0.4
      ],
      "loop it. it gets deeper every time.": [
       1,
       0.97,
-      0.586
+      0.598
+     ],
+     "send this to the friend who would stare at it for an hour": [
+      1,
+      0.97,
+      0.587
      ]
     }
    },

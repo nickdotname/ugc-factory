@@ -462,7 +462,17 @@ class Selector:
             name: pools[name][0].distinct_visuals(bodies_per_video, bodies_max)
             for name in names
         }
-        used = {name: 0 for name in names}
+        # Visuals already rendered inside the hook cooldown (at least a day) count
+        # as used too: a batch tomorrow should not open with yesterday's video
+        # while another creative still has one nobody has seen.
+        cutoff = now - timedelta(days=max(1, self._config.hook_cooldown_days))
+        used = {
+            name: len({
+                (e.hook, tuple(e.bodies))
+                for e in pools[name][1].entries if e.timestamp > cutoff
+            })
+            for name in names
+        }
 
         for _ in range(count):
             fresh = tuple(

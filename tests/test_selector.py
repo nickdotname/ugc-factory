@@ -776,6 +776,26 @@ class TestSelectBatchMulti:
         picks = sel.select_batch_multi(pools, {n: 1.0 for n in pools}, 6, 0)
         assert len({name for name, _ in picks[:4]}) == 4
 
+    def test_a_video_from_yesterdays_batch_waits_for_the_unseen_ones(self) -> None:
+        """Across batches too: a single-clip creative rendered within the hook
+        cooldown sits out while another creative's clip has not been used."""
+        def lib(name):
+            return AssetLibrary(
+                hooks=(f"{name}_hook.mp4",), bodies=(), music=(),
+                captions=tuple(f"{name} caption {i}" for i in range(10)),
+                bodies_required=False,
+            )
+        seen = History(entries=[entry(
+            Selection(hook="suspended_hook.mp4", bodies=(), music=None, caption="suspended caption 0"),
+            NOW - timedelta(hours=3),
+        )])
+        for seed in range(20):
+            pools = {"suspended": (lib("suspended"), seen), "fixation": (lib("fixation"), History()),
+                     "full_ride": (lib("full_ride"), History())}
+            sel = make_selector(seed=seed, hook_cooldown_days=3, caption_cooldown_days=0)
+            picks = sel.select_batch_multi(pools, {"suspended": 9.0, "fixation": 1.0, "full_ride": 1.0}, 2, 0)
+            assert {name for name, _ in picks} == {"fixation", "full_ride"}, seed
+
     def test_one_creatives_exhausted_history_does_not_touch_another(self) -> None:
         """The whole point of separate pools: A being tapped out cannot cool
         down or relax B, even when their filenames are identical."""
