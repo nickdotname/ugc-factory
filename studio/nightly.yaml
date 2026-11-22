@@ -56,3 +56,7 @@ targets:
     style: earth
     per_night: 4
     join: 30
+  - campaign: rocket_league  # rocket.league.lit: our Rocket League clips to the songs, straight or as montages (studio/rocket_lib.py for the clips)
+    style: rocket
+    per_night: 4
+    join: 30
