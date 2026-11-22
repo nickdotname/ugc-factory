@@ -105,65 +105,68 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 
 ## psy_station
 
-10 posts counted (8 more are too new). Typical post: 49 views, 4.3 seconds watched.
+11 posts counted (7 more are too new). Typical post: 42 views, 4.3 seconds watched.
 
 **song**
-- prologue: weight 1.01 — 3 posts, 78 views, 4.2s watched, 44 shares+saves per 1,000 views
-- hair_of_the_dog: weight 1.00 — 2 posts, 38 views, 5.1s watched, 13 shares+saves per 1,000 views
-- wont_be_the_same_again: weight 0.99 — 5 posts, 40 views, 4.4s watched, 26 shares+saves per 1,000 views
+- prologue: weight 1.02 — 3 posts, 78 views, 4.2s watched, 44 shares+saves per 1,000 views
+- wont_be_the_same_again: weight 1.01 — 5 posts, 40 views, 4.4s watched, 26 shares+saves per 1,000 views
+- hair_of_the_dog: weight 1.01 — 2 posts, 38 views, 5.1s watched, 13 shares+saves per 1,000 views
+- fixation: weight 0.95 — 1 post, 38 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **section**
 - prologue/s09: weight 1.05 — 1 post, 106 views, 5.3s watched, 19 shares+saves per 1,000 views
 - wont_be_the_same_again/s06: weight 1.02 — 1 post, 17 views, 7.3s watched, 0 shares+saves per 1,000 views
+- wont_be_the_same_again/s01: weight 1.02 — 2 posts, 35 views, 4.5s watched, 43 shares+saves per 1,000 views
 - hair_of_the_dog/s02: weight 1.02 — 1 post, 17 views, 6.6s watched, 59 shares+saves per 1,000 views
-- wont_be_the_same_again/s01: weight 1.01 — 2 posts, 35 views, 4.5s watched, 43 shares+saves per 1,000 views
-- wont_be_the_same_again/s05: weight 1.00 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
+- wont_be_the_same_again/s05: weight 1.01 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
 - prologue/s02: weight 1.00 — 1 post, 78 views, 4.2s watched, 90 shares+saves per 1,000 views
-- hair_of_the_dog/s01: weight 0.98 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
-- prologue/s05: weight 0.96 — 1 post, 42 views, 3.2s watched, 24 shares+saves per 1,000 views
-- wont_be_the_same_again/s05-s06: weight 0.95 — 1 post, 40 views, 4.4s watched, 0 shares+saves per 1,000 views
+- hair_of_the_dog/s01: weight 0.99 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
+- prologue/s05: weight 0.97 — 1 post, 42 views, 3.2s watched, 24 shares+saves per 1,000 views
+- wont_be_the_same_again/s05-s06: weight 0.96 — 1 post, 40 views, 4.4s watched, 0 shares+saves per 1,000 views
+- fixation/s06: weight 0.95 — 1 post, 38 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **look**
-- kaleido: weight 1.04 — 2 posts, 92 views, 4.7s watched, 49 shares+saves per 1,000 views
+- kaleido: weight 1.05 — 2 posts, 92 views, 4.7s watched, 49 shares+saves per 1,000 views
 - tunnel: weight 1.02 — 1 post, 17 views, 7.3s watched, 0 shares+saves per 1,000 views
 - marble: weight 1.02 — 1 post, 17 views, 6.6s watched, 59 shares+saves per 1,000 views
-- bryce: weight 1.01 — 2 posts, 35 views, 4.5s watched, 43 shares+saves per 1,000 views
-- rings: weight 0.98 — 2 posts, 83 views, 3.7s watched, 18 shares+saves per 1,000 views
-- cells: weight 0.93 — 2 posts, 41 views, 3.8s watched, 12 shares+saves per 1,000 views
+- bryce: weight 1.02 — 2 posts, 35 views, 4.5s watched, 43 shares+saves per 1,000 views
+- rings: weight 0.96 — 3 posts, 60 views, 3.6s watched, 15 shares+saves per 1,000 views
+- cells: weight 0.94 — 2 posts, 41 views, 3.8s watched, 12 shares+saves per 1,000 views
 
 **lyrics**
-- line: weight 1.02 — 5 posts, 40 views, 4.7s watched, 26 shares+saves per 1,000 views
-- word: weight 0.97 — 4 posts, 51 views, 3.9s watched, 41 shares+saves per 1,000 views
+- line: weight 1.04 — 5 posts, 40 views, 4.7s watched, 26 shares+saves per 1,000 views
+- word: weight 0.96 — 5 posts, 42 views, 3.6s watched, 34 shares+saves per 1,000 views
 
 **palette**
+- lava: weight 1.03 — 3 posts, 106 views, 3.7s watched, 24 shares+saves per 1,000 views
 - ocean: weight 1.02 — 2 posts, 47 views, 5.7s watched, 74 shares+saves per 1,000 views
-- lava: weight 1.01 — 3 posts, 106 views, 3.7s watched, 24 shares+saves per 1,000 views
-- candy: weight 0.99 — 4 posts, 28 views, 4.6s watched, 31 shares+saves per 1,000 views
-- acid: weight 0.98 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
+- acid: weight 0.99 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
+- candy: weight 0.97 — 5 posts, 38 views, 4.4s watched, 24 shares+saves per 1,000 views
 
 **length**
 - under 20s: weight 1.05 — 1 post, 106 views, 5.3s watched, 19 shares+saves per 1,000 views
-- 20-35s: weight 1.00 — 8 posts, 49 views, 4.2s watched, 38 shares+saves per 1,000 views
-- over 35s: weight 0.95 — 1 post, 40 views, 4.4s watched, 0 shares+saves per 1,000 views
+- 20-35s: weight 1.00 — 9 posts, 42 views, 4.2s watched, 35 shares+saves per 1,000 views
+- over 35s: weight 0.96 — 1 post, 40 views, 4.4s watched, 0 shares+saves per 1,000 views
 
 **hour posted**
-- 10:00: weight 1.07 — 2 posts, 81 views, 4.8s watched, 31 shares+saves per 1,000 views
+- 10:00: weight 1.08 — 2 posts, 81 views, 4.8s watched, 31 shares+saves per 1,000 views
 - 17:00: weight 1.02 — 1 post, 17 views, 7.3s watched, 0 shares+saves per 1,000 views
+- 16:00: weight 1.01 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
 - 23:00: weight 1.00 — 1 post, 78 views, 4.2s watched, 90 shares+saves per 1,000 views
-- 16:00: weight 1.00 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
-- 14:00: weight 0.99 — 2 posts, 29 views, 4.9s watched, 34 shares+saves per 1,000 views
+- 14:00: weight 1.00 — 2 posts, 29 views, 4.9s watched, 34 shares+saves per 1,000 views
 - 13:00: weight 0.99 — 1 post, 13 views, 4.7s watched, 0 shares+saves per 1,000 views
-- 12:00: weight 0.98 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
-- 11:00: weight 0.95 — 1 post, 40 views, 4.4s watched, 0 shares+saves per 1,000 views
+- 12:00: weight 0.99 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
+- 11:00: weight 0.96 — 1 post, 40 views, 4.4s watched, 0 shares+saves per 1,000 views
+- 18:00: weight 0.95 — 1 post, 38 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **caption**
-- sound all the way up. don't blink.: weight 1.03 — 2 posts, 59 views, 5.0s watched, 17 shares+saves per 1,000 views
+- sound all the way up. don't blink.: weight 1.04 — 2 posts, 59 views, 5.0s watched, 17 shares+saves per 1,000 views
 - loop it. it gets deeper every time.: weight 1.02 — 1 post, 17 views, 7.3s watched, 0 shares+saves per 1,000 views
-- turn it up and stare at the middle: weight 1.00 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
-- stare at the centre for 15 seconds. then look at your hand.: weight 1.00 — 2 posts, 58 views, 3.9s watched, 26 shares+saves per 1,000 views
+- turn it up and stare at the middle: weight 1.01 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
 - every colour change is a drum hit: weight 1.00 — 1 post, 78 views, 4.2s watched, 90 shares+saves per 1,000 views
 - this is what the bass looks like. watch the centre: weight 0.98 — 2 posts, 28 views, 5.5s watched, 18 shares+saves per 1,000 views
-- how far did you make it before you looked away?: weight 0.96 — 1 post, 42 views, 3.2s watched, 24 shares+saves per 1,000 views
+- stare at the centre for 15 seconds. then look at your hand.: weight 0.97 — 3 posts, 57 views, 3.6s watched, 19 shares+saves per 1,000 views
+- how far did you make it before you looked away?: weight 0.97 — 1 post, 42 views, 3.2s watched, 24 shares+saves per 1,000 views
 
 ## nostalgia
 

@@ -64,7 +64,7 @@
     "opening line": {
      "without": [
       11,
-      10.6,
+      10.59,
       0.499
      ]
     },
@@ -155,7 +155,7 @@
      ],
      "stars": [
       3,
-      2.91,
+      2.9,
       0.503
      ],
      "plasma": [
@@ -172,7 +172,7 @@
     "palette": {
      "#ffffff": [
       6,
-      5.79,
+      5.78,
       0.503
      ],
      "#ffbe6e": [
@@ -189,7 +189,7 @@
     "length": {
      "under 20s": [
       5,
-      4.82,
+      4.81,
       0.627
      ],
      "20-35s": [
@@ -216,7 +216,7 @@
      ],
      "10:00": [
       2,
-      1.93,
+      1.92,
       0.425
      ],
      "13:00": [
@@ -253,12 +253,12 @@
      ],
      "i produced this. here's every layer of it.": [
       2,
-      1.94,
+      1.93,
       0.44
      ],
      "this is what a song looks like before it's a song": [
       2,
-      1.94,
+      1.93,
       0.481
      ]
     }
@@ -320,19 +320,19 @@
     "opening line": {
      "without": [
       7,
-      6.75,
+      6.74,
       0.508
      ]
     },
     "song": {
      "prologue": [
       2,
-      1.93,
+      1.92,
       0.394
      ],
      "wont_be_the_same_again": [
       4,
-      3.88,
+      3.87,
       0.531
      ],
      "hair_of_the_dog": [
@@ -425,7 +425,7 @@
     "hour posted": {
      "10:00": [
       2,
-      1.93,
+      1.92,
       0.394
      ],
      "13:00": [
@@ -477,7 +477,7 @@
      ],
      "your family computer in 2001 if it had taste": [
       2,
-      1.94,
+      1.93,
       0.581
      ],
      "lesson 13 of 15. class is in session.": [
@@ -490,9 +490,9 @@
    "retired": {}
   },
   "psy_station": {
-   "posts": 10,
-   "waiting": 8,
-   "typical_views": 49.5,
+   "posts": 11,
+   "waiting": 7,
+   "typical_views": 42.0,
    "weights": {
     "style": {
      "psy": 1.0
@@ -501,76 +501,79 @@
      "without": 1.0
     },
     "song": {
-     "prologue": 1.01,
-     "wont_be_the_same_again": 0.99,
-     "hair_of_the_dog": 1.0
+     "prologue": 1.02,
+     "wont_be_the_same_again": 1.01,
+     "hair_of_the_dog": 1.01,
+     "fixation": 0.95
     },
     "section": {
      "prologue/s02": 1.0,
-     "wont_be_the_same_again/s05-s06": 0.95,
+     "wont_be_the_same_again/s05-s06": 0.96,
      "hair_of_the_dog/s02": 1.02,
-     "wont_be_the_same_again/s05": 1.0,
+     "wont_be_the_same_again/s05": 1.01,
      "prologue/s09": 1.05,
-     "wont_be_the_same_again/s01": 1.01,
-     "hair_of_the_dog/s01": 0.98,
-     "prologue/s05": 0.96,
+     "wont_be_the_same_again/s01": 1.02,
+     "hair_of_the_dog/s01": 0.99,
+     "prologue/s05": 0.97,
+     "fixation/s06": 0.95,
      "wont_be_the_same_again/s06": 1.02
     },
     "look": {
-     "kaleido": 1.04,
-     "cells": 0.93,
+     "kaleido": 1.05,
+     "cells": 0.94,
      "marble": 1.02,
-     "rings": 0.98,
-     "bryce": 1.01,
+     "rings": 0.96,
+     "bryce": 1.02,
      "tunnel": 1.02
     },
     "lyrics": {
-     "word": 0.97,
-     "line": 1.02
+     "word": 0.96,
+     "line": 1.04
     },
     "palette": {
      "ocean": 1.02,
-     "candy": 0.99,
-     "lava": 1.01,
-     "acid": 0.98
+     "candy": 0.97,
+     "lava": 1.03,
+     "acid": 0.99
     },
     "length": {
      "20-35s": 1.0,
-     "over 35s": 0.95,
+     "over 35s": 0.96,
      "under 20s": 1.05
     },
     "hour posted": {
      "23:00": 1.0,
-     "11:00": 0.95,
-     "14:00": 0.99,
-     "16:00": 1.0,
-     "10:00": 1.07,
-     "12:00": 0.98,
+     "11:00": 0.96,
+     "14:00": 1.0,
+     "16:00": 1.01,
+     "10:00": 1.08,
+     "12:00": 0.99,
      "13:00": 0.99,
+     "18:00": 0.95,
      "17:00": 1.02
     },
     "caption": {
      "every colour change is a drum hit": 1.0,
      "this is what the bass looks like. watch the centre": 0.98,
-     "turn it up and stare at the middle": 1.0,
-     "sound all the way up. don't blink.": 1.03,
-     "stare at the centre for 15 seconds. then look at your hand.": 1.0,
-     "how far did you make it before you looked away?": 0.96,
+     "turn it up and stare at the middle": 1.01,
+     "sound all the way up. don't blink.": 1.04,
+     "stare at the centre for 15 seconds. then look at your hand.": 0.97,
+     "how far did you make it before you looked away?": 0.97,
      "loop it. it gets deeper every time.": 1.02
     }
    },
    "stats": {
     "style": {
      "psy": [
-      10,
-      9.66,
+      11,
+      10.62,
       0.5
      ]
     },
     "opening line": {
      "without": [
-      10,
-      9.66,
+      11,
+      10.62,
       0.5
      ]
     },
@@ -578,226 +581,241 @@
      "prologue": [
       3,
       2.88,
-      0.518
+      0.545
      ],
      "wont_be_the_same_again": [
       5,
-      4.84,
-      0.491
+      4.83,
+      0.514
      ],
      "hair_of_the_dog": [
       2,
       1.93,
-      0.496
+      0.521
+     ],
+     "fixation": [
+      1,
+      0.97,
+      0.255
      ]
     },
     "section": {
      "prologue/s02": [
       1,
       0.95,
-      0.517
+      0.52
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
-      0.97,
-      0.278
+      0.96,
+      0.3
      ],
      "hair_of_the_dog/s02": [
       1,
       0.97,
-      0.597
+      0.608
      ],
      "wont_be_the_same_again/s05": [
       1,
       0.97,
-      0.517
+      0.55
      ],
      "prologue/s09": [
       1,
       0.96,
-      0.711
+      0.735
      ],
      "wont_be_the_same_again/s01": [
       2,
       1.93,
-      0.536
+      0.562
      ],
      "hair_of_the_dog/s01": [
       1,
       0.97,
-      0.394
+      0.435
      ],
      "prologue/s05": [
       1,
       0.97,
-      0.328
+      0.38
+     ],
+     "fixation/s06": [
+      1,
+      0.97,
+      0.255
      ],
      "wont_be_the_same_again/s06": [
       1,
       0.97,
-      0.586
+      0.593
      ]
     },
     "look": {
      "kaleido": [
       2,
       1.91,
-      0.615
+      0.628
      ],
      "cells": [
       2,
       1.93,
-      0.303
+      0.34
      ],
      "marble": [
       1,
       0.97,
-      0.597
+      0.608
      ],
      "rings": [
-      2,
-      1.94,
-      0.456
+      3,
+      2.91,
+      0.413
      ],
      "bryce": [
       2,
       1.93,
-      0.536
+      0.562
      ],
      "tunnel": [
       1,
       0.97,
-      0.586
+      0.593
      ]
     },
     "lyrics": {
      "word": [
-      4,
-      3.86,
-      0.456
+      5,
+      4.83,
+      0.436
      ],
      "line": [
       5,
-      4.83,
-      0.532
+      4.82,
+      0.553
      ]
     },
     "palette": {
      "ocean": [
       2,
       1.92,
-      0.552
+      0.557
      ],
      "candy": [
-      4,
-      3.86,
-      0.487
+      5,
+      4.83,
+      0.457
      ],
      "lava": [
       3,
       2.9,
-      0.518
+      0.555
      ],
      "acid": [
       1,
       0.97,
-      0.394
+      0.435
      ]
     },
     "length": {
      "20-35s": [
-      8,
-      7.73,
-      0.501
+      9,
+      8.69,
+      0.496
      ],
      "over 35s": [
       1,
-      0.97,
-      0.278
+      0.96,
+      0.3
      ],
      "under 20s": [
       1,
       0.96,
-      0.711
+      0.735
      ]
     },
     "hour posted": {
      "23:00": [
       1,
       0.95,
-      0.517
+      0.52
      ],
      "11:00": [
       1,
-      0.97,
-      0.278
+      0.96,
+      0.3
      ],
      "14:00": [
       2,
-      1.94,
-      0.462
+      1.93,
+      0.494
      ],
      "16:00": [
       1,
       0.97,
-      0.517
+      0.55
      ],
      "10:00": [
       2,
-      1.93,
-      0.669
+      1.92,
+      0.697
      ],
      "12:00": [
       1,
       0.97,
-      0.394
+      0.435
      ],
      "13:00": [
       1,
       0.97,
-      0.444
+      0.465
+     ],
+     "18:00": [
+      1,
+      0.97,
+      0.255
      ],
      "17:00": [
       1,
       0.97,
-      0.586
+      0.593
      ]
     },
     "caption": {
      "every colour change is a drum hit": [
       1,
       0.95,
-      0.517
+      0.52
      ],
      "this is what the bass looks like. watch the centre": [
       2,
       1.93,
-      0.438
+      0.454
      ],
      "turn it up and stare at the middle": [
       1,
       0.97,
-      0.517
+      0.55
      ],
      "sound all the way up. don't blink.": [
       2,
       1.93,
-      0.578
+      0.6
      ],
      "stare at the centre for 15 seconds. then look at your hand.": [
-      2,
-      1.93,
-      0.511
+      3,
+      2.9,
+      0.449
      ],
      "how far did you make it before you looked away?": [
       1,
       0.97,
-      0.328
+      0.38
      ],
      "loop it. it gets deeper every time.": [
       1,
       0.97,
-      0.586
+      0.593
      ]
     }
    },
