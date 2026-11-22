@@ -114,11 +114,11 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-22T03:50:00-05:00"
         }
       ],
       "captions": {
@@ -126,7 +126,7 @@
         "instagram": "Fixation – Close Quarters\naux cord approved. pass it on.\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
