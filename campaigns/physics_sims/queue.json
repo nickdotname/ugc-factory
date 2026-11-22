@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-22T16:45:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "count the bounces\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "this is weirdly satisfying with sound\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Talk: link in bio"
       },
