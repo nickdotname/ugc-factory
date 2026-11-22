@@ -1,149 +1,45 @@
 {
-  "generated_at": "2026-11-21T12:49:28.741305Z",
+  "generated_at": "2026-11-22T03:04:22.222515Z",
   "items": [
     {
-      "id": "406e9d38-db18-4e27-8c37-b42d6d9fed06",
-      "scheduled_for": "2026-11-20T06:10:00-05:00",
-      "rendered_at": "2026-11-19T13:34:12.076494Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-19/406e9d38-db18-4e27-8c37-b42d6d9fed06.mp4",
-      "caption": "Talk – Close Quarters\nplay it for somebody and watch their face at this part",
-      "title": "Talk – Close Quarters",
+      "id": "847b2be4-512f-4d29-9856-5ef052020a2c",
+      "scheduled_for": "2026-11-22T00:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/847b2be4-512f-4d29-9856-5ef052020a2c.mp4",
+      "caption": "Myth of Sisyphus – Close Quarters\naux cord approved. pass it on.",
+      "title": "Myth of Sisyphus – Close Quarters",
       "parts": {
-        "hook": "hook_10.mp4",
+        "hook": "hook_09.mp4",
         "bodies": "",
-        "music": "music_talk_01.m4a",
-        "music_offset_sec": "45"
+        "music": "music_myth_of_sisyphus_01.m4a",
+        "music_offset_sec": "150"
       },
       "treatment": {
-        "zoom": 0.0406,
-        "anchor_x": 0.434,
-        "anchor_y": 0.311,
-        "rotate_deg": -0.096,
-        "brightness": -0.0272,
-        "saturation": 0.9607,
-        "hue_deg": 1.09,
-        "grain": 2.78,
+        "zoom": 0.0018,
+        "anchor_x": 0.738,
+        "anchor_y": 0.493,
+        "rotate_deg": -0.303,
+        "brightness": -0.0232,
+        "saturation": 1.0059,
+        "hue_deg": -0.67,
+        "grain": 1.82,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0,
-        "trim_start": 0.359,
-        "overlay_shift": 0.005
+        "music_tilt_db": 0.0,
+        "trim_start": 0.336,
+        "overlay_shift": -0.0052
       },
-      "creative": "talk",
-      "overlay": "me waiting for my friend | to get to the good part",
+      "creative": "myth_of_sisyphus",
+      "overlay": "when the aux is finally | yours and you play | Myth of Sisyphus",
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aff835eef915da8dbc96067",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T06:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6aff00b1abf4ba608b774c3d",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T06:50:00-05:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "failed",
-          "attempts": 1,
-          "buffer_post_id": null,
-          "last_error": "Buffer createPost failed (LimitReachedError): You have already scheduled the maximum number of posts YouTube allows in a day (2). Please consider scheduling this post for another day.",
-          "scheduled_for": "2026-11-20T19:30:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "youtube": "Talk – Close Quarters\nplay it for somebody and watch their face at this part\n\nTalk is out now. link in bio to stream it",
-        "instagram": "Talk – Close Quarters\nplay it for somebody and watch their face at this part\n\nTalk is out now. link in bio to stream it",
-        "tiktok": "Talk – Close Quarters\nplay it for somebody and watch their face at this part\n\nTalk is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "failed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "cbe2db92-7902-47c5-9f66-815b52b1cd8f",
-      "scheduled_for": "2026-11-20T09:10:00-05:00",
-      "rendered_at": "2026-11-20T13:12:30.305938Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-20/cbe2db92-7902-47c5-9f66-815b52b1cd8f.mp4",
-      "caption": "Talk – Close Quarters\naux cord approved. pass it on.",
-      "title": "Talk – Close Quarters",
-      "parts": {
-        "hook": "hook_05.mp4",
-        "bodies": "",
-        "music": "music_talk_01.m4a",
-        "music_offset_sec": "45"
-      },
-      "treatment": {
-        "zoom": 0.0069,
-        "anchor_x": 0.436,
-        "anchor_y": 0.605,
-        "rotate_deg": 0.34,
-        "brightness": -0.0298,
-        "saturation": 1.012,
-        "hue_deg": 2.84,
-        "grain": 0.49,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0,
-        "trim_start": 0.369,
-        "overlay_shift": 0.0058
-      },
-      "creative": "talk",
-      "overlay": "when the aux is finally | yours and you play | Talk",
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b00819bd425f1473afd1d3d",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T15:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081b644c361911349a551",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T12:50:00-05:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pending",
-          "attempts": 0,
-          "buffer_post_id": null,
-          "last_error": null,
-          "scheduled_for": null
-        }
-      ],
-      "captions": {
-        "tiktok": "Talk – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Talk",
-        "youtube": "Talk – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Talk",
-        "instagram": "Talk – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Talk"
+        "tiktok": "Myth of Sisyphus – Close Quarters\naux cord approved. pass it on.\n\nstream Myth of Sisyphus: link in bio",
+        "instagram": "Myth of Sisyphus – Close Quarters\naux cord approved. pass it on.\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
       "status": "pending",
@@ -152,33 +48,79 @@
       "last_error": null
     },
     {
-      "id": "4245c037-a073-4d9b-bd4d-324e56a74216",
-      "scheduled_for": "2026-11-20T12:10:00-05:00",
-      "rendered_at": "2026-11-20T13:12:30.305938Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-20/4245c037-a073-4d9b-bd4d-324e56a74216.mp4",
+      "id": "065e45a2-32df-484e-a354-92ca761b55a1",
+      "scheduled_for": "2026-11-22T03:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/065e45a2-32df-484e-a354-92ca761b55a1.mp4",
+      "caption": "Fixation – Close Quarters\naux cord approved. pass it on.",
+      "title": "Fixation – Close Quarters",
+      "parts": {
+        "hook": "hook_04.mp4",
+        "bodies": "",
+        "music": "music_fixation_01.m4a",
+        "music_offset_sec": "90"
+      },
+      "treatment": {
+        "zoom": 0.0343,
+        "anchor_x": 0.256,
+        "anchor_y": 0.699,
+        "rotate_deg": 0.093,
+        "brightness": -0.0095,
+        "saturation": 1.0402,
+        "hue_deg": 1.47,
+        "grain": 1.96,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0,
+        "trim_start": 0.135,
+        "overlay_shift": -0.0053
+      },
+      "creative": "fixation",
+      "overlay": "when the aux is finally | yours and you play | Fixation",
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "tiktok": "Fixation – Close Quarters\naux cord approved. pass it on.\n\nFixation is out now. link in bio to stream it",
+        "instagram": "Fixation – Close Quarters\naux cord approved. pass it on.\n\nFixation is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "f0bcafa3-4591-4ab7-a1d9-a42fb2c7e33d",
+      "scheduled_for": "2026-11-22T06:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/f0bcafa3-4591-4ab7-a1d9-a42fb2c7e33d.mp4",
       "caption": "Talk – Close Quarters\nthe group chat needs to hear this one",
       "title": "Talk – Close Quarters (out now)",
       "parts": {
-        "hook": "hook_13.mp4",
+        "hook": "hook_07.mp4",
         "bodies": "",
         "music": "music_talk_01.m4a",
-        "music_offset_sec": "30"
+        "music_offset_sec": "120"
       },
       "treatment": {
-        "zoom": 0.0367,
-        "anchor_x": 0.356,
-        "anchor_y": 0.577,
-        "rotate_deg": -0.253,
-        "brightness": 0.0147,
-        "saturation": 1.0431,
-        "hue_deg": 0.34,
-        "grain": 3.84,
+        "zoom": 0.0024,
+        "anchor_x": 0.399,
+        "anchor_y": 0.401,
+        "rotate_deg": -0.115,
+        "brightness": -0.0135,
+        "saturation": 1.0144,
+        "hue_deg": 0.65,
+        "grain": 0.02,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": 0.0,
-        "trim_start": 0.045,
-        "overlay_shift": -0.0027
+        "trim_start": 0.293,
+        "overlay_shift": 0.0033
       },
       "creative": "talk",
       "overlay": "pov: you just put the | whole group chat on | to Talk",
@@ -186,39 +128,10 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081a244c3619113499c35",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T18:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081ba6f199ec35b696803",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T15:50:00-05:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pending",
-          "attempts": 0,
-          "buffer_post_id": null,
-          "last_error": null,
-          "scheduled_for": null
-        }
-      ],
+      "posts": [],
       "captions": {
-        "tiktok": "Talk – Close Quarters\nthe group chat needs to hear this one\n\nstream Talk: link in bio",
-        "youtube": "Talk – Close Quarters\nthe group chat needs to hear this one\n\nstream Talk: link in bio",
-        "instagram": "Talk – Close Quarters\nthe group chat needs to hear this one\n\nstream Talk: link in bio"
+        "tiktok": "Talk – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Talk",
+        "instagram": "Talk – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Talk"
       },
       "titles": {},
       "status": "pending",
@@ -227,183 +140,33 @@
       "last_error": null
     },
     {
-      "id": "9da21628-96f0-4420-815a-2acdd9ef0fdb",
-      "scheduled_for": "2026-11-20T15:10:00-05:00",
-      "rendered_at": "2026-11-20T13:12:30.305938Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-20/9da21628-96f0-4420-815a-2acdd9ef0fdb.mp4",
-      "caption": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to",
-      "title": "Myth of Sisyphus – Close Quarters",
-      "parts": {
-        "hook": "hook_06.mp4",
-        "bodies": "",
-        "music": "music_myth_of_sisyphus_01.m4a",
-        "music_offset_sec": "135"
-      },
-      "treatment": {
-        "zoom": 0.0322,
-        "anchor_x": 0.709,
-        "anchor_y": 0.742,
-        "rotate_deg": 0.143,
-        "brightness": -0.0008,
-        "saturation": 0.9489,
-        "hue_deg": -0.13,
-        "grain": 0.73,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0,
-        "trim_start": 0.224,
-        "overlay_shift": -0.0
-      },
-      "creative": "myth_of_sisyphus",
-      "overlay": "tag the friend who needs | Myth of Sisyphus on repeat",
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081a7e3772ee0cf51b253",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T21:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081bde3772ee0cf51bbc3",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T18:50:00-05:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pending",
-          "attempts": 0,
-          "buffer_post_id": null,
-          "last_error": null,
-          "scheduled_for": null
-        }
-      ],
-      "captions": {
-        "tiktok": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nMyth of Sisyphus is out now. link in bio to stream it",
-        "youtube": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nMyth of Sisyphus is out now. link in bio to stream it",
-        "instagram": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nMyth of Sisyphus is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "f7505a54-7285-4d1d-8a04-f6b32ea4137a",
-      "scheduled_for": "2026-11-20T18:10:00-05:00",
-      "rendered_at": "2026-11-20T13:12:30.305938Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-20/f7505a54-7285-4d1d-8a04-f6b32ea4137a.mp4",
-      "caption": "Notta Problem – Close Quarters\naux cord approved. pass it on.",
-      "title": "Notta Problem – Close Quarters",
-      "parts": {
-        "hook": "hook_05.mp4",
-        "bodies": "",
-        "music": "music_notta_problem_01.m4a",
-        "music_offset_sec": "75"
-      },
-      "treatment": {
-        "zoom": 0.0008,
-        "anchor_x": 0.619,
-        "anchor_y": 0.264,
-        "rotate_deg": 0.303,
-        "brightness": -0.0029,
-        "saturation": 1.0346,
-        "hue_deg": 2.11,
-        "grain": 2.94,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0,
-        "trim_start": 0.348,
-        "overlay_shift": 0.0022
-      },
-      "creative": "notta_problem",
-      "overlay": "when the aux is finally | yours and you play | Notta Problem",
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081ac861298c9b13b1f81",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T00:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081c1d425f1473afd2e62",
-          "last_error": null,
-          "scheduled_for": "2026-11-20T21:50:00-05:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pending",
-          "attempts": 0,
-          "buffer_post_id": null,
-          "last_error": null,
-          "scheduled_for": null
-        }
-      ],
-      "captions": {
-        "tiktok": "Notta Problem – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Notta Problem",
-        "youtube": "Notta Problem – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Notta Problem",
-        "instagram": "Notta Problem – Close Quarters\naux cord approved. pass it on.\n\nlink in bio to stream Notta Problem"
-      },
-      "titles": {},
-      "status": "pending",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "76a2473a-216d-4be9-a0a6-5ff83ab084a4",
-      "scheduled_for": "2026-11-20T21:10:00-05:00",
-      "rendered_at": "2026-11-20T13:12:30.305938Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-20/76a2473a-216d-4be9-a0a6-5ff83ab084a4.mp4",
+      "id": "88219190-0664-4c8a-814c-f864c4bbfae3",
+      "scheduled_for": "2026-11-22T09:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/88219190-0664-4c8a-814c-f864c4bbfae3.mp4",
       "caption": "Won't Be the Same Again – Close Quarters\nplay it for somebody and watch their face at this part",
       "title": "Won't Be the Same Again – Close Quarters",
       "parts": {
-        "hook": "hook_05.mp4",
+        "hook": "hook_12.mp4",
         "bodies": "",
         "music": "music_wont_be_the_same_again_01.m4a",
-        "music_offset_sec": "165"
+        "music_offset_sec": "135"
       },
       "treatment": {
-        "zoom": 0.0118,
-        "anchor_x": 0.525,
-        "anchor_y": 0.709,
-        "rotate_deg": 0.193,
-        "brightness": 0.0121,
-        "saturation": 1.0501,
-        "hue_deg": -0.51,
-        "grain": 1.9,
+        "zoom": 0.0082,
+        "anchor_x": 0.574,
+        "anchor_y": 0.319,
+        "rotate_deg": 0.309,
+        "brightness": -0.0274,
+        "saturation": 0.9786,
+        "hue_deg": 1.75,
+        "grain": 4.59,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0,
-        "trim_start": 0.273,
-        "overlay_shift": -0.0069
+        "trim_start": 0.071,
+        "overlay_shift": -0.0086
       },
       "creative": "wont_be_the_same_again",
       "overlay": "me waiting for my friend | to get to the good part",
@@ -411,38 +174,9 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081b244c361911349a392",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T03:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0081c4e3772ee0cf51c33c",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T00:50:00-05:00"
-        },
-        {
-          "account": "nickdotname_yt",
-          "network": "youtube",
-          "status": "pending",
-          "attempts": 0,
-          "buffer_post_id": null,
-          "last_error": null,
-          "scheduled_for": null
-        }
-      ],
+      "posts": [],
       "captions": {
         "tiktok": "Won't Be the Same Again – Close Quarters\nplay it for somebody and watch their face at this part\n\nstream Won't Be the Same Again: link in bio",
-        "youtube": "Won't Be the Same Again – Close Quarters\nplay it for somebody and watch their face at this part\n\nstream Won't Be the Same Again: link in bio",
         "instagram": "Won't Be the Same Again – Close Quarters\nplay it for somebody and watch their face at this part\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
@@ -452,131 +186,185 @@
       "last_error": null
     },
     {
-      "id": "bcc1e0e1-a806-4e67-b4db-87471283a5fd",
-      "scheduled_for": "2026-11-21T09:10:00-05:00",
-      "rendered_at": "2026-11-21T12:49:28.741305Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-21/bcc1e0e1-a806-4e67-b4db-87471283a5fd.mp4",
-      "caption": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with",
+      "id": "e8e35254-86d5-439d-b99b-105d433dcb49",
+      "scheduled_for": "2026-11-22T12:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/e8e35254-86d5-439d-b99b-105d433dcb49.mp4",
+      "caption": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to",
       "title": "Myth of Sisyphus – Close Quarters",
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_07.mp4",
         "bodies": "",
         "music": "music_myth_of_sisyphus_01.m4a",
-        "music_offset_sec": "135"
+        "music_offset_sec": "75"
       },
       "treatment": {
-        "zoom": 0.0192,
-        "anchor_x": 0.66,
-        "anchor_y": 0.599,
-        "rotate_deg": -0.127,
-        "brightness": -0.0208,
-        "saturation": 1.0388,
-        "hue_deg": -1.96,
-        "grain": 0.0,
+        "zoom": 0.0445,
+        "anchor_x": 0.721,
+        "anchor_y": 0.399,
+        "rotate_deg": -0.249,
+        "brightness": -0.0196,
+        "saturation": 0.9946,
+        "hue_deg": 2.76,
+        "grain": 5.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0,
-        "trim_start": 0.113,
-        "overlay_shift": 0.008
+        "music_tilt_db": -0.0,
+        "trim_start": 0.064,
+        "overlay_shift": -0.0076
       },
       "creative": "myth_of_sisyphus",
-      "overlay": "how me and bro start moving | when Myth of Sisyphus comes on",
+      "overlay": "tag the friend who needs | Myth of Sisyphus on repeat",
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0196f8d864a0110546939d",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T09:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0196ff943aa0abf45b6d7e",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T09:50:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with\n\nMyth of Sisyphus is out now. link in bio to stream it",
-        "tiktok": "Myth of Sisyphus – Close Quarters\nsend this to the bro you'd be moving with\n\nMyth of Sisyphus is out now. link in bio to stream it"
+        "tiktok": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nMyth of Sisyphus is out now. link in bio to stream it",
+        "instagram": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "98ddd3f7-1e21-41d8-bc79-b81afbbe3c05",
-      "scheduled_for": "2026-11-21T12:10:00-05:00",
-      "rendered_at": "2026-11-21T12:49:28.741305Z",
-      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-21/98ddd3f7-1e21-41d8-bc79-b81afbbe3c05.mp4",
-      "caption": "Fixation – Close Quarters\nthe group chat needs to hear this one",
-      "title": "Fixation – Close Quarters (out now)",
+      "id": "644c03b9-686b-4770-b733-b6136638cf3d",
+      "scheduled_for": "2026-11-22T15:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/644c03b9-686b-4770-b733-b6136638cf3d.mp4",
+      "caption": "Myth of Sisyphus – Close Quarters\nplay it for somebody and watch their face at this part",
+      "title": "Myth of Sisyphus – Close Quarters",
       "parts": {
-        "hook": "hook_15.mp4",
+        "hook": "hook_11.mp4",
         "bodies": "",
-        "music": "music_fixation_01.m4a",
-        "music_offset_sec": "75"
+        "music": "music_myth_of_sisyphus_01.m4a",
+        "music_offset_sec": "120"
       },
       "treatment": {
-        "zoom": 0.0276,
-        "anchor_x": 0.466,
-        "anchor_y": 0.383,
-        "rotate_deg": -0.036,
-        "brightness": -0.0229,
-        "saturation": 1.0205,
-        "hue_deg": 1.35,
-        "grain": 2.04,
+        "zoom": 0.01,
+        "anchor_x": 0.362,
+        "anchor_y": 0.446,
+        "rotate_deg": 0.03,
+        "brightness": -0.0251,
+        "saturation": 1.0379,
+        "hue_deg": -1.47,
+        "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0,
-        "trim_start": 0.251,
-        "overlay_shift": -0.0
+        "trim_start": 0.353,
+        "overlay_shift": -0.0048
       },
-      "creative": "fixation",
-      "overlay": "pov: you just put the | whole group chat on | to Fixation",
+      "creative": "myth_of_sisyphus",
+      "overlay": "me waiting for my friend | to get to the good part",
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0196fc943aa0abf45b6be6",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T12:10:00-05:00"
-        },
-        {
-          "account": "nickdotname_tt",
-          "network": "tiktok",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b0197018bd84d5966ec6a5a",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T12:50:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "Fixation – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Fixation",
-        "tiktok": "Fixation – Close Quarters\nthe group chat needs to hear this one\n\nlink in bio to stream Fixation"
+        "tiktok": "Myth of Sisyphus – Close Quarters\nplay it for somebody and watch their face at this part\n\nlink in bio to stream Myth of Sisyphus",
+        "instagram": "Myth of Sisyphus – Close Quarters\nplay it for somebody and watch their face at this part\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "3003e769-2b8a-4092-bdb8-6eaad539b66d",
+      "scheduled_for": "2026-11-22T18:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/3003e769-2b8a-4092-bdb8-6eaad539b66d.mp4",
+      "caption": "Notta Problem – Close Quarters\nrun it back. you know the part.",
+      "title": "Notta Problem by Close Quarters",
+      "parts": {
+        "hook": "hook_10.mp4",
+        "bodies": "",
+        "music": "music_notta_problem_01.m4a",
+        "music_offset_sec": "135"
+      },
+      "treatment": {
+        "zoom": 0.0278,
+        "anchor_x": 0.601,
+        "anchor_y": 0.534,
+        "rotate_deg": -0.083,
+        "brightness": -0.0288,
+        "saturation": 1.0092,
+        "hue_deg": 2.55,
+        "grain": 3.94,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0,
+        "trim_start": 0.016,
+        "overlay_shift": -0.004
+      },
+      "creative": "notta_problem",
+      "overlay": "this part. | every single time.",
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "tiktok": "Notta Problem – Close Quarters\nrun it back. you know the part.\n\nstream Notta Problem: link in bio",
+        "instagram": "Notta Problem – Close Quarters\nrun it back. you know the part.\n\nstream Notta Problem: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "d5cb5746-ede7-42a6-b85c-f4dc7a4ab360",
+      "scheduled_for": "2026-11-22T21:10:00-05:00",
+      "rendered_at": "2026-11-22T03:04:22.222515Z",
+      "video_url": "https://factory.nickbenak.com/v/render-closequarters-2026-11-22/d5cb5746-ede7-42a6-b85c-f4dc7a4ab360.mp4",
+      "caption": "Won't Be the Same Again – Close Quarters\nsend this to the bro you'd be moving with",
+      "title": "Won't Be the Same Again – Close Quarters",
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "music_wont_be_the_same_again_01.m4a",
+        "music_offset_sec": "210"
+      },
+      "treatment": {
+        "zoom": 0.0175,
+        "anchor_x": 0.558,
+        "anchor_y": 0.481,
+        "rotate_deg": 0.246,
+        "brightness": -0.0055,
+        "saturation": 0.9856,
+        "hue_deg": -2.13,
+        "grain": 4.63,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0,
+        "trim_start": 0.397,
+        "overlay_shift": -0.0056
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": "how me and bro start moving | when Won't Be the Same Again comes on",
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "tiktok": "Won't Be the Same Again – Close Quarters\nsend this to the bro you'd be moving with\n\nWon't Be the Same Again is out now. link in bio to stream it",
+        "instagram": "Won't Be the Same Again – Close Quarters\nsend this to the bro you'd be moving with\n\nWon't Be the Same Again is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
