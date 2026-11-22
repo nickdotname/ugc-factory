@@ -57,14 +57,18 @@ class Style:
     def hx(self, c): return '#%02x%02x%02x' % c
 
 class Clock:
+    """Time in beats, from the song's measured beat map (studio/beatmap.py): b0 and the length are in beats, and
+    beat(i) is the exact (fractional) beat at video frame i, so a scene choreographed in beats stays on the music
+    even where the band speeds up or slows down."""
     def __init__(self, slug, b0, beats):
-        s = json.load(open(os.path.join(audio.SONGS, slug, 'song.json')))
-        self.slug = slug; self.spb = 60 / s['tempo']; self.t0 = b0 * self.spb + s['offset_sec']; self.t1 = self.t0 + beats * self.spb; self.beats = beats
+        s = json.load(open(os.path.join(audio.SONGS, slug, 'song.json'))); self.song = s
+        self.slug = slug; self.spb = 60 / s['tempo']; self.b0 = b0; self.beats = beats
+        self.t0 = audio.time_of_beat(s, b0); self.t1 = audio.time_of_beat(s, b0 + beats)
         a = audio.load(slug, self.t0, self.t1); self.n = a['n']
         k = audio.hits(a['kicks'], self.n, 7.0); self.kick = np.convolve(k, [0.25, 0.5, 0.25], 'same')   # a touch softened: no one-frame pops
         self.snare = audio.hits(a['snares'], self.n, 10.0); self.bass = a['bass']
-        self.kick_beats = [f / FPS / self.spb for f in a['kicks']]; self.snare_beats = [f / FPS / self.spb for f in a['snares']]
-    def beat(self, i): return i / FPS / self.spb
+        self.kick_beats = [self.beat(f) for f in a['kicks']]; self.snare_beats = [self.beat(f) for f in a['snares']]
+    def beat(self, i): return audio.beat_of_time(self.song, self.t0 + i / FPS) - self.b0
 
 _FC = {}
 def F(path, size):

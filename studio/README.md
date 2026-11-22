@@ -48,7 +48,15 @@ the renderer: it is tried from the next night on, with nothing else to change.
 | `producer` | layout (stem lanes / mixing desk), wallpaper, colours, lyric typeface, glitch amounts |
 | `psy` | pattern (14, incl. oil light show, Julia set, spiral, moiré, smoke, cells), palette (11), speed, symmetry, mirror, feedback, strobe, motif, lyrics |
 | `liminal` | place (backrooms, pool, mall, hotel, office, car park, school), pace, tint, tape wear, PLAY/REC label, date stamp |
+| `glitch` | footage theme (water, nature, city, space, archive, mixed), treatment (datamosh, blob tracking, pixel sort, slit-scan, point cloud), accent (rgb drift, macroblocks, none), tone (natural, thermal, mono, duotone, xray, night), pace, REC label |
+| `physics` | scene (ring, shrinking square, escape rings, pendulum wave), hit source (drums, kick, bass, melody), palette, trail, opening line |
+| `ascii` | scene (ringed planet, Sisyphus and the boulder, jellyfish), letters (classic, dense, blocks), palette (the scene's own, sunset, reef, terminal, ember, ice, mono), layout (code panel, clean), sparks on the snare |
+| `earth` | scene (every satellite, every airliner, this month's earthquakes), palette (night, blueprint, ember, paper), spin, opening line (fact, question) |
 | `math` | topic (integral, Fourier series, derivative), theme (midnight, chalk, synth, mono, paper), typeface, background (grid, dots, none), shake strength, glow, step labels (pill, tag) |
+
+The `ascii` style (`ascii_video.py`) raymarches a scene from `asciiviz/` once per character cell and draws it in letters,
+with the scene's code scrolling underneath; add a scene by adding a module there (see `planet.py`) and its name to `SCENES`.
+Run one by hand with `CQ_WINDOW=33,51 python studio/ascii_video.py studio/songs/talk 7 out.mp4` (`--frames 30,200` for a sheet).
 
 The `math` style (Math In Time, `math_video.py`) is a short explainer choreographed in beats: eleven bars,
 whatever the song's tempo. Each topic is a scene in `mathviz/`; add a topic by adding a scene there and its name to
@@ -63,6 +71,8 @@ studio/songs/<song>/
   song.json          title, track number, key, where the project lines up with the master
   lines.json         the lyrics, word by word, with times in seconds into the master
   arrangement.json   tempo, tracks and MIDI notes from the Ableton project
+  project_hits.json  every hit in the arranged project (MIDI notes and audio-clip attacks), each track's role,
+                     and where the project sits in the master; physics videos take every collision from it
   queries.json       search terms for pictures, per lyric line
   media_keep.json    which fetched pictures were kept
   master.wav         NOT in git — the released master
@@ -72,6 +82,12 @@ studio/songs/<song>/
 ```
 
 - `arrangement.json` comes from `python studio/als_arrangement.py project.als`.
+- `project_hits.json`: `python studio/als_hits.py project.als hits.json` on the machine with the project folder
+  (it reads the audio files the clips play), then `python studio/project_sync.py <song> hits.json`, which lines the
+  project up with the stems (shift and speed, to a few ms) and names untitled tracks ("14-Audio") by which stem's
+  kicks, snares or notes their hits land on. Songs with one: Prologue (closelydian), Hair of the Dog
+  (closequarterselectronic), Fixation (closeclose), Talk (talktoyobitch), Full Ride (earl), Suspended
+  (closesssssssllose). The physics style only renders songs that have it.
 - `stems/` come from any four-stem separator run on the stretch of the master
   the video uses; `stems_start_sec` in `song.json` says where that stretch begins.
 - `offset_sec` is the one number that has to be right: a project beat `b` sounds

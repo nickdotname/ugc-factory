@@ -40,3 +40,19 @@ targets:
     style: math
     per_night: 4
     join: 40
+  - campaign: glitch_archive  # glitch.archive: public-domain footage, moshed / tracked / sorted on the beat (studio/footage.py for the clips)
+    style: glitch
+    per_night: 4
+    join: 30
+  - campaign: physics_sims  # satisfying physics sims: every collision lands on a hit from the song
+    style: physics
+    per_night: 4
+    join: 30
+  - campaign: ascii_art     # the ASCII account: 3D scenes drawn in letters, with their code (scene and look are knobs)
+    style: ascii
+    per_night: 3
+    join: 30
+  - campaign: earth_data    # the real planet on the beat: satellites, airliners, earthquakes (studio/earthdata.py fetches them daily)
+    style: earth
+    per_night: 4
+    join: 30
