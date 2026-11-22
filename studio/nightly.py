@@ -65,6 +65,7 @@ VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_vi
 # they use only stretches whose lyric timing passed (like band and producer), never the picture styles' free ones.
 LYRIC = {'type': 'type_video.py'}
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
+VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 # What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
