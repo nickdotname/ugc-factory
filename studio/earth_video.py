@@ -226,12 +226,26 @@ class Video:
         self.total = len(q)
         self.lat0, self.lon0 = self.r.choice([(10, 160), (0, -150), (5, 120), (-10, -80)])   # the Pacific's Ring of Fire
         self.highlight = {}
+        # the globe turns to face the strongest quakes as they strike: a few of them, at least two seconds apart
+        way = []
+        for f in sorted(self.big, key=lambda f: -self.qm[self.big[f]]):
+            if len(way) < 6 and all(abs(f - g) >= 2 * FPS for g, _, _ in way) and f > FPS:
+                lat, lon = np.degrees(np.arcsin(self.qU[self.big[f], 2])), np.degrees(np.arctan2(self.qU[self.big[f], 1], self.qU[self.big[f], 0]))
+                way.append((f, float(np.clip(lat, -35, 35)), float(lon)))
+        self.way = [(0, float(self.lat0), float(self.lon0))] + sorted(way)
 
     # ---------------------------------------------------------------- drawing
     def view(self, i):
         if self.scene == 'flights':                                                 # swing in and settle over the busy sky
             p = 0.5 - 0.5 * math.cos(math.pi * min(1, i / (self.n * 0.7)))
             lon0 = math.radians(self.lon0 - (1 - p) * (20 if self.spin == 'slow' else 40)); lat0 = math.radians(self.lat0 - (1 - p) * 10)
+        elif self.scene == 'quakes' and len(self.way) > 1:
+            k = max(j for j, w in enumerate(self.way) if w[0] <= i)
+            (fa, la, oa), (fb, lb, ob) = self.way[k], self.way[min(k + 1, len(self.way) - 1)]
+            p = 1.0 if fb <= fa else min(1.0, max(0.0, (i - fa) / max(1, fb - fa - 8)))
+            p = p * p * (3 - 2 * p); d = (ob - oa + 180) % 360 - 180               # the short way round
+            drift = (2.0 if self.spin == 'slow' else 5.0) * (i - fb) / FPS if k == len(self.way) - 1 else 0
+            lon0 = math.radians(oa + d * p + drift); lat0 = math.radians(la + (lb - la) * p)
         else:
             lon0 = math.radians(self.lon0 + (4.0 if self.spin == 'slow' else 11.0) * i / FPS); lat0 = math.radians(self.lat0)
         c = np.array([math.cos(lat0) * math.cos(lon0), math.cos(lat0) * math.sin(lon0), math.sin(lat0)])
@@ -330,8 +344,8 @@ class Video:
             near = [f for f in self.big if 0 <= i - f < FPS * 1.4]
             if near:
                 k = self.big[max(near)]
-                if vis[k]: labels.append((sx[k], sy[k], 'M%.1f' % self.qm[k]))
-                labels.append((None, None, 'M%.1f · %s' % (self.qm[k], self.qplace[k][:46])))
+                if vis[k]:                                                          # named only when it is on our side of the globe
+                    labels.append((sx[k], sy[k], 'M%.1f' % self.qm[k])); labels.append((None, None, 'M%.1f · %s' % (self.qm[k], self.qplace[k][:46])))
         self.globe(img, i, view, R, sun)
         self.trail *= 0.8; self.trail += layer * self.keep                      # crisp points now, a fainter streak behind them
         lit = layer + self.trail; glow = cv2.GaussianBlur(lit, (0, 0), 5)
