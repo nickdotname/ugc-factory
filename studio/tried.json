@@ -1,0 +1,130 @@
+[
+ {
+  "date": "2026-11-22",
+  "campaign": "cq_producer",
+  "account": "dylancantor23_ig",
+  "post": "igo-b33dd9dd-a460-46be-b2de-cf00b50918d7",
+  "song": "prologue",
+  "section": "s01",
+  "window": [
+   7.52,
+   23.87
+  ],
+  "seed": 373387,
+  "plan": {
+   "wall": "plasma",
+   "acc": [
+    47,
+    56,
+    84
+   ],
+   "pal": [
+    [
+     255,
+     190,
+     110
+    ],
+    [
+     255,
+     90,
+     110
+    ],
+    [
+     150,
+     160,
+     255
+    ],
+    [
+     120,
+     220,
+     255
+    ]
+   ],
+   "segs": [
+    [
+     7.87,
+     [
+      0,
+      110
+     ],
+     0,
+     [
+      "track",
+      "invert"
+     ]
+    ],
+    [
+     14.21,
+     [
+      3,
+      140
+     ],
+     1,
+     [
+      "track"
+     ]
+    ],
+    [
+     17.33,
+     [
+      null,
+      110
+     ],
+     2,
+     [
+      "track",
+      "invert",
+      "stamp"
+     ]
+    ],
+    [
+     18.71,
+     [
+      3,
+      110
+     ],
+     3,
+     [
+      "track"
+     ]
+    ],
+    [
+     20.11,
+     [
+      2,
+      84
+     ],
+     4,
+     [
+      "track"
+     ]
+    ],
+    [
+     22.35,
+     [
+      1,
+      110
+     ],
+     5,
+     [
+      "invert",
+      "stamp"
+     ]
+    ]
+   ],
+   "bg": [
+    8,
+    16,
+    18
+   ],
+   "punch": 0.015,
+   "scan": true,
+   "chroma": 2,
+   "hook": "sound on",
+   "hook_angle": "curious",
+   "hook_mode": "flash",
+   "faces": true,
+   "face_block": 8
+  }
+ }
+]
