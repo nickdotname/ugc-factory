@@ -31,6 +31,26 @@ it made. Keep it with the video. Attribution already ranks clips by file name,
 so a clip's recipe is what turns "this video did well" into "videos with
 pictures and the tiled background do well".
 
+## How it improves itself
+
+Every choice a renderer makes goes through `knobs.py` (`knobs.pick('wall', WALLS, rng)`),
+so each one is recorded with its whole menu in the recipe. Each night `learn.py`
+scores every option of every knob from the posts' numbers (completion, sends,
+views, saves, not skipped; recent posts count more), and `nightly.py` sets each
+new video's knobs by Thompson sampling: winners are chosen most, options with few
+posts still get tried, and an option that keeps losing after 8+ posts is retired.
+One video in five is left to chance. To add a look, add it to a knob's list in
+the renderer: it is tried from the next night on, with nothing else to change.
+
+| style | knobs |
+|---|---|
+| `band` | window style (Win95 / XP / Mac platinum), wallpaper (plasma, tiles, rings, gradient, stars, clouds, hills, equaliser), colour theme, lyric typeface, glitch amounts |
+| `producer` | layout (stem lanes / mixing desk), wallpaper, colours, lyric typeface, glitch amounts |
+| `psy` | pattern (14, incl. oil light show, Julia set, spiral, moiré, smoke, cells), palette (11), speed, symmetry, mirror, feedback, strobe, motif, lyrics |
+| `liminal` | place (backrooms, pool, mall, hotel, office, car park, school), pace, tint, tape wear, PLAY/REC label, date stamp |
+
+`LEARNED.md` lists every knob's options with their numbers, and what has been retired.
+
 ## A song directory
 
 ```

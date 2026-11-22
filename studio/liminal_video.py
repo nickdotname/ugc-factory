@@ -41,20 +41,31 @@ DRUM, BASS, VOX = env('Drums', .6), env('Bass', .9), env('Vocals', .85)
 hit = np.clip(np.diff(DRUM, prepend=0), 0, None); hit = hit / (hit.max() + 1e-9)
 
 # ---- the place -------------------------------------------------------------------------------
-PLACES = ['backrooms', 'backrooms', 'pool', 'mall', 'hotel']
-place = os.environ.get('CQ_PLACE') or rng.choice(PLACES)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import knobs as K
+PLACES = ['backrooms', 'backrooms', 'pool', 'mall', 'hotel', 'office', 'parking', 'school']
+if os.environ.get('CQ_PLACE'): K.FORCED.setdefault('place', os.environ['CQ_PLACE'])
+place = K.pick('place', PLACES, rng)
 P = dict(backrooms=dict(width=3.2, height=2.6, period=4.0, fog=(.42, .38, .22), fogd=.11, gap=(1.2, 2.6)),
          pool=dict(width=4.4, height=3.2, period=3.0, fog=(.62, .78, .80), fogd=.08, gap=(0.9, 2.4)),
          mall=dict(width=6.0, height=4.2, period=6.0, fog=(.55, .50, .52), fogd=.06, gap=(1.0, 4.5)),
-         hotel=dict(width=2.2, height=2.5, period=3.2, fog=(.10, .07, .05), fogd=.16, gap=(1.6, 2.4)))[place]
+         hotel=dict(width=2.2, height=2.5, period=3.2, fog=(.10, .07, .05), fogd=.16, gap=(1.6, 2.4)),
+         office=dict(width=2.6, height=2.7, period=3.6, fog=(.50, .52, .55), fogd=.10, gap=(1.4, 1.5)),
+         parking=dict(width=7.0, height=2.4, period=5.0, fog=(.40, .30, .16), fogd=.08, gap=(1.0, 2.4)),
+         school=dict(width=3.0, height=2.9, period=4.0, fog=(.55, .56, .50), fogd=.09, gap=(2.6, 2.3)))[place]
 WID, HEI, PER = P['width'], P['height'], P['period']
-laps = max(1, round((T1 - T0) * {'backrooms': .45, 'pool': .5, 'mall': .3, 'hotel': .55}[place] / PER * 2))   # whole repeats per clip
+pace = K.pick('pace', ['slow', 'walk', 'walk'], rng)
+laps = max(1, round((T1 - T0) * {'backrooms': .45, 'pool': .5, 'mall': .3, 'hotel': .55, 'office': .45, 'parking': .35, 'school': .5}[place] * (.55 if pace == 'slow' else 1) / PER * 2))   # whole repeats per clip
 SPEED = laps * PER / (N / FPS)
 year = rng.randint(1994, 2003); month = rng.randint(1, 12); day = rng.randint(1, 28)
 hour, minute = rng.choice([2, 3, 3, 4, 11, 1]), rng.randint(0, 59)
 side_bias = rng.uniform(-.25, .25)          # camera a little off centre
 look = rng.uniform(-.06, .06)               # and turned a little
 warm = rng.uniform(-.04, .04)
+tint = K.pick('tint', ['neutral', 'neutral', 'warm', 'cold', 'green'], rng)
+warm += {'neutral': 0, 'warm': .07, 'cold': -.07, 'green': 0}[tint]
+tape_wear = K.pick('tape', ['clean', 'worn', 'worn', 'chewed'], rng)
+label = K.pick('label', ['PLAY ▶', 'PLAY ▶', 'REC ●', 'none'], rng)
+stamp = K.pick('stamp', ['date', 'date', 'none'], rng)
 
 # camera rays, made once
 yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
@@ -62,7 +73,7 @@ fov = 1.15
 dx = (xx - w / 2) / (w / 2) * np.tan(fov / 2) * (w / h); dy = -(yy - h / 2) / (h / 2) * np.tan(fov / 2); dz = np.ones_like(dx)
 c, s = np.cos(look), np.sin(look); dx, dz = dx * c + dz * s, -dx * s + dz * c
 n = np.sqrt(dx * dx + dy * dy + dz * dz); dx, dy, dz = dx / n, dy / n, dz / n
-EYE = 1.55 if place != 'mall' else 1.7
+EYE = {'mall': 1.7, 'parking': 1.4}.get(place, 1.55)
 
 def noise2(u, v, k):
     """cheap value noise that tiles with the corridor"""
@@ -92,7 +103,7 @@ def texture(kind, px, py, pz, T, flick):
     fl, ce, wl = kind == 0, kind == 1, kind >= 2
     u_w = pz; v_w = py; u_f = px; v_f = pz
     zmod = pz % PER
-    door = wl & (zmod > P['gap'][0]) & (zmod < P['gap'][0] + 1.0) & (py < P['gap'][1]) if place in ('backrooms', 'hotel', 'mall') else np.zeros_like(wl)
+    door = wl & (zmod > P['gap'][0]) & (zmod < P['gap'][0] + 1.0) & (py < P['gap'][1]) if place in ('backrooms', 'hotel', 'mall', 'school') else np.zeros_like(wl)
     if place == 'backrooms':
         wall = np.array([.80, .70, .38]); stripe = (np.sin(u_w * 40) > .6) * .05 + (np.sin(u_w * 6 + v_w * 3) > .95) * .03
         out[wl] = (wall * (1 - stripe[..., None]))[wl]
@@ -122,6 +133,44 @@ def texture(kind, px, py, pz, T, flick):
         out[fl] = np.where(chk[..., None], [.86, .84, .82], [.42, .62, .60])[fl]
         out[ce] = np.where(((pz % PER) / PER > .3)[..., None] & (np.abs(px) < 2)[..., None], [1.45, 1.42, 1.35], [.78, .76, .74])[ce]
         door = np.zeros_like(wl)
+    elif place == 'office':                                                # a cubicle aisle: fabric partitions, grey carpet, a ceiling grid
+        part = py < 1.55
+        fabric = np.array([.40, .47, .60]) * (.9 + .1 * noise2(np.floor(u_w * 40), np.floor(v_w * 40), 2))[..., None]
+        trim = (np.abs(py - 1.55) < .04) | ((np.abs((pz % 1.8) - .9) < .03) & part)
+        out[wl] = np.where(part[..., None], fabric, np.array([.80, .80, .76]))[wl]
+        out[wl & trim] = [.30, .30, .32]
+        out[fl] = (np.array([.40, .42, .46]) * (.85 + .15 * noise2(np.floor(px * 25), np.floor(pz * 25), 3))[..., None])[fl]
+        tile = ((np.abs((px * 1.6) % 1 - .5) > .46) | (np.abs((pz * 1.6) % 1 - .5) > .46))
+        ceil = np.where(tile[..., None], [.55, .55, .55], [.88, .88, .86])
+        panel = (np.abs(px) < .5) & (np.abs(((pz % PER) / PER) - .5) > .40)
+        out[ce] = np.where(panel[..., None], [1.7, 1.7, 1.6], ceil)[ce]
+        door = np.zeros_like(wl)
+    elif place == 'parking':                                               # an underground car park under sodium lights
+        con = np.array([.55, .53, .50]) * (.85 + .15 * noise2(np.floor(u_w * 8), np.floor(v_w * 8), 4))[..., None]
+        pillar = (np.abs(zmod - PER / 2) < .35)
+        out[wl] = np.where(pillar[..., None], [.70, .68, .62], con)[wl]
+        out[wl & (py < .9) & pillar] = [.85, .70, .10]                      # yellow and black at bumper height
+        stripes = wl & (py < .9) & pillar & (np.sin((py + pz) * 14) > 0); out[stripes] = [.08, .08, .08]
+        flr = np.array([.36, .35, .34]) * (.85 + .15 * noise2(np.floor(px * 6), np.floor(pz * 6), 5))[..., None]
+        bay = (np.abs((pz % 2.6) - 1.3) < .05) & (np.abs(px) > 1.2); centre = (np.abs(px) < .06) & ((pz % 1.0) < .55)
+        out[fl] = np.where((bay | centre)[..., None], [.92, .85, .35], flr)[fl]
+        lamp = (np.abs(px) < .3) & (np.abs(((pz % PER) / PER) - .5) > .46)
+        out[ce] = np.where(lamp[..., None], [2.0, 1.4, .6], np.array([.42, .41, .40]))[ce]
+        door = np.zeros_like(wl)
+    elif place == 'school':                                                # a school corridor lined with lockers
+        lk = (py > .15) & (py < 1.95) & ~((zmod > P['gap'][0]) & (zmod < P['gap'][0] + 1.0))
+        col = np.array([[.18, .32, .62], [.62, .14, .14]])[(np.floor(pz / 16) % 2).astype(int)]
+        seam = (np.abs((pz * 2.6) % 1 - .5) > .46) | (np.abs(py - 1.0) < .02)
+        vent = (np.abs(py - 1.75) < .08) & (np.sin(py * 140) > .2)
+        out[wl] = np.where(lk[..., None], col * (1 - .55 * (seam | vent))[..., None], np.array([.86, .84, .76]))[wl]
+        out[wl & (py < .15)] = [.25, .22, .2]
+        chk = ((np.floor(px * 1.8) + np.floor(pz * 1.8)) % 2 == 0)
+        out[fl] = np.where(chk[..., None], [.84, .82, .74], [.30, .40, .35])[fl]
+        tile = ((np.abs((px * 1.6) % 1 - .5) > .46) | (np.abs((pz * 1.6) % 1 - .5) > .46))
+        panel = (np.abs(px) < .45) & (np.abs(((pz % PER) / PER) - .5) > .42)
+        out[ce] = np.where(panel[..., None], [1.6, 1.6, 1.5], np.where(tile[..., None], [.6, .6, .56], [.88, .87, .82]))[ce]
+        out[door] = [.45, .30, .18]
+        door = np.zeros_like(wl)
     else:  # hotel
         out[wl] = np.where((py < .9)[..., None], [.48, .36, .26], [.82, .74, .58])[wl]
         out[door] = [.30, .18, .10]
@@ -146,7 +195,7 @@ def frame(i):
     col = texture(kind, px, py, pz, T, flick) * light_at(pz, flick)[..., None] * hum
     fog = np.exp(-P['fogd'] * t)[..., None]
     col = col * fog + np.array(P['fog'], np.float32) * (1 - fog) * (.75 + .25 * hum)
-    col *= 1 + np.array([warm, 0, -warm], np.float32)
+    col *= 1 + np.array([warm, .05 if tint == 'green' else 0, -warm], np.float32)
     return np.clip(col, 0, 1.2)
 
 # ---- the tape --------------------------------------------------------------------------------
@@ -159,18 +208,19 @@ def _font(name, size):
             if os.path.exists(q): return ImageFont.truetype(q, size)
         return ImageFont.load_default()
 FMONO = _font('DejaVuSansMono-Bold.ttf', 58)
-plan = dict(place=place, laps=laps, year=year, hook='' if _cards.CARDS else _hook.pick('liminal', seed), lyrics=None)
+plan = dict(place=place, laps=laps, year=year, pace=pace, tint=tint, tape=tape_wear, label=label, stamp=stamp, hook='' if _cards.CARDS else _hook.pick('liminal', seed), lyrics=None)
 
 def tape(rgb, i):
     a = (np.clip(rgb, 0, 1) ** (1 / 1.1) * 255).astype(np.uint8)
     a = cv2.resize(a, (W // 2, H // 2), interpolation=cv2.INTER_LINEAR)
     a = cv2.GaussianBlur(a, (0, 0), 1.1)
-    b = a.astype(np.int16); sh = 3
+    b = a.astype(np.int16); sh, noise, roll = {'clean': (2, 4, .02), 'worn': (3, 7, .06), 'chewed': (5, 11, .16)}[tape_wear]
     b[:, sh:, 0] = a[:, :-sh, 0]; b[:, :-sh, 2] = a[:, sh:, 2]          # colour bleeding sideways
     r = np.random.default_rng(seed * 7 + i)
-    b += r.normal(0, 7, b.shape[:2])[..., None].astype(np.int16)
+    b += r.normal(0, noise, b.shape[:2])[..., None].astype(np.int16)
     b[::2] = (b[::2] * .9).astype(np.int16)                               # scanlines
-    if r.random() < .06:                                                  # a tracking line rolls through
+    if tape_wear == 'chewed' and r.random() < .05: b = np.roll(b, int(r.integers(-6, 7)), 0)   # the picture jumps
+    if r.random() < roll:                                                 # a tracking line rolls through
         y0 = r.integers(0, b.shape[0] - 12); b[y0:y0 + 10] = np.roll(b[y0:y0 + 10], r.integers(8, 30), 1) + 25
     yv, xv = np.ogrid[:b.shape[0], :b.shape[1]]
     vig = 1 - .45 * (((xv - b.shape[1] / 2) / (b.shape[1] / 2)) ** 2 + ((yv - b.shape[0] / 2) / (b.shape[0] / 2)) ** 2) / 2
@@ -178,9 +228,10 @@ def tape(rgb, i):
     a = cv2.resize(b, (W, H), interpolation=cv2.INTER_LINEAR)
     im = Image.fromarray(a); d = ImageDraw.Draw(im)
     secs = (i // FPS) % 60
-    d.text((70, 110), 'PLAY ▶', font=FMONO, fill=(240, 240, 240))
-    d.text((70, H - 230), '%s %02d %d' % (MON[month - 1], day, year), font=FMONO, fill=(240, 240, 240))
-    d.text((70, H - 160), '%s %d:%02d:%02d' % ('AM' if hour < 12 else 'PM', hour % 12 or 12, minute, secs), font=FMONO, fill=(240, 240, 240))
+    if label != 'none': d.text((70, 110), label, font=FMONO, fill=(240, 60, 50) if label.startswith('REC') and (i // 15) % 2 == 0 else (240, 240, 240))
+    if stamp != 'none':
+        d.text((70, H - 230), '%s %02d %d' % (MON[month - 1], day, year), font=FMONO, fill=(240, 240, 240))
+        d.text((70, H - 160), '%s %d:%02d:%02d' % ('AM' if hour < 12 else 'PM', hour % 12 or 12, minute, secs), font=FMONO, fill=(240, 240, 240))
     a = np.asarray(im)
     if _cards.CARDS: return _cards.draw(np.ascontiguousarray(a), i / FPS)
     return _hook.draw(a, plan['hook'], i / FPS, y=0.43)
@@ -211,5 +262,5 @@ for i in range(N): p.stdin.write(np.ascontiguousarray(finish(i)).tobytes())
 p.stdin.close(); p.wait(); os.remove(wav)
 if p.returncode: sys.exit('ffmpeg failed')
 os.replace(tmp, out)
-json.dump(dict(seed=seed, window=[T0, T1], song=os.path.basename(SONG_DIR), style='liminal', plan=plan), open(os.path.splitext(out)[0] + '.json', 'w'), indent=1)
+json.dump(dict(seed=seed, window=[T0, T1], song=os.path.basename(SONG_DIR), style='liminal', plan=plan, **K.record()), open(os.path.splitext(out)[0] + '.json', 'w'), indent=1)
 print(out)

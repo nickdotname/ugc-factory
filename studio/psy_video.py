@@ -42,14 +42,21 @@ hue_kick = np.cumsum(onset * (onset > .35)) * 0.07      # each real drum hit mov
 # ---- the plan this seed makes -----------------------------------------------------------
 PALS = {'acid': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, .33, .67)], 'sunset': [(.5, .5, .5), (.5, .5, .5), (1, 1, .5), (.8, .9, .3)],
         'ocean': [(.5, .5, .5), (.5, .5, .5), (1, .7, .4), (0, .15, .2)], 'neon': [(.5, .5, .5), (.5, .5, .5), (2, 1, 0), (.5, .2, .25)],
-        'candy': [(.8, .5, .4), (.2, .4, .2), (2, 1, 1), (0, .25, .25)], 'lava': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, .1, .2)]}
-plan = dict(field=os.environ.get('CQ_FIELD') or rng.choice(['kaleido', 'tunnel', 'marble', 'rings', 'cells', 'bryce', 'bryce', 'bryce']), sym=rng.choice([3, 4, 5, 6, 8, 12]),
-            pal=rng.choice(sorted(PALS)), feedback=rng.random() < .6, spin=rng.choice([-1, 1]) * rng.uniform(.03, .12),
-            warp=rng.uniform(.6, 1.6), mirror=rng.random() < .35, grain=rng.random() < .5, strobe=rng.random() < .3,
-            lyrics=(lambda pick: None if os.environ.get('CQ_LYRICS') == 'none' else pick)(rng.choice(['word', 'word', 'word', 'line', 'line', None])), ring=rng.random() < .5,
-            motif=rng.choice([None, None, 'poly', 'star', 'eye', 'cube']), contour=rng.random() < .55, poster=rng.random() < .3,
-            font=rng.choice(['Poppins-Bold.ttf', 'Poppins-Black.ttf', 'DejaVuSerif-Bold.ttf']), word_y=rng.choice([.5, .5, .72]),
-            scale=rng.uniform(2.2, 4.5), second=rng.choice([None, 'kaleido', 'rings', 'marble']), flip_at=rng.uniform(.4, .65))
+        'candy': [(.8, .5, .4), (.2, .4, .2), (2, 1, 1), (0, .25, .25)], 'lava': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, .1, .2)],
+        'gold': [(.55, .42, .2), (.45, .36, .22), (1, 1, 1), (0, .06, .16)], 'ice': [(.55, .65, .78), (.35, .32, .28), (1, 1, 1), (.52, .58, .66)],
+        'vapor': [(.66, .5, .74), (.34, .36, .26), (1, 1, 1), (.85, .15, .45)], 'toxic': [(.4, .6, .3), (.5, .5, .4), (1, 1, .5), (.6, .2, .8)],
+        'mono': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, 0, 0)]}
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import knobs as K
+FIELDS = ['kaleido', 'tunnel', 'marble', 'rings', 'cells', 'bryce', 'bryce', 'bryce', 'oil', 'julia', 'spiral', 'moire', 'warp', 'voronoi']
+if os.environ.get('CQ_FIELD'): K.FORCED.setdefault('field', os.environ['CQ_FIELD'])      # the old way of asking for one
+plan = dict(field=K.pick('field', FIELDS, rng), sym=K.pick('sym', [3, 4, 5, 6, 8, 12], rng),
+            pal=K.pick('pal', sorted(PALS), rng), feedback=K.flag('feedback', .6, rng), spin=rng.choice([-1, 1]) * rng.uniform(.03, .12),
+            warp=rng.uniform(.6, 1.6), mirror=K.flag('mirror', .35, rng), grain=K.flag('grain', .5, rng), strobe=K.flag('strobe', .3, rng),
+            lyrics=(lambda pick: None if os.environ.get('CQ_LYRICS') == 'none' else pick)(K.pick('lyrics', ['word', 'word', 'word', 'line', 'line', None], rng)), ring=K.flag('ring', .5, rng),
+            motif=K.pick('motif', [None, None, 'poly', 'star', 'eye', 'cube'], rng), contour=K.flag('contour', .55, rng), poster=K.flag('poster', .3, rng),
+            font=K.pick('font', ['Poppins-Bold.ttf', 'Poppins-Black.ttf', 'DejaVuSerif-Bold.ttf'], rng), word_y=K.pick('word_y', [.5, .5, .72], rng),
+            scale=rng.uniform(2.2, 4.5), second=K.pick('second', [None, 'kaleido', 'rings', 'marble', 'spiral', 'warp'], rng), flip_at=rng.uniform(.4, .65),
+            speed=K.pick('speed', [.6, 1.0, 1.0, 1.6], rng))
 if plan['field'] == 'bryce': plan.update(motif=None, ring=False, strobe=False, word_y=.5)      # the landscape is busy enough: words only
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
 plan['hook'] = _hook.pick('psy', seed)                       # the line shown for the first two seconds ('' = none)
@@ -60,7 +67,11 @@ def palette(t, name):
     a, b, c, d = [np.array(v, np.float32) for v in PALS[name]]
     return a + b * np.cos(6.28318 * (c * t[..., None] + d))
 
+BLOBS = np.random.default_rng(seed).uniform(-1, 1, (7, 4)).astype(np.float32)      # oil: where each blob drifts
+SITES = np.random.default_rng(seed + 1).uniform(-1, 1, (14, 4)).astype(np.float32)  # voronoi: the cells' centres
+
 def field(kind, T, i):
+    T = T * plan['speed']
     b, dr, vx, ot = BASS[i], DRUM[i], VOX[i], OTH[i]; sc = plan['scale'] * (1 - .22 * b)   # bass pushes in
     ang = A + T * plan['spin'] * 6.283 + .5 * vx * np.sin(R * 3 - T)                         # vocal bends it
     if kind == 'kaleido':
@@ -74,6 +85,36 @@ def field(kind, T, i):
     if kind == 'rings':
         s = plan['sym']; wob = np.sin(ang * s + T * 1.5) * (.15 + .5 * vx)
         return np.sin((R + wob * .2) * sc * 6 - T * 2.5 - b * 3)
+    if kind == 'oil':                                                                         # a 1960s liquid light show: blobs of dye that merge and part
+        pot = np.zeros_like(X)
+        for k, (ax, ay, fx_, fy_) in enumerate(BLOBS):
+            cx = .75 * np.sin(T * (.21 + .1 * fx_) + k * 1.7 + ax * 3); cy = 1.4 * np.sin(T * (.17 + .08 * fy_) + k * 2.3 + ay * 3)
+            rr = (.18 + .05 * (k % 3)) * (1 + .5 * b + .3 * vx)
+            pot += rr * rr / ((X - cx) ** 2 + (Y - cy) ** 2 + .02)
+        return np.sin(np.log(pot + 1e-3) * 2.2 - T * .6) * .7 + np.tanh(pot - 1.2) * .5
+    if kind == 'julia':                                                                       # a Julia set that the bass and vocal steer
+        z = (X + 1j * Y).astype(np.complex64) * (1.25 / (1 + .25 * b)) * np.exp(1j * T * plan['spin'] * 2)
+        c = np.complex64(.7885 * np.exp(1j * (T * .11 + .35 * vx + 2.0)))
+        n_ = np.zeros(X.shape, np.float32); alive = np.ones(X.shape, bool)
+        for _ in range(22):
+            z = np.where(alive, z * z + c, z); a2 = np.abs(z) < 4; n_ += a2; alive &= a2
+        return np.sin(n_ * .45 - T * 1.5) * .8 + (n_ / 22) * .4
+    if kind == 'spiral':                                                                      # a hypnotic log spiral, wound tighter by the bass
+        s = plan['sym']; return np.sin(s * ang + np.log(R) * sc * 2.2 - T * 3 - b * 2) * .7 + np.sin(R * sc * 2 - T) * .3
+    if kind == 'moire':                                                                       # two sets of rings sliding over each other
+        a1, a2 = .3 * np.sin(T * .3), .3 * np.cos(T * .23); k1 = sc * 9 * (1 + .1 * vx)
+        return np.sin(np.hypot(X - a1, Y - .6 + a2) * k1 - T * 2) * np.sin(np.hypot(X + a1, Y + .6 - a2) * k1 + T * 1.7 + b * 2)
+    if kind == 'warp':                                                                        # smoke: the picture folded into itself three times
+        u, v = X * sc * .7, Y * sc * .7
+        for k in range(3):
+            u, v = u + plan['warp'] * .55 * np.sin(v * 1.7 + T * (.25 + .1 * k) + k), v + plan['warp'] * .55 * np.cos(u * 1.3 - T * (.2 + .1 * k) + vx)
+        return np.sin(u * 1.3 + np.cos(v * 1.1 + T * .4)) * .6 + np.sin(v * .9 - T * .3 + b) * .4
+    if kind == 'voronoi':                                                                     # cells with bright seams, pushed about by the drums
+        d1 = np.full(X.shape, 9.0, np.float32); d2 = d1.copy()
+        for k, (ax, ay, fx_, fy_) in enumerate(SITES):
+            cx = ax * .9 + .15 * np.sin(T * (.3 + .2 * fx_) + k); cy = ay * 1.6 + .15 * np.cos(T * (.25 + .2 * fy_) + k)
+            d = np.hypot(X - cx, Y - cy); d2 = np.minimum(d2, np.maximum(d1, d)); d1 = np.minimum(d1, d)
+        return np.clip(1 - (d2 - d1) * (6 + 6 * dr), -1, 1) * .8 + np.sin(d1 * sc * 6 - T * 2) * .3
     u = X * sc + np.sin(T * .4); v = Y * sc + np.cos(T * .3)                                 # cells
     return np.sin(u * 2 + np.sin(v * 2 + T)) * np.cos(v * 2 + np.cos(u * 2 - T * .8)) + .3 * np.sin(R * sc * 4 - T * 2)
 
@@ -316,7 +357,7 @@ def finish(img, i):
     # The end only dips (never to black) so the loop back to frame one is a breath, not a blink.
     return a                       # no dip at the end either: the sound crossfades into its own start, so the video loops
 
-recipe = dict(song=SONG['slug'], style='psy', seed=seed, window=[T0, T1], plan=plan)
+recipe = dict(song=SONG['slug'], style='psy', seed=seed, window=[T0, T1], plan=plan, **K.record())
 if '--frames' in sys.argv:
     want = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]; prev = None; got = []
     for i in range(max(want) + 1):
