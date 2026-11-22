@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-11-22T22:38:13.583601Z",
+  "generated_at": "2026-11-22T23:29:15.269705Z",
   "items": [
     {
-      "id": "34603057-84c2-4cf0-9b35-f413182c5bad",
+      "id": "59c35511-262a-4cec-a354-2ea2868f54ba",
       "scheduled_for": "2026-11-22T19:10:00-05:00",
-      "rendered_at": "2026-11-22T22:38:13.583601Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-22/34603057-84c2-4cf0-9b35-f413182c5bad.mp4",
-      "caption": "tell me this doesn't sound like 2am in new york\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "rendered_at": "2026-11-22T23:29:15.269705Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-22/59c35511-262a-4cec-a354-2ea2868f54ba.mp4",
+      "caption": "this is what our album sounds like. EDUCATION, out now.\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.336,
-        "anchor_y": 0.25,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.632,
+        "anchor_y": 0.709,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -26,53 +26,43 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
-      "creative": "suspended",
+      "creative": "fixation",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4cb5c1ea-baa6-48e3-b2a0-7e17034f8077",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T19:10:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "tell me this doesn't sound like 2am in new york\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Suspended: link in bio"
+        "instagram": "this is what our album sounds like. EDUCATION, out now.\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Fixation: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "5daaecfc-6000-491f-8584-e91429eca16e",
-      "scheduled_for": "2026-11-22T20:20:00-05:00",
-      "rendered_at": "2026-11-22T22:38:13.583601Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-22/5daaecfc-6000-491f-8584-e91429eca16e.mp4",
-      "caption": "be honest 👇 skip or replay?\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "id": "0c3870e2-8235-4e51-a497-7fe0869f00b0",
+      "scheduled_for": "2026-11-22T20:50:00-05:00",
+      "rendered_at": "2026-11-22T23:29:15.269705Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-22/0c3870e2-8235-4e51-a497-7fe0869f00b0.mp4",
+      "caption": "we cut ourselves out of the living room and into the media player. who did it better? 👇\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
       "title": null,
       "parts": {
-        "hook": "hook_03.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.272,
-        "anchor_y": 0.256,
+        "anchor_x": 0.513,
+        "anchor_y": 0.381,
         "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
         "grain": 0.0,
@@ -84,25 +74,58 @@
       "creative": "fixation",
       "overlay": null,
       "accounts": null,
-      "lineup_id": "hot-take-first",
+      "lineup_id": "lofi-fixation-verse",
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-f25dce59-f86c-4b65-8b97-1054e339865f",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T20:20:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "be honest 👇 skip or replay?\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Fixation"
+        "instagram": "we cut ourselves out of the living room and into the media player. who did it better? 👇\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "99ee9a80-e83e-46f1-a8dd-67e685233516",
+      "scheduled_for": "2026-11-22T21:55:00-05:00",
+      "rendered_at": "2026-11-22T23:29:15.269705Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-22/99ee9a80-e83e-46f1-a8dd-67e685233516.mp4",
+      "caption": "chin up. who's got the better moves? 👇\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.507,
+        "anchor_y": 0.581,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": "lofi-wbtsa-verse",
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "chin up. who's got the better moves? 👇\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
