@@ -2,6 +2,7 @@ name: lofi-inbox
 
 # A drop box for hand-made close__quarters videos: whatever is pushed to inbox/cq_band-*/hooks/ on this branch is
 # checked, named and added to that song's cq_band library by `ugc ingest`, and the names it was given are printed.
+# Tars pushed to library/ are the dance-footage cut-outs studio/lofi_lib.py reads: they go to the lofi-library release.
 on:
   push:
     branches: [lofi-inbox]
@@ -40,3 +41,10 @@ jobs:
             python -m src.cli ingest --campaign cq_band --creative "$creative" --report "report-$creative.json"
             cat "report-$creative.json"; echo
           done
+      - name: Add the footage cut-outs to the lofi-library release
+        run: |
+          shopt -s nullglob
+          tars=(library/*.tar); [ ${#tars[@]} -gt 0 ] || exit 0
+          gh release view lofi-library >/dev/null 2>&1 || gh release create lofi-library --title "lofi-library" --notes "Dance-footage cut-outs for studio/lofi_video.py and studio/cursor_video.py (studio/lofi/index.json)."
+          gh release upload lofi-library "${tars[@]}" --clobber
+          gh release view lofi-library --json assets --jq '.assets[] | "\(.name) \(.size)"'
