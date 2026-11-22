@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "earth_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-22T16:55:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the planet, on the beat\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "earth_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the planet, on the beat\n🎧 Myth of Sisyphus – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Myth of Sisyphus: link in bio"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "earth_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "how many did you guess?\n🎧 Won't Be the Same Again – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
