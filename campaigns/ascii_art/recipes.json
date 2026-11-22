@@ -1,0 +1,99 @@
+{
+ "clips": {},
+ "menu": {
+  "ascii": {
+   "scene": [
+    "planet",
+    "boulder",
+    "jelly"
+   ],
+   "ramp": [
+    "blocks",
+    "classic",
+    "dense"
+   ],
+   "palette": [
+    "scene",
+    "ember",
+    "ice",
+    "mono",
+    "reef",
+    "sunset",
+    "terminal"
+   ],
+   "layout": [
+    "code",
+    "clean"
+   ],
+   "sparks": [
+    "0.5",
+    "1.0",
+    "1.6"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s07_ascii_138145.mp4",
+   "song": "talk",
+   "section": "s07",
+   "style": "ascii",
+   "seed": 138145,
+   "window": [
+    139.48,
+    159.69
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "boulder",
+    "ramp": "blocks",
+    "palette": "scene",
+    "layout": "code",
+    "sparks": "1.0",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.3,
+    "drums": 0.85,
+    "bass": 0.7,
+    "other": 0.55
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s04_ascii_351353.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "ascii",
+   "seed": 351353,
+   "window": [
+    72.44,
+    94.21
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "jelly",
+    "ramp": "classic",
+    "palette": "ice",
+    "layout": "clean",
+    "sparks": "1.6",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.67,
+    "bass": 0.49,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
