@@ -50,7 +50,7 @@ class Video:
         r = random.Random(seed)
         self.ramp_name = K.pick('ramp', sorted(RAMPS), r, weights=None)
         self.palette = K.pick('palette', ['scene'] + sorted(PALETTES), r)
-        self.layout = K.pick('layout', ['code', 'clean'], r)
+        self.layout = K.pick('layout', ['code', 'clean'], r, weights=[3, 1])   # the code under the art is the account's point: most videos show it
         self.sparks = float(K.pick('sparks', [0.5, 1.0, 1.6], r))
         self.SC = importlib.import_module(scene)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
