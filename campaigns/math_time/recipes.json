@@ -1,0 +1,176 @@
+{
+ "clips": {},
+ "menu": {
+  "math": {
+   "topic": [
+    "integral",
+    "fourier",
+    "derivative"
+   ],
+   "theme": [
+    "chalk",
+    "midnight",
+    "mono",
+    "paper",
+    "synth"
+   ],
+   "font": [
+    "inter",
+    "montserrat",
+    "poppins"
+   ],
+   "grid": [
+    "grid",
+    "dots",
+    "none"
+   ],
+   "shake": [
+    "0.6",
+    "1.0",
+    "1.3"
+   ],
+   "glow": [
+    "0.6",
+    "1.0"
+   ],
+   "chip": [
+    "pill",
+    "tag"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s06_math_800786.mp4",
+   "song": "suspended",
+   "section": "s06",
+   "style": "math",
+   "seed": 800786,
+   "window": [
+    108.16,
+    159.25
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "fourier",
+    "theme": "chalk",
+    "font": "montserrat",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.1,
+    "drums": 0.46,
+    "bass": 0.38,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s09_math_773486.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "math",
+   "seed": 773486,
+   "window": [
+    189.82,
+    209.24
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "integral",
+    "theme": "mono",
+    "font": "montserrat",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "1.0",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.67,
+    "bass": 0.51,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s02_math_715694.mp4",
+   "song": "full-ride",
+   "section": "s02",
+   "style": "math",
+   "seed": 715694,
+   "window": [
+    28.72,
+    51.91
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "derivative",
+    "theme": "midnight",
+    "font": "montserrat",
+    "grid": "dots",
+    "shake": "1.3",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.67,
+    "bass": 0.66,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06_math_998815.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06",
+   "style": "math",
+   "seed": 998815,
+   "window": [
+    149.34,
+    172.11
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "fourier",
+    "theme": "paper",
+    "font": "inter",
+    "grid": "grid",
+    "shake": "1.0",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.66,
+    "bass": 0.32,
+    "other": 0.54
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}

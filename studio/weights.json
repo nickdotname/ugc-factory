@@ -2,9 +2,9 @@
  "updated": "2026-11-22",
  "campaigns": {
   "cq_producer": {
-   "posts": 9,
-   "waiting": 5,
-   "typical_views": 46.0,
+   "posts": 10,
+   "waiting": 4,
+   "typical_views": 30.0,
    "weights": {
     "opening line": {
      "without": 1.0
@@ -25,30 +25,31 @@
      "talk/s02": 0.93,
      "prologue/s02": 0.98,
      "wont_be_the_same_again/s06": 1.02,
-     "full_ride/s02": 0.97
+     "full_ride/s02": 0.97,
+     "wont_be_the_same_again/s07": 1.0
     },
     "look": {
-     "grad": 1.06,
+     "grad": 1.04,
      "plasma": 0.95,
-     "rings": 1.02,
+     "rings": 1.03,
      "stars": 0.99
     },
     "palette": {
-     "#ffffff": 1.01,
-     "#ffbe6e": 0.93,
-     "#78ffaa": 1.07
+     "#ffffff": 1.0,
+     "#ffbe6e": 0.94,
+     "#78ffaa": 1.08
     },
     "length": {
-     "under 20s": 1.1,
+     "under 20s": 1.09,
      "20-35s": 0.93
     },
     "hour posted": {
-     "18:00": 1.06,
+     "18:00": 1.05,
      "21:00": 1.0,
      "10:00": 0.98,
-     "13:00": 1.07,
+     "13:00": 1.08,
      "14:00": 0.97,
-     "16:00": 0.93
+     "16:00": 0.94
     },
     "caption": {
      "Notta Problem \u2013 Close Quarters": 1.1,
@@ -61,8 +62,8 @@
    "stats": {
     "opening line": {
      "without": [
-      9,
-      8.67,
+      10,
+      9.64,
       0.499
      ]
     },
@@ -70,7 +71,7 @@
      "notta_problem": [
       2,
       1.91,
-      0.753
+      0.742
      ],
      "talk": [
       2,
@@ -80,17 +81,17 @@
      "hair_of_the_dog": [
       2,
       1.93,
-      0.477
+      0.479
      ],
      "prologue": [
       1,
       0.96,
-      0.406
+      0.417
      ],
      "wont_be_the_same_again": [
-      1,
-      0.97,
-      0.584
+      2,
+      1.94,
+      0.546
      ],
      "full_ride": [
       1,
@@ -102,132 +103,137 @@
      "notta_problem/verse 1, first half": [
       2,
       1.91,
-      0.753
+      0.742
      ],
      "talk/s01": [
       1,
       0.95,
-      0.519
+      0.517
      ],
      "hair_of_the_dog/s01": [
       1,
       0.96,
-      0.481
+      0.483
      ],
      "hair_of_the_dog/s02": [
       1,
       0.97,
-      0.472
+      0.475
      ],
      "talk/s02": [
       1,
       0.97,
-      0.181
+      0.183
      ],
      "prologue/s02": [
       1,
       0.96,
-      0.406
+      0.417
      ],
      "wont_be_the_same_again/s06": [
       1,
       0.97,
-      0.584
+      0.608
      ],
      "full_ride/s02": [
       1,
       0.97,
       0.35
+     ],
+     "wont_be_the_same_again/s07": [
+      1,
+      0.97,
+      0.483
      ]
     },
     "look": {
      "grad": [
-      1,
-      0.94,
-      0.744
+      2,
+      1.92,
+      0.598
      ],
      "plasma": [
       3,
       2.88,
-      0.392
+      0.393
      ],
      "rings": [
       3,
       2.9,
-      0.547
+      0.553
      ],
      "stars": [
       2,
       1.94,
-      0.467
+      0.479
      ]
     },
     "palette": {
      "#ffffff": [
-      4,
-      3.85,
-      0.51
+      5,
+      4.82,
+      0.5
      ],
      "#ffbe6e": [
       3,
       2.88,
-      0.367
+      0.371
      ],
      "#78ffaa": [
       2,
       1.94,
-      0.673
+      0.687
      ]
     },
     "length": {
      "under 20s": [
-      3,
-      2.88,
-      0.696
+      4,
+      3.85,
+      0.643
      ],
      "20-35s": [
       6,
       5.79,
-      0.401
+      0.404
      ]
     },
     "hour posted": {
      "18:00": [
       1,
       0.94,
-      0.744
+      0.717
      ],
      "21:00": [
       1,
       0.95,
-      0.519
+      0.517
      ],
      "10:00": [
       2,
       1.93,
-      0.444
+      0.45
      ],
      "13:00": [
       2,
       1.94,
-      0.673
+      0.687
      ],
      "14:00": [
       2,
       1.94,
-      0.411
+      0.413
      ],
      "16:00": [
-      1,
-      0.97,
-      0.181
+      2,
+      1.95,
+      0.333
      ]
     },
     "caption": {
      "Notta Problem \u2013 Close Quarters": [
       2,
       1.91,
-      0.753
+      0.742
      ],
      "Talk \u2013 Close Quarters": [
       2,
@@ -237,17 +243,17 @@
      "Hair of the Dog \u2013 Close Quarters": [
       2,
       1.93,
-      0.477
+      0.479
      ],
      "i produced this. here's every layer of it.": [
-      1,
-      0.96,
-      0.406
+      2,
+      1.94,
+      0.45
      ],
      "this is what a song looks like before it's a song": [
       2,
       1.94,
-      0.467
+      0.479
      ]
     }
    },
@@ -366,7 +372,7 @@
     "look": {
      "stars": [
       2,
-      1.94,
+      1.93,
       0.473
      ],
      "grad": [
