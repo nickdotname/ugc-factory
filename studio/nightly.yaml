@@ -20,7 +20,11 @@ targets:
     join: 50
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
-    per_night: 16
+    per_night: 12
+    join: 40
+  - campaign: psy_station   # psychedelic.station: the mirrored techno-temple collage (studio/collage_video.py), beside the visuals so the learner can compare
+    style: collage
+    per_night: 6
     join: 40
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
