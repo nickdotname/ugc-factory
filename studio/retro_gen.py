@@ -73,7 +73,8 @@ def plan(n, rng):
 
 def push(api, jobs, negative, hours, steps):
     batch = time.strftime('%Y%m%d-%H%M%S')
-    cfg = dict(batch=batch, hours=hours, steps=steps, frames=81, width=480, height=832, fps=16, guidance=5.0, negative=negative)
+    # 49 frames (3 s at 16 fps) is enough for a cut that lasts a bar or two, and costs about a third of 81 frames on a T4
+    cfg = dict(batch=batch, hours=hours, steps=steps, frames=49, width=480, height=832, fps=16, guidance=5.0, negative=negative)
     src = open(KERNEL).read()
     src = src.replace('JOBS = []', 'JOBS = ' + json.dumps(jobs), 1).replace('CFG = {}', 'CFG = ' + json.dumps(cfg), 1)
     d = tempfile.mkdtemp(); open(os.path.join(d, 'kernel.py'), 'w').write(src)
@@ -180,7 +181,7 @@ if __name__ == '__main__':
         except SystemExit: raise
         except Exception as exc: print('no earlier run (%s)' % str(exc)[:120])
         jobs, neg = plan(arg('--clips', 24), random.Random())
-        batch, ver = push(api, jobs, neg, hours, arg('--steps', 30))     # this version's status and output, never the last one's
+        batch, ver = push(api, jobs, neg, hours, arg('--steps', 25))     # this version's status and output, never the last one's
         time.sleep(30)
         st, msg = wait(api, ver, min(hours * 3600 + 2400, 5.6 * 3600))
         if st == 'TIMEOUT': sys.exit('still running on Kaggle; the next run collects it')

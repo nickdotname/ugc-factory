@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       clips:
-        description: how many 5-second clips to ask for
+        description: how many 3-second clips to ask for (about 8 an hour on the two T4s)
         required: false
-        default: "24"
+        default: "26"
       hours:
         description: GPU hours to spend at most (Kaggle gives about 30 a week)
         required: false
@@ -17,7 +17,7 @@ on:
       steps:
         description: denoising steps per clip (more is slower and cleaner)
         required: false
-        default: "30"
+        default: "25"
   schedule:
     - cron: '23 4 * * 1,4'
   push:
@@ -55,9 +55,9 @@ jobs:
       - name: Make clips on Kaggle and add them to the library
         run: |
           python studio/retro_gen.py run \
-            --clips "${{ github.event_name == 'push' && '2' || inputs.clips || '24' }}" \
+            --clips "${{ github.event_name == 'push' && '2' || inputs.clips || '26' }}" \
             --hours "${{ github.event_name == 'push' && '0.75' || inputs.hours || '3' }}" \
-            --steps "${{ inputs.steps || '30' }}"
+            --steps "${{ inputs.steps || '25' }}"
       - name: Record the library
         if: ${{ always() }}
         run: |
