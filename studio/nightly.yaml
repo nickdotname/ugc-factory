@@ -55,3 +55,7 @@ targets:
     style: earth
     per_night: 4
     join: 30
+  - campaign: retro_arcade  # retro.vibes.arcade: PS2-era game levels made on Kaggle (studio/retro_gen.py), cut on the bar
+    style: retro
+    per_night: 4
+    join: 30

@@ -72,6 +72,7 @@ EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 # an option with real results uses those instead. The ASCII account is about the code, so most videos show it.
 PRIOR = {'ascii': {'layout': {'code': [0, 3, 0.7], 'clean': [0, 3, 0.35]}}}
 sys.path.insert(0, HERE); import hook as _hook
+VISUAL['retro'] = 'retro_video.py'
 
 def thompson(options, stats, r, retired=()):
     """One option: each draws from Beta(1 + wins, 1 + losses), where a post's score (0..1) counts as that much of
