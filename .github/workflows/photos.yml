@@ -1,4 +1,4 @@
-# Fetch the photos the carousel specs name (Wikimedia Commons, free licences only) into studio/photos/,
+# Fetch the photos the carousel specs and the songs' pictures.json name (Wikimedia Commons, free licences only) into studio/photos/,
 # so posting never depends on Wikimedia answering GitHub's servers at that moment (it often refuses them).
 name: photos
 
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["studio/carousels/**"]
+    paths: ["studio/carousels/**", "studio/songs/*/pictures.json"]
   schedule:
     - cron: "17 11 * * *"
 
@@ -20,7 +20,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

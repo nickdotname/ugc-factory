@@ -46,7 +46,7 @@ accounts:
   names: [nickdotname_ig, nickdotname_tt]
 
 posting:
-  posts_per_day: 8              # one every three hours, around the clock
+  posts_per_day: 6              # every four hours; nick_studio adds three lyric videos a day on Instagram
   start_hour: 0
   end_hour: 0
   max_buffer_queue: 10

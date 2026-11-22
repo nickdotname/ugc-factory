@@ -185,7 +185,7 @@ for t in cfg['targets']:
     # fewest videos first, but a song or section that gets watched counts as having fewer (so it gets more), and vice versa
     rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0)))
     have = len(rec.get('nightly', []))                       # what the current libraries hold
-    want = a.count or max(t['per_night'], min(cfg.get('first_fill_cap', 16), cfg.get('first_fill', 0) - have) if t['style'] not in VISUAL else t['per_night'])
+    want = a.count or max(t['per_night'], min(cfg.get('first_fill_cap', 16), t.get('first_fill', cfg.get('first_fill', 0)) - have) if t['style'] not in VISUAL else t['per_night'])
     picked, per_song = [], {}
     for lap in range(1, 6):                                   # go round the songs so one night is not all one track
         for c in cands:
