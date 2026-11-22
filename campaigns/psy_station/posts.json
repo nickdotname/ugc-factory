@@ -8,19 +8,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 7.0,
+          "value": 106.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 0.0,
+          "value": 74.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 1.0,
+          "value": 4.0,
           "unit": "count"
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "shares",
           "name": "Shares",
-          "value": 0.0,
+          "value": 2.0,
           "unit": "count"
         },
         {
@@ -44,13 +44,25 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 0.0,
+          "value": 5.2780000000000005,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 0.0,
+          "value": 7.125466666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 77.5,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 2.0,
           "unit": "count"
         }
       ],
@@ -60,7 +72,44 @@
       "post_id": "igo-edc7e219-b029-437b-8d3a-4f9d6533fe87",
       "service": "instagram",
       "sent_at": "2026-11-21T04:49:58.811261Z",
-      "metrics": [],
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 63.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 15.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 6.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 15.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 3.0,
+          "unit": "count"
+        }
+      ],
       "account": "psychedelic_station_ig"
     },
     "igo-4cf026ad-9be6-4855-ba97-8e59091d49af": {
@@ -71,13 +120,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 57.0,
+          "value": 78.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 48.0,
+          "value": 66.0,
           "unit": "count"
         },
         {
@@ -107,13 +156,1537 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.98,
+          "value": 4.1850000000000005,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 4.150766666666667,
+          "value": 4.953166666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 88.2,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 2.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-7b054549-cb01-4888-98cb-6814ced3262e": {
+      "post_id": "igo-7b054549-cb01-4888-98cb-6814ced3262e",
+      "service": "instagram",
+      "sent_at": "2026-11-22T14:17:56.029185Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 13.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-776b6a98-54d7-44ef-8f7a-bf6862391aec": {
+      "post_id": "igo-776b6a98-54d7-44ef-8f7a-bf6862391aec",
+      "service": "instagram",
+      "sent_at": "2026-11-22T03:31:18.855961Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 12.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 6.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.844,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.5844,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 83.3,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-8ed1be0f-79a0-476a-b615-bf7461cf71a6": {
+      "post_id": "igo-8ed1be0f-79a0-476a-b615-bf7461cf71a6",
+      "service": "instagram",
+      "sent_at": "2026-11-22T03:06:09.270043Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 30.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 8.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 2.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-99ee64ba-6fa4-48d6-9750-63c8a910ef1f": {
+      "post_id": "igo-99ee64ba-6fa4-48d6-9750-63c8a910ef1f",
+      "service": "instagram",
+      "sent_at": "2026-11-22T02:46:17.988896Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 136.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 108.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.248,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 7.85885,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 71.8,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 1.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-b116ee0e-de22-46cc-bdc2-d84ae5100be1": {
+      "post_id": "igo-b116ee0e-de22-46cc-bdc2-d84ae5100be1",
+      "service": "instagram",
+      "sent_at": "2026-11-22T02:16:35.390093Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 13.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 5.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 6.68,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.8907,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 57.1,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-0b14ecb3-f110-4587-96db-7a04eb533739": {
+      "post_id": "igo-0b14ecb3-f110-4587-96db-7a04eb533739",
+      "service": "instagram",
+      "sent_at": "2026-11-22T02:01:36.691154Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 109.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 98.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.126,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.472766666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 88.8,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-58cd67d6-0c7d-4c09-8d38-d5ca3d01963d": {
+      "post_id": "igo-58cd67d6-0c7d-4c09-8d38-d5ca3d01963d",
+      "service": "instagram",
+      "sent_at": "2026-11-22T01:50:37.027796Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 131.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 79.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.998,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 6.831116666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 65.9,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-9505c348-ece3-4f55-b2ff-0bf0f0d6e820": {
+      "post_id": "igo-9505c348-ece3-4f55-b2ff-0bf0f0d6e820",
+      "service": "instagram",
+      "sent_at": "2026-11-22T01:18:05.860142Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 33.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 7.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-6c90a6b5-74b8-449f-adee-6d845928c4c3": {
+      "post_id": "igo-6c90a6b5-74b8-449f-adee-6d845928c4c3",
+      "service": "instagram",
+      "sent_at": "2026-11-22T01:01:25.324416Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 59.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 52.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.173,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 1.9196166666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 84.6,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-1c94ad9f-97fd-45e9-86f5-89577ac1e865": {
+      "post_id": "igo-1c94ad9f-97fd-45e9-86f5-89577ac1e865",
+      "service": "instagram",
+      "sent_at": "2026-11-22T00:01:33.591910Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 33.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 24.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 6.93,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.0031166666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 68.0,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 1.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-05dacf13-15a1-44d1-b18c-f3fccb4f6b3e": {
+      "post_id": "igo-05dacf13-15a1-44d1-b18c-f3fccb4f6b3e",
+      "service": "instagram",
+      "sent_at": "2026-11-21T23:46:19.010907Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 8.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 5.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.024,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.40248333333333336,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 60.0,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-32eaaccc-eb0a-4781-83fa-10104cf079d5": {
+      "post_id": "igo-32eaaccc-eb0a-4781-83fa-10104cf079d5",
+      "service": "instagram",
+      "sent_at": "2026-11-21T23:16:26.868174Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 38.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 30.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.025,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 1.5630833333333334,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 86.7,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-2fa14572-3183-420a-89b8-d0e35f6b0413": {
+      "post_id": "igo-2fa14572-3183-420a-89b8-d0e35f6b0413",
+      "service": "instagram",
+      "sent_at": "2026-11-21T22:49:37.091711Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 150.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 122.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 6.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 7.316,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 15.608466666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 40.5,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 1.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-d410ca31-549a-4cb6-ba13-a00ee0ee2b80": {
+      "post_id": "igo-d410ca31-549a-4cb6-ba13-a00ee0ee2b80",
+      "service": "instagram",
+      "sent_at": "2026-11-21T22:31:23.511241Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 17.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 9.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 7.29,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 1.2151166666666666,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 66.7,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-7a516af9-efe5-49d1-88a4-59dfbc78e372": {
+      "post_id": "igo-7a516af9-efe5-49d1-88a4-59dfbc78e372",
+      "service": "instagram",
+      "sent_at": "2026-11-21T21:31:18.599791Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 107.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 87.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 6.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.7030000000000003,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 5.432066666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 76.1,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-cabef2fe-4b31-4d71-9259-421d24352748": {
+      "post_id": "igo-cabef2fe-4b31-4d71-9259-421d24352748",
+      "service": "instagram",
+      "sent_at": "2026-11-21T21:19:41.066309Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 49.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 11.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 5.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 2.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-9e31dfc4-fd64-4c01-b47d-4af235420504": {
+      "post_id": "igo-9e31dfc4-fd64-4c01-b47d-4af235420504",
+      "service": "instagram",
+      "sent_at": "2026-11-21T19:16:27.148821Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 42.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 32.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.182,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 1.8033000000000001,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 84.8,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 1.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-272e0fb2-f1b5-437b-a443-f6f9516337e0": {
+      "post_id": "igo-272e0fb2-f1b5-437b-a443-f6f9516337e0",
+      "service": "instagram",
+      "sent_at": "2026-11-21T19:01:38.821805Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 17.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 10.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 6.566,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 1.2039166666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 60.0,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-17c035ac-16aa-471a-84e1-f193e2b7509d": {
+      "post_id": "igo-17c035ac-16aa-471a-84e1-f193e2b7509d",
+      "service": "instagram",
+      "sent_at": "2026-11-21T18:44:25.089051Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 153.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 128.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 6.942,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 15.272950000000002,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 45.8,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 1.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-3d6dd7d9-eef6-4324-8398-36de9779ac42": {
+      "post_id": "igo-3d6dd7d9-eef6-4324-8398-36de9779ac42",
+      "service": "instagram",
+      "sent_at": "2026-11-21T18:17:55.926178Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 13.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 7.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.744,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.7116833333333333,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 71.4,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-4d168b6f-3f45-4581-844b-20a6e2ab1080": {
+      "post_id": "igo-4d168b6f-3f45-4581-844b-20a6e2ab1080",
+      "service": "instagram",
+      "sent_at": "2026-11-21T17:59:26.679773Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 60.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 52.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.63,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.2072166666666666,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 80.4,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 1.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-0c1b9cf8-715b-4348-a17b-66acb183fb6a": {
+      "post_id": "igo-0c1b9cf8-715b-4348-a17b-66acb183fb6a",
+      "service": "instagram",
+      "sent_at": "2026-11-21T16:46:20.101207Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 40.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 29.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.38,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 2.2634000000000003,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 73.3,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-21e1276a-7488-4458-aeab-a1e123829f29": {
+      "post_id": "igo-21e1276a-7488-4458-aeab-a1e123829f29",
+      "service": "instagram",
+      "sent_at": "2026-11-21T16:16:57.655456Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 49.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 9.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1.0,
+          "unit": "count"
+        }
+      ],
+      "account": "psychedelic_station_ig"
+    },
+    "igo-b12f545e-2d67-49d4-97a6-16655a31cd73": {
+      "post_id": "igo-b12f545e-2d67-49d4-97a6-16655a31cd73",
+      "service": "instagram",
+      "sent_at": "2026-11-21T15:32:40.850580Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 57.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 43.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 3.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.258,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 3.2645500000000003,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 75.0,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
           "unit": "count"
         }
       ],
