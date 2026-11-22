@@ -1,19 +1,108 @@
 {
- "updated": "2026-11-21",
+ "updated": "2026-11-22",
  "campaigns": {
   "cq_producer": {
-   "posts": 0,
-   "typical_views": 0,
-   "weights": {}
+   "posts": 2,
+   "waiting": 1,
+   "typical_views": 145.5,
+   "weights": {
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "notta_problem": 1.05,
+     "talk": 0.95
+    },
+    "section": {
+     "notta_problem/verse 1, first half": 1.05,
+     "talk/s01": 0.95
+    },
+    "look": {
+     "grad": 1.05,
+     "plasma": 0.95
+    },
+    "palette": {
+     "#ffffff": 1.05,
+     "#ffbe6e": 0.95
+    },
+    "length": {
+     "under 20s": 1.05,
+     "20-35s": 0.95
+    },
+    "hour posted": {
+     "18:00": 1.05,
+     "21:00": 0.95
+    },
+    "caption": {
+     "Notta Problem \u2013 Close Quarters": 1.05,
+     "Talk \u2013 Close Quarters": 0.95
+    }
+   }
   },
   "cq_band": {
-   "posts": 0,
-   "typical_views": 0,
-   "weights": {}
+   "posts": 1,
+   "waiting": 1,
+   "typical_views": 152.0,
+   "weights": {
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "fixation": 1.0
+    },
+    "section": {
+     "fixation/s03-s04": 1.0
+    },
+    "look": {
+     "rings": 1.0
+    },
+    "length": {
+     "20-35s": 1.0
+    },
+    "hour posted": {
+     "22:00": 1.0
+    },
+    "caption": {
+     "Fixation \u2013 Close Quarters": 1.0
+    }
+   }
   },
   "psy_station": {
+   "posts": 1,
+   "waiting": 1,
+   "typical_views": 57.0,
+   "weights": {
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "prologue": 1.0
+    },
+    "section": {
+     "prologue/s02": 1.0
+    },
+    "look": {
+     "kaleido": 1.0
+    },
+    "lyrics": {
+     "word": 1.0
+    },
+    "palette": {
+     "ocean": 1.0
+    },
+    "length": {
+     "20-35s": 1.0
+    },
+    "hour posted": {
+     "23:00": 1.0
+    },
+    "caption": {
+     "every colour change is a drum hit": 1.0
+    }
+   }
+  },
+  "nostalgia": {
    "posts": 0,
-   "typical_views": 0,
    "weights": {}
   }
  }
