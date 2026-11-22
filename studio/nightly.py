@@ -67,6 +67,9 @@ LYRIC = {'type': 'type_video.py'}
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
+# What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
+# an option with real results uses those instead. The ASCII account is about the code, so most videos show it.
+PRIOR = {'ascii': {'layout': {'code': [0, 3, 0.7], 'clean': [0, 3, 0.35]}}}
 sys.path.insert(0, HERE); import hook as _hook
 
 def thompson(options, stats, r, retired=()):
@@ -85,7 +88,8 @@ def choose(style, menu, learned, seed):
     r = random.Random(seed * 2654435761 % 2 ** 32)
     if r.random() < EXPLORE: return {}, {}, 'free'
     st, ret = learned.get('stats') or {}, learned.get('retired') or {}
-    kn = {name: thompson(opts, st.get('knob:' + name) or {}, r, ret.get('knob:' + name) or ()) for name, opts in sorted(menu.items()) if len(opts) > 1}
+    kn = {name: thompson(opts, dict(PRIOR.get(style, {}).get(name, {}), **(st.get('knob:' + name) or {})), r, ret.get('knob:' + name) or ())
+          for name, opts in sorted(menu.items()) if len(opts) > 1}
     env = {}
     if style in _hook.ANGLES:                                   # the opening line: which angle (or none), and flashed or held
         ang = thompson(sorted(_hook.ANGLES[style]) + ['none'], st.get('hook angle') or {}, r, ret.get('hook angle') or ())
