@@ -453,9 +453,23 @@ class Selector:
         recent: dict[str, list[HistoryEntry]] = {name: [] for name in names}
         batch_hashes: dict[str, set[str]] = {name: set() for name in names}
         picks: list[tuple[str, SelectionOutcome]] = []
+        # A creative whose every distinct visual is already in this batch sits out
+        # while another still has one unused: with one clip per song, a weighted
+        # draw would otherwise put the same video on the account twice in a day,
+        # differing only by caption. When every creative is used up, the plain
+        # weights apply again.
+        visuals = {
+            name: pools[name][0].distinct_visuals(bodies_per_video, bodies_max)
+            for name in names
+        }
+        used = {name: 0 for name in names}
 
         for _ in range(count):
-            name = self._rng.weighted_choice(names, w)
+            fresh = tuple(
+                wi if used[n] < visuals[n] else 0.0 for n, wi in zip(names, w)
+            )
+            name = self._rng.weighted_choice(names, fresh if any(fresh) else w)
+            used[name] += 1
             library, history = pools[name]
             outcome = self.select_one(
                 library, history, bodies_per_video,

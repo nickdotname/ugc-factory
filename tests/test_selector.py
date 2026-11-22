@@ -751,6 +751,31 @@ class TestSelectBatchMulti:
             assert set(selection.bodies) <= set(pool.bodies)
             assert not set(selection.bodies) & set(other.bodies)
 
+    def test_a_single_clip_creative_is_not_picked_twice_while_others_wait(self) -> None:
+        """One video per song (the studio styles): three posts in a batch must be
+        three different videos, not the same clip with two captions."""
+        pools = {
+            name: (
+                AssetLibrary(
+                    hooks=(f"{name}_hook.mp4",), bodies=(), music=(),
+                    captions=tuple(f"{name} caption {i}" for i in range(10)),
+                    bodies_required=False,
+                ),
+                History(),
+            )
+            for name in ("suspended", "fixation", "full_ride", "myth")
+        }
+        for seed in range(25):
+            sel = make_selector(seed=seed, hook_cooldown_days=0, caption_cooldown_days=0)
+            picks = sel.select_batch_multi(
+                pools, {"suspended": 5.0, "fixation": 1.0, "full_ride": 1.0, "myth": 1.0}, 3, 0
+            )
+            assert len({name for name, _ in picks}) == 3, seed
+        # more slots than videos: every video once before any repeats
+        sel = make_selector(seed=1, hook_cooldown_days=0, caption_cooldown_days=0)
+        picks = sel.select_batch_multi(pools, {n: 1.0 for n in pools}, 6, 0)
+        assert len({name for name, _ in picks[:4]}) == 4
+
     def test_one_creatives_exhausted_history_does_not_touch_another(self) -> None:
         """The whole point of separate pools: A being tapped out cannot cool
         down or relax B, even when their filenames are identical."""

@@ -58,7 +58,7 @@ posting:
 video:
   width: 1080
   height: 1920
-  fps: 30
+  fps: 60                      # the sims are drawn at 60 (studio/physics_video.py): collisions land within 8 ms
   crf: 21
   preset: veryfast
   min_duration_sec: 5
