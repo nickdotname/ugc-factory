@@ -1,0 +1,148 @@
+{
+ "clips": {},
+ "menu": {
+  "earth": {
+   "scene": [
+    "satellites",
+    "flights",
+    "quakes"
+   ],
+   "palette": [
+    "blueprint",
+    "ember",
+    "night",
+    "paper"
+   ],
+   "spin": [
+    "slow",
+    "fast"
+   ],
+   "hook": [
+    "fact",
+    "question"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s05_earth_999976.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s05",
+   "style": "earth",
+   "seed": 999976,
+   "window": [
+    127.0,
+    149.81
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "quakes",
+    "palette": "blueprint",
+    "spin": "fast",
+    "hook": "question",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.54,
+    "drums": 0.8,
+    "bass": 0.15,
+    "other": 0.46
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s02_earth_433518.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "earth",
+   "seed": 433518,
+   "window": [
+    27.33,
+    44.78
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "satellites",
+    "palette": "paper",
+    "spin": "fast",
+    "hook": "question",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.03,
+    "drums": 0.06,
+    "bass": 0.37,
+    "other": 0.24
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s02_earth_276339.mp4",
+   "song": "talk",
+   "section": "s02",
+   "style": "earth",
+   "seed": 276339,
+   "window": [
+    55.45,
+    61.35
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "flights",
+    "palette": "ember",
+    "spin": "fast",
+    "hook": "fact",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.91,
+    "drums": 0.84,
+    "bass": 0.79,
+    "other": 0.37
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_earth_69740.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "earth",
+   "seed": 69740,
+   "window": [
+    42.02,
+    65.37
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "satellites",
+    "palette": "night",
+    "spin": "fast",
+    "hook": "fact",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.4,
+    "bass": 0.83,
+    "other": 0.64
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
