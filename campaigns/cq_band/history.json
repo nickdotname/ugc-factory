@@ -748,8 +748,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-e02515b7-d53e-43b0-baf7-b2500bab9a52",
+      "post_ids": {
+        "close_quarters_ig": "igo-e02515b7-d53e-43b0-baf7-b2500bab9a52"
+      },
       "overlay": null,
       "lineup_id": "lofi-fixation-verse",
       "variants": {}
