@@ -191,7 +191,7 @@ def resolve(specs):
                 qs[key] = pick or ''
                 if pick: used.add(pick); made += 1
                 json.dump(qs, open(QUERIES, 'w'), indent=1, ensure_ascii=False, sort_keys=True)
-                time.sleep(1.5)
+                time.sleep(1.0)
     print('resolved %d searches' % made)
 
 
