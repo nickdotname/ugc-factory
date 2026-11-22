@@ -38,9 +38,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-f52f754c-287d-4789-93a5-f59c3feb739f",
           "last_error": null,
           "scheduled_for": "2026-11-22T15:50:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "send this to someone who writes code\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
