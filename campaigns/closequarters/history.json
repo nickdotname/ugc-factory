@@ -1847,8 +1847,10 @@
         "trim_start": 0.268,
         "overlay_shift": -0.0003
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "6b031b44d5eabfb8ccc276c7",
+      "post_ids": {
+        "nickdotname_ig": "6b031b44d5eabfb8ccc276c7"
+      },
       "overlay": "me waiting for my friend | to get to the good part",
       "lineup_id": null,
       "variants": {}
