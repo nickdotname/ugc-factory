@@ -1,0 +1,18 @@
+# Hand-picked posts, each posted exactly as written, once (src/lineup.py).
+# Anything not listed here is filled by the randomizer.
+posts:
+  # The first paper-fold and Riemann videos, out tonight instead of waiting their turn.
+  - id: fold-first
+    creative: full_ride
+    hook: hook_02.mp4
+    caption: |
+      fold a sheet of paper 42 times and it reaches the moon. watch it happen
+      🎧 Full Ride – @close__quarters #math #exponential #mathfacts #learnmath #mathisfun
+    at: 2026-11-22 20:45
+  - id: riemann-first
+    creative: suspended
+    hook: hook_03.mp4
+    caption: |
+      the riemann hypothesis, moving to the music. every zero found so far sits on one line
+      🎧 Suspended – @close__quarters #math #riemannhypothesis #mathematics #learnmath #mathisfun
+    at: 2026-11-22 22:10
