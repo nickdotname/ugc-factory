@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-11-21T12:49:36.243511Z",
+  "generated_at": "2026-11-22T12:42:19.660368Z",
   "items": [
     {
-      "id": "d640d183-2fb8-40a8-a36a-a05bdf7fd7fe",
-      "scheduled_for": "2026-11-21T09:30:00-05:00",
-      "rendered_at": "2026-11-21T12:49:36.243511Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/d640d183-2fb8-40a8-a36a-a05bdf7fd7fe.mp4",
-      "caption": "i produced this. here's every layer of it.\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "da7937fd-8336-49e6-8d3e-7bf72f7a2c71",
+      "scheduled_for": "2026-11-22T09:30:00-05:00",
+      "rendered_at": "2026-11-22T12:42:19.660368Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-22/da7937fd-8336-49e6-8d3e-7bf72f7a2c71.mp4",
+      "caption": "sound on. this is the song pulled apart\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.27,
-        "anchor_y": 0.701,
+        "anchor_x": 0.417,
+        "anchor_y": 0.25,
         "rotate_deg": 0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -34,43 +34,76 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-aebc435f-23cf-4b10-a3a2-2ea38f70060f",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T09:30:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "i produced this. here's every layer of it.\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nPrologue: Before is out now. link in bio to stream it"
+        "instagram": "sound on. this is the song pulled apart\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "cf87bc66-d8f7-4e17-9eb7-f76794cee6ed",
-      "scheduled_for": "2026-11-21T11:50:00-05:00",
-      "rendered_at": "2026-11-21T12:49:36.243511Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/cf87bc66-d8f7-4e17-9eb7-f76794cee6ed.mp4",
-      "caption": "this is what a song looks like before it's a song\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "a3b07f78-a659-44e5-98b9-1dded804fbf7",
+      "scheduled_for": "2026-11-22T11:50:00-05:00",
+      "rendered_at": "2026-11-22T12:42:19.660368Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-22/a3b07f78-a659-44e5-98b9-1dded804fbf7.mp4",
+      "caption": "sound on. this is the song pulled apart\nMyth of Sisyphus – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_03.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.711,
-        "anchor_y": 0.438,
+        "anchor_x": 0.47,
+        "anchor_y": 0.562,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "myth_of_sisyphus",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "sound on. this is the song pulled apart\nMyth of Sisyphus – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Myth of Sisyphus"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "5ecfd788-c280-499c-a78d-8caf3e7b6958",
+      "scheduled_for": "2026-11-22T14:10:00-05:00",
+      "rendered_at": "2026-11-22T12:42:19.660368Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-22/5ecfd788-c280-499c-a78d-8caf3e7b6958.mp4",
+      "caption": "hear it first. then watch what it is made of\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.67,
+        "anchor_y": 0.283,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
@@ -81,38 +114,28 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-c63fd057-2e56-4573-b018-824cf97eac3b",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T11:50:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "this is what a song looks like before it's a song\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Won't Be the Same Again"
+        "instagram": "hear it first. then watch what it is made of\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "2466287b-1d04-450a-aa7b-1604bb1220c5",
-      "scheduled_for": "2026-11-21T14:10:00-05:00",
-      "rendered_at": "2026-11-21T12:49:36.243511Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/2466287b-1d04-450a-aa7b-1604bb1220c5.mp4",
-      "caption": "this is what a song looks like before it's a song\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "328cbdd6-6b4a-49b1-8e57-cadbfa2d9eae",
+      "scheduled_for": "2026-11-22T16:30:00-05:00",
+      "rendered_at": "2026-11-22T12:42:19.660368Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-22/328cbdd6-6b4a-49b1-8e57-cadbfa2d9eae.mp4",
+      "caption": "would you have mixed the vocal louder? be honest\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -122,61 +145,8 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.538,
-        "anchor_y": 0.387,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "full_ride",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-6fc9a3da-f64c-4fe5-8cfc-e0eab540bf38",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T14:10:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "this is what a song looks like before it's a song\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Full Ride: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "fddd6bb0-8397-4df4-ae6d-ab67614f06ac",
-      "scheduled_for": "2026-11-21T16:30:00-05:00",
-      "rendered_at": "2026-11-21T12:49:36.243511Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/fddd6bb0-8397-4df4-ae6d-ab67614f06ac.mp4",
-      "caption": "i produced this. here's every layer of it.\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_04.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.489,
-        "anchor_y": 0.572,
+        "anchor_x": 0.646,
+        "anchor_y": 0.356,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -185,7 +155,50 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
+      },
+      "creative": "fixation",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "would you have mixed the vocal louder? be honest\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nFixation is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "d7b55ef1-f6d5-4a26-a690-1d8230339edb",
+      "scheduled_for": "2026-11-22T18:50:00-05:00",
+      "rendered_at": "2026-11-22T12:42:19.660368Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-22/d7b55ef1-f6d5-4a26-a690-1d8230339edb.mp4",
+      "caption": "pov: 3am, one more bounce\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.264,
+        "anchor_y": 0.726,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
       },
       "creative": "wont_be_the_same_again",
       "overlay": null,
@@ -193,43 +206,33 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b8475c34-d3f8-4f5c-a0e2-ced6fff19902",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T16:30:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "i produced this. here's every layer of it.\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nWon't Be the Same Again is out now. link in bio to stream it"
+        "instagram": "pov: 3am, one more bounce\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "02ae9f60-24d9-4c64-96af-3734f84ea621",
-      "scheduled_for": "2026-11-21T18:50:00-05:00",
-      "rendered_at": "2026-11-21T12:49:36.243511Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/02ae9f60-24d9-4c64-96af-3734f84ea621.mp4",
-      "caption": "tag a producer who needs to hear this\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "658b278c-c7a6-4729-8c5f-23f7a84237ab",
+      "scheduled_for": "2026-11-22T21:10:00-05:00",
+      "rendered_at": "2026-11-22T12:42:19.660368Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-22/658b278c-c7a6-4729-8c5f-23f7a84237ab.mp4",
+      "caption": "would you have mixed the vocal louder? be honest\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_03.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.274,
-        "anchor_y": 0.672,
+        "anchor_x": 0.707,
+        "anchor_y": 0.652,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -238,83 +241,20 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
-      "creative": "prologue",
+      "creative": "wont_be_the_same_again",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-133fb8cf-785d-438e-8c0f-2545364c2771",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T18:50:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "tag a producer who needs to hear this\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Prologue: Before"
+        "instagram": "would you have mixed the vocal louder? be honest\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "e208c7e0-653d-41b3-b403-247075cd42ab",
-      "scheduled_for": "2026-11-21T21:10:00-05:00",
-      "rendered_at": "2026-11-21T12:49:36.243511Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-21/e208c7e0-653d-41b3-b403-247075cd42ab.mp4",
-      "caption": "this is what a song looks like before it's a song\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.328,
-        "anchor_y": 0.66,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "fixation",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-cdcfe627-e38b-4dc4-a914-e0a81ab94bc8",
-          "last_error": null,
-          "scheduled_for": "2026-11-21T21:10:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "this is what a song looks like before it's a song\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Fixation: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
