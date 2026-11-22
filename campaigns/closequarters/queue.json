@@ -40,9 +40,9 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6b025fcbc72676f5e9fd3346",
           "last_error": null,
           "scheduled_for": "2026-11-22T00:10:00-05:00"
         },
@@ -61,7 +61,7 @@
         "instagram": "Myth of Sisyphus – Close Quarters\naux cord approved. pass it on.\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
