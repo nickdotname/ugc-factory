@@ -18,6 +18,14 @@ targets:
     style: band
     per_night: 8
     join: 50
+  - campaign: cq_band       # close__quarters: the band's own dance footage, cut out, in a Y2K media player (studio/lofi_video.py)
+    style: lofi
+    per_night: 3
+    join: 50
+  - campaign: cq_band       # close__quarters: the band made of mouse cursors in a 3D Windows 98 world (studio/cursor_video.py)
+    style: cursor
+    per_night: 2
+    join: 50
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
     per_night: 12

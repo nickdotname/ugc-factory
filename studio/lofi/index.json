@@ -1,0 +1,76 @@
+{
+ "release": "lofi-library",
+ "note": "offset = song seconds at frame 1, from landmark fingerprints of the music in the phone recording; frames at fps; who: a = cap / leather jacket, b = curly hair",
+ "clips": [
+  {
+   "id": "fixation_a1",
+   "song": "fixation",
+   "offset": 70.24,
+   "frames": 279,
+   "fps": 10,
+   "who": "a",
+   "asset": "fixation_a1.tar",
+   "source": "IMG_7957.mov"
+  },
+  {
+   "id": "fixation_b1",
+   "song": "fixation",
+   "offset": 92.253,
+   "frames": 222,
+   "fps": 10,
+   "who": "b",
+   "asset": "fixation_b1.tar",
+   "source": "IMG_7956.mov"
+  },
+  {
+   "id": "wbtsa_a1",
+   "song": "wont-be-the-same-again",
+   "offset": 68.47,
+   "frames": 159,
+   "fps": 10,
+   "who": "a",
+   "asset": "wbtsa_a1.tar",
+   "source": "IMG_7960.mov"
+  },
+  {
+   "id": "wbtsa_b1",
+   "song": "wont-be-the-same-again",
+   "offset": 80.62,
+   "frames": 571,
+   "fps": 10,
+   "who": "b",
+   "asset": "wbtsa_b1.tar",
+   "source": "IMG_7958.mov"
+  },
+  {
+   "id": "wbtsa_a2",
+   "song": "wont-be-the-same-again",
+   "offset": 136.081,
+   "frames": 290,
+   "fps": 10,
+   "who": "a",
+   "asset": "wbtsa_a2.tar",
+   "source": "IMG_7961.mov"
+  },
+  {
+   "id": "fullride_b1",
+   "song": "full-ride",
+   "offset": 3.866,
+   "frames": 670,
+   "fps": 10,
+   "who": "b",
+   "asset": "fullride_b1.tar",
+   "source": "IMG_7963.mov"
+  },
+  {
+   "id": "notta_a1",
+   "song": "notta-problem",
+   "offset": 99.393,
+   "frames": 504,
+   "fps": 10,
+   "who": "a",
+   "asset": "notta_a1.tar",
+   "source": "IMG_7962.mov"
+  }
+ ]
+}
