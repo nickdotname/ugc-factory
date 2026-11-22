@@ -26,7 +26,8 @@ CLIP_SEC, PER_FILM, MAX_H = 10.0, 3, 960
 BLOCK = re.compile(r'strip|burlesque|nud|naked|sex|venereal|cigar|tobacco|smok|beer|whisk|liquor|alcohol|drunk|'
                    r'war\b|wartime|combat|battle|army|navy|bomb|atomic|nuclear|weapon|gun|rifle|kill|death|dead|corpse|'
                    r'propaganda|nazi|hitler|racis|minstrel|blackface|savage|native|indian|negro|oriental|chinese|japanese|jap\b|'
-                   r'crime|police|prison|drug|narcot|marijuana|reefer|venus|hygiene|birth|disease|surgery|hospital|accident|crash|riot', re.I)
+                   r'crime|police|prison|drug|narcot|marijuana|reefer|venus|hygiene|birth|disease|surgery|hospital|accident|crash|riot|'
+                   r'commercial|advertis|\bad\b|\bads\b|\bspot\b|sponsor|brand', re.I)
 
 
 def _open(url, tries=4, raw=False):
@@ -96,7 +97,7 @@ BY_THEME = {'space': ['nasa', 'commons'], 'archive': ['prelinger'], 'city': ['co
 
 # ---------------------------------------------------------------- cutting
 def probe(url):
-    r = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height:format=duration', '-of', 'json', url],
+    r = subprocess.run(['ffprobe', '-v', 'error', '-user_agent', UA['User-Agent'], '-select_streams', 'v:0', '-show_entries', 'stream=width,height:format=duration', '-of', 'json', url],
                        capture_output=True, text=True, timeout=120)
     j = json.loads(r.stdout or '{}'); s = (j.get('streams') or [{}])[0]
     return float((j.get('format') or {}).get('duration') or 0), int(s.get('width') or 0), int(s.get('height') or 0)
@@ -124,10 +125,10 @@ def cut(url, dur, out_dir, key):
     kept = []
     for s in starts:
         name = hashlib.sha1(('%s@%.1f' % (key, s)).encode()).hexdigest()[:16] + '.mp4'; out = os.path.join(out_dir, name)
-        r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', '%.2f' % s, '-t', '%.1f' % CLIP_SEC, '-i', url, '-an',
+        r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-user_agent', UA['User-Agent'], '-ss', '%.2f' % s, '-t', '%.1f' % CLIP_SEC, '-i', url, '-an',
                             '-vf', "scale=-2:'min(%d,ih)':flags=area,fps=30,format=yuv420p" % MAX_H, '-c:v', 'libx264', '-preset', 'medium', '-crf', '25', '-movflags', '+faststart', out],
                            capture_output=True, text=True, timeout=600)
-        if r.returncode or not os.path.exists(out): continue
+        if r.returncode or not os.path.exists(out): print('    ffmpeg: %s' % (r.stderr or '').strip()[-200:]); continue
         m, lum = motion(out)
         if m < 1.2 or lum < 18 or lum > 240: os.remove(out); continue            # nothing moves, or it is black / blown out
         kept.append((name, s, m))
