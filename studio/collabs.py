@@ -24,10 +24,11 @@ OWN = {
 }
 # Who each account brings in on its collab posts, and how many collab posts it makes a day. Kept to one a
 # day so the band's own grid stays the band's.
-PLAN = {
-    'psychedelic_station_ig': dict(with_=['close__quarters'], per_day=1),
-    'nostalgia_ig': dict(with_=['close__quarters'], per_day=1),
-}
+# OFF: Dylan does not want these on close__quarters' main feed. Add an entry to switch it back on, e.g.
+#     'psychedelic_station_ig': dict(with_=['close__quarters'], per_day=1),
+PLAN = {}
+# Invites are only accepted when this is True, so nothing already sent ends up on the band's grid.
+ACCEPT = False
 
 
 def invite(account, made_today):
@@ -37,6 +38,7 @@ def invite(account, made_today):
 
 
 def accept():
+    if not ACCEPT: print('collab posts are switched off; no invites accepted'); return 0
     import requests
     token = os.environ.get('IG_TOKEN')
     if not token: print('no IG_TOKEN; nothing to accept'); return 0
