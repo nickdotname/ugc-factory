@@ -150,7 +150,8 @@ def render(job):
     cmd = [sys.executable, os.path.join(HERE, VISUAL[style]), song_dir, str(seed), out] if style in VISUAL else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
-    print(('ok   ' if ok else 'FAIL ') + os.path.basename(out) + ('' if ok else '\n' + r.stderr[-500:]), flush=True)
+    why = '' if ok else '\n   exit %s%s\n%s' % (r.returncode, ' (killed: out of memory?)' if r.returncode < 0 else '', (r.stderr.strip() or r.stdout.strip())[-600:])
+    print(('ok   ' if ok else 'FAIL ') + os.path.basename(out) + why, flush=True)
     return ok
 
 for t in cfg['targets']:
