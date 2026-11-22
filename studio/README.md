@@ -50,7 +50,12 @@ the renderer: it is tried from the next night on, with nothing else to change.
 | `liminal` | place (backrooms, pool, mall, hotel, office, car park, school), pace, tint, tape wear, PLAY/REC label, date stamp |
 | `glitch` | footage theme (water, nature, city, space, archive, mixed), treatment (datamosh, blob tracking, pixel sort, slit-scan, point cloud), accent (rgb drift, macroblocks, none), tone (natural, thermal, mono, duotone, xray, night), pace, REC label |
 | `physics` | scene (ring, shrinking square, escape rings, pendulum wave), hit source (drums, kick, bass, melody), palette, trail, opening line |
+| `ascii` | scene (ringed planet, Sisyphus and the boulder, jellyfish), letters (classic, dense, blocks), palette (the scene's own, sunset, reef, terminal, ember, ice, mono), layout (code panel, clean), sparks on the snare |
 | `math` | topic (integral, Fourier series, derivative), theme (midnight, chalk, synth, mono, paper), typeface, background (grid, dots, none), shake strength, glow, step labels (pill, tag) |
+
+The `ascii` style (`ascii_video.py`) raymarches a scene from `asciiviz/` once per character cell and draws it in letters,
+with the scene's code scrolling underneath; add a scene by adding a module there (see `planet.py`) and its name to `SCENES`.
+Run one by hand with `CQ_WINDOW=33,51 python studio/ascii_video.py studio/songs/talk 7 out.mp4` (`--frames 30,200` for a sheet).
 
 The `math` style (Math In Time, `math_video.py`) is a short explainer choreographed in beats: eleven bars,
 whatever the song's tempo. Each topic is a scene in `mathviz/`; add a topic by adding a scene there and its name to

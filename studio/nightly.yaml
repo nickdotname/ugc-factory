@@ -48,3 +48,7 @@ targets:
     style: physics
     per_night: 4
     join: 30
+  - campaign: ascii_art     # the ASCII account: 3D scenes drawn in letters, with their code (scene and look are knobs)
+    style: ascii
+    per_night: 3
+    join: 30
