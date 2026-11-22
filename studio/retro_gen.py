@@ -84,8 +84,9 @@ def push(api, jobs, negative, hours, steps):
     r = api.kernels_push(d, timeout=str(int(hours * 3600 + 2400)), acc='NvidiaTeslaT4')
     err = getattr(r, 'error', None)
     if err: sys.exit('Kaggle refused the kernel: %s' % err)
-    print('pushed %s version %s (%d jobs, batch %s): %s' % (kid, getattr(r, 'version_number', '?'), len(jobs), batch, getattr(r, 'url', '')), flush=True)
-    return batch
+    v = getattr(r, 'version_number', None)
+    print('pushed %s version %s (%d jobs, batch %s): %s' % (kid, v, len(jobs), batch, getattr(r, 'url', '')), flush=True)
+    return batch, ('%s/%s' % (kid, v) if v else kid)
 
 
 def wait(api, kid, limit_sec):
@@ -179,11 +180,11 @@ if __name__ == '__main__':
         except SystemExit: raise
         except Exception as exc: print('no earlier run (%s)' % str(exc)[:120])
         jobs, neg = plan(arg('--clips', 24), random.Random())
-        batch = push(api, jobs, neg, hours, arg('--steps', 30))
+        batch, ver = push(api, jobs, neg, hours, arg('--steps', 30))     # this version's status and output, never the last one's
         time.sleep(30)
-        st, msg = wait(api, kid, min(hours * 3600 + 2400, 5.6 * 3600))
+        st, msg = wait(api, ver, min(hours * 3600 + 2400, 5.6 * 3600))
         if st == 'TIMEOUT': sys.exit('still running on Kaggle; the next run collects it')
-        added = collect(api, kid, batch)
+        added = collect(api, ver, batch)
         if st != 'COMPLETE' and not added: sys.exit('the Kaggle run ended %s: %s' % (st, msg))
     else:
         print(__doc__)
