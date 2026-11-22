@@ -36,3 +36,7 @@ targets:
     per_night: 2
     join: 45
     first_fill: 6
+  - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
+    style: math
+    per_night: 4
+    join: 40

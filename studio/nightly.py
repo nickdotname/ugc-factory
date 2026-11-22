@@ -59,7 +59,8 @@ def playing(lv, win):
 
 PLAYS = 0.25
 # Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
-VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py'}
+VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_video.py'}
+WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 sys.path.insert(0, HERE); import hook as _hook
 
@@ -199,6 +200,7 @@ for t in cfg['targets']:
         cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
         if how == 'free': cut = 'full' if rng.random() >= TIGHT else ('short' if style in VISUAL and rng.random() < SHORT else 'tight')
         else: cut = thompson(cuts, (L.get('stats') or {}).get('knob:cut') or {}, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
+        if style in WHOLE: cut = 'full'
         if cut != 'full': win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=cut == 'short')
         seeds.add(seed); inbox = os.path.join(REPO, 'inbox', folder.get(cr, '%s-%s' % (camp, cr)), 'hooks'); os.makedirs(inbox, exist_ok=True)
         out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, (kn, extra), lyr)); meta.append((cr, slug, sid, cut, how))
