@@ -36,13 +36,13 @@ def adsb():
     seen = {}
     for fam, types in FAMILIES:
         for t in types.split():
-            try: j = json.loads(get(ADSB % t, tries=2))
+            try: j = json.loads(get(ADSB % t, tries=4))
             except Exception as exc: print('  adsb.lol %s: %s' % (t, exc)); continue
             for a in j.get('ac') or []:
                 if a.get('lat') is None or a.get('alt_baro') in (None, 'ground'): continue
                 seen[a.get('hex')] = dict(lat=round(a['lat'], 4), lon=round(a['lon'], 4), alt_ft=a.get('alt_geom') or a.get('alt_baro'),
                                           kt=a.get('gs'), track=a.get('track'), type=t, family=fam, reg=a.get('r') or '')
-            time.sleep(1.5)
+            time.sleep(3)                                                     # it rate-limits at about one request every two seconds
     return json.dumps(dict(time=int(time.time()), source='ADSB.lol (ODbL 1.0)', ac=list(seen.values()))).encode()
 
 
