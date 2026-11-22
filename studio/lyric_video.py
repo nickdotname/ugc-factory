@@ -52,6 +52,10 @@ SANS = _font('LiberationSans-Regular.ttf', 'Arial.ttf', 'Montserrat-ExtraBold.tt
 MONO = _font('DejaVuSansMono.ttf', 'Menlo.ttc', 'Courier New.ttf', 'Montserrat-ExtraBold.ttf')
 INTER_XB = _font('Inter-ExtraBold.otf', 'Montserrat-ExtraBold.ttf')
 INTER_SB = _font('Inter-SemiBold.otf', 'Montserrat-ExtraBold.ttf')
+CAPTION_FONTS = {'inter': INTER_XB, 'anton': _font('Anton-Regular.ttf', 'Inter-ExtraBold.otf', 'Montserrat-ExtraBold.ttf'), 'montserrat': _font('Montserrat-ExtraBold.ttf')}
+CAP = INTER_XB                      # the lyric's typeface: a knob, set once the plan is made
+CHROME = 'win95'                    # the window style the band desktop is drawn in: a knob too
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import knobs as K
 
 
 def cut(audio_path, start, end, out_wav, xfade=0.12, fade_in=0.01):
@@ -106,6 +110,23 @@ PAL = [(255, 105, 97), (255, 179, 71), (253, 253, 150), (119, 221, 119), (100, 2
 
 
 def win(d, x0, y0, x1, y1, title, active=True):
+    if CHROME == 'xp':                                            # Luna blue: rounded frame, gradient title bar, red close box
+        d.rounded_rectangle([x0, y0, x1, y1], radius=16, fill=(0, 84, 227) if active else (122, 150, 223))
+        d.rectangle([x0 + 4, y0 + 30, x1 - 4, y0 + 54], fill=(0, 72, 200) if active else (110, 136, 210))
+        d.rectangle([x0 + 7, y0 + 56, x1 - 7, y1 - 7], fill=(236, 233, 216))
+        d.text((x0 + 22, y0 + 13), title, font=F(SANS_B, 30), fill=(10, 24, 80)); d.text((x0 + 20, y0 + 11), title, font=F(SANS_B, 30), fill=(255, 255, 255))
+        bx = x1 - 52; d.rounded_rectangle([bx, y0 + 11, bx + 38, y0 + 47], radius=6, fill=(226, 80, 40), outline=(255, 255, 255), width=2)
+        d.line([bx + 11, y0 + 20, bx + 27, y0 + 38], fill=(255, 255, 255), width=4); d.line([bx + 27, y0 + 20, bx + 11, y0 + 38], fill=(255, 255, 255), width=4)
+        return
+    if CHROME == 'mac':                                           # platinum: striped title bar, centred title, close box on the left
+        d.rectangle([x0, y0, x1, y1], fill=(221, 221, 221), outline=(0, 0, 0), width=3)
+        d.rectangle([x0 + 3, y0 + 3, x1 - 3, y0 + 48], fill=(204, 204, 204)); d.line([x0, y0 + 50, x1, y0 + 50], fill=(0, 0, 0), width=3)
+        f = F(SANS_B, 28); tw = d.textlength(title, font=f); cx = (x0 + x1) / 2
+        if active:
+            for yy in range(y0 + 12, y0 + 42, 5):
+                d.line([x0 + 60, yy, cx - tw / 2 - 16, yy], fill=(120, 120, 120), width=2); d.line([cx + tw / 2 + 16, yy, x1 - 14, yy], fill=(120, 120, 120), width=2)
+        d.rectangle([x0 + 16, y0 + 12, x0 + 44, y0 + 40], fill=(221, 221, 221), outline=(0, 0, 0), width=2)
+        d.text((cx - tw / 2, y0 + 10), title, font=f, fill=(0, 0, 0)); return
     d.rectangle([x0, y0, x1, y1], fill=(192, 192, 192))
     d.line([x0, y0, x1, y0], fill=(255, 255, 255), width=3); d.line([x0, y0, x0, y1], fill=(255, 255, 255), width=3)
     d.line([x0, y1, x1, y1], fill=(64, 64, 64), width=3); d.line([x1, y0, x1, y1], fill=(64, 64, 64), width=3)
@@ -117,12 +138,17 @@ def win(d, x0, y0, x1, y1, title, active=True):
 
 
 def inset(d, x0, y0, x1, y1, fill):
+    if CHROME in ('xp', 'mac'):
+        d.rectangle([x0, y0, x1, y1], fill=fill, outline=(127, 157, 185) if CHROME == 'xp' else (110, 110, 110), width=3); return
     d.rectangle([x0, y0, x1, y1], fill=fill)
     d.line([x0, y0, x1, y0], fill=(64, 64, 64), width=3); d.line([x0, y0, x0, y1], fill=(64, 64, 64), width=3)
     d.line([x0, y1, x1, y1], fill=(255, 255, 255), width=3); d.line([x1, y0, x1, y1], fill=(255, 255, 255), width=3)
 
 
 def button(d, x0, y0, x1, y1, text):
+    if CHROME in ('xp', 'mac'):
+        d.rounded_rectangle([x0, y0, x1, y1], radius=10, fill=(244, 243, 238) if CHROME == 'xp' else (238, 238, 238), outline=(0, 60, 116) if CHROME == 'xp' else (0, 0, 0), width=3)
+        f = F(SANS_B, 30); w = d.textlength(text, font=f); d.text(((x0 + x1 - w) / 2, y0 + 10), text, font=f, fill=(0, 0, 0)); return
     d.rectangle([x0, y0, x1, y1], fill=(192, 192, 192))
     d.line([x0, y0, x1, y0], fill=(255, 255, 255), width=3); d.line([x0, y0, x0, y1], fill=(255, 255, 255), width=3)
     d.line([x0, y1, x1, y1], fill=(0, 0, 0), width=3); d.line([x1, y0, x1, y1], fill=(0, 0, 0), width=3)
@@ -144,7 +170,7 @@ def wrap(d, words, font, maxw):
     return rows
 
 def karaoke(d, k, T, y, size=70, maxw=980, fill=(255, 255, 255), hl=(255, 230, 60), outline=True):
-    ws = LINES[k][1]; allw = [w for w, _ in ws]; f = F(INTER_XB, size)
+    ws = LINES[k][1]; allw = [w for w, _ in ws]; f = F(CAP, size)
     rows = wrap(d, allw, f, maxw); i = 0
     for r in rows:
         tw = d.textlength(' '.join(r), font=f); x = (W - tw) / 2
@@ -328,7 +354,21 @@ HITS = STEMS_START + pk * 256 / dsr
 _yy, _xx = np.mgrid[0:240, 0:135].astype(np.float32); _RS = np.random.RandomState(5); _ST = _RS.rand(260, 3)
 def make_bg(kind, T, base, acc):
     d = ev('Drums', T)
-    if kind == 'plasma':
+    if kind in ('clouds', 'hills'):                                # a sky, drawn rather than tinted: pixel clouds drifting
+        sky = np.stack([np.interp(_yy, [0, 240], c) for c in ((40, 150), (100, 200), (215, 250))], -1)
+        cl = np.sin(_xx * .07 + T * .25) + np.sin(_yy * .11 + _xx * .03) + np.sin((_xx - _yy) * .05 - T * .12) + .6 * np.sin(_xx * .19 - _yy * .07 + T * .3)
+        img = np.where((cl > (1.5 if kind == 'clouds' else 2.0))[..., None], [250, 250, 255], sky)
+        if kind == 'hills':
+            hy = 150 + 16 * np.sin(_xx * .028 + .6) - 9 * np.sin(_xx * .013 + 2) - 6 * d
+            g = np.clip((_yy - hy) / 90, 0, 1)[..., None]
+            img = np.where((_yy > hy)[..., None], np.array([70, 170, 50]) * (1 - g) + np.array([30, 110, 30]) * g, img)
+        img = img * (1 + .12 * d)
+        return cv2.resize(np.clip(img, 0, 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST)
+    if kind == 'bars':                                              # an equaliser behind everything
+        lv = [ev(s_, T - .02 * k) for k, s_ in enumerate(['Bass', 'Drums', 'Other', 'Vocals'] * 4)]
+        col = np.clip((_xx // 9).astype(int), 0, 15); hgt = np.array(lv)[col] * 200 + 12
+        v = ((240 - _yy) < hgt) * (.35 + .5 * ((_yy // 4) % 2)) * ((_xx % 9) < 7)
+    elif kind == 'plasma':
         v = np.sin(_xx * .09 + T * .8) + np.sin(_yy * .06 - T * .6) + np.sin((_xx + _yy) * .05 + T * .4) + np.sin(np.hypot(_xx - 67, _yy - 120) * .08 - T)
         v = np.floor((v + 4) / 8 * 6) / 5
     elif kind == 'tiles': v = (((_xx + T * 6) // 12 + (_yy + T * 4) // 12) % 2) * .45 + .1 + d * .35
@@ -341,7 +381,7 @@ def make_bg(kind, T, base, acc):
     v = np.clip(v, 0, 1)[..., None]; img = np.array(base, np.float32) * (1 - v) + np.array(acc, np.float32) * v
     return cv2.resize(img.astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST)
 mixc = lambda a, b, t: tuple(int(a[i] * (1 - t) + b[i] * t) for i in range(3))
-WALLS = ['plasma', 'tiles', 'rings', 'grad', 'stars']
+WALLS = ['plasma', 'tiles', 'rings', 'grad', 'stars', 'clouds', 'hills', 'bars']
 
 MEDIA = os.environ.get('CQ_MEDIA', os.path.join(SONG_DIR, 'media')); PIC_STYLES = ['lowres', 'gif', 'jpeg', 'webcam', 'crt']
 def media_for(k):
@@ -386,8 +426,9 @@ def caption(a, k, T, y, size, maxw):
     im = Image.fromarray(a); karaoke(ImageDraw.Draw(im), k, T, y, size=size, maxw=maxw, outline=True); return np.asarray(im)
 
 def plan_band():
-    themes = [((0, 128, 128), 'teal'), ((58, 110, 165), 'blue'), ((85, 60, 130), 'purple'), ((20, 20, 24), 'black'), ((0, 110, 70), 'green')]
-    theme = R.choice(themes); segs = []; prev = [None]
+    themes = [((0, 128, 128), 'teal'), ((58, 110, 165), 'blue'), ((85, 60, 130), 'purple'), ((20, 20, 24), 'black'), ((0, 110, 70), 'green'),
+              ((160, 60, 110), 'pink'), ((200, 110, 40), 'orange'), ((110, 115, 125), 'silver')]
+    theme = dict((n, c) for c, n in themes); tn = K.pick('theme', [n for _, n in themes], R); theme = (theme[tn], tn); segs = []; prev = [None]
     def pick(k, st):
         pool = ['notepad', 'cmd', 'paint', 'paint', 'wave', 'player', 'arr']
         if HAS_ARR and st >= MEL_T + 0.3: pool += ['roll_mel'] * 2
@@ -407,7 +448,9 @@ def plan_band():
         if e - st > 2.3 and len(ws) >= 6 and not has(k, 'messages'):
             m = ws[len(ws) // 2][1]; segs += [[st, pick(k, st), k, pick_ov()], [m, pick(k, m), k, pick_ov()]]
         else: segs.append([st, pick(k, st), k, pick_ov()])
-    return dict(wall=R.choice(WALLS), acc=mixc(theme[0], R.choice(PAL), R.choice([.35, .5])) if theme[1] != 'black' else mixc((20, 20, 24), R.choice(PAL), .6), theme=theme[1], bg=theme[0], segs=segs, punch=R.choice([0.02, 0.035, 0.05]), scan=R.random() < 0.7, chroma=R.choice([0, 2, 4]))
+    return dict(wall=K.pick('wall', WALLS, R), acc=mixc(theme[0], R.choice(PAL), R.choice([.35, .5])) if theme[1] != 'black' else mixc((20, 20, 24), R.choice(PAL), .6), theme=theme[1], bg=theme[0], segs=segs,
+                punch=K.pick('punch', [0.02, 0.035, 0.05], R), scan=K.flag('scan', 0.7, R), chroma=K.pick('chroma', [0, 2, 4], R),
+                chrome=K.pick('chrome', ['win95', 'win95', 'xp', 'mac'], R), caption=K.pick('caption', ['inter', 'inter', 'anton', 'montserrat'], R))
 
 def seg_at(plan, T):
     s = [i for i, x in enumerate(plan['segs']) if x[0] <= T + 0.03]; return s[-1] if s else 0
@@ -486,6 +529,21 @@ def facecam(a, T, bands, beat, ctx):
     ctx['cam_k'] = k
     return sprite_for(a, k, T, bands, beat, ctx, bottom=1545, height=640)
 
+def taskbar(d, clock):
+    if CHROME == 'xp':
+        for yy in range(H - 84, H): d.line([0, yy, W, yy], fill=(int(36 + 30 * (yy - H + 84) / 84 * 0), int(94 - 20 * (yy - H + 84) / 84), int(220 - 30 * (yy - H + 84) / 84)))
+        d.rounded_rectangle([0, H - 80, 220, H - 4], radius=22, fill=(58, 152, 58)); d.text((46, H - 70), 'start', font=F(SANS_B, 44), fill=(255, 255, 255))
+        d.rectangle([W - 230, H - 84, W, H], fill=(16, 140, 233)); d.text((W - 180, H - 62), clock, font=F(SANS, 32), fill=(255, 255, 255)); return
+    if CHROME == 'mac':                                          # a menu bar along the top instead of a taskbar
+        d.rectangle([0, 0, W, 58], fill=(238, 238, 238)); d.line([0, 58, W, 58], fill=(0, 0, 0), width=3)
+        x = 30
+        for item in ('✱', 'File', 'Edit', 'View', 'Special'):
+            d.text((x, 12), item, font=F(SANS_B if item != '✱' else SANS, 30), fill=(0, 0, 0)); x += d.textlength(item, font=F(SANS_B, 30)) + 36
+        d.text((W - 170, 12), clock, font=F(SANS, 30), fill=(0, 0, 0)); return
+    d.rectangle([0, H - 84, W, H], fill=(192, 192, 192)); d.line([0, H - 84, W, H - 84], fill=(255, 255, 255), width=3)
+    button(d, 10, H - 72, 190, H - 14, 'Start'); inset(d, W - 220, H - 72, W - 12, H - 14, (192, 192, 192))
+    d.text((W - 190, H - 60), clock, font=F(SANS, 30), fill=(0, 0, 0))
+
 def band_frame(f, feat, plan, ctx, rng):
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T); si = seg_at(plan, T); st, kind, k, ov = plan['segs'][si]
     if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
@@ -499,9 +557,7 @@ def band_frame(f, feat, plan, ctx, rng):
     if kind.startswith('pic|'): _, pth, sty = kind.split('|'); sc_pic(d, pth, sty, T, st, (10, 10, 30), mixc(plan['bg'], (255, 255, 255), .75))
     else: draw(kind, d, k, T, f, bands, beat)
     overlays_pil(im, ImageDraw.Draw(im), ov, k, T, f, bands); d = ImageDraw.Draw(im)
-    d.rectangle([0, H - 84, W, H], fill=(192, 192, 192)); d.line([0, H - 84, W, H - 84], fill=(255, 255, 255), width=3)
-    button(d, 10, H - 72, 190, H - 14, 'Start'); inset(d, W - 220, H - 72, W - 12, H - 14, (192, 192, 192))
-    d.text((W - 190, H - 60), '4:20 PM' if any('4:20' in w and t < T for e, ws in LINES for w, t in ws) else '4:19 PM', font=F(SANS, 30), fill=(0, 0, 0))
+    taskbar(d, '4:20 PM' if any('4:20' in w and t < T for e, ws in LINES for w, t in ws) else '4:19 PM')
     a = fx(np.asarray(im), T, f, plan, ov, st, STAGE, ctx, rng)
     if face and k is not None: a = sprite_for(a, k, T, bands, beat, ctx, bottom=1330, height=860)
     # The lyric goes on last, over every overlay and effect, so nothing can cover it.
@@ -515,10 +571,49 @@ def plan_prod():
         if ws[0][1] > T1: break
         c = R.choice([x for x in (None, 0, 0, 1, 2, 3) if x != prev]); prev = c
         segs.append([ws[0][1], [c, R.choice([84, 110, 140])], k, [x for x in pick_ov() if x in ('track', 'invert', 'stamp')] or ['stamp']])
-    pal_ = R.choice(pals); bg_ = R.choice([(11, 13, 16), (16, 12, 22), (8, 16, 18)])
-    return dict(wall=R.choice(['plasma', 'rings', 'grad', 'stars']), acc=mixc(bg_, pal_[R.randrange(4)], .28), pal=pal_, segs=segs, bg=bg_, punch=R.choice([0.015, 0.03]), scan=R.random() < 0.5, chroma=R.choice([0, 2]))
+    pal_ = pals[K.pick('colours', [0, 1, 2], R)]; bg_ = R.choice([(11, 13, 16), (16, 12, 22), (8, 16, 18)])
+    return dict(wall=K.pick('wall', ['plasma', 'rings', 'grad', 'stars', 'bars', 'tiles'], R), acc=mixc(bg_, pal_[R.randrange(4)], .28), pal=pal_, segs=segs, bg=bg_,
+                punch=K.pick('punch', [0.015, 0.03], R), scan=K.flag('scan', 0.5, R), chroma=K.pick('chroma', [0, 2], R),
+                layout=K.pick('layout', ['lanes', 'lanes', 'mixer'], R), caption=K.pick('caption', ['inter', 'inter', 'anton', 'montserrat'], R))
 PLN = [('VOCAL', 'Vocals'), ('DRUMS', 'Drums'), ('INSTRUMENTS', 'Other'), ('MELODY + HATS  (MIDI)', None) if HAS_ARR else ('BASS', 'Bass')]
+def mixer_frame(f, feat, plan, ctx, rng):
+    """The song as a mixing desk: a channel strip per stem, its meter and fader riding the real level."""
+    bands, low = feat; T = T0 + f / FPS; beat = t2b(T); k = line_at(T); si = seg_at(plan, T); st, (foc, ppb), kk, ov = plan['segs'][si]
+    if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
+    im = Image.fromarray(make_bg(plan['wall'], T, plan['bg'], plan['acc'])); d = ImageDraw.Draw(im)
+    sub = ('%s - %s   %d BPM   %s' % (SONG['artist'], SONG['title'], round(60 / SPB), SONG.get('key', ''))).rstrip(); f2 = F(INTER_SB, 32); w = d.textlength(sub, font=f2); d.text(((W - w) / 2, 150), sub, font=f2, fill=(150, 160, 175))
+    strips = [('VOCAL', 'Vocals'), ('DRUMS', 'Drums'), ('INSTR', 'Other'), ('BASS', 'Bass')]
+    x0, y0, y1 = 40, 600, 1560; sw = (W - 80) / 4; fade = ctx.setdefault('fader', [0.5] * 4); peak = ctx.setdefault('peak', [0.0] * 4)
+    bar = int(beat // 4) + 1; d.text((40, 548), 'BAR %d.%d' % (bar, int(beat % 4) + 1), font=F(MONO, 30), fill=(200, 205, 215))
+    for i, (label, stem) in enumerate(strips):
+        lv = ev(stem, T); fade[i] += (lv - fade[i]) * 0.15; peak[i] = max(lv, peak[i] - 0.012)
+        sx = x0 + i * sw; col = tuple(plan['pal'][i]); on = foc == i
+        d.rounded_rectangle([sx + 6, y0, sx + sw - 6, y1], radius=18, fill=(22, 25, 31), outline=col if on else (46, 52, 62), width=5 if on else 3)
+        f3 = F(MONO, 32); tw = d.textlength(label, font=f3); d.text((sx + (sw - tw) / 2, y0 + 20), label, font=f3, fill=(255, 255, 255) if on else col)
+        kx, ky = sx + sw / 2, y0 + 120; d.ellipse([kx - 40, ky - 40, kx + 40, ky + 40], outline=col, width=5)
+        a_ = -2.4 + 4.8 * (0.5 + 0.45 * np.sin(T * 0.7 + i * 1.3)); d.line([kx, ky, kx + 34 * np.sin(a_), ky - 34 * np.cos(a_)], fill=(255, 255, 255), width=5)
+        my0, my1 = y0 + 200, y1 - 160; segs_n = 26; seg_h = (my1 - my0) / segs_n
+        for sgi in range(segs_n):                                     # the meter: green, then yellow, then red
+            frac = (sgi + 1) / segs_n; lit = frac <= min(1.0, lv); yy = my1 - (sgi + 1) * seg_h
+            c = (90, 220, 120) if frac < .65 else (250, 210, 70) if frac < .85 else (255, 90, 80)
+            d.rectangle([sx + 26, yy + 3, sx + 26 + sw * .28, yy + seg_h - 3], fill=c if lit else tuple(int(v * .18) for v in c))
+        py_ = my1 - min(1.0, peak[i]) * (my1 - my0); d.rectangle([sx + 26, py_ - 4, sx + 26 + sw * .28, py_], fill=(255, 255, 255))
+        tx = sx + sw * .66; d.rectangle([tx - 5, my0, tx + 5, my1], fill=(8, 9, 12))
+        fy = my1 - min(1.0, fade[i]) * (my1 - my0)
+        d.rounded_rectangle([tx - 42, fy - 26, tx + 42, fy + 26], radius=8, fill=(200, 204, 212), outline=(255, 255, 255) if on else (90, 95, 105), width=3); d.line([tx - 32, fy, tx + 32, fy], fill=(20, 20, 20), width=4)
+        db = 20 * np.log10(max(lv, 1e-3)); val = '%+.1f' % max(-60.0, db); tw = d.textlength(val, font=f3); d.text((sx + (sw - tw) / 2, y1 - 120), val, font=f3, fill=(200, 205, 215))
+        hist = ctx.setdefault('hist%d' % i, []); hist.append(lv); del hist[:-40]
+        for j, hv in enumerate(hist): d.line([sx + 26 + j * (sw - 52) / 40, y1 - 40 - hv * 40, sx + 26 + j * (sw - 52) / 40, y1 - 40 + hv * 40], fill=col, width=3)
+    fi = min(f, bands.shape[1] - 1); bw = (W - 80) / bands.shape[0]
+    for b in range(bands.shape[0]):
+        v = float(bands[b, max(0, fi - 1):fi + 1].mean()); d.rectangle([40 + b * bw, 1800 - int(v * 90), 40 + (b + 1) * bw - 5, 1800], fill=(70, 80, 96))
+    if 'stamp' in ov and k is not None: overlays_pil(im, ImageDraw.Draw(im), ['stamp'], k, T, f, bands)
+    a = fx(np.asarray(im), T, f, plan, [o for o in ov if o not in ('stamp', 'track')], st, (0, 580, W, 1560), ctx, rng)
+    if plan.get('faces'): a = facecam(a, T, bands, beat, ctx)
+    return caption(a, k, T, 215, 76, 1000) if k is not None else a
+
 def prod_frame(f, feat, plan, ctx, rng):
+    if plan.get('layout') == 'mixer': return mixer_frame(f, feat, plan, ctx, rng)
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T); k = line_at(T); si = seg_at(plan, T); st, (foc, ppb), kk, ov = plan['segs'][si]
     if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
     if foc == 3 and T < MEL_T: foc = 0
@@ -573,6 +668,7 @@ def prod_frame(f, feat, plan, ctx, rng):
     return caption(a, k, T, 215, 76, 1000) if k is not None else a
 
 plan = plan_band() if mode == 'band' else plan_prod()
+CHROME = plan.get('chrome', 'win95'); CAP = CAPTION_FONTS.get(plan.get('caption'), INTER_XB)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
 plan['hook'] = _hook.pick(mode, seed)                       # the line shown for the first two seconds ('' = none)
 plan['hook_angle'] = _hook.angle(mode, plan['hook']); plan['hook_mode'] = _hook.mode(mode, seed)   # flash: first two seconds; hold: the whole video
@@ -587,7 +683,7 @@ if plan['faces']:
             if sg[2] is not None and fr_.random() < 0.75: sg[1] = 'face+' + sg[1]
 FACE_WHO = _faces.plan(LINES, seed) if plan['faces'] else []
 wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav); feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
-json.dump(json.loads(json.dumps(dict(mode=mode, seed=seed, song=SONG['slug'], window=[T0, T1], plan=plan)).replace(SONG_DIR + '/', '')), open(out[:-4] + '.json', 'w'), indent=1)
+json.dump(json.loads(json.dumps(dict(mode=mode, seed=seed, song=SONG['slug'], window=[T0, T1], plan=plan, **K.record())).replace(SONG_DIR + '/', '')), open(out[:-4] + '.json', 'w'), indent=1)
 fr0 = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: prod_frame(f, feat, plan, ctx, rng))
 fr = ((lambda f: _hook.draw_hold(np.asarray(fr0(f)), plan['hook'], f / FPS, _hook.HOLD_Y[mode])) if plan['hook_mode'] == 'hold' else
       (lambda f: _hook.draw(np.asarray(fr0(f)), plan['hook'], f / FPS, y=0.43)))      # flash sits mid-screen: both styles keep titles and lyrics at the top

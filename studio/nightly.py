@@ -8,6 +8,14 @@ with the fewest videos so far, gives each a seed nothing has used, renders it wi
 renderer, and hands the files to `ugc ingest`, which checks them and uploads them to the song's
 clip library. What each video is made of is appended to the campaign's recipes.json under
 "nightly", which is also how the next night knows what already exists.
+
+Choosing what each video looks like is where it improves itself. Every choice a renderer makes is a "knob"
+(studio/knobs.py) with a menu of options; learn.py scores every option from the posts' numbers. For each
+new video, each knob is set by Thompson sampling: every option draws a plausible score from what its posts
+have shown so far (a wide guess when it has few, a narrow one when it has many) and the highest draw wins.
+So what has worked is used most, what has hardly been tried still gets tried, and what keeps losing
+(learn.py "retires" it) stops being chosen. One video in five (EXPLORE) is left entirely to the renderer's
+own dice, which keeps the comparison honest and lets new looks in.
 """
 import argparse, datetime, json, os, random, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor
@@ -52,6 +60,36 @@ def playing(lv, win):
 PLAYS = 0.25
 # Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
 VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py'}
+EXPLORE = 0.2         # share of videos whose look is left entirely to chance
+sys.path.insert(0, HERE); import hook as _hook
+
+def thompson(options, stats, r, retired=()):
+    """One option: each draws from Beta(1 + wins, 1 + losses), where a post's score (0..1) counts as that much of
+    a win, recent posts counting more (learn.py); untried options draw from Beta(1, 1)."""
+    live = [o for o in options if o not in retired] or list(options)
+    best, top = None, -1.0
+    for o in live:
+        n, m = (stats.get(o) or [0, 0, .5])[1:3]
+        v = r.betavariate(1 + m * n, 1 + (1 - m) * n)
+        if v > top: best, top = o, v
+    return best
+
+def choose(style, menu, learned, seed):
+    """The knobs and settings nightly fixes for one video, and whether it was left to chance."""
+    r = random.Random(seed * 2654435761 % 2 ** 32)
+    if r.random() < EXPLORE: return {}, {}, 'free'
+    st, ret = learned.get('stats') or {}, learned.get('retired') or {}
+    kn = {name: thompson(opts, st.get('knob:' + name) or {}, r, ret.get('knob:' + name) or ()) for name, opts in sorted(menu.items()) if len(opts) > 1}
+    env = {}
+    if style in _hook.ANGLES:                                   # the opening line: which angle (or none), and flashed or held
+        ang = thompson(sorted(_hook.ANGLES[style]) + ['none'], st.get('hook angle') or {}, r, ret.get('hook angle') or ())
+        if ang == 'none': env['CQ_HOOK'] = 'none'
+        else: env['CQ_HOOK_ANGLE'] = ang
+        env['CQ_HOOK_MODE'] = thompson(['flash', 'hold'], st.get('hook style') or {}, r, ret.get('hook style') or ())
+        env['CQ_FACES'] = '1' if thompson(['with', 'without'], st.get('faces') or {}, r, ret.get('faces') or ()) == 'with' else '0'
+    elif thompson(['with', 'without'], st.get('opening line') or {}, r, ret.get('opening line') or ()) == 'without':
+        env['CQ_HOOK'] = 'none'
+    return kn, env, 'learned'
 
 def suits(style, lv):
     """Whether a stretch has what a style shows. A drumless spoken intro makes an empty stems view and a still visualiser,
@@ -103,12 +141,9 @@ def render(job):
     env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', crf), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'),
                CQ_MAXRATE=os.environ.get('CQ_MAXRATE', cap), CQ_BUFSIZE=os.environ.get('CQ_BUFSIZE', buf))
     if len(job) > 6 and not job[6]: env['CQ_LYRICS'] = 'none'
-    for var, dim in (('CQ_HOOK_ANGLE', 'hook angle'), ('CQ_HOOK_MODE', 'hook style'), ('CQ_FACES', 'faces'), ('CQ_HOOK', 'hook'), ('CQ_FIELD', 'look')):          # half the time, lean towards what has been watched; the other half stays a free draw
-        opts = {o: w for o, w in (job[5].get(dim) or {}).items() if o not in ('(none)', 'none', 'other') and (dim != 'look' or style == 'psy') and (dim not in ('hook angle', 'hook style', 'faces') or style in ('band', 'producer'))} if len(job) > 5 else {}
-        r = random.Random(seed * 31 + len(var))
-        if opts and r.random() < 0.5:
-            env[var] = r.choices(list(opts), weights=[w ** 2 for w in opts.values()])[0]
-            if var == 'CQ_FACES': env[var] = '1' if env[var] == 'with' else '0'
+    kn, extra = job[5]
+    env.update(extra)
+    if kn: env['CQ_KNOBS'] = json.dumps(kn)
     cmd = [sys.executable, os.path.join(HERE, VISUAL[style]), song_dir, str(seed), out] if style in VISUAL else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
@@ -145,7 +180,8 @@ for t in cfg['targets']:
             if suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure))
             else: print('   skip %s %s for %s: %s' % (slug, sid, style, playing(lv, win)))
         LV[slug] = lv
-    W = (LEARNED.get(camp) or {}).get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
+    L = LEARNED.get(camp) or {}; W = L.get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
+    menu = (rec.get('menu') or {}).get(style) or {}            # every knob this style's renderer has offered so far
     # fewest videos first, but a song or section that gets watched counts as having fewer (so it gets more), and vice versa
     rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0)))
     have = len(rec.get('nightly', []))                       # what the current libraries hold
@@ -159,18 +195,26 @@ for t in cfg['targets']:
     for slug, cr, sid, win, lyr in picked:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
-        if rng.random() < TIGHT: win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=style in VISUAL and rng.random() < SHORT)
+        kn, extra, how = choose(style, menu, L, seed)
+        cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
+        if how == 'free': cut = 'full' if rng.random() >= TIGHT else ('short' if style in VISUAL and rng.random() < SHORT else 'tight')
+        else: cut = thompson(cuts, (L.get('stats') or {}).get('knob:cut') or {}, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
+        if cut != 'full': win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=cut == 'short')
         seeds.add(seed); inbox = os.path.join(REPO, 'inbox', folder.get(cr, '%s-%s' % (camp, cr)), 'hooks'); os.makedirs(inbox, exist_ok=True)
-        out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, W, lyr)); meta.append((cr, slug, sid))
+        out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, (kn, extra), lyr)); meta.append((cr, slug, sid, cut, how))
     print('== %s: %d videos (%s)' % (camp, len(jobs), style), flush=True)
     with ThreadPoolExecutor(max(1, min(4, os.cpu_count() or 2))) as ex: oks = list(ex.map(render, jobs))
     done = set()
-    for (cr, slug, sid), job, ok in zip(meta, jobs, oks):
+    for (cr, slug, sid, cut, how), job, ok in zip(meta, jobs, oks):
         out = job[3]
         if not ok: failed = True; continue
         r = json.load(open(out[:-4] + '.json')) if os.path.exists(out[:-4] + '.json') else {}
         if os.path.exists(out[:-4] + '.json'): os.remove(out[:-4] + '.json')
-        rec.setdefault('nightly', []).append(dict(date=today, creative=cr, file=os.path.basename(out), song=slug, section=sid, style=style, seed=job[2], window=list(job[4]), plan=r.get('plan'), playing=playing(LV.get(slug, {}), job[4]), lyrics_proven=bool(job[6]))); done.add(cr)
+        kn = dict(r.get('knobs') or {}, cut=cut)
+        for name, opts in (r.get('menu') or {}).items():                  # the menu grows as renderers offer new options
+            have = rec.setdefault('menu', {}).setdefault(style, {}).setdefault(name, [])
+            have += [o for o in opts if o not in have]
+        rec.setdefault('nightly', []).append(dict(date=today, creative=cr, file=os.path.basename(out), song=slug, section=sid, style=style, seed=job[2], window=list(job[4]), plan=r.get('plan'), knobs=kn, chosen=how, playing=playing(LV.get(slug, {}), job[4]), lyrics_proven=bool(job[6]))); done.add(cr)
     if not a.no_ingest:
         for cr in sorted(done):
             rep = os.path.join(REPO, 'work', 'ingest-%s-%s.json' % (camp, cr)); os.makedirs(os.path.dirname(rep), exist_ok=True)
