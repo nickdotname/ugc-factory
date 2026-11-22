@@ -592,6 +592,23 @@ def _render(
     # Carry over whatever last night produced and the top-up has not pushed.
     # Replacing the queue here is what threw away most of the output.
     previous = load_queue(campaign_dir / "queue.json")
+    # An account taken off this campaign leaves its records pending for ever. Left
+    # in, they made each video look unfinished, so render counted it as still to
+    # post and made that many fewer new ones (nickdotname got 2 a day, not 8).
+    if config.posting.fan_out:
+        live = {a.name for a in reachable}
+        dropped_posts = 0
+        for item in previous.items:
+            if item.posts and any(p.account not in live for p in item.posts):
+                kept_posts = [p for p in item.posts if p.account in live]
+                dropped_posts += len(item.posts) - len(kept_posts)
+                item.posts = kept_posts
+                if kept_posts:
+                    sync_status(item)
+                else:
+                    item.status = QueueStatus.CANCELLED
+        if dropped_posts:
+            log.info("queue_records_for_removed_accounts_dropped", count=dropped_posts)
     carried, expired = carry_forward(previous, today, RENDER_RETENTION_DAYS)
     if expired:
         log.warning(
