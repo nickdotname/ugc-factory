@@ -168,6 +168,62 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s04_liminal_492118.mp4",
+   "song": "talk",
+   "section": "s04",
+   "style": "liminal",
+   "seed": 492118,
+   "window": [
+    77.99,
+    85.79
+   ],
+   "plan": {
+    "place": "mall",
+    "laps": 1,
+    "year": 1996,
+    "hook": "3am. the music is still on",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.41,
+    "drums": 0.77,
+    "bass": 0.58,
+    "other": 0.81
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s04_liminal_38440.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "liminal",
+   "seed": 38440,
+   "window": [
+    76.37,
+    90.58
+   ],
+   "plan": {
+    "place": "hotel",
+    "laps": 5,
+    "year": 1999,
+    "hook": "3am. the music is still on",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.73,
+    "bass": 0.54,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }
