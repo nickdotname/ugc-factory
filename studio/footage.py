@@ -40,6 +40,37 @@ def _open(url, tries=4, raw=False):
             time.sleep((5, 20, 60)[min(k, 2)])
 
 
+class Later(Exception):
+    """The source asked us to slow down: leave this film for the next run instead of marking it seen."""
+
+
+def _safe(url):
+    u = urllib.parse.urlsplit(url)
+    return urllib.parse.urlunsplit((u.scheme, u.netloc, urllib.parse.quote(u.path, safe='/%~:@!$&()*+,;='), u.query, u.fragment))
+
+
+def download(url, path, max_mb=400, tries=5):
+    """A whole file to disk, politely: Wikimedia's video servers refuse the many ranged requests ffmpeg makes
+    (429 Too Many Requests), so their files are fetched once, waiting as long as they ask between tries."""
+    for k in range(tries):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(_safe(url), headers=UA), timeout=120) as r, open(path, 'wb') as fh:
+                if int(r.headers.get('Content-Length') or 0) > max_mb << 20: raise ValueError('larger than %d MB' % max_mb)
+                while True:
+                    b = r.read(1 << 20)
+                    if not b: return path
+                    fh.write(b)
+                    if fh.tell() > max_mb << 20: raise ValueError('larger than %d MB' % max_mb)
+        except urllib.error.HTTPError as exc:
+            if exc.code not in (429, 500, 502, 503, 504): raise
+            if k == tries - 1: raise Later('%s after %d tries' % (exc.code, tries))
+            wait = exc.headers.get('Retry-After') if exc.headers else None
+            time.sleep(min(300, int(wait)) if wait and wait.isdigit() else 30 * (k + 1))
+        except (urllib.error.URLError, TimeoutError) as exc:
+            if k == tries - 1: raise Later(str(exc))
+            time.sleep(15 * (k + 1))
+
+
 def index():
     try: return json.load(open(INDEX))
     except (OSError, ValueError): return {'clips': [], 'seen': []}
@@ -85,10 +116,10 @@ def nasa(q, n=5):
     for it in items:
         data = (it.get('data') or [{}])[0]; nid = data.get('nasa_id')
         if not nid or BLOCK.search('%s %s' % (data.get('title', ''), data.get('description', ''))): continue
-        got = _open(it['href']) if it.get('href') else []
+        got = _open(_safe(it['href'])) if it.get('href') else []
         assets = [a if isinstance(a, str) else a.get('href', '') for a in got]
         pick = next((a for a in assets if a.endswith('~mobile.mp4')), None) or next((a for a in assets if a.endswith('~orig.mp4')), None)
-        if pick: yield 'nasa:' + nid, data.get('title', nid), pick.replace('http://', 'https://'), 0.0, 'Public Domain (NASA)', 'https://images.nasa.gov/details/' + nid
+        if pick: yield 'nasa:' + nid, data.get('title', nid), _safe(pick.replace('http://', 'https://')), 0.0, 'Public Domain (NASA)', 'https://images.nasa.gov/details/' + nid
 
 
 SOURCES = {'commons': commons, 'prelinger': prelinger, 'nasa': nasa}
@@ -97,7 +128,8 @@ BY_THEME = {'space': ['nasa', 'commons'], 'archive': ['prelinger'], 'city': ['co
 
 # ---------------------------------------------------------------- cutting
 def probe(url):
-    r = subprocess.run(['ffprobe', '-v', 'error', '-user_agent', UA['User-Agent'], '-select_streams', 'v:0', '-show_entries', 'stream=width,height:format=duration', '-of', 'json', url],
+    net = ['-user_agent', UA['User-Agent']] if url.startswith('http') else []
+    r = subprocess.run(['ffprobe', '-v', 'error'] + net + ['-select_streams', 'v:0', '-show_entries', 'stream=width,height:format=duration', '-of', 'json', url],
                        capture_output=True, text=True, timeout=120)
     j = json.loads(r.stdout or '{}'); s = (j.get('streams') or [{}])[0]
     return float((j.get('format') or {}).get('duration') or 0), int(s.get('width') or 0), int(s.get('height') or 0)
@@ -119,13 +151,24 @@ def motion(path):
 
 def cut(url, dur, out_dir, key):
     """Up to PER_FILM pieces of CLIP_SEC seconds from spread-out points of a film, re-encoded small and silent."""
+    local = None
+    if 'upload.wikimedia.org' in url:
+        local = download(url, os.path.join(out_dir, '_film' + os.path.splitext(urllib.parse.urlsplit(url).path)[1][-5:]))
+        url = local; time.sleep(3)
+    try: return _cut(url, dur, out_dir, key)
+    finally:
+        if local and os.path.exists(local): os.remove(local)
+
+
+def _cut(url, dur, out_dir, key):
     if dur <= 0: dur = probe(url)[0]
     if dur < CLIP_SEC + 2: return []
     starts = [dur * f for f in (0.18, 0.42, 0.66, 0.84)][:PER_FILM + 1]
     kept = []
     for s in starts:
         name = hashlib.sha1(('%s@%.1f' % (key, s)).encode()).hexdigest()[:16] + '.mp4'; out = os.path.join(out_dir, name)
-        r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-user_agent', UA['User-Agent'], '-ss', '%.2f' % s, '-t', '%.1f' % CLIP_SEC, '-i', url, '-an',
+        net = ['-user_agent', UA['User-Agent']] if url.startswith('http') else []
+        r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y'] + net + ['-ss', '%.2f' % s, '-t', '%.1f' % CLIP_SEC, '-i', url, '-an',
                             '-vf', "scale=-2:'min(%d,ih)':flags=area,fps=30,format=yuv420p" % MAX_H, '-c:v', 'libx264', '-preset', 'medium', '-crf', '25', '-movflags', '+faststart', out],
                            capture_output=True, text=True, timeout=600)
         if r.returncode or not os.path.exists(out): print('    ffmpeg: %s' % (r.stderr or '').strip()[-200:]); continue
@@ -149,9 +192,10 @@ def fetch(maximum):
             print('  %s %r: %d usable' % (src, q, len(found)))
             for key, title, url, dur, lic, page in found:
                 if key in seen or len(new) >= maximum: continue
-                seen.add(key)
                 try: pieces = cut(url, dur, work, key)
-                except Exception as exc: print('  cut failed %s: %s' % (key, exc)); continue
+                except Later as exc: print('  later %s: %s' % (key, exc)); continue
+                except Exception as exc: print('  cut failed %s: %s' % (key, exc)); pieces = []
+                seen.add(key)
                 for name, s, m in pieces:
                     e = dict(asset=name, theme=theme, query=q, source=src, key=key, title=title[:120], licence=lic, page=page, start=round(s, 1), motion=round(m, 2))
                     idx.setdefault('clips', []).append(e); new.append(e); print('+ %-8s %-22s %s' % (theme, q, title[:60]))
