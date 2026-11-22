@@ -48,6 +48,11 @@ the renderer: it is tried from the next night on, with nothing else to change.
 | `producer` | layout (stem lanes / mixing desk), wallpaper, colours, lyric typeface, glitch amounts |
 | `psy` | pattern (14, incl. oil light show, Julia set, spiral, moiré, smoke, cells), palette (11), speed, symmetry, mirror, feedback, strobe, motif, lyrics |
 | `liminal` | place (backrooms, pool, mall, hotel, office, car park, school), pace, tint, tape wear, PLAY/REC label, date stamp |
+| `math` | topic (integral, Fourier series, derivative), theme (midnight, chalk, synth, mono, paper), typeface, background (grid, dots, none), shake strength, glow, step labels (pill, tag) |
+
+The `math` style (Math In Time, `math_video.py`) is a short explainer choreographed in beats: eleven bars,
+whatever the song's tempo. Each topic is a scene in `mathviz/`; add a topic by adding a scene there and its name to
+`TOPICS`. Run one by hand with `python studio/mathviz/integral.py out.mp4 --seed 3` (`--frames 30,200` for a contact sheet).
 
 `LEARNED.md` lists every knob's options with their numbers, and what has been retired.
 
