@@ -91,18 +91,18 @@
         {
           "account": "math_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-22T20:45:00-05:00"
         }
       ],
       "captions": {
         "instagram": "fold a sheet of paper 42 times and it reaches the moon. watch it happen\n🎧 Full Ride – @close__quarters #math #exponential #mathfacts #learnmath #mathisfun\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
