@@ -17,8 +17,8 @@ sys.path.insert(0, os.path.join(HERE, 'asciiviz')); sys.path.insert(0, HERE)
 import knobs as K
 from engine import Video
 
-SCENES = ['planet', 'boulder', 'jelly', 'bridge', 'court']
-WEIGHTS = [1, 1, 1, 2, 2]          # the pixel worlds are new: more of them until the learner has a view
+SCENES = ['planet', 'boulder', 'jelly', 'bridge', 'court', 'aurora', 'daisies', 'galaxy', 'fireworks']
+WEIGHTS = [1, 1, 1, 2, 2, 3, 3, 3, 3]   # the newer scenes (pixel worlds; full-colour pictures in fine letters) get more until the learner has a view
 PIXEL = {'bridge', 'court'}
 
 if __name__ == '__main__':

@@ -17,6 +17,7 @@ import knobs as K
 
 W, H, FPS = 1080, 1920, 30
 CW, CH = 9, 17; ROWS = 66; COLS = W // CW
+CCW, CCH, CROWS = 6, 11, 108          # the colour scenes' finer grid: 180 x 108 letters
 
 def _font(*names):
     roots = [os.path.join(REPO, 'fonts'), '/usr/share/fonts', '/Library/Fonts', os.path.expanduser('~/Library/Fonts')]
@@ -53,17 +54,22 @@ class Video:
         self.layout = K.pick('layout', ['code', 'clean'], r, weights=[3, 1])   # the code under the art is the account's point: most videos show it
         self.sparks = float(K.pick('sparks', [0.5, 1.0, 1.6], r))
         self.SC = importlib.import_module(scene)
+        # Colour scenes (SC.image) are pictures in full colour, set in small letters: a finer grid, and every letter
+        # takes the colour of the picture under it. The older scenes raymarch a distance field into the coarse grid.
+        self.colour = hasattr(self.SC, 'image')
+        self.rows, self.cols, self.cw, self.ch = (CROWS, W // CCW, CCW, CCH) if self.colour else (ROWS, COLS, CW, CH)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
         self.kick = audio.hits(a['kicks'], n, 5.0); self.snare = audio.hits(a['snares'], n, 9.0)
         self.bass = np.convolve(a['bass'], np.ones(3) / 3, 'same'); self.vox = np.convolve(a['vocals'], np.ones(5) / 5, 'same')
         self.pulse = np.clip(0.75 * self.kick + 0.45 * self.bass, 0, 1)
         self.SC.setup(dict(kick=self.kick, snare=self.snare, bass=self.bass, vox=self.vox, pulse=self.pulse, n=n, kicks=a['kicks'],
-                           beats=a['beats'], spb=a['spb'], dur=t1 - t0, t0=t0, seed=seed, rows=ROWS, cols=COLS, cw=CW, ch=CH, w=W))
-        self.grad = np.array(self.SC.GRAD if self.palette == 'scene' else PALETTES[self.palette], np.float32)
-        ramp = RAMPS[self.ramp_name]; chars = sorted(set(ramp + EXTRA))
-        f = ImageFont.truetype(MONO, 15); self.atlas = np.zeros((len(chars), CH, CW), np.float32)
+                           beats=a['beats'], spb=a['spb'], dur=t1 - t0, t0=t0, seed=seed, rows=self.rows, cols=self.cols, cw=self.cw, ch=self.ch, w=W,
+                           snares=a['snares'], hats=a.get('hats', []), vocals=a['vocals']))
+        self.grad = np.array(getattr(self.SC, 'GRAD', PALETTES['mono']) if self.palette == 'scene' else PALETTES[self.palette], np.float32)
+        ramp = RAMPS[self.ramp_name]; chars = sorted(set(ramp + EXTRA + getattr(self.SC, 'CHARS', '')))
+        f = ImageFont.truetype(MONO, 10 if self.colour else 15); self.atlas = np.zeros((len(chars), self.ch, self.cw), np.float32)
         for k, c in enumerate(chars):
-            im = Image.new('L', (CW, CH)); ImageDraw.Draw(im).text((0, 0), c, font=f, fill=255); self.atlas[k] = np.asarray(im) / 255.0
+            im = Image.new('L', (self.cw, self.ch)); ImageDraw.Draw(im).text((0, -1 if self.colour else 0), c, font=f, fill=255); self.atlas[k] = np.asarray(im) / 255.0
         self.idx = {c: k for k, c in enumerate(chars)}; self.ramp = np.array([self.idx[c] for c in ramp])
         self.label = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         lines = json.load(open(os.path.join(song_dir, 'lines.json'))) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
@@ -137,6 +143,63 @@ class Video:
         glow = cv2.GaussianBlur(layer, (0, 0), 5) * (1.0 + 0.8 * self.vox[i]) + cv2.GaussianBlur(layer, (0, 0), 24) * (0.6 + 0.5 * self.pulse[i])
         return np.clip(layer + glow, 0, 255), int((ch != idx[' ']).sum()), int(spark.sum())
 
+    def art_colour(self, i):
+        """A colour scene: the scene paints brightness and colour per letter cell (SC.image), this picks the letters
+        (edges as / | \\ -), lets the snare throw sparks off the bright parts, and adds the glow."""
+        SC = self.SC; idx = self.idx; R, C = self.rows, self.cols
+        L, rgb = SC.image(i); L = np.clip(L.astype(np.float32), 0, 1); rgb = rgb.astype(np.float32)
+        ch = self.ramp[np.clip((L ** 0.85 * (len(self.ramp) - 1)).astype(int), 0, len(self.ramp) - 1)]
+        gy = cv2.Sobel(L, cv2.CV_32F, 0, 1, ksize=3); gx = cv2.Sobel(L, cv2.CV_32F, 1, 0, ksize=3)
+        mag = np.hypot(gx, gy); ang = (np.degrees(np.arctan2(gy, gx)) + 180) % 180
+        edge = (mag > 1.4) & (L > 0.25) & getattr(SC, 'EDGES', True)
+        ech = np.where((ang < 22.5) | (ang >= 157.5), idx['|'], np.where(ang < 67.5, idx['\\'], np.where(ang < 112.5, idx['-'], idx['/'])))
+        ch = np.where(edge, ech, ch)
+        spark = np.zeros((R, C), bool); r2 = np.random.default_rng(i // 2)
+        if self.snare[i] > 0.4:
+            cand = np.argwhere(L > 0.45)
+            if len(cand):
+                for y, x in cand[r2.choice(len(cand), min(len(cand), int(18 * self.sparks * self.snare[i])), replace=False)]: spark[y, x] = True
+        ch = np.where(spark, idx['*'], ch)
+        for (y, x, c, col) in SC.particles(i, R, C):
+            if 0 <= y < R and 0 <= x < C and c in idx: ch[y, x] = idx[c]; rgb[y, x] = col; L[y, x] = max(L[y, x], 0.8)
+        if self.palette != 'scene':                                  # a palette knob other than the scene's own: recolour by brightness
+            rgb = self.gradient(1 - L) * (0.4 + 0.6 * (rgb.mean(-1, keepdims=True) / 255))
+        col = np.where(spark[..., None], np.array([255, 255, 255], np.float32), rgb) * (0.75 + 0.85 * L)[..., None]
+        mask = self.atlas[ch].transpose(0, 2, 1, 3).reshape(R * self.ch, C * self.cw)
+        layer = mask[..., None] * np.repeat(np.repeat(col, self.ch, 0), self.cw, 1)
+        small = cv2.resize(layer, (layer.shape[1] // 3, layer.shape[0] // 3), interpolation=cv2.INTER_AREA)
+        glow = cv2.resize(cv2.GaussianBlur(small, (0, 0), 2.2), layer.shape[1::-1]) * (1.1 + 0.8 * self.vox[i]) \
+             + cv2.resize(cv2.GaussianBlur(small, (0, 0), 9), layer.shape[1::-1]) * (0.7 + 0.6 * self.pulse[i])
+        return np.clip(layer + glow, 0, 255), int((ch != idx[' ']).sum()), int(spark.sum())
+
+    def frame_colour(self, i):
+        """The colour scenes' page: a header line of live counts, the art, the line being printed, the code underneath."""
+        t = i / FPS; SC = self.SC
+        img = np.zeros((H, W, 3), np.float32)
+        a, letters, sparks = self.art_colour(i); art_y = 150 if self.layout == 'code' else 300
+        img[art_y:art_y + a.shape[0], :a.shape[1]] = a
+        if self.layout == 'code':
+            py = 1380; total = self.code_n * self.lh; view = H - py - 52
+            scroll = int((t / (self.n / FPS)) * max(0, total - view + 40)); crop = self.code[scroll:scroll + view].copy()
+            hl = int((t * 1.6) % self.code_n) * self.lh + 8 - scroll
+            if 4 <= hl < view - self.lh: crop[hl - 4:hl + self.lh - 4] = crop[hl - 4:hl + self.lh - 4] * 0.8 + np.array([40, 52, 70]) * 0.6
+            img[py + 52:py + 52 + crop.shape[0]] = crop
+        im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
+        d.text((24, 40), self.label, font=self.fs, fill=(110, 118, 130))
+        d.text((W - 150, 40), '● t %05.1f' % t, font=self.fs, fill=(88, 166, 255))
+        d.text((24, 76), SC.stats(i, sparks) + '    letters %s' % format(letters, ','), font=self.fs, fill=(140, 150, 166))
+        ly = self.lyric(t)
+        if self.layout == 'code':
+            d.rectangle([0, 1380, W, 1432], fill=(22, 27, 34)); d.line([0, 1380, W, 1380], fill=(48, 54, 61), width=2)
+            d.text((24, 1394), SC.FILE, font=self.fh, fill=(201, 209, 217))
+            d.ellipse([W - 250, 1401, W - 238, 1413], fill=(88, 166, 255) if (i // 15) % 2 == 0 else (40, 90, 160))
+            d.text((W - 228, 1394), 'running   30 fps', font=self.fh, fill=(88, 166, 255))
+            if ly: d.text((24, 1346), '>>> print("%s")' % ly, font=self.fs, fill=(126, 231, 135))
+        elif ly:
+            while self.fl.getlength(ly) > W - 80 and ' ' in ly: ly = ly.split(' ', 1)[1]
+            d.text((W / 2, art_y + a.shape[0] + 80), ly, font=self.fl, fill=(126, 231, 135), anchor='mm')
+        return np.asarray(im)
+
     def lyric(self, t):
         T = self.t0 + t; cur = [l for l in self.lines if l[1][0][1] <= T + 0.05]
         if not cur: return ''
@@ -144,6 +207,7 @@ class Video:
         return ' '.join(words) if words and T < cur[-1][0] + 1.2 else ''
 
     def frame(self, i):
+        if self.colour: return self.frame_colour(i)
         t = i / FPS; SC = self.SC
         img = np.zeros((H, W, 3), np.float32)
         a, letters, sparks = self.art(i)
