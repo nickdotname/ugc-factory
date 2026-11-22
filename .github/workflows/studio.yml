@@ -68,7 +68,9 @@ jobs:
           git add campaigns/*/recipes.json studio/weights.json studio/LEARNED.md studio/clicks.json 2>/dev/null || git add campaigns/*/recipes.json studio/weights.json studio/LEARNED.md
           git diff --cached --quiet && exit 0
           git commit -q -m "studio: new videos [skip ci]"
-          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+          # The stats files are rewritten whole each run, so on a clash this run's copy wins
+          # (-X theirs, in a rebase, is the commit being replayed: ours).
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs origin main && git push -q origin HEAD:main && break; git rebase --abort 2>/dev/null; sleep 5; done
 
       # A token lasts about 60 days and nothing else warns before posting stops.
       - name: Warn before an Instagram token runs out

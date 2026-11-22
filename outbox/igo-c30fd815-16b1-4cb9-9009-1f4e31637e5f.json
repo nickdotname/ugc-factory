@@ -1,5 +1,5 @@
 {
-  "attempts": 1,
+  "attempts": 0,
   "audio_id": null,
   "audio_volume": null,
   "caption": "how many did you let die? be honest\nsave this for anyone who remembers\nsoundtrack: EDUCATION by @close__quarters #tamagotchi #90s #nostalgia #y2k #childhood",
@@ -14,7 +14,6 @@
     "18131335717850947"
   ],
   "created_at": "2026-11-22T01:16:06.031212+00:00",
-  "error": "Instagram rejected the request: Timeout (HTTP 400, code -2, subcode 2207003)",
   "first_comment": null,
   "id": "igo-c30fd815-16b1-4cb9-9009-1f4e31637e5f",
   "image_urls": [
@@ -27,9 +26,9 @@
     "https://factory.nickbenak.com/v/render-carousels-2026-11-22/e08f4157-24ff-45d9-83cd-d39aeafcb7da-s07.jpg",
     "https://factory.nickbenak.com/v/render-carousels-2026-11-22/e08f4157-24ff-45d9-83cd-d39aeafcb7da-s08.jpg"
   ],
-  "scheduled_for": "2026-11-22T01:16:06.031212+00:00",
+  "scheduled_for": "2026-11-22T02:20:00+00:00",
   "share_to_feed": true,
-  "status": "failed",
+  "status": "queued",
   "trial": false,
   "trial_graduation": null,
   "video_url": null,

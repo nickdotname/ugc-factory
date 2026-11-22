@@ -92,6 +92,9 @@ _RATE_CODES = {4, 17, 32, 613, 80002}
 #: ... and "this account has published all it may for now" (the 24-hour
 #: publishing allowance), which waiting within a run does not fix.
 _QUOTA_SUBCODES = {2207042}
+#: Instagram's own hiccups: it timed out fetching the media (2207003, also
+#: reported as code -2) or had a server error (2207001). Worth another try.
+_TRANSIENT_SUBCODES = {2207001, 2207003}
 
 #: Instagram's metric names, mapped to the names the rest of the pipeline
 #: already reads (they were Buffer's, and attribution is written against
@@ -313,7 +316,7 @@ class InstagramPublisher(Publisher):
             return QuotaError(f"Instagram's publishing allowance is spent: {detail}")
         if code in _RATE_CODES or status == 429:
             return RateLimitError(f"Instagram rate limited the request: {detail}")
-        if status >= 500 or code in (1, 2):
+        if status >= 500 or code in (1, 2, -2) or subcode in _TRANSIENT_SUBCODES:
             return PublishError(f"Instagram had a temporary failure: {detail}")
         return InvalidPostError(f"Instagram rejected the request: {detail}")
 
