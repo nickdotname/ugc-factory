@@ -1,9 +1,16 @@
 {
-  "attempts": 0,
+  "attempts": 1,
   "audio_id": null,
   "audio_volume": null,
   "caption": "headphones on. we mean it\nEDUCATION is out now. link in bio\n#closequarters #newmusic #indiemusic #headphoneson #altrap",
   "channel_id": "17841467020770402",
+  "children": [
+    "17967229155234026",
+    "17967229176234026",
+    "17967229197234026",
+    "17967229215234026"
+  ],
+  "container_id": "17967229236234026",
   "created_at": "2026-11-22T03:12:21.779733+00:00",
   "first_comment": null,
   "id": "igo-9b44fb2b-0625-4dc2-96b6-ca95272d8085",
@@ -13,9 +20,11 @@
     "https://factory.nickbenak.com/v/render-carousels-2026-11-22/d43fc82a-dc39-4452-ae72-37eaa9749d1b-s03.jpg",
     "https://factory.nickbenak.com/v/render-carousels-2026-11-22/d43fc82a-dc39-4452-ae72-37eaa9749d1b-s04.jpg"
   ],
+  "media_id": "18004414517991246",
+  "published_at": "2026-11-22T03:13:05.584254+00:00",
   "scheduled_for": "2026-11-22T03:12:21.779733+00:00",
   "share_to_feed": true,
-  "status": "queued",
+  "status": "published",
   "trial": false,
   "trial_graduation": null,
   "video_url": null,
