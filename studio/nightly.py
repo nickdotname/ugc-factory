@@ -63,9 +63,10 @@ def suits(style, lv):
     return 'vocals' in on
 
 TIGHT = 0.75          # share of videos cut short, hook first; the rest keep the whole stretch so the two can be compared
+SHORT = 0.35          # of those, for the picture styles: a 6-9 second loop, which people watch through and replay (completion is Instagram's first signal)
 
-def tighten(song_dir, win, rng):
-    """A 10-20 second piece of `win` that starts on its strongest line and lasts a whole number of bars, so it
+def tighten(song_dir, win, rng, short=False):
+    """A 10-20 second (short: 6-9 second) piece of `win` that starts on its strongest line and lasts a whole number of bars, so it
     loops cleanly. A line is strong when it recurs in the song (a hook) and the music under it is loud."""
     import numpy as np, soundfile as sf, re
     try:
@@ -84,12 +85,14 @@ def tighten(song_dir, win, rng):
     t0, t1 = win; opts = []
     for _, ws in lines:
         st = ws[0][1] - 0.06
-        if st < t0 - 0.05 or st + 10 > t1: continue
+        if st < t0 - 0.05 or st + (6 if short else 10) > t1: continue
         opts.append((count[key(ws)] + 4 * loud(st), st))
     if not opts: return win
     opts.sort(reverse=True); st = rng.choice(opts[:3])[1]
-    want = rng.uniform(10, 20); dur = max(bar * round(want / bar), bar * 5)
-    while st + dur > t1 + 0.05 and dur - bar >= 9.5: dur -= bar
+    want = rng.uniform(6, 9) if short else rng.uniform(10, 20)
+    dur = max(bar * round(want / bar), bar * (2 if short else 5))
+    while short and dur < 5.5: dur += bar
+    while st + dur > t1 + 0.05 and dur - bar >= (5.5 if short else 9.5): dur -= bar
     return (round(max(0.0, st), 2), round(min(t1, st + dur), 2))
 
 def render(job):
@@ -150,7 +153,7 @@ for t in cfg['targets']:
     for slug, cr, sid, win, lyr in picked:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
-        if rng.random() < TIGHT: win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed))
+        if rng.random() < TIGHT: win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=style in VISUAL and rng.random() < SHORT)
         seeds.add(seed); inbox = os.path.join(REPO, 'inbox', '%s-%s' % (camp, cr), 'hooks'); os.makedirs(inbox, exist_ok=True)
         out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, W, lyr)); meta.append((cr, slug, sid))
     print('== %s: %d videos (%s)' % (camp, len(jobs), style), flush=True)

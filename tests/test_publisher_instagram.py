@@ -354,3 +354,49 @@ def test_a_carousel_is_measured_without_the_reel_only_figures(tmp_path):
     assert rows[0].value("views") == 88
     assert rows[0].value("saves") == 4
     assert rows[0].value("averageTimeWatched") is None
+
+
+def _with_collaborators(publisher, post_id, names):
+    item = next(i for i in publisher.outbox.items() if i["id"] == post_id)
+    item["collaborators"] = names
+    publisher.outbox.save(item)
+
+
+def test_a_collab_reel_names_its_collaborators(tmp_path):
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    post = publisher.create_post(request())
+    _with_collaborators(publisher, post.post_id, ["@close__quarters"])
+    publisher.publish_due()
+    sent = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")][0]
+    assert json.loads(sent.kwargs["data"]["collaborators"]) == ["close__quarters"]
+
+
+def test_a_trial_reel_never_names_collaborators(tmp_path):
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    post = publisher.create_post(request(trial=True))
+    _with_collaborators(publisher, post.post_id, ["close__quarters"])
+    publisher.publish_due()
+    sent = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")][0]
+    assert "collaborators" not in sent.kwargs["data"]
+
+
+def test_refused_collaborators_do_not_cost_the_post(tmp_path):
+    session = happy(FakeSession())
+
+    def create(call):
+        if "collaborators" in call.kwargs["data"]:
+            return FakeResponse(400, {"error": {
+                "message": "(#100) Invalid collaborators", "code": 100}})
+        return FakeResponse(200, {"id": "cont-1"})
+
+    session.route("POST", f"/{CHANNEL}/media", create)
+    session.route("POST", f"/{CHANNEL}/media_publish", FakeResponse(200, {"id": "media-9"}))
+    publisher, _ = make(tmp_path, session)
+    post = publisher.create_post(request())
+    _with_collaborators(publisher, post.post_id, ["close__quarters"])
+    changed = publisher.publish_due()
+    assert [i["status"] for i in changed] == [PUBLISHED]
+    assert changed[0]["collaborators"] is None
+    assert changed[0]["collaborators_refused"] == ["close__quarters"]

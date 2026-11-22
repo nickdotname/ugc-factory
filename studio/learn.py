@@ -6,11 +6,16 @@
 For every campaign in studio/nightly.yaml it joins each published post's numbers to the recipe of the
 video it used (song, section, look, opening line, lyric style, palette, length) and to when it went out.
 
-A post is scored on three things, each as its rank among the campaign's own posts (0 = worst, 1 = best):
+A post is scored on the signals Instagram says it ranks Reels by, each as its rank among the campaign's own
+posts (0 = worst, 1 = best):
 
-    views                       how far Instagram pushed it            counts for half
-    average seconds watched     whether people stayed                  counts for 30%
-    shares + saves per view     whether people wanted it               counts for 20%
+    watched, as a share of length   completion (over 1 = people looped it)     30%
+    sends per reach                 people DMing it on: the strongest signal   30%
+                                    for reaching people who don't follow you
+    views                           how far Instagram pushed it                15%
+    saves per reach                 people wanting it again                    10%
+    not skipped                     1 - the share who swiped away in the first 15%
+                                    3 seconds (Instagram's reels_skip_rate)
 
 Ranks are used rather than raw numbers because one runaway post would otherwise drown everything else.
 Only posts at least MIN_AGE_H hours old are counted, so a video posted an hour ago is not compared with
@@ -34,7 +39,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 MIN_AGE_H = float(os.environ.get('LEARN_MIN_AGE_H', 20))   # a post younger than this has not had its day yet
 PRIOR = 5.0             # posts an option needs before its weight is taken at about half strength
-MIX = (('views', 0.5), ('watch', 0.3), ('keep', 0.2))
+MIX = (('done', 0.3), ('sends', 0.3), ('views', 0.15), ('saved', 0.1), ('held', 0.15))
 
 
 def load(path, default):
@@ -51,8 +56,12 @@ def numbers(post):
     if m.get('views') is None:
         return None
     views = float(m['views'] or 0)
+    reach = max(float(m.get('reach') or 0) or views, 30.0)            # floored: 2 sends from 5 people is luck
     keep = (float(m.get('shares') or 0) + float(m.get('saves') or 0)) / max(views, 30.0)
+    skip = m.get('skipRate')
     return dict(views=views, watch=m.get('averageTimeWatched'), keep=keep,
+                sends=float(m.get('shares') or 0) / reach, saved=float(m.get('saves') or 0) / reach,
+                held=None if skip is None else 1 - float(skip) / (100.0 if float(skip) > 1 else 1.0),
                 shares=float(m.get('shares') or 0), saves=float(m.get('saves') or 0))
 
 
@@ -124,6 +133,7 @@ def learn(camp, zone, now):
             book = made if not rec.get('archive') or (since is not None and queued >= since) else before
             a = book.get((h.get('creative'), h.get('hook'))) or {}
             secs = a.get('seconds') or 0
+            n['done'] = n['watch'] / secs if secs and n.get('watch') is not None else None   # a 7s loop watched 6s beats a 20s clip watched 8s
             opts = {
                 'song': h.get('creative'),
                 'section': '%s/%s' % (h.get('creative'), a['section']) if a.get('section') else None,
@@ -134,7 +144,7 @@ def learn(camp, zone, now):
                 'hook style': a.get('shown'),
                 'lyrics': a.get('lyrics'),
                 'palette': a.get('palette'),
-                'length': None if not secs else 'under 20s' if secs < 20 else '20-35s' if secs < 35 else 'over 35s',
+                'length': None if not secs else 'under 10s' if secs < 10 else 'under 20s' if secs < 20 else '20-35s' if secs < 35 else 'over 35s',
                 'hour posted': '%02d:00' % when.astimezone(zone).hour,
                 'caption': (h.get('caption') or '').split('\n')[0] or None,
             }
@@ -185,13 +195,37 @@ def learn(camp, zone, now):
     return dict(posts=len(rows), waiting=young, typical_views=med([r[0]['views'] for r in rows]), weights=weights), text
 
 
+LINK_NAMES = {'psy': 'psychedelic.station', 'nostalgia': 'nostalgia.hub.vhs', 'cq': 'close__quarters', 'dc': 'dylancantor23'}
+
+def clicks(now):
+    """Taps on each account's bio link (link/worker.js), last 7 days, kept in studio/clicks.json. This is the
+    one number that says whether the videos send people to the music."""
+    base = (yaml.safe_load(open(os.path.join(REPO, 'site.yaml'))) or {}).get('link_base') or ''
+    path = os.path.join(HERE, 'clicks.json')
+    if base:
+        try:
+            import urllib.request
+            req = urllib.request.Request(base.rstrip('/') + '/stats', headers={'User-Agent': 'Mozilla/5.0 (ugc-factory stats)'})
+            json.dump(json.loads(urllib.request.urlopen(req, timeout=20).read()), open(path, 'w'), indent=1, sort_keys=True)
+        except Exception as exc:
+            print('::warning::could not read bio link clicks: %r' % exc)
+    data = load(path, {})
+    if not data: return []
+    days = [(now - datetime.timedelta(days=k)).date().isoformat() for k in range(6, -1, -1)]
+    srcs = sorted({s for d in data.values() for s in d})
+    out = ['## Bio link taps, last 7 days', '', '| account | ' + ' | '.join(d[5:] for d in days) + ' | total |', '|---|' + '---|' * (len(days) + 1)]
+    for s in srcs:
+        row = [int((data.get(d) or {}).get(s, 0)) for d in days]
+        out.append('| %s | %s | %d |' % (LINK_NAMES.get(s, s), ' | '.join(str(x) for x in row), sum(row)))
+    return out + ['']
+
 def main():
     cfg = yaml.safe_load(open(os.path.join(HERE, 'nightly.yaml')))
     now = datetime.datetime.now(datetime.timezone.utc)
     out = {'updated': now.date().isoformat(), 'campaigns': {}}
     lines = ['# What the numbers say', '',
              'Updated %s by studio/learn.py. A weight of 1.0 is typical, 2.0 is consistently the best, 0.5 the worst.' % out['updated'],
-             'Each post is ranked on views (half), seconds watched (30%) and shares + saves per view (20%).', '']
+             'Each post is ranked on completion (30%), sends per reach (30%), views (15%), saves per reach (10%) and not being skipped (15%).', '']
     for t in cfg['targets']:
         camp = t['campaign']
         try:
@@ -202,6 +236,7 @@ def main():
             result, text = dict(posts=0, weights={}), ['Skipped: %r' % exc, '']
         out['campaigns'][camp] = result
         lines += ['## %s' % camp, ''] + text
+    lines += clicks(now)
     json.dump(out, open(os.path.join(HERE, 'weights.json'), 'w'), indent=1)
     open(os.path.join(HERE, 'LEARNED.md'), 'w').write('\n'.join(lines) + '\n')
     print('\n'.join(lines))

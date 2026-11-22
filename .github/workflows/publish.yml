@@ -70,6 +70,20 @@ jobs:
             ${{ inputs.dry_run == true && '--dry-run' || '' }} \
             ${{ inputs.now == true && '--now' || '' }}
 
+      # A collab post invites another of our accounts; the same login manages it,
+      # so the invite is accepted here, a run or two after the post goes out.
+      - name: Accept collab invites between our own accounts
+        if: ${{ inputs.dry_run != true }}
+        continue-on-error: true
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          python studio/collabs.py accept
+          git add outbox
+          git diff --cached --quiet && exit 0
+          git commit -q -m "collab invites accepted [skip ci]"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+
       # GitHub's own schedules skip runs, and this job is started every 15 minutes
       # by an outside timer that does not. So it is the clock for the daily jobs
       # too: the run that starts in the first minutes of a job's quarter-hour starts

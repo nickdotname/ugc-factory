@@ -9,3 +9,7 @@
 #
 # Leave this empty only if the repository is public again.
 media_base_url: https://factory.nickbenak.com/v
+
+# Each account's bio link (link/worker.js on Cloudflare): /psy, /nostalgia, /cq and /dc count their own
+# taps and send people on to the band site. studio/learn.py reads <link_base>/stats every night.
+link_base: https://cq-listen.cantor-dylan.workers.dev
