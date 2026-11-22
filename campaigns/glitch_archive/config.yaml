@@ -54,7 +54,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true                 # off until the account's handle and category are set; then false
+  paused: false                # live: the account is linked to its Page and branded
   dry_run: false
 
 video:
