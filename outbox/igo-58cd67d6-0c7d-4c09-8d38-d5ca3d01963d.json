@@ -1,5 +1,5 @@
 {
-  "attempts": 0,
+  "attempts": 1,
   "audio_id": null,
   "audio_name": "Talk \u2013 Close Quarters",
   "audio_volume": null,
@@ -8,12 +8,15 @@
   "collaborators": [
     "close__quarters"
   ],
+  "container_id": "18201191413398711",
   "created_at": "2026-11-22T01:48:48.010969+00:00",
   "first_comment": null,
   "id": "igo-58cd67d6-0c7d-4c09-8d38-d5ca3d01963d",
+  "media_id": "17968684715979773",
+  "published_at": "2026-11-22T01:50:37.027796+00:00",
   "scheduled_for": "2026-11-22T01:48:48.010969+00:00",
   "share_to_feed": true,
-  "status": "queued",
+  "status": "published",
   "trial": false,
   "trial_graduation": null,
   "video_url": "https://factory.nickbenak.com/v/render-factreels-2026-11-22/ec2077b8-4637-49df-bd03-abc748e194fd.mp4",
