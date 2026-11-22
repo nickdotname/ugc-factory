@@ -52,3 +52,7 @@ targets:
     style: ascii
     per_night: 3
     join: 30
+  - campaign: earth_data    # the real planet on the beat: satellites, airliners, earthquakes (studio/earthdata.py fetches them daily)
+    style: earth
+    per_night: 4
+    join: 30

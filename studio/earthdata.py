@@ -4,7 +4,9 @@
     python studio/earthdata.py pull      (download the newest data into studio/earthdata/cache)
 
   satellites  every active satellite's orbit (two-line elements) from CelesTrak, propagated with SGP4
-  flights     every aircraft broadcasting its position right now (OpenSky Network; adsb.lol as a fallback)
+  flights     every airliner in the air right now (ADSB.lol, open data under the ODbL), asked for by aircraft type
+              (A320s, 737s, 787s, regional jets, turboprops...); if it is down, yesterday's copy stays.
+              (Not OpenSky or ADS-B Exchange: their live data is for non-commercial use only.)
   quakes      every earthquake of magnitude 2.5+ in the last 30 days (USGS)
 The newest copy of each lives as an asset of the GitHub release "earth-data" (replaced every day) and
 studio/earthdata/latest.json says when each was taken and how many records it has. Coastlines and land are
@@ -18,8 +20,30 @@ UA = {'User-Agent': 'CloseQuartersEarthData/1.0 (https://closequarters.vip; clos
 SOURCES = {
     'tle.txt': ['https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'],
     'quakes.json': ['https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson'],
-    'flights.json': ['https://opensky-network.org/api/states/all', 'https://api.adsb.lol/v2/mil'],
+    'flights.json': ['adsb.lol'],
 }
+# Aircraft types, grouped as the videos name them. Every type here is asked for once a day.
+FAMILIES = [('Airbus A320 family', 'A318 A319 A320 A321 A19N A20N A21N'), ('Boeing 737', 'B732 B733 B734 B735 B736 B737 B738 B739 B37M B38M B39M B3XM'),
+            ('Boeing 777', 'B772 B773 B77L B77W B778 B779'), ('Boeing 787', 'B788 B789 B78X'), ('Airbus A350', 'A359 A35K'),
+            ('Airbus A330', 'A332 A333 A338 A339'), ('Boeing 747', 'B744 B748 B74S'), ('Airbus A380', 'A388'),
+            ('Boeing 757 & 767', 'B752 B753 B762 B763 B764'), ('regional jets', 'E170 E175 E75L E75S E190 E195 E290 E295 CRJ2 CRJ7 CRJ9 CRJX BCS1 BCS3'),
+            ('turboprops', 'AT43 AT45 AT72 AT75 AT76 DH8A DH8B DH8C DH8D')]
+ADSB = 'https://api.adsb.lol/v2/type/%s'
+
+
+def adsb():
+    """Every airliner ADSB.lol hears, one aircraft type at a time (its public API has no single worldwide query)."""
+    seen = {}
+    for fam, types in FAMILIES:
+        for t in types.split():
+            try: j = json.loads(get(ADSB % t, tries=2))
+            except Exception as exc: print('  adsb.lol %s: %s' % (t, exc)); continue
+            for a in j.get('ac') or []:
+                if a.get('lat') is None or a.get('alt_baro') in (None, 'ground'): continue
+                seen[a.get('hex')] = dict(lat=round(a['lat'], 4), lon=round(a['lon'], 4), alt_ft=a.get('alt_geom') or a.get('alt_baro'),
+                                          kt=a.get('gs'), track=a.get('track'), type=t, family=fam, reg=a.get('r') or '')
+            time.sleep(1.5)
+    return json.dumps(dict(time=int(time.time()), source='ADSB.lol (ODbL 1.0)', ac=list(seen.values()))).encode()
 
 
 def get(url, tries=3):
@@ -34,7 +58,7 @@ def count(name, raw):
     if name == 'tle.txt': return sum(1 for l in raw.decode(errors='ignore').splitlines() if l.startswith('1 '))
     j = json.loads(raw)
     if name == 'quakes.json': return len(j.get('features', []))
-    return len(j.get('states') or j.get('ac') or [])
+    return len(j.get('ac') or [])
 
 
 def fetch():
@@ -42,7 +66,7 @@ def fetch():
     os.makedirs(CACHE, exist_ok=True); got = []
     for name, urls in SOURCES.items():
         for url in urls:
-            try: raw = get(url); n = count(name, raw)
+            try: raw = adsb() if url == 'adsb.lol' else get(url); n = count(name, raw)
             except Exception as exc: print('  %s from %s failed: %s' % (name, url, exc)); continue
             if n < 10: print('  %s from %s: only %d records' % (name, url, n)); continue
             open(os.path.join(CACHE, name), 'wb').write(raw); got.append(name)
@@ -51,7 +75,7 @@ def fetch():
     if got:
         if subprocess.run(['gh', 'release', 'view', RELEASE, '-R', REPO], capture_output=True).returncode:
             subprocess.run(['gh', 'release', 'create', RELEASE, '-R', REPO, '--title', 'Earth data (newest)', '--notes',
-                            'Satellites (CelesTrak), flights (OpenSky / adsb.lol), earthquakes (USGS). Replaced daily; see studio/earthdata/latest.json.'], check=True)
+                            'Satellites (CelesTrak), airliners (ADSB.lol, ODbL 1.0), earthquakes (USGS). Replaced daily; see studio/earthdata/latest.json.'], check=True)
         subprocess.run(['gh', 'release', 'upload', RELEASE, '-R', REPO, '--clobber'] + [os.path.join(CACHE, n) for n in got], check=True)
     json.dump(latest, open(LATEST, 'w'), indent=1)
 
