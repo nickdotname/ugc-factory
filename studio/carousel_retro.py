@@ -89,12 +89,23 @@ im.save(os.path.join(out, '01.jpg'), quality=92)
 
 # ---- one fact a slide --------------------------------------------------------------------------------
 n = len(spec['slides'])
-for i, (big, text) in enumerate(spec['slides'], 1):
+# where one, two or three photo windows sit above the text window (they overlap, like a messy desktop)
+SPOTS = {1: [(60, 100, W - 120, 640)], 2: [(40, 90, 640, 560), (420, 190, W - 40, 660)],
+         3: [(30, 80, 560, 470), (500, 120, W - 30, 520), (240, 300, 820, 690)]}
+for i, sl in enumerate(spec['slides'], 1):
+    big, text = sl[0], sl[1]; ph = photos.slide_photos(sl)[:3]
     im, d = desktop()
-    ix0, iy0, ix1, iy1 = window(d, (150, 150, W - 60, H - 150), '%s.txt  —  %d of %d' % (name, i, n))
-    fb, rb, sb = fit(d, big.upper(), HEAD, ix1 - ix0, 300, 210, 90); y = iy0
+    for k, ((x0, y0, x1, y1), (pp, _)) in enumerate(zip(SPOTS.get(len(ph), []), ph)):
+        px0, py0, px1, py1 = window(d, (x0, y0, x1, y1), '%s_%d.jpg' % (name[:10], k + 1))
+        im.paste(Image.fromarray(photos.fit_image(pp, px1 - px0 + 32, py1 - py0 + 14)), (px0 - 16, py0 - 8)); d = ImageDraw.Draw(im)
+    if ph:
+        d.text((60, H - 46), '  ·  '.join(c.replace('photo: ', '') for _, c in ph)[:110], font=font(BODY, 18), fill=LIGHT)
+        ix0, iy0, ix1, iy1 = window(d, (150, 620 if len(ph) < 3 else 680, W - 60, H - 70), '%s.txt  —  %d of %d' % (name, i, n))
+    else:
+        ix0, iy0, ix1, iy1 = window(d, (150, 150, W - 60, H - 150), '%s.txt  —  %d of %d' % (name, i, n))
+    fb, rb, sb = fit(d, big.upper(), HEAD, ix1 - ix0, 170 if ph else 300, 130 if ph else 210, 70 if ph else 90); y = iy0
     for r_ in rb: d.text((ix0, y), r_, font=fb, fill=TITLE[0]); y += sb * 1.05
-    ft, rt, st = fit(d, text, BODY, ix1 - ix0, iy1 - y - 150, 58, 34, 1.32); y += 36
+    ft, rt, st = fit(d, text, BODY, ix1 - ix0, iy1 - y - (110 if ph else 150), 50 if ph else 58, 30, 1.28); y += 24 if ph else 36
     for r_ in rt: d.text((ix0, y), r_, font=ft, fill=(0, 0, 0)); y += st * 1.32
     if i < n: button(d, ix1 - 240, iy1 - 66, 'next >')
     d.text((ix0, iy1 - 52), '@' + spec['handle'], font=font(BODY, 28), fill=DARK)
@@ -107,6 +118,8 @@ f, rows, size = fit(d, 'SAVE THIS. FOLLOW FOR MORE OF WHAT WE GREW UP WITH', HEA
 for r_ in rows: d.text((ix0, y), r_, font=f, fill=(0, 0, 0)); y += size * 1.12
 y += 20; button(d, ix0, y, '@' + spec['handle']); y += 120
 fs = font(BODY, 28)
-for r_ in wrap(d, spec['sources'] + ('. Cover ' + PHOTO[1] if PHOTO else ''), fs, ix1 - ix0): d.text((ix0, y), r_, font=fs, fill=DARK); y += 40
+cr = photos.credits(spec); srcs = spec['sources'] + ('. Photos: ' + '; '.join(c.replace('photo: ', '') for c in cr) if cr else '')
+fs = font(BODY, 28 if len(srcs) < 220 else 20)
+for r_ in wrap(d, srcs, fs, ix1 - ix0): d.text((ix0, y), r_, font=fs, fill=DARK); y += fs.size + 10
 d.text((ix0, y + 20), spec.get('music', ''), font=font(BODY, 30), fill=TITLE[0])
 im.save(os.path.join(out, '%02d.jpg' % (n + 2)), quality=92); print('wrote', n + 2, 'slides to', out)
