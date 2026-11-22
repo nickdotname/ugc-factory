@@ -7,7 +7,8 @@ The nightly job's renderer for the "math" style (studio/nightly.py). The topic i
 which explainers people watch; the look (theme, typeface, background, shake, glow, step labels) is a set of knobs
 inside studio/mathviz/kit.py. Every scene is choreographed in beats (44 of them, eleven bars), so it fits any song at
 its own tempo: it starts on the first bar line at or after the stretch nightly picked (CQ_WINDOW), and if the song
-ends too soon it moves back. The scenes themselves are in studio/mathviz/: integral, fourier, derivative, zeta (the Riemann hypothesis).
+ends too soon it moves back. The scenes themselves are in studio/mathviz/: integral, fourier, derivative, zeta (the Riemann hypothesis), fold
+(how many folds of paper reach the Moon, in pixel art).
 """
 import importlib, json, math, os, random, sys
 import soundfile as sf
@@ -17,8 +18,8 @@ sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import knobs as K
 import beat as audio
 
-TOPICS = ['integral', 'fourier', 'derivative', 'zeta']
-TOPIC_WEIGHTS = [1, 1, 1, 3]     # the Riemann hypothesis is in the news (AI results on it, Aug-Oct 2026): more of it for now
+TOPICS = ['integral', 'fourier', 'derivative', 'zeta', 'fold']
+TOPIC_WEIGHTS = [1, 1, 1, 3, 3]  # the Riemann hypothesis is in the news (AI results on it, Aug-Oct 2026); fold (paper to the Moon, in pixel art) is new
 BEATS = 44
 
 def start_beat(song_dir, t0):
