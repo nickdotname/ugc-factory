@@ -58,9 +58,13 @@ def playing(lv, win):
     a, b = int(win[0]), max(int(win[0]) + 1, int(win[1])); return {k: round(float(v[a:b].mean()) if len(v[a:b]) else 0.0, 2) for k, v in lv.items()}
 
 PLAYS = 0.25
+VISUAL['rocket'] = 'rocket_video.py'
 # Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
 VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_video.py', 'glitch': 'glitch_video.py', 'physics': 'physics_video.py',
-          'ascii': 'ascii_video.py', 'earth': 'earth_video.py', 'rocket': 'rocket_video.py'}
+          'ascii': 'ascii_video.py', 'earth': 'earth_video.py'}
+# Lyric styles with a renderer of their own (the rest are drawn by lyric_video.py): they set the proven lyrics, so
+# they use only stretches whose lyric timing passed (like band and producer), never the picture styles' free ones.
+LYRIC = {'type': 'type_video.py'}
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
@@ -151,7 +155,8 @@ def render(job):
     kn, extra = job[5]
     env.update(extra)
     if kn: env['CQ_KNOBS'] = json.dumps(kn)
-    cmd = [sys.executable, os.path.join(HERE, VISUAL[style]), song_dir, str(seed), out] if style in VISUAL else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
+    own = VISUAL.get(style) or LYRIC.get(style)
+    cmd = [sys.executable, os.path.join(HERE, own), song_dir, str(seed), out] if own else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
     why = '' if ok else '\n   exit %s%s\n%s' % (r.returncode, ' (killed: out of memory?)' if r.returncode < 0 else '', (r.stderr.strip() or r.stdout.strip())[-600:])
