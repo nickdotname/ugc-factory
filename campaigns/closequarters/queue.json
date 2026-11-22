@@ -374,11 +374,11 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-22T15:50:00-05:00"
         }
       ],
       "captions": {
@@ -386,7 +386,7 @@
         "instagram": "Myth of Sisyphus – Close Quarters\nplay it for somebody and watch their face at this part\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
