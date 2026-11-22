@@ -1,0 +1,69 @@
+name: retro
+
+# retro.vibes.arcade's clip library: GitHub only orchestrates. The clips are made on Kaggle's free GPUs
+# (two T4s, about 30 GPU hours a week) by an open video model (Wan, Apache 2.0); see studio/retro_gen.py.
+# Twice a week it spends up to 3 GPU hours, which keeps well inside the free weekly hours.
+on:
+  workflow_dispatch:
+    inputs:
+      clips:
+        description: how many 5-second clips to ask for
+        required: false
+        default: "24"
+      hours:
+        description: GPU hours to spend at most (Kaggle gives about 30 a week)
+        required: false
+        default: "3"
+      steps:
+        description: denoising steps per clip (more is slower and cleaner)
+        required: false
+        default: "30"
+  schedule:
+    - cron: '23 4 * * 1,4'
+  push:
+    branches: [retro-arcade]
+    paths: [studio/retro/kernel.py, studio/retro_gen.py, .github/workflows/retro.yml]
+
+concurrency:
+  group: retro
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    # A push to the work branch is a small test (2 clips), and only when the commit asks for it.
+    if: ${{ github.event_name != 'push' || contains(github.event.head_commit.message, '[retro-test]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+      KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q kaggle opencv-python-headless numpy
+      - name: GPU hours left this week
+        run: python studio/retro_gen.py quota || true
+      - name: Make clips on Kaggle and add them to the library
+        run: |
+          python studio/retro_gen.py run \
+            --clips "${{ github.event_name == 'push' && '2' || inputs.clips || '24' }}" \
+            --hours "${{ github.event_name == 'push' && '0.75' || inputs.hours || '3' }}" \
+            --steps "${{ inputs.steps || '30' }}"
+      - name: Record the library
+        if: ${{ always() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add studio/retro/index.json 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -q -m "retro library: new clips [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs origin "${{ github.ref_name }}" && git push -q origin "HEAD:${{ github.ref_name }}" && break; git rebase --abort 2>/dev/null; sleep 5; done
