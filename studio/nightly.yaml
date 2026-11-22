@@ -26,16 +26,11 @@ targets:
     style: liminal
     per_night: 6
     join: 40
-  - campaign: nick_studio   # nickdotname (through Buffer): both lyric styles, so the learner can say which suits it
-    style: band
-    per_night: 2
-    join: 50
-    first_fill: 6
-  - campaign: nick_studio
-    style: producer
-    per_night: 2
-    join: 45
-    first_fill: 6
+  - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
+    style: type
+    per_night: 4
+    join: 40
+    first_fill: 8
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
     style: math
     per_night: 4
