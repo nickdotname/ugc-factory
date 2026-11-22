@@ -1,6 +1,8 @@
-# nickdotname: the studio's lyric videos (retro desktop and producer styles), next to the meme
-# clips the closequarters campaign posts. Rendered each night by studio/nightly.py like the
-# other studio accounts, and learned the same way, but posted through Buffer.
+# Loose Change (formerly nickdotname): the studio's lyric videos in kinetic type (studio/type_video.py), so they
+# look nothing like close__quarters' or dylancantor23's, next to the meme clips the closequarters campaign posts.
+# The -v2 libraries hold only the type videos; the old desktop and producer ones stay in the -v1 releases, unused.
+# Rendered each night by studio/nightly.py like the other studio accounts, and learned the same way, but posted
+# through Buffer.
 
 slug: nick_studio
 timezone: America/New_York
@@ -8,28 +10,28 @@ timezone: America/New_York
 creatives:
   - name: full_ride
     title: "Full Ride"
-    assets_release: assets-nick_studio-full_ride
+    assets_release: assets-nick_studio-full_ride-v2
   - name: hair_of_the_dog
     title: "Hair of the Dog"
-    assets_release: assets-nick_studio-hair_of_the_dog
+    assets_release: assets-nick_studio-hair_of_the_dog-v2
   - name: talk
     title: "Talk"
-    assets_release: assets-nick_studio-talk
+    assets_release: assets-nick_studio-talk-v2
   - name: fixation
     title: "Fixation"
-    assets_release: assets-nick_studio-fixation
+    assets_release: assets-nick_studio-fixation-v2
   - name: wont_be_the_same_again
     title: "Won't Be the Same Again"
-    assets_release: assets-nick_studio-wont_be_the_same_again
+    assets_release: assets-nick_studio-wont_be_the_same_again-v2
   - name: myth_of_sisyphus
     title: "Myth of Sisyphus"
-    assets_release: assets-nick_studio-myth_of_sisyphus
+    assets_release: assets-nick_studio-myth_of_sisyphus-v2
   - name: suspended
     title: "Suspended"
-    assets_release: assets-nick_studio-suspended
+    assets_release: assets-nick_studio-suspended-v2
   - name: prologue
     title: "Prologue: Before"
-    assets_release: assets-nick_studio-prologue
+    assets_release: assets-nick_studio-prologue-v2
 
 # nickdotname on Instagram, through Buffer (TikTok left out: posts there get almost no views).
 accounts:

@@ -60,8 +60,12 @@ def playing(lv, win):
 PLAYS = 0.25
 # Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
 VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_video.py', 'glitch': 'glitch_video.py', 'physics': 'physics_video.py',
-          'ascii': 'ascii_video.py', 'earth': 'earth_video.py', 'collage': 'collage_video.py'}
+          'ascii': 'ascii_video.py', 'earth': 'earth_video.py'}
+# Lyric styles with a renderer of their own (the rest are drawn by lyric_video.py): they set the proven lyrics, so
+# they use only stretches whose lyric timing passed (like band and producer), never the picture styles' free ones.
+LYRIC = {'type': 'type_video.py'}
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
+VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 # What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
@@ -151,7 +155,8 @@ def render(job):
     kn, extra = job[5]
     env.update(extra)
     if kn: env['CQ_KNOBS'] = json.dumps(kn)
-    cmd = [sys.executable, os.path.join(HERE, VISUAL[style]), song_dir, str(seed), out] if style in VISUAL else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
+    own = VISUAL.get(style) or LYRIC.get(style)
+    cmd = [sys.executable, os.path.join(HERE, own), song_dir, str(seed), out] if own else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
     print(('ok   ' if ok else 'FAIL ') + os.path.basename(out) + ('' if ok else '\n' + r.stderr[-500:]), flush=True)
