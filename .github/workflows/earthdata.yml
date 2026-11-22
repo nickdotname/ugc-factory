@@ -1,0 +1,39 @@
+# Download the newest open data about the planet for the earth-data account (studio/earthdata.py): every active
+# satellite's orbit, every aircraft in the air, the last month's earthquakes. Runs before the nightly studio job.
+name: earthdata
+
+on:
+  workflow_dispatch:
+  push:
+    paths: ["studio/earthdata.py", ".github/workflows/earthdata.yml"]
+  schedule:
+    - cron: "52 5 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: earthdata
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Fetch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python studio/earthdata.py fetch
+      - name: Keep the record of what was taken
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add studio/earthdata/latest.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "earth data fetched [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
