@@ -127,3 +127,29 @@ def water(cv, rgb, i, E):
 
 def stats(i, E, info, voxels):
     return 'voxels %s   people %d   kicks %d' % (format(voxels, ','), info['people'], int((E['kicks'] <= i).sum()))
+
+FILE = 'bridge.py'
+CODE = '''def world():
+    # every block is placed by code: no sprites, no image files
+    w = World(60, 60, 36)
+    w.put(bank & (z <= 4), DIRT)
+    w.put(river & (z == 2), WATER)
+    for y in range(14, 46):
+        top = 6 + 9 * sin(pi * (y - 14) / 32) ** 1.3
+        w.column(x=28, y=y, z0=3, z1=top, mat=STONE)
+    w.cut(arch(mid=30, half=7.5))          # the arch over the river
+    w.tower(22, 9, height=24)
+    w.tree(6, 16, r=3.2)
+    return w.shadows(sun=(1.5, 0.45))     # long shadows from a low sun
+
+def frame(i):
+    hop = 2 * kick(i)                     # the world hops on the kick
+    for p in people:
+        p.y += p.speed                    # crossing the bridge
+        p.z = deck(p.y) + step(i)         # stepping on the beat
+    if i == big_hit:
+        diver.jump(lands=i + 2 * beat)    # splash two beats later
+    glitter(water, hats(i))
+    sparks(tops, snare(i))
+    return draw_iso(world, people, hop)
+'''

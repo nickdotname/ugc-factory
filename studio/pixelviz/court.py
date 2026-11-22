@@ -106,3 +106,33 @@ def dynamic(cv, i, E):
 
 def stats(i, E, info, voxels):
     return 'voxels %s   rally %d shots   kicks %d' % (format(voxels, ','), info['shots'], int((E['kicks'] <= i).sum()))
+
+FILE = 'court.py'
+CODE = '''def world():
+    # a clay court, drawn block by block
+    w = World(64, 44, 20)
+    w.put(z == 1, CLAY)
+    for line in baselines + sidelines + service_lines:
+        w.put(line, LINE)
+    w.net(x=31, height=4)
+    w.fence(mesh=lambda x, y, z: (x + y + z) % 2 == 0)
+    return w.shadows(sun=(1.5, 0.45))
+
+def rally(song):
+    # one shot on every kick or snare, at least 0.42 s apart
+    shots = thin(kicks(song) + snares(song), gap=0.42)
+    return [(t, k % 2) for k, t in enumerate(shots)]
+
+def ball(t):
+    a, b = shot_before(t), shot_after(t)
+    u = (t - a.t) / (b.t - a.t)
+    if u < 0.68:                          # over the net
+        return lerp(a.pos, bounce, u / 0.68), arc(u / 0.68, 7)
+    return lerp(bounce, b.pos, (u - 0.68) / 0.32), arc(u, 5)
+
+def frame(i):
+    hop = 2 * kick(i)
+    players.run_to(ball(i + lead))
+    sparks(tops, snare(i))
+    return draw_iso(world, players, ball(i), hop)
+'''
