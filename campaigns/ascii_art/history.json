@@ -242,8 +242,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-04bd8474-e220-4452-b9dd-cee41c3af6bc",
+      "post_ids": {
+        "ascii_ig": "igo-04bd8474-e220-4452-b9dd-cee41c3af6bc"
+      },
       "overlay": null,
       "lineup_id": "galaxy-first",
       "variants": {}

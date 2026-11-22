@@ -144,9 +144,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-04bd8474-e220-4452-b9dd-cee41c3af6bc",
           "last_error": null,
           "scheduled_for": "2026-11-22T22:40:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "a galaxy drawn in letters, every one placed by code. sound on.\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
