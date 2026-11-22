@@ -22,3 +22,7 @@ targets:
     style: psy
     per_night: 16
     join: 40
+  - campaign: nostalgia     # knick.creates (to be renamed): liminal VHS tapes. Waits until campaigns/_nostalgia is renamed.
+    style: liminal
+    per_night: 6
+    join: 40
