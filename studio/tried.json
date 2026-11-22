@@ -126,5 +126,137 @@
    "faces": true,
    "face_block": 8
   }
+ },
+ {
+  "date": "2026-11-22",
+  "campaign": "cq_band",
+  "account": "close_quarters_ig",
+  "post": "igo-bf42c852-8d61-4257-a67e-41c3badbdcd5",
+  "song": "prologue",
+  "section": "s07",
+  "window": [
+   148.5,
+   160.91
+  ],
+  "seed": 62743,
+  "plan": {
+   "wall": "tiles",
+   "acc": [
+    131,
+    108,
+    173
+   ],
+   "theme": "purple",
+   "bg": [
+    85,
+    60,
+    130
+   ],
+   "segs": [
+    [
+     146.71,
+     "face+paint",
+     0,
+     [
+      "pip",
+      "stamp"
+     ]
+    ],
+    [
+     148.85,
+     "cmd",
+     1,
+     [
+      "trail",
+      "track",
+      "pip"
+     ]
+    ],
+    [
+     149.93,
+     "face+player",
+     2,
+     [
+      "invert",
+      "pip"
+     ]
+    ],
+    [
+     152.15,
+     "face+cmd",
+     3,
+     [
+      "track",
+      "invert",
+      "pipwave"
+     ]
+    ],
+    [
+     152.97,
+     "face+paint",
+     4,
+     [
+      "trail",
+      "invert",
+      "pipwave"
+     ]
+    ],
+    [
+     154.31,
+     "face+arr",
+     5,
+     [
+      "track",
+      "invert",
+      "pipwave",
+      "stamp"
+     ]
+    ],
+    [
+     155.43,
+     "face+wave",
+     6,
+     [
+      "pip",
+      "stamp"
+     ]
+    ],
+    [
+     156.87,
+     "face+cmd",
+     7,
+     [
+      "invert",
+      "pipwave"
+     ]
+    ],
+    [
+     158.21,
+     "wave",
+     8,
+     [
+      "pipwave",
+      "pip"
+     ]
+    ],
+    [
+     160.15,
+     "paint",
+     9,
+     [
+      "trail",
+      "pipwave"
+     ]
+    ]
+   ],
+   "punch": 0.02,
+   "scan": false,
+   "chroma": 2,
+   "hook": "your pc in 2001:",
+   "hook_angle": "plain",
+   "hook_mode": "hold",
+   "faces": true,
+   "face_block": 8
+  }
  }
 ]
