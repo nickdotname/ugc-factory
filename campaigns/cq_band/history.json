@@ -647,6 +647,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "287eb0089f277ef017c1663d9eedb5d4765f914cf047b484b30b98a1c31ab28a",
+      "timestamp": "2026-11-22T22:38:13.583601Z",
+      "item_id": "5daaecfc-6000-491f-8584-e91429eca16e",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "be honest 👇 skip or replay?\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "creative": "fixation",
+      "captions": {
+        "instagram": "be honest 👇 skip or replay?\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Fixation"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.272,
+        "anchor_y": 0.256,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": "hot-take-first",
+      "variants": {}
+    },
+    {
+      "tuple_hash": "f9415de43e11e47a76a290d1b664f996ce15704dc2940b307cb0e29b65e4a311",
+      "timestamp": "2026-11-22T22:38:13.583601Z",
+      "item_id": "34603057-84c2-4cf0-9b35-f413182c5bad",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "tell me this doesn't sound like 2am in new york\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "tell me this doesn't sound like 2am in new york\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Suspended: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.336,
+        "anchor_y": 0.25,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
