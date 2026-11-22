@@ -144,18 +144,18 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-22T20:05:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the mall at closing time hit different\n🎧 Suspended – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
