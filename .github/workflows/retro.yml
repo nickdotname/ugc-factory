@@ -49,7 +49,7 @@ jobs:
       - name: Install
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-          pip install -q kaggle opencv-python-headless numpy
+          pip install -q kaggle six opencv-python-headless numpy
       - name: GPU hours left this week
         run: python studio/retro_gen.py quota || true
       - name: Make clips on Kaggle and add them to the library
