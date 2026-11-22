@@ -6,7 +6,7 @@ import numpy as np, cv2
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from kit import *
 
-SLUG, B0, SEED = conf('wont-be-the-same-again', 216)
+SLUG, B0, SEED = conf('wont-be-the-same-again', 244)
 ST = Style(SEED)
 CL = Clock(SLUG, B0, 44)
 CREDIT = credit(SLUG)
