@@ -27,7 +27,8 @@ def log(*a):
 
 def gpus():
     """(name, MiB) per GPU, read with nvidia-smi so this process never starts CUDA (the children fork from it)."""
-    r = subprocess.run(['nvidia-smi', '--query-gpu=name,memory.total', '--format=csv,noheader,nounits'], capture_output=True, text=True)
+    try: r = subprocess.run(['nvidia-smi', '--query-gpu=name,memory.total', '--format=csv,noheader,nounits'], capture_output=True, text=True)
+    except FileNotFoundError: return []
     out = []
     for line in r.stdout.strip().splitlines():
         name, mib = [x.strip() for x in line.rsplit(',', 1)]; out.append((name, int(float(mib))))
@@ -107,7 +108,7 @@ def worker(gpu, mid, jobs, prompt_index, q):
 def main():
     os.makedirs(CLIPS, exist_ok=True)
     cards = gpus(); log('gpus:', cards)
-    if not cards: sys.exit('no GPU: the kernel must run with an accelerator')
+    if not cards: sys.exit('no GPU: Kaggle gave this run none (the account must be phone-verified, and have GPU hours left)')
     mid = BIG if min(m for _, m in cards) >= 40000 else SMALL
     if mid == BIG:                                              # TI2V-5B is trained at 704x1280: keep the vertical frame, scale it up
         CFG.update(width=704, height=1280, frames=min(CFG.get('frames', 81), 121), fps=24)
