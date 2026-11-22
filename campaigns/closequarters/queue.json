@@ -309,9 +309,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6b031b5e846b0ee9079f5107",
           "last_error": null,
           "scheduled_for": "2026-11-23T04:50:00-05:00"
         }
@@ -321,7 +321,7 @@
         "tiktok": "Myth of Sisyphus – Close Quarters\naux cord approved. pass it on.\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
