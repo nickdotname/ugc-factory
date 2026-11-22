@@ -1,0 +1,31 @@
+{
+ "clips": [
+  {
+   "asset": "d11df4ab5dd8d943.mp4",
+   "theme": "city",
+   "scene": 1,
+   "look": "dream",
+   "seed": 821930229,
+   "prompt": "a neon city street at night after rain, reflections on the wet road, glowing shop signs with abstract shapes, camera glides forward. dreamy pastel CGI, soft focus glow, hazy atmosphere, liminal and quiet, early 2000s 3D render, slow floating camera",
+   "model": "Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+   "steps": 30,
+   "batch": "20261122-202149",
+   "motion": 1.13
+  },
+  {
+   "asset": "66ed399ae8fde661.mp4",
+   "theme": "mall",
+   "scene": 0,
+   "look": "y2k",
+   "seed": 444152905,
+   "prompt": "a glossy shopping mall atrium with a waterfall fountain, indoor palm trees, glass skylight and chrome railings, empty and quiet, camera glides forward. late 1990s CGI render, early 3D computer animation, glossy plastic and polished chrome, soft global illumination, bloom, smooth slow camera move, Y2K aesthetic, saturated candy colours",
+   "model": "Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+   "steps": 30,
+   "batch": "20261122-202149",
+   "motion": 0.31
+  }
+ ],
+ "batches": [
+  "20261122-202149"
+ ]
+}
