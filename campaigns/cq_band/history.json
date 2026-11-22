@@ -784,8 +784,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-68d9ea16-bb0a-4134-8612-a0d00a9ab79c",
+      "post_ids": {
+        "close_quarters_ig": "igo-68d9ea16-bb0a-4134-8612-a0d00a9ab79c"
+      },
       "overlay": null,
       "lineup_id": "lofi-wbtsa-verse",
       "variants": {}
