@@ -93,7 +93,7 @@ n = len(spec['slides'])
 SPOTS = {1: [(60, 100, W - 120, 640)], 2: [(40, 90, 640, 560), (420, 190, W - 40, 660)],
          3: [(30, 80, 560, 470), (500, 120, W - 30, 520), (240, 300, 820, 690)]}
 for i, sl in enumerate(spec['slides'], 1):
-    big, text = sl[0], sl[1]; ph = photos.slide_photos(sl)[:3]
+    big, text = sl[0], sl[1]; ph = photos.slide_photos(sl, spec.get('slug', ''))[:3]
     im, d = desktop()
     for k, ((x0, y0, x1, y1), (pp, _)) in enumerate(zip(SPOTS.get(len(ph), []), ph)):
         px0, py0, px1, py1 = window(d, (x0, y0, x1, y1), '%s_%d.jpg' % (name[:10], k + 1))
