@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-22T19:23:39.417023Z",
+  "generated_at": "2026-11-22T22:28:29.517227Z",
   "items": [
     {
-      "id": "c6022079-e5e4-4a15-9694-91b9f5b1dc23",
-      "scheduled_for": "2026-11-22T15:00:00-05:00",
-      "rendered_at": "2026-11-22T19:23:39.417023Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-22/c6022079-e5e4-4a15-9694-91b9f5b1dc23.mp4",
-      "caption": "the one explanation that finally made sense\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "id": "6dc18b94-0818-4b72-872e-6c1685ef9d6f",
+      "scheduled_for": "2026-11-22T19:20:00-05:00",
+      "rendered_at": "2026-11-22T22:28:29.517227Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-22/6dc18b94-0818-4b72-872e-6c1685ef9d6f.mp4",
+      "caption": "sound on. the math moves with the music\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.493,
-        "anchor_y": 0.53,
+        "anchor_x": 0.736,
+        "anchor_y": 0.656,
         "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
       "creative": "prologue",
       "overlay": null,
@@ -36,53 +36,10 @@
       "first_comment": null,
       "posts": [],
       "captions": {
-        "instagram": "the one explanation that finally made sense\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Prologue: Before"
+        "instagram": "sound on. the math moves with the music\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "cancelled",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "497ea976-cead-4e3b-b579-438c29135489",
-      "scheduled_for": "2026-11-22T19:20:00-05:00",
-      "rendered_at": "2026-11-22T19:23:39.417023Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-22/497ea976-cead-4e3b-b579-438c29135489.mp4",
-      "caption": "the math teacher you needed in high school\n🎧 Suspended – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.697,
-        "anchor_y": 0.262,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [],
-      "captions": {
-        "instagram": "the math teacher you needed in high school\n🎧 Suspended – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nstream Suspended: link in bio"
-      },
-      "titles": {},
-      "status": "cancelled",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
