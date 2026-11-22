@@ -70,6 +70,8 @@ class Video:
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
         self.credit = '♪ %s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
         self.f_hook, self.f_small, self.f_count = font(64), font(30), font(40)
+        sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', '/Library/Fonts/Arial Unicode.ttf') if os.path.exists(p)), None)
+        if sans: self.f_small = ImageFont.truetype(sans, 28)
         self.trail_img = np.zeros((H, W, 3), np.float32)
         getattr(self, 'setup_' + self.scene)()
 

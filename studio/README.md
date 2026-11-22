@@ -48,6 +48,8 @@ the renderer: it is tried from the next night on, with nothing else to change.
 | `producer` | layout (stem lanes / mixing desk), wallpaper, colours, lyric typeface, glitch amounts |
 | `psy` | pattern (14, incl. oil light show, Julia set, spiral, moiré, smoke, cells), palette (11), speed, symmetry, mirror, feedback, strobe, motif, lyrics |
 | `liminal` | place (backrooms, pool, mall, hotel, office, car park, school), pace, tint, tape wear, PLAY/REC label, date stamp |
+| `glitch` | footage theme (water, nature, city, space, archive, mixed), treatment (datamosh, blob tracking, pixel sort, slit-scan, point cloud), accent (rgb drift, macroblocks, none), tone (natural, thermal, mono, duotone, xray, night), pace, REC label |
+| `physics` | scene (ring, shrinking square, escape rings, pendulum wave), hit source (drums, kick, bass, melody), palette, trail, opening line |
 | `math` | topic (integral, Fourier series, derivative), theme (midnight, chalk, synth, mono, paper), typeface, background (grid, dots, none), shake strength, glow, step labels (pill, tag) |
 
 The `math` style (Math In Time, `math_video.py`) is a short explainer choreographed in beats: eleven bars,

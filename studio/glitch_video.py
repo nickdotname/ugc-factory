@@ -103,6 +103,8 @@ class Video:
         song = json.load(open(os.path.join(song_dir, 'song.json')))
         self.credit = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         self.f_small, self.f_lab = font(26), font(22)
+        sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', '/Library/Fonts/Arial Unicode.ttf') if os.path.exists(p)), None)
+        self.f_credit = ImageFont.truetype(sans, 26) if sans else self.f_small
         self.prev = None; self.acc = None; self.mosh_left = 0; self.buf = []; self.tracks = {}; self.next_id = 1
 
     # ---------------------------------------------------------------- treatments
@@ -111,7 +113,7 @@ class Video:
         if k_changed and self.prev is not None: self.mosh_left = int(FPS * self.r.uniform(0.6, 1.4))          # a cut: bleed instead of switching
         if i in self.kicks and self.r.random() < 0.35 and self.mosh_left <= 0: self.mosh_left = int(FPS * 0.5)
         if self.mosh_left > 0 and self.prev is not None:
-            fl = flow(self.prev, f) * (1.4 + 1.2 * self.bass[i])
+            fl = (flow(self.prev, f) * float(1.4 + 1.2 * self.bass[i])).astype(np.float32)
             self.acc = cv2.remap(self.acc, GX - fl[..., 0], GY - fl[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
             self.mosh_left -= 1
             if self.mosh_left == 0: self.settle = 6
@@ -122,7 +124,7 @@ class Video:
         return self.acc
 
     def track(self, f, i):
-        out = f.astype(np.float32)
+        out = f.astype(np.float32); self.boxes = {}
         if self.prev is None: return out
         small = cv2.cvtColor(cv2.resize(f, (W // 6, H // 6)), cv2.COLOR_BGR2GRAY); ps = cv2.cvtColor(cv2.resize(self.prev, (W // 6, H // 6)), cv2.COLOR_BGR2GRAY)
         m = cv2.GaussianBlur(cv2.absdiff(small, ps), (0, 0), 2); m = (m > max(6, np.percentile(m, 92))).astype(np.uint8)
@@ -137,8 +139,11 @@ class Video:
             if best and (best[1][0] - cx) ** 2 + (best[1][1] - cy) ** 2 < 140 ** 2 and best[0] not in new: tid = best[0]
             else: tid = self.next_id; self.next_id += 1
             new[tid] = (cx, cy, x * 6, y * 6, w * 6, h * 6)
-        self.tracks = new
-        img = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(img)
+        self.tracks = new; self.boxes = new
+        return out
+
+    def draw_tracks(self, d, i):
+        new = getattr(self, 'boxes', {}) or {}
         pts = [(v[0], v[1]) for v in new.values()]
         for a_, b_ in zip(pts, pts[1:]): d.line([a_, b_], fill=(255, 255, 255), width=2)
         flash = self.snare[i] > 0.5
@@ -148,7 +153,6 @@ class Video:
             for sx, sy in ((x, y), (x + w, y), (x, y + h), (x + w, y + h)): d.rectangle([sx - 5, sy - 5, sx + 5, sy + 5], fill=col)
             d.line([cx - 14, cy, cx + 14, cy], fill=col, width=2); d.line([cx, cy - 14, cx, cy + 14], fill=col, width=2)
             d.text((x + 4, y - 26), 'ID %02d  %.2f %.2f' % (tid % 100, cx / W, cy / H), font=self.f_lab, fill=col)
-        return np.asarray(img).astype(np.float32)
 
     def sort(self, f, i):
         amt = 0.25 + 0.6 * self.snare[i] + 0.3 * self.bass[i]
@@ -222,12 +226,13 @@ class Video:
         g = np.random.default_rng(i).normal(0, 6, (H // 4, W // 4)).astype(np.float32)
         img += cv2.resize(g, (W, H), interpolation=cv2.INTER_NEAREST)[..., None]   # grain
         out = Image.fromarray(cv2.cvtColor(np.clip(img, 0, 255).astype(np.uint8), cv2.COLOR_BGR2RGB)); d = ImageDraw.Draw(out)
+        if self.main == 'track': self.draw_tracks(d, i)
         if self.label == 'rec':
             t = self.t0 + i / FPS
             if (i // 15) % 2 == 0: d.ellipse([40, 52, 62, 74], fill=(230, 40, 40))
             d.text((74, 48), 'REC  %02d:%02d:%02d' % (t // 60, t % 60, (i % FPS)), font=self.f_small, fill=(240, 240, 240))
             d.text((40, 88), 'SRC %s / %s' % (e['source'], e['query'].replace(' ', '_')), font=self.f_lab, fill=(200, 200, 200))
-        d.text((W / 2, H - 60), self.credit, font=self.f_small, fill=(235, 235, 235), anchor='mm')
+        d.text((W / 2, H - 60), self.credit, font=self.f_credit, fill=(235, 235, 235), anchor='mm', stroke_width=2, stroke_fill=(0, 0, 0))
         return np.asarray(out)
 
     def render(self, out):

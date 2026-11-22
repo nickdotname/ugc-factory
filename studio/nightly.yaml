@@ -44,3 +44,7 @@ targets:
     style: glitch
     per_night: 4
     join: 30
+  - campaign: physics_sims  # satisfying physics sims: every collision lands on a hit from the song
+    style: physics
+    per_night: 4
+    join: 30
