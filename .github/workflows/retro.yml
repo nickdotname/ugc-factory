@@ -33,8 +33,8 @@ permissions:
 
 jobs:
   generate:
-    # A push to the work branch is a small test (2 clips), and only when the commit asks for it.
-    if: ${{ github.event_name != 'push' || contains(github.event.head_commit.message, '[retro-test]') }}
+    # A push to the work branch runs only when the commit asks: [retro-test] makes 2 clips, [retro-run] a full batch.
+    if: ${{ github.event_name != 'push' || contains(github.event.head_commit.message, '[retro-test]') || contains(github.event.head_commit.message, '[retro-run]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 355
     env:
@@ -55,8 +55,8 @@ jobs:
       - name: Make clips on Kaggle and add them to the library
         run: |
           python studio/retro_gen.py run \
-            --clips "${{ github.event_name == 'push' && '2' || inputs.clips || '26' }}" \
-            --hours "${{ github.event_name == 'push' && '0.75' || inputs.hours || '3' }}" \
+            --clips "${{ contains(github.event.head_commit.message, '[retro-test]') && '2' || inputs.clips || '26' }}" \
+            --hours "${{ contains(github.event.head_commit.message, '[retro-test]') && '0.75' || inputs.hours || '3' }}" \
             --steps "${{ inputs.steps || '25' }}"
       - name: Record the library
         if: ${{ always() }}
