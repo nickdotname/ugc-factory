@@ -1,119 +1,23 @@
 {
-  "generated_at": "2026-11-22T17:40:52.455446Z",
+  "generated_at": "2026-11-22T19:56:04.652736Z",
   "items": [
     {
-      "id": "2e1eb71f-5f32-4ed8-aad1-69213c605a74",
-      "scheduled_for": "2026-11-22T13:25:00-05:00",
-      "rendered_at": "2026-11-22T17:40:52.455446Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-22/2e1eb71f-5f32-4ed8-aad1-69213c605a74.mp4",
-      "caption": "this is weirdly satisfying with sound\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.313,
-        "anchor_y": 0.417,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "prologue",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [],
-      "captions": {
-        "instagram": "this is weirdly satisfying with sound\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Prologue: Before"
-      },
-      "titles": {},
-      "status": "cancelled",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "d84cfcf3-9948-4349-8aad-304a716af57a",
+      "id": "f8b557b5-ede2-4624-ad13-fec8d66a9bf3",
       "scheduled_for": "2026-11-22T16:45:00-05:00",
-      "rendered_at": "2026-11-22T17:40:52.455446Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-22/d84cfcf3-9948-4349-8aad-304a716af57a.mp4",
-      "caption": "this is weirdly satisfying with sound\n🎧 Fixation – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "rendered_at": "2026-11-22T19:56:04.652736Z",
+      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-22/f8b557b5-ede2-4624-ad13-fec8d66a9bf3.mp4",
+      "caption": "count the bounces\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.736,
-        "anchor_y": 0.452,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "fixation",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "physics_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4c1de3a1-88ba-47a7-9be9-839cabeaf78d",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T16:45:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "this is weirdly satisfying with sound\n🎧 Fixation – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Fixation: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "1c535998-f28f-46cc-9e73-6129a68e9c27",
-      "scheduled_for": "2026-11-22T20:05:00-05:00",
-      "rendered_at": "2026-11-22T17:40:52.455446Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-22/1c535998-f28f-46cc-9e73-6129a68e9c27.mp4",
-      "caption": "the ball plays the song\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.632,
-        "anchor_y": 0.568,
+        "anchor_x": 0.25,
+        "anchor_y": 0.728,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -122,7 +26,7 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
       "creative": "prologue",
       "overlay": null,
@@ -132,10 +36,53 @@
       "first_comment": null,
       "posts": [],
       "captions": {
-        "instagram": "the ball plays the song\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nPrologue: Before is out now. link in bio to stream it"
+        "instagram": "count the bounces\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "cancelled",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "e08da21a-8514-40cd-8dee-119a6c70c6fc",
+      "scheduled_for": "2026-11-22T20:05:00-05:00",
+      "rendered_at": "2026-11-22T19:56:04.652736Z",
+      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-22/e08da21a-8514-40cd-8dee-119a6c70c6fc.mp4",
+      "caption": "this is weirdly satisfying with sound\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.368,
+        "anchor_y": 0.417,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "talk",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "this is weirdly satisfying with sound\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Talk: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
