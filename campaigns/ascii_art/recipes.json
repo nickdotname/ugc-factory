@@ -94,6 +94,37 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s08_ascii_85558.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s08",
+   "style": "ascii",
+   "seed": 85558,
+   "window": [
+    181.63,
+    190.4
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "planet",
+    "ramp": "dense",
+    "palette": "reef",
+    "layout": "clean",
+    "sparks": "1.0",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.3,
+    "drums": 0.29,
+    "bass": 0.45,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }
