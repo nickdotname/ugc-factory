@@ -1,0 +1,162 @@
+{
+ "clips": {},
+ "menu": {
+  "physics": {
+   "scene": [
+    "circle",
+    "square",
+    "rings",
+    "pendulum"
+   ],
+   "hits": [
+    "drums",
+    "kick",
+    "bass",
+    "melody"
+   ],
+   "palette": [
+    "ice",
+    "mono",
+    "neon",
+    "rainbow",
+    "sunset"
+   ],
+   "trail": [
+    "long",
+    "short",
+    "ribbon"
+   ],
+   "hook": [
+    "song",
+    "hits",
+    "none"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s03_physics_293944.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s03",
+   "style": "physics",
+   "seed": 293944,
+   "window": [
+    47.62,
+    67.11
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "circle",
+    "hits": "bass",
+    "palette": "mono",
+    "trail": "short",
+    "hook": "none",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.9,
+    "bass": 0.89,
+    "other": 0.17
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s02_physics_607794.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "physics",
+   "seed": 607794,
+   "window": [
+    27.33,
+    44.78
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "square",
+    "hits": "bass",
+    "palette": "sunset",
+    "trail": "ribbon",
+    "hook": "song",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.03,
+    "drums": 0.06,
+    "bass": 0.37,
+    "other": 0.24
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "fixation",
+   "file": "fixation_s03_physics_955857.mp4",
+   "song": "fixation",
+   "section": "s03",
+   "style": "physics",
+   "seed": 955857,
+   "window": [
+    102.19,
+    112.17
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "circle",
+    "hits": "drums",
+    "palette": "ice",
+    "trail": "ribbon",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.88,
+    "bass": 0.79,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s03_physics_413834.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "physics",
+   "seed": 413834,
+   "window": [
+    56.17,
+    62.29
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "square",
+    "hits": "drums",
+    "palette": "neon",
+    "trail": "ribbon",
+    "hook": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.55,
+    "drums": 0.71,
+    "bass": 0.9,
+    "other": 0.52
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
