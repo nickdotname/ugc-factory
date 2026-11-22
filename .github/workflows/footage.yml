@@ -33,6 +33,10 @@ jobs:
       - run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
           pip install -q numpy opencv-python-headless
+      - name: Drop clips the block list or the queries no longer allow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python studio/footage.py purge
       - name: Fetch and cut
         env:
           GH_TOKEN: ${{ github.token }}

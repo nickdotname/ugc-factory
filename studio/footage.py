@@ -21,6 +21,12 @@ REPO = os.environ.get('GITHUB_REPOSITORY', 'nickdotname/ugc-factory'); RELEASE =
 UA = {'User-Agent': 'CloseQuartersFootage/1.0 (https://closequarters.vip; closequartersandloosechange@gmail.com) python-urllib/3'}
 NO_CREDIT = re.compile(r'^(public domain|pd\b|pd-|cc0)', re.I)
 CLIP_SEC, PER_FILM, MAX_H = 10.0, 3, 960
+# Old ephemeral films include burlesque reels, tobacco and alcohol ads, war footage and racist caricature. None of
+# that is taken: a title, subject or description with any of these words rules the whole film out.
+BLOCK = re.compile(r'strip|burlesque|nud|naked|sex|venereal|cigar|tobacco|smok|beer|whisk|liquor|alcohol|drunk|'
+                   r'war\b|wartime|combat|battle|army|navy|bomb|atomic|nuclear|weapon|gun|rifle|kill|death|dead|corpse|'
+                   r'propaganda|nazi|hitler|racis|minstrel|blackface|savage|native|indian|negro|oriental|chinese|japanese|jap\b|'
+                   r'crime|police|prison|drug|narcot|marijuana|reefer|venus|hygiene|birth|disease|surgery|hospital|accident|crash|riot', re.I)
 
 
 def _open(url, tries=4, raw=False):
@@ -42,14 +48,15 @@ def _clean(html): return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', html or ''))
 
 
 # ---------------------------------------------------------------- sources: each yields (key, title, url of a playable file, duration, licence, page)
-def commons(q, n=8):
+def commons(q, n=30):
     p = dict(action='query', format='json', generator='search', gsrsearch='%s filetype:video' % q, gsrnamespace=6, gsrlimit=n,
              prop='videoinfo', viprop='url|size|mime|extmetadata|derivatives')
     pages = (_open('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(p)).get('query') or {}).get('pages') or {}
     for pg in pages.values():
         vi = (pg.get('videoinfo') or [{}])[0]; meta = vi.get('extmetadata') or {}
         lic = _clean((meta.get('LicenseShortName') or {}).get('value'))
-        if not NO_CREDIT.match(lic): continue
+        desc = _clean((meta.get('ImageDescription') or {}).get('value')) + ' ' + _clean((meta.get('Categories') or {}).get('value'))
+        if not NO_CREDIT.match(lic) or BLOCK.search(pg['title'] + ' ' + desc): continue
         ders = [d for d in vi.get('derivatives') or [] if d.get('type', '').startswith('video/')]
         ders.sort(key=lambda d: abs((d.get('height') or 0) - 720))
         src = ders[0]['src'] if ders else vi.get('url')
@@ -57,12 +64,13 @@ def commons(q, n=8):
 
 
 def prelinger(q, n=6):
-    terms = ' AND '.join('(title:(%s) OR subject:(%s) OR description:(%s))' % (w, w, w) for w in q.split()[:2])
-    p = {'q': 'collection:prelinger AND mediatype:movies AND %s' % terms, 'fl[]': ['identifier', 'title', 'licenseurl'], 'rows': n, 'output': 'json', 'sort[]': 'downloads desc'}
+    terms = ' AND '.join('(title:(%s) OR subject:(%s))' % (w, w) for w in q.split()[:2])
+    p = {'q': 'collection:prelinger AND mediatype:movies AND %s' % terms, 'fl[]': ['identifier', 'title', 'licenseurl', 'subject', 'description'], 'rows': n, 'output': 'json', 'sort[]': 'downloads desc'}
     docs = (_open('https://archive.org/advancedsearch.php?' + urllib.parse.urlencode(p, doseq=True)).get('response') or {}).get('docs') or []
     for d in docs:
         lic = d.get('licenseurl') or ''
-        if 'publicdomain' not in lic: continue
+        blob = ' '.join(str(d.get(k) or '') for k in ('title', 'subject', 'description'))
+        if 'publicdomain' not in lic or BLOCK.search(blob): continue
         md = _open('https://archive.org/metadata/%s' % d['identifier']); files = md.get('files') or []
         mp4 = [f for f in files if f.get('name', '').endswith('.mp4')]
         mp4.sort(key=lambda f: ('512kb' in f['name'], int(f.get('size') or 0)))           # the h.264 copy over the 512kb one
@@ -75,8 +83,9 @@ def nasa(q, n=5):
     items = ((_open('https://images-api.nasa.gov/search?' + urllib.parse.urlencode(dict(q=q, media_type='video'))).get('collection') or {}).get('items') or [])[:n]
     for it in items:
         data = (it.get('data') or [{}])[0]; nid = data.get('nasa_id')
-        if not nid: continue
-        assets = [a['href'] for a in (_open(it['href']) if it.get('href') else [])]
+        if not nid or BLOCK.search('%s %s' % (data.get('title', ''), data.get('description', ''))): continue
+        got = _open(it['href']) if it.get('href') else []
+        assets = [a if isinstance(a, str) else a.get('href', '') for a in got]
         pick = next((a for a in assets if a.endswith('~mobile.mp4')), None) or next((a for a in assets if a.endswith('~orig.mp4')), None)
         if pick: yield 'nasa:' + nid, data.get('title', nid), pick.replace('http://', 'https://'), 0.0, 'Public Domain (NASA)', 'https://images.nasa.gov/details/' + nid
 
@@ -136,6 +145,7 @@ def fetch(maximum):
         for src in BY_THEME.get(theme, ['commons']):
             try: found = list(SOURCES[src](q))
             except Exception as exc: print('  %s %r: %s' % (src, q, exc)); continue
+            print('  %s %r: %d usable' % (src, q, len(found)))
             for key, title, url, dur, lic, page in found:
                 if key in seen or len(new) >= maximum: continue
                 seen.add(key)
@@ -169,8 +179,22 @@ def pull(themes=()):
     return [e for e in want if os.path.exists(os.path.join(CACHE, e['asset']))]
 
 
+def purge():
+    """Remove from the library (index and release) every clip the block list now rules out, or found by a query no longer asked."""
+    idx = index(); asked = {q for ql in json.load(open(QUERIES)).values() for q in ql}
+    bad = [e for e in idx.get('clips', []) if BLOCK.search(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked]
+    if not bad: print('nothing to remove'); return
+    rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)
+    ids = {a['name']: a['id'] for a in rel.get('assets', [])}
+    for e in bad:
+        if e['asset'] in ids: subprocess.run(['gh', 'api', '-X', 'DELETE', 'repos/%s/releases/assets/%d' % (REPO, ids[e['asset']])], check=True)
+        print('removed', e['title'])
+    idx['clips'] = [e for e in idx['clips'] if e not in bad]; json.dump(idx, open(INDEX, 'w'), indent=1)
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
+    if cmd == 'purge': purge(); sys.exit()
     if cmd == 'fetch': fetch(int(sys.argv[sys.argv.index('--max') + 1]) if '--max' in sys.argv else 40)
     elif cmd == 'pull': print(len(pull(tuple(sys.argv[2:]))), 'clips cached')
     else: sys.exit(__doc__)
