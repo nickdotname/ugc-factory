@@ -155,7 +155,7 @@ def render(job, solo=False):
     # Moving colour fields fall apart into blocks at a low bitrate, and Instagram re-encodes whatever it is given,
     # so they get the most room; the flat-colour desktop and waveform styles need less.
     crf, cap, buf = ('23', '6M', '12M') if style in VISUAL else ('24', '4M', '8M')
-    env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', crf), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'),
+    env = dict(os.environ, PYTHONFAULTHANDLER='1', CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', crf), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'),
                CQ_MAXRATE=os.environ.get('CQ_MAXRATE', cap), CQ_BUFSIZE=os.environ.get('CQ_BUFSIZE', buf))
     if len(job) > 6 and not job[6]: env['CQ_LYRICS'] = 'none'
     kn, extra = job[5]
@@ -167,7 +167,7 @@ def render(job, solo=False):
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
     sig = {-9: 'killed: out of memory?', -11: 'crashed: segmentation fault', -6: 'aborted'}.get(r.returncode, 'signal %d' % -r.returncode if r.returncode < 0 else '')
-    why = '' if ok else '\n   exit %s%s  knobs %s %s\n%s' % (r.returncode, ' (%s)' % sig if sig else '', json.dumps(kn), json.dumps(extra), (r.stderr.strip() or r.stdout.strip())[-600:])
+    why = '' if ok else '\n   exit %s%s  knobs %s %s\n%s' % (r.returncode, ' (%s)' % sig if sig else '', json.dumps(kn), json.dumps(extra), (r.stderr.strip()[:2000] if r.returncode < 0 else (r.stderr.strip() or r.stdout.strip())[-600:]))
     print(('ok   ' if ok else 'FAIL ') + os.path.basename(out) + why, flush=True)
     return ok
 
