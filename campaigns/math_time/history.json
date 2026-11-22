@@ -209,6 +209,108 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "743f0e2a5ac8a09620b50e859978bc57ef875663db9714d39b74cb2163776e7f",
+      "timestamp": "2026-11-22T22:37:39.120059Z",
+      "item_id": "7a6c93e0-8ef1-4647-a224-9c6766572269",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "fold a sheet of paper 42 times and it reaches the moon. watch it happen\n🎧 Full Ride – @close__quarters #math #exponential #mathfacts #learnmath #mathisfun",
+      "title": null,
+      "creative": "full_ride",
+      "captions": {
+        "instagram": "fold a sheet of paper 42 times and it reaches the moon. watch it happen\n🎧 Full Ride – @close__quarters #math #exponential #mathfacts #learnmath #mathisfun\n\nlink in bio to stream Full Ride"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.732,
+        "anchor_y": 0.668,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": "fold-first",
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a0cea588f625e388763c11d06b7e69060dd854a469fdeb870d9fbd67921b1d2e",
+      "timestamp": "2026-11-22T22:37:39.120059Z",
+      "item_id": "4c0c09cd-3de4-4d03-af43-c6eee2a9bff9",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the riemann hypothesis, moving to the music. every zero found so far sits on one line\n🎧 Suspended – @close__quarters #math #riemannhypothesis #mathematics #learnmath #mathisfun",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "the riemann hypothesis, moving to the music. every zero found so far sits on one line\n🎧 Suspended – @close__quarters #math #riemannhypothesis #mathematics #learnmath #mathisfun\n\nstream Suspended: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.601,
+        "anchor_y": 0.464,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": "riemann-first",
+      "variants": {}
+    },
+    {
+      "tuple_hash": "c803476eebea767664d0c435020e8c241ca87eb0f4c2876f299b862ce465e5c9",
+      "timestamp": "2026-11-22T22:37:39.120059Z",
+      "item_id": "11dcb51b-4b70-46c6-9112-cc429c150148",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the one explanation that finally made sense\n🎧 Suspended – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "the one explanation that finally made sense\n🎧 Suspended – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nSuspended is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.277,
+        "anchor_y": 0.301,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

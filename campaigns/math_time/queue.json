@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-22T22:28:29.517227Z",
+  "generated_at": "2026-11-22T22:37:39.120059Z",
   "items": [
     {
-      "id": "6dc18b94-0818-4b72-872e-6c1685ef9d6f",
+      "id": "11dcb51b-4b70-46c6-9112-cc429c150148",
       "scheduled_for": "2026-11-22T19:20:00-05:00",
-      "rendered_at": "2026-11-22T22:28:29.517227Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-22/6dc18b94-0818-4b72-872e-6c1685ef9d6f.mp4",
-      "caption": "sound on. the math moves with the music\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "rendered_at": "2026-11-22T22:37:39.120059Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-22/11dcb51b-4b70-46c6-9112-cc429c150148.mp4",
+      "caption": "the one explanation that finally made sense\n🎧 Suspended – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -16,40 +16,116 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.736,
-        "anchor_y": 0.656,
+        "anchor_x": 0.277,
+        "anchor_y": 0.301,
         "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "the one explanation that finally made sense\n🎧 Suspended – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nSuspended is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7a6c93e0-8ef1-4647-a224-9c6766572269",
+      "scheduled_for": "2026-11-22T20:45:00-05:00",
+      "rendered_at": "2026-11-22T22:37:39.120059Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-22/7a6c93e0-8ef1-4647-a224-9c6766572269.mp4",
+      "caption": "fold a sheet of paper 42 times and it reaches the moon. watch it happen\n🎧 Full Ride – @close__quarters #math #exponential #mathfacts #learnmath #mathisfun",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.732,
+        "anchor_y": 0.668,
+        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "prologue",
+      "creative": "full_ride",
       "overlay": null,
       "accounts": null,
-      "lineup_id": null,
+      "lineup_id": "fold-first",
       "variants": {},
       "first_comment": null,
-      "posts": [
-        {
-          "account": "math_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-2e5b0d94-e5dd-4fcd-a841-467ee5b2030d",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T19:20:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "sound on. the math moves with the music\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nPrologue: Before is out now. link in bio to stream it"
+        "instagram": "fold a sheet of paper 42 times and it reaches the moon. watch it happen\n🎧 Full Ride – @close__quarters #math #exponential #mathfacts #learnmath #mathisfun\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "4c0c09cd-3de4-4d03-af43-c6eee2a9bff9",
+      "scheduled_for": "2026-11-22T22:10:00-05:00",
+      "rendered_at": "2026-11-22T22:37:39.120059Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-22/4c0c09cd-3de4-4d03-af43-c6eee2a9bff9.mp4",
+      "caption": "the riemann hypothesis, moving to the music. every zero found so far sits on one line\n🎧 Suspended – @close__quarters #math #riemannhypothesis #mathematics #learnmath #mathisfun",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.601,
+        "anchor_y": 0.464,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": "riemann-first",
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "the riemann hypothesis, moving to the music. every zero found so far sits on one line\n🎧 Suspended – @close__quarters #math #riemannhypothesis #mathematics #learnmath #mathisfun\n\nstream Suspended: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
