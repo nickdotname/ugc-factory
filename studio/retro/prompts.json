@@ -1,87 +1,82 @@
 {
-  "_about": "retro.vibes.arcade: what the GPU job (studio/retro_gen.py, run on Kaggle) is asked to make. Every scene is our own idea: no characters, brands, logos, games or people, so nothing in a clip belongs to anyone else. A clip is one scene + one look + a seed; the renderer (studio/retro_video.py) cuts them to the song.",
-  "negative": "photograph, live action, realistic people, human face, person, hands, text, letters, words, numbers, watermark, logo, signature, brand, subtitles, blurry, out of focus, low quality, jpeg artifacts, deformed, distorted, noisy, static frame, still image, frozen, overexposed, washed out, ugly, messy",
+  "_about": "retro.vibes.arcade: PS2-era graphics. What the GPU job (studio/retro_gen.py, run on Kaggle) is asked to make: mostly empty early-2000s game levels and pre-rendered cutscene CGI. Every scene is our own idea: no real games, characters, consoles' menus or boot screens, brands, logos or people, so nothing in a clip belongs to anyone else; 'PS2 era' only names the style. A clip is one scene + one look + a seed; the renderer (studio/retro_video.py) cuts them to the song.",
+  "negative": "photograph, live action, photorealistic, modern graphics, 4k, realistic people, human face, person, character, hands, text, letters, words, numbers, user interface, HUD, watermark, logo, signature, brand, subtitles, blurry mess, low quality, deformed, distorted, static frame, still image, frozen, overexposed, washed out",
   "looks": {
-    "y2k":    "late 1990s CGI render, early 3D computer animation, glossy plastic and polished chrome, soft global illumination, bloom, smooth slow camera move, Y2K aesthetic, saturated candy colours",
-    "aero":   "early 2000s promotional 3D animation, frutiger aero, glossy translucent materials, bright sky blue and grass green, water droplets, lens flare, optimistic, smooth camera glide",
-    "lowpoly":"1997 low polygon 3D, flat shaded polygons, vertex lighting, slightly wobbly textures, nostalgic console era graphics, smooth camera motion",
-    "dream":  "dreamy pastel CGI, soft focus glow, hazy atmosphere, liminal and quiet, early 2000s 3D render, slow floating camera"
+    "ps2":   "PlayStation 2 era video game graphics, early 2000s console 3D, low resolution textures, jagged aliased edges, simple baked lighting, distance fog, soft bloom, 480i, smooth in-game camera move",
+    "fmv":   "pre-rendered CGI cutscene from a 2002 video game, glossy early 3D render, soft focus, slight compression, cinematic slow camera move",
+    "y2k":   "late 1990s CGI render, early 3D computer animation, glossy plastic and polished chrome, soft global illumination, bloom, Y2K aesthetic, smooth slow camera move",
+    "dream": "dreamy early 2000s console game level, pastel fog, liminal and empty, soft bloom, low polygon, slow floating camera"
   },
   "themes": {
-    "arcade": [
-      "an empty arcade at night, rows of glowing cabinets showing abstract coloured shapes, cosmic pattern carpet, neon tubes on the ceiling, camera slowly dollies down the aisle",
-      "a claw machine full of glossy plastic spheres in every colour, lights blinking around it, camera slowly circles it",
-      "a giant glowing pinball table seen from above, chrome balls rolling through bright ramps and bumpers, lights flashing",
-      "a prize counter glowing with shelves of plastic toys and lava lamps, soft neon light, camera pushes in slowly",
-      "an air hockey table glowing under black light, a puck sliding back and forth leaving light trails"
+    "racing": [
+      "an empty street racing circuit at night through a neon-lit city, wet asphalt reflecting the lights, camera speeding low along the road",
+      "a highway tunnel at night with orange lights streaking past, camera racing through it",
+      "a mountain pass road at sunset with guard rails and pine trees, camera speeding around the curves",
+      "a racing track along a harbour at dusk with cranes and container ships, camera low and fast"
     ],
-    "mall": [
-      "a glossy shopping mall atrium with a waterfall fountain, indoor palm trees, glass skylight and chrome railings, empty and quiet, camera glides forward",
-      "an escalator rising through a bright mall with teal and pink tiles, potted palms and glass elevators, camera rides up",
-      "a food court with pastel neon signs of abstract shapes, empty tables, a fountain in the middle, camera drifts slowly",
-      "a glass elevator rising inside a mall atrium full of plants and hanging lights, camera inside looking out"
+    "skate": [
+      "an empty concrete skatepark at sunset with ramps, rails and a half-pipe, graffiti-free walls, camera gliding over the ramps",
+      "an indoor warehouse skate level with wooden ramps under hanging lights, dust in the air, camera rolling through",
+      "a rooftop skate level among skyscrapers at dusk with rails and ledges, camera gliding along the edge"
     ],
-    "pool": [
-      "an indoor swimming pool with turquoise tiles and rippling caustic light, white columns and a skylight, completely empty, slow camera pan",
-      "a water slide spiralling through a tiled room into a glowing pool, gentle ripples, camera follows the curve",
-      "an endless maze of tiled pools and archways under soft daylight, liminal and quiet, camera walks forward"
+    "hub": [
+      "a hub world of floating grassy islands connected by wooden bridges, glowing collectible orbs spinning, blue sky, camera flying between them",
+      "a castle on a floating rock in the clouds with waterfalls pouring off the edges, camera circling slowly",
+      "pastel platforms floating over a glowing sea with bounce pads and spinning gems, camera gliding",
+      "a giant tree with spiral wooden walkways and lanterns at twilight, fireflies, camera rising around it"
     ],
-    "screensaver": [
-      "glossy 3D pipes growing and turning through a black void, chrome joints, bright primary colours",
-      "a chrome sphere bouncing across an endless checkerboard floor, reflecting a blue sky with clouds",
-      "flying through a field of translucent soap bubbles in a dark blue space, light reflecting on each bubble",
-      "a twisting ribbon of coloured light flowing through black space, glossy and smooth",
-      "a slowly rotating glass cube with a rainbow inside floating over a starfield",
-      "a flying camera through an endless 3D maze with brick walls and a glowing ceiling"
-    ],
-    "aero": [
-      "rolling glossy green hills under a bright blue sky with floating transparent bubbles and koi fish swimming through the air",
-      "a clear glass orb floating over a calm lake at sunrise, water droplets sliding down it, lens flare",
-      "a field of shiny green grass with water droplets, a glossy blue butterfly landing, sun glinting",
-      "a futuristic white and glass building surrounded by water and trees, clean bright daylight, camera orbits slowly"
-    ],
-    "space": [
-      "a retro-futuristic space station lounge with round white plastic furniture and a big round window onto a blue planet, camera drifts",
-      "a chrome rocket gliding past a ringed planet with glowing rings, stars twinkling",
-      "a glossy toy-like astronaut helmet floating in space reflecting a pink nebula",
-      "a satellite dish on a pastel moon surface turning slowly toward a giant striped planet"
+    "town": [
+      "an empty town square in an early 2000s game at dusk with a fountain, cobblestones and warm shop windows, camera walking forward",
+      "a seaside village at night with paper lanterns, wooden docks and calm water, camera drifting along the pier",
+      "a snowy mountain village with glowing windows and falling snow, camera slowly pushing in",
+      "a quiet suburban street level at sunset with identical houses, picket fences and sprinklers, camera gliding"
     ],
     "city": [
-      "a low polygon 3D city at dusk with glowing windows and simple flying cars gliding between towers, camera flies over",
-      "a neon city street at night after rain, reflections on the wet road, glowing shop signs with abstract shapes, camera glides forward",
-      "a monorail gliding through a city of glass towers and palm trees at sunset",
-      "a highway at night seen from above, streams of light trails from cars flowing like rivers"
+      "a foggy city level at night with sodium streetlights, empty streets and blinking traffic lights, camera gliding down the middle of the road",
+      "a rooftop level at night with water towers, air vents and a city skyline glowing in the fog, camera moving across",
+      "an empty subway station level with tiled walls and fluorescent lights, a train arriving, camera at the platform",
+      "a futuristic city with monorails and glass towers at sunset, camera flying between the buildings"
     ],
-    "toys": [
-      "translucent plastic toy robots marching across a glossy table, candy colours, soft studio light",
-      "a stack of glossy coloured blocks falling and bouncing in slow motion on a white floor",
-      "a wind-up toy rocket spinning on a shiny checkerboard floor, sparks of light",
-      "glossy marbles rolling down a twisting transparent track, catching rainbow light"
+    "mall": [
+      "an empty shopping mall level with a fountain, indoor palm trees, glass skylight and escalators, camera gliding forward",
+      "a mall food court level with pastel neon signs of abstract shapes and empty tables, camera drifting",
+      "a glass elevator rising inside a mall atrium full of plants and hanging lights"
     ],
-    "dream": [
-      "a giant shining disc of mirrored plastic spinning slowly above pastel pink clouds",
-      "an infinite grid ocean at sunset with chrome dolphins leaping in slow motion",
-      "a staircase made of clouds rising into a purple sky with floating doors",
-      "a bedroom where the ceiling opens into a starry sky, glowing stars drifting down like snow",
-      "a carousel with glossy horses turning slowly inside a giant glass dome under the sea"
+    "pool": [
+      "an indoor pool level with turquoise tiles and rippling caustic light, white columns and a skylight, completely empty, slow camera pan",
+      "a water park level with twisting slides and empty pools under a bright sky, camera following a slide",
+      "an endless maze of tiled pools and archways, liminal and quiet, camera walking forward"
     ],
-    "desk": [
-      "an old beige computer with a glowing curved screen on a desk in a dark bedroom at night, rain on the window, the screen shows swirling coloured shapes",
-      "a translucent coloured desktop computer glowing on a desk by a window at sunset, dust floating in the light",
-      "a stack of shiny compact discs and a portable disc player on a bed, light dancing on the discs",
-      "a wall of stacked boxy television sets all glowing with colourful static and shapes"
+    "arcade": [
+      "an empty arcade level at night, rows of glowing cabinets with abstract coloured shapes on their screens, cosmic carpet, camera dollying down the aisle",
+      "a bowling alley level under black light with glowing lanes and pins, camera rolling down a lane",
+      "an amusement park at night with a lit ferris wheel and carousel, empty paths, camera gliding"
+    ],
+    "space": [
+      "a space station level with white corridors, round windows onto a blue planet and blinking panels, camera moving down the corridor",
+      "a launch pad at night with a white rocket lit by floodlights and steam rising, camera circling",
+      "a moon base with glowing domes on a grey surface under a giant striped planet, camera gliding over"
+    ],
+    "beach": [
+      "a tropical beach level with palm trees, a lighthouse and turquoise water at sunset, camera gliding along the shore",
+      "a boardwalk at night with string lights and a closed ice cream stand, waves rolling in, camera drifting",
+      "a jungle temple ruin with vines and a waterfall, shafts of light, camera pushing in"
+    ],
+    "snow": [
+      "a snowboarding mountain slope with pine trees and flags, snow spraying, camera racing downhill",
+      "a frozen lake under the northern lights with a small cabin glowing, camera circling slowly",
+      "an ice cave level with glowing blue crystals and frozen waterfalls, camera floating through"
     ],
     "water": [
-      "a glossy 3D aquarium with low polygon tropical fish and bubbles, caustic light rippling over sand",
-      "an underwater tunnel of glass with jellyfish glowing softly as they drift past",
-      "a waterfall pouring into a lagoon of crystal clear water surrounded by glossy plants, camera rises",
-      "rain falling on a glossy pond with water lilies, rings spreading, soft light"
+      "an underwater level with coral, kelp and a sunken ship, light rays from the surface, camera swimming forward",
+      "an underwater glass tunnel with jellyfish glowing softly as they drift past",
+      "a flooded city street level with calm water reflecting neon signs, camera gliding just above the water"
     ],
-    "drive": [
-      "a convertible car made of glossy simple shapes driving along a coastal road at sunset toward the camera",
-      "driving at night through a tunnel of glowing lights, the lights streaking past",
-      "a road through a pink desert with geometric mountains under a huge setting sun, camera low and fast",
-      "a race track in the clouds with glowing edges, the camera speeding along it"
+    "menu": [
+      "glowing translucent cubes and light trails floating in a dark blue void, abstract early 2000s console menu background, slow rotation",
+      "rotating crystals over a misty blue grid with particles drifting upward, abstract menu background",
+      "a field of soft blue orbs pulsing gently in fog with thin light beams, abstract and calm",
+      "glossy 3D pipes growing and turning through a black void, chrome joints, bright primary colours"
     ]
   }
 }

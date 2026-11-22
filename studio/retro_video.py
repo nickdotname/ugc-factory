@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""retro.vibes.arcade: retro CGI worlds (made by studio/retro_gen.py on Kaggle) cut to the song.
+"""retro.vibes.arcade: PS2-era game worlds and cutscene CGI (made by studio/retro_gen.py on Kaggle) cut to the song.
 
     python studio/retro_video.py SONG_DIR SEED OUT.mp4        (CQ_WINDOW="t0,t1" picks the stretch of the song)
     python studio/retro_video.py SONG_DIR SEED SHEET.png --frames 0,40,80   (a contact sheet instead of a video)
 
 The nightly job's renderer for the "retro" style (studio/nightly.py). Clips come from the retro library and are cut
 on the bar lines of the song (every bar or every two). Knobs (studio/knobs.py), so the learner finds what people watch:
-  theme   which worlds: arcade, mall, pool, screensaver, aero, space, city, toys, dream, desk, water, drive, or mixed
-  screen  how the picture is shown: crt (scanlines, bloom, curved glass), vhs (chroma bleed, tracking noise on the
-          snare), dither (a 1997 console's palette and pixels), clean (the render as it is, with bloom)
+  theme   which worlds (the themes of studio/retro/prompts.json: racing, skate, hub, town, city, ...), or mixed
+  screen  how the picture is shown: ps2 (480i: soft, 15-bit colour, interlace combing on movement), crt (scanlines,
+          bloom, curved glass), vhs (chroma bleed, tracking noise on the snare), clean (the render as it is, with bloom)
   frame   what sits over it: player (a glossy media player of our own design with a spectrum that moves with the
           stems), osd (a VCR's PLAY and counter), none
   cut     how a clip gives way to the next: hard, flash (a white pop on the downbeat), slide (the old clip pushed off)
@@ -25,8 +25,8 @@ import knobs as K
 import retro_gen as lib
 
 W, H, FPS = 1080, 1920, 30
-THEMES = ['arcade', 'mall', 'pool', 'screensaver', 'aero', 'space', 'city', 'toys', 'dream', 'desk', 'water', 'drive', 'mixed']
-SCREENS = ['crt', 'vhs', 'dither', 'clean']
+THEMES = list(json.load(open(lib.PROMPTS))['themes']) + ['mixed']
+SCREENS = ['ps2', 'crt', 'vhs', 'clean']
 FRAMES = ['player', 'osd', 'none']
 CUTS = ['hard', 'flash', 'slide']
 
@@ -95,6 +95,7 @@ BX = (W / 2 + _nx * (1 + 0.045 * _r2) * (W / 2) * 0.985).astype(np.float32)     
 BY = (H / 2 + _ny * (1 + 0.045 * _r2) * (H / 2) * 0.985).astype(np.float32)
 CRT_MASK = np.repeat(SCAN * VIGNETTE * 1.12, 3, axis=2).astype(np.float32)   # scanlines and vignette in one multiply
 VHS_MASK = np.repeat(VIGNETTE ** 0.5, 3, axis=2).astype(np.float32)
+PS2_MASK = np.repeat((0.9 + 0.1 * (np.arange(H) // 3 % 2 == 0))[:, None, None] * np.ones((1, W, 1)) * VIGNETTE ** 0.35 * 1.06, 3, axis=2).astype(np.float32)
 BAYER = (np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16 - 0.5)
 
 
@@ -120,7 +121,7 @@ class Video:
         self.title = song.get('title', self.slug); self.artist = song.get('artist', 'Close Quarters')
         self.credit = '♪ %s — %s' % (self.title.lower(), self.artist.lower())
         self.f_credit, self.f_ui, self.f_ui_s, self.f_osd = font(30), font(30), font(24, False), font(46, mono=True)
-        self.spec = np.zeros(20); self.peak = np.zeros(20); self.marquee = 0.0
+        self.spec = np.zeros(20); self.peak = np.zeros(20); self.marquee = 0.0; self.prev_small = None
         self.chrome = self.player_skin() if self.frame_kind == 'player' else None
 
     # ---------------------------------------------------------------- screens
@@ -148,13 +149,16 @@ class Video:
             img[H - 46:] = np.roll(img[H - 46:], int(g.integers(20, 60)), axis=1) * 0.8 + g.normal(0, 18, (46, W, 1))   # head switching
             if self.kick[i] > 0.85: img = np.roll(img, int(g.integers(-6, 6)), axis=0)
             return cv2.multiply(img, VHS_MASK)
-        if self.screen == 'dither':
-            s = cv2.resize(img, (W // 3, H // 3), interpolation=cv2.INTER_AREA)
-            th = np.tile(BAYER, (s.shape[0] // 4 + 1, s.shape[1] // 4 + 1))[:s.shape[0], :s.shape[1], None]
-            lv = 5.0                                                     # 6 levels per channel: a 216-colour palette
-            q = np.floor(np.clip(s / 255 * lv + th * 0.9 + 0.5, 0, lv)) / lv * 255
-            img = cv2.resize(q.astype(np.float32), (W, H), interpolation=cv2.INTER_NEAREST)
-            return self.bloom(img, 0.35)
+        if self.screen == 'ps2':                                         # what a 2002 console put out: 480 lines, interlaced, 15-bit colour
+            s = cv2.resize(img, (360, 640), interpolation=cv2.INTER_AREA)
+            th = np.tile(BAYER, (160, 90))[..., None]
+            s = np.floor(np.clip(s / 8 + th * 0.6 + 0.5, 0, 31)) * (255 / 31)               # 32 levels a channel, lightly dithered
+            if self.prev_small is not None:                              # a field from the frame before: combing wherever things move
+                s[(i % 2)::2] = s[(i % 2)::2] * 0.55 + self.prev_small[(i % 2)::2] * 0.45
+            self.prev_small = s.copy()
+            img = cv2.resize(s.astype(np.float32), (W, H), interpolation=cv2.INTER_LINEAR)
+            img = self.bloom(img, 0.8 + 0.5 * self.kick[i])
+            return cv2.multiply(img, PS2_MASK)
         return self.bloom(img, 0.7 + 0.5 * self.kick[i])
 
     # ---------------------------------------------------------------- overlays
