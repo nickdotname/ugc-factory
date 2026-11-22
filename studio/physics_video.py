@@ -35,19 +35,21 @@ def font(size):
     return ImageFont.load_default()
 
 
-def stem_onsets(song_dir, stem, t0, t1):
-    y, sr = sf.read(os.path.join(song_dir, 'stems', stem + '.ogg'), start=int(t0 * 44100), stop=int(t1 * 44100), dtype='float32')
-    if y.ndim > 1: y = y.mean(1)
-    on = librosa.onset.onset_detect(y=y, sr=sr, hop_length=sr // FPS, units='frames', backtrack=False, delta=0.15)
-    env = librosa.onset.onset_strength(y=y, sr=sr, hop_length=sr // FPS)
-    return [int(o) for o in on], env
+def stem_hits(song_dir, stem, t0, t1):
+    """Hits in one stem, as (seconds from t0, strength), to the millisecond (studio/mathviz/beat.py)."""
+    s = json.load(open(os.path.join(song_dir, 'song.json'))); off = float(s.get('stems_start_sec') or 0)
+    y, sr = audio.read(os.path.join(song_dir, 'stems', stem + '.ogg'), t0 - off, t1 - off)
+    t, st = audio.onsets(y, sr, min_gap=0.09)
+    return [(float(x), float(v)) for x, v in zip(t, st) if x < t1 - t0]
 
 
 def thin(hits, n, gap):
+    """At most one hit per `gap` frames, keeping the strongest of any that crowd together (not the first: the first
+    of a flam or a hat-then-kick is the weaker one)."""
     out = []
-    for h in sorted(hits):
-        if 0 < h < n and (not out or h - out[-1] >= gap): out.append(h)
-    return out
+    for f, st in sorted(hits, key=lambda h: -h[1]):
+        if 0 < f < n and all(abs(f - g) >= gap for g, _ in out): out.append((f, st))
+    return sorted(f for f, _ in out)
 
 
 class Video:
@@ -61,11 +63,15 @@ class Video:
         self.hook = K.pick('hook', ['song', 'hits', 'none'], r)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 6.0); self.bass = np.convolve(a['bass'], np.ones(5) / 5, 'same')
-        if self.source == 'drums': hits = list(a['onsets'])
-        elif self.source == 'kick': hits = list(a['kicks'])
-        else: hits, _ = stem_onsets(song_dir, 'Bass' if self.source == 'bass' else 'Other', t0, t1)
-        if len(thin(hits, n, 6)) < 8: hits = list(a['onsets']); self.source = 'drums'   # a quiet stem here: fall back to the drums
-        self.hits = [int(h) for h in thin(hits, n, 6 if self.scene != 'pendulum' else 3)]
+        ht = a.get('hit_times') or []
+        to_f = lambda x: int(round(x * FPS))                      # the frame the hit is heard in
+        if self.source == 'drums': hits = [(to_f(x), st) for x, k, st in ht if k in ('kick', 'snare')]
+        elif self.source == 'kick': hits = [(to_f(x), st) for x, k, st in ht if k == 'kick']
+        else: hits = [(to_f(x), st) for x, st in stem_hits(song_dir, 'Bass' if self.source == 'bass' else 'Other', t0, t1)]
+        gap = 6 if self.scene != 'pendulum' else 3
+        if len(thin(hits, n, gap)) < 8:                           # a quiet stem here: fall back to the drums
+            hits = [(to_f(x), st) for x, k, st in ht if k in ('kick', 'snare')]; self.source = 'drums'
+        self.hits = [int(h) for h in thin(hits, n, gap)]
         self.flash = audio.hits(np.array(self.hits), n, 9.0)
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
         self.credit = '♪ %s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
