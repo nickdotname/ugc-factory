@@ -65,6 +65,8 @@ VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_vi
 # Lyric styles with a renderer of their own (the rest are drawn by lyric_video.py): they set the proven lyrics, so
 # they use only stretches whose lyric timing passed (like band and producer), never the picture styles' free ones.
 LYRIC = {'type': 'type_video.py'}
+LYRIC['lofi'] = 'lofi_video.py'      # the band's own dance footage, cut out, in a Y2K media player (studio/lofi/index.json says where there is footage)
+LYRIC['cursor'] = 'cursor_video.py'  # the band rebuilt out of mouse cursors in a 3D Windows 98 world (any song: the dance clips loop where it has none)
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
@@ -75,6 +77,14 @@ VISUAL['rocket'] = 'rocket_video.py'
 PRIOR = {'ascii': {'layout': {'code': [0, 3, 0.7], 'clean': [0, 3, 0.35]}}}
 sys.path.insert(0, HERE); import hook as _hook
 VISUAL['retro'] = 'retro_video.py'
+
+def lofi_cover(slug, win):
+    """How much of a stretch the band's dance footage covers (0..1)."""
+    try: clips = json.load(open(os.path.join(HERE, 'lofi', 'index.json')))['clips']
+    except (OSError, ValueError): return 0.0
+    runs = [(c['offset'], c['offset'] + c['frames'] / c['fps']) for c in clips if c['song'] == slug]
+    ts = [win[0] + k * 0.5 for k in range(int((win[1] - win[0]) / 0.5) + 1)]
+    return sum(any(a <= t <= b for a, b in runs) for t in ts) / max(1, len(ts))
 
 def thompson(options, stats, r, retired=()):
     """One option: each draws from Beta(1 + wins, 1 + losses), where a post's score (0..1) counts as that much of
@@ -199,6 +209,7 @@ for t in cfg['targets']:
         if style in VISUAL:                               # the visualiser can use any stretch: where the lyric timing is not proven it simply shows no lyrics
             for sid, win in stretches(song, t.get('join', 0), floor=0.0).items(): every.setdefault(sid, win)
         for sid, win in every.items():
+            if style == 'lofi' and lofi_cover(slug, win) < 0.7: continue          # only where the band filmed themselves
             if suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure))
             else: print('   skip %s %s for %s: %s' % (slug, sid, style, playing(lv, win)))
         LV[slug] = lv
