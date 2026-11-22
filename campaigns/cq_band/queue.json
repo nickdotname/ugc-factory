@@ -144,18 +144,18 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-22T16:50:00-05:00"
         }
       ],
       "captions": {
         "instagram": "send this to someone who still misses windows 95\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
