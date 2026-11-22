@@ -91,18 +91,18 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-22T16:35:00-05:00"
         }
       ],
       "captions": {
         "instagram": "pause it and look behind you\n🎧 Suspended – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
