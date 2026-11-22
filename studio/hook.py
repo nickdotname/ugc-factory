@@ -15,6 +15,7 @@ from PIL import Image, ImageDraw, ImageFont
 HOOKS = {
     'producer': ["which part would you solo?", "the song, pulled apart", "sound on", "rate the mix 1-10", "what would you change?", "hear it. now see it."],
     'band': ["read along", "wait for the last line", "your pc in 2001:", "lyrics on screen. sound on", "which line is the best one?", "class is in session"],
+    'liminal': ["you've been here before", "don't turn around", "3am. the music is still on", "sound on", "have you seen this place?", "no one else is here"],
     'psy': ["sound on", "don't blink", "watch the centre", "let it loop", "what do you see?", "headphones on"],
 }
 SHOW, FADE = 2.2, 0.4

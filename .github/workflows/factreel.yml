@@ -53,10 +53,11 @@ jobs:
           git commit -q -m "fact reel held [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
       - name: Send it
-        if: steps.make.outputs.account != ''
+        if: steps.make.outputs.accounts != ''
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
           IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
           IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
-        run: python -m src.cli publish-due --account "${{ steps.make.outputs.account }}"
+        run: |
+          for a in ${{ steps.make.outputs.accounts }}; do python -m src.cli publish-due --account "$a" || echo "::warning::$a did not publish"; done

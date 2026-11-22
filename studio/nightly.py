@@ -50,12 +50,15 @@ def playing(lv, win):
     a, b = int(win[0]), max(int(win[0]) + 1, int(win[1])); return {k: round(float(v[a:b].mean()) if len(v[a:b]) else 0.0, 2) for k, v in lv.items()}
 
 PLAYS = 0.25
+# Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
+VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py'}
+
 def suits(style, lv):
     """Whether a stretch has what a style shows. A drumless spoken intro makes an empty stems view and a still visualiser,
     and it is where a caption about the drums would be a lie."""
     on = {k for k, v in lv.items() if v >= PLAYS}
     if not lv: return True
-    if style == 'psy': return bool(on & {'drums', 'bass'})
+    if style in VISUAL: return bool(on & {'drums', 'bass'})
     if style == 'producer': return len(on) >= 3
     return 'vocals' in on
 
@@ -93,7 +96,7 @@ def render(job):
     song_dir, style, seed, out, (t0, t1) = job[:5]
     # Moving colour fields fall apart into blocks at a low bitrate, and Instagram re-encodes whatever it is given,
     # so they get the most room; the flat-colour desktop and waveform styles need less.
-    crf, cap, buf = ('23', '6M', '12M') if style == 'psy' else ('24', '4M', '8M')
+    crf, cap, buf = ('23', '6M', '12M') if style in VISUAL else ('24', '4M', '8M')
     env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', crf), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'),
                CQ_MAXRATE=os.environ.get('CQ_MAXRATE', cap), CQ_BUFSIZE=os.environ.get('CQ_BUFSIZE', buf))
     if len(job) > 6 and not job[6]: env['CQ_LYRICS'] = 'none'
@@ -101,7 +104,7 @@ def render(job):
         opts = {o: w for o, w in (job[5].get(dim) or {}).items() if o != '(none)' and (dim != 'look' or style == 'psy')} if len(job) > 5 else {}
         r = random.Random(seed * 31 + len(var))
         if opts and r.random() < 0.5: env[var] = r.choices(list(opts), weights=[w ** 2 for w in opts.values()])[0]
-    cmd = [sys.executable, os.path.join(HERE, 'psy_video.py'), song_dir, str(seed), out] if style == 'psy' else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
+    cmd = [sys.executable, os.path.join(HERE, VISUAL[style]), song_dir, str(seed), out] if style in VISUAL else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
     print(('ok   ' if ok else 'FAIL ') + os.path.basename(out) + ('' if ok else '\n' + r.stderr[-500:]), flush=True)
@@ -127,7 +130,7 @@ for t in cfg['targets']:
         if not any(os.path.exists(os.path.join(sd, 'master' + e)) for e in ('.wav', '.flac', '.ogg')): continue
         lv = levels(sd)
         sure = stretches(song, t.get('join', 0)); every = dict(sure)
-        if style == 'psy':                                # the visualiser can use any stretch: where the lyric timing is not proven it simply shows no lyrics
+        if style in VISUAL:                               # the visualiser can use any stretch: where the lyric timing is not proven it simply shows no lyrics
             for sid, win in stretches(song, t.get('join', 0), floor=0.0).items(): every.setdefault(sid, win)
         for sid, win in every.items():
             if suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure))
@@ -137,7 +140,7 @@ for t in cfg['targets']:
     # fewest videos first, but a song or section that gets watched counts as having fewer (so it gets more), and vice versa
     rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0)))
     have = len(rec.get('nightly', []))                       # what the current libraries hold
-    want = a.count or max(t['per_night'], min(cfg.get('first_fill_cap', 16), cfg.get('first_fill', 0) - have) if t['style'] != 'psy' else t['per_night'])
+    want = a.count or max(t['per_night'], min(cfg.get('first_fill_cap', 16), cfg.get('first_fill', 0) - have) if t['style'] not in VISUAL else t['per_night'])
     picked, per_song = [], {}
     for lap in range(1, 6):                                   # go round the songs so one night is not all one track
         for c in cands:
