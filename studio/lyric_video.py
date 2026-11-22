@@ -344,7 +344,9 @@ R = random.Random(seed * 7919 + (1 if mode == 'band' else 2))
 # which is how one song yields a video per lyric section.
 T0, T1 = [float(x) for x in os.environ['CQ_WINDOW'].split(',')] if os.environ.get('CQ_WINDOW') else SONG['windows'][mode]
 # only the lines inside the window matter to a render
-LINES = [L for L in LINES if L[0] > T0 - 0.2 and L[1][0][1] < T1] or LINES[:1]
+_KEEP = [i for i, L in enumerate(LINES) if L[0] > T0 - 0.2 and L[1][0][1] < T1] or [0]
+LINE0 = _KEEP[0]                    # the song's number for this clip's first line: pictures are filed by the song's numbers
+LINES = [LINES[i] for i in _KEEP]
 has = lambda k, s: any(s in w.lower() for w, _ in LINES[k][1])
 # strong drum hits (for flashes)
 dy, dsr = sf.read(stem_path('Drums'), always_2d=True, dtype='float32'); dy = dy.mean(1)
@@ -384,8 +386,14 @@ mixc = lambda a, b, t: tuple(int(a[i] * (1 - t) + b[i] * t) for i in range(3))
 WALLS = ['plasma', 'tiles', 'rings', 'grad', 'stars', 'clouds', 'hills', 'bars']
 
 MEDIA = os.environ.get('CQ_MEDIA', os.path.join(SONG_DIR, 'media')); PIC_STYLES = ['lowres', 'gif', 'jpeg', 'webcam', 'crt']
+try:
+    import photos as _photos; _SONG_PICS = _photos.song_pictures(os.path.basename(os.path.normpath(SONG_DIR)))   # pictures.json searches, resolved
+except Exception as exc:
+    print('no song pictures: %r' % exc); _SONG_PICS = {}
 def media_for(k):
-    d = os.path.join(MEDIA, '%02d' % k); return sorted(os.path.join(d, x) for x in os.listdir(d) if x.lower().endswith(('.jpg', '.jpeg', '.png', '.webm', '.ogv', '.mp4'))) if os.path.isdir(d) else []
+    k += LINE0                       # k counts this clip's lines; the pictures are filed under the song's line numbers
+    d = os.path.join(MEDIA, '%02d' % k); own = sorted(os.path.join(d, x) for x in os.listdir(d) if x.lower().endswith(('.jpg', '.jpeg', '.png', '.webm', '.ogv', '.mp4'))) if os.path.isdir(d) else []
+    return own + _SONG_PICS.get(k, [])
 _MC = {}; BAYER = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16
 def media_frame(path, t):
     if path.lower().endswith(('.webm', '.ogv', '.mp4')):
@@ -429,6 +437,7 @@ def plan_band():
     themes = [((0, 128, 128), 'teal'), ((58, 110, 165), 'blue'), ((85, 60, 130), 'purple'), ((20, 20, 24), 'black'), ((0, 110, 70), 'green'),
               ((160, 60, 110), 'pink'), ((200, 110, 40), 'orange'), ((110, 115, 125), 'silver')]
     theme = dict((n, c) for c, n in themes); tn = K.pick('theme', [n for _, n in themes], R); theme = (theme[tn], tn); segs = []; prev = [None]
+    pic_p = float(os.environ['CQ_PIC_P']) if os.environ.get('CQ_PIC_P') else K.pick('pictures', [0.35, 0.6, 0.85], R)   # how often a line with a picture shows it
     def pick(k, st):
         pool = ['notepad', 'cmd', 'paint', 'paint', 'wave', 'player', 'arr']
         if HAS_ARR and st >= MEL_T + 0.3: pool += ['roll_mel'] * 2
@@ -438,7 +447,7 @@ def plan_band():
         if has(k, '4:20'): pool += ['clock'] * 8
         if has(k, 'confess'): pool += ['cmd'] * 4
         ms = media_for(k)
-        if ms and R.random() < PIC_P and not str(prev[0]).startswith('pic'): c = 'pic|%s|%s' % (R.choice(ms), R.choice(PIC_STYLES)); prev[0] = c; return c
+        if ms and R.random() < pic_p and not str(prev[0]).startswith('pic'): c = 'pic|%s|%s' % (R.choice(ms), R.choice(PIC_STYLES)); prev[0] = c; return c
         c = R.choice([p for p in pool if p != prev[0]]); prev[0] = c; return c
     for k, (e, ws) in enumerate(LINES):
         st = ws[0][1]
@@ -572,10 +581,29 @@ def plan_prod():
         c = R.choice([x for x in (None, 0, 0, 1, 2, 3) if x != prev]); prev = c
         segs.append([ws[0][1], [c, R.choice([84, 110, 140])], k, [x for x in pick_ov() if x in ('track', 'invert', 'stamp')] or ['stamp']])
     pal_ = pals[K.pick('colours', [0, 1, 2], R)]; bg_ = R.choice([(11, 13, 16), (16, 12, 22), (8, 16, 18)])
+    pic_p = float(os.environ['CQ_PIC_P']) if os.environ.get('CQ_PIC_P') else K.pick('pictures', [0.0, 0.35, 0.6], R)
+    pics = {}
+    for k in range(len(LINES)):                                      # a line with a picture may show it as a card over the stems
+        ms = media_for(k)
+        if ms and R.random() < pic_p and (k - 1) not in pics: pics[k] = (R.choice(ms), R.choice(PIC_STYLES))
     return dict(wall=K.pick('wall', ['plasma', 'rings', 'grad', 'stars', 'bars', 'tiles'], R), acc=mixc(bg_, pal_[R.randrange(4)], .28), pal=pal_, segs=segs, bg=bg_,
                 punch=K.pick('punch', [0.015, 0.03], R), scan=K.flag('scan', 0.5, R), chroma=K.pick('chroma', [0, 2], R),
-                layout=K.pick('layout', ['lanes', 'lanes', 'mixer'], R), caption=K.pick('caption', ['inter', 'inter', 'anton', 'montserrat'], R))
+                layout=K.pick('layout', ['lanes', 'lanes', 'mixer'], R), caption=K.pick('caption', ['inter', 'inter', 'anton', 'montserrat'], R), pics={str(k): v for k, v in pics.items()})
 PLN = [('VOCAL', 'Vocals'), ('DRUMS', 'Drums'), ('INSTRUMENTS', 'Other'), ('MELODY + HATS  (MIDI)', None) if HAS_ARR else ('BASS', 'Bass')]
+def pic_card(a, plan, k, T):
+    """The line's picture as a card over the middle of the frame, sliding in as the line starts and out as it ends."""
+    got = (plan.get('pics') or {}).get(str(k)) if k is not None else None
+    if not got: return a
+    path, sty = got; st, en = LINES[k][1][0][1], LINES[k][0]; t = T - st
+    a_in = min(1.0, max(0.0, t / 0.18)); a_out = min(1.0, max(0.0, (en + 0.25 - T) / 0.18)); vis = min(a_in, a_out)
+    if vis <= 0: return a
+    cw, ch = 760, 600; x0 = (W - cw) // 2; y0 = 700 + int((1 - vis) * 60)
+    im = Image.fromarray(a); d = ImageDraw.Draw(im)
+    d.rounded_rectangle([x0 - 10, y0 - 10, x0 + cw + 10, y0 + ch + 10], radius=22, fill=(12, 14, 18), outline=tuple(plan['pal'][k % 4]), width=6)
+    pic = digitize(media_frame(path, t), sty, t, cw, ch, (10, 10, 30), (255, 255, 255))
+    if vis < 1: pic = Image.blend(Image.new('RGB', pic.size, (12, 14, 18)), pic, vis)
+    im.paste(pic, (x0, y0)); return np.asarray(im)
+
 def mixer_frame(f, feat, plan, ctx, rng):
     """The song as a mixing desk: a channel strip per stem, its meter and fader riding the real level."""
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T); k = line_at(T); si = seg_at(plan, T); st, (foc, ppb), kk, ov = plan['segs'][si]
@@ -609,6 +637,7 @@ def mixer_frame(f, feat, plan, ctx, rng):
         v = float(bands[b, max(0, fi - 1):fi + 1].mean()); d.rectangle([40 + b * bw, 1800 - int(v * 90), 40 + (b + 1) * bw - 5, 1800], fill=(70, 80, 96))
     if 'stamp' in ov and k is not None: overlays_pil(im, ImageDraw.Draw(im), ['stamp'], k, T, f, bands)
     a = fx(np.asarray(im), T, f, plan, [o for o in ov if o not in ('stamp', 'track')], st, (0, 580, W, 1560), ctx, rng)
+    a = pic_card(a, plan, k, T)
     if plan.get('faces'): a = facecam(a, T, bands, beat, ctx)
     return caption(a, k, T, 215, 76, 1000) if k is not None else a
 
@@ -664,6 +693,7 @@ def prod_frame(f, feat, plan, ctx, rng):
     if 'stamp' in ov and k is not None: overlays_pil(im, ImageDraw.Draw(im), ['stamp'], k, T, f, bands)
     d = ImageDraw.Draw(im)
     a = fx(np.asarray(im), T, f, plan, [o for o in ov if o != 'stamp'], st, (0, 580, W, 1560), ctx, rng)
+    a = pic_card(a, plan, k, T)
     if plan.get('faces'): a = facecam(a, T, bands, beat, ctx)
     return caption(a, k, T, 215, 76, 1000) if k is not None else a
 

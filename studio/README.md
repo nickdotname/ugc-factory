@@ -62,7 +62,8 @@ studio/songs/<song>/
   media_keep.json    which fetched pictures were kept
   master.wav         NOT in git — the released master
   stems/             NOT in git — Vocals.flac, Drums.flac, Bass.flac, Other.flac
-  media/<line>/      NOT in git — pictures per lyric line
+  media/<line>/      NOT in git — pictures per lyric line (optional, hand-picked)
+  pictures.json      searches per lyric line; the photos job finds them on Wikimedia Commons
 ```
 
 - `arrangement.json` comes from `python studio/als_arrangement.py project.als`.
@@ -76,6 +77,13 @@ studio/songs/<song>/
   which keeps only public-domain and CC0 results and logs every source. Search
   results are noisy: look through them and delete what does not fit before
   rendering. `media_credits.json` is that log for the pictures in use.
+- `pictures.json` is the way that runs by itself: `{"lines": {"12": ["vintage microphone"]}}`
+  names what a line should show (the song's own line numbers, from 0). The photos
+  workflow finds each one on Wikimedia Commons, public domain and CC0 only since a
+  video has nowhere to put a credit, stores it in `studio/photos/` and records the
+  choice in `studio/photos/queries.json`. Band videos show a line's picture in a
+  viewer window; producer videos as a card over the stems. How often is a knob
+  (`pictures`), so the learner finds out whether pictures help.
 
 ## Adding a song
 

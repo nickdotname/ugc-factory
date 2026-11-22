@@ -20,6 +20,7 @@ import hashlib, json, os, re, sys, urllib.error, urllib.parse, urllib.request
 
 API = 'https://commons.wikimedia.org/w/api.php'
 FREE = re.compile(r'^(public domain|pd\b|pd-|cc0|cc by(-sa)?\b|cc-by)', re.I)
+NO_CREDIT = re.compile(r'^(public domain|pd\b|pd-|cc0)', re.I)   # what a video can show with nowhere to put a credit
 STORE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'photos'); INDEX = os.path.join(STORE, 'index.json')
 CACHE = STORE; QUERIES = os.path.join(STORE, 'queries.json')
 UA = {'User-Agent': 'CloseQuartersCarousels/1.0 (https://closequarters.vip; closequartersandloosechange@gmail.com) python-urllib/3'}
@@ -108,7 +109,7 @@ def _words(text):
     return [w for w in re.split(r'[^a-z0-9]+', t) if w and (len(w) > 2 or re.search(r'\d', w)) and w not in STOP]
 
 
-def search(q, n=30, width=1400):
+def search(q, n=30, width=1400, uncredited=False):
     """Titles of freely licensed, photo-sized Commons images for a search, best match first. Commons' own search
     is loose ("Big Ear telescope" finds paragliders with big ears), so a result has to carry most of the search's
     words in its title, description or categories, and always the first one, which is written to be the key word."""
@@ -118,7 +119,7 @@ def search(q, n=30, width=1400):
     want = _words(q); out = []
     for pg in sorted(pages.values(), key=lambda pg: pg.get('index', 99)):
         ii = (pg.get('imageinfo') or [{}])[0]; meta = ii.get('extmetadata') or {}
-        if not FREE.match(_clean((meta.get('LicenseShortName') or {}).get('value'))): continue
+        if not (NO_CREDIT if uncredited else FREE).match(_clean((meta.get('LicenseShortName') or {}).get('value'))): continue
         if ii.get('mime') not in ('image/jpeg', 'image/png'): continue
         w, h = ii.get('width') or 0, ii.get('height') or 0
         if min(w, h) < 500 or not 0.4 < w / max(h, 1) < 2.8: continue
@@ -179,7 +180,7 @@ def resolve(specs):
                 if not n.startswith('?'): continue
                 key = sp.get('slug', '') + '|' + n[1:].strip()
                 if qs.get(key): continue
-                try: found = search(n[1:].strip())
+                try: found = search(n[1:].strip(), uncredited=sp.get('uncredited', False))
                 except Exception as exc: print('search failed %r: %r' % (n, exc)); continue
                 pick = next((t for t in found if t not in used), None)
                 for t in [pick] if pick else []:
@@ -192,6 +193,29 @@ def resolve(specs):
                 json.dump(qs, open(QUERIES, 'w'), indent=1, ensure_ascii=False, sort_keys=True)
                 time.sleep(1.5)
     print('resolved %d searches' % made)
+
+
+def song_pictures(slug):
+    """{line number: [photo paths]} for a song's lyric lines: studio/songs/<slug>/pictures.json names searches
+    per line, resolved (public domain and CC0 only, since a video has nowhere to put a credit) by the fetch step."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    try: spec = json.load(open(os.path.join(here, 'songs', slug, 'pictures.json')))
+    except (OSError, ValueError): return {}
+    out = {}
+    for k, qs in (spec.get('lines') or {}).items():
+        got = [p[0] for p in (get('?' + q, slug='song:' + slug) for q in qs) if p]
+        if got: out[int(k)] = got
+    return out
+
+
+def _song_specs():
+    """The songs' picture searches, shaped like carousel specs so resolve() can treat them the same way."""
+    import glob
+    here = os.path.dirname(os.path.abspath(__file__)); out = []
+    for f in sorted(glob.glob(os.path.join(here, 'songs', '*', 'pictures.json'))):
+        sp = json.load(open(f)); slug = os.path.basename(os.path.dirname(f))
+        out.append(dict(slug='song:' + slug, uncredited=True, slides=[['', '', ['?' + q for q in qs]] for _, qs in sorted((sp.get('lines') or {}).items(), key=lambda kv: int(kv[0]))]))
+    return out
 
 
 def _specs():
@@ -220,4 +244,4 @@ if __name__ == '__main__' and sys.argv[1:2] == ['fetch']:
         except Exception as exc: print('could not fetch %s: %r' % (w, exc))
         time.sleep(2)
     print('fetched %d' % got)
-    resolve(_specs())
+    resolve(_specs() + _song_specs())
