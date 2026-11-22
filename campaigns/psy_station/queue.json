@@ -409,9 +409,9 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-324df293-a27b-4712-ae32-ca9b660dc554",
           "last_error": null,
           "scheduled_for": "2026-11-23T11:05:00-05:00"
         }
@@ -420,7 +420,7 @@
         "instagram": "send this to the friend who would stare at it for an hour\n🎧 Talk – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
