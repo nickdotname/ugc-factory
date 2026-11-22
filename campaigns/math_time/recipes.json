@@ -342,6 +342,39 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s01_math_3356.mp4",
+   "song": "suspended",
+   "section": "s01",
+   "style": "math",
+   "seed": 3356,
+   "window": [
+    7.04,
+    29.53
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "zeta",
+    "theme": "synth",
+    "font": "montserrat",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "tag",
+    "cut": "full"
+   },
+   "chosen": "set",
+   "playing": {
+    "vocals": 0.58,
+    "drums": 0.76,
+    "bass": 0.32,
+    "other": 0.36
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }
