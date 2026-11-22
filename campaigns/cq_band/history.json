@@ -676,8 +676,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-f25dce59-f86c-4b65-8b97-1054e339865f",
+      "post_ids": {
+        "close_quarters_ig": "igo-f25dce59-f86c-4b65-8b97-1054e339865f"
+      },
       "overlay": null,
       "lineup_id": "hot-take-first",
       "variants": {}
