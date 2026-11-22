@@ -1,0 +1,195 @@
+{
+ "clips": {},
+ "menu": {
+  "rocket": {
+   "format": [
+    "asis",
+    "montage"
+   ],
+   "frame": [
+    "blur",
+    "crop"
+   ],
+   "ramp": [
+    "slowmo",
+    "none"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s03_rocket_53599.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "rocket",
+   "seed": 53599,
+   "window": [
+    51.26,
+    73.75
+   ],
+   "plan": null,
+   "knobs": {
+    "format": "montage",
+    "frame": "crop",
+    "ramp": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.69,
+    "bass": 0.69,
+    "other": 0.6
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s04_rocket_449169.mp4",
+   "song": "talk",
+   "section": "s04",
+   "style": "rocket",
+   "seed": 449169,
+   "window": [
+    77.7,
+    94.91
+   ],
+   "plan": null,
+   "knobs": {
+    "format": "montage",
+    "frame": "crop",
+    "ramp": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.3,
+    "drums": 0.82,
+    "bass": 0.69,
+    "other": 0.68
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s07_rocket_614874.mp4",
+   "song": "prologue",
+   "section": "s07",
+   "style": "rocket",
+   "seed": 614874,
+   "window": [
+    148.79,
+    157.52
+   ],
+   "plan": null,
+   "knobs": {
+    "format": "asis",
+    "frame": "crop",
+    "ramp": "slowmo",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.62,
+    "bass": 0.59,
+    "other": 0.25
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s03_rocket_894253.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s03",
+   "style": "rocket",
+   "seed": 894253,
+   "window": [
+    55.62,
+    77.61
+   ],
+   "plan": null,
+   "knobs": {
+    "format": "asis",
+    "frame": "crop",
+    "ramp": "slowmo",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.67,
+    "drums": 0.7,
+    "bass": 0.77,
+    "other": 0.45
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s01_rocket_193196.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s01",
+   "style": "rocket",
+   "seed": 193196,
+   "window": [
+    17.67,
+    24.43
+   ],
+   "plan": null,
+   "knobs": {
+    "format": "montage",
+    "frame": "blur",
+    "ramp": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.9,
+    "bass": 0.9,
+    "other": 0.17
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s03_rocket_179571.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "rocket",
+   "seed": 179571,
+   "window": [
+    58.11,
+    65.8
+   ],
+   "plan": null,
+   "knobs": {
+    "format": "asis",
+    "frame": "blur",
+    "ramp": "slowmo",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.61,
+    "bass": 0.49,
+    "other": 0.54
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
