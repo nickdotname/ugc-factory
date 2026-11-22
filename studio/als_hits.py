@@ -85,25 +85,25 @@ def decode(path):
     return _cache[path]
 
 
-def onsets(y, sens=0.5, min_gap=0.05):
-    """Attack times (s) and strengths in one audio file: rises in a 3 ms energy envelope, each placed where the
-    rise passes a quarter of the way from the floor before it to its peak."""
+def onsets(y, jump_db=8.0, min_gap=0.05):
+    """Attack times (s) and strengths in one audio file. The level is followed in 3 ms steps against a held envelope
+    that falls 0.6 dB a step (about 200 dB a second, faster than any real decay): a sustained or decaying sound stays
+    under it, ripples and all, and only a fresh attack jumps clear of it. Each attack is placed where the level first
+    passes a quarter of the way from what came before it to its peak."""
     if y is None or len(y) < SR // 10: return np.zeros(0), np.zeros(0)
     n = len(y) // HOP
     e = np.sqrt(np.mean(y[:n * HOP].reshape(n, HOP) ** 2, axis=1) + 1e-12)
     db = 20 * np.log10(e + 1e-9)
-    rise = np.maximum(db[3:] - db[:-3], 0); rise = np.concatenate([np.zeros(3), rise])
-    loud = db > db.max() - 45                                           # ignore the noise floor
-    thr = np.median(rise[loud]) + sens * 6.0 if loud.any() else 1e9
-    gap = int(min_gap * SR / HOP); out_t, out_s = [], []
-    i = 1
-    while i < n - 1:
-        if loud[i] and rise[i] >= thr and rise[i] >= rise[i - 1] and rise[i] >= rise[i + 1]:
-            j0 = max(0, i - 8); floor = e[j0:i + 1].min(); top = e[i:i + 12].max()
-            k = j0 + int(np.argmax(e[j0:i + 12] >= floor + 0.25 * (top - floor)))
-            out_t.append(k * HOP / SR); out_s.append(float(top)); i += gap
-        else:
-            i += 1
+    floor = np.percentile(db, 99.5) - 45                               # attacks quieter than this are noise
+    held = np.empty(n); jump = np.empty(n); h = floor - 10
+    for i in range(n):
+        h -= 0.6; jump[i] = db[i] - h; h = max(h, db[i]); held[i] = h
+    gap = int(min_gap * SR / HOP); out_t, out_s = [], []; last = -gap
+    for i in np.nonzero((jump >= jump_db) & (db >= floor))[0]:
+        if i - last < gap: continue
+        j0 = max(0, i - 3); before = e[j0:i + 1].min(); top = e[i:i + 10].max()
+        k = j0 + int(np.argmax(e[j0:i + 10] >= before + 0.25 * (top - before)))
+        out_t.append(k * HOP / SR); out_s.append(float(top)); last = i
     s = np.array(out_s)
     return np.array(out_t), (s / s.max() if len(s) else s)
 
