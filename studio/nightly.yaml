@@ -40,3 +40,7 @@ targets:
     style: math
     per_night: 4
     join: 40
+  - campaign: glitch_archive  # glitch.archive: public-domain footage, moshed / tracked / sorted on the beat (studio/footage.py for the clips)
+    style: glitch
+    per_night: 4
+    join: 30

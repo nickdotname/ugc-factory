@@ -59,7 +59,7 @@ def playing(lv, win):
 
 PLAYS = 0.25
 # Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
-VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_video.py'}
+VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_video.py', 'glitch': 'glitch_video.py'}
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 sys.path.insert(0, HERE); import hook as _hook
