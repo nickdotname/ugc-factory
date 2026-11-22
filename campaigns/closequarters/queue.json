@@ -300,11 +300,11 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-22T12:10:00-05:00"
         },
         {
           "account": "nickdotname_tt",
@@ -321,7 +321,7 @@
         "instagram": "Myth of Sisyphus – Close Quarters\ntag who you're sending this to\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
