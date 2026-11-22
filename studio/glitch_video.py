@@ -230,8 +230,8 @@ class Video:
         if self.label == 'rec':
             t = self.t0 + i / FPS
             if (i // 15) % 2 == 0: d.ellipse([40, 52, 62, 74], fill=(230, 40, 40))
-            d.text((74, 48), 'REC  %02d:%02d:%02d' % (t // 60, t % 60, (i % FPS)), font=self.f_small, fill=(240, 240, 240))
-            d.text((40, 88), 'SRC %s / %s' % (e['source'], e['query'].replace(' ', '_')), font=self.f_lab, fill=(200, 200, 200))
+            d.text((74, 48), 'REC  %02d:%02d:%02d' % (t // 60, t % 60, (i % FPS)), font=self.f_small, fill=(240, 240, 240), stroke_width=2, stroke_fill=(0, 0, 0))
+            d.text((40, 88), 'SRC %s / %s' % (e['source'], e['query'].replace(' ', '_')), font=self.f_lab, fill=(215, 215, 215), stroke_width=2, stroke_fill=(0, 0, 0))
         d.text((W / 2, H - 60), self.credit, font=self.f_credit, fill=(235, 235, 235), anchor='mm', stroke_width=2, stroke_fill=(0, 0, 0))
         return np.asarray(out)
 
