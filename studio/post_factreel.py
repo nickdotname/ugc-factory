@@ -15,7 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE);
 ap = argparse.ArgumentParser(); ap.add_argument('--spec', default=''); ap.add_argument('--account', default=''); ap.add_argument('--no-post', action='store_true'); a = ap.parse_args()
 posted = json.load(open(os.path.join(CDIR, 'posted.json'))) if os.path.exists(os.path.join(CDIR, 'posted.json')) else []
 RP = os.path.join(CDIR, 'reeled.json'); reeled = json.load(open(RP)) if os.path.exists(RP) else []
-specs = {json.load(open(f))['slug']: f for f in glob.glob(os.path.join(CDIR, '**', '*.json'), recursive=True) if os.path.basename(f) not in ('posted.json', 'reeled.json')}
+specs = {json.load(open(f))['slug']: f for f in glob.glob(os.path.join(CDIR, '**', '*.json'), recursive=True) if os.path.basename(f) not in ('posted.json', 'reeled.json') and json.load(open(f)).get('theme') != 'band'}
 ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.yaml')))['accounts']}
 # Per look: the renderer that draws the visuals and the tags the caption ends on.
 LOOKS = {'retro': ('liminal_video.py', '#nostalgia #2000s #90skids #liminalspaces #y2k'),

@@ -103,10 +103,12 @@ def render(job):
     env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, t1), CQ_CRF=os.environ.get('CQ_CRF', crf), CQ_PRESET=os.environ.get('CQ_PRESET', 'medium'),
                CQ_MAXRATE=os.environ.get('CQ_MAXRATE', cap), CQ_BUFSIZE=os.environ.get('CQ_BUFSIZE', buf))
     if len(job) > 6 and not job[6]: env['CQ_LYRICS'] = 'none'
-    for var, dim in (('CQ_HOOK_ANGLE', 'hook angle'), ('CQ_HOOK_MODE', 'hook style'), ('CQ_HOOK', 'hook'), ('CQ_FIELD', 'look')):          # half the time, lean towards what has been watched; the other half stays a free draw
-        opts = {o: w for o, w in (job[5].get(dim) or {}).items() if o not in ('(none)', 'none', 'other') and (dim != 'look' or style == 'psy') and (dim not in ('hook angle', 'hook style') or style in ('band', 'producer'))} if len(job) > 5 else {}
+    for var, dim in (('CQ_HOOK_ANGLE', 'hook angle'), ('CQ_HOOK_MODE', 'hook style'), ('CQ_FACES', 'faces'), ('CQ_HOOK', 'hook'), ('CQ_FIELD', 'look')):          # half the time, lean towards what has been watched; the other half stays a free draw
+        opts = {o: w for o, w in (job[5].get(dim) or {}).items() if o not in ('(none)', 'none', 'other') and (dim != 'look' or style == 'psy') and (dim not in ('hook angle', 'hook style', 'faces') or style in ('band', 'producer'))} if len(job) > 5 else {}
         r = random.Random(seed * 31 + len(var))
-        if opts and r.random() < 0.5: env[var] = r.choices(list(opts), weights=[w ** 2 for w in opts.values()])[0]
+        if opts and r.random() < 0.5:
+            env[var] = r.choices(list(opts), weights=[w ** 2 for w in opts.values()])[0]
+            if var == 'CQ_FACES': env[var] = '1' if env[var] == 'with' else '0'
     cmd = [sys.executable, os.path.join(HERE, VISUAL[style]), song_dir, str(seed), out] if style in VISUAL else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')

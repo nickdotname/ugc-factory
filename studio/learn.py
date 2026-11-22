@@ -91,6 +91,7 @@ def recipes(rec):
         out[(e['creative'], e['clip'])] = dict(section=e.get('section'), look=p.get('field') or p.get('wall') or p.get('theme'),
                                                hook=p.get('hook') or '', lyrics=p.get('lyrics'), palette=p.get('pal'),
                                                angle=p.get('hook_angle'), shown=p.get('hook_mode') if p.get('hook') else None,
+                                               faces=None if 'faces' not in p else ('with' if p['faces'] else 'without'),
                                                seconds=w[1] - w[0])
     return out
 
@@ -142,6 +143,7 @@ def learn(camp, zone, now):
                 'hook': a.get('hook') or None,
                 'hook angle': a.get('angle'),
                 'hook style': a.get('shown'),
+                'faces': a.get('faces'),
                 'lyrics': a.get('lyrics'),
                 'palette': a.get('palette'),
                 'length': None if not secs else 'under 10s' if secs < 10 else 'under 20s' if secs < 20 else '20-35s' if secs < 35 else 'over 35s',
@@ -168,7 +170,7 @@ def learn(camp, zone, now):
         len(rows), ' (%d more are too new)' % young if young else '',
         med([r[0]['views'] for r in rows]), med([r[0]['watch'] for r in rows if r[0].get('watch') is not None])), '']
     weights = {}
-    for dim in ('opening line', 'hook', 'hook angle', 'hook style', 'song', 'section', 'look', 'lyrics', 'palette', 'length', 'hour posted', 'caption'):
+    for dim in ('opening line', 'hook', 'hook angle', 'hook style', 'faces', 'song', 'section', 'look', 'lyrics', 'palette', 'length', 'hour posted', 'caption'):
         groups = {}
         for (n, opts), s in zip(rows, score):
             if dim in opts:

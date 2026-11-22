@@ -21,6 +21,7 @@ posted = json.load(open(POSTED)) if os.path.exists(POSTED) else []
 done = {p['slug'] for p in posted}
 ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.yaml')))['accounts']}
 SKIP = ('posted.json', 'reeled.json')
+DAILY_CAP = {'close_quarters_ig': 1}
 
 def waiting():
     """Every unposted spec, in folder then name order, with the account it is for."""
@@ -36,7 +37,7 @@ def make(path, name):
     if not acct: print('skip %s: account %r is not set up yet' % (spec['slug'], name)); return None
     now = datetime.datetime.now(datetime.timezone.utc); tag = 'render-carousels-' + now.strftime('%Y-%m-%d')
     tmp = tempfile.mkdtemp(); seed = int(hashlib.sha1(spec['slug'].encode()).hexdigest()[:6], 16) % 9973
-    drawer = 'carousel_retro.py' if spec.get('theme') == 'retro' else 'carousel.py'
+    drawer = {'retro': 'carousel_retro.py', 'band': 'carousel_band.py'}.get(spec.get('theme'), 'carousel.py')
     subprocess.run([sys.executable, os.path.join(HERE, drawer), path, str(seed), tmp], check=True)
     base = yaml.safe_load(open(os.path.join(REPO, 'site.yaml')))['media_base_url'].rstrip('/'); uid = str(uuid.uuid4()); files, urls = [], []
     for i, f in enumerate(sorted(glob.glob(os.path.join(tmp, '*.jpg'))), 1):
@@ -56,9 +57,15 @@ if a.spec:
     path = a.spec if os.path.exists(a.spec) else os.path.join(CDIR, a.spec + '.json')
     made = [make(path, a.account or json.load(open(path)).get('account', ''))]
 else:
-    # one carousel per account per run: the oldest waiting spec for each account that exists
+    # one carousel per account per run: the oldest waiting spec for each account that exists, and no more
+    # a day than the account's cap (the band's own page gets one, so it stays mostly music)
+    today = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d')
+    made_today = {}
+    for p_ in posted:
+        if p_.get('date') == today: made_today[p_.get('account')] = made_today.get(p_.get('account'), 0) + 1
     first = {}
     for f, n in waiting():
+        if made_today.get(n, 0) >= DAILY_CAP.get(n, 99): continue
         if (not a.account or n == a.account) and n in ACCTS: first.setdefault(n, f)
     if not first: print('no carousel waiting'); sys.exit(0)
     made = [make(f, n) for n, f in sorted(first.items())]
