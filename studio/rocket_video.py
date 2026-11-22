@@ -106,7 +106,7 @@ class Video:
         bg = cv2.GaussianBlur(cv2.resize(bg[:, x0:x0 + W], (W // 8, H // 8)), (0, 0), 3); bg = cv2.resize(bg, (W, H)) * 0.45
         s = W / w * zoom; fg = cv2.resize(f, (int(w * s), int(h * s)), interpolation=cv2.INTER_LINEAR)
         y0 = (H - fg.shape[0]) // 2 - 60; x0 = (fg.shape[1] - W) // 2
-        out = bg.astype(np.uint8); fg = fg[:, x0:x0 + W] if x0 > 0 else fg
+        out = bg.astype(np.uint8); fg = fg[:, max(0, x0):max(0, x0) + W]
         out[max(0, y0):y0 + fg.shape[0], :fg.shape[1]] = fg[max(0, -y0):H - y0]
         return out
 
