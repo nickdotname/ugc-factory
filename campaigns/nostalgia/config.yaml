@@ -3,9 +3,7 @@
 # hallway drawn as if on a home VHS tape, lights flickering with the drums.
 # Carousels and fact reels are the other kind of post: retro-desktop slides
 # about things people grew up with (studio/carousels/nostalgia/).
-#
-# SWITCHED OFF while the folder name starts with "_". To switch it on, once
-# accounts.yaml has nostalgia_ig: rename this folder to campaigns/nostalgia.
+
 #
 # Finished videos with their own sound. One creative per SONG. New videos are
 # added every night by the studio job (studio/nightly.yaml); what each is made

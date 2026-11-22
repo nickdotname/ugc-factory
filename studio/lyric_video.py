@@ -550,10 +550,12 @@ def prod_frame(f, feat, plan, ctx, rng):
 plan = plan_band() if mode == 'band' else plan_prod()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
 plan['hook'] = _hook.pick(mode, seed)                       # the line shown for the first two seconds ('' = none)
+plan['hook_angle'] = _hook.angle(mode, plan['hook']); plan['hook_mode'] = _hook.mode(mode, seed)   # flash: first two seconds; hold: the whole video
 wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav); feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
 json.dump(json.loads(json.dumps(dict(mode=mode, seed=seed, song=SONG['slug'], window=[T0, T1], plan=plan)).replace(SONG_DIR + '/', '')), open(out[:-4] + '.json', 'w'), indent=1)
 fr0 = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: prod_frame(f, feat, plan, ctx, rng))
-fr = lambda f: _hook.draw(np.asarray(fr0(f)), plan['hook'], f / FPS, y=0.43)      # mid-screen: both styles keep titles and lyrics at the top
+fr = ((lambda f: _hook.draw_hold(np.asarray(fr0(f)), plan['hook'], f / FPS, _hook.HOLD_Y[mode])) if plan['hook_mode'] == 'hold' else
+      (lambda f: _hook.draw(np.asarray(fr0(f)), plan['hook'], f / FPS, y=0.43)))      # flash sits mid-screen: both styles keep titles and lyrics at the top
 if '--frames' in sys.argv:
     fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
     s = Image.new('RGB', (324 * len(fs), 576))
