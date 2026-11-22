@@ -15,6 +15,10 @@ on:
         description: videos per target this run (blank = per_night)
         required: false
         default: ""
+      set:
+        description: 'knobs every video must use, e.g. scene=bridge or topic=zeta (blank = the learner picks)'
+        required: false
+        default: ""
 
 permissions:
   contents: write   # uploads to the clip libraries and records what was made
@@ -33,6 +37,7 @@ jobs:
       GITHUB_REPOSITORY: ${{ github.repository }}
       CAMPAIGN: ${{ inputs.campaign }}
       COUNT: ${{ inputs.count }}
+      SET: ${{ inputs.set }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,7 +63,7 @@ jobs:
 
       - name: Render and add to the libraries
         run: |
-          python studio/nightly.py ${CAMPAIGN:+--only "$CAMPAIGN"} ${COUNT:+--count "$COUNT"}
+          python studio/nightly.py ${CAMPAIGN:+--only "$CAMPAIGN"} ${COUNT:+--count "$COUNT"} ${SET:+--set "$SET"}
 
       - name: Record what was made
         if: always()

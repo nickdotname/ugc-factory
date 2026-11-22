@@ -23,6 +23,7 @@ import yaml
 
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 ap = argparse.ArgumentParser(); ap.add_argument('--only', default=''); ap.add_argument('--count', type=int, default=0); ap.add_argument('--no-ingest', action='store_true')
+ap.add_argument('--set', default='', help='knobs every video of this run must use, e.g. "scene=bridge" or "topic=zeta,target=sun"')
 a = ap.parse_args(); cfg = yaml.safe_load(open(os.path.join(HERE, 'nightly.yaml'))); today = datetime.date.today().isoformat()
 MINC = cfg.get('min_confidence', 0.45); failed = False
 LEARNED = (json.load(open(os.path.join(HERE, 'weights.json'))) if os.path.exists(os.path.join(HERE, 'weights.json')) else {}).get('campaigns', {})   # from learn.py
@@ -146,6 +147,7 @@ def tighten(song_dir, win, rng, short=False):
     while st + dur > t1 + 0.05 and dur - bar >= (5.5 if short else 9.5): dur -= bar
     return (round(max(0.0, st), 2), round(min(t1, st + dur), 2))
 
+SET = dict(x.split('=', 1) for x in a.set.replace(' ', '').split(',') if '=' in x)
 SOLO = {k: '1' for k in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMBA_NUM_THREADS', 'OPENCV_FOR_THREADS_NUM')}
 
 def render(job, solo=False):
@@ -216,6 +218,7 @@ for t in cfg['targets']:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
         kn, extra, how = choose(style, menu, L, seed)
+        if SET: kn, how = dict(kn, **SET), 'set'                  # a run asked for a particular look (a new format to see now)
         cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
         if how == 'free': cut = 'full' if rng.random() >= TIGHT else ('short' if style in VISUAL and rng.random() < SHORT else 'tight')
         else: cut = thompson(cuts, (L.get('stats') or {}).get('knob:cut') or {}, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
