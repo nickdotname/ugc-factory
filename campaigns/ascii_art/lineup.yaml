@@ -1,0 +1,25 @@
+# Hand-picked posts, each posted exactly as written, once (src/lineup.py).
+# Anything not listed here is filled by the randomizer.
+posts:
+  # The first pixel worlds (a clay tennis court, an old bridge) and full-colour scene (a galaxy), out tonight.
+  - id: court-first
+    creative: prologue
+    hook: hook_01.mp4
+    caption: |
+      a clay tennis court built from voxels, all of it code. every shot lands on the beat. sound on.
+      🎧 Prologue: Before – @close__quarters #pixelart #creativecoding #generativeart #codeart #python
+    at: 2026-11-22 20:40
+  - id: bridge-first
+    creative: fixation
+    hook: hook_01.mp4
+    caption: |
+      an old bridge over a river, built from code. no sprites, no images. sound on.
+      🎧 Fixation – @close__quarters #pixelart #creativecoding #generativeart #codeart #python
+    at: 2026-11-22 21:40
+  - id: galaxy-first
+    creative: prologue
+    hook: hook_02.mp4
+    caption: |
+      a galaxy drawn in letters, every one placed by code. sound on.
+      🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python
+    at: 2026-11-22 22:40
