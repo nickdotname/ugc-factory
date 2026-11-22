@@ -1,0 +1,17 @@
+{
+ "tle.txt": {
+  "source": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle",
+  "taken": "2026-11-22T12:03:37Z",
+  "records": 15840
+ },
+ "quakes.json": {
+  "source": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson",
+  "taken": "2026-11-22T12:03:37Z",
+  "records": 1910
+ },
+ "flights.json": {
+  "source": "https://opensky-network.org/api/states/all",
+  "taken": "2026-11-22T12:03:39Z",
+  "records": 7366
+ }
+}
