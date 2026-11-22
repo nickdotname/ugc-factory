@@ -73,7 +73,7 @@ im.save(os.path.join(out, '01.jpg'), quality=92)
 # ---- one fact a slide ----------------------------------------------------------------------
 n = len(spec['slides'])
 for i, sl in enumerate(spec['slides'], 1):
-    big, text = sl[0], sl[1]; ph = photos.slide_photos(sl)[:1]
+    big, text = sl[0], sl[1]; ph = photos.slide_photos(sl, spec.get('slug', ''))[:1]
     a = (art(W, H, seed * 7 + 10 + i).astype(np.float32) * .28).astype(np.uint8)
     if ph:                                                      # the slide's photo across the top, fading into the dark
         top = 640; p_ = photos.fit_image(ph[0][0], W, top).astype(np.float32); t_ = art(W, top, seed * 7 + 10 + i).astype(np.float32)
