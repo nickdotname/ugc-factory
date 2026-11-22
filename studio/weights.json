@@ -308,56 +308,58 @@
    "retired": {}
   },
   "cq_band": {
-   "posts": 11,
-   "waiting": 1,
-   "typical_views": 82.0,
+   "posts": 12,
+   "waiting": 0,
+   "typical_views": 86.0,
    "weights": {
     "opening line": {
      "without": 1.01
     },
     "song": {
-     "prologue": 0.97,
-     "wont_be_the_same_again": 1.01,
+     "prologue": 0.96,
+     "wont_be_the_same_again": 1.0,
      "hair_of_the_dog": 0.97,
-     "fixation": 1.06
+     "fixation": 1.09
     },
     "section": {
-     "prologue/s01-s02": 1.01,
-     "wont_be_the_same_again/s05-s06": 0.99,
-     "hair_of_the_dog/s01-s02": 0.97,
+     "prologue/s01-s02": 1.0,
+     "wont_be_the_same_again/s05-s06": 0.98,
+     "hair_of_the_dog/s01-s02": 0.96,
      "wont_be_the_same_again/s07": 1.01,
-     "prologue/s03-s04": 1.05,
+     "prologue/s03-s04": 1.04,
      "fixation/s03-s04": 1.06,
      "prologue/s05-s06": 0.93,
-     "wont_be_the_same_again/s08": 1.03,
-     "prologue/s07-s08": 0.96
+     "wont_be_the_same_again/s08": 1.02,
+     "prologue/s07-s08": 0.96,
+     "fixation/s06": 1.05
     },
     "look": {
-     "stars": 0.99,
-     "grad": 1.0,
+     "stars": 0.98,
+     "grad": 1.03,
      "rings": 1.06,
      "plasma": 0.96
     },
     "length": {
-     "over 35s": 0.95,
-     "under 20s": 1.04,
-     "20-35s": 1.06
+     "over 35s": 0.94,
+     "under 20s": 1.03,
+     "20-35s": 1.09
     },
     "hour posted": {
      "10:00": 0.95,
      "13:00": 1.01,
      "14:00": 0.97,
      "17:00": 1.0,
-     "19:00": 1.01,
-     "22:00": 1.06
+     "19:00": 1.0,
+     "22:00": 1.06,
+     "21:00": 1.05
     },
     "caption": {
-     "Prologue: Before \u2013 Close Quarters": 1.05,
+     "Prologue: Before \u2013 Close Quarters": 1.04,
      "Won't Be the Same Again \u2013 Close Quarters": 1.0,
-     "Hair of the Dog \u2013 Close Quarters": 0.97,
+     "Hair of the Dog \u2013 Close Quarters": 0.96,
      "Fixation \u2013 Close Quarters": 1.06,
      "lesson 1 of 15. class is in session.": 0.93,
-     "your family computer in 2001 if it had taste": 1.02,
+     "your family computer in 2001 if it had taste": 1.05,
      "lesson 13 of 15. class is in session.": 0.98,
      "tell me this doesn't sound like 2am in new york": 0.96
     }
@@ -365,191 +367,201 @@
    "stats": {
     "opening line": {
      "without": [
-      9,
-      8.65,
-      0.507
+      10,
+      9.62,
+      0.509
      ]
     },
     "song": {
      "prologue": [
       4,
       3.86,
-      0.451
+      0.431
      ],
      "wont_be_the_same_again": [
       4,
       3.86,
-      0.516
+      0.501
      ],
      "hair_of_the_dog": [
       2,
       1.93,
-      0.426
+      0.41
      ],
      "fixation": [
-      1,
-      0.94,
-      0.785
+      2,
+      1.91,
+      0.726
      ]
     },
     "section": {
      "prologue/s01-s02": [
       1,
       0.96,
-      0.537
+      0.51
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
       0.96,
-      0.458
+      0.432
      ],
      "hair_of_the_dog/s01-s02": [
       1,
       0.96,
-      0.349
+      0.335
      ],
      "wont_be_the_same_again/s07": [
       1,
       0.97,
-      0.566
+      0.556
      ],
      "prologue/s03-s04": [
       1,
       0.97,
-      0.729
+      0.693
      ],
      "fixation/s03-s04": [
       1,
       0.94,
-      0.785
+      0.753
      ],
      "prologue/s05-s06": [
       1,
       0.96,
-      0.197
+      0.198
      ],
      "wont_be_the_same_again/s08": [
       1,
       0.96,
-      0.613
+      0.598
      ],
      "prologue/s07-s08": [
       1,
       0.97,
-      0.336
+      0.322
+     ],
+     "fixation/s06": [
+      1,
+      0.97,
+      0.699
      ]
     },
     "look": {
      "stars": [
       4,
       3.86,
-      0.488
+      0.465
      ],
      "grad": [
-      2,
-      1.93,
-      0.512
+      3,
+      2.9,
+      0.563
      ],
      "rings": [
       1,
       0.94,
-      0.785
+      0.753
      ],
      "plasma": [
       2,
       1.92,
-      0.405
+      0.398
      ]
     },
     "length": {
      "over 35s": [
       6,
       5.78,
-      0.435
+      0.415
      ],
      "under 20s": [
       2,
       1.93,
-      0.589
+      0.577
      ],
      "20-35s": [
-      1,
-      0.94,
-      0.785
+      2,
+      1.91,
+      0.726
      ]
     },
     "hour posted": {
      "10:00": [
       2,
       1.92,
-      0.368
+      0.354
      ],
      "13:00": [
       2,
       1.92,
-      0.535
+      0.515
      ],
      "14:00": [
       2,
       1.93,
-      0.426
+      0.41
      ],
      "17:00": [
       2,
       1.93,
-      0.497
+      0.487
      ],
      "19:00": [
       2,
       1.94,
-      0.533
+      0.508
      ],
      "22:00": [
       1,
       0.94,
-      0.785
+      0.753
+     ],
+     "21:00": [
+      1,
+      0.97,
+      0.699
      ]
     },
     "caption": {
      "Prologue: Before \u2013 Close Quarters": [
       2,
       1.93,
-      0.634
+      0.602
      ],
      "Won't Be the Same Again \u2013 Close Quarters": [
       2,
       1.93,
-      0.512
+      0.494
      ],
      "Hair of the Dog \u2013 Close Quarters": [
       1,
       0.96,
-      0.349
+      0.335
      ],
      "Fixation \u2013 Close Quarters": [
       1,
       0.94,
-      0.785
+      0.753
      ],
      "lesson 1 of 15. class is in session.": [
       1,
       0.96,
-      0.197
+      0.198
      ],
      "your family computer in 2001 if it had taste": [
-      2,
-      1.93,
-      0.557
+      3,
+      2.9,
+      0.595
      ],
      "lesson 13 of 15. class is in session.": [
       1,
       0.97,
-      0.427
+      0.418
      ],
      "tell me this doesn't sound like 2am in new york": [
       1,
       0.97,
-      0.336
+      0.322
      ]
     }
    },
@@ -768,7 +780,7 @@
     "look": {
      "kaleido": [
       6,
-      5.79,
+      5.78,
       0.52
      ],
      "cells": [
