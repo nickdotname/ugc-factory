@@ -58,7 +58,6 @@ def playing(lv, win):
     a, b = int(win[0]), max(int(win[0]) + 1, int(win[1])); return {k: round(float(v[a:b].mean()) if len(v[a:b]) else 0.0, 2) for k, v in lv.items()}
 
 PLAYS = 0.25
-VISUAL['rocket'] = 'rocket_video.py'
 # Styles that are pictures to the music, with no lyrics on screen, and the script that draws each.
 VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_video.py', 'glitch': 'glitch_video.py', 'physics': 'physics_video.py',
           'ascii': 'ascii_video.py', 'earth': 'earth_video.py'}
@@ -68,6 +67,7 @@ LYRIC = {'type': 'type_video.py'}
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
+VISUAL['rocket'] = 'rocket_video.py'
 # What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
 # an option with real results uses those instead. The ASCII account is about the code, so most videos show it.
 PRIOR = {'ascii': {'layout': {'code': [0, 3, 0.7], 'clean': [0, 3, 0.35]}}}
