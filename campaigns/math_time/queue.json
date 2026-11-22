@@ -144,9 +144,9 @@
         {
           "account": "math_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-c804003e-39cc-4a4c-93cf-cb614c39e3b9",
           "last_error": null,
           "scheduled_for": "2026-11-22T22:10:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "the riemann hypothesis, moving to the music. every zero found so far sits on one line\n🎧 Suspended – @close__quarters #math #riemannhypothesis #mathematics #learnmath #mathisfun\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

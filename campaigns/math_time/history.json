@@ -274,8 +274,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-c804003e-39cc-4a4c-93cf-cb614c39e3b9",
+      "post_ids": {
+        "math_ig": "igo-c804003e-39cc-4a4c-93cf-cb614c39e3b9"
+      },
       "overlay": null,
       "lineup_id": "riemann-first",
       "variants": {}
