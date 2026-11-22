@@ -1,0 +1,42 @@
+name: lofi-inbox
+
+# A drop box for hand-made close__quarters videos: whatever is pushed to inbox/cq_band-*/hooks/ on this branch is
+# checked, named and added to that song's cq_band library by `ugc ingest`, and the names it was given are printed.
+on:
+  push:
+    branches: [lofi-inbox]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lofi-inbox
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ github.token }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q -r requirements.txt
+      - name: Add the videos to the libraries
+        run: |
+          shopt -s nullglob
+          for d in inbox/cq_band-*/; do
+            lib=$(basename "$d"); files=("$d"hooks/*.mp4); [ ${#files[@]} -gt 0 ] || continue
+            creative=$(LIB="$lib" python -c "import os,yaml; c=yaml.safe_load(open('campaigns/cq_band/config.yaml')); print(next(x['name'] for x in c['creatives'] if x.get('assets_release','').removeprefix('assets-')==os.environ['LIB']))")
+            echo "== $lib -> $creative"
+            python -m src.cli ingest --campaign cq_band --creative "$creative" --report "report-$creative.json"
+            cat "report-$creative.json"; echo
+          done
