@@ -964,8 +964,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-e7f8402f-c3f9-4e76-9ac8-611e8e553d1f",
+      "post_ids": {
+        "psychedelic_station_ig": "igo-e7f8402f-c3f9-4e76-9ac8-611e8e553d1f"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
