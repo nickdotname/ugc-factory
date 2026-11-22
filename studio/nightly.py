@@ -95,7 +95,7 @@ def choose(style, menu, learned, seed):
           for name, opts in sorted(menu.items()) if len(opts) > 1}
     env = {}
     if style in _hook.ANGLES:                                   # the opening line: which angle (or none), and flashed or held
-        ang = thompson(sorted(_hook.ANGLES[style]) + ['none'], st.get('hook angle') or {}, r, ret.get('hook angle') or ())
+        ang = _hook.lead(style, seed) or thompson(sorted(_hook.ANGLES[style]) + ['none'], st.get('hook angle') or {}, r, ret.get('hook angle') or ())
         if ang == 'none': env['CQ_HOOK'] = 'none'
         else: env['CQ_HOOK_ANGLE'] = ang
         env['CQ_HOOK_MODE'] = thompson(['flash', 'hold'], st.get('hook style') or {}, r, ret.get('hook style') or ())

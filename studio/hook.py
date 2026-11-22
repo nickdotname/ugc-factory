@@ -7,7 +7,7 @@ The band and producer styles also try two ways of showing the line (mode(style, 
     'flash'  a yellow box for the first two seconds, as before
     'hold'   a caption that stays on for the whole video, in the place that style leaves free (draw_hold)
 Each recipe records the line ("hook"), its angle ("hook_angle": relatable / share / comment / curious /
-plain) and the way it was shown ("hook_mode"), so the stats can say which of each keeps people and gets shared.
+plain / debate) and the way it was shown ("hook_mode"), so the stats can say which of each keeps people and gets shared.
 """
 import os, random
 import numpy as np
@@ -27,6 +27,14 @@ ANGLES = {
         'comment':   ["which line hit hardest?", "rate this song 1-10", "tag who this reminds you of", "wait for the last line. thoughts?"],
         'curious':   ["read along", "nobody is talking about this band", "underrated song alert", "lyrics on screen. sound on"],
         'plain':     ["your pc in 2001:", "class is in session"],
+        # Hot takes that make the viewer pick a side on the song before it has played, so they say so in the
+        # comments. Opinions and questions only: nothing here claims a fact about the song or anyone.
+        'debate':    ["unpopular opinion: this song is perfect", "this song is overrated. change my mind",
+                      "rock and rap should never mix. right?", "genius or unlistenable? pick one",
+                      "is this rock or rap? wrong answers only", "be honest: skip or replay?",
+                      "your parents would hate this song", "this band is either genius or mid",
+                      "only real music fans will get this", "this would've been huge in 2007. agree?",
+                      "rate this honestly. we can take it", "too weird for the radio. agree?"],
     },
     'producer': {
         'relatable': ["pov: 3am in the studio", "musicians will understand", "this is what a song looks like inside",
@@ -37,11 +45,23 @@ ANGLES = {
         'plain':     ["lesson of the day"],
     },
 }
+# rocket.league.lit: our own clips, any of which may be a goal, a save or a demo, so nothing names what happens.
+# A line only now and then (NONE_SHARE); which angle earns its place is left to the learner.
+ANGLES['rocket'] = {
+    'debate':  ["clean or lucky?", "this was pure luck. change my mind", "bronze players could do this",
+                "guess the rank. wrong answers only", "rocket league peaked in 2016. agree?",
+                "ball cam on or off? defend yourself", "controller or keyboard? pick a side", "this game is dead. right?"],
+    'comment': ["guess our rank", "rate this 1-10", "how many hours to pull this off?", "what rank is this?"],
+    'share':   ["send this to your duo", "tag your duo", "send this to the friend who always whiffs"],
+    'curious': ["wait for it", "rocket league, but on beat", "sound on", "watch the ball", "this is why we can't stop playing",
+                "rocket league players will get it"],
+}
 HOOKS = {
     'producer': [l for ls in ANGLES['producer'].values() for l in ls],
     'band': [l for ls in ANGLES['band'].values() for l in ls],
     'liminal': ["you've been here before", "don't turn around", "3am. the music is still on", "sound on", "have you seen this place?", "no one else is here"],
     'psy': ["sound on", "don't blink", "watch the centre", "let it loop", "what do you see?", "headphones on"],
+    'rocket': [l for ls in ANGLES['rocket'].values() for l in ls],
 }
 SHOW, FADE = 2.2, 0.4
 _FONT = {}
@@ -49,14 +69,25 @@ _FONT = {}
 # Where a held line sits (fraction of the height) in each style: band, under the stack of windows and above
 # Instagram's own caption; producer, between the lyrics at the top and the first lane.
 HOLD_Y = {'band': 0.775, 'producer': 0.205}
-NONE_SHARE = {'band': 0.12, 'producer': 0.12}     # the rest keep the old quarter: enough "no line" posts to compare against
+NONE_SHARE = {'band': 0.12, 'producer': 0.12, 'rocket': 0.5}     # the rest keep the old quarter: enough "no line" posts to compare against
+# (rocket: a line on about two videos in five at first; the learner's 'none' angle can lower that)
+# An angle a style opens with most of the time, whatever the learner has found so far: (angle, share). The
+# close__quarters trial reels open on a hot take so people argue about the song in the comments; the other
+# 30% are left to the learner (other angles, no line), so there is something to compare the comments against.
+LEAD = {'band': ('debate', 0.7)}
+
+def lead(style, seed):
+    """The angle this video must open with ('' if it is free to choose)."""
+    ang, share = LEAD.get(style, ('', 0))
+    return ang if ang and random.Random(seed * 49979687 + 17).random() < share else ''
 
 def pick(style, seed):
     if os.environ.get('CQ_HOOK'): return '' if os.environ['CQ_HOOK'] == 'none' else os.environ['CQ_HOOK']          # the nightly job leaning towards a line that has worked
     r = random.Random(seed * 7919 + 11)
+    r2 = random.Random(seed * 104729 + 3)
+    if style in ANGLES and lead(style, seed) and not os.environ.get('CQ_HOOK_ANGLE'): return r2.choice(ANGLES[style][lead(style, seed)])
     if r.random() < NONE_SHARE.get(style, 0.25): return ''
     if style in ANGLES:                                   # an angle first, then a line in it, so every angle gets tried
-        r2 = random.Random(seed * 104729 + 3)
         if os.environ.get('CQ_HOOK_ANGLE') in ANGLES[style]: return r2.choice(ANGLES[style][os.environ['CQ_HOOK_ANGLE']])
         return r2.choice(r2.choice(list(ANGLES[style].values())))
     return r.choice(HOOKS.get(style, HOOKS['psy']))

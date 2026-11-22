@@ -10,7 +10,8 @@ Two formats (the knob `format`), so the learner finds out which one people watch
            muted (its menu music is not ours to post).
   montage  several clips cut on the bar lines, each cut placed so its clip's best moment lands on the downbeat,
            with a slow-motion run-in to it (knob `ramp`) and a zoom punch on the kicks.
-Framing (knob `frame`): `blur` puts a landscape clip full-width over a blurred, darkened copy of itself; `crop` fills
+Now and then a line flashes up for the first two seconds (studio/hook.py, 'rocket'), so the learner can see
+whether one helps. Framing (knob `frame`): `blur` puts a landscape clip full-width over a blurred, darkened copy of itself; `crop` fills
 the frame from the middle of it. Vertical clips fill the frame either way. The moments come from
 studio/rocket_lib.py (loud bursts and sudden flashes in each clip).
 """
@@ -23,6 +24,7 @@ sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
 import rocket_lib as lib
+import hook as _hook
 
 W, H, FPS = 1080, 1920, 30
 
@@ -79,6 +81,7 @@ class Video:
         a = audio.load(self.slug, self.t0, self.t1); self.n = a['n']
         self.kick = audio.hits(a['kicks'], self.n, 8.0); self.snare = audio.hits(a['snares'], self.n, 10.0)
         self.readers = {}
+        self.hook = _hook.pick('rocket', seed)                                 # the line flashed for the first two seconds ('' = none)
         self.credit = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         self.f_credit = font(30)
 
@@ -122,7 +125,7 @@ class Video:
         tw = d.textlength(self.credit, font=self.f_credit)
         d.rounded_rectangle([W / 2 - tw / 2 - 18, H - 470, W / 2 + tw / 2 + 18, H - 424], 20, fill=(0, 0, 0))
         d.text((W / 2, H - 447), self.credit, font=self.f_credit, fill=(245, 245, 245), anchor='mm')
-        return np.asarray(im)
+        return _hook.draw(np.asarray(im), self.hook, tv)
 
     def render(self, out):
         if '--frames' in sys.argv:
@@ -143,7 +146,8 @@ class Video:
         r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', tmp, '-i', aud, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'copy', '-shortest', '-movflags', '+faststart', out])
         os.remove(tmp); os.remove(aud)
         if r.returncode: sys.exit('mux failed')
-        json.dump(dict(K.record(), clips=sorted({s[2]['asset'] for s in self.plan})), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
+        json.dump(dict(K.record(), clips=sorted({s[2]['asset'] for s in self.plan}),
+                       plan=dict(hook=self.hook, hook_angle=_hook.angle('rocket', self.hook), hook_mode='flash')), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
 
 if __name__ == '__main__':

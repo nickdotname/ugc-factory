@@ -49,6 +49,12 @@ PRIOR = 5.0             # posts an option needs before its weight is taken at ab
 HALF_LIFE = 21.0        # days for a post's say in the stats to halve
 MIN_RETIRE = 8          # posts an option needs before it can be retired
 MIX = (('done', 0.3), ('sends', 0.3), ('views', 0.15), ('saved', 0.1), ('held', 0.15))
+# Campaigns that are after something the default mix does not weigh. close__quarters opens most videos on a hot
+# take to get people arguing about the song, and rocket.league.lit tries hot takes too, so comments per reach count there.
+TALK = (('done', 0.25), ('sends', 0.25), ('talk', 0.15), ('views', 0.15), ('saved', 0.05), ('held', 0.15))
+MIX_FOR = {'cq_band': TALK, 'rocket_league': TALK}
+NAMES = {'done': 'completion', 'sends': 'sends per reach', 'talk': 'comments per reach', 'views': 'views',
+         'saved': 'saves per reach', 'held': 'not being skipped'}
 
 
 def load(path, default):
@@ -70,6 +76,7 @@ def numbers(post):
     skip = m.get('skipRate')
     return dict(views=views, watch=m.get('averageTimeWatched'), keep=keep,
                 sends=float(m.get('shares') or 0) / reach, saved=float(m.get('saves') or 0) / reach,
+                talk=None if m.get('comments') is None else float(m['comments'] or 0) / reach,
                 held=None if skip is None else 1 - float(skip) / (100.0 if float(skip) > 1 else 1.0),
                 shares=float(m.get('shares') or 0), saves=float(m.get('saves') or 0))
 
@@ -172,7 +179,7 @@ def learn(camp, zone, now):
 
     # one score per post: its rank on each measure, mixed
     score = [0.0] * len(rows)
-    for key, share in MIX:
+    for key, share in MIX_FOR.get(camp, MIX):
         have = [(i, r[0][key]) for i, r in enumerate(rows) if r[0].get(key) is not None]
         for (i, _), rk in zip(have, ranks([v for _, v in have])):
             score[i] += share * rk
@@ -260,7 +267,9 @@ def main():
             print('::warning::learning skipped for %s: %r' % (camp, exc))
             result, text = dict(posts=0, weights={}), ['Skipped: %r' % exc, '']
         out['campaigns'][camp] = result
-        lines += ['## %s' % camp, ''] + text
+        mix = MIX_FOR.get(camp)
+        note = ['Ranked on %s.' % ', '.join('%s (%d%%)' % (NAMES[k], round(v * 100)) for k, v in mix), ''] if mix else []
+        lines += ['## %s' % camp, ''] + note + text
     lines += clicks(now)
     json.dump(out, open(os.path.join(HERE, 'weights.json'), 'w'), indent=1)
     open(os.path.join(HERE, 'LEARNED.md'), 'w').write('\n'.join(lines) + '\n')
