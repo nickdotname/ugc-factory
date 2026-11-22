@@ -67,7 +67,8 @@ from src.descriptions import (
     validate_bank,
 )
 from src.errors import (
-    AuthError, ConfigError, InvalidPostError, QuotaError, SelectionError, UgcError,
+    AuthError, ConfigError, InvalidPostError, MediaStoreError, QuotaError, SelectionError,
+    UgcError,
 )
 from src.ingest import (
     ARCHIVE_DIR,
@@ -563,14 +564,28 @@ def _render(
     # before creatives existed — same tag, same files, same numbers.
     resources: dict[str, _CreativeResources] = {}
     missing_by_creative: dict[str, list[str]] = {}
+    skipped: list[str] = []
     for creative in config.creatives:
-        res, missing = _load_creative_resources(
-            config, creative, campaign_dir, work, store, full_history,
-            renderer, log,
-        )
+        try:
+            res, missing = _load_creative_resources(
+                config, creative, campaign_dir, work, store, full_history,
+                renderer, log,
+            )
+        except MediaStoreError as exc:
+            # A song whose library has not been made yet (a fresh -v2 library
+            # fills over a few nights) sits this night out; the rest still post.
+            if "not found" not in str(exc) or len(skipped) + 1 >= len(config.creatives):
+                raise
+            log.warning("creative_library_missing", creative=creative.name, error=str(exc)[:200])
+            skipped.append(creative.name)
+            continue
         resources[creative.name] = res
         if missing:
             missing_by_creative[creative.name] = missing
+    if skipped:
+        config = config.model_copy(update={
+            "creatives": [c for c in config.creatives if c.name not in skipped]
+        })
 
     if missing_by_creative:
         parts = [
