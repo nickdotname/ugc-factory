@@ -61,7 +61,7 @@ def pose(words, T):
 
 
 _SPR = {}
-def _crushed(name, block, levels=5):
+def _crushed(name, block, levels=7):
     """The cut-out as a crushed, pixelated sprite at 1/block scale: few colours, ordered dither, hard
     pixel edges and a one-pixel black outline. Cached; scaled up later with nearest-neighbour."""
     k = (name, block, levels)
@@ -69,9 +69,9 @@ def _crushed(name, block, levels=5):
         im = Image.open(os.path.join(DIR, name)).convert('RGBA'); w, h = im.size
         sm = im.resize((max(1, w // block), max(1, h // block)), Image.BOX); a = np.asarray(sm).astype(np.float32)
         rgb, al = a[..., :3], a[..., 3]
-        rgb = np.clip((rgb - 128) * 1.25 + 128, 0, 255)                       # a harder, older-camera contrast
-        g = rgb.mean(2, keepdims=True); rgb = np.clip(g + (rgb - g) * 1.35, 0, 255)   # and louder colour
-        bay = (np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16 - .5)
+        rgb = np.clip((rgb - 128) * 1.15 + 128, 0, 255)                       # a harder, older-camera contrast
+        g = rgb.mean(2, keepdims=True); rgb = np.clip(g + (rgb - g) * 1.2, 0, 255)    # and louder colour
+        bay = (np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16 - .5) * .6
         yy, xx = np.indices(rgb.shape[:2]); d = bay[yy % 4, xx % 4][..., None] * (255 / (levels - 1))
         rgb = np.round((rgb + d) / (255 / (levels - 1))) * (255 / (levels - 1))
         on = al > 127; edge = np.zeros_like(on)

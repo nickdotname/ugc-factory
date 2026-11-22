@@ -21,7 +21,7 @@ posted = json.load(open(POSTED)) if os.path.exists(POSTED) else []
 done = {p['slug'] for p in posted}
 ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.yaml')))['accounts']}
 SKIP = ('posted.json', 'reeled.json')
-DAILY_CAP = {'close_quarters_ig': 1}
+DAILY_CAP = {'close_quarters_ig': 0}            # no carousels on the band's own page
 
 def waiting():
     """Every unposted spec, in folder then name order, with the account it is for."""

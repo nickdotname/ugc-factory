@@ -477,7 +477,7 @@ def sprite_for(a, k, T, bands, beat, ctx, bottom, height):
     """Whoever's line it is, cut out and pixelated, in front: Dylan left of centre, Nick right."""
     name, since, who = face_for(k, T, bands, ctx)
     cx = W * (0.36 if who == 'dylan' else 0.64)
-    return _faces.paste_sprite(np.ascontiguousarray(a), name, cx, bottom, height, since, T, beat % 1, block=plan.get('face_block', 9))
+    return _faces.paste_sprite(np.ascontiguousarray(a), name, cx, bottom, height, since, T, beat % 1, block=plan.get('face_block', 6))
 def facecam(a, T, bands, beat, ctx):
     """In the producer view the one whose line it is stands over the lower lanes."""
     k = line_at(T)
@@ -580,7 +580,7 @@ import faces as _faces                                      # Dylan and Nick rea
 _fv = os.environ.get('CQ_FACES', '').lower()
 plan['faces'] = _faces.available() and (_fv in ('1', 'true', 'yes') or (_fv not in ('0', 'false', 'no') and random.Random(seed * 37 + 5).random() < 0.4))
 if plan['faces']:
-    plan['face_block'] = random.Random(seed * 41).choice([8, 10, 12])        # how chunky the pixels are
+    plan['face_block'] = random.Random(seed * 41).choice([5, 6, 7])          # how chunky the pixels are: chunky, but the face still reads
     if mode == 'band':                                       # most lyric lines become a reaction window; the rest stay desktop scenes
         fr_ = random.Random(seed * 43)
         for sg in plan['segs']:
