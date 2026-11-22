@@ -69,6 +69,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "6c0a39d430c7802b26d68d031d0a31e5688d411822ade445857fe580e0f05ad0",
+      "timestamp": "2026-11-22T20:11:12.605665Z",
+      "item_id": "0d78b6cb-6138-4840-8815-7adc229fdbea",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "send this to someone who writes code\n🎧 Myth of Sisyphus – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "creative": "myth_of_sisyphus",
+      "captions": {
+        "instagram": "send this to someone who writes code\n🎧 Myth of Sisyphus – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.475,
+        "anchor_y": 0.711,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
