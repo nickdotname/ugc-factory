@@ -504,9 +504,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6b025ffdd864a01105932124",
           "last_error": null,
           "scheduled_for": "2026-11-22T21:50:00-05:00"
         }
@@ -516,7 +516,7 @@
         "instagram": "Won't Be the Same Again – Close Quarters\nsend this to the bro you'd be moving with\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
