@@ -224,6 +224,301 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s04-s05_liminal_293482.mp4",
+   "song": "suspended",
+   "section": "s04-s05",
+   "style": "liminal",
+   "seed": 293482,
+   "window": [
+    79.47,
+    95.26
+   ],
+   "plan": {
+    "place": "school",
+    "laps": 4,
+    "year": 1997,
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "chewed",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "hook": "3am. the music is still on",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "school",
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "chewed",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.59,
+    "bass": 0.46,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s02-s03_liminal_191140.mp4",
+   "song": "talk",
+   "section": "s02-s03",
+   "style": "liminal",
+   "seed": 191140,
+   "window": [
+    45.76,
+    78.35
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 7,
+    "year": 1996,
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "chewed",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "backrooms",
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "chewed",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.86,
+    "bass": 0.77,
+    "other": 0.41
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s03_liminal_225149.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "liminal",
+   "seed": 225149,
+   "window": [
+    58.83,
+    66.72
+   ],
+   "plan": {
+    "place": "hotel",
+    "laps": 3,
+    "year": 1997,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "hotel",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.6,
+    "drums": 0.67,
+    "bass": 0.82,
+    "other": 0.62
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s03_liminal_22327.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s03",
+   "style": "liminal",
+   "seed": 22327,
+   "window": [
+    86.36,
+    109.31
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 5,
+    "year": 1998,
+    "pace": "walk",
+    "tint": "green",
+    "tape": "worn",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "backrooms",
+    "pace": "walk",
+    "tint": "green",
+    "tape": "worn",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.81,
+    "bass": 0.48,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s06_liminal_862464.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "liminal",
+   "seed": 862464,
+   "window": [
+    126.2,
+    148.99
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 5,
+    "year": 2002,
+    "pace": "walk",
+    "tint": "green",
+    "tape": "worn",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "backrooms",
+    "pace": "walk",
+    "tint": "green",
+    "tape": "worn",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.65,
+    "bass": 0.6,
+    "other": 0.24
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s08_liminal_621180.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s08",
+   "style": "liminal",
+   "seed": 621180,
+   "window": [
+    181.63,
+    188.69
+   ],
+   "plan": {
+    "place": "pool",
+    "laps": 1,
+    "year": 1998,
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "pool",
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.35,
+    "drums": 0.35,
+    "bass": 0.38,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
- ]
+ ],
+ "menu": {
+  "liminal": {
+   "place": [
+    "backrooms",
+    "pool",
+    "mall",
+    "hotel",
+    "office",
+    "parking",
+    "school"
+   ],
+   "pace": [
+    "slow",
+    "walk"
+   ],
+   "tint": [
+    "neutral",
+    "warm",
+    "cold",
+    "green"
+   ],
+   "tape": [
+    "clean",
+    "worn",
+    "chewed"
+   ],
+   "label": [
+    "PLAY \u25b6",
+    "REC \u25cf",
+    "none"
+   ],
+   "stamp": [
+    "date",
+    "none"
+   ]
+  }
+ }
 }

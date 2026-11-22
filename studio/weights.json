@@ -37,7 +37,101 @@
      "Notta Problem \u2013 Close Quarters": 1.09,
      "Talk \u2013 Close Quarters": 0.92
     }
-   }
+   },
+   "stats": {
+    "opening line": {
+     "without": [
+      2,
+      1.92,
+      0.499
+     ]
+    },
+    "song": {
+     "notta_problem": [
+      1,
+      0.96,
+      0.875
+     ],
+     "talk": [
+      1,
+      0.96,
+      0.125
+     ]
+    },
+    "section": {
+     "notta_problem/verse 1, first half": [
+      1,
+      0.96,
+      0.875
+     ],
+     "talk/s01": [
+      1,
+      0.96,
+      0.125
+     ]
+    },
+    "look": {
+     "grad": [
+      1,
+      0.96,
+      0.875
+     ],
+     "plasma": [
+      1,
+      0.96,
+      0.125
+     ]
+    },
+    "palette": {
+     "#ffffff": [
+      1,
+      0.96,
+      0.875
+     ],
+     "#ffbe6e": [
+      1,
+      0.96,
+      0.125
+     ]
+    },
+    "length": {
+     "under 20s": [
+      1,
+      0.96,
+      0.875
+     ],
+     "20-35s": [
+      1,
+      0.96,
+      0.125
+     ]
+    },
+    "hour posted": {
+     "18:00": [
+      1,
+      0.96,
+      0.875
+     ],
+     "21:00": [
+      1,
+      0.96,
+      0.125
+     ]
+    },
+    "caption": {
+     "Notta Problem \u2013 Close Quarters": [
+      1,
+      0.96,
+      0.875
+     ],
+     "Talk \u2013 Close Quarters": [
+      1,
+      0.96,
+      0.125
+     ]
+    }
+   },
+   "retired": {}
   },
   "cq_band": {
    "posts": 1,
@@ -65,13 +159,68 @@
     "caption": {
      "Fixation \u2013 Close Quarters": 1.0
     }
-   }
+   },
+   "stats": {
+    "opening line": {
+     "without": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "song": {
+     "fixation": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "section": {
+     "fixation/s03-s04": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "look": {
+     "rings": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "length": {
+     "20-35s": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "hour posted": {
+     "22:00": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "caption": {
+     "Fixation \u2013 Close Quarters": [
+      1,
+      0.96,
+      0.5
+     ]
+    }
+   },
+   "retired": {}
   },
   "psy_station": {
    "posts": 1,
    "waiting": 1,
    "typical_views": 57.0,
    "weights": {
+    "style": {
+     "psy": 1.0
+    },
     "opening line": {
      "without": 1.0
     },
@@ -99,9 +248,87 @@
     "caption": {
      "every colour change is a drum hit": 1.0
     }
-   }
+   },
+   "stats": {
+    "style": {
+     "psy": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "song": {
+     "prologue": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "section": {
+     "prologue/s02": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "look": {
+     "kaleido": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "lyrics": {
+     "word": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "palette": {
+     "ocean": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "length": {
+     "20-35s": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "hour posted": {
+     "23:00": [
+      1,
+      0.96,
+      0.5
+     ]
+    },
+    "caption": {
+     "every colour change is a drum hit": [
+      1,
+      0.96,
+      0.5
+     ]
+    }
+   },
+   "retired": {}
   },
   "nostalgia": {
+   "posts": 0,
+   "waiting": 0,
+   "weights": {}
+  },
+  "nick_studio": {
    "posts": 0,
    "waiting": 0,
    "weights": {}

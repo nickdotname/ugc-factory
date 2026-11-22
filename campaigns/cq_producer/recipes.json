@@ -8160,5 +8160,3352 @@
   ]
  },
  "clips": {},
- "nightly": []
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s08_producer_183025.mp4",
+   "song": "prologue",
+   "section": "s08",
+   "style": "producer",
+   "seed": 183025,
+   "window": [
+    168.4,
+    190.47
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     41,
+     70,
+     82
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      168.75,
+      [
+       3,
+       84
+      ],
+      0,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      170.97,
+      [
+       2,
+       110
+      ],
+      1,
+      [
+       "invert"
+      ]
+     ],
+     [
+      172.09,
+      [
+       null,
+       110
+      ],
+      2,
+      [
+       "track"
+      ]
+     ],
+     [
+      173.45,
+      [
+       1,
+       140
+      ],
+      3,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      174.93,
+      [
+       null,
+       84
+      ],
+      4,
+      [
+       "track"
+      ]
+     ],
+     [
+      176.19,
+      [
+       0,
+       84
+      ],
+      5,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      177.81,
+      [
+       3,
+       140
+      ],
+      6,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      180.05,
+      [
+       0,
+       140
+      ],
+      7,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      182.21,
+      [
+       null,
+       84
+      ],
+      8,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      184.45,
+      [
+       1,
+       140
+      ],
+      9,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      186.47,
+      [
+       null,
+       110
+      ],
+      10,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      188.13,
+      [
+       0,
+       110
+      ],
+      11,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      189.03,
+      [
+       null,
+       110
+      ],
+      12,
+      [
+       "invert"
+      ]
+     ],
+     [
+      190.17,
+      [
+       0,
+       140
+      ],
+      13,
+      [
+       "invert"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.03,
+    "scan": true,
+    "chroma": 2,
+    "layout": "lanes",
+    "caption": "anton",
+    "pics": {
+     "5": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/e627c7ddc2b41492.jpg",
+      "crt"
+     ],
+     "7": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/e9ae087df9dc6871.jpg",
+      "jpeg"
+     ]
+    },
+    "hook": "lesson of the day",
+    "hook_angle": "plain",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.6",
+    "wall": "bars",
+    "punch": "0.03",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "lanes",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.68,
+    "drums": 0.68,
+    "bass": 0.54,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s04_producer_672814.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "producer",
+   "seed": 672814,
+   "window": [
+    72.44,
+    94.21
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     36,
+     64,
+     84
+    ],
+    "pal": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "segs": [
+     [
+      71.41,
+      [
+       1,
+       110
+      ],
+      0,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      72.79,
+      [
+       3,
+       140
+      ],
+      1,
+      [
+       "track"
+      ]
+     ],
+     [
+      73.33,
+      [
+       1,
+       140
+      ],
+      2,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      74.47,
+      [
+       null,
+       110
+      ],
+      3,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      75.87,
+      [
+       0,
+       110
+      ],
+      4,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      76.43,
+      [
+       1,
+       110
+      ],
+      5,
+      [
+       "invert"
+      ]
+     ],
+     [
+      77.83,
+      [
+       null,
+       140
+      ],
+      6,
+      [
+       "track"
+      ]
+     ],
+     [
+      79.53,
+      [
+       0,
+       84
+      ],
+      7,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      81.25,
+      [
+       3,
+       140
+      ],
+      8,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      82.83,
+      [
+       null,
+       110
+      ],
+      9,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      86.53,
+      [
+       2,
+       140
+      ],
+      10,
+      [
+       "invert"
+      ]
+     ],
+     [
+      87.75,
+      [
+       1,
+       110
+      ],
+      11,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      89.57,
+      [
+       null,
+       140
+      ],
+      12,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      92.69,
+      [
+       3,
+       110
+      ],
+      13,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      93.91,
+      [
+       2,
+       84
+      ],
+      14,
+      [
+       "invert",
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.03,
+    "scan": false,
+    "chroma": 0,
+    "layout": "lanes",
+    "caption": "inter",
+    "pics": {
+     "12": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/cc8f080bc12eb8ed.jpg",
+      "crt"
+     ]
+    },
+    "hook": "watch the vocals",
+    "hook_angle": "curious",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "2",
+    "pictures": "0.6",
+    "wall": "plasma",
+    "punch": "0.03",
+    "scan": "false",
+    "chroma": "0",
+    "layout": "lanes",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.67,
+    "bass": 0.49,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s03_producer_662624.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s03",
+   "style": "producer",
+   "seed": 662624,
+   "window": [
+    87.95,
+    106.34
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     82,
+     33,
+     46
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      86.71,
+      [
+       1,
+       84
+      ],
+      0,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      88.01,
+      [
+       0,
+       110
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      89.55,
+      [
+       1,
+       84
+      ],
+      2,
+      [
+       "track"
+      ]
+     ],
+     [
+      91.17,
+      [
+       3,
+       140
+      ],
+      3,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      92.93,
+      [
+       0,
+       84
+      ],
+      4,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      94.65,
+      [
+       2,
+       84
+      ],
+      5,
+      [
+       "invert"
+      ]
+     ],
+     [
+      95.57,
+      [
+       null,
+       84
+      ],
+      6,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      97.57,
+      [
+       0,
+       140
+      ],
+      7,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      98.95,
+      [
+       1,
+       140
+      ],
+      8,
+      [
+       "track"
+      ]
+     ],
+     [
+      100.29,
+      [
+       0,
+       84
+      ],
+      9,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      102.21,
+      [
+       1,
+       110
+      ],
+      10,
+      [
+       "track"
+      ]
+     ],
+     [
+      104.07,
+      [
+       0,
+       84
+      ],
+      11,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      105.81,
+      [
+       2,
+       84
+      ],
+      12,
+      [
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     16,
+     12,
+     22
+    ],
+    "punch": 0.015,
+    "scan": true,
+    "chroma": 2,
+    "layout": "mixer",
+    "caption": "montserrat",
+    "pics": {
+     "7": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/321c8739a74e5304.jpg",
+      "crt"
+     ],
+     "11": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/79dcdc3ca7dd989e.jpg",
+      "jpeg"
+     ]
+    },
+    "hook": "when the mix finally sits right",
+    "hook_angle": "relatable",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.35",
+    "wall": "plasma",
+    "punch": "0.015",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "mixer",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.81,
+    "bass": 0.5,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s03_producer_623611.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s03",
+   "style": "producer",
+   "seed": 623611,
+   "window": [
+    51.63,
+    65.01
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     75,
+     76,
+     45
+    ],
+    "pal": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "segs": [
+     [
+      49.95,
+      [
+       3,
+       140
+      ],
+      0,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      51.69,
+      [
+       0,
+       84
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      52.81,
+      [
+       1,
+       140
+      ],
+      2,
+      [
+       "track"
+      ]
+     ],
+     [
+      53.43,
+      [
+       3,
+       110
+      ],
+      3,
+      [
+       "invert"
+      ]
+     ],
+     [
+      55.91,
+      [
+       0,
+       110
+      ],
+      4,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      58.27,
+      [
+       null,
+       140
+      ],
+      5,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      59.31,
+      [
+       0,
+       84
+      ],
+      6,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      61.35,
+      [
+       null,
+       110
+      ],
+      7,
+      [
+       "track"
+      ]
+     ],
+     [
+      63.55,
+      [
+       2,
+       140
+      ],
+      8,
+      [
+       "track"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.03,
+    "scan": true,
+    "chroma": 0,
+    "layout": "mixer",
+    "caption": "anton",
+    "pics": {},
+    "hook": "lesson of the day",
+    "hook_angle": "plain",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "2",
+    "pictures": "0.35",
+    "wall": "bars",
+    "punch": "0.03",
+    "scan": "true",
+    "chroma": "0",
+    "layout": "mixer",
+    "caption": "anton",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.89,
+    "bass": 0.89,
+    "other": 0.16
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "fixation",
+   "file": "fixation_s02-s03_producer_958633.mp4",
+   "song": "fixation",
+   "section": "s02-s03",
+   "style": "producer",
+   "seed": 958633,
+   "window": [
+    80.3,
+    114.77
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     39,
+     73,
+     84
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      80.65,
+      [
+       2,
+       140
+      ],
+      0,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      82.77,
+      [
+       1,
+       84
+      ],
+      1,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      84.87,
+      [
+       2,
+       140
+      ],
+      2,
+      [
+       "track"
+      ]
+     ],
+     [
+      85.07,
+      [
+       null,
+       140
+      ],
+      3,
+      [
+       "invert"
+      ]
+     ],
+     [
+      87.03,
+      [
+       3,
+       84
+      ],
+      4,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      88.83,
+      [
+       0,
+       140
+      ],
+      5,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      90.43,
+      [
+       1,
+       84
+      ],
+      6,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      91.77,
+      [
+       2,
+       110
+      ],
+      7,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      93.05,
+      [
+       0,
+       140
+      ],
+      8,
+      [
+       "invert"
+      ]
+     ],
+     [
+      94.39,
+      [
+       3,
+       110
+      ],
+      9,
+      [
+       "invert"
+      ]
+     ],
+     [
+      96.03,
+      [
+       null,
+       140
+      ],
+      10,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      96.75,
+      [
+       0,
+       84
+      ],
+      11,
+      [
+       "track"
+      ]
+     ],
+     [
+      98.11,
+      [
+       1,
+       140
+      ],
+      12,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      99.97,
+      [
+       0,
+       84
+      ],
+      13,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      100.53,
+      [
+       null,
+       84
+      ],
+      14,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      102.25,
+      [
+       0,
+       110
+      ],
+      15,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      103.87,
+      [
+       3,
+       84
+      ],
+      16,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      105.11,
+      [
+       0,
+       140
+      ],
+      17,
+      [
+       "invert"
+      ]
+     ],
+     [
+      107.11,
+      [
+       2,
+       140
+      ],
+      18,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      109.39,
+      [
+       1,
+       140
+      ],
+      19,
+      [
+       "invert"
+      ]
+     ],
+     [
+      110.83,
+      [
+       null,
+       84
+      ],
+      20,
+      [
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.015,
+    "scan": true,
+    "chroma": 2,
+    "layout": "mixer",
+    "caption": "montserrat",
+    "pics": {
+     "4": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/9e7a2a24b1100163.jpg",
+      "webcam"
+     ],
+     "8": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/451a2baf7ea9cfde.jpg",
+      "jpeg"
+     ],
+     "10": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/262e2ac1b61b1896.jpg",
+      "lowres"
+     ],
+     "13": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/e615ab9edf618fe3.jpg",
+      "gif"
+     ],
+     "18": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/f6edbf707b13820b.jpg",
+      "gif"
+     ],
+     "20": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/b3ca1cc48e487c66.jpg",
+      "gif"
+     ]
+    },
+    "hook": "show this to someone who makes beats",
+    "hook_angle": "share",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.6",
+    "wall": "stars",
+    "punch": "0.015",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "mixer",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.87,
+    "bass": 0.64,
+    "other": 0.49
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s01_producer_515218.mp4",
+   "song": "full-ride",
+   "section": "s01",
+   "style": "producer",
+   "seed": 515218,
+   "window": [
+    7.58,
+    29.27
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     30,
+     73,
+     57
+    ],
+    "pal": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "segs": [
+     [
+      7.93,
+      [
+       null,
+       140
+      ],
+      0,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      10.55,
+      [
+       0,
+       140
+      ],
+      1,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      12.99,
+      [
+       3,
+       140
+      ],
+      2,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      14.01,
+      [
+       null,
+       140
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      15.87,
+      [
+       3,
+       110
+      ],
+      4,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      17.29,
+      [
+       0,
+       110
+      ],
+      5,
+      [
+       "invert"
+      ]
+     ],
+     [
+      19.41,
+      [
+       2,
+       110
+      ],
+      6,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      21.75,
+      [
+       0,
+       110
+      ],
+      7,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      23.43,
+      [
+       2,
+       110
+      ],
+      8,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      26.11,
+      [
+       1,
+       140
+      ],
+      9,
+      [
+       "track"
+      ]
+     ],
+     [
+      27.43,
+      [
+       0,
+       84
+      ],
+      10,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      29.07,
+      [
+       3,
+       140
+      ],
+      11,
+      [
+       "invert"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.03,
+    "scan": true,
+    "chroma": 2,
+    "layout": "lanes",
+    "caption": "montserrat",
+    "pics": {},
+    "hook": "lesson of the day",
+    "hook_angle": "plain",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "1",
+    "pictures": "0.0",
+    "wall": "tiles",
+    "punch": "0.03",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "lanes",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.67,
+    "bass": 0.7,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06_producer_641417.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06",
+   "style": "producer",
+   "seed": 641417,
+   "window": [
+    149.34,
+    172.11
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     77,
+     36,
+     43
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      148.33,
+      [
+       3,
+       140
+      ],
+      0,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      149.69,
+      [
+       0,
+       110
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      151.01,
+      [
+       1,
+       84
+      ],
+      2,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      152.51,
+      [
+       0,
+       110
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      154.07,
+      [
+       null,
+       84
+      ],
+      4,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      155.39,
+      [
+       1,
+       110
+      ],
+      5,
+      [
+       "track"
+      ]
+     ],
+     [
+      156.89,
+      [
+       null,
+       84
+      ],
+      6,
+      [
+       "track"
+      ]
+     ],
+     [
+      158.69,
+      [
+       0,
+       140
+      ],
+      7,
+      [
+       "track"
+      ]
+     ],
+     [
+      160.05,
+      [
+       1,
+       110
+      ],
+      8,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      161.13,
+      [
+       0,
+       84
+      ],
+      9,
+      [
+       "invert"
+      ]
+     ],
+     [
+      162.13,
+      [
+       1,
+       84
+      ],
+      10,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      163.61,
+      [
+       0,
+       84
+      ],
+      11,
+      [
+       "invert"
+      ]
+     ],
+     [
+      164.81,
+      [
+       2,
+       110
+      ],
+      12,
+      [
+       "invert"
+      ]
+     ],
+     [
+      165.31,
+      [
+       3,
+       110
+      ],
+      13,
+      [
+       "invert"
+      ]
+     ],
+     [
+      166.85,
+      [
+       0,
+       84
+      ],
+      14,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      168.07,
+      [
+       3,
+       110
+      ],
+      15,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      169.21,
+      [
+       0,
+       110
+      ],
+      16,
+      [
+       "track"
+      ]
+     ],
+     [
+      170.67,
+      [
+       2,
+       140
+      ],
+      17,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      171.81,
+      [
+       0,
+       140
+      ],
+      18,
+      [
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.015,
+    "scan": false,
+    "chroma": 2,
+    "layout": "lanes",
+    "caption": "anton",
+    "pics": {},
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.0",
+    "wall": "tiles",
+    "punch": "0.015",
+    "scan": "false",
+    "chroma": "2",
+    "layout": "lanes",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.66,
+    "bass": 0.32,
+    "other": 0.54
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s06_producer_638186.mp4",
+   "song": "talk",
+   "section": "s06",
+   "style": "producer",
+   "seed": 638186,
+   "window": [
+    120.57,
+    138.12
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     45,
+     80,
+     63
+    ],
+    "pal": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "segs": [
+     [
+      118.17,
+      [
+       3,
+       84
+      ],
+      0,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      120.63,
+      [
+       null,
+       110
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      122.49,
+      [
+       0,
+       84
+      ],
+      2,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      125.09,
+      [
+       2,
+       110
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      126.61,
+      [
+       null,
+       140
+      ],
+      4,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      128.43,
+      [
+       2,
+       110
+      ],
+      5,
+      [
+       "track"
+      ]
+     ],
+     [
+      130.25,
+      [
+       null,
+       110
+      ],
+      6,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      132.19,
+      [
+       0,
+       110
+      ],
+      7,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      133.99,
+      [
+       3,
+       140
+      ],
+      8,
+      [
+       "invert"
+      ]
+     ],
+     [
+      136.09,
+      [
+       0,
+       140
+      ],
+      9,
+      [
+       "track"
+      ]
+     ],
+     [
+      138.11,
+      [
+       2,
+       84
+      ],
+      10,
+      [
+       "invert"
+      ]
+     ]
+    ],
+    "bg": [
+     16,
+     12,
+     22
+    ],
+    "punch": 0.015,
+    "scan": false,
+    "chroma": 0,
+    "layout": "mixer",
+    "caption": "anton",
+    "pics": {
+     "6": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/f597ed1a1c5cc881.jpg",
+      "lowres"
+     ]
+    },
+    "hook": "lesson of the day",
+    "hook_angle": "plain",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "2",
+    "pictures": "0.6",
+    "wall": "bars",
+    "punch": "0.015",
+    "scan": "false",
+    "chroma": "0",
+    "layout": "mixer",
+    "caption": "anton",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.89,
+    "bass": 0.77,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s02-s03_producer_868585.mp4",
+   "song": "suspended",
+   "section": "s02-s03",
+   "style": "producer",
+   "seed": 868585,
+   "window": [
+    28.88,
+    73.09
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     79,
+     34,
+     42
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      27.53,
+      [
+       0,
+       110
+      ],
+      0,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      29.23,
+      [
+       2,
+       84
+      ],
+      1,
+      [
+       "invert"
+      ]
+     ],
+     [
+      30.77,
+      [
+       null,
+       84
+      ],
+      2,
+      [
+       "track"
+      ]
+     ],
+     [
+      33.05,
+      [
+       2,
+       140
+      ],
+      3,
+      [
+       "stamp",
+       "track"
+      ]
+     ],
+     [
+      35.17,
+      [
+       0,
+       84
+      ],
+      4,
+      [
+       "invert"
+      ]
+     ],
+     [
+      36.43,
+      [
+       3,
+       140
+      ],
+      5,
+      [
+       "invert"
+      ]
+     ],
+     [
+      37.87,
+      [
+       null,
+       140
+      ],
+      6,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      39.45,
+      [
+       0,
+       84
+      ],
+      7,
+      [
+       "track"
+      ]
+     ],
+     [
+      40.87,
+      [
+       null,
+       110
+      ],
+      8,
+      [
+       "invert"
+      ]
+     ],
+     [
+      42.65,
+      [
+       0,
+       140
+      ],
+      9,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      44.81,
+      [
+       2,
+       110
+      ],
+      10,
+      [
+       "track"
+      ]
+     ],
+     [
+      46.77,
+      [
+       0,
+       140
+      ],
+      11,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      49.07,
+      [
+       3,
+       110
+      ],
+      12,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      50.45,
+      [
+       null,
+       84
+      ],
+      13,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      52.07,
+      [
+       0,
+       84
+      ],
+      14,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      53.63,
+      [
+       null,
+       140
+      ],
+      15,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      56.27,
+      [
+       0,
+       84
+      ],
+      16,
+      [
+       "track"
+      ]
+     ],
+     [
+      58.17,
+      [
+       null,
+       140
+      ],
+      17,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      60.13,
+      [
+       3,
+       140
+      ],
+      18,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      61.47,
+      [
+       null,
+       84
+      ],
+      19,
+      [
+       "track"
+      ]
+     ],
+     [
+      64.83,
+      [
+       0,
+       84
+      ],
+      20,
+      [
+       "invert"
+      ]
+     ],
+     [
+      67.15,
+      [
+       3,
+       84
+      ],
+      21,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      68.39,
+      [
+       0,
+       110
+      ],
+      22,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      69.89,
+      [
+       3,
+       140
+      ],
+      23,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      70.27,
+      [
+       0,
+       110
+      ],
+      24,
+      [
+       "invert"
+      ]
+     ],
+     [
+      71.41,
+      [
+       3,
+       110
+      ],
+      25,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      72.79,
+      [
+       2,
+       140
+      ],
+      26,
+      [
+       "track",
+       "invert"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.015,
+    "scan": true,
+    "chroma": 0,
+    "layout": "mixer",
+    "caption": "montserrat",
+    "pics": {
+     "7": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/400ae6116c90dcb3.jpg",
+      "jpeg"
+     ],
+     "14": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/6f10a12c66e0970d.jpg",
+      "gif"
+     ]
+    },
+    "hook": "show this to someone who makes beats",
+    "hook_angle": "share",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.35",
+    "wall": "plasma",
+    "punch": "0.015",
+    "scan": "true",
+    "chroma": "0",
+    "layout": "mixer",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.68,
+    "bass": 0.34,
+    "other": 0.43
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s05_producer_61495.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s05",
+   "style": "producer",
+   "seed": 61495,
+   "window": [
+    130.4,
+    149.97
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     79,
+     34,
+     42
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      128.37,
+      [
+       null,
+       84
+      ],
+      0,
+      [
+       "invert"
+      ]
+     ],
+     [
+      130.75,
+      [
+       2,
+       140
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      133.47,
+      [
+       0,
+       110
+      ],
+      2,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      135.67,
+      [
+       null,
+       110
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      136.85,
+      [
+       2,
+       110
+      ],
+      4,
+      [
+       "track"
+      ]
+     ],
+     [
+      139.37,
+      [
+       0,
+       140
+      ],
+      5,
+      [
+       "invert"
+      ]
+     ],
+     [
+      141.89,
+      [
+       3,
+       84
+      ],
+      6,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      145.57,
+      [
+       null,
+       140
+      ],
+      7,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      147.87,
+      [
+       0,
+       140
+      ],
+      8,
+      [
+       "track",
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.03,
+    "scan": true,
+    "chroma": 2,
+    "layout": "lanes",
+    "caption": "inter",
+    "pics": {},
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.0",
+    "wall": "tiles",
+    "punch": "0.03",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "lanes",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.63,
+    "drums": 0.7,
+    "bass": 0.66,
+    "other": 0.38
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s04_producer_529110.mp4",
+   "song": "prologue",
+   "section": "s04",
+   "style": "producer",
+   "seed": 529110,
+   "window": [
+    91.55,
+    104.37
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     77,
+     45,
+     68
+    ],
+    "pal": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "segs": [
+     [
+      91.61,
+      [
+       3,
+       110
+      ],
+      0,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      95.99,
+      [
+       0,
+       110
+      ],
+      1,
+      [
+       "track"
+      ]
+     ],
+     [
+      100.09,
+      [
+       2,
+       110
+      ],
+      2,
+      [
+       "track"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.015,
+    "scan": true,
+    "chroma": 0,
+    "layout": "lanes",
+    "caption": "inter",
+    "pics": {
+     "1": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/6ecf7d121d26d470.jpg",
+      "jpeg"
+     ]
+    },
+    "hook": "every layer. one screen.",
+    "hook_angle": "relatable",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "1",
+    "pictures": "0.6",
+    "wall": "rings",
+    "punch": "0.015",
+    "scan": "true",
+    "chroma": "0",
+    "layout": "lanes",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.64,
+    "bass": 0.62,
+    "other": 0.22
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "fixation",
+   "file": "fixation_s02_producer_846633.mp4",
+   "song": "fixation",
+   "section": "s02",
+   "style": "producer",
+   "seed": 846633,
+   "window": [
+    91.71,
+    101.93
+   ],
+   "plan": {
+    "wall": "grad",
+    "acc": [
+     30,
+     73,
+     57
+    ],
+    "pal": [
+     [
+      255,
+      255,
+      255
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "segs": [
+     [
+      90.43,
+      [
+       null,
+       110
+      ],
+      0,
+      [
+       "track"
+      ]
+     ],
+     [
+      91.77,
+      [
+       3,
+       110
+      ],
+      1,
+      [
+       "track"
+      ]
+     ],
+     [
+      93.05,
+      [
+       null,
+       110
+      ],
+      2,
+      [
+       "invert"
+      ]
+     ],
+     [
+      94.39,
+      [
+       1,
+       110
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      96.03,
+      [
+       0,
+       140
+      ],
+      4,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      96.75,
+      [
+       null,
+       110
+      ],
+      5,
+      [
+       "track"
+      ]
+     ],
+     [
+      98.11,
+      [
+       3,
+       140
+      ],
+      6,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      99.97,
+      [
+       null,
+       84
+      ],
+      7,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      100.53,
+      [
+       1,
+       140
+      ],
+      8,
+      [
+       "invert",
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.015,
+    "scan": true,
+    "chroma": 2,
+    "layout": "mixer",
+    "caption": "anton",
+    "pics": {},
+    "hook": "producers: what would you change?",
+    "hook_angle": "comment",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "1",
+    "pictures": "0.0",
+    "wall": "grad",
+    "punch": "0.015",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "mixer",
+    "caption": "anton",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.95,
+    "drums": 0.9,
+    "bass": 0.65,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s04_producer_515062.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "producer",
+   "seed": 515062,
+   "window": [
+    83.35,
+    94.4
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     41,
+     70,
+     82
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      82.23,
+      [
+       0,
+       84
+      ],
+      0,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      83.41,
+      [
+       null,
+       84
+      ],
+      1,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      83.85,
+      [
+       1,
+       140
+      ],
+      2,
+      [
+       "invert"
+      ]
+     ],
+     [
+      85.27,
+      [
+       0,
+       84
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      87.59,
+      [
+       null,
+       140
+      ],
+      4,
+      [
+       "stamp",
+       "invert"
+      ]
+     ],
+     [
+      89.31,
+      [
+       1,
+       110
+      ],
+      5,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      90.25,
+      [
+       0,
+       84
+      ],
+      6,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      91.39,
+      [
+       3,
+       110
+      ],
+      7,
+      [
+       "track"
+      ]
+     ],
+     [
+      93.31,
+      [
+       0,
+       140
+      ],
+      8,
+      [
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.015,
+    "scan": true,
+    "chroma": 2,
+    "layout": "lanes",
+    "caption": "inter",
+    "pics": {},
+    "hook": "save this for your next session",
+    "hook_angle": "share",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.0",
+    "wall": "tiles",
+    "punch": "0.015",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "lanes",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.71,
+    "bass": 0.67,
+    "other": 0.55
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02-s03_producer_805057.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02-s03",
+   "style": "producer",
+   "seed": 805057,
+   "window": [
+    32.75,
+    51.14
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     47,
+     56,
+     84
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      32.81,
+      [
+       2,
+       140
+      ],
+      0,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      33.79,
+      [
+       1,
+       84
+      ],
+      1,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      35.83,
+      [
+       2,
+       140
+      ],
+      2,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      37.33,
+      [
+       3,
+       140
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      39.87,
+      [
+       1,
+       140
+      ],
+      4,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      41.29,
+      [
+       2,
+       140
+      ],
+      5,
+      [
+       "invert"
+      ]
+     ],
+     [
+      43.31,
+      [
+       0,
+       110
+      ],
+      6,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      44.55,
+      [
+       null,
+       140
+      ],
+      7,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      46.43,
+      [
+       0,
+       140
+      ],
+      8,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      47.97,
+      [
+       1,
+       84
+      ],
+      9,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      49.95,
+      [
+       2,
+       140
+      ],
+      10,
+      [
+       "track",
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.03,
+    "scan": false,
+    "chroma": 0,
+    "layout": "lanes",
+    "caption": "inter",
+    "pics": {
+     "4": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/b2ae56df862587b2.jpg",
+      "crt"
+     ],
+     "7": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/55b7e8358579a6e3.jpg",
+      "jpeg"
+     ],
+     "9": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/0c2d851f720b8e0b.jpg",
+      "gif"
+     ]
+    },
+    "hook": "the song, pulled apart",
+    "hook_angle": "curious",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.6",
+    "wall": "stars",
+    "punch": "0.03",
+    "scan": "false",
+    "chroma": "0",
+    "layout": "lanes",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.91,
+    "bass": 0.9,
+    "other": 0.15
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ],
+ "since": "2026-11-22T06:46:46.461118+00:00",
+ "menu": {
+  "producer": {
+   "colours": [
+    "0",
+    "1",
+    "2"
+   ],
+   "pictures": [
+    "0.0",
+    "0.35",
+    "0.6"
+   ],
+   "wall": [
+    "plasma",
+    "rings",
+    "grad",
+    "stars",
+    "bars",
+    "tiles"
+   ],
+   "punch": [
+    "0.015",
+    "0.03"
+   ],
+   "scan": [
+    "true",
+    "false"
+   ],
+   "chroma": [
+    "0",
+    "2"
+   ],
+   "layout": [
+    "lanes",
+    "mixer"
+   ],
+   "caption": [
+    "inter",
+    "anton",
+    "montserrat"
+   ]
+  }
+ }
 }

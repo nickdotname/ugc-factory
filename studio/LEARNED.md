@@ -47,13 +47,22 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 
 No posts with numbers yet.
 
+## nick_studio
+
+No posts with numbers yet.
+
+## nick_studio
+
+No posts with numbers yet.
+
 ## Bio link taps, last 7 days
 
 | account | 11-16 | 11-17 | 11-18 | 11-19 | 11-20 | 11-21 | 11-22 | total |
 |---|---|---|---|---|---|---|---|---|
-| close__quarters | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 3 |
-| dylancantor23 | 0 | 0 | 0 | 0 | 0 | 0 | 5 | 5 |
-| nostalgia.hub.vhs | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 3 |
+| close__quarters | 0 | 0 | 0 | 0 | 0 | 0 | 9 | 9 |
+| dylancantor23 | 0 | 0 | 0 | 0 | 0 | 0 | 13 | 13 |
+| direct | 0 | 0 | 0 | 0 | 0 | 0 | 4 | 4 |
+| nostalgia.hub.vhs | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 12 |
 | other | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |
-| psychedelic.station | 0 | 0 | 0 | 0 | 0 | 0 | 4 | 4 |
+| psychedelic.station | 0 | 0 | 0 | 0 | 0 | 0 | 13 | 13 |
 

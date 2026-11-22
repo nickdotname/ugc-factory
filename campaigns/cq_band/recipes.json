@@ -4094,5 +4094,2471 @@
   ]
  },
  "clips": {},
- "nightly": []
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s07-s08_band_765404.mp4",
+   "song": "prologue",
+   "section": "s07-s08",
+   "style": "band",
+   "seed": 765404,
+   "window": [
+    179.99,
+    190.47
+   ],
+   "plan": {
+    "wall": "hills",
+    "acc": [
+     135,
+     91,
+     160
+    ],
+    "theme": "pink",
+    "bg": [
+     160,
+     60,
+     110
+    ],
+    "segs": [
+     [
+      177.81,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/df3484dc3c0472c7.jpg|jpeg",
+      0,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      180.05,
+      "wave",
+      1,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      182.21,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/e194b796653279de.jpg|lowres",
+      2,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      184.45,
+      "arr",
+      3,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      186.47,
+      "cmd",
+      4,
+      [
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      188.13,
+      "wave",
+      5,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      189.03,
+      "cmd",
+      6,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      190.17,
+      "player",
+      7,
+      [
+       "trail",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "mac",
+    "caption": "inter",
+    "hook": "send this to your music friend",
+    "hook_angle": "share",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "pink",
+    "pictures": "0.6",
+    "wall": "hills",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "mac",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.62,
+    "bass": 0.5,
+    "other": 0.32
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01-s02_band_994013.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01-s02",
+   "style": "band",
+   "seed": 994013,
+   "window": [
+    46.35,
+    59.73
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     161,
+     115,
+     52
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      44.73,
+      "face+arr",
+      0,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      46.41,
+      "wave",
+      1,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      48.35,
+      "notepad",
+      2,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      50.03,
+      "paint",
+      2,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      51.37,
+      "face+arr",
+      3,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      51.61,
+      "face+paint",
+      4,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      53.33,
+      "face+player",
+      5,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      56.07,
+      "face+paint",
+      6,
+      [
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      57.19,
+      "face+cmd",
+      6,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      58.45,
+      "paint",
+      7,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 0,
+    "chrome": "xp",
+    "caption": "inter",
+    "hook": "send this to the friend who'd get it",
+    "hook_angle": "share",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "theme": "black",
+    "pictures": "0.6",
+    "wall": "plasma",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "0",
+    "chrome": "xp",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.41,
+    "bass": 0.82,
+    "other": 0.65
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06_band_913706.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06",
+   "style": "band",
+   "seed": 913706,
+   "window": [
+    161.07,
+    171.66
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     145,
+     150,
+     165
+    ],
+    "theme": "pink",
+    "bg": [
+     160,
+     60,
+     110
+    ],
+    "segs": [
+     [
+      160.05,
+      "face+paint",
+      0,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      161.13,
+      "arr",
+      1,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      162.13,
+      "face+paint",
+      2,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      163.61,
+      "face+cmd",
+      3,
+      [
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      164.81,
+      "wave",
+      4,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      165.31,
+      "face+player",
+      5,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      166.85,
+      "paint",
+      6,
+      [
+       "stamp",
+       "pipwave"
+      ]
+     ],
+     [
+      168.07,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/b8798f31f164aeb4.jpg|crt",
+      7,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      169.21,
+      "face+player",
+      8,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      170.67,
+      "face+cmd",
+      9,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 0,
+    "chrome": "win95",
+    "caption": "inter",
+    "hook": "read along",
+    "hook_angle": "curious",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "theme": "pink",
+    "pictures": "0.6",
+    "wall": "stars",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "0",
+    "chrome": "win95",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.73,
+    "bass": 0.31,
+    "other": 0.52
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s04_band_142274.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "band",
+   "seed": 142274,
+   "window": [
+    72.44,
+    94.21
+   ],
+   "plan": {
+    "wall": "hills",
+    "acc": [
+     88,
+     171,
+     135
+    ],
+    "theme": "teal",
+    "bg": [
+     0,
+     128,
+     128
+    ],
+    "segs": [
+     [
+      71.41,
+      "paint",
+      0,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      72.79,
+      "wave",
+      1,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      73.33,
+      "cmd",
+      2,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      74.47,
+      "player",
+      3,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      75.87,
+      "paint",
+      4,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      76.43,
+      "arr",
+      5,
+      [
+       "stamp",
+       "track"
+      ]
+     ],
+     [
+      77.83,
+      "paint",
+      6,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      79.53,
+      "arr",
+      7,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      81.25,
+      "paint",
+      8,
+      [
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      82.83,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/c6fa8946e52ede7d.jpg|gif",
+      9,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      84.49,
+      "notepad",
+      9,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      86.53,
+      "paint",
+      10,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      87.75,
+      "notepad",
+      11,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      89.57,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/cc8f080bc12eb8ed.jpg|gif",
+      12,
+      [
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      90.45,
+      "player",
+      12,
+      [
+       "track",
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      92.69,
+      "paint",
+      13,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      93.91,
+      "arr",
+      14,
+      [
+       "stamp",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": false,
+    "chroma": 2,
+    "chrome": "mac",
+    "caption": "inter",
+    "hook": "rate this song 1-10",
+    "hook_angle": "comment",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "teal",
+    "pictures": "0.85",
+    "wall": "hills",
+    "punch": "0.035",
+    "scan": "false",
+    "chroma": "2",
+    "chrome": "mac",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.67,
+    "bass": 0.49,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s05-s06_band_766051.mp4",
+   "song": "talk",
+   "section": "s05-s06",
+   "style": "band",
+   "seed": 766051,
+   "window": [
+    120.57,
+    136.17
+   ],
+   "plan": {
+    "wall": "grad",
+    "acc": [
+     182,
+     132,
+     162
+    ],
+    "theme": "silver",
+    "bg": [
+     110,
+     115,
+     125
+    ],
+    "segs": [
+     [
+      118.17,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/55f4e2ce58279abd.jpg|webcam",
+      0,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      120.63,
+      "arr",
+      1,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      122.49,
+      "paint",
+      2,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      125.09,
+      "arr",
+      3,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      126.61,
+      "paint",
+      4,
+      [
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      128.43,
+      "player",
+      5,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      130.25,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/f597ed1a1c5cc881.jpg|jpeg",
+      6,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      132.19,
+      "notepad",
+      7,
+      [
+       "invert",
+       "trail"
+      ]
+     ],
+     [
+      133.99,
+      "cmd",
+      8,
+      [
+       "invert",
+       "trail"
+      ]
+     ],
+     [
+      136.09,
+      "notepad",
+      9,
+      [
+       "track",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": false,
+    "chroma": 2,
+    "chrome": "win95",
+    "caption": "inter",
+    "hook": "pov: you found your new favourite band",
+    "hook_angle": "relatable",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "silver",
+    "pictures": "0.85",
+    "wall": "grad",
+    "punch": "0.02",
+    "scan": "false",
+    "chroma": "2",
+    "chrome": "win95",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.91,
+    "drums": 0.89,
+    "bass": 0.77,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "fixation",
+   "file": "fixation_s02-s03_band_632192.mp4",
+   "song": "fixation",
+   "section": "s02-s03",
+   "style": "band",
+   "seed": 632192,
+   "window": [
+    92.99,
+    111.38
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     227,
+     120,
+     50
+    ],
+    "theme": "orange",
+    "bg": [
+     200,
+     110,
+     40
+    ],
+    "segs": [
+     [
+      91.77,
+      "face+player",
+      0,
+      [
+       "trail",
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      93.05,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/451a2baf7ea9cfde.jpg|gif",
+      1,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      94.39,
+      "face+notepad",
+      2,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      96.03,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/262e2ac1b61b1896.jpg|webcam",
+      3,
+      [
+       "trail",
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      96.75,
+      "face+arr",
+      4,
+      [
+       "pipwave",
+       "trail"
+      ]
+     ],
+     [
+      98.11,
+      "face+player",
+      5,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      99.97,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/e615ab9edf618fe3.jpg|crt",
+      6,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      100.53,
+      "face+paint",
+      7,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      102.25,
+      "notepad",
+      8,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      103.87,
+      "face+cmd",
+      9,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      105.11,
+      "face+paint",
+      10,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      107.11,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/f6edbf707b13820b.jpg|jpeg",
+      11,
+      [
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      109.39,
+      "face+player",
+      12,
+      [
+       "trail",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      110.83,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/b3ca1cc48e487c66.jpg|lowres",
+      13,
+      [
+       "trail",
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      111.57,
+      "face+cmd",
+      13,
+      [
+       "invert",
+       "pip"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 4,
+    "chrome": "xp",
+    "caption": "inter",
+    "hook": "your pc in 2001:",
+    "hook_angle": "plain",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "theme": "orange",
+    "pictures": "0.85",
+    "wall": "bars",
+    "punch": "0.02",
+    "scan": "true",
+    "chroma": "4",
+    "chrome": "xp",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.87,
+    "bass": 0.73,
+    "other": 0.49
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_band_687696.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "band",
+   "seed": 687696,
+   "window": [
+    25.8,
+    48.27
+   ],
+   "plan": {
+    "wall": "clouds",
+    "acc": [
+     161,
+     86,
+     45
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      26.15,
+      "wave",
+      0,
+      [
+       "trail",
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      27.63,
+      "player",
+      1,
+      [
+       "pip",
+       "trail"
+      ]
+     ],
+     [
+      29.23,
+      "paint",
+      2,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      30.41,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/546bd122060ae166.jpg|webcam",
+      3,
+      [
+       "trail",
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      31.35,
+      "wave",
+      4,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      32.81,
+      "paint",
+      5,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      33.79,
+      "cmd",
+      6,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      35.83,
+      "player",
+      7,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      37.33,
+      "cmd",
+      8,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      38.03,
+      "wave",
+      8,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      39.87,
+      "player",
+      9,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      41.29,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/11573c07b97e0739.jpg|webcam",
+      10,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      43.31,
+      "player",
+      11,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      44.55,
+      "notepad",
+      12,
+      [
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      46.43,
+      "arr",
+      13,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      47.97,
+      "cmd",
+      14,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": false,
+    "chroma": 2,
+    "chrome": "win95",
+    "caption": "anton",
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "black",
+    "pictures": "0.35",
+    "wall": "clouds",
+    "punch": "0.02",
+    "scan": "false",
+    "chroma": "2",
+    "chrome": "win95",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.91,
+    "bass": 0.9,
+    "other": 0.16
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s04_band_63007.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "band",
+   "seed": 63007,
+   "window": [
+    73.1,
+    95.63
+   ],
+   "plan": {
+    "wall": "grad",
+    "acc": [
+     86,
+     91,
+     173
+    ],
+    "theme": "purple",
+    "bg": [
+     85,
+     60,
+     130
+    ],
+    "segs": [
+     [
+      71.99,
+      "cmd",
+      0,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      73.45,
+      "arr",
+      1,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      74.63,
+      "wave",
+      2,
+      [
+       "trail",
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      75.73,
+      "arr",
+      3,
+      [
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      77.07,
+      "cmd",
+      4,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      77.67,
+      "paint",
+      5,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      78.79,
+      "arr",
+      6,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      80.95,
+      "player",
+      7,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      82.23,
+      "paint",
+      8,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      83.41,
+      "player",
+      9,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      83.85,
+      "wave",
+      10,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      85.27,
+      "arr",
+      11,
+      [
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      87.59,
+      "player",
+      12,
+      [
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      89.31,
+      "arr",
+      13,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      90.25,
+      "notepad",
+      14,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      91.39,
+      "player",
+      15,
+      [
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      93.31,
+      "cmd",
+      16,
+      [
+       "trail",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": true,
+    "chroma": 4,
+    "chrome": "win95",
+    "caption": "anton",
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "purple",
+    "pictures": "0.35",
+    "wall": "grad",
+    "punch": "0.035",
+    "scan": "true",
+    "chroma": "4",
+    "chrome": "win95",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.74,
+    "bass": 0.68,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s02-s03_band_899389.mp4",
+   "song": "suspended",
+   "section": "s02-s03",
+   "style": "band",
+   "seed": 899389,
+   "window": [
+    32.99,
+    51.94
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     125,
+     105,
+     182
+    ],
+    "theme": "pink",
+    "bg": [
+     160,
+     60,
+     110
+    ],
+    "segs": [
+     [
+      30.77,
+      "paint",
+      0,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      33.05,
+      "cmd",
+      1,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      35.17,
+      "face+paint",
+      2,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      36.43,
+      "face+notepad",
+      3,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      37.87,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/3bcf0d205a1b250c.jpg|lowres",
+      4,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      39.45,
+      "face+paint",
+      5,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      40.87,
+      "face+arr",
+      6,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      42.65,
+      "face+cmd",
+      7,
+      [
+       "trail",
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      44.81,
+      "face+player",
+      8,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      46.77,
+      "face+notepad",
+      9,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      49.07,
+      "face+arr",
+      10,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      50.45,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/73f203c8add03d72.jpg|gif",
+      11,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "win95",
+    "caption": "anton",
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "theme": "pink",
+    "pictures": "0.35",
+    "wall": "bars",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "win95",
+    "caption": "anton",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.68,
+    "bass": 0.36,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s02_band_364947.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s02",
+   "style": "band",
+   "seed": 364947,
+   "window": [
+    64.72,
+    86.37
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     161,
+     124,
+     115
+    ],
+    "theme": "orange",
+    "bg": [
+     200,
+     110,
+     40
+    ],
+    "segs": [
+     [
+      62.05,
+      "paint",
+      0,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      63.75,
+      "notepad",
+      0,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      65.07,
+      "paint",
+      1,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      65.29,
+      "player",
+      2,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      67.05,
+      "paint",
+      3,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      68.81,
+      "wave",
+      4,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      69.89,
+      "paint",
+      4,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      71.75,
+      "arr",
+      5,
+      [
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      73.33,
+      "player",
+      5,
+      [
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      74.63,
+      "paint",
+      6,
+      [
+       "pipwave",
+       "invert"
+      ]
+     ],
+     [
+      76.41,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/401fb2e72a81f636.jpg|webcam",
+      6,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      78.47,
+      "arr",
+      7,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      80.25,
+      "cmd",
+      8,
+      [
+       "stamp",
+       "invert"
+      ]
+     ],
+     [
+      81.65,
+      "paint",
+      9,
+      [
+       "pip",
+       "invert"
+      ]
+     ],
+     [
+      83.11,
+      "cmd",
+      10,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      83.91,
+      "arr",
+      10,
+      [
+       "trail",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      85.61,
+      "cmd",
+      11,
+      [
+       "track",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 4,
+    "chrome": "mac",
+    "caption": "anton",
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "orange",
+    "pictures": "0.35",
+    "wall": "rings",
+    "punch": "0.02",
+    "scan": "true",
+    "chroma": "4",
+    "chrome": "mac",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.69,
+    "bass": 0.54,
+    "other": 0.42
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s04_band_511205.mp4",
+   "song": "prologue",
+   "section": "s04",
+   "style": "band",
+   "seed": 511205,
+   "window": [
+    87.15,
+    104.24
+   ],
+   "plan": {
+    "wall": "clouds",
+    "acc": [
+     182,
+     147,
+     98
+    ],
+    "theme": "silver",
+    "bg": [
+     110,
+     115,
+     125
+    ],
+    "segs": [
+     [
+      87.21,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/65a206ec4755cfba.jpg|gif",
+      0,
+      [
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      91.61,
+      "notepad",
+      1,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      94.87,
+      "wave",
+      null,
+      [
+       "pipwave",
+       "invert"
+      ]
+     ],
+     [
+      95.99,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/6ecf7d121d26d470.jpg|webcam",
+      2,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      98.83,
+      "wave",
+      null,
+      [
+       "trail",
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      100.09,
+      "cmd",
+      3,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      101.31,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/bb860689f14a0d90.jpg|lowres",
+      3,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 0,
+    "chrome": "win95",
+    "caption": "montserrat",
+    "hook": "your pc in 2001:",
+    "hook_angle": "plain",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "silver",
+    "pictures": "0.85",
+    "wall": "clouds",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "0",
+    "chrome": "win95",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.66,
+    "bass": 0.65,
+    "other": 0.22
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s05_band_805310.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "band",
+   "seed": 805310,
+   "window": [
+    102.3,
+    117.04
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     227,
+     144,
+     55
+    ],
+    "theme": "orange",
+    "bg": [
+     200,
+     110,
+     40
+    ],
+    "segs": [
+     [
+      102.65,
+      "face+wave",
+      0,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      103.75,
+      "face+arr",
+      0,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      105.07,
+      "paint",
+      1,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      106.63,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/d8eabe5fa2e1cfab.jpg|crt",
+      2,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      107.79,
+      "paint",
+      2,
+      [
+       "pipwave",
+       "track"
+      ]
+     ],
+     [
+      109.77,
+      "arr",
+      3,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      111.75,
+      "face+cmd",
+      3,
+      [
+       "pip",
+       "trail"
+      ]
+     ],
+     [
+      112.85,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/baca2ace3a85c496.jpg|jpeg",
+      4,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      114.95,
+      "wave",
+      5,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": false,
+    "chroma": 4,
+    "chrome": "win95",
+    "caption": "anton",
+    "hook": "songs that sound like 2am",
+    "hook_angle": "relatable",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "theme": "orange",
+    "pictures": "0.35",
+    "wall": "tiles",
+    "punch": "0.02",
+    "scan": "false",
+    "chroma": "4",
+    "chrome": "win95",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.85,
+    "bass": 0.77,
+    "other": 0.53
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "fixation",
+   "file": "fixation_s03_band_386994.mp4",
+   "song": "fixation",
+   "section": "s03",
+   "style": "band",
+   "seed": 386994,
+   "window": [
+    101.9,
+    114.77
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     45,
+     139,
+     191
+    ],
+    "theme": "teal",
+    "bg": [
+     0,
+     128,
+     128
+    ],
+    "segs": [
+     [
+      100.53,
+      "paint",
+      0,
+      [
+       "pip",
+       "invert"
+      ]
+     ],
+     [
+      102.25,
+      "player",
+      1,
+      [
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      103.87,
+      "cmd",
+      2,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      105.11,
+      "paint",
+      3,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      107.11,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/f6edbf707b13820b.jpg|gif",
+      4,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      109.39,
+      "paint",
+      5,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      110.83,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/b3ca1cc48e487c66.jpg|lowres",
+      6,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      111.57,
+      "paint",
+      6,
+      [
+       "track",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": false,
+    "chroma": 4,
+    "chrome": "xp",
+    "caption": "inter",
+    "hook": "class is in session",
+    "hook_angle": "plain",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "teal",
+    "pictures": "0.6",
+    "wall": "tiles",
+    "punch": "0.02",
+    "scan": "false",
+    "chroma": "4",
+    "chrome": "xp",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.84,
+    "bass": 0.74,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s01_band_497790.mp4",
+   "song": "full-ride",
+   "section": "s01",
+   "style": "band",
+   "seed": 497790,
+   "window": [
+    10.49,
+    21.54
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     50,
+     155,
+     162
+    ],
+    "theme": "green",
+    "bg": [
+     0,
+     110,
+     70
+    ],
+    "segs": [
+     [
+      7.93,
+      "notepad",
+      0,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      9.01,
+      "paint",
+      0,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      10.55,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/40736aa4538f54bd.jpg|webcam",
+      1,
+      [
+       "pip",
+       "invert"
+      ]
+     ],
+     [
+      12.99,
+      "arr",
+      2,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      14.01,
+      "notepad",
+      3,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      15.87,
+      "paint",
+      4,
+      [
+       "pipwave",
+       "invert"
+      ]
+     ],
+     [
+      17.29,
+      "notepad",
+      5,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      19.41,
+      "paint",
+      6,
+      [
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": false,
+    "chroma": 4,
+    "chrome": "xp",
+    "caption": "inter",
+    "hook": "your sign to start a band with your friends",
+    "hook_angle": "share",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "green",
+    "pictures": "0.35",
+    "wall": "tiles",
+    "punch": "0.05",
+    "scan": "false",
+    "chroma": "4",
+    "chrome": "xp",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.7,
+    "bass": 0.66,
+    "other": 0.63
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ],
+ "since": "2026-11-22T06:56:33.728767+00:00",
+ "menu": {
+  "band": {
+   "theme": [
+    "teal",
+    "blue",
+    "purple",
+    "black",
+    "green",
+    "pink",
+    "orange",
+    "silver"
+   ],
+   "pictures": [
+    "0.35",
+    "0.6",
+    "0.85"
+   ],
+   "wall": [
+    "plasma",
+    "tiles",
+    "rings",
+    "grad",
+    "stars",
+    "clouds",
+    "hills",
+    "bars"
+   ],
+   "punch": [
+    "0.02",
+    "0.035",
+    "0.05"
+   ],
+   "scan": [
+    "true",
+    "false"
+   ],
+   "chroma": [
+    "0",
+    "2",
+    "4"
+   ],
+   "chrome": [
+    "win95",
+    "xp",
+    "mac"
+   ],
+   "caption": [
+    "inter",
+    "anton",
+    "montserrat"
+   ]
+  }
+ }
 }
