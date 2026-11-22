@@ -146,7 +146,9 @@ def tighten(song_dir, win, rng, short=False):
     while st + dur > t1 + 0.05 and dur - bar >= (5.5 if short else 9.5): dur -= bar
     return (round(max(0.0, st), 2), round(min(t1, st + dur), 2))
 
-def render(job):
+SOLO = {k: '1' for k in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMBA_NUM_THREADS', 'OPENCV_FOR_THREADS_NUM')}
+
+def render(job, solo=False):
     song_dir, style, seed, out, (t0, t1) = job[:5]
     # Moving colour fields fall apart into blocks at a low bitrate, and Instagram re-encodes whatever it is given,
     # so they get the most room; the flat-colour desktop and waveform styles need less.
@@ -157,11 +159,13 @@ def render(job):
     kn, extra = job[5]
     env.update(extra)
     if kn: env['CQ_KNOBS'] = json.dumps(kn)
+    if solo: env.update(SOLO)
     own = VISUAL.get(style) or LYRIC.get(style)
     cmd = [sys.executable, os.path.join(HERE, own), song_dir, str(seed), out] if own else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
-    why = '' if ok else '\n   exit %s%s\n%s' % (r.returncode, ' (killed: out of memory?)' if r.returncode < 0 else '', (r.stderr.strip() or r.stdout.strip())[-600:])
+    sig = {-9: 'killed: out of memory?', -11: 'crashed: segmentation fault', -6: 'aborted'}.get(r.returncode, 'signal %d' % -r.returncode if r.returncode < 0 else '')
+    why = '' if ok else '\n   exit %s%s  knobs %s %s\n%s' % (r.returncode, ' (%s)' % sig if sig else '', json.dumps(kn), json.dumps(extra), (r.stderr.strip() or r.stdout.strip())[-600:])
     print(('ok   ' if ok else 'FAIL ') + os.path.basename(out) + why, flush=True)
     return ok
 
@@ -221,6 +225,12 @@ for t in cfg['targets']:
         out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, (kn, extra), lyr)); meta.append((cr, slug, sid, cut, how))
     print('== %s: %d videos (%s)' % (camp, len(jobs), style), flush=True)
     with ThreadPoolExecutor(max(1, min(4, os.cpu_count() or 2))) as ex: oks = list(ex.map(render, jobs))
+    # A render that crashed beside the others (numpy, OpenCV and ffmpeg each starting a thread per core, four
+    # times over) gets one more go on its own, with one thread each, before it counts as a failure.
+    for k, job in enumerate(jobs):
+        if not oks[k]:
+            print('   retrying %s on its own' % os.path.basename(job[3]), flush=True)
+            oks[k] = render(job, solo=True)
     done = set()
     for (cr, slug, sid, cut, how), job, ok in zip(meta, jobs, oks):
         out = job[3]
