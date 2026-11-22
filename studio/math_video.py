@@ -15,15 +15,18 @@ import soundfile as sf
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import knobs as K
+import beat as audio
 
 TOPICS = ['integral', 'fourier', 'derivative']
 BEATS = 44
 
 def start_beat(song_dir, t0):
-    s = json.load(open(os.path.join(song_dir, 'song.json'))); spb = 60.0 / s['tempo']; off = s.get('offset_sec', 0.0)
+    """The first bar line (a multiple of four beats from the first downbeat) at or after t0 at which the whole scene
+    still fits before the song ends."""
+    s = json.load(open(os.path.join(song_dir, 'song.json')))
     master = next(os.path.join(song_dir, 'master' + e) for e in ('.ogg', '.flac', '.wav') if os.path.exists(os.path.join(song_dir, 'master' + e)))
-    last = math.floor(((sf.info(master).duration - off) / spb - BEATS - 1) / 4) * 4     # the latest bar the whole scene still fits after
-    return max(0, min(math.ceil((t0 - off) / spb / 4) * 4, last))
+    last = math.floor((audio.beat_of_time(s, sf.info(master).duration) - BEATS - 1) / 4) * 4
+    return max(0, min(math.ceil(audio.beat_of_time(s, t0) / 4) * 4, last))
 
 if __name__ == '__main__':
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]

@@ -81,6 +81,10 @@ DROP_BEAT = 288
 F = lambda p, s: ImageFont.truetype(p, s)
 b2t = lambda b: b * SPB + OFF
 t2b = lambda t: (t - OFF) / SPB
+if not HAS_ARR and len(SONG.get('beat_times') or []) > 2:      # the beats measured from the drums (studio/beatmap.py), so the punches follow the band
+    _BT = np.asarray(SONG['beat_times'], float); _BI = np.arange(len(_BT), dtype=float)
+    b2t = lambda b: float(np.interp(b, _BI, _BT, left=_BT[0] + (b - 0) * SPB, right=_BT[-1] + (b - _BI[-1]) * SPB))
+    t2b = lambda t: float(np.interp(t, _BT, _BI, left=(t - _BT[0]) / SPB, right=_BI[-1] + (t - _BT[-1]) / SPB))
 
 
 def features(wav):
