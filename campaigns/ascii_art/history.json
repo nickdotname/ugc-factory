@@ -206,8 +206,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-4e03f0be-ff39-4c7b-b204-e31ccb9b2f76",
+      "post_ids": {
+        "ascii_ig": "igo-4e03f0be-ff39-4c7b-b204-e31ccb9b2f76"
+      },
       "overlay": null,
       "lineup_id": "bridge-first",
       "variants": {}

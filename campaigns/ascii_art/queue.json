@@ -91,9 +91,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-4e03f0be-ff39-4c7b-b204-e31ccb9b2f76",
           "last_error": null,
           "scheduled_for": "2026-11-22T21:40:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "an old bridge over a river, built from code. no sprites, no images. sound on.\n🎧 Fixation – @close__quarters #pixelart #creativecoding #generativeart #codeart #python\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
