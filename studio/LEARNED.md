@@ -1,39 +1,39 @@
 # What the numbers say
 
 Updated 2026-11-22 by studio/learn.py. A weight of 1.0 is typical, 2.0 is consistently the best, 0.5 the worst.
-Each post is ranked on views (half), seconds watched (30%) and shares + saves per view (20%).
+Each post is ranked on completion (30%), sends per reach (30%), views (15%), saves per reach (10%) and not being skipped (15%).
 
 ## cq_producer
 
 2 posts counted (1 more are too new). Typical post: 145 views, 4.8 seconds watched.
 
 **song**
-- notta_problem: weight 1.05 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
-- talk: weight 0.95 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
+- notta_problem: weight 1.09 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
+- talk: weight 0.92 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
 
 **section**
-- notta_problem/verse 1, first half: weight 1.05 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
-- talk/s01: weight 0.95 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
+- notta_problem/verse 1, first half: weight 1.09 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
+- talk/s01: weight 0.92 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
 
 **look**
-- grad: weight 1.05 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
-- plasma: weight 0.95 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
+- grad: weight 1.09 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
+- plasma: weight 0.92 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
 
 **palette**
-- #ffffff: weight 1.05 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
-- #ffbe6e: weight 0.95 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
+- #ffffff: weight 1.09 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
+- #ffbe6e: weight 0.92 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.05 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
-- 20-35s: weight 0.95 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
+- under 20s: weight 1.09 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
+- 20-35s: weight 0.92 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
 
 **hour posted**
-- 18:00: weight 1.05 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
-- 21:00: weight 0.95 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
+- 18:00: weight 1.09 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
+- 21:00: weight 0.92 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
 
 **caption**
-- Notta Problem – Close Quarters: weight 1.05 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
-- Talk – Close Quarters: weight 0.95 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
+- Notta Problem – Close Quarters: weight 1.09 — 1 post, 270 views, 4.6s watched, 7 shares+saves per 1,000 views
+- Talk – Close Quarters: weight 0.92 — 1 post, 21 views, 4.9s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
@@ -45,5 +45,15 @@ Each post is ranked on views (half), seconds watched (30%) and shares + saves pe
 
 ## nostalgia
 
-Skipped: FileNotFoundError(2, 'No such file or directory')
+No posts with numbers yet.
+
+## Bio link taps, last 7 days
+
+| account | 11-16 | 11-17 | 11-18 | 11-19 | 11-20 | 11-21 | 11-22 | total |
+|---|---|---|---|---|---|---|---|---|
+| close__quarters | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 3 |
+| dylancantor23 | 0 | 0 | 0 | 0 | 0 | 0 | 5 | 5 |
+| nostalgia.hub.vhs | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 3 |
+| other | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |
+| psychedelic.station | 0 | 0 | 0 | 0 | 0 | 0 | 4 | 4 |
 

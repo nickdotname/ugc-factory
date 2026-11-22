@@ -10,32 +10,32 @@
      "without": 1.0
     },
     "song": {
-     "notta_problem": 1.05,
-     "talk": 0.95
+     "notta_problem": 1.09,
+     "talk": 0.92
     },
     "section": {
-     "notta_problem/verse 1, first half": 1.05,
-     "talk/s01": 0.95
+     "notta_problem/verse 1, first half": 1.09,
+     "talk/s01": 0.92
     },
     "look": {
-     "grad": 1.05,
-     "plasma": 0.95
+     "grad": 1.09,
+     "plasma": 0.92
     },
     "palette": {
-     "#ffffff": 1.05,
-     "#ffbe6e": 0.95
+     "#ffffff": 1.09,
+     "#ffbe6e": 0.92
     },
     "length": {
-     "under 20s": 1.05,
-     "20-35s": 0.95
+     "under 20s": 1.09,
+     "20-35s": 0.92
     },
     "hour posted": {
-     "18:00": 1.05,
-     "21:00": 0.95
+     "18:00": 1.09,
+     "21:00": 0.92
     },
     "caption": {
-     "Notta Problem \u2013 Close Quarters": 1.05,
-     "Talk \u2013 Close Quarters": 0.95
+     "Notta Problem \u2013 Close Quarters": 1.09,
+     "Talk \u2013 Close Quarters": 0.92
     }
    }
   },
@@ -103,6 +103,7 @@
   },
   "nostalgia": {
    "posts": 0,
+   "waiting": 0,
    "weights": {}
   }
  }

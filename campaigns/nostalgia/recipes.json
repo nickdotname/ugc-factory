@@ -1,0 +1,173 @@
+{
+ "clips": {},
+ "nightly": [
+  {
+   "date": "2026-11-22",
+   "creative": "suspended",
+   "file": "suspended_s01_liminal_316478.mp4",
+   "song": "suspended",
+   "section": "s01",
+   "style": "liminal",
+   "seed": 316478,
+   "window": [
+    18.63,
+    26.52
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 2,
+    "year": 1997,
+    "hook": "have you seen this place?",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.78,
+    "bass": 0.47,
+    "other": 0.38
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s05_liminal_805436.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s05",
+   "style": "liminal",
+   "seed": 805436,
+   "window": [
+    139.61,
+    149.81
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 2,
+    "year": 1996,
+    "hook": "sound on",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.57,
+    "drums": 0.83,
+    "bass": 0.15,
+    "other": 0.5
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s07_liminal_906852.mp4",
+   "song": "prologue",
+   "section": "s07",
+   "style": "liminal",
+   "seed": 906852,
+   "window": [
+    156.81,
+    167.49
+   ],
+   "plan": {
+    "place": "hotel",
+    "laps": 4,
+    "year": 1998,
+    "hook": "3am. the music is still on",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.59,
+    "drums": 0.66,
+    "bass": 0.64,
+    "other": 0.29
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "talk",
+   "file": "talk_s02_liminal_150948.mp4",
+   "song": "talk",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 150948,
+   "window": [
+    55.45,
+    67.15
+   ],
+   "plan": {
+    "place": "pool",
+    "laps": 4,
+    "year": 1995,
+    "hook": "no one else is here",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.92,
+    "drums": 0.85,
+    "bass": 0.79,
+    "other": 0.4
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s05-s06_liminal_732020.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s05-s06",
+   "style": "liminal",
+   "seed": 732020,
+   "window": [
+    130.4,
+    164.83
+   ],
+   "plan": {
+    "place": "mall",
+    "laps": 3,
+    "year": 2003,
+    "hook": "no one else is here",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.66,
+    "drums": 0.74,
+    "bass": 0.6,
+    "other": 0.34
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s04_liminal_898998.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "liminal",
+   "seed": 898998,
+   "window": [
+    73.1,
+    95.63
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 5,
+    "year": 1996,
+    "hook": "you've been here before",
+    "lyrics": null
+   },
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.74,
+    "bass": 0.68,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
