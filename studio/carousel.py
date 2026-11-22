@@ -48,15 +48,26 @@ def fit(d, text, names, maxw, maxh, hi, lo=40, lead=1.08):
 def tag(d, x, y, text, f, bg=(255, 230, 60), fg=(0, 0, 0)):
     w = d.textlength(text, font=f); d.rectangle([x, y, x + w + 24, y + f.size + 14], fill=bg); d.text((x + 12, y + 4), text, font=f, fill=fg)
 
-# ---- cover: art on top, headline on black below --------------------------------------------
-a = art(W, H, seed * 7 + 1); im = Image.fromarray(a); d = ImageDraw.Draw(im, 'RGBA')
-ins = Image.fromarray(art(360, 360, seed * 7 + 2)); mask = Image.new('L', (360, 360), 0); ImageDraw.Draw(mask).ellipse([0, 0, 359, 359], fill=255)
-im.paste(ins, (40, 300), mask); d.ellipse([36, 296, 404, 664], outline=(255, 255, 255), width=8)       # the round inset
+# ---- cover: art (or the topic's real photo) on top, headline on black below -----------------
+sys.path.insert(0, HERE); import photos
+PHOTO = photos.for_spec(spec)                                  # (path, credit) or None
+if PHOTO:
+    # The real thing, tinted towards the art so it still reads as this account's post
+    p_ = photos.fit_image(PHOTO[0], W, H).astype(np.float32); a_ = art(W, H, seed * 7 + 1).astype(np.float32)
+    g = p_.mean(axis=2, keepdims=True); a = np.clip(p_ * .9 + (g / 255.0) * a_ * .22, 0, 255).astype(np.uint8)
+    im = Image.fromarray(a); d = ImageDraw.Draw(im, 'RGBA')
+else:
+    a = art(W, H, seed * 7 + 1); im = Image.fromarray(a); d = ImageDraw.Draw(im, 'RGBA')
+    ins = Image.fromarray(art(360, 360, seed * 7 + 2)); mask = Image.new('L', (360, 360), 0); ImageDraw.Draw(mask).ellipse([0, 0, 359, 359], fill=255)
+    im.paste(ins, (40, 300), mask); d.ellipse([36, 296, 404, 664], outline=(255, 255, 255), width=8)       # the round inset
 for y in range(620, H): d.line([(0, y), (W, y)], fill=(0, 0, 0, int(min(255, (y - 620) * 1.7))))     # fade to black
 f, rows, size = fit(d, spec['headline'].upper(), HEAD, W - 80, 520, 112); y = H - 110 - len(rows) * size * 1.08
 for r_ in rows: d.text(((W - d.textlength(r_, font=f)) / 2, y), r_, font=f, fill=(255, 255, 255), stroke_width=3, stroke_fill=(0, 0, 0)); y += size * 1.08
 tag(d, W - 190, H - 84, 'SWIPE', font(HEAD, 40)); d.text((40, H - 78), 'SWIPE FOR MORE', font=font(BODY, 24), fill=(255, 255, 255))
 d.text((36, 30), 'PS', font=font(HEAD, 64), fill=(255, 255, 255), stroke_width=4, stroke_fill=(0, 0, 0))
+if PHOTO:
+    fc = font(BODY, 20); cw = d.textlength(PHOTO[1], font=fc)
+    d.text((W - 30 - min(cw, W - 200), 44), PHOTO[1][:90], font=fc, fill=(255, 255, 255, 220), stroke_width=2, stroke_fill=(0, 0, 0))
 im.save(os.path.join(out, '01.jpg'), quality=92)
 
 # ---- one fact a slide ----------------------------------------------------------------------
@@ -77,6 +88,8 @@ f, rows, size = fit(d, 'FOLLOW FOR MORE OF WHAT THEY LEFT OUT', HEAD, W - 120, 5
 for r_ in rows: d.text(((W - d.textlength(r_, font=f)) / 2, y), r_, font=f, fill=(255, 255, 255), stroke_width=3, stroke_fill=(0, 0, 0)); y += size * 1.08
 h_ = '@' + spec['handle']; fh = font(BODY, 54); tag(d, (W - d.textlength(h_, font=fh)) / 2 - 12, y + 40, h_, fh)
 fs = font(BODY, 28); y = H - 230
-for r_ in wrap(d, spec['sources'], fs, W - 120): d.text((60, y), r_, font=fs, fill=(255, 255, 255, 200)); y += 40
+srcs = spec['sources'] + ('. Cover ' + PHOTO[1] if PHOTO else '')
+y = H - 230 - (40 if PHOTO else 0)
+for r_ in wrap(d, srcs, fs, W - 120): d.text((60, y), r_, font=fs, fill=(255, 255, 255, 200)); y += 40
 d.text((60, y + 16), spec.get('music', ''), font=font(BODY, 32), fill=(255, 230, 60))
 im.save(os.path.join(out, '%02d.jpg' % (n + 2)), quality=92); print('wrote', n + 2, 'slides to', out)

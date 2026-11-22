@@ -464,6 +464,28 @@ def fx(a, T, f, plan, ov, st, box, ctx, rng):
     if plan['scan']: a = (a * SCAN).astype(np.uint8)
     return a
 
+def face_for(k, T, bands, ctx):
+    """(photo, seconds since the current word) for lyric line k: whoever's turn it is, as big a reaction as
+    the line is loud, and a second reaction halfway through a long line."""
+    if 'lvl' not in ctx: ctx['lvl'] = _faces.levels(LINES, bands, T0, FPS)
+    who = FACE_WHO[k % len(FACE_WHO)]; lv = ctx['lvl'][k] if k < len(ctx['lvl']) else 1
+    ws = LINES[k][1]; wi, since = _faces.pose(ws, T)
+    half = 1 if len(ws) >= 6 and wi >= len(ws) // 2 else 0
+    first = _faces.pick(who, lv, (seed, k, 0))
+    return (_faces.pick(who, min(2, lv + 1), (seed, k, 1), avoid=first) if half else first), since, who
+def sprite_for(a, k, T, bands, beat, ctx, bottom, height):
+    """Whoever's line it is, cut out and pixelated, in front: Dylan left of centre, Nick right."""
+    name, since, who = face_for(k, T, bands, ctx)
+    cx = W * (0.36 if who == 'dylan' else 0.64)
+    return _faces.paste_sprite(np.ascontiguousarray(a), name, cx, bottom, height, since, T, beat % 1, block=plan.get('face_block', 9))
+def facecam(a, T, bands, beat, ctx):
+    """In the producer view the one whose line it is stands over the lower lanes."""
+    k = line_at(T)
+    if k is None: k = ctx.get('cam_k')
+    if k is None: return a
+    ctx['cam_k'] = k
+    return sprite_for(a, k, T, bands, beat, ctx, bottom=1545, height=640)
+
 def band_frame(f, feat, plan, ctx, rng):
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T); si = seg_at(plan, T); st, kind, k, ov = plan['segs'][si]
     if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
@@ -473,6 +495,7 @@ def band_frame(f, feat, plan, ctx, rng):
         d.rectangle([x + 52, 98, x + 98, 118], fill=PAL[q * 3]); fw = d.textlength(nm, font=F(SANS, 26)); d.text((x + 75 - fw / 2, 158), nm, font=F(SANS, 26), fill=(255, 255, 255))
     d.text((54, 214), SONG['album'], font=F(INTER_XB, 76), fill=(255, 255, 255))
     d.text((56, 304), 'lesson %d of %d: %s' % (SONG['track'], SONG.get('tracks_total', SONG['track']), SONG['title']), font=F(INTER_SB, 40), fill=(225, 240, 255))
+    face = kind.startswith('face+'); kind = kind[5:] if face else kind      # a scene with one of the band in front of it
     if kind.startswith('pic|'): _, pth, sty = kind.split('|'); sc_pic(d, pth, sty, T, st, (10, 10, 30), mixc(plan['bg'], (255, 255, 255), .75))
     else: draw(kind, d, k, T, f, bands, beat)
     overlays_pil(im, ImageDraw.Draw(im), ov, k, T, f, bands); d = ImageDraw.Draw(im)
@@ -480,6 +503,7 @@ def band_frame(f, feat, plan, ctx, rng):
     button(d, 10, H - 72, 190, H - 14, 'Start'); inset(d, W - 220, H - 72, W - 12, H - 14, (192, 192, 192))
     d.text((W - 190, H - 60), '4:20 PM' if any('4:20' in w and t < T for e, ws in LINES for w, t in ws) else '4:19 PM', font=F(SANS, 30), fill=(0, 0, 0))
     a = fx(np.asarray(im), T, f, plan, ov, st, STAGE, ctx, rng)
+    if face and k is not None: a = sprite_for(a, k, T, bands, beat, ctx, bottom=1330, height=860)
     # The lyric goes on last, over every overlay and effect, so nothing can cover it.
     kl = line_at(T)
     return caption(a, kl, T, 1340, 64, 980) if kl is not None else a
@@ -545,12 +569,23 @@ def prod_frame(f, feat, plan, ctx, rng):
     if 'stamp' in ov and k is not None: overlays_pil(im, ImageDraw.Draw(im), ['stamp'], k, T, f, bands)
     d = ImageDraw.Draw(im)
     a = fx(np.asarray(im), T, f, plan, [o for o in ov if o != 'stamp'], st, (0, 580, W, 1560), ctx, rng)
+    if plan.get('faces'): a = facecam(a, T, bands, beat, ctx)
     return caption(a, k, T, 215, 76, 1000) if k is not None else a
 
 plan = plan_band() if mode == 'band' else plan_prod()
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
 plan['hook'] = _hook.pick(mode, seed)                       # the line shown for the first two seconds ('' = none)
 plan['hook_angle'] = _hook.angle(mode, plan['hook']); plan['hook_mode'] = _hook.mode(mode, seed)   # flash: first two seconds; hold: the whole video
+import faces as _faces                                      # Dylan and Nick reacting, line by line, on some videos
+_fv = os.environ.get('CQ_FACES', '').lower()
+plan['faces'] = _faces.available() and (_fv in ('1', 'true', 'yes') or (_fv not in ('0', 'false', 'no') and random.Random(seed * 37 + 5).random() < 0.4))
+if plan['faces']:
+    plan['face_block'] = random.Random(seed * 41).choice([8, 10, 12])        # how chunky the pixels are
+    if mode == 'band':                                       # most lyric lines become a reaction window; the rest stay desktop scenes
+        fr_ = random.Random(seed * 43)
+        for sg in plan['segs']:
+            if sg[2] is not None and fr_.random() < 0.75: sg[1] = 'face+' + sg[1]
+FACE_WHO = _faces.plan(LINES, seed) if plan['faces'] else []
 wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav); feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
 json.dump(json.loads(json.dumps(dict(mode=mode, seed=seed, song=SONG['slug'], window=[T0, T1], plan=plan)).replace(SONG_DIR + '/', '')), open(out[:-4] + '.json', 'w'), indent=1)
 fr0 = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: prod_frame(f, feat, plan, ctx, rng))

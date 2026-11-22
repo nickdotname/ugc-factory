@@ -66,10 +66,20 @@ def button(d, x, y, text):
     d.rectangle([x, y, x + w, y + 66], fill=GREY, outline=(0, 0, 0), width=3); d.line([(x + 3, y + 3), (x + w - 3, y + 3)], fill=LIGHT, width=3)
     d.text((x + 30, y + 12), text, font=f, fill=(0, 0, 0)); return w
 
-# ---- cover ----------------------------------------------------------------------------------------
+# ---- cover: the headline in a text window, and the topic's real photo in a picture viewer when there is one
+HERE_ = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE_); import photos
+PHOTO = photos.for_spec(spec)                                  # (path, credit) or None
 im, d = desktop()
-ix0, iy0, ix1, iy1 = window(d, (150, 230, W - 60, H - 190), '%s.txt' % name)
-f, rows, size = fit(d, spec['headline'].upper(), HEAD, ix1 - ix0, iy1 - iy0 - 120, 120)
+if PHOTO:
+    import numpy as np
+    px0, py0, px1, py1 = window(d, (60, 120, W - 130, 700), '%s.jpg - Image Viewer' % name)
+    ph = photos.fit_image(PHOTO[0], px1 - px0 + 32, py1 - py0 + 14)
+    im.paste(Image.fromarray(ph), (px0 - 16, py0 - 8)); d = ImageDraw.Draw(im)
+    d.text((70, H - 70), PHOTO[1][:80], font=font(BODY, 22), fill=LIGHT)
+    ix0, iy0, ix1, iy1 = window(d, (150, 640, W - 60, H - 190), '%s.txt' % name)
+else:
+    ix0, iy0, ix1, iy1 = window(d, (150, 230, W - 60, H - 190), '%s.txt' % name)
+f, rows, size = fit(d, spec['headline'].upper(), HEAD, ix1 - ix0, iy1 - iy0 - 120, 120 if not PHOTO else 96)
 y = iy0 + 10
 for r_ in rows: d.text((ix0, y), r_, font=f, fill=(0, 0, 0)); y += size * 1.12
 button(d, ix1 - 300, iy1 - 66, 'swipe  >')
@@ -97,6 +107,6 @@ f, rows, size = fit(d, 'SAVE THIS. FOLLOW FOR MORE OF WHAT WE GREW UP WITH', HEA
 for r_ in rows: d.text((ix0, y), r_, font=f, fill=(0, 0, 0)); y += size * 1.12
 y += 20; button(d, ix0, y, '@' + spec['handle']); y += 120
 fs = font(BODY, 28)
-for r_ in wrap(d, spec['sources'], fs, ix1 - ix0): d.text((ix0, y), r_, font=fs, fill=DARK); y += 40
+for r_ in wrap(d, spec['sources'] + ('. Cover ' + PHOTO[1] if PHOTO else ''), fs, ix1 - ix0): d.text((ix0, y), r_, font=fs, fill=DARK); y += 40
 d.text((ix0, y + 20), spec.get('music', ''), font=font(BODY, 30), fill=TITLE[0])
 im.save(os.path.join(out, '%02d.jpg' % (n + 2)), quality=92); print('wrote', n + 2, 'slides to', out)
