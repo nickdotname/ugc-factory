@@ -3269,6 +3269,192 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "prologue",
+   "file": "prologue_s09_psy_658692.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "psy",
+   "seed": 658692,
+   "window": [
+    189.82,
+    209.24
+   ],
+   "plan": {
+    "field": "voronoi",
+    "sym": 12,
+    "pal": "mono",
+    "feedback": true,
+    "spin": 0.030817485205246527,
+    "warp": 1.4293280375019373,
+    "mirror": true,
+    "grain": false,
+    "strobe": false,
+    "lyrics": "word",
+    "ring": true,
+    "motif": "eye",
+    "contour": true,
+    "poster": false,
+    "font": "Poppins-Bold.ttf",
+    "word_y": 0.5,
+    "scale": 4.021317184109687,
+    "second": "rings",
+    "flip_at": 0.42808471626291966,
+    "speed": 1.0,
+    "hook": ""
+   },
+   "knobs": {
+    "field": "voronoi",
+    "sym": "12",
+    "pal": "mono",
+    "feedback": "true",
+    "mirror": "true",
+    "grain": "false",
+    "strobe": "false",
+    "lyrics": "word",
+    "ring": "true",
+    "motif": "eye",
+    "contour": "true",
+    "poster": "false",
+    "font": "Poppins-Bold.ttf",
+    "word_y": "0.5",
+    "second": "rings",
+    "speed": "1.0",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.67,
+    "bass": 0.51,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s06_psy_947728.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s06",
+   "style": "psy",
+   "seed": 947728,
+   "window": [
+    151.05,
+    164.76
+   ],
+   "plan": {
+    "field": "moire",
+    "sym": 5,
+    "pal": "acid",
+    "feedback": true,
+    "spin": 0.05846271431233133,
+    "warp": 1.4617594923046078,
+    "mirror": true,
+    "grain": false,
+    "strobe": true,
+    "lyrics": null,
+    "ring": false,
+    "motif": "star",
+    "contour": true,
+    "poster": false,
+    "font": "Poppins-Black.ttf",
+    "word_y": 0.72,
+    "scale": 4.369726791862961,
+    "second": "kaleido",
+    "flip_at": 0.43620873068639576,
+    "speed": 1.6,
+    "hook": "let it loop"
+   },
+   "knobs": {
+    "field": "moire",
+    "sym": "5",
+    "pal": "acid",
+    "feedback": "true",
+    "mirror": "true",
+    "grain": "false",
+    "strobe": "true",
+    "lyrics": "none",
+    "ring": "false",
+    "motif": "star",
+    "contour": "true",
+    "poster": "false",
+    "font": "Poppins-Black.ttf",
+    "word_y": "0.72",
+    "second": "kaleido",
+    "speed": "1.6",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.8,
+    "bass": 0.5,
+    "other": 0.27
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_collage_922769.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "collage",
+   "seed": 922769,
+   "window": [
+    58.39,
+    65.25
+   ],
+   "plan": null,
+   "knobs": {
+    "palette": "temple",
+    "ground": "field",
+    "density": "0.6",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.91,
+    "drums": 0.44,
+    "bass": 0.76,
+    "other": 0.6
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-22",
+   "creative": "full_ride",
+   "file": "full-ride_s03_collage_407613.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "collage",
+   "seed": 407613,
+   "window": [
+    58.83,
+    64.95
+   ],
+   "plan": null,
+   "knobs": {
+    "palette": "temple",
+    "ground": "field",
+    "density": "0.45",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.58,
+    "drums": 0.71,
+    "bass": 0.91,
+    "other": 0.52
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ],
  "since": "2026-11-22T07:03:36.615150+00:00",
@@ -3370,6 +3556,23 @@
     "0.6",
     "1.0",
     "1.6"
+   ]
+  },
+  "collage": {
+   "palette": [
+    "acid",
+    "circuit",
+    "ice",
+    "temple"
+   ],
+   "ground": [
+    "field",
+    "void"
+   ],
+   "density": [
+    "0.45",
+    "0.6",
+    "0.75"
    ]
   }
  }
