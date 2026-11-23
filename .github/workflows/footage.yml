@@ -10,6 +10,7 @@ on:
         description: "how many new clips at most"
         default: "40"
   push:
+    branches: [main]          # not feature branches: a fetch there uploads clips main never records
     paths: ["studio/footage.py", "studio/footage/queries.json", ".github/workflows/footage.yml"]
   schedule:
     - cron: "41 9 * * 1"

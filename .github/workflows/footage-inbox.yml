@@ -1,0 +1,55 @@
+name: footage-inbox
+
+# Our own clips into the footage library (studio/footage.py own): each studio/footage/inbox/<theme>.txt lists
+# Google Drive links, one per line, shared as "anyone with the link". Editing one of those files (on GitHub, from a
+# phone is fine) adds its new links; links already in the library are skipped. Or run it by hand with links.
+on:
+  push:
+    branches: [main]
+    paths: ["studio/footage/inbox/*.txt"]
+  workflow_dispatch:
+    inputs:
+      theme:
+        description: "theme the clips go under (nyc for nyc.daily.aesthetic)"
+        default: "nyc"
+      links:
+        description: "Google Drive links, separated by spaces (blank = just the inbox files)"
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: footage
+  cancel-in-progress: false
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q numpy opencv-python-headless
+      - name: Add the links
+        env:
+          THEME: ${{ github.event.inputs.theme }}
+          LINKS: ${{ github.event.inputs.links }}
+        run: |
+          for f in studio/footage/inbox/*.txt; do python studio/footage.py own "$(basename "$f" .txt)" "$f"; done
+          if [ -n "$LINKS" ]; then python studio/footage.py own "${THEME:-nyc}" $LINKS; fi
+      - name: Keep the index
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add studio/footage/index.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "own footage added [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
