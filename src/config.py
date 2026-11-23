@@ -582,6 +582,13 @@ class SelectionConfig(StrictModel):
     #: clip, song, start point and caption chosen by hand.
     auto_fill: bool = True
 
+    #: Whether a video this account has already posted may go up again. The
+    #: studio campaigns set this false: their videos are finished pieces, not
+    #: combinations, so a repeat is the same post twice on one profile. Then a
+    #: pick that only exists by relaxing dedupe is dropped and the slot stays
+    #: empty: posting less beats posting a duplicate.
+    repeats: bool = True
+
     @field_validator("dedupe_on")
     @classmethod
     def _non_empty_unique(

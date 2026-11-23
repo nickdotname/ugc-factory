@@ -147,7 +147,8 @@ funnel:
   end_card_sec: 2.0
 
 selection:
-  dedupe_on: [hook, caption]
+  dedupe_on: [hook]          # each video once: a new caption does not make it a new post
+  repeats: false             # and never again later, even when the library runs short (the slot stays empty)
   caption_cooldown_days: 0
   hook_cooldown_days: 4      # a video is not posted again for four days; raise as the library grows
   min_runway_days: 7
