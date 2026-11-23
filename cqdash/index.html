@@ -26,7 +26,11 @@ main{padding:12px 14px calc(40px + env(safe-area-inset-bottom));max-width:980px;
 .thumb:after{content:"▶";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;text-shadow:0 1px 6px #000}
 .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .time{font-weight:700;font-variant-numeric:tabular-nums}
-.acc{font-size:13px;color:var(--fg);background:var(--panel2);border-radius:6px;padding:2px 7px}
+.acc{font-size:13px;color:var(--fg);background:var(--panel2);border-radius:99px;padding:2px 9px 2px 2px;display:inline-flex;align-items:center;gap:6px}
+.pfp{width:24px;height:24px;border-radius:50%;object-fit:cover;flex:none;background:var(--line);display:inline-block}
+.pfp.big{width:40px;height:40px}.chip .pfp{width:18px;height:18px;margin:-2px 6px -2px -5px;vertical-align:middle}
+.ahead{display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.thumb .pfp{position:absolute;left:4px;bottom:4px;width:22px;height:22px;border:2px solid var(--panel);z-index:1}
 .st{font-size:11px;font-weight:700;border-radius:6px;padding:2px 6px;text-transform:uppercase;letter-spacing:.5px}
 .st.queued,.st.scheduled,.st.claimed{background:#2a2540;color:var(--d)}.st.published{background:#1d3324;color:var(--ok)}
 .st.failed{background:#3d1d24;color:var(--bad)}.st.cancelled{background:#2b2830;color:var(--dim)}.st.late{background:#3a2c14;color:var(--warn)}
@@ -69,6 +73,8 @@ const fmt = (d, o) => new Intl.DateTimeFormat('en-US', Object.assign({timeZone: 
 const dayKey = d => fmt(d, {year: 'numeric', month: '2-digit', day: '2-digit'});
 const n = v => v == null ? '–' : v >= 1e6 ? (v / 1e6).toFixed(1) + 'M' : v >= 1e4 ? Math.round(v / 1e3) + 'k' : v >= 1e3 ? (v / 1e3).toFixed(1) + 'k' : String(Math.round(v));
 const esc = s => String(s || '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const PF = {};                                   // account -> its profile picture (a data: URL from data.json)
+const av = (name, cls) => PF[name] && /^data:image\//.test(PF[name]) ? `<img class="pfp ${cls || ''}" src="${PF[name]}" alt="">` : `<span class="pfp ${cls || ''}"></span>`;
 function dayLabel(d) {
   const t = dayKey(new Date()), k = dayKey(d), tm = dayKey(new Date(Date.now() + 864e5)), ys = dayKey(new Date(Date.now() - 864e5));
   return k === t ? 'Today' : k === tm ? 'Tomorrow' : k === ys ? 'Yesterday' : fmt(d, {weekday: 'long', month: 'short', day: 'numeric'});
@@ -78,12 +84,13 @@ async function load() {
   try {
     const r = await fetch('data.json?t=' + Date.now(), {cache: 'no-store'}); S.data = await r.json();
     S.data.posts.forEach(p => { p.t = new Date(p.posted || p.due || 0); });
+    S.data.accounts.forEach(a => { PF[a.name] = a.pfp; });
     $('#upd').textContent = 'updated ' + ago(S.data.generated); chips(); draw();
   } catch (e) { $('#main').innerHTML = '<div class="empty">Could not load the data. Pull to refresh.</div>'; }
 }
 function chips() {
   const accs = [{name: 'all', handle: 'All accounts'}].concat(S.data.accounts);
-  $('#chips').innerHTML = accs.map(a => `<button class="chip ${S.acc === a.name ? 'on' : ''}" data-acc="${a.name}">${a.name === 'all' ? a.handle : '@' + esc(a.handle)}</button>`).join('');
+  $('#chips').innerHTML = accs.map(a => `<button class="chip ${S.acc === a.name ? 'on' : ''}" data-acc="${a.name}">${a.name === 'all' ? a.handle : av(a.name) + '@' + esc(a.handle)}</button>`).join('');
 }
 const mine = p => S.acc === 'all' || p.account === S.acc;
 const upcoming = p => ['queued', 'scheduled', 'claimed', 'pending', 'held'].includes(p.status);
@@ -93,10 +100,10 @@ function card(p, showNums) {
   const m = p.m || {}; const rate = m.views ? ((m.shares || 0) + (m.saves || 0)) / Math.max(m.reach || m.views, 1) : null;
   const what = [p.what, p.style && p.style !== p.what ? p.style : null].filter(Boolean).join(' · ');
   return `<div class="card">
-    ${p.video ? `<button class="thumb" data-v="${esc(p.video)}"><video src="${esc(p.video)}#t=1" preload="none" muted playsinline></video></button>` : '<div class="thumb"></div>'}
+    ${p.video ? `<button class="thumb" data-v="${esc(p.video)}"><video src="${esc(p.video)}#t=1" preload="none" muted playsinline></video>${av(p.account)}</button>` : `<div class="thumb">${av(p.account)}</div>`}
     <div>
       <div class="row1"><span class="time">${fmt(p.t, {hour: 'numeric', minute: '2-digit'})}</span>
-        <span class="acc">@${esc(p.handle)}</span><span class="st ${st}">${st === 'late' ? 'overdue' : esc(st)}</span>
+        <span class="acc">${av(p.account)}@${esc(p.handle)}</span><span class="st ${st}">${st === 'late' ? 'overdue' : esc(st)}</span>
         ${p.trial ? '<span class="tag">trial</span>' : ''}${p.lineup ? '<span class="tag">hand-picked</span>' : ''}</div>
       <div class="song">${esc(p.song || (p.caption || '').split('\n')[0].slice(0, 60))}</div>
       ${what ? `<div class="what">${esc(what)}</div>` : ''}
@@ -140,7 +147,7 @@ function drawAccounts() {
     const best = pub.filter(p => p.m.views).sort((x, y) => y.m.views - x.m.views)[0];
     const nxt = ps.filter(upcoming).sort((x, y) => x.t - y.t)[0];
     const per = days.map(k => pub.filter(p => dayKey(p.t) === k).reduce((s, p) => s + (p.m.views || 0), 0));
-    return `<div class="acard" data-acc="${a.name}"><h3>@${esc(a.handle)}</h3><div class="sub">${ps.filter(upcoming).length} lined up · ${pub.length} posted (60 days)</div>
+    return `<div class="acard" data-acc="${a.name}"><div class="ahead">${av(a.name, 'big')}<div><h3>@${esc(a.handle)}</h3><div class="sub">${ps.filter(upcoming).length} lined up · ${pub.length} posted (60 days)</div></div></div>
       <div class="kpis"><div class="kpi"><b>${wk.length}</b><span>posts 7d</span></div><div class="kpi"><b>${n(wk.reduce((s, p) => s + (p.m.views || 0), 0))}</b><span>views 7d</span></div><div class="kpi"><b>${n(med)}</b><span>median views</span></div></div>
       ${spark(per)}<div class="next">${nxt ? `next: <b>${dayLabel(nxt.t)} ${fmt(nxt.t, {hour: 'numeric', minute: '2-digit'})}</b> · ${esc(nxt.song || '')}` : 'nothing lined up'}</div>
       ${best ? `<div class="next">best: <b>${n(best.m.views)}</b> views · ${esc(best.song || '')}${best.what ? ' · ' + esc(best.what) : ''}</div>` : ''}</div>`;

@@ -88,7 +88,17 @@ jobs:
       - name: Refresh the dashboard
         if: ${{ inputs.dry_run != true }}
         continue-on-error: true
+        env:                       # only to fetch each account's profile picture once a day
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
+          IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
+          IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
+          IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
+          IG_TOKEN_7: ${{ secrets.IG_TOKEN_7 }}
+          IG_TOKEN_8: ${{ secrets.IG_TOKEN_8 }}
         run: |
+          pip install -q Pillow || true
           python scripts/dash_data.py
           git add cqdash/data.json
           git diff --cached --quiet && exit 0

@@ -10,8 +10,9 @@ Run by the publish job every 15 minutes. Reads only what the repository already 
   campaigns/*/history.json     which song and clip each post was, and which lineup entry if any
   campaigns/*/posts.json       each post's numbers (views, reach, likes, comments, shares, saves, watch time)
   campaigns/*/recipes.json     what each studio video is (its style and the knobs that say what it is about)
+and, once a day, each account's profile picture from Instagram (with the IG_TOKEN* secrets in the environment).
 """
-import glob, json, os, sys
+import base64, glob, io, json, os, sys, urllib.parse, urllib.request
 from datetime import datetime, timezone
 
 import yaml
@@ -21,6 +22,10 @@ HANDLES = {'close_quarters_ig': 'close__quarters', 'dylancantor23_ig': 'dylancan
            'nostalgia_ig': 'nostalgia.hub.vhs', 'math_ig': 'math.explainers', 'glitch_ig': 'glitch.archive.exe',
            'ascii_ig': 'ascii.terminal.dreams', 'physics_ig': 'physics.bounce.lab', 'earth_ig': 'earth.data.live',
            'retro_ig': 'retro.vibes.arcade', 'rocket_ig': 'rocket.league.lit', 'nickdotname_ig': 'the.loose.change'}
+NOT_CQ = {'clubs'}                   # campaigns that are not Close Quarters (the Clubs app's own posts)
+# Accounts that posted other things before they were Close Quarters accounts: only the posts one of our campaigns made
+# are shown (the.loose.change was nickdotname, the Clubs account, until mid-November).
+OURS_ONLY = {'nickdotname_ig'}
 METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments': 'comments', 'shares': 'shares',
            'saves': 'saves', 'averageTimeWatched': 'watch', 'skipRate': 'skip', 'follows': 'follows'}
 # the knobs that say what a studio video is about, per style (same idea as studio/nightly.py's SUBJECT)
@@ -35,6 +40,66 @@ def load(path, default):
         with open(path) as f: return json.load(f)
     except (OSError, ValueError):
         return default
+
+
+GRAPH = 'https://graph.facebook.com/v27.0/'
+PFP_EVERY = 86400                                 # seconds between fetches of an account's profile picture
+
+
+def _get(url, token=None):
+    req = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + token} if token else {})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return r.read()
+
+
+def _small(raw):
+    """A profile picture as a small data: URL. Instagram's own picture links expire and refuse to load on other
+    sites, so the picture itself goes in data.json (about 3 kB each at 96 px)."""
+    try:
+        from PIL import Image
+        im = Image.open(io.BytesIO(raw)).convert('RGB'); im.thumbnail((96, 96))
+        buf = io.BytesIO(); im.save(buf, 'JPEG', quality=82); raw = buf.getvalue()
+    except Exception:
+        pass                                         # no Pillow: the picture as Instagram sent it
+    return 'data:image/jpeg;base64,' + base64.b64encode(raw).decode()
+
+
+def pfps(accounts, old, campaign_of_account):
+    """{account: (picture, when fetched)}: each Instagram account's profile picture, fetched again once a day. Accounts
+    posted to directly ask for their own; one that is only on Buffer (the.loose.change) is looked up by its handle
+    through one of ours (business discovery). A failed fetch keeps yesterday's picture, or the campaign's
+    brand/profile.jpg if there has never been one."""
+    prev = {a.get('name'): a for a in old.get('accounts') or []}
+    now = datetime.now(timezone.utc)
+    direct = {a['name']: a for a in accounts if a.get('provider') == 'instagram' and a.get('channel_id')
+              and os.environ.get(a.get('api_key_secret') or '')}
+    asker = next(iter(direct.values()), None)
+    out = {}
+    for name, handle in HANDLES.items():
+        p = prev.get(name) or {}
+        at = p.get('pfp_at')
+        if p.get('pfp') and at and (now - datetime.fromisoformat(at.replace('Z', '+00:00'))).total_seconds() < PFP_EVERY:
+            out[name] = (p['pfp'], at); continue
+        a = direct.get(name)
+        if a or asker:
+            stamp = now.isoformat().replace('+00:00', 'Z')
+            try:
+                if a:
+                    url = json.loads(_get(GRAPH + str(a['channel_id']) + '?fields=profile_picture_url', os.environ[a['api_key_secret']])).get('profile_picture_url')
+                else:
+                    f = urllib.parse.quote('business_discovery.username(%s){profile_picture_url}' % handle)
+                    url = (json.loads(_get(GRAPH + str(asker['channel_id']) + '?fields=' + f, os.environ[asker['api_key_secret']]))
+                           .get('business_discovery') or {}).get('profile_picture_url')
+                if url:
+                    out[name] = (_small(_get(url)), stamp); continue
+            except Exception as e:                   # never the token: only what Instagram answered
+                print('profile picture for %s: %s' % (handle, str(e)[:160]))
+            if p.get('pfp'):
+                out[name] = (p['pfp'], stamp); continue      # keep the old one; try again tomorrow
+        brand = os.path.join(ROOT, 'campaigns', campaign_of_account.get(name) or '-', 'brand', 'profile.jpg')
+        if p.get('pfp'): out[name] = (p['pfp'], at)
+        elif os.path.exists(brand): out[name] = (_small(open(brand, 'rb').read()), None)
+    return out
 
 
 def iso(s):
@@ -64,7 +129,8 @@ def main(out):
         cfg = yaml.safe_load(open(os.path.join(cdir, 'config.yaml'))) or {}
         if (cfg.get('posting') or {}).get('paused'): pass
         titles = {c['name']: c.get('title') or c['name'] for c in cfg.get('creatives') or []}
-        names = ((cfg.get('accounts') or {}).get('names') or [])
+        acc_cfg = cfg.get('accounts') or {}
+        names = [] if acc_cfg.get('mode') == 'block' else (acc_cfg.get('names') or [])   # a block list names where it does NOT post
         for n in names: campaign_of_account.setdefault(n, camp)
         rec = load(os.path.join(cdir, 'recipes.json'), {})
         recipe = {}
@@ -120,6 +186,8 @@ def main(out):
     since = datetime.now(timezone.utc).timestamp() - 60 * 86400
     for r in posts.values():
         if r['account'] not in HANDLES or not r['status']: continue          # the Instagram accounts only (not old Buffer TikTok/YouTube)
+        if r['campaign'] in NOT_CQ: continue                                 # Close Quarters only: not the Clubs app's posts
+        if r['account'] in OURS_ONLY and not r['song']: continue            # posts from before the account was ours
         when = r['posted'] or r['due']
         if when and datetime.fromisoformat(when.replace('Z', '+00:00')).timestamp() < since: continue
         r['handle'] = HANDLES.get(r['account'], r['account'])
@@ -127,10 +195,12 @@ def main(out):
         rows.append(r)
     rows.sort(key=lambda r: r['posted'] or r['due'] or '', reverse=True)
     accs = list(HANDLES)
-    data = dict(generated=datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
-                accounts=[dict(name=a, handle=HANDLES.get(a, a), campaign=campaign_of_account.get(a)) for a in accs],
-                posts=rows)
     old = load(out, {})
+    pics = pfps(accounts, old, campaign_of_account)
+    data = dict(generated=datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+                accounts=[dict(name=a, handle=HANDLES.get(a, a), campaign=campaign_of_account.get(a),
+                               pfp=(pics.get(a) or (None, None))[0], pfp_at=(pics.get(a) or (None, None))[1]) for a in accs],
+                posts=rows)
     if old.get('posts') == json.loads(json.dumps(rows)) and old.get('accounts') == data['accounts']:
         print('no change since %s' % old.get('generated')); return      # nothing new: leave the file (and the repo) alone
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
