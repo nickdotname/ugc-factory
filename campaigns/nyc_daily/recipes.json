@@ -1,0 +1,262 @@
+{
+ "clips": {},
+ "menu": {
+  "nyc": {
+   "kind": [
+    "meme",
+    "fact"
+   ],
+   "look": [
+    "natural",
+    "warm",
+    "night",
+    "film"
+   ],
+   "pace": [
+    "1",
+    "2"
+   ],
+   "source": [
+    "nyc",
+    "city"
+   ],
+   "fact": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14"
+   ],
+   "line": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-23",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s04_nyc_773654.mp4",
+   "song": "evil-close-quarters",
+   "section": "s04",
+   "style": "nyc",
+   "seed": 773654,
+   "window": [
+    70.75,
+    93.4
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "fact",
+    "look": "film",
+    "pace": "2",
+    "source": "nyc",
+    "fact": "2",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.82,
+    "bass": 0.56,
+    "other": 0.6
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s05_nyc_782303.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "nyc",
+   "seed": 782303,
+   "window": [
+    102.59,
+    116.36
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "film",
+    "pace": "2",
+    "source": "nyc",
+    "line": "10",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.86,
+    "drums": 0.85,
+    "bass": 0.77,
+    "other": 0.55
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s06_nyc_734545.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s06",
+   "style": "nyc",
+   "seed": 734545,
+   "window": [
+    150.76,
+    164.83
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "natural",
+    "pace": "1",
+    "source": "nyc",
+    "line": "11",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.81,
+    "bass": 0.52,
+    "other": 0.28
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s09_nyc_582425.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "nyc",
+   "seed": 582425,
+   "window": [
+    190.11,
+    198.84
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "night",
+    "pace": "1",
+    "source": "nyc",
+    "line": "23",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.73,
+    "bass": 0.57,
+    "other": 0.28
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s03_nyc_283462.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "nyc",
+   "seed": 283462,
+   "window": [
+    61.41,
+    72.18
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "fact",
+    "look": "natural",
+    "pace": "2",
+    "source": "nyc",
+    "fact": "8",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.63,
+    "bass": 0.26,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s08_nyc_185166.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s08",
+   "style": "nyc",
+   "seed": 185166,
+   "window": [
+    181.34,
+    224.45
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "warm",
+    "pace": "1",
+    "source": "nyc",
+    "line": "13",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.11,
+    "drums": 0.1,
+    "bass": 0.42,
+    "other": 0.47
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
