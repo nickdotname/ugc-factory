@@ -365,6 +365,14 @@ class InstagramPublisher(Publisher):
             will_publish_automatically=True,
         )
 
+    def scheduled_slots(self, channel_id: str) -> list[datetime]:
+        return [
+            d for d in (
+                _parse_dt(i.get("scheduled_for"))
+                for i in self.outbox.for_channel(channel_id, QUEUED, PUBLISHING)
+            ) if d
+        ]
+
     def find_scheduled_post(
         self, channel_id: str, scheduled_for: datetime
     ) -> PublishedPost | None:

@@ -326,6 +326,20 @@ class BufferPublisher(Publisher):
         )
         return state
 
+    def scheduled_slots(self, channel_id: str) -> list[datetime]:
+        data = self._gql(
+            POSTS,
+            {
+                "input": {
+                    "organizationId": self._org_id(),
+                    "filter": {"channelIds": [channel_id], "status": ["scheduled", "sending"]},
+                },
+                "first": 100,
+            },
+        )
+        edges = ((data.get("posts") or {}).get("edges")) or []
+        return [d for d in (_parse_dt((e.get("node") or {}).get("dueAt")) for e in edges) if d]
+
     def find_scheduled_post(
         self, channel_id: str, scheduled_for: datetime
     ) -> PublishedPost | None:
