@@ -431,6 +431,142 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-23T06:31:08.500424Z",
+      "item_id": "9b4f69b2-217e-474a-a83e-8d784b92575d",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Silver and Gold – Close Quarters",
+      "title": null,
+      "creative": "silver_and_gold",
+      "captions": {
+        "instagram": "Silver and Gold – Close Quarters\n\nlink in bio to stream Silver and Gold"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.485,
+        "anchor_y": 0.515,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-23T06:31:08.500424Z",
+      "item_id": "ca03595a-51cd-4950-b2e3-f4005f2243e8",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "3am. the music is still playing. who left it on?\n🎧 Full Ride – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
+      "title": null,
+      "creative": "full_ride",
+      "captions": {
+        "instagram": "3am. the music is still playing. who left it on?\n🎧 Full Ride – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nstream Full Ride: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.603,
+        "anchor_y": 0.664,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-23T06:31:08.500424Z",
+      "item_id": "513b6d11-2410-4ede-a6aa-80c0334b4d43",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Evil Close Quarters – Close Quarters",
+      "title": null,
+      "creative": "evil_close_quarters",
+      "captions": {
+        "instagram": "Evil Close Quarters – Close Quarters\n\nEvil Close Quarters is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.556,
+        "anchor_y": 0.356,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-23T06:31:08.500424Z",
+      "item_id": "592b31cb-eb04-483c-b2dd-7761635677a2",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "if you remember this hallway you had a good childhood\n🎧 Myth of Sisyphus – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
+      "title": null,
+      "creative": "myth_of_sisyphus",
+      "captions": {
+        "instagram": "if you remember this hallway you had a good childhood\n🎧 Myth of Sisyphus – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nlink in bio to stream Myth of Sisyphus"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.526,
+        "anchor_y": 0.574,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
