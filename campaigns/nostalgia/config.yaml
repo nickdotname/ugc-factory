@@ -49,6 +49,15 @@ creatives:
   - name: notta_problem
     title: "Notta Problem"
     assets_release: assets-nostalgia-notta_problem
+  - name: recess_rewind
+    title: "Recess (Rewind)"
+    assets_release: assets-nostalgia-recess_rewind
+  - name: passage_waiting
+    title: "Passage (Waiting)"
+    assets_release: assets-nostalgia-passage_waiting
+  - name: epilogue_dismissal
+    title: "Epilogue: Dismissal"
+    assets_release: assets-nostalgia-epilogue_dismissal
 
 # The nostalgia account only, posted to Instagram directly as regular reels.
 accounts:
