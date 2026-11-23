@@ -91,9 +91,9 @@
         {
           "account": "vintage_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-cd05e396-7f0f-4995-ab15-2aee701bd1c5",
           "last_error": null,
           "scheduled_for": "2026-11-24T15:40:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "Full Ride – Close Quarters\nfound reel. EDUCATION is out now\n\nstream Full Ride: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
