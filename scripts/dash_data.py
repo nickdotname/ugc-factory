@@ -33,7 +33,7 @@ METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments':
 WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
         'psy': ['field'], 'collage': ['palette'], 'liminal': ['place'], 'earth': ['scene'], 'glitch': ['source'],
         'retro': ['theme'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
-        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind']}
+        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage']}
 
 
 def load(path, default):

@@ -67,6 +67,7 @@ VISUAL = {'psy': 'psy_video.py', 'liminal': 'liminal_video.py', 'math': 'math_vi
 LYRIC = {'type': 'type_video.py'}
 LYRIC['lofi'] = 'lofi_video.py'      # the band's own dance footage, cut out, in a Y2K media player (studio/lofi/index.json says where there is footage)
 LYRIC['cursor'] = 'cursor_video.py'  # the band rebuilt out of mouse cursors in a 3D Windows 98 world (any song: the dance clips loop where it has none)
+LYRIC['cutout'] = 'cutout_video.py'  # the same dance footage, full screen and thrown around on the beat (dev_lemons-style), now and then trippy
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
@@ -214,7 +215,7 @@ for t in cfg['targets']:
         if style in VISUAL:                               # the visualiser can use any stretch: where the lyric timing is not proven it simply shows no lyrics
             for sid, win in stretches(song, t.get('join', 0), floor=0.0).items(): every.setdefault(sid, win)
         for sid, win in every.items():
-            if style == 'lofi' and lofi_cover(slug, win) < 0.7: continue          # only where the band filmed themselves
+            if style in ('lofi', 'cutout') and lofi_cover(slug, win) < 0.7: continue          # only where the band filmed themselves
             if suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure))
             else: print('   skip %s %s for %s: %s' % (slug, sid, style, playing(lv, win)))
         LV[slug] = lv
