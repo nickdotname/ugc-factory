@@ -144,9 +144,9 @@
         {
           "account": "retro_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-ed169260-4f09-4966-b3b5-faf3fff16435",
           "last_error": null,
           "scheduled_for": "2026-11-25T12:50:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Passage (Waiting) – Close Quarters\nfound on a memory card from 2003. EDUCATION is out now\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
