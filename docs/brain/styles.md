@@ -11,6 +11,7 @@ it so [[learning]] can score it; `CQ_KNOBS` forces knobs.
 | band | lyric_video.py | close__quarters | Y2K desktop lyric video with band photos (now hot-take hooks) | wall, chrome, theme, caption, pictures, punch, chroma, scan |
 | lofi | lofi_video.py | close__quarters | the band's own dance footage cut out, in a Y2K media player | theme, pop |
 | cursor | cursor_video.py | close__quarters | the band rebuilt out of mouse cursors in a 3D Win98 world | world |
+| cutout | cutout_video.py | close__quarters | the dance footage cut out full screen with sticker outlines, thrown around on the beat (big, echo, grid, duo); behind them flat colour with rings or library footage graded to the palette; spring motion, squash on the kick, a slide in each bar | stage, palette, trip, outline, words, bg, tone |
 | producer | lyric_video.py | dylancantor23 | the song's stems as lanes / a mixer | layout, wall, colours, caption, ... |
 | type | type_video.py | the.loose.change | kinetic type lyrics | layout, font, motion, palette, texture |
 | psy | psy_video.py | psychedelic.station | audio-reactive fields (oil, julia, tunnel, ...) | field, pal, sym, motif, feedback, mirror, lyrics, ... |

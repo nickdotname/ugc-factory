@@ -8,10 +8,12 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   cleanly as of 2026-11-23.
 
 ## Next
-- **Animated band cutouts (dev_lemons style)** for @close__quarters: the band cut out of their footage and
-  moved a lot (camera moves, scale pops, cutout duplicates, stickers), higher quality, keeping the CQ look; now and
-  then trippier (melt, glitch, chromatic smear). Start from `lofi_video.py` (cutout + player) and
-  `studio/lofi/index.json` (where footage exists).
+- **Band in real places (scene style)**, inspired by dev_lemons but our own: three worlds — EDUCATION school places
+  (AI-made plates: hallway, classroom, gym, bus; lyrics chalked on the board, yearbook portraits), psych-rock
+  landscapes (AI plates, marker-scrawl lyrics), NYC film look (our NYC clips, matched light, subtitles). No letterbox,
+  italic lyrics, laptops, handhelds, billboards or pixel waves (her signatures). Needs the Kaggle image library.
+- **More band footage** for the cut-out and scene styles: only Fixation, Won't Be the Same Again, Full Ride and Notta
+  Problem have dance clips in `studio/lofi/index.json`, so those two styles only ever play those songs.
 - **Math "curves in love"**: two curves (y = x and y = x − sin x, etc.) drawn as characters that chase, meet and
   part on the beat; captions as their dialogue. Ref: ilkeveaksiyom.
 - **Real modern NYC clips**: Nick's own via the inbox ([[footage]]); a free Pexels API key would add licensed
