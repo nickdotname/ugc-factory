@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-23T14:10:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "which part should i break down next?\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "this is what a song looks like before it's a song\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Notta Problem"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "i produced this. here it is pulled apart.\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Notta Problem: link in bio"
       },
@@ -163,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "would you have mixed the vocal louder? be honest\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nNotta Problem is out now. link in bio to stream it"
       },
