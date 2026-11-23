@@ -866,6 +866,17 @@ class TestSelectBatchMulti:
         counts = Counter(picks)
         assert counts["a"] == counts["b"] == 3      # the heavy song cannot take the day
 
+    def test_a_favoured_clip_is_picked_more_often(self) -> None:
+        # selection.favour_styles: the band's own footage clips get a boost within their song
+        lib = make_library(hooks=4)
+        favoured = lib.hooks[0]
+        hits = 0
+        for seed in range(200):
+            sel = make_selector(seed=seed, hook_cooldown_days=0, caption_cooldown_days=0)
+            (name, out), = sel.select_batch_multi({"a": (lib, History())}, {"a": 1.0}, 1, 1, boost={"a": {favoured: 3.0}})
+            hits += out.selection.hook == favoured
+        assert hits > 85          # 3 of 6 weight-units: about half, against a quarter unboosted
+
     def test_an_opening_line_is_not_reused_across_songs(self) -> None:
         # Every song's bank holds the same lines; the account should run through
         # them before opening two posts with the same one.

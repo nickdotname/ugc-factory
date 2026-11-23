@@ -822,10 +822,19 @@ def _render(
         }
         pools = {name: (res.library, res.history) for name, res in resources.items()}
         weights = {c.name: c.weight for c in config.creatives}
+        boost = _style_boost(config)
+        # A song with favoured clips it has not posted yet comes up that much more often too: otherwise the
+        # band's footage of one song waits its turn behind every other song (a few days on close__quarters).
+        for name, clips in (boost or {}).items():
+            if name in resources and name in weights:
+                posted = {e.hook for e in resources[name].history.entries}
+                if any(clip not in posted for clip in clips):
+                    weights[name] *= max(clips.values())
         picks = selector.select_batch_multi(
             pools, weights, count, config.composition.bodies_per_video,
             config.composition.bodies_per_video_max,
             performance=performance,
+            boost=boost,
         )
     relaxed = [(name, o) for name, o in picks if o.relaxation is not Relaxation.NONE]
     if relaxed and not config.selection.repeats:
@@ -2279,6 +2288,25 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
 
 
 # ------------------------------------------------------------------ command: ingest
+
+
+def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:
+    """creative -> clip -> factor, for clips whose studio style the campaign favours (selection.favour_styles).
+
+    The style of each clip is in the campaign's recipes.json, which the studio job writes as it ingests them."""
+    favour = config.selection.favour_styles
+    if not favour:
+        return None
+    try:
+        rec = json.loads((_campaign_dir(config.slug) / "recipes.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    out: dict[str, dict[str, float]] = {}
+    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
+        factor = favour.get(str(entry.get("style")))
+        if factor and entry.get("creative") and entry.get("clip"):
+            out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = float(factor)
+    return out or None
 
 
 def _performance_medians(
