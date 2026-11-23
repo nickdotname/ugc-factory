@@ -91,18 +91,18 @@
         {
           "account": "math_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T19:20:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the math teacher you needed in high school\n🎧 Talk – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
