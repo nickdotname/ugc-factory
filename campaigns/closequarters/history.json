@@ -2406,6 +2406,43 @@
       "overlay": "headphones in. | Fixation. | all the way through.",
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "8cf0ebf58078a1ce045cc45ea0b642308a8512d00b92ff2fec74132a885b99c8",
+      "timestamp": "2026-11-23T08:32:02.950696Z",
+      "item_id": "3dd8ab45-24aa-4a97-80cd-78f33206c54a",
+      "hook": "hook_13.mp4",
+      "bodies": [],
+      "music": "music_wont_be_the_same_again_01.m4a",
+      "music_offset_sec": 75.0,
+      "caption": "Won't Be the Same Again – Close Quarters\nrun it back. you know the part.",
+      "title": "Won't Be the Same Again by Close Quarters",
+      "creative": "wont_be_the_same_again",
+      "captions": {
+        "instagram": "Won't Be the Same Again – Close Quarters\nrun it back. you know the part.\n\nWon't Be the Same Again is out now. link in bio to stream it",
+        "tiktok": "Won't Be the Same Again – Close Quarters\nrun it back. you know the part.\n\nWon't Be the Same Again is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0382,
+        "anchor_x": 0.509,
+        "anchor_y": 0.693,
+        "rotate_deg": 0.246,
+        "brightness": 0.0098,
+        "saturation": 0.9753,
+        "hue_deg": -0.67,
+        "grain": 4.47,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0,
+        "trim_start": 0.268,
+        "overlay_shift": 0.002
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "this part. | every single time.",
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
