@@ -78,6 +78,7 @@ VISUAL['rocket'] = 'rocket_video.py'
 PRIOR = {'ascii': {'layout': {'code': [0, 3, 0.7], 'clean': [0, 3, 0.35]}}}
 sys.path.insert(0, HERE); import hook as _hook
 VISUAL['retro'] = 'retro_video.py'
+VISUAL['fluid'] = 'fluid_video.py'    # wind-tunnel sims for the physics account (lattice Boltzmann; every gust a kick)
 VISUAL['vintage'] = 'vintage_video.py'   # vintage.media.archive: films from before 1931 as old prints (footage theme silent)
 VISUAL['nyc'] = 'nyc_video.py'           # nyc.daily.aesthetic: New York footage as a meme or a fact (footage theme nyc)
 
