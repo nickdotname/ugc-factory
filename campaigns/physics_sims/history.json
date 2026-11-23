@@ -391,6 +391,108 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-23T08:31:20.191958Z",
+      "item_id": "1845d966-b189-45c5-9e8a-63dd6c7efd7e",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.572,
+        "anchor_y": 0.654,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-23T08:31:20.191958Z",
+      "item_id": "6d4a07ab-8b8c-49db-add2-3451aa4c8dcd",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "does it escape? watch to the end\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "title": null,
+      "creative": "hair_of_the_dog",
+      "captions": {
+        "instagram": "does it escape? watch to the end\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Hair of the Dog"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.348,
+        "anchor_y": 0.432,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-23T08:31:20.191958Z",
+      "item_id": "2b88e6d4-4a74-4857-ae5f-6798c74cb796",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Silver and Gold – Close Quarters\nevery bounce is a beat. EDUCATION is out now",
+      "title": null,
+      "creative": "silver_and_gold",
+      "captions": {
+        "instagram": "Silver and Gold – Close Quarters\nevery bounce is a beat. EDUCATION is out now\n\nstream Silver and Gold: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.379,
+        "anchor_y": 0.595,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
