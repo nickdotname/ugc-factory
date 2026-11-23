@@ -1,23 +1,66 @@
 {
-  "generated_at": "2026-11-23T03:57:31.552579Z",
+  "generated_at": "2026-11-23T06:31:04.005345Z",
   "items": [
     {
-      "id": "11e03af3-597c-4518-ab04-9ce59ca18c14",
+      "id": "428dd110-1377-4c09-8c77-59843bef098e",
       "scheduled_for": "2026-11-23T09:30:00-05:00",
-      "rendered_at": "2026-11-23T03:19:20.641950Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/11e03af3-597c-4518-ab04-9ce59ca18c14.mp4",
-      "caption": "which part should i break down next?\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "rendered_at": "2026-11-23T06:31:04.005345Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/428dd110-1377-4c09-8c77-59843bef098e.mp4",
+      "caption": "Notta Problem – Close Quarters\nvocal, drums, everything else, and the melody the way it was programmed",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.313,
-        "anchor_y": 0.642,
+        "anchor_x": 0.291,
+        "anchor_y": 0.352,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "silver_and_gold",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Silver and Gold by @close__quarters, off our album EDUCATION. full album in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Notta Problem – Close Quarters\nvocal, drums, everything else, and the melody the way it was programmed\n\nlink in bio to stream Silver and Gold"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "b3fc8dfa-31f0-493b-be12-b3ef6ccdaf40",
+      "scheduled_for": "2026-11-23T11:50:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.005345Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/b3fc8dfa-31f0-493b-be12-b3ef6ccdaf40.mp4",
+      "caption": "this is what a song looks like before it's a song\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.548,
+        "anchor_y": 0.26,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -28,49 +71,125 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "suspended",
+      "creative": "hair_of_the_dog",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-0d116e03-2604-444e-8974-ae804dc72540",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T14:10:00-05:00"
-        }
-      ],
+      "first_comment": "this is Hair of the Dog from EDUCATION (@close__quarters)",
+      "posts": [],
       "captions": {
-        "instagram": "which part should i break down next?\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nSuspended is out now. link in bio to stream it"
+        "instagram": "this is what a song looks like before it's a song\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Hair of the Dog: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "546a9e91-f09c-4749-9192-1a96503033e4",
-      "scheduled_for": "2026-11-23T11:50:00-05:00",
-      "rendered_at": "2026-11-23T03:19:20.641950Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/546a9e91-f09c-4749-9192-1a96503033e4.mp4",
-      "caption": "this is what a song looks like before it's a song\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "e6c79054-349f-492d-817b-6c86aad94cef",
+      "scheduled_for": "2026-11-23T14:10:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.005345Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/e6c79054-349f-492d-817b-6c86aad94cef.mp4",
+      "caption": "Notta Problem – Close Quarters\nthe stems and the actual midi from the session, nothing redrawn",
       "title": null,
       "parts": {
-        "hook": "hook_05.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.628,
-        "anchor_y": 0.315,
+        "anchor_x": 0.538,
+        "anchor_y": 0.436,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Evil Close Quarters – @close__quarters. EDUCATION is out now, link in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Notta Problem – Close Quarters\nthe stems and the actual midi from the session, nothing redrawn\n\nEvil Close Quarters is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "e7370330-9174-48dc-be6c-92d83702a234",
+      "scheduled_for": "2026-11-23T16:30:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.005345Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/e7370330-9174-48dc-be6c-92d83702a234.mp4",
+      "caption": "would you have mixed the vocal louder? be honest\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.334,
+        "anchor_y": 0.332,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Suspended by @close__quarters, off our album EDUCATION. full album in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "would you have mixed the vocal louder? be honest\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Suspended"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "4bbc62e9-a54a-4138-969c-2c6854667614",
+      "scheduled_for": "2026-11-23T18:50:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.005345Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/4bbc62e9-a54a-4138-969c-2c6854667614.mp4",
+      "caption": "save this for your next session\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.448,
+        "anchor_y": 0.719,
         "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -81,50 +200,40 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "notta_problem",
+      "creative": "fixation",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-44d9387f-94d2-429e-ae7b-5ea3aab8a9d6",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T16:30:00-05:00"
-        }
-      ],
+      "first_comment": "this is Fixation from EDUCATION (@close__quarters)",
+      "posts": [],
       "captions": {
-        "instagram": "this is what a song looks like before it's a song\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Notta Problem"
+        "instagram": "save this for your next session\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Fixation: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "c8d35925-dce2-4996-acbf-fa7ae1f0420d",
-      "scheduled_for": "2026-11-23T14:10:00-05:00",
-      "rendered_at": "2026-11-23T03:19:20.641950Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/c8d35925-dce2-4996-acbf-fa7ae1f0420d.mp4",
-      "caption": "i produced this. here it is pulled apart.\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "81969242-b1ad-4c8c-80a3-9a45ec22c79e",
+      "scheduled_for": "2026-11-23T21:10:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.005345Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/81969242-b1ad-4c8c-80a3-9a45ec22c79e.mp4",
+      "caption": "Notta Problem – Close Quarters\nthe stems and the actual midi from the session, nothing redrawn",
       "title": null,
       "parts": {
-        "hook": "hook_04.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.313,
-        "anchor_y": 0.495,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.66,
+        "anchor_y": 0.697,
+        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -134,81 +243,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "notta_problem",
+      "creative": "subway_maintenance",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-f710f7c0-daa4-4904-bc00-1f0808fc37ea",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T18:50:00-05:00"
-        }
-      ],
+      "first_comment": "Subway Maintenance – @close__quarters. EDUCATION is out now, link in bio",
+      "posts": [],
       "captions": {
-        "instagram": "i produced this. here it is pulled apart.\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Notta Problem: link in bio"
+        "instagram": "Notta Problem – Close Quarters\nthe stems and the actual midi from the session, nothing redrawn\n\nSubway Maintenance is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "a1c83785-4d14-4d9a-b4e1-cec3e2b59b48",
-      "scheduled_for": "2026-11-23T16:30:00-05:00",
-      "rendered_at": "2026-11-23T03:19:20.641950Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-23/a1c83785-4d14-4d9a-b4e1-cec3e2b59b48.mp4",
-      "caption": "would you have mixed the vocal louder? be honest\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_06.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.281,
-        "anchor_y": 0.738,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "notta_problem",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b319fe17-ed9f-4359-af5d-6f65dc26c38a",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T21:10:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "would you have mixed the vocal louder? be honest\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nNotta Problem is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
