@@ -128,7 +128,10 @@ class GitVcs(Vcs):
             # Brief jittered backoff: two jobs retrying in lockstep would keep
             # colliding on the same rebase-then-push cycle indefinitely.
             self._sleep(0.4 * attempt + random.random() * 0.6)
-            rebase = self._git("pull", "--rebase", check=False)
+            # --autostash: a job may hold files it saved but has not committed yet
+            # (fan-out writes queue.json before the quota commit), and a plain
+            # rebase refuses to start over them ("You have unstaged changes").
+            rebase = self._git("pull", "--rebase", "--autostash", check=False)
             if rebase.returncode != 0:
                 # A genuine conflict means two jobs touched one file, which
                 # should be impossible given the per-campaign split. Abort the
