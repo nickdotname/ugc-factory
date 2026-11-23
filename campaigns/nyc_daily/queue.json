@@ -91,9 +91,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-19f86428-453e-44dc-9ab1-d143a6615f9c",
           "last_error": null,
           "scheduled_for": "2026-11-24T15:05:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "Talk – Close Quarters\nnew york, daily. EDUCATION is out now\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
