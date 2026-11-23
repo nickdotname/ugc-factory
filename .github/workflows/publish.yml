@@ -122,6 +122,8 @@ jobs:
           slot=$(date -u +%H:)$(printf '%02d' $(( m / 15 * 15 )))
           case "$slot" in
             06:45) gh workflow run studio.yml --ref main ;;                      # 1:45am New York: tonight's new videos
+            08:30) gh workflow run render.yml --ref main -f dry_run=false ;;     # 3:30am: turn tonight's videos into posts (render is demand-driven, so a second run adds nothing)
+            09:00|15:00|21:00) gh workflow run topup.yml --ref main -f dry_run=false ;;  # 4am, 10am, 4pm: book them into the day's slots
             14:15|17:15|21:15|01:15) gh workflow run carousel.yml --ref main ;;  # 9:15am, 12:15pm, 4:15pm, 8:15pm New York
             15:45|18:45|22:45|01:45) gh workflow run factreel.yml --ref main ;;  # 10:45am, 1:45pm, 5:45pm, 8:45pm New York
           esac
