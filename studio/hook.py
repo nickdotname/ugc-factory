@@ -6,7 +6,7 @@
 The band and producer styles also try two ways of showing the line (mode(style, seed)):
     'flash'  a yellow box for the first two seconds, as before
     'hold'   a caption that stays on for the whole video, in the place that style leaves free (draw_hold)
-Each recipe records the line ("hook"), its angle ("hook_angle": relatable / share / comment / curious /
+Each recipe records the line ("hook"), its angle ("hook_angle": relatable / comment / curious /
 plain / debate) and the way it was shown ("hook_mode"), so the stats can say which of each keeps people and gets shared.
 """
 import os, random
@@ -21,8 +21,7 @@ from PIL import Image, ImageDraw, ImageFont
 ANGLES = {
     'band': {
         'relatable': ["pov: you found your new favourite band", "songs that sound like 2am", "when the lyrics say what you couldn't",
-                      "this is for the overthinkers", "the song you didn't know you needed", "main character walk home song"],
-        'share':     ["send this to the friend who'd get it", "send this to your music friend", "play this for someone tonight",
+                      "this is for the overthinkers", "the song you didn't know you needed", "main character walk home song",
                       "your sign to start a band with your friends"],
         'comment':   ["which line hit hardest?", "rate this song 1-10", "wait for the last line. thoughts?"],
         'curious':   ["read along", "nobody is talking about this band", "underrated song alert", "lyrics on screen. sound on"],
@@ -39,7 +38,6 @@ ANGLES = {
     'producer': {
         'relatable': ["pov: 3am in the studio", "musicians will understand", "this is what a song looks like inside",
                       "every layer. one screen.", "when the mix finally sits right"],
-        'share':     ["send this to your producer friend", "show this to someone who makes beats", "save this for your next session"],
         'comment':   ["which part would you solo?", "rate the mix 1-10", "producers: what would you change?", "which stem is carrying?"],
         'curious':   ["the song, pulled apart", "hear it. now see it.", "watch the vocals", "sound on"],
         'plain':     ["lesson of the day"],
@@ -52,7 +50,6 @@ ANGLES['rocket'] = {
                 "rocket league peaked in 2016. agree?",
                 "ball cam on or off? defend yourself", "controller or keyboard? pick a side", "this game is dead. right?"],
     'comment': ["guess our rank", "rate this 1-10", "how many hours to pull this off?", "what rank is this?"],
-    'share':   ["send this to your duo", "send this to the friend who always whiffs"],
     'curious': ["wait for it", "rocket league, but on beat", "sound on", "watch the ball", "this is why we can't stop playing",
                 "rocket league players will get it"],
 }
