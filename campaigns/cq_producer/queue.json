@@ -144,18 +144,18 @@
         {
           "account": "dylancantor23_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T09:30:00-05:00"
         }
       ],
       "captions": {
         "instagram": "Silver and Gold – Close Quarters\nthe stems and the actual midi from the session, nothing redrawn\n\nSilver and Gold is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
