@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-23T06:31:01.656715Z",
+  "generated_at": "2026-11-23T08:31:29.703773Z",
   "items": [
     {
-      "id": "ab57898d-584f-426a-84c1-69b21f4b2ae6",
+      "id": "21528eab-e6af-4f24-b5bc-2483136e2efb",
       "scheduled_for": "2026-11-23T11:40:00-05:00",
-      "rendered_at": "2026-11-23T06:31:01.656715Z",
-      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/ab57898d-584f-426a-84c1-69b21f4b2ae6.mp4",
-      "caption": "Prologue: Before – Close Quarters\nfound reel. EDUCATION is out now",
+      "rendered_at": "2026-11-23T08:31:29.703773Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/21528eab-e6af-4f24-b5bc-2483136e2efb.mp4",
+      "caption": "Suspended – Close Quarters\nfound reel. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,9 +16,52 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.534,
-        "anchor_y": 0.664,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.46,
+        "anchor_y": 0.387,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "Suspended – Close Quarters\nfound reel. EDUCATION is out now\n\nlink in bio to stream Suspended"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "585023a9-c248-42e6-8053-d4ef5dcc4833",
+      "scheduled_for": "2026-11-23T15:40:00-05:00",
+      "rendered_at": "2026-11-23T08:31:29.703773Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/585023a9-c248-42e6-8053-d4ef5dcc4833.mp4",
+      "caption": "Full Ride – Close Quarters\nfound reel. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.613,
+        "anchor_y": 0.742,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -28,111 +71,48 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "prologue",
+      "creative": "full_ride",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "vintage_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-da5e3daf-7596-4ebd-8446-7314135d296d",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T11:40:00-05:00"
-        }
-      ],
+      "first_comment": "song: Full Ride by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "Prologue: Before – Close Quarters\nfound reel. EDUCATION is out now\n\nlink in bio to stream Prologue: Before"
+        "instagram": "Full Ride – Close Quarters\nfound reel. EDUCATION is out now\n\nstream Full Ride: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "0150c1fe-2467-474c-9945-8ced5c97e2dd",
-      "scheduled_for": "2026-11-23T15:40:00-05:00",
-      "rendered_at": "2026-11-23T06:31:01.656715Z",
-      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/0150c1fe-2467-474c-9945-8ced5c97e2dd.mp4",
-      "caption": "Talk – Close Quarters\nfound reel. EDUCATION is out now",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.489,
-        "anchor_y": 0.442,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "talk",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "vintage_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-58364834-853d-4228-92d0-cc2f41d92fe9",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T15:40:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Talk – Close Quarters\nfound reel. EDUCATION is out now\n\nstream Talk: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "72088d1d-bc55-49e7-b2d0-439ab5a869f9",
+      "id": "db17e10f-b1f3-48db-8b4a-e4ca79704bd1",
       "scheduled_for": "2026-11-23T19:40:00-05:00",
-      "rendered_at": "2026-11-23T06:31:01.656715Z",
-      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/72088d1d-bc55-49e7-b2d0-439ab5a869f9.mp4",
+      "rendered_at": "2026-11-23T08:31:29.703773Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/db17e10f-b1f3-48db-8b4a-e4ca79704bd1.mp4",
       "caption": "Notta Problem – Close Quarters\nfound reel. EDUCATION is out now",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.466,
-        "anchor_y": 0.47,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
+        "anchor_x": 0.305,
+        "anchor_y": 0.536,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
       "creative": "notta_problem",
       "overlay": null,
@@ -140,22 +120,12 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Notta Problem – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "vintage_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-105b437a-f61c-4dd0-bfcc-29a8a2279453",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T19:40:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
         "instagram": "Notta Problem – Close Quarters\nfound reel. EDUCATION is out now\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
