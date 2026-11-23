@@ -27,7 +27,8 @@ BLOCK = re.compile(r'strip|burlesque|nud|naked|sex|venereal|cigar|tobacco|smok|b
                    r'war\b|wartime|combat|battle|army|navy|bomb|atomic|nuclear|weapon|gun|rifle|kill|death|dead|corpse|'
                    r'propaganda|nazi|hitler|racis|minstrel|blackface|savage|native|indian|negro|oriental|chinese|japanese|jap\b|'
                    r'crime|police|prison|drug|narcot|marijuana|reefer|venus|hygiene|birth|disease|surgery|hospital|accident|crash|riot|'
-                   r'commercial|advertis|\bad\b|\bads\b|\bspot\b|sponsor|brand', re.I)
+                   r'commercial|advertis|\bad\b|\bads\b|\bspot\b|sponsor|brand|'
+                   r'jew|cake.?walk|darkt?own|\bcoons?\b|mammy|pickaninny|sambo|uncle tom|harem|slave', re.I)   # old films' caricature
 
 
 def _open(url, tries=4, raw=False):
