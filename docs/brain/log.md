@@ -2,6 +2,13 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: dashboard accuracy. Metrics were on GitHub's cron, which skipped 2026-11-23 entirely, and the
+  newer accounts had never been measured: now publish.yml starts metrics daily (06:30 UTC) and Instagram-only
+  every 3 hours; IG-only campaigns no longer spend Buffer requests on it. The page lists unbooked renders apart,
+  says how old each post's numbers are, shows failures and carousel pictures, treats "publishing" as booked, and
+  names the song from the outbox when history doesn't. Found while checking: before the held-slot guard (#97
+  era, 22:39 ET 2026-11-22) accounts were often booked twice into one minute; none booked since.
+
 - 2026-11-23: the "share" hook angle is gone from studio/hook.py ("send this to your duo", "save this for your next
   session"...): those are tag-a-friend asks. "your sign to start a band" moved to relatable.
 

@@ -122,7 +122,7 @@ def main(out):
     def row(pid):
         return posts.setdefault(pid, dict(id=pid, account=None, campaign=None, song=None, creative=None, clip=None, what=None,
                                           style=None, lineup=None, status=None, due=None, posted=None, caption='', video=None,
-                                          trial=None, m={}))
+                                          trial=None, m={}, mt=None, via=None, error=None, image=None))
 
     for cdir in sorted(glob.glob(os.path.join(ROOT, 'campaigns', '*'))):
         camp = os.path.basename(cdir)
@@ -163,12 +163,15 @@ def main(out):
                 if st == 'pushed' and not str(pid).startswith('igo-'):        # handed to Buffer: Buffer posts it at its time
                     st = 'published' if r['due'] and r['due'] < now else 'scheduled'
                     if st == 'published': r['posted'] = r['posted'] or r['due']
+                    r['via'] = 'buffer'
                 r['status'] = r['status'] or st
                 r['caption'] = (it.get('captions') or {}).get('instagram') or it.get('caption') or r['caption']
                 r['video'] = r['video'] or it.get('video_url')
         for pid, p in (load(os.path.join(cdir, 'posts.json'), {}).get('posts') or {}).items():
             r = row(pid); r['account'] = r['account'] or p.get('account'); r['campaign'] = r['campaign'] or camp
             r['posted'] = r['posted'] or iso(p.get('sent_at')); r['status'] = 'published'
+            r['mt'] = iso(p.get('fetched_at')) or r['mt']                      # when these numbers were read
+            if r['via'] == 'buffer': r['via'] = 'buffer-confirmed'               # Buffer says it went out
             for m in p.get('metrics') or []:
                 k = METRICS.get(m.get('type'))
                 if k and m.get('value') is not None: r['m'][k] = round(float(m['value']), 2)
@@ -181,7 +184,11 @@ def main(out):
         r['status'] = d.get('status') or r['status']; r['due'] = iso(d.get('scheduled_for')) or r['due']
         r['posted'] = iso(d.get('published_at')) or r['posted']; r['caption'] = d.get('caption') or r['caption']
         r['video'] = d.get('video_url') or r['video']; r['trial'] = d.get('trial')
+        if not r['video'] and d.get('image_urls'): r['image'] = (d.get('image_urls') or [None])[0]   # a carousel: its first picture
         if not r['campaign']: r['campaign'] = campaign_of_account.get(r['account'])
+        if not r['song'] and d.get('audio_name'):                        # posts from before history kept their song
+            r['song'] = str(d['audio_name']).split(' – ')[0]
+        if r['status'] == 'failed': r['error'] = str(d.get('error') or d.get('last_error') or '')[:200] or None
 
     rows = []
     since = datetime.now(timezone.utc).timestamp() - 60 * 86400
@@ -200,7 +207,9 @@ def main(out):
     pics = pfps(accounts, old, campaign_of_account)
     data = dict(generated=datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
                 accounts=[dict(name=a, handle=HANDLES.get(a, a), campaign=campaign_of_account.get(a),
-                               pfp=(pics.get(a) or (None, None))[0], pfp_at=(pics.get(a) or (None, None))[1]) for a in accs],
+                               pfp=(pics.get(a) or (None, None))[0], pfp_at=(pics.get(a) or (None, None))[1],
+                               numbers_at=max((r['mt'] for r in rows if r['account'] == a and r['mt']), default=None))
+                          for a in accs],
                 posts=rows)
     if old.get('posts') == json.loads(json.dumps(rows)) and old.get('accounts') == data['accounts']:
         print('no change since %s' % old.get('generated')); return      # nothing new: leave the file (and the repo) alone
