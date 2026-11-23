@@ -144,9 +144,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-84fbadae-82c1-4180-9153-240a1a9c5705",
           "last_error": null,
           "scheduled_for": "2026-11-24T19:50:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "3D, but it's only text\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
