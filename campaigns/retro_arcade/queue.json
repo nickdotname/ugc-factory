@@ -144,9 +144,9 @@
         {
           "account": "retro_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-bb6b2e66-ab24-4684-a52b-900fa194eb19",
           "last_error": null,
           "scheduled_for": "2026-11-24T12:50:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Subway Maintenance – Close Quarters\nfound on a memory card from 2003. EDUCATION is out now\n\nstream Subway Maintenance: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
