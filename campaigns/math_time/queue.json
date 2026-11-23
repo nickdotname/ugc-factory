@@ -144,9 +144,9 @@
         {
           "account": "math_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-b17c062b-2c3a-4dbe-a24c-313c6feac4d0",
           "last_error": null,
           "scheduled_for": "2026-11-25T10:40:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Evil Close Quarters – Close Quarters\nmath, in time with the music. EDUCATION is out now\n\nstream Evil Close Quarters: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
