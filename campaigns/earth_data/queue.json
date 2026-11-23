@@ -144,9 +144,9 @@
         {
           "account": "earth_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-1d74e902-a9d7-4869-8d43-77003dbb27aa",
           "last_error": null,
           "scheduled_for": "2026-11-25T13:35:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Passage (Waiting) – Close Quarters\nreal data, taken this morning. EDUCATION is out now\n\nPassage (Waiting) is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
