@@ -91,9 +91,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-dc1ddb23-211b-4aaf-ab91-b4296cca9cdc",
           "last_error": null,
           "scheduled_for": "2026-11-25T15:05:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "Won't Be the Same Again – Close Quarters\nnew york, daily. EDUCATION is out now\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
