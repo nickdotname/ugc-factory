@@ -1,129 +1,66 @@
 {
-  "generated_at": "2026-11-22T12:42:16.868612Z",
+  "generated_at": "2026-11-23T03:57:28.149187Z",
   "items": [
     {
-      "id": "9fd5682e-e183-41d7-b073-5777ab16857e",
-      "scheduled_for": "2026-11-22T09:20:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/9fd5682e-e183-41d7-b073-5777ab16857e.mp4",
-      "caption": "pov: the song starts looking back at you\n🎧 Prologue: Before – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "id": "deacaa7e-f110-44a7-9390-28628f6e28a1",
+      "scheduled_for": "2026-11-23T09:20:00-05:00",
+      "rendered_at": "2026-11-23T03:57:28.149187Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/deacaa7e-f110-44a7-9390-28628f6e28a1.mp4",
+      "caption": "loop it. it gets deeper every time.\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.454,
-        "anchor_y": 0.462,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "prologue",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b74bec98-0933-469e-8eda-afee3af11257",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T12:50:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "pov: the song starts looking back at you\n🎧 Prologue: Before – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Prologue: Before"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "ccb17d38-4aca-4985-a84a-e07c21778ee1",
-      "scheduled_for": "2026-11-22T11:05:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/ccb17d38-4aca-4985-a84a-e07c21778ee1.mp4",
-      "caption": "pov: the song starts looking back at you\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.332,
-        "anchor_y": 0.442,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "myth_of_sisyphus",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4f1cc65e-39d3-4020-9784-554e78079f66",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T14:35:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "pov: the song starts looking back at you\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Myth of Sisyphus: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "22e75068-433e-4bae-bda4-4c775cc2e4af",
-      "scheduled_for": "2026-11-22T12:50:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/22e75068-433e-4bae-bda4-4c775cc2e4af.mp4",
-      "caption": "send this to the friend who would stare at it for an hour\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.721,
+        "anchor_x": 0.366,
         "anchor_y": 0.721,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Full Ride – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "loop it. it gets deeper every time.\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nFull Ride is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "580317f2-dfa4-4ebd-8407-f4a53a3251d8",
+      "scheduled_for": "2026-11-23T11:05:00-05:00",
+      "rendered_at": "2026-11-23T03:57:28.149187Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/580317f2-dfa4-4ebd-8407-f4a53a3251d8.mp4",
+      "caption": "pov: the song starts looking back at you\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.268,
+        "anchor_y": 0.303,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -132,295 +69,20 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-e7f8402f-c3f9-4e76-9ac8-611e8e553d1f",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T16:20:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "send this to the friend who would stare at it for an hour\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nSuspended is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "ceb4c01e-f8b5-485d-a8c1-c145fe373f35",
-      "scheduled_for": "2026-11-22T14:35:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/ceb4c01e-f8b5-485d-a8c1-c145fe373f35.mp4",
-      "caption": "what do you see in this? wrong answers only\n🎧 Fixation – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.73,
-        "anchor_y": 0.513,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "fixation",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-60f02b04-139b-4351-b1f1-97ae266018a5",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T18:05:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "what do you see in this? wrong answers only\n🎧 Fixation – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Fixation"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "07999165-e1aa-4c6c-ba66-0e0032ed2a40",
-      "scheduled_for": "2026-11-22T16:20:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/07999165-e1aa-4c6c-ba66-0e0032ed2a40.mp4",
-      "caption": "this is your sign to put your headphones on\n🎧 Won't Be the Same Again – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.679,
-        "anchor_y": 0.546,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "full_ride",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-3f908740-79eb-43a0-8eca-cb5937199193",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T19:50:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "this is your sign to put your headphones on\n🎧 Won't Be the Same Again – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Won't Be the Same Again: link in bio"
+        "instagram": "pov: the song starts looking back at you\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "f8f6dbbe-d989-4ca8-8de6-1cc9b953caa5",
-      "scheduled_for": "2026-11-22T18:05:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/f8f6dbbe-d989-4ca8-8de6-1cc9b953caa5.mp4",
-      "caption": "what do you see in this? wrong answers only\n🎧 Won't Be the Same Again – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.646,
-        "anchor_y": 0.317,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "wont_be_the_same_again",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4bf8c6be-56b4-4a2e-a809-914bdffb0124",
-          "last_error": null,
-          "scheduled_for": "2026-11-22T21:35:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "what do you see in this? wrong answers only\n🎧 Won't Be the Same Again – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nWon't Be the Same Again is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "b63edff7-bcad-4d52-8886-371be99c6b5c",
-      "scheduled_for": "2026-11-22T19:50:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/b63edff7-bcad-4d52-8886-371be99c6b5c.mp4",
-      "caption": "pov: the song starts looking back at you\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.568,
-        "anchor_y": 0.589,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-03a290f0-8552-4cd7-96f4-17653dd2073b",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T09:20:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "pov: the song starts looking back at you\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Suspended"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "b108f3b3-4d68-4d4f-8f4e-fe84d92863d3",
-      "scheduled_for": "2026-11-22T21:35:00-05:00",
-      "rendered_at": "2026-11-22T12:42:16.868612Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-22/b108f3b3-4d68-4d4f-8f4e-fe84d92863d3.mp4",
-      "caption": "send this to the friend who would stare at it for an hour\n🎧 Talk – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.454,
-        "anchor_y": 0.275,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "talk",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-324df293-a27b-4712-ae32-ca9b660dc554",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T11:05:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "send this to the friend who would stare at it for an hour\n🎧 Talk – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Talk: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
