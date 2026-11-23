@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-23T03:57:25.169736Z",
+  "generated_at": "2026-11-23T06:31:04.102204Z",
   "items": [
     {
-      "id": "89a2a19c-27a7-454b-8790-b0bc421556d8",
+      "id": "711d3e62-9534-4612-935b-1c420e7e1630",
       "scheduled_for": "2026-11-23T10:40:00-05:00",
-      "rendered_at": "2026-11-23T03:19:25.808706Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/89a2a19c-27a7-454b-8790-b0bc421556d8.mp4",
-      "caption": "the one explanation that finally made sense\n🎧 Myth of Sisyphus – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "rendered_at": "2026-11-23T06:31:04.102204Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/711d3e62-9534-4612-935b-1c420e7e1630.mp4",
+      "caption": "Notta Problem – Close Quarters\nmath, in time with the music. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,115 +16,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.27,
-        "anchor_y": 0.407,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "myth_of_sisyphus",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "math_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-0b41d1d1-0cef-49d8-afca-40a522307a05",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T15:00:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the one explanation that finally made sense\n🎧 Myth of Sisyphus – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nMyth of Sisyphus is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "7565cffb-dc16-4102-b271-4967dccfd670",
-      "scheduled_for": "2026-11-23T15:00:00-05:00",
-      "rendered_at": "2026-11-23T03:19:25.808706Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/7565cffb-dc16-4102-b271-4967dccfd670.mp4",
-      "caption": "the math teacher you needed in high school\n🎧 Full Ride – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.626,
-        "anchor_y": 0.499,
+        "anchor_x": 0.34,
+        "anchor_y": 0.566,
         "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "full_ride",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "math_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-cf078452-7096-47b8-883b-992ec3dbd39c",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T19:20:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the math teacher you needed in high school\n🎧 Full Ride – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Full Ride"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "13fd1969-dffd-4749-8a1e-800b3ccfbd21",
-      "scheduled_for": "2026-11-23T19:20:00-05:00",
-      "rendered_at": "2026-11-23T03:19:25.808706Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/13fd1969-dffd-4749-8a1e-800b3ccfbd21.mp4",
-      "caption": "calculus, but it's on the beat\n🎧 Won't Be the Same Again – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.321,
-        "anchor_y": 0.417,
-        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -134,28 +28,104 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "notta_problem",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "math_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-354b7b4a-032a-46e0-b18c-92794e6fa865",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T10:40:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Notta Problem – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "calculus, but it's on the beat\n🎧 Won't Be the Same Again – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nstream Won't Be the Same Again: link in bio"
+        "instagram": "Notta Problem – Close Quarters\nmath, in time with the music. EDUCATION is out now\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "4fbd4894-bf08-4e57-8c4a-7e04141e6f5f",
+      "scheduled_for": "2026-11-23T15:00:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.102204Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/4fbd4894-bf08-4e57-8c4a-7e04141e6f5f.mp4",
+      "caption": "the math teacher you needed in high school\n🎧 Talk – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.67,
+        "anchor_y": 0.53,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "talk",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "the math teacher you needed in high school\n🎧 Talk – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Talk"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "3d462e9f-acda-455f-b79d-5dd045d64f39",
+      "scheduled_for": "2026-11-23T19:20:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.102204Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/3d462e9f-acda-455f-b79d-5dd045d64f39.mp4",
+      "caption": "Evil Close Quarters – Close Quarters\nmath, in time with the music. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.536,
+        "anchor_y": 0.513,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Evil Close Quarters by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Evil Close Quarters – Close Quarters\nmath, in time with the music. EDUCATION is out now\n\nstream Evil Close Quarters: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
