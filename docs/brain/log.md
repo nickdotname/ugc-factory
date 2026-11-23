@@ -6,8 +6,8 @@ Back to [[README]]. Newest first; one line per change worth remembering.
   free GPUs (release `plates-library`; themes school, psych, nyc, liminal, psy). New style `scene` for
   close__quarters sets the cut-out band into an after-hours school, psych landscapes or New York on film; the first
   version copied dev_lemons too closely (letterbox, italic lyrics, laptop, handheld, billboard) and was rewritten.
-  Footage theme `nyc_now`: modern New York from Pexels (free licence, needs `PEXELS_API_KEY`) and recent PD/CC0
-  Commons files, because the 1899 films were the wrong New York for it.
+  Footage theme `nyc_now`: modern New York from Pexels (free licence, needs `PEXELS_API_KEY`; Commons has no
+  usable no-credit footage of today's city: tried, 18 news clips, purged), because the 1899 films were the wrong New York for it.
 
 - 2026-11-23: band footage. Notta Problem's dance clip starts where song.json's sections end, so the studio never
   offered it: footage styles (lofi, cutout) now also use stretches inside the footage itself. close__quarters favours

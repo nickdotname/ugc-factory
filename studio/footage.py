@@ -83,9 +83,7 @@ def _clean(html): return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', html or ''))
 
 
 # ---------------------------------------------------------------- sources: each yields (key, title, url of a playable file, duration, licence, page)
-def commons(q, n=30, since=0):
-    """Commons videos anyone may reuse with no credit. since: only files dated that year or later, in colour-era
-    sizes (at least 720 px on the short side), for themes that want the place as it looks now."""
+def commons(q, n=30):
     p = dict(action='query', format='json', generator='search', gsrsearch='%s filetype:video' % q, gsrnamespace=6, gsrlimit=n,
              prop='videoinfo', viprop='url|size|mime|extmetadata|derivatives')
     pages = (_open('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(p)).get('query') or {}).get('pages') or {}
@@ -94,9 +92,6 @@ def commons(q, n=30, since=0):
         lic = _clean((meta.get('LicenseShortName') or {}).get('value'))
         desc = _clean((meta.get('ImageDescription') or {}).get('value')) + ' ' + _clean((meta.get('Categories') or {}).get('value'))
         if not NO_CREDIT.match(lic) or BLOCK.search(pg['title'] + ' ' + desc): continue
-        if since:
-            year = re.search(r'(19|20)\d\d', _clean((meta.get('DateTimeOriginal') or meta.get('DateTime') or {}).get('value')))
-            if not year or int(year.group(0)) < since or min(vi.get('width') or 0, vi.get('height') or 0) < 720: continue
         ders = [d for d in vi.get('derivatives') or [] if d.get('type', '').startswith('video/')]
         ders.sort(key=lambda d: abs((d.get('height') or 0) - 720))
         src = ders[0]['src'] if ders else vi.get('url')
@@ -155,9 +150,6 @@ def silent(q, n=8):
             'Public Domain (published %d)' % year, 'https://archive.org/details/' + d['identifier']
 
 
-def commons_now(q, n=40): return commons(q, n, since=2008)
-
-
 def pexels(q, n=40):
     """Pexels videos (the Pexels licence: free to use and adapt, commercially too, no credit needed), upright ones
     first since that is the shape we post. Needs a free API key in PEXELS_API_KEY; without one it finds nothing.
@@ -178,9 +170,9 @@ def pexels(q, n=40):
 
 PEOPLE = re.compile(r'\b(man|woman|men|women|girl|boy|person|people|model|couple|portrait|selfie|kid|child|baby|dancing|posing|smiling|walking)\b', re.I)
 NOW = {'nyc_now'}        # themes of a place as it looks today: upright 720x1280 pieces in our own grade, short clips kept whole
-SOURCES = {'commons': commons, 'commons_now': commons_now, 'pexels': pexels, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent}
+SOURCES = {'commons': commons, 'pexels': pexels, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent}
 BY_THEME = {'space': ['nasa', 'commons'], 'archive': ['prelinger'], 'city': ['commons', 'prelinger'], 'water': ['commons', 'prelinger'], 'nature': ['commons', 'nasa'],
-            'silent': ['silent'], 'nyc': ['commons', 'prelinger', 'silent'], 'nyc_now': ['pexels', 'commons_now']}
+            'silent': ['silent'], 'nyc': ['commons', 'prelinger', 'silent'], 'nyc_now': ['pexels']}       # Commons' no-credit files of today's New York turned out to be news clips, not places: tried, dropped
 
 
 # ---------------------------------------------------------------- cutting
@@ -292,9 +284,11 @@ def pull(themes=()):
 
 
 def purge():
-    """Remove from the library (index and release) every clip the block list now rules out, or found by a query no longer asked."""
+    """Remove from the library (index and release) every clip the block list now rules out, found by a query no
+    longer asked, or from a source its theme no longer takes."""
     idx = index(); asked = {q for ql in json.load(open(QUERIES)).values() for q in ql}
-    bad = [e for e in idx.get('clips', []) if e.get('source') != 'own' and (BLOCK.search(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked)]
+    bad = [e for e in idx.get('clips', []) if e.get('source') != 'own' and (BLOCK.search(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked
+                                                                           or e.get('source') not in BY_THEME.get(e['theme'], ['commons']))]
     if not bad: print('nothing to remove'); return
     rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)
     ids = {a['name']: a['id'] for a in rel.get('assets', [])}

@@ -14,7 +14,7 @@ Themes with the fewest clips are fetched first.
 | water, nature, city, space, archive | Wikimedia Commons (PD/CC0 only), Prelinger Archives, NASA | glitch |
 | silent | Internet Archive, films dated 1890–1930 (US public domain by date); restorations, colourised copies, trailers and documentaries skipped | vintage |
 | nyc | Commons, Prelinger, silent-era New York films, **and our own clips** | nyc |
-| nyc_now | New York as it looks today: **Pexels** (Pexels licence: free to use and adapt, no credit; needs the free `PEXELS_API_KEY` secret) and Commons PD/CC0 files dated 2008 or later | scene (nyc world) |
+| nyc_now | New York as it looks today: **Pexels** (Pexels licence: free to use and adapt, no credit; needs the free `PEXELS_API_KEY` secret) | scene (nyc world) |
 
 `nyc_now` pieces are cut differently (`NOW` in footage.py): upright 720×1280, put through our film grade (the
 library holds our version, not a copy of the stock file), clips of 5–12 s kept whole, titles about people skipped

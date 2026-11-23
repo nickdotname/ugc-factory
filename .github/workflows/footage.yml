@@ -1,5 +1,5 @@
 # Grow the footage library glitch.archive and the band's nyc world draw from (studio/footage.py): find films on
-# Wikimedia Commons, the Prelinger Archives and NASA (and modern New York on Pexels and Commons), cut short silent pieces with motion in them, upload them to the
+# Wikimedia Commons, the Prelinger Archives and NASA (and modern New York on Pexels), cut short silent pieces with motion in them, upload them to the
 # "footage-library" release, and record their sources and licences in studio/footage/index.json.
 name: footage
 
@@ -41,7 +41,7 @@ jobs:
       - name: Fetch and cut
         env:
           GH_TOKEN: ${{ github.token }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}     # free key from pexels.com/api; without it the modern themes use Commons only
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}     # free key from pexels.com/api; without it the modern themes find nothing
         run: python studio/footage.py fetch --max "${{ github.event.inputs.max || '40' }}"
       - name: Keep the index
         run: |

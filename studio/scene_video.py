@@ -123,7 +123,7 @@ class Video:
         1899 films (theme nyc) are the wrong New York for this and never used here."""
         if world == 'nyc':
             try:
-                now = [e for e in footage.index().get('clips', []) if e.get('theme') == 'nyc_now' or (e.get('theme') == 'nyc' and e.get('source') == 'own')]
+                now = [e for e in footage.index().get('clips', []) if e.get('source') in ('pexels', 'own') and e.get('theme') in ('nyc_now', 'nyc')]
                 if len(now) >= 3:
                     footage.pull(('nyc_now',)); any(e.get('source') == 'own' for e in now) and footage.pull(('nyc',)); now = [e for e in now if os.path.exists(os.path.join(footage.CACHE, e['asset']))]
                     if len(now) >= 3: return [dict(e, moving=True) for e in now]
