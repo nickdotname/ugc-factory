@@ -8,6 +8,9 @@ Back to [[README]]. Newest first; one line per change worth remembering.
   half of what Buffer held, because queue.json forgets a pushed item at the next render: topup now records the
   campaign's own posts waiting in Buffer (`campaigns/<c>/backend_queue.json`) and the page shows them, and videos
   rendered but not yet offered to Buffer show as waiting.
+- 2026-11-23: from the account review. psychedelic.station's `star` motif drew a six-pointed star when the symmetry
+  was 3, 6 or 12; it now has eight points in those cases. "Rate this 1-10" lines removed from the hook menus and two
+  caption banks (a comment-ask is bait; open questions and the hot takes stay).
 - 2026-11-23: two things stopped Notta Problem's footage videos after #107. (1) Its dance clip sits at 99–150 s
   and the song's stems stop at 100 s (as do Evil, Silver and Gold, Subway Maintenance: only their first half was
   prepared), so every window read as silent and was skipped; now footage past the stems is accepted and

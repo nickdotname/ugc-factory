@@ -260,7 +260,8 @@ def overlays(a, i):
         if plan['motif'] == 'poly':
             for q in range(4): cv2.polylines(a, [ngon(n, r * (1 - q * .2), th + q * .25)], True, (255, 255, 255), lw, cv2.LINE_AA)
         elif plan['motif'] == 'star':
-            p = ngon(n * 2 if n % 2 else n, r, th)
+            m = n * 2 if n % 2 else n; m = 8 if m == 6 else m                      # never six points: two crossed triangles are not ours to spin over fact reels
+            p = ngon(m, r, th)
             for k in range(len(p)): cv2.line(a, tuple(p[k]), tuple(p[(k + len(p) // 2 - 1) % len(p)]), (255, 255, 255), lw - 1, cv2.LINE_AA)
         elif plan['motif'] == 'eye':
             cv2.ellipse(a, (cx, cy), (int(r * 1.25), int(r * .55 * (.5 + .5 * abs(np.cos(T * .9))) + 8)), 0, 0, 360, (255, 255, 255), lw, cv2.LINE_AA)
