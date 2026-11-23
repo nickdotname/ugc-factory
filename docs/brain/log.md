@@ -2,6 +2,9 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: `studio/replies.py` answers "what song is this?" under our Instagram posts with the song and
+  @close__quarters (once a quarter hour from `publish.yml`; 3 a run, 6 an hour, 30 a day per account; nothing
+  else is answered). Needs `instagram_manage_comments` on IG_TOKEN. Loose Change (Buffer) is not covered.
 - 2026-11-23: repo brain (`CLAUDE.md`, `docs/brain/`). The three instrumentals get `prep_instrumental.py` (#92).
   NYC facts checked; own-clip inbox (#94). Fission for math.explainers (#93).
 - 2026-11-23: @vintage.media.archive and @nyc.daily.aesthetic created, made Creator, linked to new Pages under

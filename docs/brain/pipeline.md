@@ -4,7 +4,7 @@ All times New York (UTC−5 in winter). Back to [[README]].
 
 | when (NY) | UTC | job | what it does |
 |---|---|---|---|
-| every 5 min | */5 | `publish.yml` | sends due Instagram posts from `outbox/`, posts first comments, refreshes `cqdash/data.json`, starts the jobs below on the minutes listed |
+| every 5 min | */5 | `publish.yml` | sends due Instagram posts from `outbox/`, posts first comments, answers "what song is this?" comments once a quarter hour (`studio/replies.py`, state in `replies/state.json`), refreshes `cqdash/data.json`, starts the jobs below on the minutes listed |
 | 00:52 | 05:52 | `earthdata.yml` | satellites, flights, earthquakes for [[styles#earth]] |
 | 01:45 | 06:45 | `studio.yml` | `studio/nightly.py`: new videos for every target in `studio/nightly.yaml` → each song's clip library (GitHub release `assets-<campaign>-<song>`) |
 | 03:30 | 08:30 | `render.yml` | `ugc render`: picks unused library videos per campaign up to `posts_per_day × max_backlog_days` (1), writes `campaigns/<c>/queue.json` |
