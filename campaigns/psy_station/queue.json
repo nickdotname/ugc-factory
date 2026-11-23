@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-05dc069b-f30b-4d5c-bd15-ec2269997637",
+          "buffer_post_id": "igo-977a036d-fbec-48ea-9de7-799bd42869be",
           "last_error": null,
           "scheduled_for": "2026-11-23T12:50:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-47e96797-ff15-4e2d-add7-a89177728081",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-23T14:35:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "pov: the song starts looking back at you\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
