@@ -97,6 +97,27 @@ def thompson(options, stats, r, retired=()):
         if v > top: best, top = o, v
     return best
 
+# The knob that says what a video is about, for each style. The learner would happily show a winning subject night
+# after night (math posted Fourier four times running), so whatever the knobs come out as, a video's subject is never
+# one of the FRESH share of options its account used most recently.
+SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
+           'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette'}
+FRESH = 0.6
+
+def freshen(style, menu, kn, recent, learned, r):
+    """kn with its subject knob moved off anything the account showed in its last few videos (recent, oldest first)."""
+    name = SUBJECT.get(style); opts = list(menu.get(name) or [])
+    if not name or len(opts) < 2: return kn
+    avoid = []
+    for v in reversed(recent):
+        if v in opts and v not in avoid: avoid.append(v)
+        if len(avoid) >= max(1, int(len(opts) * FRESH)): break
+    fresh = [o for o in opts if o not in avoid] or opts
+    if kn.get(name) in fresh: return kn
+    st, ret = learned.get('stats') or {}, learned.get('retired') or {}
+    return dict(kn, **{name: thompson(fresh, st.get('knob:' + name) or {}, r, ret.get('knob:' + name) or ())})
+
 def choose(style, menu, learned, seed):
     """The knobs and settings nightly fixes for one video, and whether it was left to chance."""
     r = random.Random(seed * 2654435761 % 2 ** 32)
@@ -224,11 +245,15 @@ for t in cfg['targets']:
         for c in cands:
             if len(picked) >= want: break
             if c not in picked and per_song.get(c[0], 0) < lap: picked.append(c); per_song[c[0]] = per_song.get(c[0], 0) + 1
-    jobs, meta = [], []
+    jobs, meta, tonight = [], [], []
     for slug, cr, sid, win, lyr in picked:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
         kn, extra, how = choose(style, menu, L, seed)
+        sub = SUBJECT.get(style)
+        recent = [(e.get('knobs') or {}).get(sub) for e in rec.get('nightly', []) if e.get('style') == style] + tonight
+        kn = freshen(style, menu, kn, recent, L, random.Random(seed + 2))
+        if sub in kn: tonight.append(kn[sub])
         if SET: kn, how = dict(kn, **SET), 'set'                  # a run asked for a particular look (a new format to see now)
         cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
         if how == 'free': cut = 'full' if rng.random() >= TIGHT else ('short' if style in VISUAL and rng.random() < SHORT else 'tight')
