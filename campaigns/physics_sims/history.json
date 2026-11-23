@@ -283,6 +283,108 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-23T06:31:23.970640Z",
+      "item_id": "7743528e-2381-4325-b10f-36722998319e",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.315,
+        "anchor_y": 0.599,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-23T06:31:23.970640Z",
+      "item_id": "c51b0247-3a3b-44d0-ac31-9c34cfcebd12",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "every bounce is a beat. sound on.\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "title": null,
+      "creative": "hair_of_the_dog",
+      "captions": {
+        "instagram": "every bounce is a beat. sound on.\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Hair of the Dog"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.334,
+        "anchor_y": 0.536,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-23T06:31:23.970640Z",
+      "item_id": "71cf9c43-1302-424a-b605-c78d3bc08f94",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "wait for the drop\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "title": null,
+      "creative": "talk",
+      "captions": {
+        "instagram": "wait for the drop\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Talk: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.705,
+        "anchor_y": 0.34,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

@@ -1,23 +1,66 @@
 {
-  "generated_at": "2026-11-23T03:57:33.538125Z",
+  "generated_at": "2026-11-23T06:31:23.970640Z",
   "items": [
     {
-      "id": "709951f5-142c-4022-9965-8611e1be3250",
+      "id": "7743528e-2381-4325-b10f-36722998319e",
       "scheduled_for": "2026-11-23T13:25:00-05:00",
-      "rendered_at": "2026-11-23T03:19:55.424027Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/709951f5-142c-4022-9965-8611e1be3250.mp4",
-      "caption": "this is weirdly satisfying with sound\n🎧 Suspended – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "rendered_at": "2026-11-23T06:31:23.970640Z",
+      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/7743528e-2381-4325-b10f-36722998319e.mp4",
+      "caption": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.319,
-        "anchor_y": 0.315,
+        "anchor_x": 0.315,
+        "anchor_y": 0.599,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "c51b0247-3a3b-44d0-ac31-9c34cfcebd12",
+      "scheduled_for": "2026-11-23T16:45:00-05:00",
+      "rendered_at": "2026-11-23T06:31:23.970640Z",
+      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/c51b0247-3a3b-44d0-ac31-9c34cfcebd12.mp4",
+      "caption": "every bounce is a beat. sound on.\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.334,
+        "anchor_y": 0.536,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -28,134 +71,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "suspended",
+      "creative": "hair_of_the_dog",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "physics_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-98aad068-a638-4166-b521-3b876ab8d15f",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T13:25:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "this is weirdly satisfying with sound\n🎧 Suspended – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nSuspended is out now. link in bio to stream it"
+        "instagram": "every bounce is a beat. sound on.\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Hair of the Dog"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "474d92f6-f21b-4864-83b0-2cf18aae530a",
-      "scheduled_for": "2026-11-23T16:45:00-05:00",
-      "rendered_at": "2026-11-23T03:19:55.424027Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/474d92f6-f21b-4864-83b0-2cf18aae530a.mp4",
-      "caption": "every bounce is a beat. sound on.\n🎧 Full Ride – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "id": "71cf9c43-1302-424a-b605-c78d3bc08f94",
+      "scheduled_for": "2026-11-23T20:05:00-05:00",
+      "rendered_at": "2026-11-23T06:31:23.970640Z",
+      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/71cf9c43-1302-424a-b605-c78d3bc08f94.mp4",
+      "caption": "wait for the drop\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.619,
-        "anchor_y": 0.579,
+        "anchor_x": 0.705,
+        "anchor_y": 0.34,
         "rotate_deg": 0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "full_ride",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "physics_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-94b32ef7-b296-430f-823f-c51de760b2c9",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T16:45:00-05:00"
-        }
-      ],
+      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "every bounce is a beat. sound on.\n🎧 Full Ride – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Full Ride"
+        "instagram": "wait for the drop\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "1f445635-faa4-480a-8eee-8d1f14108dab",
-      "scheduled_for": "2026-11-23T20:05:00-05:00",
-      "rendered_at": "2026-11-23T03:19:55.424027Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/1f445635-faa4-480a-8eee-8d1f14108dab.mp4",
-      "caption": "wait for the drop\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.438,
-        "anchor_y": 0.656,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "hair_of_the_dog",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "physics_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-cbb42a83-23d7-4be8-828e-ff78adcf72bd",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T20:05:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "wait for the drop\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Hair of the Dog: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
