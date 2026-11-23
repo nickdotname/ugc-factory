@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-23T06:31:04.258475Z",
+  "generated_at": "2026-11-23T08:31:26.880509Z",
   "items": [
     {
-      "id": "6b73bae6-a6f9-459e-83a2-fb7f1881cc46",
+      "id": "f8d0cb5b-d8be-402c-9e64-769db3efe901",
       "scheduled_for": "2026-11-23T11:50:00-05:00",
-      "rendered_at": "2026-11-23T06:31:04.258475Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/6b73bae6-a6f9-459e-83a2-fb7f1881cc46.mp4",
-      "caption": "Subway Maintenance – Close Quarters\ndrawn in letters. EDUCATION is out now",
+      "rendered_at": "2026-11-23T08:31:26.880509Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/f8d0cb5b-d8be-402c-9e64-769db3efe901.mp4",
+      "caption": "Evil Close Quarters – Close Quarters\ndrawn in letters. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,115 +16,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.364,
-        "anchor_y": 0.419,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "subway_maintenance",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "ascii_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-27fa066c-1095-41cf-8365-109c15316a4e",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T11:50:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Subway Maintenance – Close Quarters\ndrawn in letters. EDUCATION is out now\n\nSubway Maintenance is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "9863810f-9cd0-43f8-82f6-efd1debb025c",
-      "scheduled_for": "2026-11-23T15:50:00-05:00",
-      "rendered_at": "2026-11-23T06:31:04.258475Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/9863810f-9cd0-43f8-82f6-efd1debb025c.mp4",
-      "caption": "every letter here is placed by code. sound on.\n🎧 Talk – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.275,
-        "anchor_y": 0.675,
+        "anchor_x": 0.493,
+        "anchor_y": 0.73,
         "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "talk",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "ascii_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-a6b3b63e-0694-46e0-9553-8066eb86cdc1",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T15:50:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "every letter here is placed by code. sound on.\n🎧 Talk – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Talk"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "c163aa94-be4d-456c-9493-a1ac08e68534",
-      "scheduled_for": "2026-11-23T19:50:00-05:00",
-      "rendered_at": "2026-11-23T06:31:04.258475Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/c163aa94-be4d-456c-9493-a1ac08e68534.mp4",
-      "caption": "3D, but it's only text\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
-      "title": null,
-      "parts": {
-        "hook": "hook_04.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.491,
-        "anchor_y": 0.409,
-        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -134,28 +28,104 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "prologue",
+      "creative": "evil_close_quarters",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "ascii_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-84fbadae-82c1-4180-9153-240a1a9c5705",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T19:50:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "3D, but it's only text\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Prologue: Before: link in bio"
+        "instagram": "Evil Close Quarters – Close Quarters\ndrawn in letters. EDUCATION is out now\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "85060dd7-1be5-4db5-8f3f-7a0e7cc9f72e",
+      "scheduled_for": "2026-11-23T15:50:00-05:00",
+      "rendered_at": "2026-11-23T08:31:26.880509Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/85060dd7-1be5-4db5-8f3f-7a0e7cc9f72e.mp4",
+      "caption": "every letter here is placed by code. sound on.\n🎧 Won't Be the Same Again – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.317,
+        "anchor_y": 0.577,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "every letter here is placed by code. sound on.\n🎧 Won't Be the Same Again – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "fa79ae36-3d63-4e57-a421-9956b7565f01",
+      "scheduled_for": "2026-11-23T19:50:00-05:00",
+      "rendered_at": "2026-11-23T08:31:26.880509Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/fa79ae36-3d63-4e57-a421-9956b7565f01.mp4",
+      "caption": "Silver and Gold – Close Quarters\ndrawn in letters. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.536,
+        "anchor_y": 0.525,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "silver_and_gold",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Silver and Gold by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Silver and Gold – Close Quarters\ndrawn in letters. EDUCATION is out now\n\nstream Silver and Gold: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
