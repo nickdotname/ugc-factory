@@ -1,76 +1,23 @@
 {
-  "generated_at": "2026-11-23T08:31:32.355592Z",
+  "generated_at": "2026-11-23T14:56:34.289047Z",
   "items": [
     {
-      "id": "99a53e8b-bbc1-4364-a7b8-39ea1de59cfa",
+      "id": "4d6e644a-cfb3-43aa-aa6c-b5bfc4fab725",
       "scheduled_for": "2026-11-23T13:35:00-05:00",
-      "rendered_at": "2026-11-23T08:31:32.355592Z",
-      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/99a53e8b-bbc1-4364-a7b8-39ea1de59cfa.mp4",
-      "caption": "Recess (Rewind) – Close Quarters\nreal data, taken this morning. EDUCATION is out now",
+      "rendered_at": "2026-11-23T14:56:34.289047Z",
+      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/4d6e644a-cfb3-43aa-aa6c-b5bfc4fab725.mp4",
+      "caption": "watch it twice: once for the data, once for the song\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.505,
-        "anchor_y": 0.366,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "recess_rewind",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "earth_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-05f234e2-a882-4b3d-84a7-8f9237335388",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T16:55:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Recess (Rewind) – Close Quarters\nreal data, taken this morning. EDUCATION is out now\n\nlink in bio to stream Recess (Rewind)"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "e3f5ea34-f2ab-450b-869f-72c7d528a1af",
-      "scheduled_for": "2026-11-23T16:55:00-05:00",
-      "rendered_at": "2026-11-23T08:31:32.355592Z",
-      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/e3f5ea34-f2ab-450b-869f-72c7d528a1af.mp4",
-      "caption": "every dot is real. sound on.\n🎧 Talk – @close__quarters #dataviz #datavisualization #earth #space #maps",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.338,
-        "anchor_y": 0.566,
+        "anchor_x": 0.487,
+        "anchor_y": 0.45,
         "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -81,81 +28,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "talk",
+      "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "earth_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-0232caf5-c110-4fef-be2b-3f31ffc55978",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T20:15:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "every dot is real. sound on.\n🎧 Talk – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Talk: link in bio"
+        "instagram": "watch it twice: once for the data, once for the song\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "ae472b10-52b5-4672-97e1-29b64672961f",
-      "scheduled_for": "2026-11-23T20:15:00-05:00",
-      "rendered_at": "2026-11-23T08:31:32.355592Z",
-      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/ae472b10-52b5-4672-97e1-29b64672961f.mp4",
-      "caption": "Passage (Waiting) – Close Quarters\nreal data, taken this morning. EDUCATION is out now",
+      "id": "dbd3a6bb-ddf0-41a2-bcd7-7f8536a946d3",
+      "scheduled_for": "2026-11-23T16:55:00-05:00",
+      "rendered_at": "2026-11-23T14:56:34.289047Z",
+      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/dbd3a6bb-ddf0-41a2-bcd7-7f8536a946d3.mp4",
+      "caption": "every dot is real. sound on.\n🎧 Won't Be the Same Again – @close__quarters #dataviz #datavisualization #earth #space #maps",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.338,
-        "anchor_y": 0.436,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.425,
+        "anchor_y": 0.254,
+        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "passage_waiting",
+      "creative": "wont_be_the_same_again",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Passage (Waiting) – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "earth_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-1d74e902-a9d7-4869-8d43-77003dbb27aa",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T13:35:00-05:00"
-        }
-      ],
+      "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "Passage (Waiting) – Close Quarters\nreal data, taken this morning. EDUCATION is out now\n\nPassage (Waiting) is out now. link in bio to stream it"
+        "instagram": "every dot is real. sound on.\n🎧 Won't Be the Same Again – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

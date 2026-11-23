@@ -429,6 +429,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-23T14:56:34.289047Z",
+      "item_id": "4d6e644a-cfb3-43aa-aa6c-b5bfc4fab725",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "watch it twice: once for the data, once for the song\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "watch it twice: once for the data, once for the song\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nlink in bio to stream Prologue: Before"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.487,
+        "anchor_y": 0.45,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-23T14:56:34.289047Z",
+      "item_id": "dbd3a6bb-ddf0-41a2-bcd7-7f8536a946d3",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "every dot is real. sound on.\n🎧 Won't Be the Same Again – @close__quarters #dataviz #datavisualization #earth #space #maps",
+      "title": null,
+      "creative": "wont_be_the_same_again",
+      "captions": {
+        "instagram": "every dot is real. sound on.\n🎧 Won't Be the Same Again – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Won't Be the Same Again: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.425,
+        "anchor_y": 0.254,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
