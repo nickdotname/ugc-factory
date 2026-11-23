@@ -38,9 +38,9 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-640da469-b7ce-4fd8-b82a-c76c74b27f1a",
           "last_error": null,
           "scheduled_for": "2026-11-24T13:05:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "Silver and Gold – Close Quarters\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
