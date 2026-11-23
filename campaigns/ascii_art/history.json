@@ -391,6 +391,108 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-23T06:31:04.258475Z",
+      "item_id": "6b73bae6-a6f9-459e-83a2-fb7f1881cc46",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "Subway Maintenance – Close Quarters\ndrawn in letters. EDUCATION is out now",
+      "title": null,
+      "creative": "subway_maintenance",
+      "captions": {
+        "instagram": "Subway Maintenance – Close Quarters\ndrawn in letters. EDUCATION is out now\n\nSubway Maintenance is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.364,
+        "anchor_y": 0.419,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-23T06:31:04.258475Z",
+      "item_id": "9863810f-9cd0-43f8-82f6-efd1debb025c",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "every letter here is placed by code. sound on.\n🎧 Talk – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "creative": "talk",
+      "captions": {
+        "instagram": "every letter here is placed by code. sound on.\n🎧 Talk – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Talk"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.275,
+        "anchor_y": 0.675,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-23T06:31:04.258475Z",
+      "item_id": "c163aa94-be4d-456c-9493-a1ac08e68534",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "3D, but it's only text\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "3D, but it's only text\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Prologue: Before: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.491,
+        "anchor_y": 0.409,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

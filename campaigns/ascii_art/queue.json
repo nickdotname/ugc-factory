@@ -1,65 +1,12 @@
 {
-  "generated_at": "2026-11-23T04:20:47.322770Z",
+  "generated_at": "2026-11-23T06:31:04.258475Z",
   "items": [
     {
-      "id": "0b5db548-2cec-4cba-ab2e-70ea45b497a0",
+      "id": "6b73bae6-a6f9-459e-83a2-fb7f1881cc46",
       "scheduled_for": "2026-11-23T11:50:00-05:00",
-      "rendered_at": "2026-11-23T04:20:47.322770Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/0b5db548-2cec-4cba-ab2e-70ea45b497a0.mp4",
-      "caption": "the code is underneath. pause it.\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.323,
-        "anchor_y": 0.519,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "prologue",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "ascii_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-2b7f73fb-593d-48e1-aadd-7ea330630a61",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T11:50:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the code is underneath. pause it.\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nPrologue: Before is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "8a59ab06-720a-4e70-a333-6b523a1adf84",
-      "scheduled_for": "2026-11-23T15:50:00-05:00",
-      "rendered_at": "2026-11-23T04:20:47.322770Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/8a59ab06-720a-4e70-a333-6b523a1adf84.mp4",
-      "caption": "every letter here is placed by code. sound on.\n🎧 Full Ride – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "rendered_at": "2026-11-23T06:31:04.258475Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/6b73bae6-a6f9-459e-83a2-fb7f1881cc46.mp4",
+      "caption": "Subway Maintenance – Close Quarters\ndrawn in letters. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -69,8 +16,51 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.595,
-        "anchor_y": 0.605,
+        "anchor_x": 0.364,
+        "anchor_y": 0.419,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "subway_maintenance",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "Subway Maintenance – Close Quarters\ndrawn in letters. EDUCATION is out now\n\nSubway Maintenance is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "9863810f-9cd0-43f8-82f6-efd1debb025c",
+      "scheduled_for": "2026-11-23T15:50:00-05:00",
+      "rendered_at": "2026-11-23T06:31:04.258475Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/9863810f-9cd0-43f8-82f6-efd1debb025c.mp4",
+      "caption": "every letter here is placed by code. sound on.\n🎧 Talk – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.275,
+        "anchor_y": 0.675,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -81,50 +71,40 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "full_ride",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "ascii_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-cb5de723-dac3-42d3-85c6-92dfa6d85c17",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T15:50:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "every letter here is placed by code. sound on.\n🎧 Full Ride – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Full Ride"
+        "instagram": "every letter here is placed by code. sound on.\n🎧 Talk – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "9d64e229-d803-4c55-9d3f-89bcd0f560df",
+      "id": "c163aa94-be4d-456c-9493-a1ac08e68534",
       "scheduled_for": "2026-11-23T19:50:00-05:00",
-      "rendered_at": "2026-11-23T04:20:47.322770Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/9d64e229-d803-4c55-9d3f-89bcd0f560df.mp4",
-      "caption": "3D, but it's only text\n🎧 Fixation – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "rendered_at": "2026-11-23T06:31:04.258475Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/c163aa94-be4d-456c-9493-a1ac08e68534.mp4",
+      "caption": "3D, but it's only text\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.342,
-        "anchor_y": 0.325,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.491,
+        "anchor_y": 0.409,
+        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -134,28 +114,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "fixation",
+      "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Fixation by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "ascii_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4d59d768-7cbf-4800-a902-e3fb82fe7694",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T19:50:00-05:00"
-        }
-      ],
+      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "3D, but it's only text\n🎧 Fixation – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Fixation: link in bio"
+        "instagram": "3D, but it's only text\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
