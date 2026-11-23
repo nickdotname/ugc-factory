@@ -828,6 +828,12 @@ def _render(
             performance=performance,
         )
     relaxed = [(name, o) for name, o in picks if o.relaxation is not Relaxation.NONE]
+    if relaxed and not config.selection.repeats:
+        # No repeats on this account: a relaxed pick would put up a video it
+        # has already posted (or two of the same in one night). Leave the slot.
+        log.warning("repeat_dropped", dropped=len(relaxed), kept=len(picks) - len(relaxed))
+        picks = [(name, o) for name, o in picks if o.relaxation is Relaxation.NONE]
+        relaxed = []
     if relaxed:
         by_creative = Counter(name for name, _ in relaxed)
         detail = ", ".join(f"{name}: {n}" for name, n in by_creative.items())
