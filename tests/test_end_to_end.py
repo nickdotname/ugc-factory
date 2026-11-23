@@ -198,6 +198,31 @@ class TestRenderEndToEnd:
         for path in published:
             assert path.stat().st_size > 1000
 
+    def test_one_video_failing_validation_does_not_sink_the_batch(
+        self, campaign: Path, monkeypatch
+    ) -> None:
+        """A 4-second clip under Instagram's floor used to fail the whole render
+        (rocket.league.lit, 2026-11-22); now that one video is skipped and its
+        slot goes to the next."""
+        from src.errors import ValidationError
+        from src.render import FfmpegRenderer
+
+        real = FfmpegRenderer.render
+        calls = {"n": 0}
+
+        def render(self, request):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise ValidationError("x.mp4 failed render validation: duration 4.34s is under the 5s floor")
+            return real(self, request)
+
+        monkeypatch.setattr(FfmpegRenderer, "render", render)
+        assert cli.cmd_render(render_args(), {}) == 0
+        queue = load_queue(campaign / "queue.json")
+        assert len(queue.items) == 2
+        slots = sorted(i.scheduled_for for i in queue.items)
+        assert len(set(slots)) == 2
+
     def test_render_records_history_for_dedupe(self, campaign: Path) -> None:
         cli.cmd_render(render_args(), {})
         history = load_history(campaign / "history.json")

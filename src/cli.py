@@ -68,7 +68,7 @@ from src.descriptions import (
 )
 from src.errors import (
     AuthError, ConfigError, InvalidPostError, MediaStoreError, QuotaError, SelectionError,
-    UgcError,
+    UgcError, ValidationError,
 )
 from src.ingest import (
     ARCHIVE_DIR,
@@ -940,6 +940,9 @@ def _render(
     rendered: list[
         tuple[QueueItem, Selection, str, list[tuple[str | None, Path, Variant]]]
     ] = []
+    # A slot handed to a video that then failed validation goes back here for
+    # the next one, so one bad clip leaves no hole in the day.
+    freed_slots: list[datetime] = []
     for index, (creative_name, selection, pinned) in enumerate(planned):
         res = resources[creative_name]
         creative = res.creative
@@ -947,9 +950,10 @@ def _render(
         # Counts every post this campaign has ever made, so the rotation of
         # asks carries on across nights instead of restarting at the first.
         turn = len(full_history.entries) + index
+        timed = pinned is not None and pinned.at is not None
         slot = (
-            timed_slots[pinned.id] if pinned is not None and pinned.at is not None
-            else next(free)
+            timed_slots[pinned.id] if timed
+            else (freed_slots.pop(0) if freed_slots else next(free))
         )
         record = res.record_for(selection.caption) if pinned is None else None
         overlay = pinned.overlay if pinned is not None else (
@@ -1050,19 +1054,26 @@ def _render(
         end_card = _fill(funnel.end_card, creative) if use_funnel else ""
         files: list[tuple[str | None, Path, Variant]] = []
         version_account: str | None
+        rejected: str | None = None
         for version_account, version, v_overlay, v_title in versions:
             account_name = version_account
             render_id = item_id if account_name is None else f"{item_id}-{account_name}"
-            result = renderer.render(RenderRequest(
-                item_id=render_id,
-                hook_path=by_name[version.hook],
-                body_paths=tuple(by_name[b] for b in version.bodies),
-                music_path=by_name[version.music] if version.music else None,
-                music_offset_sec=version.music_offset_sec,
-                output_path=out_dir / f"{render_id}.mp4",
-                overlay_text=v_overlay,
-                end_card_text=end_card or None,
-            ))
+            try:
+                result = renderer.render(RenderRequest(
+                    item_id=render_id,
+                    hook_path=by_name[version.hook],
+                    body_paths=tuple(by_name[b] for b in version.bodies),
+                    music_path=by_name[version.music] if version.music else None,
+                    music_offset_sec=version.music_offset_sec,
+                    output_path=out_dir / f"{render_id}.mp4",
+                    overlay_text=v_overlay,
+                    end_card_text=end_card or None,
+                ))
+            except ValidationError as exc:
+                # One clip that comes out too short (or too long, or the wrong
+                # size) used to fail the whole account's render. Skip it.
+                rejected = str(exc)
+                break
             # What this account posts with: its own varied caption if it got
             # one, else its network's, else the shared one — then the ask.
             text = version.caption
@@ -1088,6 +1099,16 @@ def _render(
                     treatment=result.treatment,
                 ),
             ))
+
+        if rejected is not None:
+            log.warning(
+                "item_rejected", creative=creative_name, hook=selection.hook,
+                reason=rejected[:200],
+            )
+            if pinned is not None:
+                raise ValidationError(rejected)     # a hand-picked post must not vanish quietly
+            freed_slots.insert(0, slot)
+            continue
 
         first = files[0][2]
         caption = selection.caption
