@@ -102,7 +102,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind'}
 FRESH = 0.6
 
 def freshen(style, menu, kn, recent, learned, r):
