@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-23T08:31:25.384132Z",
+  "generated_at": "2026-11-23T14:57:14.340796Z",
   "items": [
     {
-      "id": "d0c06c12-ad63-4c5d-9267-cf851a0d2a27",
+      "id": "58f7a7f0-3274-4025-b2cc-a42ef8e6b88f",
       "scheduled_for": "2026-11-23T12:50:00-05:00",
-      "rendered_at": "2026-11-23T08:31:25.384132Z",
-      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-23/d0c06c12-ad63-4c5d-9267-cf851a0d2a27.mp4",
-      "caption": "Evil Close Quarters – Close Quarters\nfound on a memory card from 2003. EDUCATION is out now",
+      "rendered_at": "2026-11-23T14:57:14.340796Z",
+      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-23/58f7a7f0-3274-4025-b2cc-a42ef8e6b88f.mp4",
+      "caption": "you weren't supposed to find this map\n🎧 Prologue: Before – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,10 +16,10 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.43,
-        "anchor_y": 0.628,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
+        "anchor_x": 0.585,
+        "anchor_y": 0.57,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
         "grain": 0.0,
@@ -28,49 +28,39 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "evil_close_quarters",
+      "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "retro_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-e5bdd04a-ebfc-4f39-bbcf-f874dc1f20a9",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T16:30:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "Evil Close Quarters – Close Quarters\nfound on a memory card from 2003. EDUCATION is out now\n\nEvil Close Quarters is out now. link in bio to stream it"
+        "instagram": "you weren't supposed to find this map\n🎧 Prologue: Before – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "1f01cebd-3046-4af3-be4b-d5e49172c545",
+      "id": "045e516a-60b7-4aa1-956a-4914246f41d2",
       "scheduled_for": "2026-11-23T16:30:00-05:00",
-      "rendered_at": "2026-11-23T08:31:25.384132Z",
-      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-23/1f01cebd-3046-4af3-be4b-d5e49172c545.mp4",
-      "caption": "2am, console still on, this was playing\n🎧 Hair of the Dog – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia",
+      "rendered_at": "2026-11-23T14:57:14.340796Z",
+      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-23/045e516a-60b7-4aa1-956a-4914246f41d2.mp4",
+      "caption": "a level that only loads while the song plays\n🎧 Suspended – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.548,
-        "anchor_y": 0.293,
+        "anchor_x": 0.628,
+        "anchor_y": 0.748,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
@@ -81,81 +71,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "hair_of_the_dog",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "retro_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-148ae119-70f6-4022-9a70-994c324e4d85",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T20:10:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "2am, console still on, this was playing\n🎧 Hair of the Dog – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nlink in bio to stream Hair of the Dog"
+        "instagram": "a level that only loads while the song plays\n🎧 Suspended – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "b69772c8-3bc9-481d-92c8-14c2fca28c03",
-      "scheduled_for": "2026-11-23T20:10:00-05:00",
-      "rendered_at": "2026-11-23T08:31:25.384132Z",
-      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-23/b69772c8-3bc9-481d-92c8-14c2fca28c03.mp4",
-      "caption": "Passage (Waiting) – Close Quarters\nfound on a memory card from 2003. EDUCATION is out now",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.387,
-        "anchor_y": 0.691,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "passage_waiting",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "retro_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-ed169260-4f09-4966-b3b5-faf3fff16435",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T12:50:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Passage (Waiting) – Close Quarters\nfound on a memory card from 2003. EDUCATION is out now\n\nstream Passage (Waiting): link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
