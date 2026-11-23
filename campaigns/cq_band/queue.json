@@ -1,23 +1,109 @@
 {
-  "generated_at": "2026-11-23T06:31:11.310418Z",
+  "generated_at": "2026-11-23T08:32:07.274844Z",
   "items": [
     {
-      "id": "0405a9fb-aaeb-4ff3-8491-31aabc63b6e6",
+      "id": "fcc2c3dd-88fa-44fe-b996-78b7986c0683",
       "scheduled_for": "2026-11-23T09:50:00-05:00",
-      "rendered_at": "2026-11-23T06:31:11.310418Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/0405a9fb-aaeb-4ff3-8491-31aabc63b6e6.mp4",
+      "rendered_at": "2026-11-23T08:32:07.274844Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/fcc2c3dd-88fa-44fe-b996-78b7986c0683.mp4",
       "caption": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.285,
-        "anchor_y": 0.532,
+        "anchor_x": 0.564,
+        "anchor_y": 0.554,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "silver_and_gold",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Silver and Gold is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
+      "posts": [],
+      "captions": {
+        "instagram": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now\n\nlink in bio to stream Silver and Gold"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "9938f38b-3fc7-4f9f-9657-47c69618a05a",
+      "scheduled_for": "2026-11-23T12:10:00-05:00",
+      "rendered_at": "2026-11-23T08:32:07.274844Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/9938f38b-3fc7-4f9f-9657-47c69618a05a.mp4",
+      "caption": "read along. wait for the last line.\nHair of the Dog – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.75,
+        "anchor_y": 0.405,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "hair_of_the_dog",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Hair of the Dog, from EDUCATION. the whole album is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "read along. wait for the last line.\nHair of the Dog – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Hair of the Dog: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7d65cce5-aa03-4d22-90bc-c6bbe5b26a0c",
+      "scheduled_for": "2026-11-23T14:30:00-05:00",
+      "rendered_at": "2026-11-23T08:32:07.274844Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/7d65cce5-aa03-4d22-90bc-c6bbe5b26a0c.mp4",
+      "caption": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.356,
+        "anchor_y": 0.383,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -26,158 +112,42 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
       "creative": "silver_and_gold",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "Silver and Gold is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-d0609694-1d98-49f6-a998-88958ce23785",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T21:30:00-05:00"
-        }
-      ],
+      "first_comment": "EDUCATION is out now. Silver and Gold is just one of them, link in bio",
+      "posts": [],
       "captions": {
-        "instagram": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now\n\nlink in bio to stream Silver and Gold"
+        "instagram": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now\n\nSilver and Gold is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "860cf60d-c858-4342-8bf1-997bf547e52d",
-      "scheduled_for": "2026-11-23T12:10:00-05:00",
-      "rendered_at": "2026-11-23T06:31:11.310418Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/860cf60d-c858-4342-8bf1-997bf547e52d.mp4",
-      "caption": "your family computer in 2001 if it had taste\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.591,
-        "anchor_y": 0.575,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "talk",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "Talk, from EDUCATION. the whole album is linked in our bio",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-dba1f84e-14aa-436b-a2a8-33d93bed840f",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T09:50:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "your family computer in 2001 if it had taste\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Talk: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "ef4ab32c-e56e-4039-93a7-17ee54ca22b2",
-      "scheduled_for": "2026-11-23T14:30:00-05:00",
-      "rendered_at": "2026-11-23T06:31:11.310418Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/ef4ab32c-e56e-4039-93a7-17ee54ca22b2.mp4",
-      "caption": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.472,
-        "anchor_y": 0.742,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "evil_close_quarters",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "EDUCATION is out now. Evil Close Quarters is just one of them, link in bio",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-eb66e407-372c-4f70-bcbc-b92a83a3ec5f",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T12:10:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now\n\nEvil Close Quarters is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "411e053f-f725-4505-996a-546d173dcd39",
+      "id": "58805e0f-cf37-4230-891d-398a8e44b616",
       "scheduled_for": "2026-11-23T16:50:00-05:00",
-      "rendered_at": "2026-11-23T06:31:11.310418Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/411e053f-f725-4505-996a-546d173dcd39.mp4",
-      "caption": "which line hit hardest? comment it\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "rendered_at": "2026-11-23T08:32:07.274844Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/58805e0f-cf37-4230-891d-398a8e44b616.mp4",
+      "caption": "if you know every word by the end, follow\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
       "title": null,
       "parts": {
-        "hook": "hook_03.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.683,
-        "anchor_y": 0.738,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.442,
+        "anchor_y": 0.523,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -193,43 +163,33 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Suspended is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-e142a170-a43a-4d2c-941f-1d65113d81b1",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T14:30:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "which line hit hardest? comment it\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Suspended"
+        "instagram": "if you know every word by the end, follow\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "6d2caa50-5256-4e1a-a386-9a61dc60db6d",
+      "id": "01ad0a4e-fddb-4162-8f52-7e7b8f5c8bce",
       "scheduled_for": "2026-11-23T19:10:00-05:00",
-      "rendered_at": "2026-11-23T06:31:11.310418Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/6d2caa50-5256-4e1a-a386-9a61dc60db6d.mp4",
-      "caption": "this one's for the overthinkers\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "rendered_at": "2026-11-23T08:32:07.274844Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/01ad0a4e-fddb-4162-8f52-7e7b8f5c8bce.mp4",
+      "caption": "for walking home with your headphones on\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
       "title": null,
       "parts": {
-        "hook": "hook_05.mp4",
+        "hook": "hook_06.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.652,
-        "anchor_y": 0.299,
+        "anchor_x": 0.389,
+        "anchor_y": 0.705,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -246,22 +206,12 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Fixation, from EDUCATION. the whole album is linked in our bio",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-64d209a4-73b3-40cc-9515-550af4f83f2b",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T16:50:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "this one's for the overthinkers\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Fixation: link in bio"
+        "instagram": "for walking home with your headphones on\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Fixation: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
