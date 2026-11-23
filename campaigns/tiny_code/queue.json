@@ -91,9 +91,9 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-263e6977-d862-47ad-a9cc-77a813ce4c38",
           "last_error": null,
           "scheduled_for": "2026-11-23T19:35:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "the whole program is on screen. this is all of it.\n🎧 Full Ride – @close__quarters #creativecoding #generativeart #python #numpy #codeart\n\nstream Full Ride: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
