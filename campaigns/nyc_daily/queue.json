@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-23T08:31:32.898132Z",
+  "generated_at": "2026-11-23T14:56:44.841097Z",
   "items": [
     {
-      "id": "7d65859e-c510-4f63-9488-fa572b9246cc",
+      "id": "c4ce9007-07c9-47b5-8c05-295db24ec521",
       "scheduled_for": "2026-11-23T10:45:00-05:00",
-      "rendered_at": "2026-11-23T08:31:32.898132Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-23/7d65859e-c510-4f63-9488-fa572b9246cc.mp4",
-      "caption": "Recess (Rewind) – Close Quarters\nnew york, daily. EDUCATION is out now",
+      "rendered_at": "2026-11-23T14:56:44.841097Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-23/c4ce9007-07c9-47b5-8c05-295db24ec521.mp4",
+      "caption": "Suspended – Close Quarters\nnew york, daily. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,50 +16,40 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.621,
-        "anchor_y": 0.57,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.385,
+        "anchor_y": 0.674,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "recess_rewind",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "nyc_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b98f1e9d-a14e-46b5-aa85-d190b26d95ea",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T10:45:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "Recess (Rewind) – Close Quarters\nnew york, daily. EDUCATION is out now\n\nlink in bio to stream Recess (Rewind)"
+        "instagram": "Suspended – Close Quarters\nnew york, daily. EDUCATION is out now\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "9954f533-16aa-48f8-8957-ad561ec432b4",
+      "id": "41a8ebb2-4fd2-410a-9705-c4a57c7e41f9",
       "scheduled_for": "2026-11-23T15:05:00-05:00",
-      "rendered_at": "2026-11-23T08:31:32.898132Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-23/9954f533-16aa-48f8-8957-ad561ec432b4.mp4",
-      "caption": "Talk – Close Quarters\nnew york, daily. EDUCATION is out now",
+      "rendered_at": "2026-11-23T14:56:44.841097Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-23/41a8ebb2-4fd2-410a-9705-c4a57c7e41f9.mp4",
+      "caption": "Won't Be the Same Again – Close Quarters\nnew york, daily. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -69,50 +59,40 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.25,
-        "anchor_y": 0.344,
+        "anchor_x": 0.699,
+        "anchor_y": 0.579,
         "rotate_deg": -0.0,
-        "brightness": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "talk",
+      "creative": "wont_be_the_same_again",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "nyc_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-19f86428-453e-44dc-9ab1-d143a6615f9c",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T15:05:00-05:00"
-        }
-      ],
+      "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "Talk – Close Quarters\nnew york, daily. EDUCATION is out now\n\nstream Talk: link in bio"
+        "instagram": "Won't Be the Same Again – Close Quarters\nnew york, daily. EDUCATION is out now\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "0a1f9490-26f2-4fe2-83de-9f7b63a3dc0d",
+      "id": "2fde5893-a411-4a95-8dd2-0e1e578e74b9",
       "scheduled_for": "2026-11-23T19:25:00-05:00",
-      "rendered_at": "2026-11-23T08:31:32.898132Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-23/0a1f9490-26f2-4fe2-83de-9f7b63a3dc0d.mp4",
-      "caption": "Epilogue: Dismissal – Close Quarters\nnew york, daily. EDUCATION is out now",
+      "rendered_at": "2026-11-23T14:56:44.841097Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-23/2fde5893-a411-4a95-8dd2-0e1e578e74b9.mp4",
+      "caption": "Myth of Sisyphus – Close Quarters\nnew york, daily. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -122,40 +102,30 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.281,
-        "anchor_y": 0.564,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.303,
+        "anchor_y": 0.744,
+        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "epilogue_dismissal",
+      "creative": "myth_of_sisyphus",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "nyc_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-78a9205c-f7d0-4a0e-a5dd-415ff5be8a8e",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T19:25:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "Epilogue: Dismissal – Close Quarters\nnew york, daily. EDUCATION is out now\n\nEpilogue: Dismissal is out now. link in bio to stream it"
+        "instagram": "Myth of Sisyphus – Close Quarters\nnew york, daily. EDUCATION is out now\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
