@@ -12,7 +12,7 @@ from pixel import ptext, dgrad, disc, LW, LH, BY
 
 SLUG, B0, SEED = conf('fixation', 96)
 _r = random.Random(SEED)
-TOPIC = K.pick('subject', ['brain', 'heart', 'eyes'], _r)
+TOPIC = K.pick('subject', ['brain', 'heart', 'eyes', 'fission'], _r, weights=[1, 1, 1, 3])
 SKY = K.pick('sky', ['violet', 'navy', 'plum'], _r)
 BG = {'violet': ((40, 30, 92), (24, 18, 58)), 'navy': ((18, 30, 76), (8, 14, 40)), 'plum': ((70, 28, 84), (34, 14, 48))}[SKY]
 GOLD, WHITE, SOFT, INK = (255, 214, 90), (248, 248, 255), (200, 205, 235), (16, 12, 32)
@@ -199,6 +199,148 @@ def sc_clock(c, k, kick, p, last_kick):
     line(c, (135, 280), (135 + 30, 280 - 20), INK, 3)
     eye(c, 225, 160, 28, (-0.9, 0.7))
 
+
+# ---- fission: from a city at night down to one atom, and back up
+def sc_city(c, k, kick, p, last_kick):
+    r = random.Random(11)
+    x = 0
+    while x < 175:                                            # the skyline, windows lighting up on the kick
+        w = r.randrange(18, 34); h = r.randrange(60, 150); top = 400 - h
+        c[top:400, x:x + w - 2] = (30, 34, 80); c[top:top + 2, x:x + w - 2] = (60, 66, 130)
+        for yy in range(top + 6, 392, 9):
+            for xx in range(x + 3, x + w - 5, 6):
+                if r.random() < 0.55 + 0.35 * kick: c[yy:yy + 4, xx:xx + 3] = (255, 200, 90) if r.random() < 0.8 else (140, 200, 255)
+        x += w
+    for y in range(240, 400):                                 # the cooling tower: a hyperboloid, lit from the left
+        hw = int(24 + 22 * ((y - 330) / 90) ** 2); cx = 222
+        row = np.arange(cx - hw, cx + hw)
+        lit = (row - (cx - hw)) / (2 * hw)
+        col = np.where((lit < 0.35 + 0.3 * BY[y, row % LW])[:, None], np.array([150, 165, 230], np.float32), np.array([80, 92, 170], np.float32))
+        c[y, row[(row >= 0) & (row < LW)]] = col[(row >= 0) & (row < LW)]
+    for j in range(9):                                        # steam rising and drifting
+        q = (k * 0.35 + j / 9) % 1; disc(c, 222 + 22 * q + 4 * math.sin(j + k), 236 - 95 * q, 10 + 13 * q, (220, 228, 255), shade=(170, 180, 230))
+    c[400:440] = (20, 30, 90)
+    for j in range(24):                                       # lights on the water
+        xx = (j * 37 + int(k * 6)) % LW; c[408 + (j * 7) % 28, xx:xx + 6] = (255, 190, 90) if j % 3 else (120, 180, 255)
+    c[300:338, 30:240] = (14, 12, 34); c[300:302, 30:240] = (120, 170, 255); c[336:338, 30:240] = (120, 170, 255)
+    c[300:338, 30:32] = (120, 170, 255); c[300:338, 238:240] = (120, 170, 255)
+    ptext(c, 'NUCLEAR FISSION', 135, 308, 2, WHITE, align='c'); ptext(c, 'MATH.EXPLAINERS', 135, 326, 1, (120, 170, 255), align='c')
+
+def sc_rods(c, k, kick, p, last_kick):
+    c[:] = c * 0.4 + np.array([10, 40, 140], np.float32) * 0.6
+    for j in range(7):                                        # fuel rods in water, glowing blue (Cherenkov light)
+        x = 22 + j * 38 + int(6 * math.sin(k * 0.5 + j)); top = 150 + (j % 2) * 20
+        c[top:470, x:x + 20] = (90, 170, 255); c[top:470, x + 5:x + 12] = (210, 240, 255)
+        for y in range(top + 10, 470, 26): c[y:y + 2, x:x + 20] = (40, 90, 200)       # the pellets stacked inside
+        glow(c, x + 10, 330, 70, (40, 120, 255), 0.35 + 0.5 * kick)
+
+U_DOTS = []
+def nucleus(c, cx, cy, r, k, kick, squash=1.0):
+    if not U_DOTS:
+        rr = random.Random(235); prot = set(rr.sample(range(235), 92))
+        for n in range(235):
+            a = n * 2.39996; d = math.sqrt(n / 235)
+            U_DOTS.append((d * math.cos(a), d * math.sin(a), n in prot))
+    for x, y, pr in U_DOTS:
+        jx = 0.6 * math.sin(k * 9 + x * 40); jy = 0.6 * math.cos(k * 8 + y * 40)
+        disc(c, cx + x * r * squash + jx, cy + y * r / squash + jy, 2.2, (235, 70, 70) if pr else (150, 160, 200))
+
+SHELLS = [2, 8, 18, 32, 21, 9, 2]                             # uranium's 92 electrons, shell by shell
+def sc_atom(c, k, kick, p, last_kick):
+    cx, cy = 135, 290
+    glow(c, cx, cy, 60, (40, 110, 255), 0.8 + 0.4 * kick)
+    for j, n in enumerate(SHELLS):
+        rad = 30 + j * 13; cv2.circle(c, (cx, cy), rad, (60, 110, 230), 1)
+        for e in range(n):
+            a = 2 * math.pi * e / n + k * (0.9 - j * 0.1) * (1 if j % 2 else -1)
+            disc(c, cx + rad * math.cos(a), cy + rad * math.sin(a), 1.5, WHITE)
+    nucleus(c, cx, cy, 17 * (1 + 0.06 * kick), k, kick)
+
+def _bounces():
+    r = random.Random(7); x, y, ang = -10.0, 190.0, 0.35; pts = [(x, y)]
+    for ln in (150, 115, 85, 62, 45, 32, 22, 15):
+        x = min(250, max(20, x + math.cos(ang) * ln)); y = min(390, max(160, y + math.sin(ang) * ln)); pts.append((x, y))
+        tx, ty = 120 - x, 300 - y                               # each bounce turns it, loosely toward the uranium
+        ang = math.atan2(ty, tx) + r.choice((-1, 1)) * r.uniform(0.6, 1.3)
+    return pts
+BOUNCE = _bounces()
+_wr = random.Random(99)
+WATER = [(x, y, _wr.uniform(0, 6.28)) for x, y in BOUNCE[1:]]
+while len(WATER) < 34:
+    x, y = _wr.uniform(12, 258), _wr.uniform(160, 395)
+    if min(math.hypot(x - a, y - b) for a, b, _ in WATER) > 22: WATER.append((x, y, _wr.uniform(0, 6.28)))
+
+def water(c, x, y, a, hit=0.0):
+    disc(c, x, y, 5, (220 + 35 * hit, 50 + 120 * hit, 60 + 100 * hit), shade=(150, 20, 40))
+    for s_ in (-1, 1): disc(c, x + 7 * math.cos(a + s_ * 0.9), y + 7 * math.sin(a + s_ * 0.9), 2.5, WHITE)
+
+def sc_neutron(c, k, kick, p, last_kick):
+    seg = min(len(BOUNCE) - 1.001, p * 1.08 * (len(BOUNCE) - 1)); j = int(seg); f = seg - j
+    for n, (x, y, a) in enumerate(WATER):                     # water molecules: an oxygen and two hydrogens, jiggling
+        hit = max(0.0, 1 - abs(seg - n - 1) * 3) if n < len(BOUNCE) - 1 else 0.0
+        water(c, x + 0.8 * math.sin(k * 3 + n), y + 0.8 * math.cos(k * 2.6 + n), a + 0.3 * math.sin(k + n), hit)
+    nx = BOUNCE[j][0] + (BOUNCE[j + 1][0] - BOUNCE[j][0]) * f; ny = BOUNCE[j][1] + (BOUNCE[j + 1][1] - BOUNCE[j][1]) * f
+    for q in range(max(0, j - 2), j):                          # a short fading trail: only the last few legs
+        fade = 0.25 + 0.35 * (q - j + 3) / 3
+        line(c, BOUNCE[q], BOUNCE[q + 1], tuple(int(v * fade) for v in (80, 200, 255)), 1)
+    line(c, BOUNCE[j], (nx, ny), (150, 230, 255), 2)
+    glow(c, nx, ny, 20, (80, 200, 255), 1.0); disc(c, nx, ny, 3, (220, 250, 255))
+
+def sc_split(c, k, kick, p, last_kick):
+    cx, cy = 135, 300
+    if p < 0.3:
+        nucleus(c, cx, cy, 17, k, kick); nx = 10 + (cx - 30) * p / 0.3
+        glow(c, nx, cy, 14, (80, 200, 255)); disc(c, nx, cy, 3, (200, 245, 255))
+    elif p < 0.45:
+        nucleus(c, cx, cy, 17, k * 3, kick, squash=1 + 1.5 * (p - 0.3) / 0.15)   # it wobbles and stretches into a peanut
+    else:
+        q = (p - 0.45) / 0.55; d = 20 + 120 * q
+        glow(c, cx, cy, 120 * (1 - q) + 10, (255, 240, 200), 1.6 * (1 - q))
+        nucleus(c, cx - d, cy - 0.2 * d, 12, k, kick); nucleus(c, cx + d, cy + 0.15 * d, 11, k, kick)
+        if q > 0.25:                                          # one common pair of fragments
+            ptext(c, 'BARIUM', int(cx - d), int(cy - 0.2 * d + 18), 1, SOFT, align='c'); ptext(c, 'KRYPTON', int(cx + d), int(cy + 0.15 * d + 17), 1, SOFT, align='c')
+        for a in (-1.9, 0.4, 2.6):                            # three new neutrons fly out
+            x, y = cx + math.cos(a) * d * 1.3, cy + math.sin(a) * d * 1.3
+            glow(c, x, y, 12, (80, 200, 255)); disc(c, x, y, 3, (200, 245, 255))
+
+def sc_chain(c, k, kick, p, last_kick):
+    gens = int(min(5, 1 + p * 6)); rows = [160, 210, 260, 310, 360]
+    prev = [(135, rows[0])]
+    for g in range(gens):
+        n = 3 ** g; pos = [(135 + (i - (n - 1) / 2) * min(70, 250 / n), rows[g]) for i in range(n)]
+        if g: [line(c, prev[i // 3], q, (80, 200, 255), 1) for i, q in enumerate(pos)]
+        for (x, y) in pos:
+            if g < 3: disc(c, x, y, 6 - g, (235, 70, 70), shade=(160, 40, 50))
+            else: c[int(y) - 1:int(y) + 2, int(x) - 1:int(x) + 2] = (255, 120, 100)
+            if g == gens - 1: glow(c, x, y, 10, (255, 220, 160), 0.6 * kick + 0.3)
+        prev = pos
+    ptext(c, '1 - 3 - 9 - 27 - 81', 135, 392, 1, SOFT, align='c')
+
+def sc_coal(c, k, kick, p, last_kick):
+    glow(c, 50, 300, 30, (80, 255, 140), 0.8 + 0.5 * kick)    # one small block of uranium
+    c[292:308, 42:58] = (120, 230, 140); c[292:294, 42:58] = (200, 255, 210)
+    ptext(c, '1 KG', 50, 316, 1, SOFT, align='c'); ptext(c, '=', 92, 296, 2, WHITE, align='c')
+    r = random.Random(5); g = min(1, p * 1.25); h = 40 + 200 * g    # against a mountain of coal
+    for j in range(int(420 * g) + 60):
+        x = r.uniform(108, 266); top = 398 - h * max(0, 1 - abs(x - 187) / 80) ** 1.2
+        y = r.uniform(top, 398); s_ = r.uniform(3, 7); disc(c, x, y, s_, (44, 44, 58), shade=(18, 18, 26))
+        if r.random() < 0.15: c[int(y - s_ * 0.5), int(x - s_ * 0.4)] = (110, 110, 140)
+    c[398:402, 100:270] = (30, 30, 44)
+
+def sc_control(c, k, kick, p, last_kick):
+    c[:] = c * 0.4 + np.array([10, 40, 140], np.float32) * 0.6
+    drop = min(1, p * 2.2); level = 1.0 - 0.55 * drop             # control rods slide in; the glow settles
+    for j in range(7):
+        x = 22 + j * 38; c[170:470, x:x + 20] = (90, 170, 255); c[170:470, x + 5:x + 12] = (210, 240, 255)
+        glow(c, x + 10, 330, 70, (40, 120, 255), level * (0.4 + 0.4 * kick))
+    for j in range(6):                                          # dark boron rods between the fuel
+        x = 45 + j * 38; bot = int(170 + 190 * drop)
+        c[150:bot, x:x + 8] = (52, 56, 74); c[150:bot, x + 1:x + 3] = (96, 100, 124); c[bot - 3:bot, x:x + 8] = (30, 30, 44)
+    r = random.Random(int(k * 4))
+    for j in range(int(16 - 10 * drop)):                         # free neutrons: fewer and fewer as the rods eat them
+        x, y = r.uniform(10, 260), r.uniform(170, 400); glow(c, x, y, 8, (80, 200, 255), 0.8); disc(c, x, y, 2, (220, 250, 255))
+    ptext(c, 'EACH SPLIT: ONE MORE SPLIT', 135, 392, 1, WHITE, align='c', box=(14, 12, 34))
+
 # ------------------------------------------------------------------ the topics: (bars, scene, [(text, colour, scale), ...], count-up)
 TOPICS = {
     'brain': [   # 86 billion neurons (Azevedo et al. 2009); thousands of synapses each, 100+ trillion in all
@@ -215,6 +357,17 @@ TOPICS = {
         (1, sc_bath, [("THAT'S A", WHITE, 2), ('FULL BATHTUB', GOLD, 3), ('EVERY HALF HOUR', WHITE, 2)], None),
         (1, sc_heart, [('AND IT', WHITE, 2), ('NEVER', GOLD, 4), ('STOPS', WHITE, 3)], None),
     ],
+    'fission': [  # U-235: 92 protons, 143 neutrons; fission neutrons ~1 MeV (~14,000 km/s), slowed by water to ~2.2 km/s;
+                  # 2-3 new neutrons per split; 1 kg U-235 fully split ~8x10^13 J, about 3,000 tonnes of coal at ~27 MJ/kg
+        (2, sc_city, [('HOW DOES SPLITTING', WHITE, 2), ('ONE ATOM', GOLD, 3), ('LIGHT UP A CITY?', WHITE, 2)], None),
+        (1, sc_rods, [('INSIDE A REACTOR:', WHITE, 2), ('URANIUM FUEL', GOLD, 3)], None),
+        (2, sc_atom, [('ONE URANIUM-235 ATOM', WHITE, 2), ('92 PROTONS', GOLD, 3), ('143 NEUTRONS', SOFT, 2)], None),
+        (2, sc_neutron, [('A STRAY NEUTRON', WHITE, 2), ('{}', GOLD, 3), ('WATER SLOWS IT DOWN', SOFT, 2)], (14000, 2, '{:,.0f} KM/S')),
+        (1, sc_split, [('IT SPLITS THE ATOM', WHITE, 2), ('+ ENERGY', GOLD, 3), ('+ 2 OR 3 NEUTRONS', SOFT, 2)], None),
+        (1, sc_chain, [('EACH NEW NEUTRON', WHITE, 2), ('SPLITS ANOTHER', GOLD, 3), ('A CHAIN REACTION', SOFT, 2)], None),
+        (1, sc_control, [('CONTROL RODS', WHITE, 2), ('SOAK UP', GOLD, 3), ('THE EXTRAS', GOLD, 3)], None),
+        (2, sc_coal, [('1 KG OF URANIUM-235', WHITE, 2), ('{}', GOLD, 3), ('TONNES OF COAL', WHITE, 2)], (0, 3000, 'ABOUT {:,.0f}')),
+    ],
     'eyes': [    # ~3 saccades a second; saccadic suppression; chronostasis (the stopped-clock illusion)
         (2, sc_eye, [('YOUR EYES JUMP', WHITE, 2), ('3 TIMES', GOLD, 4), ('EVERY SECOND', WHITE, 2)], None),
         (2, sc_eraser, [('BUT YOU NEVER', WHITE, 2), ('SEE THE BLUR', GOLD, 3)], None),
@@ -223,6 +376,23 @@ TOPICS = {
         (1, sc_clock, [("THAT'S YOUR BRAIN", WHITE, 2), ('FILLING THE GAP', GOLD, 2)], None),
     ],
 }
+# the scale box (metres, ticking down through the zoom) and where each cut zooms in
+SCALE = {sc_city: 10000, sc_rods: 4, sc_control: 4, sc_atom: 4e-10, sc_neutron: 2e-9, sc_split: 2e-14, sc_chain: 2e-9}
+ZOOM_AT = {sc_city: (222, 300), sc_rods: (135, 330), sc_neutron: (130, 300)}
+def metres(v):
+    if v >= 1: return '{:,.0f} M'.format(v)
+    d = max(0, -int(math.floor(math.log10(v)))); return ('{:.%df} M' % d).format(v)
+
+def scale_box(c, n, kp):
+    sc = SCALE.get(PARTS[n][1])
+    if sc is None: return
+    prv = SCALE.get(PARTS[n - 1][1], sc) if n else sc
+    t = min(1.0, kp / 1.5); t = 1 - (1 - t) ** 3                 # log-ticker over the first beat and a half
+    v = 10 ** (math.log10(prv) + (math.log10(sc) - math.log10(prv)) * t)
+    s_ = 'SCALE  ' + metres(v); w = len(s_) * 6 + 8; x0 = LW // 2 - w // 2
+    c[10:26, x0:x0 + w] = (14, 12, 34); c[10, x0:x0 + w] = SOFT; c[25, x0:x0 + w] = SOFT; c[10:26, x0] = SOFT; c[10:26, x0 + w - 1] = SOFT
+    ptext(c, s_, LW // 2, 14, 1, WHITE, align='c')
+
 PARTS = TOPICS[TOPIC]
 BEATS_N = sum(b for b, *_ in PARTS) * 4
 CL = Clock(SLUG, B0, BEATS_N)
@@ -245,16 +415,22 @@ def render_part(i, c, k, kick):
         a, b, fmt = count; v = a + (b - a) * (1 - (1 - min(1, p * 1.4)) ** 3)
         lines = [(fmt.format(v) if t == '{}' else t, col, sc) for t, col, sc in lines]
         lines = [(t, col, sc if len(t) * 6 * sc < LW - 10 else max(2, (LW - 10) // (len(t) * 6))) for t, col, sc in lines]
-    headline(c, lines, kp)
+    headline(c, lines, kp); scale_box(c, n, kp)
     return n
 
 def frame(i):
     k = CL.beat(i); kick = float(CL.kick[i])
     c = np.zeros((LH, LW, 3), np.float32); n = render_part(i, c, k, kick)
     since = k - STARTS[n]
-    if n > 0 and since < 0.25:                                # a pixel dissolve from the part before
+    zc = ZOOM_AT.get(PARTS[n - 1][1]) if n > 0 else None
+    T = 0.6 if zc else 0.25
+    if n > 0 and since < T:                                   # a pixel dissolve from the part before (pushing in, for a zoom)
         prev = np.zeros((LH, LW, 3), np.float32); render_part(i, prev, STARTS[n] - 0.01, kick)
-        m = (BY[:LH, :LW] > since / 0.25)[..., None]; c = np.where(m, prev, c)
+        t = since / T
+        if zc:
+            z = 1 + 5 * t * t; M = np.float32([[z, 0, zc[0] * (1 - z) + (LW / 2 - zc[0]) * t], [0, z, zc[1] * (1 - z) + (LH / 2 - zc[1]) * t]])
+            prev = cv2.warpAffine(prev, M, (LW, LH), flags=cv2.INTER_NEAREST, borderMode=cv2.BORDER_REPLICATE)
+        m = (BY[:LH, :LW] > t)[..., None]; c = np.where(m, prev, c)
     big = cv2.resize(np.clip(c, 0, 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST).astype(np.float32)
     paste(big, text(CREDIT, F(DEJAVU, 30), (230, 230, 240), stroke=3), W / 2, 1660)
     return np.clip(big, 0, 255).astype(np.uint8)
