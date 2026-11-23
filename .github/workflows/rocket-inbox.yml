@@ -1,7 +1,8 @@
 name: rocket-inbox
 
-# A drop box for rocket.league.lit's clips: what is pushed to clips/ on this branch is analysed and added to the
-# rocket-library release by studio/rocket_lib.py (from the rocket-league branch), and the index is committed there.
+# A drop box for rocket.league.lit's clips: what is pushed to clips/ on this branch, or listed in drive.txt (Drive files
+# shared by link: "<file id> <name>"), is analysed and added to the rocket-library release by studio/rocket_lib.py,
+# and the library's index (studio/rocket/index.json) is committed to main.
 on:
   push:
     branches: [rocket-inbox]
@@ -26,7 +27,7 @@ jobs:
           path: inbox
       - uses: actions/checkout@v4
         with:
-          ref: rocket-league
+          ref: main
           path: repo
       - uses: actions/setup-python@v5
         with:
@@ -35,6 +36,15 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
           pip install -q numpy
+      - name: Fetch the clips listed in drive.txt
+        run: |
+          mkdir -p inbox/clips
+          grep -v '^#' inbox/drive.txt 2>/dev/null | while read -r id name; do
+            [ -z "$id" ] && continue
+            [ -f "inbox/clips/$name" ] && continue
+            curl -sSfL --retry 3 -o "inbox/clips/$name" "https://drive.usercontent.google.com/download?id=$id&export=download&confirm=t"
+            echo "$name: $(stat -c %s "inbox/clips/$name") bytes, $(file -b --mime-type "inbox/clips/$name")"
+          done
       - name: Add the clips to the library
         run: cd repo && python studio/rocket_lib.py add ../inbox/clips
       - name: Record the library
@@ -45,4 +55,4 @@ jobs:
           git add studio/rocket/index.json
           git diff --cached --quiet && exit 0
           git commit -q -m "rocket library: new clips [skip ci]"
-          git push -q origin HEAD:rocket-league
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
