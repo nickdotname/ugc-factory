@@ -46,6 +46,15 @@ creatives:
   - name: notta_problem
     title: "Notta Problem"
     assets_release: assets-nyc_daily-notta_problem
+  - name: recess_rewind
+    title: "Recess (Rewind)"
+    assets_release: assets-nyc_daily-recess_rewind
+  - name: passage_waiting
+    title: "Passage (Waiting)"
+    assets_release: assets-nyc_daily-passage_waiting
+  - name: epilogue_dismissal
+    title: "Epilogue: Dismissal"
+    assets_release: assets-nyc_daily-epilogue_dismissal
 
 # @nyc.daily.aesthetic only, posted to Instagram directly as regular reels.
 accounts:

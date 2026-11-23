@@ -48,6 +48,15 @@ creatives:
   - name: notta_problem
     title: "Notta Problem"
     assets_release: assets-ascii_art-notta_problem
+  - name: recess_rewind
+    title: "Recess (Rewind)"
+    assets_release: assets-ascii_art-recess_rewind
+  - name: passage_waiting
+    title: "Passage (Waiting)"
+    assets_release: assets-ascii_art-passage_waiting
+  - name: epilogue_dismissal
+    title: "Epilogue: Dismissal"
+    assets_release: assets-ascii_art-epilogue_dismissal
 
 # The ASCII account only, posted to Instagram directly as regular reels.
 accounts:
