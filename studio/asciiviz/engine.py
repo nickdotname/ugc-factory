@@ -31,7 +31,8 @@ MONO = _font('DejaVuSansMono.ttf', 'DejaVuSansMono-Bold.ttf')
 
 RAMPS = {'classic': " .:;i!tjrxnuzcvXUJCLQ0OZqpdbkhao*#W&8%B@$",
          'dense': " .'`^\",:;Il!i><~+_-?][}{1)(tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$",
-         'blocks': " .:-=+*#%@░▒▓█"}
+         'blocks': " .:-=+*#%@░▒▓█",
+         'texture': " .'`:-+=<>(){}[]ilcrsunoeazx*%$&8B#@"}   # sorted by how much ink each letter has (below): letters as texture
 PALETTES = {'sunset': [(255, 222, 150), (255, 165, 85), (255, 100, 120), (200, 90, 220), (120, 110, 255)],
             'reef': [(255, 105, 180), (235, 95, 235), (150, 110, 255), (80, 150, 255), (70, 225, 240)],
             'terminal': [(235, 255, 235), (150, 255, 180), (70, 225, 150), (40, 175, 175), (50, 120, 175)],
@@ -49,11 +50,12 @@ class Video:
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         song = json.load(open(os.path.join(song_dir, 'song.json')))
         r = random.Random(seed)
-        self.ramp_name = K.pick('ramp', sorted(RAMPS), r, weights=None)
+        self.SC = importlib.import_module(scene)
+        names = sorted(RAMPS)
+        self.ramp_name = K.pick('ramp', names, r, weights=[4 if (n == 'texture' and hasattr(self.SC, 'image')) else 1 for n in names])
         self.palette = K.pick('palette', ['scene'] + sorted(PALETTES), r)
         self.layout = K.pick('layout', ['code', 'clean'], r, weights=[3, 1])   # the code under the art is the account's point: most videos show it
         self.sparks = float(K.pick('sparks', [0.5, 1.0, 1.6], r))
-        self.SC = importlib.import_module(scene)
         # Colour scenes (SC.image) are pictures in full colour, set in small letters: a finer grid, and every letter
         # takes the colour of the picture under it. The older scenes raymarch a distance field into the coarse grid.
         self.colour = hasattr(self.SC, 'image')
@@ -70,7 +72,9 @@ class Video:
         f = ImageFont.truetype(MONO, 10 if self.colour else 15); self.atlas = np.zeros((len(chars), self.ch, self.cw), np.float32)
         for k, c in enumerate(chars):
             im = Image.new('L', (self.cw, self.ch)); ImageDraw.Draw(im).text((0, -1 if self.colour else 0), c, font=f, fill=255); self.atlas[k] = np.asarray(im) / 255.0
-        self.idx = {c: k for k, c in enumerate(chars)}; self.ramp = np.array([self.idx[c] for c in ramp])
+        self.idx = {c: k for k, c in enumerate(chars)}
+        if self.ramp_name == 'texture': ramp = ''.join(sorted(ramp, key=lambda c: self.atlas[self.idx[c]].sum()))
+        self.ramp = np.array([self.idx[c] for c in ramp])
         self.label = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         lines = json.load(open(os.path.join(song_dir, 'lines.json'))) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
         self.lines = [l for l in lines if l[1][0][1] < t1 and l[0] > t0]
@@ -168,8 +172,9 @@ class Video:
         mask = self.atlas[ch].transpose(0, 2, 1, 3).reshape(R * self.ch, C * self.cw)
         layer = mask[..., None] * np.repeat(np.repeat(col, self.ch, 0), self.cw, 1)
         small = cv2.resize(layer, (layer.shape[1] // 3, layer.shape[0] // 3), interpolation=cv2.INTER_AREA)
-        glow = cv2.resize(cv2.GaussianBlur(small, (0, 0), 2.2), layer.shape[1::-1]) * (1.1 + 0.8 * self.vox[i]) \
-             + cv2.resize(cv2.GaussianBlur(small, (0, 0), 9), layer.shape[1::-1]) * (0.7 + 0.6 * self.pulse[i])
+        g = getattr(SC, 'GLOW', 1.0)                                  # how much the scene glows (a busy one keeps its letters readable)
+        glow = (cv2.resize(cv2.GaussianBlur(small, (0, 0), 2.2), layer.shape[1::-1]) * (1.1 + 0.8 * self.vox[i])
+                + cv2.resize(cv2.GaussianBlur(small, (0, 0), 9), layer.shape[1::-1]) * (0.7 + 0.6 * self.pulse[i])) * g
         return np.clip(layer + glow, 0, 255), int((ch != idx[' ']).sum()), int(spark.sum())
 
     def frame_colour(self, i):
