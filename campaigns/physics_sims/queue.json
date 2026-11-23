@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-23T13:25:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "this is weirdly satisfying with sound\n🎧 Suspended – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "every bounce is a beat. sound on.\n🎧 Full Ride – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Full Ride"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "wait for the drop\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Hair of the Dog: link in bio"
       },
