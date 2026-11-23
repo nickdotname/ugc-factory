@@ -81,6 +81,7 @@ VISUAL['retro'] = 'retro_video.py'
 VISUAL['fluid'] = 'fluid_video.py'    # wind-tunnel sims for the physics account (lattice Boltzmann; every gust a kick)
 VISUAL['vintage'] = 'vintage_video.py'   # vintage.media.archive: films from before 1931 as old prints (footage theme silent)
 VISUAL['nyc'] = 'nyc_video.py'           # nyc.daily.aesthetic: New York footage as a meme or a fact (footage theme nyc)
+VISUAL['tinycode'] = 'tinycode_video.py' # tiny.code.loops: a few lines of numpy in an editor, and what they draw
 
 def lofi_cover(slug, win):
     """How much of a stretch the band's dance footage covers (0..1)."""
@@ -106,7 +107,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program'}
 FRESH = 0.6
 
 def freshen(style, menu, kn, recent, learned, r):

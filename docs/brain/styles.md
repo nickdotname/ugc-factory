@@ -18,13 +18,14 @@ it so [[learning]] can score it; `CQ_KNOBS` forces knobs.
 | liminal | liminal_video.py | nostalgia.hub.vhs | liminal spaces on VHS | place, tape, tint, label, stamp, pace |
 | math | math_video.py (+ studio/mathviz/) | math.explainers | integrals, Fourier, derivative, zeta, paper fold, sci8 pixel science (brain, heart, eyes, fission) | topic, theme, room, grid, target, ... |
 | glitch | glitch_video.py | glitch.archive.exe | public-domain footage broken on the beat: datamosh, tracking, pixel sort, slit-scan, point cloud | source, main, accent, tone, pace, label |
-| ascii | ascii_video.py (+ studio/asciiviz/) | ascii.terminal.dreams | 3D scenes in letters, with their code | scene, palette, ramp, layout, ... |
+| ascii | ascii_video.py (+ studio/asciiviz/) | ascii.terminal.dreams | 3D scenes in letters, with their code (letters only: the pixel worlds in studio/pixelviz/ were taken off) | scene, palette, ramp, layout, ... |
 | physics | physics_video.py | physics.bounce.lab | bouncing-ball sims; every collision is a hit from the song's Ableton project | scene, hits, palette, trail, hook |
 | earth | earth_video.py | earth.data.live | real satellites, flights, earthquakes on the beat | scene, palette, spin, hook |
 | retro | retro_video.py | retro.vibes.arcade | Kaggle-made PS2-era levels, cut on the bar | theme, screen, frame, cut, pace |
 | rocket | rocket_video.py | rocket.league.lit | our Rocket League clips: as-is or montage, moments on downbeats | format, frame, ramp |
 | vintage | vintage_video.py | vintage.media.archive | pre-1931 film as an old print: tint, crank stutter, gate/iris, grain, dust, scratches, intertitle lyric cards; sometimes melts, burns or double-exposes | tint, crank, gate, cards, trip, pace, source |
 | nyc | nyc_video.py | nyc.daily.aesthetic | NYC footage as a meme (white caption bar) or a fact that counts up on the beat | kind, look, pace, line/fact, source |
+| tinycode | tinycode_video.py | tiny.code.loops | a few lines of numpy in an editor, and what they draw (13 programs: sunflower, knot, ridges, orbits, interference, lissajous, rose, spirograph, attractor, plasma, tunnel, metaballs, galaxy); the code shown is the code run | program, palette, glow, trail |
 
 Open PRs adding styles (not merged at the time of writing): **fluid** (wind-tunnel Navier-Stokes sims for
 physics.bounce.lab, #80), sorting/maze races for math (#77), goldfish for ascii (#79). See [[backlog]].

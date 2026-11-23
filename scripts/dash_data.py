@@ -22,7 +22,7 @@ HANDLES = {'close_quarters_ig': 'close__quarters', 'dylancantor23_ig': 'dylancan
            'nostalgia_ig': 'nostalgia.hub.vhs', 'math_ig': 'math.explainers', 'glitch_ig': 'glitch.archive.exe',
            'ascii_ig': 'ascii.terminal.dreams', 'physics_ig': 'physics.bounce.lab', 'earth_ig': 'earth.data.live',
            'retro_ig': 'retro.vibes.arcade', 'rocket_ig': 'rocket.league.lit', 'nickdotname_ig': 'the.loose.change',
-           'vintage_ig': 'vintage.media.archive', 'nyc_ig': 'nyc.daily.aesthetic'}
+           'vintage_ig': 'vintage.media.archive', 'nyc_ig': 'nyc.daily.aesthetic', 'tinycode_ig': 'tiny.code.loops'}
 NOT_CQ = {'clubs'}                   # campaigns that are not Close Quarters (the Clubs app's own posts)
 # Accounts that posted other things before they were Close Quarters accounts: only the posts one of our campaigns made
 # are shown (the.loose.change was nickdotname, the Clubs account, until mid-November).
@@ -33,7 +33,7 @@ METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments':
 WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
         'psy': ['field'], 'collage': ['palette'], 'liminal': ['place'], 'earth': ['scene'], 'glitch': ['source'],
         'retro': ['theme'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
-        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage']}
+        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage'], 'tinycode': ['program']}
 
 
 def load(path, default):

@@ -20,6 +20,11 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
 - **Granting the app:** choose "Opt in to all current and future Pages / Instagram accounts" so new accounts need
   no re-grant (done 2026-11-23). After any grant, refresh `IG_TOKEN` (Explorer → Copy token → Debugger → Extend).
 - **Pages are created under Dylan's Facebook** even for Nick's account, so one token covers every account.
+- **Facebook caps new Pages per profile.** After several in a day, "Create Page" does nothing on screen; the
+  response says "You have created too many Pages recently." Wait a day, or have Nick create the Page and give
+  Dylan full control (Page settings → Page access), then link it from Dylan's side as usual.
+- **"Opt in to future accounts" isn't enough for a brand-new Page:** `me/accounts` didn't list Tiny Code until
+  Generate Access Token was run again and the new Page and account were ticked; then refresh `IG_TOKEN`.
 
 ## Queue and posting
 
