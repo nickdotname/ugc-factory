@@ -38,9 +38,9 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-e78720e3-1ebf-4857-968a-2b57b829a74d",
           "last_error": null,
           "scheduled_for": "2026-11-23T15:15:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "this is what sin and cos look like when they dance\n🎧 Silver and Gold – @close__quarters #generativeart #creativecoding #codeart #tinycode\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
