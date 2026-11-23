@@ -68,6 +68,7 @@ LYRIC = {'type': 'type_video.py'}
 LYRIC['lofi'] = 'lofi_video.py'      # the band's own dance footage, cut out, in a Y2K media player (studio/lofi/index.json says where there is footage)
 LYRIC['cursor'] = 'cursor_video.py'  # the band rebuilt out of mouse cursors in a 3D Windows 98 world (any song: the dance clips loop where it has none)
 LYRIC['cutout'] = 'cutout_video.py'  # the same dance footage, full screen and thrown around on the beat (dev_lemons-style), now and then trippy
+LYRIC['scene'] = 'scene_video.py'    # the band cut out and set into one of three worlds: an after-hours school, psych landscapes, New York on film
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math'}      # styles choreographed to a fixed number of beats: never cut shorter
@@ -123,7 +124,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'scene': 'place'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'scene': 'world'}
 FRESH = 0.6
 
 def freshen(style, menu, kn, recent, learned, r):

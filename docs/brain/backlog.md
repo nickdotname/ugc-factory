@@ -8,10 +8,10 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   cleanly as of 2026-11-23.
 
 ## Next
-- **Band in real places (scene style)**, inspired by dev_lemons but our own: three worlds — EDUCATION school places
-  (AI-made plates: hallway, classroom, gym, bus; lyrics chalked on the board, yearbook portraits), psych-rock
-  landscapes (AI plates, marker-scrawl lyrics), NYC film look (our NYC clips, matched light, subtitles). No letterbox,
-  italic lyrics, laptops, handhelds, billboards or pixel waves (her signatures). Needs the Kaggle image library.
+- **Plates in other accounts**: psychedelic.station (theme `psy`) and nostalgia.hub.vhs (theme `liminal`) should draw
+  on the AI plate library now and then, for backgrounds and stills.
+- **Scene style, more**: yearbook-portrait framing for the school world; our own New York clips in the inbox
+  (`studio/footage/inbox/nyc.txt`) beside the stock ones.
 - **More band footage** for the cut-out and scene styles: only Fixation, Won't Be the Same Again, Full Ride and Notta
   Problem have dance clips in `studio/lofi/index.json`, so those two styles only ever play those songs.
 - **Math "curves in love"**: two curves (y = x and y = x − sin x, etc.) drawn as characters that chase, meet and

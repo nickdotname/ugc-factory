@@ -4,7 +4,9 @@
     python studio/footage.py pull [THEME ...]    (download the library's clips into studio/footage/cache)
 
 Only footage anyone may reuse with no credit is taken: Wikimedia Commons files marked public domain or CC0, the
-Prelinger Archives films on archive.org marked public domain, and NASA video (not copyrighted, by US law). From
+Prelinger Archives films on archive.org marked public domain, NASA video (not copyrighted, by US law), and, for
+the places-as-they-look-now themes (NOW: modern New York for close__quarters' nyc world), Pexels videos under the
+Pexels licence (free to use and adapt, no credit needed; places only, and stored in our own crop and grade). From
 each film a few short pieces with real motion in them are cut (no sound, at most 960 px tall, a few MB each),
 uploaded as assets of the GitHub release "footage-library", and recorded in studio/footage/index.json with their
 source, licence and theme. Rendering (studio/glitch_video.py) only ever reads that library, so a source being
@@ -81,7 +83,9 @@ def _clean(html): return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', html or ''))
 
 
 # ---------------------------------------------------------------- sources: each yields (key, title, url of a playable file, duration, licence, page)
-def commons(q, n=30):
+def commons(q, n=30, since=0):
+    """Commons videos anyone may reuse with no credit. since: only files dated that year or later, in colour-era
+    sizes (at least 720 px on the short side), for themes that want the place as it looks now."""
     p = dict(action='query', format='json', generator='search', gsrsearch='%s filetype:video' % q, gsrnamespace=6, gsrlimit=n,
              prop='videoinfo', viprop='url|size|mime|extmetadata|derivatives')
     pages = (_open('https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(p)).get('query') or {}).get('pages') or {}
@@ -90,6 +94,9 @@ def commons(q, n=30):
         lic = _clean((meta.get('LicenseShortName') or {}).get('value'))
         desc = _clean((meta.get('ImageDescription') or {}).get('value')) + ' ' + _clean((meta.get('Categories') or {}).get('value'))
         if not NO_CREDIT.match(lic) or BLOCK.search(pg['title'] + ' ' + desc): continue
+        if since:
+            year = re.search(r'(19|20)\d\d', _clean((meta.get('DateTimeOriginal') or meta.get('DateTime') or {}).get('value')))
+            if not year or int(year.group(0)) < since or min(vi.get('width') or 0, vi.get('height') or 0) < 720: continue
         ders = [d for d in vi.get('derivatives') or [] if d.get('type', '').startswith('video/')]
         ders.sort(key=lambda d: abs((d.get('height') or 0) - 720))
         src = ders[0]['src'] if ders else vi.get('url')
@@ -148,9 +155,32 @@ def silent(q, n=8):
             'Public Domain (published %d)' % year, 'https://archive.org/details/' + d['identifier']
 
 
-SOURCES = {'commons': commons, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent}
+def commons_now(q, n=40): return commons(q, n, since=2008)
+
+
+def pexels(q, n=40):
+    """Pexels videos (the Pexels licence: free to use and adapt, commercially too, no credit needed), upright ones
+    first since that is the shape we post. Needs a free API key in PEXELS_API_KEY; without one it finds nothing.
+    Clips of a person (a portrait, a model) are left out: places only."""
+    key = os.environ.get('PEXELS_API_KEY')
+    if not key: print('  pexels: no PEXELS_API_KEY, skipped'); return
+    for orient in ('portrait', 'landscape'):
+        url = 'https://api.pexels.com/videos/search?' + urllib.parse.urlencode(dict(query=q, per_page=n, orientation=orient, size='medium'))
+        r = json.loads(urllib.request.urlopen(urllib.request.Request(url, headers=dict(UA, Authorization=key)), timeout=60).read())
+        for v in r.get('videos') or []:
+            slug = urllib.parse.urlsplit(v.get('url') or '').path.strip('/').split('/')[-1]; title = re.sub(r'-?\d+$', '', slug).replace('-', ' ').strip()
+            if BLOCK.search(title) or PEOPLE.search(title): continue
+            files = [f for f in v.get('video_files') or [] if f.get('file_type') == 'video/mp4' and f.get('height') and f.get('link')]
+            if not files: continue
+            f = min(files, key=lambda f: abs(max(f['height'], f.get('width') or 0) - 1280))
+            yield 'pexels:%s' % v['id'], title or slug, f['link'], float(v.get('duration') or 0), 'Pexels License', v.get('url', '')
+
+
+PEOPLE = re.compile(r'\b(man|woman|men|women|girl|boy|person|people|model|couple|portrait|selfie|kid|child|baby|dancing|posing|smiling|walking)\b', re.I)
+NOW = {'nyc_now'}        # themes of a place as it looks today: upright 720x1280 pieces in our own grade, short clips kept whole
+SOURCES = {'commons': commons, 'commons_now': commons_now, 'pexels': pexels, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent}
 BY_THEME = {'space': ['nasa', 'commons'], 'archive': ['prelinger'], 'city': ['commons', 'prelinger'], 'water': ['commons', 'prelinger'], 'nature': ['commons', 'nasa'],
-            'silent': ['silent'], 'nyc': ['commons', 'prelinger', 'silent']}
+            'silent': ['silent'], 'nyc': ['commons', 'prelinger', 'silent'], 'nyc_now': ['pexels', 'commons_now']}
 
 
 # ---------------------------------------------------------------- cutting
@@ -176,31 +206,38 @@ def motion(path):
     return (float(np.median(diffs)) if diffs else 0.0), (float(np.mean(lum)) if lum else 0.0)
 
 
-def cut(url, dur, out_dir, key):
-    """Up to PER_FILM pieces of CLIP_SEC seconds from spread-out points of a film, re-encoded small and silent."""
+def cut(url, dur, out_dir, key, now=False):
+    """Up to PER_FILM pieces of CLIP_SEC seconds from spread-out points of a film, re-encoded small and silent.
+    now: a piece for a NOW theme, cropped upright to 720x1280 and put through our film grade (so what the library
+    holds is our version of the clip, not a copy of the stock file), and a clip of 5-12 s is kept whole."""
     local = None
     if 'upload.wikimedia.org' in url:
         local = download(url, os.path.join(out_dir, '_film' + os.path.splitext(urllib.parse.urlsplit(url).path)[1][-5:]))
         url = local; time.sleep(3)
-    try: return _cut(url, dur, out_dir, key)
+    try: return _cut(url, dur, out_dir, key, now)
     finally:
         if local and os.path.exists(local): os.remove(local)
 
 
-def _cut(url, dur, out_dir, key):
+GRADE = ("scale=720:1280:force_original_aspect_ratio=increase:flags=area,crop=720:1280,fps=30,"
+         "curves=r='0/0.03 0.5/0.52 1/1':g='0/0.04 0.5/0.5 1/0.97':b='0/0.07 0.5/0.48 1/0.92',eq=saturation=0.88:contrast=1.04,format=yuv420p")
+
+
+def _cut(url, dur, out_dir, key, now=False):
     if dur <= 0: dur = probe(url)[0]
-    if dur < CLIP_SEC + 2: return []
-    starts = [dur * f for f in (0.18, 0.42, 0.66, 0.84)][:PER_FILM + 1]
+    if dur < (5 if now else CLIP_SEC + 2): return []
+    starts = [0.0] if dur < CLIP_SEC + 2 else [dur * f for f in ((0.05, 0.5) if now and dur < 3 * CLIP_SEC else (0.18, 0.42, 0.66, 0.84))][:PER_FILM + 1]
+    vf = GRADE if now else "scale=-2:'min(%d,ih)':flags=area,fps=30,format=yuv420p" % MAX_H
     kept = []
     for s in starts:
         name = hashlib.sha1(('%s@%.1f' % (key, s)).encode()).hexdigest()[:16] + '.mp4'; out = os.path.join(out_dir, name)
         net = ['-user_agent', UA['User-Agent']] if url.startswith('http') else []
         r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y'] + net + ['-ss', '%.2f' % s, '-t', '%.1f' % CLIP_SEC, '-i', url, '-an',
-                            '-vf', "scale=-2:'min(%d,ih)':flags=area,fps=30,format=yuv420p" % MAX_H, '-c:v', 'libx264', '-preset', 'medium', '-crf', '25', '-movflags', '+faststart', out],
+                            '-vf', vf, '-c:v', 'libx264', '-preset', 'medium', '-crf', '25', '-movflags', '+faststart', out],
                            capture_output=True, text=True, timeout=600)
         if r.returncode or not os.path.exists(out): print('    ffmpeg: %s' % (r.stderr or '').strip()[-200:]); continue
         m, lum = motion(out)
-        if m < 1.2 or lum < 18 or lum > 240: os.remove(out); continue            # nothing moves, or it is black / blown out
+        if m < (0.5 if now else 1.2) or lum < (10 if now else 18) or lum > 240: os.remove(out); continue   # nothing moves, or it is black / blown out (a city at night is dark and slow: allowed)
         kept.append((name, s, m))
         if len(kept) >= PER_FILM: break
     return kept
@@ -222,7 +259,7 @@ def fetch(maximum):
             print('  %s %r: %d usable' % (src, q, len(found)))
             for key, title, url, dur, lic, page in found:
                 if key in seen or len(new) >= maximum: continue
-                try: pieces = cut(url, dur, work, key)
+                try: pieces = cut(url, dur, work, key, now=theme in NOW)
                 except Later as exc: print('  later %s: %s' % (key, exc)); continue
                 except Exception as exc: print('  cut failed %s: %s' % (key, exc)); pieces = []
                 seen.add(key)

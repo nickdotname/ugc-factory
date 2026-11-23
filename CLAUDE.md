@@ -22,7 +22,9 @@ Everything about the Close Quarters engine (accounts, renderers, the nightly stu
 - **Band photos and footage only on @close__quarters and @dylancantor23.** Niche accounts never show the band.
 - **No engagement bait** (no "comment X", "tag a friend", like-asks). First comments credit the song only.
 - **No copyrighted film/TV edits, no ripped YouTube, no game footage we didn't record.** Footage is public
-  domain (pre-1931 films, NASA, Prelinger, CC0 Commons) or our own (Rocket League clips, Nick's NYC clips).
+  domain (pre-1931 films, NASA, Prelinger, CC0 Commons), our own (Rocket League clips, Nick's NYC clips), or, for
+  modern New York only, free-licence stock (Pexels licence; places, not people) stored in our own crop and grade.
+  Pictures made by our own models (SDXL plates on Kaggle) are ours.
 - **Collab invites are off; no band carousels on niche accounts.**
 - **Meta/Instagram account work:** never type passwords or payment details; leave verification codes and
   logins to the operator; never pick the wrong account in an OAuth popup. Don't navigate the Facebook tab while an

@@ -30,6 +30,10 @@ targets:
     style: cutout
     per_night: 3
     join: 40
+  - campaign: cq_band       # close__quarters: the band set into an after-hours school, psych landscapes or New York on film (studio/scene_video.py; AI plates from studio/plates_gen.py)
+    style: scene
+    per_night: 2
+    join: 40
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
     per_night: 12

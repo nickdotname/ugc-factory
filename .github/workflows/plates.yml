@@ -19,7 +19,7 @@ on:
         required: false
         default: "30"
       themes:
-        description: only these themes, comma-separated (school, psych, liminal, psy; blank = all)
+        description: only these themes, comma-separated (school, psych, nyc, liminal, psy; blank = all)
         required: false
         default: ""
   schedule:

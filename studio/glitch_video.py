@@ -94,6 +94,7 @@ class Video:
         self.pace = float(K.pick('pace', [1, 2], r)); self.label = K.pick('label', ['rec', 'none'], r)
         lib = footage.pull(() if self.theme == 'mixed' else (self.theme,))
         if len(lib) < 3: lib = footage.pull(())
+        lib = [e for e in lib if e['theme'] not in footage.NOW] or lib          # glitch.archive is public-domain film only: no modern stock clips
         if not lib: sys.exit('the footage library is empty: run the footage workflow first')
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 6.0); self.snare = audio.hits(a['snares'], n, 8.0)

@@ -14,6 +14,11 @@ Themes with the fewest clips are fetched first.
 | water, nature, city, space, archive | Wikimedia Commons (PD/CC0 only), Prelinger Archives, NASA | glitch |
 | silent | Internet Archive, films dated 1890–1930 (US public domain by date); restorations, colourised copies, trailers and documentaries skipped | vintage |
 | nyc | Commons, Prelinger, silent-era New York films, **and our own clips** | nyc |
+| nyc_now | New York as it looks today: **Pexels** (Pexels licence: free to use and adapt, no credit; needs the free `PEXELS_API_KEY` secret) and Commons PD/CC0 files dated 2008 or later | scene (nyc world) |
+
+`nyc_now` pieces are cut differently (`NOW` in footage.py): upright 720×1280, put through our film grade (the
+library holds our version, not a copy of the stock file), clips of 5–12 s kept whole, titles about people skipped
+(places only). glitch.archive never uses them: it is public-domain film only.
 
 `BLOCK` (in footage.py) rules a film out on its title/subject/description: sex, alcohol/tobacco ads, war and
 weapons, racist caricature terms, crime, medical, adverts. Metadata can't catch everything, especially in 1920s
@@ -33,6 +38,12 @@ Each film gives up to 3 silent 10 s pieces (≤960 px tall, motion-checked).
   @close__quarters and @dylancantor23.
 
 ## Made on Kaggle
+
+**Plates** (`studio/plates_gen.py` → release `plates-library`, index `studio/plates/index.json`): still pictures
+of places made by SDXL (Open RAIL++-M, commercial use allowed) on Kaggle's free GPUs, `plates.yml` twice a week.
+Prompts in `studio/plates/prompts.json`: a scene × a look per theme. Places only: no people, text, logos or real
+landmarks. Themes: `school`, `psych`, `nyc` (the band's three worlds, studio/scene_video.py), `liminal`
+(nostalgia.hub.vhs), `psy` (psychedelic.station).
 
 retro.vibes.arcade's PS2-style clips: `studio/retro_gen.py` runs an open video model (Wan, Apache 2.0) on Kaggle's
 free GPUs, orchestrated by `retro.yml` twice a week.
