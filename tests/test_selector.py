@@ -847,18 +847,39 @@ class TestSelectBatchMulti:
         ), "b's history is untouched and empty — it must never need to relax"
 
     def test_weights_shift_the_pick_rate(self) -> None:
+        # Weights decide which song gets a slot when there are fewer slots than
+        # songs: one slot, drawn 200 times, lands on the 9x song far more often.
+        a, b = self._two_libraries()
+        pools = {"a": (a, History()), "b": (b, History())}
+        counts: Counter[str] = Counter()
+        for seed in range(200):
+            sel = make_selector(seed=seed, hook_cooldown_days=0, caption_cooldown_days=0)
+            counts.update(name for name, _ in sel.select_batch_multi(pools, {"a": 9.0, "b": 1.0}, 1, 1))
+        assert counts["a"] > 130
+        assert counts["b"] < 70
+
+    def test_a_song_does_not_repeat_in_a_day_while_others_are_unused(self) -> None:
         a, b = self._two_libraries()
         sel = make_selector(seed=5, hook_cooldown_days=0, caption_cooldown_days=0)
         pools = {"a": (a, History()), "b": (b, History())}
+        picks = [name for name, _ in sel.select_batch_multi(pools, {"a": 9.0, "b": 1.0}, 6, 1)]
+        counts = Counter(picks)
+        assert counts["a"] == counts["b"] == 3      # the heavy song cannot take the day
 
-        skewed = sel.select_batch_multi(pools, {"a": 9.0, "b": 1.0}, 200, 1)
-        counts = Counter(name for name, _ in skewed)
-        # 9:1 over 200 draws should land nowhere near even — a wide margin
-        # keeps this from being sensitive to the exact seed while still
-        # proving the weight, not chance, drives the split.
-        assert counts["a"] > 130
-        assert counts["b"] < 70
-        assert counts["a"] > counts["b"] * 2
+    def test_an_opening_line_is_not_reused_across_songs(self) -> None:
+        # Every song's bank holds the same lines; the account should run through
+        # them before opening two posts with the same one.
+        lines = ("line one", "line two", "line three", "line four")
+        def lib(tag: str) -> AssetLibrary:
+            return AssetLibrary(
+                hooks=tuple(f"{tag}_h{i}.mp4" for i in range(6)), bodies=(f"{tag}_b.mp4",), music=(),
+                captions=tuple(f"{ln}\n{tag} – Close Quarters" for ln in lines),
+            )
+        pools = {"a": (lib("a"), History()), "b": (lib("b"), History())}
+        sel = make_selector(seed=3, hook_cooldown_days=0, caption_cooldown_days=0)
+        picks = sel.select_batch_multi(pools, {"a": 1.0, "b": 1.0}, 4, 1)
+        openers = [o.selection.caption.split("\n")[0] for _, o in picks]
+        assert sorted(openers) == sorted(lines)
 
     def test_equal_weights_split_roughly_evenly(self) -> None:
         a, b = self._two_libraries()

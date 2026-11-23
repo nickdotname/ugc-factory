@@ -24,14 +24,14 @@ ANGLES = {
                       "this is for the overthinkers", "the song you didn't know you needed", "main character walk home song"],
         'share':     ["send this to the friend who'd get it", "send this to your music friend", "play this for someone tonight",
                       "your sign to start a band with your friends"],
-        'comment':   ["which line hit hardest?", "rate this song 1-10", "tag who this reminds you of", "wait for the last line. thoughts?"],
+        'comment':   ["which line hit hardest?", "rate this song 1-10", "wait for the last line. thoughts?"],
         'curious':   ["read along", "nobody is talking about this band", "underrated song alert", "lyrics on screen. sound on"],
         'plain':     ["your pc in 2001:", "class is in session"],
         # Hot takes that make the viewer pick a side on the song before it has played, so they say so in the
         # comments. Opinions and questions only: nothing here claims a fact about the song or anyone.
         'debate':    ["unpopular opinion: this song is perfect", "this song is overrated. change my mind",
                       "rock and rap should never mix. right?", "genius or unlistenable? pick one",
-                      "is this rock or rap? wrong answers only", "be honest: skip or replay?",
+                      "be honest: skip or replay?",
                       "your parents would hate this song", "this band is either genius or mid",
                       "only real music fans will get this", "this would've been huge in 2007. agree?",
                       "rate this honestly. we can take it", "too weird for the radio. agree?"],
@@ -49,10 +49,10 @@ ANGLES = {
 # A line only now and then (NONE_SHARE); which angle earns its place is left to the learner.
 ANGLES['rocket'] = {
     'debate':  ["clean or lucky?", "this was pure luck. change my mind", "bronze players could do this",
-                "guess the rank. wrong answers only", "rocket league peaked in 2016. agree?",
+                "rocket league peaked in 2016. agree?",
                 "ball cam on or off? defend yourself", "controller or keyboard? pick a side", "this game is dead. right?"],
     'comment': ["guess our rank", "rate this 1-10", "how many hours to pull this off?", "what rank is this?"],
-    'share':   ["send this to your duo", "tag your duo", "send this to the friend who always whiffs"],
+    'share':   ["send this to your duo", "send this to the friend who always whiffs"],
     'curious': ["wait for it", "rocket league, but on beat", "sound on", "watch the ball", "this is why we can't stop playing",
                 "rocket league players will get it"],
 }
