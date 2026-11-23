@@ -144,9 +144,9 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-e3be80c8-eff5-4736-8a40-9ed46bb81a6a",
           "last_error": null,
           "scheduled_for": "2026-11-24T20:05:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Evil Close Quarters – Close Quarters\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
