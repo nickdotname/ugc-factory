@@ -38,9 +38,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-5a42d152-b6f5-459c-b217-5e78be12854c",
           "last_error": null,
           "scheduled_for": "2026-11-25T11:50:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "Evil Close Quarters – Close Quarters\ndrawn in letters. EDUCATION is out now\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
