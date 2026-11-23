@@ -13,7 +13,12 @@ leaning on the snare, the background flipping colour on the beat, and each bar s
   duo    two of them side by side, trading places on the beat
 The words come up one at a time, big, as they are sung. Now and then the picture turns (trip): it melts on the bass,
 tears into glitch slices on the snare, or its colours split.
-Knobs (studio/knobs.py): stage (which of the four it leans on), palette, trip, outline, words.
+Behind them (bg): the flat colour with rings, or real footage from the library (studio/footage.py: city streets,
+space, water, old archive film), cut on the bar with a whip pan and graded to the palette (tone: duo, a two-colour
+print; soft, blurred and darkened like a shallow focus) so the cut-out stays the thing you look at.
+Movement: each beat sends the cut-out to a new spot, angle and size on a spring (it overshoots and settles), the
+kick squashes it, each bar slides it in from a side, and the camera drifts like it's handheld.
+Knobs (studio/knobs.py): stage (which of the four it leans on), palette, trip, outline, words, bg, tone.
 Band footage: this style is only ever for @close__quarters (CLAUDE.md).
 """
 import json, math, os, random, subprocess, sys
@@ -23,6 +28,8 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import knobs as K
+import footage
+from glitch_video import Clips              # library footage, cut on bar lines and cropped to the frame
 import lofi_video as LV                     # the footage, its timing, the lyrics and fonts (it reads the same argv)
 import lofi_lib as LIB
 
@@ -33,6 +40,17 @@ TINTS = [((40, 0, 95), (200, 40, 210), (255, 185, 250)), ((0, 30, 80), (0, 170, 
          ((0, 50, 20), (40, 200, 90), (220, 255, 200))]
 ANTON = os.path.join(REPO, 'fonts', 'Anton-Regular.ttf')
 GX, GY = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
+BGS = {'color': (), 'city': ('nyc', 'city'), 'space': ('space',), 'water': ('water',), 'archive': ('archive', 'silent')}
+
+
+def spring(t):
+    """0 -> 1 with an overshoot that settles: how a move lands when it is pushed on the beat."""
+    t = max(0.0, t); return 1.0 - math.exp(-6.0 * t) * math.cos(9.0 * t)
+
+
+def back_out(t):
+    """Ease out with a little run past the end (a slide that lands)."""
+    t = min(1.0, max(0.0, t)) - 1.0; return 1.0 + 2.7 * t ** 3 + 1.7 * t ** 2
 
 
 def sticker(im, width):
@@ -61,6 +79,9 @@ class Video:
         self.trip = K.pick('trip', ['none', 'melt', 'glitch', 'split'], r, weights=[4, 2, 2, 2])
         self.outline = int(K.pick('outline', [0, 8, 14], r, weights=[1, 2, 2]))
         self.words = K.pick('words', ['big', 'none'], r, weights=[4, 1]) if LV.SHOW_LYRICS else 'none'
+        self.bg = K.pick('bg', list(BGS), r, weights=[2, 3, 2, 2, 1])
+        self.tone = K.pick('tone', ['duo', 'soft'], r)
+        self.moves = random.Random(seed * 7919)          # where each beat sends the cut-out (drawn per beat, below)
         beats = [b for b in LV.BEATS if self.T0 - 2 <= b <= self.T1 + 2]
         self.beats = np.array(beats or [self.T0]); spb = float(np.median(np.diff(self.beats))) if len(self.beats) > 2 else 0.5
         self.spb = spb
@@ -84,6 +105,20 @@ class Video:
             self.bass[:n] = np.convolve(a['bass'], np.ones(7) / 7, 'same')[:n]
         except Exception as exc: print('no drum hits (%r): moving on the beat grid only' % exc)
         self._tinted = {}
+        # the footage behind them, cut on the bar (one or two bars a shot)
+        self.clips = None
+        if self.bg != 'color':
+            try: lib = footage.pull(BGS[self.bg])
+            except Exception as exc: lib = []; print('no %s footage (%r)' % (self.bg, exc))
+            lib = [e for e in lib if os.path.exists(os.path.join(footage.CACHE, e['asset']))]
+            if len(lib) >= 3:
+                n = int((self.T1 - self.T0) * FPS) + 2
+                self.clips = Clips(lib, n, spb, r.choice([1, 2]), random.Random(seed + 7))
+            else:
+                print('only %d %s clips: flat colour instead' % (len(lib), self.bg)); self.bg = 'color'; K.CHOSEN['bg'] = 'color'
+        # a spot, an angle and a size for every beat, so motion is a function of time (frames can be drawn in any order)
+        nb = len(self.beats) + 2
+        self.spots = [(self.moves.uniform(-90, 90), self.moves.uniform(-40, 30), self.moves.uniform(-7, 7), self.moves.uniform(0.94, 1.06)) for _ in range(nb)]
         self.f_word = ImageFont.truetype(ANTON, 190) if os.path.exists(ANTON) else ImageFont.load_default()
         sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',) if os.path.exists(p)), None)
         self.f_credit = ImageFont.truetype(sans, 28) if sans else self.f_word
@@ -102,32 +137,68 @@ class Video:
         if tint is not None: im = LV.duotone(im, *TINTS[tint])
         return sticker(im, self.outline if width is None else width)
 
-    def place(self, canvas, im, cx, base, height, rot=0.0):
-        s = height / im.height; im2 = im.resize((max(1, int(im.width * s)), max(1, int(height))), Image.BILINEAR)
+    def place(self, canvas, im, cx, base, height, rot=0.0, sx=1.0, sy=1.0):
+        s = height / im.height; im2 = im.resize((max(1, int(im.width * s * sx)), max(1, int(height * sy))), Image.BILINEAR)
         if rot: im2 = im2.rotate(rot, resample=Image.BILINEAR, expand=True)
         canvas.alpha_composite(im2, (int(cx - im2.width / 2), int(base - im2.height)))
+
+    def background(self, i, sc, kb, bounce, col, dx):
+        """What is behind them: flat colour with rings, or library footage graded to the palette."""
+        if self.clips is None:
+            canvas = Image.new('RGBA', (W, H), col + (255,)); d = ImageDraw.Draw(canvas)
+            ring = self.pal[(sc['col'] + kb + 1) % len(self.pal)]
+            for k in range(6):                                                         # rings pulsing out from the middle
+                rad = (k * 260 + (i * 9) % 260) * (1 + 0.15 * bounce)
+                d.ellipse([W / 2 - rad, H * 0.45 - rad, W / 2 + rad, H * 0.45 + rad], outline=ring + (90,), width=26)
+            return canvas
+        f, k, _e = self.clips.frame(i)
+        cut_at = self.clips.plan[k][0]
+        f = np.roll(f, int(-dx * 0.25), axis=1)                                       # parallax against the cut-out
+        if i - cut_at < 5:                                                             # whip pan into each new shot
+            t = (i - cut_at) / 5.0; f = np.roll(f, int(W * 0.35 * (1 - t) ** 2), axis=1)
+            f = cv2.blur(f, (int(9 + 80 * (1 - t)), 1))
+        rgb = f[..., ::-1].astype(np.float32)
+        if self.tone == 'duo':                                                         # a two-colour print in the palette
+            lum = (rgb @ np.array([0.3, 0.59, 0.11], np.float32)) / 255.0
+            lum = np.clip((lum - 0.12) / 0.76, 0, 1) ** 0.9
+            lo = np.array(self.pal[(sc['col'] + 2) % len(self.pal)], np.float32) * 0.22
+            hi = np.array(self.pal[(sc['col'] + kb) % len(self.pal)], np.float32)
+            img = lo + (hi - lo) * lum[..., None]
+        else:                                                                          # shallow focus: blurred, darker
+            small = cv2.resize(rgb, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
+            img = cv2.resize(cv2.GaussianBlur(small, (0, 0), 3.0), (W, H), interpolation=cv2.INTER_LINEAR) * 0.62
+            g = img.mean(axis=2, keepdims=True); img = g + (img - g) * 1.35        # a little more colour
+        img = img * (1.0 + 0.22 * bounce)                                              # flashes on the beat
+        if sc['kind'] == 'grid': img = img * 0.7                                       # small figures need a quieter ground
+        return Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)).convert('RGBA')
 
     def frame(self, i):
         T = self.T0 + i / FPS; kb, ph = self.beat_phase(T)
         sc = next((s for s in reversed(self.plan) if s['t0'] <= T), self.plan[0])
         bounce = math.exp(-ph * 4.5)                                                   # 1 on the beat, falling away
         col = self.pal[(sc['col'] + kb) % len(self.pal)] if sc['kind'] != 'grid' else self.pal[sc['col'] % len(self.pal)]
-        canvas = Image.new('RGBA', (W, H), col + (255,))
-        d = ImageDraw.Draw(canvas)
-        ring = self.pal[(sc['col'] + kb + 1) % len(self.pal)]
-        for k in range(6):                                                             # rings pulsing out from the middle
-            rad = (k * 260 + (i * 9) % 260) * (1 + 0.15 * bounce)
-            d.ellipse([W / 2 - rad, H * 0.45 - rad, W / 2 + rad, H * 0.45 + rad], outline=ring + (90,), width=26)
+        n = min(i, len(self.kick) - 1)
+        # where the cut-out is: the last beat's spot springing towards this beat's, plus a slide in at each bar
+        a_, b_ = self.spots[max(0, kb - 1) % len(self.spots)], self.spots[kb % len(self.spots)]
+        sp = spring(ph * self.spb / 0.45)
+        dx, dy, rot, sz = (a_[j] + (b_[j] - a_[j]) * sp for j in range(4))
+        into = (T - sc['t0']) / max(1e-3, 0.4 * self.spb)
+        if into < 1 and sc['kind'] in ('big', 'duo', 'echo'):
+            side = 1 if self.plan.index(sc) % 2 else -1
+            dx += side * W * 0.9 * (1 - back_out(into))
+        squash = float(self.kick[n])
+        sx, sy = 1 + 0.07 * squash, 1 - 0.06 * squash
+        canvas = self.background(i, sc, kb, bounce, col, dx)
         kind = sc['kind']
         if kind == 'big':
             im = self.cut(sc['who'], T)
-            if im: self.place(canvas, im, W / 2, H * 0.93, H * (0.86 + 0.06 * bounce), rot=6 * math.sin(kb * 1.7) * bounce)
+            if im: self.place(canvas, im, W / 2 + dx, H * 0.93 + dy * 0.5, H * (0.84 + 0.05 * bounce) * sz, rot=rot, sx=sx, sy=sy)
         elif kind == 'echo':
             for j, lag in enumerate((0.45, 0.3, 0.15)):
                 im = self.cut(sc['who'], T - lag, tint=(sc['tint'] + j) % len(TINTS), width=0)
-                if im: self.place(canvas, im, W / 2 - 120 + j * 60, H * 0.93 - 60 + j * 20, H * 0.8)
+                if im: self.place(canvas, im, W / 2 - 120 + j * 60 + dx * (0.4 + 0.2 * j), H * 0.93 - 60 + j * 20, H * 0.8 * sz, rot=rot * 0.5)
             im = self.cut(sc['who'], T)
-            if im: self.place(canvas, im, W / 2 + 60, H * 0.95, H * (0.82 + 0.05 * bounce))
+            if im: self.place(canvas, im, W / 2 + 60 + dx, H * 0.95 + dy * 0.4, H * (0.82 + 0.05 * bounce) * sz, rot=rot * 0.6, sx=sx, sy=sy)
         elif kind == 'grid':
             nb = int((T - sc['t0']) / self.spb) + 1; cells = [(c, r_) for r_ in range(3) for c in range(2)][:min(6, 2 * nb)]
             for n_, (c, r_) in enumerate(cells):
@@ -136,13 +207,12 @@ class Video:
         else:                                                                          # duo
             a_, b_ = (sc['others'] + sc['others'])[:2]
             if kb % 2: a_, b_ = b_, a_
-            for x, w_ in ((W * 0.3, a_), (W * 0.7, b_)):
+            for j_, (x, w_) in enumerate(((W * 0.3, a_), (W * 0.7, b_))):
                 im = self.cut(w_, T)
-                if im: self.place(canvas, im, x, H * 0.93, H * (0.7 + 0.05 * bounce))
+                if im: self.place(canvas, im, x + dx * 0.5, H * 0.93, H * (0.7 + 0.05 * bounce) * sz, rot=rot * (1 if j_ else -1) * 0.7, sx=sx, sy=sy)
         img = np.asarray(canvas.convert('RGB')).astype(np.float32)
-        n = min(i, len(self.kick) - 1)
-        z = 1.0 + 0.09 * self.kick[n] + 0.02 * math.sin(i / 40.0); ang = 3.5 * self.snare[n] * (1 if kb % 2 else -1)
-        M = cv2.getRotationMatrix2D((W / 2, H / 2), ang, z)
+        z = 1.0 + 0.09 * self.kick[n] + 0.02 * math.sin(i / 40.0); ang = 3.5 * self.snare[n] * (1 if kb % 2 else -1) + 0.8 * math.sin(i / 23.0)
+        M = cv2.getRotationMatrix2D((W / 2 + 14 * math.sin(i / 17.0), H / 2 + 10 * math.sin(i / 29.0 + 1)), ang, z)   # handheld drift
         img = cv2.warpAffine(img, M, (W, H), borderMode=cv2.BORDER_REFLECT)
         if self.trip == 'melt':
             amp = 6 + 50 * float(self.bass[n]) ** 2

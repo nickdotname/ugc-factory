@@ -91,6 +91,22 @@ def lofi_cover(slug, win):
     ts = [win[0] + k * 0.5 for k in range(int((win[1] - win[0]) / 0.5) + 1)]
     return sum(any(a <= t <= b for a, b in runs) for t in ts) / max(1, len(ts))
 
+FOOTAGE = {'lofi', 'cutout', 'scene'}   # styles built on the band's own dance footage (studio/lofi/index.json)
+
+def footage_windows(slug, length=16.0, step=8.0):
+    """Stretches inside the band's footage of a song, whether or not the song's lyric timing covers them: the footage
+    has its own lyrics (studio/lofi/lines/), and Notta Problem's clip starts where song.json's sections end, so
+    sections alone never offered it."""
+    try: clips = json.load(open(os.path.join(HERE, 'lofi', 'index.json')))['clips']
+    except (OSError, ValueError): return {}
+    out = {}
+    for c in clips:
+        if c['song'] != slug: continue
+        a, b = c['offset'] + 0.3, c['offset'] + c['frames'] / c['fps'] - 0.3; t = a; k = 0
+        while t + 11 <= b:
+            out['%s-%d' % (c['id'], k)] = (round(t, 2), round(min(b, t + length), 2)); t += step; k += 1
+    return out
+
 def thompson(options, stats, r, retired=()):
     """One option: each draws from Beta(1 + wins, 1 + losses), where a post's score (0..1) counts as that much of
     a win, recent posts counting more (learn.py); untried options draw from Beta(1, 1)."""
@@ -107,7 +123,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'scene': 'place'}
 FRESH = 0.6
 
 def freshen(style, menu, kn, recent, learned, r):
@@ -237,9 +253,11 @@ for t in cfg['targets']:
         sure = stretches(song, t.get('join', 0)); every = dict(sure)
         if style in VISUAL:                               # the visualiser can use any stretch: where the lyric timing is not proven it simply shows no lyrics
             for sid, win in stretches(song, t.get('join', 0), floor=0.0).items(): every.setdefault(sid, win)
+        own = footage_windows(slug) if style in FOOTAGE else {}
+        if style in FOOTAGE: every.update(own)
         for sid, win in every.items():
-            if style in ('lofi', 'cutout') and lofi_cover(slug, win) < 0.7: continue          # only where the band filmed themselves
-            if suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure))
+            if style in FOOTAGE and lofi_cover(slug, win) < 0.7: continue          # only where the band filmed themselves
+            if suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure or sid in own))
             else: print('   skip %s %s for %s: %s' % (slug, sid, style, playing(lv, win)))
         LV[slug] = lv
     L = LEARNED.get(camp) or {}; W = L.get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})

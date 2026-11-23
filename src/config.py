@@ -562,6 +562,13 @@ class SelectionConfig(StrictModel):
     #: (captions, hooks) and rarely on one with few.
     performance_weight: float = Field(default=0.0, ge=0.0, le=1.0)
 
+    #: Studio styles to put up more often, and by how much: a clip whose recipe
+    #: (``recipes.json``, written by the studio job) is one of these styles is
+    #: that many times likelier to be picked than its song's other clips. For
+    #: the band's own footage (lofi, cutout, scene), which is scarce and is
+    #: what people come to the band's account for.
+    favour_styles: dict[str, float] = Field(default_factory=dict)
+
     #: Ceiling on the advantage a winner can accumulate. Uncapped weighting is
     #: a feedback loop: a clip that got lucky early is picked more, gathers
     #: more luck, and entrenches. Every option keeps a floor of 1 so nothing

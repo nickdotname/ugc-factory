@@ -421,6 +421,7 @@ class Selector:
         bodies_per_video: int,
         bodies_max: int | None = None,
         performance: Mapping[str, Mapping[str, Mapping[str, float]]] | None = None,
+        boost: Mapping[str, Mapping[str, float]] | None = None,
     ) -> list[tuple[str, SelectionOutcome]]:
         """Pick ``count`` combinations, weighted-choosing a creative per slot.
 
@@ -518,6 +519,7 @@ class Selector:
                     bodies_max=bodies_max,
                     performance=(performance or {}).get(name),
                     account_recent=[*account, *(e for r in recent.values() for e in r)],
+                    boost=(boost or {}).get(name),
                 )
             except SelectionError as exc:
                 exhausted.add(name)
@@ -555,6 +557,7 @@ class Selector:
         bodies_max: int | None = None,
         performance: Mapping[str, Mapping[str, float]] | None = None,
         account_recent: Sequence[HistoryEntry] = (),
+        boost: Mapping[str, float] | None = None,
     ) -> SelectionOutcome:
         """Pick one combination, relaxing rules in SPEC §10's documented order.
 
@@ -617,6 +620,7 @@ class Selector:
                 body_last=body_last,
                 performance=performance,
                 line_last=line_last,
+                boost=boost,
             )
             if candidate is None:
                 continue
@@ -657,6 +661,7 @@ class Selector:
         body_last: Mapping[str, datetime],
         performance: Mapping[str, Mapping[str, float]] | None = None,
         line_last: Mapping[str, datetime] | None = None,
+        boost: Mapping[str, float] | None = None,
     ) -> Selection | None:
         """Attempt a pick under one relaxation level, or return None."""
         # Each level switches off exactly one more constraint than the previous.
@@ -691,6 +696,8 @@ class Selector:
             captions = unused or captions
 
         hook_w = _lru_weights(hooks, hook_last, now)
+        if boost:                       # clips of a favoured style (SelectionConfig.favour_styles)
+            hook_w = [w * boost.get(h, 1.0) for h, w in zip(hooks, hook_w)]
         caption_w = _lru_weights(captions, caption_last, now)
         if line_last:
             line_w = _lru_weights([opening_line(c) for c in captions], line_last, now)
@@ -718,8 +725,8 @@ class Selector:
                     pool, medians,
                     config.performance_weight, config.performance_max_boost,
                 )
-                for index, boost in enumerate(boosts):
-                    weights[index] *= boost
+                for index, factor in enumerate(boosts):
+                    weights[index] *= factor
 
         for _ in range(self._max_attempts):
             hook = self._rng.weighted_choice(hooks, hook_w)

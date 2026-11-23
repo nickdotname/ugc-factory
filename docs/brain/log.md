@@ -2,6 +2,11 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: band footage. Notta Problem's dance clip starts where song.json's sections end, so the studio never
+  offered it: footage styles (lofi, cutout) now also use stretches inside the footage itself. close__quarters favours
+  those clips 3x within a song (`selection.favour_styles`), and a song with unposted footage clips comes up 3x as
+  often. `cutout` can stand the band in front of library footage graded to its palette, and moves on springs.
+
 - 2026-11-23: dashboard accuracy. Metrics were on GitHub's cron, which skipped 2026-11-23 entirely, and the
   newer accounts had never been measured: now publish.yml starts metrics daily (06:30 UTC) and Instagram-only
   every 3 hours; IG-only campaigns no longer spend Buffer requests on it. The page lists unbooked renders apart,
