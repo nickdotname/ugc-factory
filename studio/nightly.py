@@ -160,6 +160,7 @@ def tighten(song_dir, win, rng, short=False):
     return (round(max(0.0, st), 2), round(min(t1, st + dur), 2))
 
 SET = dict(x.split('=', 1) for x in a.set.replace(' ', '').split(',') if '=' in x)
+SKIP = 3              # a renderer's exit code for "no video in this stretch" (studio/physics_video.py)
 SOLO = {k: '1' for k in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMBA_NUM_THREADS', 'OPENCV_FOR_THREADS_NUM')}
 
 def render(job, solo=False):
@@ -177,6 +178,8 @@ def render(job, solo=False):
     own = VISUAL.get(style) or LYRIC.get(style)
     cmd = [sys.executable, os.path.join(HERE, own), song_dir, str(seed), out] if own else [sys.executable, os.path.join(HERE, 'lyric_video.py'), song_dir, style, str(seed), out]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True); ok = r.returncode == 0 and os.path.exists(out)
+    if r.returncode == SKIP:                       # the renderer judged the stretch unusable (a ball with nothing to hit): not a failure
+        print('skip ' + os.path.basename(out) + '  ' + (r.stdout.strip().splitlines() or [''])[-1], flush=True); return None
     if os.path.exists(out[:-4] + '.wav'): os.remove(out[:-4] + '.wav')
     sig = {-9: 'killed: out of memory?', -11: 'crashed: segmentation fault', -6: 'aborted'}.get(r.returncode, 'signal %d' % -r.returncode if r.returncode < 0 else '')
     why = '' if ok else '\n   exit %s%s  knobs %s %s\n%s' % (r.returncode, ' (%s)' % sig if sig else '', json.dumps(kn), json.dumps(extra), (r.stderr.strip()[:2000] if r.returncode < 0 else (r.stderr.strip() or r.stdout.strip())[-600:]))
@@ -244,12 +247,13 @@ for t in cfg['targets']:
     # A render that crashed beside the others (numpy, OpenCV and ffmpeg each starting a thread per core, four
     # times over) gets one more go on its own, with one thread each, before it counts as a failure.
     for k, job in enumerate(jobs):
-        if not oks[k]:
+        if oks[k] is False:
             print('   retrying %s on its own' % os.path.basename(job[3]), flush=True)
             oks[k] = render(job, solo=True)
     done = set()
     for (cr, slug, sid, cut, how), job, ok in zip(meta, jobs, oks):
         out = job[3]
+        if ok is None: continue                                            # skipped by its renderer
         if not ok: failed = True; continue
         r = json.load(open(out[:-4] + '.json')) if os.path.exists(out[:-4] + '.json') else {}
         if os.path.exists(out[:-4] + '.json'): os.remove(out[:-4] + '.json')

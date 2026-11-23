@@ -16,6 +16,7 @@ import numpy as np, cv2, librosa, soundfile as sf
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
+SKIP = 3          # exit code for "this stretch makes no video": studio/nightly.py skips it instead of failing the night
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
@@ -309,5 +310,5 @@ if __name__ == '__main__':
         if end: shift = max(0.0, min(shift, end - t1))
         if shift > 0: t0, t1 = t0 + shift, t1 + shift; v = Video(song_dir, seed, t0, t1)
     why = dead_air(v.hits, v.n)
-    if why: sys.exit('not rendered, the ball would sit still: %s (%s %.1f-%.1f s)' % (why, v.slug, t0, t1))
+    if why: print('not rendered, the ball would sit still: %s (%s %.1f-%.1f s)' % (why, v.slug, t0, t1)); sys.exit(SKIP)
     v.render(out)
