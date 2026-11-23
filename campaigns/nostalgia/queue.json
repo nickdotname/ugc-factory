@@ -144,9 +144,9 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-0f2564b5-c4b9-4c69-8f09-32226b4db8b4",
           "last_error": null,
           "scheduled_for": "2026-11-25T20:05:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Passage (Waiting) – Close Quarters\n\nlink in bio to stream Passage (Waiting)"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
