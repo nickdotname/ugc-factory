@@ -2328,8 +2328,10 @@
         "trim_start": 0.135,
         "overlay_shift": 0.0087
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "6b0455815fa57e36d0dfa28a",
+      "post_ids": {
+        "nickdotname_tt": "6b0455815fa57e36d0dfa28a"
+      },
       "overlay": "pov: you just put the | whole group chat on | to Myth of Sisyphus",
       "lineup_id": null,
       "variants": {}
