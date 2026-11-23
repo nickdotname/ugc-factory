@@ -91,9 +91,9 @@
         {
           "account": "rocket_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-db114e60-777d-40d9-b205-38be85be7882",
           "last_error": null,
           "scheduled_for": "2026-11-25T15:55:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "Silver and Gold – Close Quarters\nrocket league to EDUCATION. out now\n\nstream Silver and Gold: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
