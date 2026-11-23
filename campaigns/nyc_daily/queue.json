@@ -38,9 +38,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-b98f1e9d-a14e-46b5-aa85-d190b26d95ea",
           "last_error": null,
           "scheduled_for": "2026-11-24T10:45:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "Recess (Rewind) – Close Quarters\nnew york, daily. EDUCATION is out now\n\nlink in bio to stream Recess (Rewind)"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
