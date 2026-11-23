@@ -1,12 +1,55 @@
 {
-  "generated_at": "2026-11-23T03:57:28.149187Z",
+  "generated_at": "2026-11-23T06:31:25.738464Z",
   "items": [
     {
-      "id": "deacaa7e-f110-44a7-9390-28628f6e28a1",
+      "id": "aae96c05-051f-47ce-84ea-5ba3e2c69430",
       "scheduled_for": "2026-11-23T09:20:00-05:00",
-      "rendered_at": "2026-11-23T03:57:28.149187Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/deacaa7e-f110-44a7-9390-28628f6e28a1.mp4",
-      "caption": "loop it. it gets deeper every time.\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/aae96c05-051f-47ce-84ea-5ba3e2c69430.mp4",
+      "caption": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.426,
+        "anchor_y": 0.311,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "silver_and_gold",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Silver and Gold by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now\n\nstream Silver and Gold: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "66f84934-b333-4dc1-8331-71c4eb636040",
+      "scheduled_for": "2026-11-23T11:05:00-05:00",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/66f84934-b333-4dc1-8331-71c4eb636040.mp4",
+      "caption": "full screen, sound on. let it loop twice.\n🎧 Talk – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
       "title": null,
       "parts": {
         "hook": "hook_03.mp4",
@@ -16,8 +59,8 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.366,
-        "anchor_y": 0.721,
+        "anchor_x": 0.389,
+        "anchor_y": 0.432,
         "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -28,38 +71,200 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "full_ride",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Full Ride – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-977a036d-fbec-48ea-9de7-799bd42869be",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T12:50:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Talk – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "loop it. it gets deeper every time.\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nFull Ride is out now. link in bio to stream it"
+        "instagram": "full screen, sound on. let it loop twice.\n🎧 Talk – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nTalk is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "580317f2-dfa4-4ebd-8407-f4a53a3251d8",
-      "scheduled_for": "2026-11-23T11:05:00-05:00",
-      "rendered_at": "2026-11-23T03:57:28.149187Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/580317f2-dfa4-4ebd-8407-f4a53a3251d8.mp4",
-      "caption": "pov: the song starts looking back at you\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "id": "246d37da-ed5a-4aa3-be5f-bff737f13e2d",
+      "scheduled_for": "2026-11-23T12:50:00-05:00",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/246d37da-ed5a-4aa3-be5f-bff737f13e2d.mp4",
+      "caption": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.656,
+        "anchor_y": 0.728,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now\n\nlink in bio to stream Evil Close Quarters"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "4b14ae41-a2f5-4ac1-b7a4-ee9e4f820020",
+      "scheduled_for": "2026-11-23T14:35:00-05:00",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/4b14ae41-a2f5-4ac1-b7a4-ee9e4f820020.mp4",
+      "caption": "Subway Maintenance – Close Quarters\nlesson of the day. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.487,
+        "anchor_y": 0.444,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "subway_maintenance",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Subway Maintenance – Close Quarters\nlesson of the day. EDUCATION is out now\n\nstream Subway Maintenance: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "24740ea3-5dea-4506-9e12-d1d71ceeb1c2",
+      "scheduled_for": "2026-11-23T16:20:00-05:00",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/24740ea3-5dea-4506-9e12-d1d71ceeb1c2.mp4",
+      "caption": "this is your sign to put your headphones on\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.47,
+        "anchor_y": 0.623,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "myth_of_sisyphus",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "this is your sign to put your headphones on\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "b7b5a36f-db8a-47f7-bc0e-51f8189437b4",
+      "scheduled_for": "2026-11-23T18:05:00-05:00",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/b7b5a36f-db8a-47f7-bc0e-51f8189437b4.mp4",
+      "caption": "what do you see in this? wrong answers only\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.479,
+        "anchor_y": 0.644,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "what do you see in this? wrong answers only\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Suspended"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "483f66bb-4fb9-493d-b59c-7bcf572f887b",
+      "scheduled_for": "2026-11-23T19:50:00-05:00",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/483f66bb-4fb9-493d-b59c-7bcf572f887b.mp4",
+      "caption": "Notta Problem – Close Quarters\nlesson of the day. EDUCATION is out now",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -69,10 +274,10 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.268,
-        "anchor_y": 0.303,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "anchor_x": 0.732,
+        "anchor_y": 0.393,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
         "grain": 0.0,
@@ -81,28 +286,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "full_ride",
+      "creative": "notta_problem",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-858e499a-1b6a-4294-9926-0dd499764118",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T14:35:00-05:00"
-        }
-      ],
+      "first_comment": "song: Notta Problem by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "pov: the song starts looking back at you\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Full Ride"
+        "instagram": "Notta Problem – Close Quarters\nlesson of the day. EDUCATION is out now\n\nstream Notta Problem: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "d0543e44-4ffd-4076-a65b-8b21bd92de33",
+      "scheduled_for": "2026-11-23T21:35:00-05:00",
+      "rendered_at": "2026-11-23T06:31:25.738464Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-23/d0543e44-4ffd-4076-a65b-8b21bd92de33.mp4",
+      "caption": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.623,
+        "anchor_y": 0.26,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now\n\nEvil Close Quarters is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
