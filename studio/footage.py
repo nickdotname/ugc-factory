@@ -122,8 +122,34 @@ def nasa(q, n=5):
         if pick: yield 'nasa:' + nid, data.get('title', nid), _safe(pick.replace('http://', 'https://')), 0.0, 'Public Domain (NASA)', 'https://images.nasa.gov/details/' + nid
 
 
-SOURCES = {'commons': commons, 'prelinger': prelinger, 'nasa': nasa}
-BY_THEME = {'space': ['nasa', 'commons'], 'archive': ['prelinger'], 'city': ['commons', 'prelinger'], 'water': ['commons', 'prelinger'], 'nature': ['commons', 'nasa']}
+# Films published before 1931 are in the US public domain whatever their licence field says. A modern restoration's
+# new colouring or reconstruction can carry its own copyright, so those versions are left alone.
+NEWER = re.compile(r'restor|remaster|coloriz|colouris|colorised|coloured|4k|upscal|\bai\b|remix|trailer|documentary', re.I)
+
+
+def silent(q, n=8):
+    """Films and cartoons from before 1931 on the Internet Archive (vintage.media.archive)."""
+    terms = ' AND '.join('(title:(%s) OR subject:(%s))' % (w, w) for w in q.split()[:2])
+    p = {'q': 'mediatype:movies AND year:[1890 TO 1930] AND %s' % terms, 'fl[]': ['identifier', 'title', 'year', 'subject', 'description'],
+         'rows': n, 'output': 'json', 'sort[]': 'downloads desc'}
+    docs = (_open('https://archive.org/advancedsearch.php?' + urllib.parse.urlencode(p, doseq=True)).get('response') or {}).get('docs') or []
+    for d in docs:
+        blob = ' '.join(str(d.get(k) or '') for k in ('title', 'subject', 'description'))
+        try: year = int(str(d.get('year') or '9999')[:4])
+        except ValueError: continue
+        if year > 1930 or BLOCK.search(blob) or NEWER.search(blob): continue
+        md = _open('https://archive.org/metadata/%s' % d['identifier']); files = md.get('files') or []
+        mp4 = [f for f in files if f.get('name', '').endswith('.mp4')]
+        mp4.sort(key=lambda f: ('512kb' in f['name'], int(f.get('size') or 0)))
+        if not mp4: continue
+        f = mp4[0]; dur = float(f.get('length') or 0) if re.match(r'^[\d.]+$', str(f.get('length') or '')) else 0.0
+        yield 'silent:' + d['identifier'], d.get('title', d['identifier']), 'https://archive.org/download/%s/%s' % (d['identifier'], urllib.parse.quote(f['name'])), dur, \
+            'Public Domain (published %d)' % year, 'https://archive.org/details/' + d['identifier']
+
+
+SOURCES = {'commons': commons, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent}
+BY_THEME = {'space': ['nasa', 'commons'], 'archive': ['prelinger'], 'city': ['commons', 'prelinger'], 'water': ['commons', 'prelinger'], 'nature': ['commons', 'nasa'],
+            'silent': ['silent'], 'nyc': ['commons', 'prelinger', 'silent']}
 
 
 # ---------------------------------------------------------------- cutting
@@ -184,6 +210,9 @@ def fetch(maximum):
     idx = index(); seen = set(idx.get('seen', [])); qs = json.load(open(QUERIES)); new = []
     work = os.path.join(DIR, 'new'); os.makedirs(work, exist_ok=True)
     order = [(theme, q) for theme, ql in qs.items() for q in ql]; random.Random(time.strftime('%Y%W')).shuffle(order)
+    have = {}
+    for e in idx.get('clips', []): have[e['theme']] = have.get(e['theme'], 0) + 1
+    order.sort(key=lambda tq: min(have.get(tq[0], 0), 60))      # themes with the fewest clips (new ones) are fetched first
     for theme, q in order:
         if len(new) >= maximum: break
         for src in BY_THEME.get(theme, ['commons']):

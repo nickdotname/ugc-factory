@@ -64,8 +64,8 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true                 # not live until the renderer is built and a sample is approved
-  dry_run: true
+  paused: false                # live: linked to its Page, with its own renderer
+  dry_run: false
 
 video:
   width: 1080
