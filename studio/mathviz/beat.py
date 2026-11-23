@@ -54,12 +54,31 @@ def drum_kinds(y, sr, times):
     return kinds
 
 
+def stretch(sd, stem, t0, t1, off=0.0):
+    """A stem over a stretch of the song. Four songs' stems stop at 100 s (only their first half was prepared), and
+    the band filmed themselves past that: where a stem does not reach, the master stands in, filtered towards what
+    the stem would hold (the lows for the bass, the middle for the rest), so the video still moves to the music."""
+    p = os.path.join(sd, 'stems', stem + '.ogg')
+    if os.path.exists(p):
+        y, sr = read(p, t0 - off, t1 - off)
+        if len(y) >= 0.9 * (t1 - t0) * sr: return y, sr
+    m = next(os.path.join(sd, 'master' + e) for e in ('.ogg', '.flac', '.wav') if os.path.exists(os.path.join(sd, 'master' + e)))
+    y, sr = read(m, t0, t1)
+    band = {'Bass': (None, 160.0), 'Other': (300.0, 4000.0)}.get(stem)
+    if band and len(y) > 64:
+        from scipy.signal import butter, sosfiltfilt
+        lo, hi = band
+        sos = butter(4, hi, 'low', fs=sr, output='sos') if lo is None else butter(2, [lo, hi], 'band', fs=sr, output='sos')
+        y = sosfiltfilt(sos, y).astype(np.float32)
+    return y, sr
+
+
 def load(slug, t0, t1):
     sd = os.path.join(SONGS, slug); song = json.load(open(os.path.join(sd, 'song.json')))
     n = int(round((t1 - t0) * FPS)); out = dict(song=song, n=n, t0=t0, t1=t1)
     off = float(song.get('stems_start_sec') or 0.0)                 # where the stems' time zero sits in the master
     for stem in ('Vocals', 'Drums', 'Bass', 'Other'):
-        y, sr = read(os.path.join(sd, 'stems', stem + '.ogg'), t0 - off, t1 - off)
+        y, sr = stretch(sd, stem, t0, t1, off)
         hop = sr / FPS
         rms = np.array([np.sqrt(np.mean(y[int(i * hop):int((i + 1) * hop)] ** 2) + 1e-12) for i in range(n)])   # exactly one value per video frame
         out[stem.lower()] = np.clip(rms / (np.percentile(rms, 97) + 1e-6), 0, 1.2)

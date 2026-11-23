@@ -17,7 +17,7 @@ So what has worked is used most, what has hardly been tried still gets tried, an
 (learn.py "retires" it) stops being chosen. One video in five (EXPLORE) is left entirely to the renderer's
 own dice, which keeps the comparison honest and lets new looks in.
 """
-import argparse, datetime, json, os, random, subprocess, sys
+import argparse, datetime, json, os, random, subprocess, sys, tempfile
 from concurrent.futures import ThreadPoolExecutor
 import yaml
 
@@ -227,6 +227,17 @@ def render(job, solo=False):
     print(('ok   ' if ok else 'FAIL ') + os.path.basename(out) + why, flush=True)
     return ok
 
+# librosa's compiled helpers are cached on disk the first time they run. Four renders starting together each wrote
+# that cache at once and left it broken: every later render then died with a segmentation fault in peak_pick, alone
+# or not (2026-11-23, the first run that began with four such renders). So it is built once here, by one process,
+# in a folder of this run's own, before anything renders.
+os.environ.setdefault('NUMBA_CACHE_DIR', os.path.join(tempfile.gettempdir(), 'cq-numba-%d' % os.getpid()))
+warm = ("import numpy as np, librosa; y = np.random.default_rng(0).standard_normal(22050 * 4).astype('float32'); "
+        "e = librosa.onset.onset_strength(y=y, sr=22050); librosa.util.peak_pick(e, pre_max=3, post_max=3, pre_avg=5, post_avg=5, delta=0.1, wait=5); "
+        "librosa.onset.onset_detect(y=y, sr=22050); librosa.beat.beat_track(y=y, sr=22050); librosa.effects.hpss(y)")
+r = subprocess.run([sys.executable, '-c', warm], capture_output=True, text=True)
+if r.returncode: print('warm-up failed (%s): %s' % (r.returncode, r.stderr.strip()[-300:]), flush=True)
+
 for t in cfg['targets']:
     camp, style = t['campaign'], t['style']
     if a.only and a.only != camp: continue
@@ -258,7 +269,8 @@ for t in cfg['targets']:
         if style in FOOTAGE: every.update(own)
         for sid, win in every.items():
             if style in FOOTAGE and lofi_cover(slug, win) < 0.7: continue          # only where the band filmed themselves
-            if suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure or sid in own))
+            past = sid in own and all(len(v) < (win[0] + win[1]) / 2 for v in lv.values())   # footage beyond where the stems reach (Notta Problem): they are performing, so it suits
+            if past or suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure or sid in own))
             else: print('   skip %s %s for %s: %s' % (slug, sid, style, playing(lv, win)))
         LV[slug] = lv
     L = LEARNED.get(camp) or {}; W = L.get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
