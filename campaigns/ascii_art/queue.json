@@ -144,9 +144,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-4d59d768-7cbf-4800-a902-e3fb82fe7694",
           "last_error": null,
           "scheduled_for": "2026-11-23T19:50:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "3D, but it's only text\n🎧 Fixation – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Fixation: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
