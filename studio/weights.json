@@ -2,226 +2,382 @@
  "updated": "2026-11-23",
  "campaigns": {
   "cq_producer": {
-   "posts": 14,
-   "waiting": 0,
-   "typical_views": 28.0,
+   "posts": 17,
+   "waiting": 3,
+   "typical_views": 56.0,
    "weights": {
+    "style": {
+     "producer": 1.03
+    },
     "opening line": {
-     "without": 1.0
+     "without": 0.99,
+     "with": 1.04
+    },
+    "hook": {
+     "every layer. one screen.": 1.06,
+     "show this to someone who makes beats": 0.98
+    },
+    "hook angle": {
+     "relatable": 1.06,
+     "none": 1.0,
+     "share": 0.98
+    },
+    "hook style": {
+     "flash": 1.04
+    },
+    "faces": {
+     "without": 1.03
     },
     "song": {
-     "notta_problem": 1.11,
-     "talk": 0.95,
-     "hair_of_the_dog": 1.0,
-     "full_ride": 0.94,
-     "prologue": 0.96,
-     "wont_be_the_same_again": 1.03,
-     "fixation": 1.01
+     "notta_problem": 1.12,
+     "talk": 0.96,
+     "hair_of_the_dog": 0.99,
+     "full_ride": 0.92,
+     "prologue": 1.02,
+     "wont_be_the_same_again": 0.99,
+     "fixation": 1.01,
+     "myth_of_sisyphus": 1.0,
+     "suspended": 0.98
     },
     "section": {
-     "notta_problem/verse 1, first half": 1.11,
-     "talk/s01": 1.01,
-     "hair_of_the_dog/s01": 1.0,
-     "hair_of_the_dog/s02": 1.0,
+     "notta_problem/verse 1, first half": 1.12,
+     "talk/s01": 1.02,
+     "hair_of_the_dog/s01": 0.99,
+     "hair_of_the_dog/s02": 0.99,
      "talk/s02": 0.93,
-     "full_ride/s01": 0.96,
-     "prologue/s02": 0.99,
-     "wont_be_the_same_again/s06": 1.03,
-     "full_ride/s02": 0.97,
-     "wont_be_the_same_again/s07": 1.0,
-     "prologue/s03": 0.97,
-     "fixation/s03": 1.01
+     "full_ride/s01": 0.95,
+     "prologue/s02": 0.98,
+     "wont_be_the_same_again/s06": 1.0,
+     "full_ride/s02": 0.95,
+     "wont_be_the_same_again/s07": 0.99,
+     "prologue/s03": 0.98,
+     "fixation/s03": 1.01,
+     "prologue/s04": 1.06,
+     "myth_of_sisyphus/s06": 1.0,
+     "suspended/s02-s03": 0.98
     },
     "look": {
-     "grad": 1.01,
-     "stars": 1.01,
+     "grad": 1.0,
+     "stars": 0.98,
      "plasma": 0.97,
-     "rings": 1.01
+     "rings": 1.05,
+     "tiles": 1.0
     },
     "palette": {
-     "#ffffff": 1.01,
+     "#ffffff": 1.03,
      "#ffbe6e": 0.93,
-     "#78ffaa": 1.08
+     "#78ffaa": 1.05
     },
     "length": {
-     "under 20s": 1.07,
-     "20-35s": 0.94
+     "under 20s": 1.09,
+     "20-35s": 0.93,
+     "over 35s": 0.98
     },
     "hour posted": {
-     "18:00": 1.05,
-     "17:00": 1.02,
-     "21:00": 1.02,
-     "10:00": 0.99,
-     "13:00": 1.08,
-     "14:00": 0.98,
+     "18:00": 1.06,
+     "17:00": 1.03,
+     "21:00": 1.03,
+     "10:00": 0.98,
+     "13:00": 1.05,
+     "14:00": 1.0,
      "16:00": 0.94,
-     "19:00": 0.93
+     "19:00": 0.94
     },
     "caption": {
-     "Notta Problem \u2013 Close Quarters": 1.11,
-     "Talk \u2013 Close Quarters": 0.95,
-     "Hair of the Dog \u2013 Close Quarters": 1.0,
-     "Full Ride \u2013 Close Quarters": 0.96,
-     "i produced this. here's every layer of it.": 0.99,
-     "this is what a song looks like before it's a song": 1.01,
-     "tag a producer who needs to hear this": 0.97
+     "Notta Problem \u2013 Close Quarters": 1.12,
+     "Talk \u2013 Close Quarters": 0.96,
+     "Hair of the Dog \u2013 Close Quarters": 0.99,
+     "Full Ride \u2013 Close Quarters": 0.95,
+     "i produced this. here's every layer of it.": 0.98,
+     "this is what a song looks like before it's a song": 0.97,
+     "tag a producer who needs to hear this": 0.98,
+     "sound on. this is the song pulled apart": 1.05,
+     "hear it first. then watch what it is made of": 0.98
+    },
+    "knob:caption": {
+     "inter": 1.06,
+     "anton": 1.0,
+     "montserrat": 0.98
+    },
+    "knob:chroma": {
+     "0": 1.04,
+     "2": 1.0
+    },
+    "knob:colours": {
+     "1": 1.06,
+     "0": 0.99
+    },
+    "knob:cut": {
+     "tight": 1.06,
+     "full": 0.99
+    },
+    "knob:layout": {
+     "lanes": 1.05,
+     "mixer": 0.98
+    },
+    "knob:pictures": {
+     "0.6": 1.06,
+     "0.0": 1.0,
+     "0.35": 0.98
+    },
+    "knob:punch": {
+     "0.015": 1.03
+    },
+    "knob:scan": {
+     "true": 1.04,
+     "false": 1.0
+    },
+    "knob:wall": {
+     "rings": 1.06,
+     "tiles": 1.0,
+     "plasma": 0.98
     }
    },
    "stats": {
+    "style": {
+     "producer": [
+      3,
+      2.91,
+      0.565
+     ]
+    },
     "opening line": {
      "without": [
-      14,
-      13.1,
-      0.499
+      15,
+      14.03,
+      0.487
+     ],
+     "with": [
+      2,
+      1.94,
+      0.591
+     ]
+    },
+    "hook": {
+     "every layer. one screen.": [
+      1,
+      0.97,
+      0.758
+     ],
+     "show this to someone who makes beats": [
+      1,
+      0.97,
+      0.425
+     ]
+    },
+    "hook angle": {
+     "relatable": [
+      1,
+      0.97,
+      0.758
+     ],
+     "none": [
+      1,
+      0.97,
+      0.514
+     ],
+     "share": [
+      1,
+      0.97,
+      0.425
+     ]
+    },
+    "hook style": {
+     "flash": [
+      2,
+      1.94,
+      0.591
+     ]
+    },
+    "faces": {
+     "without": [
+      3,
+      2.91,
+      0.565
      ]
     },
     "song": {
      "notta_problem": [
       3,
-      2.79,
-      0.703
+      2.78,
+      0.721
      ],
      "talk": [
       2,
-      1.86,
-      0.371
+      1.85,
+      0.392
      ],
      "hair_of_the_dog": [
       2,
-      1.87,
-      0.497
+      1.86,
+      0.467
      ],
      "full_ride": [
       2,
       1.88,
-      0.333
+      0.282
      ],
      "prologue": [
-      2,
-      1.88,
-      0.396
+      3,
+      2.84,
+      0.532
      ],
      "wont_be_the_same_again": [
       2,
-      1.88,
-      0.566
+      1.87,
+      0.479
      ],
      "fixation": [
       1,
-      0.95,
-      0.558
+      0.94,
+      0.561
+     ],
+     "myth_of_sisyphus": [
+      1,
+      0.97,
+      0.514
+     ],
+     "suspended": [
+      1,
+      0.97,
+      0.425
      ]
     },
     "section": {
      "notta_problem/verse 1, first half": [
       3,
-      2.79,
-      0.703
+      2.78,
+      0.721
      ],
      "talk/s01": [
       1,
-      0.92,
-      0.558
+      0.91,
+      0.608
      ],
      "hair_of_the_dog/s01": [
       1,
       0.93,
-      0.5
+      0.472
      ],
      "hair_of_the_dog/s02": [
       1,
       0.94,
-      0.494
+      0.462
      ],
      "talk/s02": [
       1,
       0.94,
-      0.188
+      0.181
      ],
      "full_ride/s01": [
       1,
       0.94,
-      0.292
+      0.28
      ],
      "prologue/s02": [
       1,
       0.93,
-      0.442
+      0.406
      ],
      "wont_be_the_same_again/s06": [
       1,
-      0.94,
-      0.621
+      0.93,
+      0.495
      ],
      "full_ride/s02": [
       1,
-      0.94,
-      0.373
+      0.93,
+      0.284
      ],
      "wont_be_the_same_again/s07": [
       1,
       0.94,
-      0.512
+      0.462
      ],
      "prologue/s03": [
       1,
       0.94,
-      0.35
+      0.425
      ],
      "fixation/s03": [
       1,
-      0.95,
-      0.558
+      0.94,
+      0.561
+     ],
+     "prologue/s04": [
+      1,
+      0.97,
+      0.758
+     ],
+     "myth_of_sisyphus/s06": [
+      1,
+      0.97,
+      0.514
+     ],
+     "suspended/s02-s03": [
+      1,
+      0.97,
+      0.425
      ]
     },
     "look": {
      "grad": [
       3,
-      2.8,
-      0.513
+      2.79,
+      0.502
      ],
      "stars": [
       3,
-      2.82,
-      0.529
+      2.81,
+      0.467
      ],
      "plasma": [
-      4,
-      3.74,
-      0.45
+      5,
+      4.7,
+      0.448
      ],
      "rings": [
-      4,
-      3.75,
-      0.516
+      5,
+      4.71,
+      0.566
+     ],
+     "tiles": [
+      1,
+      0.97,
+      0.514
      ]
     },
     "palette": {
      "#ffffff": [
-      8,
-      7.49,
-      0.514
+      9,
+      8.44,
+      0.536
      ],
      "#ffbe6e": [
-      4,
-      3.73,
-      0.369
+      6,
+      5.66,
+      0.402
      ],
      "#78ffaa": [
       2,
       1.87,
-      0.699
+      0.634
      ]
     },
     "length": {
      "under 20s": [
-      6,
-      5.61,
-      0.598
+      7,
+      6.56,
+      0.615
      ],
      "20-35s": [
-      8,
-      7.49,
+      9,
+      8.44,
+      0.419
+     ],
+     "over 35s": [
+      1,
+      0.97,
       0.425
      ]
     },
@@ -229,773 +385,2281 @@
      "18:00": [
       1,
       0.91,
-      0.742
+      0.772
      ],
      "17:00": [
       1,
       0.94,
-      0.592
+      0.622
      ],
      "21:00": [
       2,
       1.86,
-      0.558
+      0.584
      ],
      "10:00": [
       2,
-      1.87,
-      0.471
+      1.86,
+      0.439
      ],
      "13:00": [
       2,
       1.87,
-      0.699
+      0.634
      ],
      "14:00": [
-      2,
-      1.88,
-      0.434
+      3,
+      2.84,
+      0.504
      ],
      "16:00": [
-      2,
-      1.88,
-      0.35
+      3,
+      2.84,
+      0.387
      ],
      "19:00": [
-      2,
-      1.89,
-      0.321
+      3,
+      2.85,
+      0.377
      ]
     },
     "caption": {
      "Notta Problem \u2013 Close Quarters": [
       3,
-      2.79,
-      0.703
+      2.78,
+      0.721
      ],
      "Talk \u2013 Close Quarters": [
       2,
-      1.86,
-      0.371
+      1.85,
+      0.392
      ],
      "Hair of the Dog \u2013 Close Quarters": [
       2,
-      1.87,
-      0.497
+      1.86,
+      0.467
      ],
      "Full Ride \u2013 Close Quarters": [
       1,
       0.94,
-      0.292
+      0.28
      ],
      "i produced this. here's every layer of it.": [
       2,
       1.87,
-      0.477
+      0.434
      ],
      "this is what a song looks like before it's a song": [
       3,
-      2.82,
-      0.517
+      2.81,
+      0.447
      ],
      "tag a producer who needs to hear this": [
       1,
       0.94,
-      0.35
+      0.425
+     ],
+     "sound on. this is the song pulled apart": [
+      2,
+      1.94,
+      0.636
+     ],
+     "hear it first. then watch what it is made of": [
+      1,
+      0.97,
+      0.425
+     ]
+    },
+    "knob:caption": {
+     "inter": [
+      1,
+      0.97,
+      0.758
+     ],
+     "anton": [
+      1,
+      0.97,
+      0.514
+     ],
+     "montserrat": [
+      1,
+      0.97,
+      0.425
+     ]
+    },
+    "knob:chroma": {
+     "0": [
+      2,
+      1.94,
+      0.591
+     ],
+     "2": [
+      1,
+      0.97,
+      0.514
+     ]
+    },
+    "knob:colours": {
+     "1": [
+      1,
+      0.97,
+      0.758
+     ],
+     "0": [
+      2,
+      1.94,
+      0.469
+     ]
+    },
+    "knob:cut": {
+     "tight": [
+      1,
+      0.97,
+      0.758
+     ],
+     "full": [
+      2,
+      1.94,
+      0.469
+     ]
+    },
+    "knob:layout": {
+     "lanes": [
+      2,
+      1.94,
+      0.636
+     ],
+     "mixer": [
+      1,
+      0.97,
+      0.425
+     ]
+    },
+    "knob:pictures": {
+     "0.6": [
+      1,
+      0.97,
+      0.758
+     ],
+     "0.0": [
+      1,
+      0.97,
+      0.514
+     ],
+     "0.35": [
+      1,
+      0.97,
+      0.425
+     ]
+    },
+    "knob:punch": {
+     "0.015": [
+      3,
+      2.91,
+      0.565
+     ]
+    },
+    "knob:scan": {
+     "true": [
+      2,
+      1.94,
+      0.591
+     ],
+     "false": [
+      1,
+      0.97,
+      0.514
+     ]
+    },
+    "knob:wall": {
+     "rings": [
+      1,
+      0.97,
+      0.758
+     ],
+     "tiles": [
+      1,
+      0.97,
+      0.514
+     ],
+     "plasma": [
+      1,
+      0.97,
+      0.425
      ]
     }
    },
    "retired": {}
   },
   "cq_band": {
-   "posts": 12,
-   "waiting": 0,
-   "typical_views": 86.0,
+   "posts": 16,
+   "waiting": 7,
+   "typical_views": 92.5,
    "weights": {
+    "style": {
+     "band": 1.02
+    },
     "opening line": {
-     "without": 1.01
+     "without": 1.01,
+     "with": 0.99
+    },
+    "hook": {
+     "your pc in 2001:": 1.02,
+     "read along": 0.98,
+     "rate this song 1-10": 0.99
+    },
+    "hook angle": {
+     "plain": 1.02,
+     "curious": 0.98,
+     "none": 1.03,
+     "comment": 0.99
+    },
+    "hook style": {
+     "flash": 0.99
+    },
+    "faces": {
+     "without": 1.01,
+     "with": 1.01
     },
     "song": {
-     "prologue": 0.96,
+     "prologue": 0.97,
      "wont_be_the_same_again": 1.0,
      "hair_of_the_dog": 0.97,
-     "fixation": 1.09
+     "fixation": 1.08,
+     "myth_of_sisyphus": 0.98,
+     "suspended": 1.02
     },
     "section": {
      "prologue/s01-s02": 1.0,
-     "wont_be_the_same_again/s05-s06": 0.99,
-     "hair_of_the_dog/s01-s02": 0.96,
-     "wont_be_the_same_again/s07": 1.01,
-     "prologue/s03-s04": 1.04,
-     "fixation/s03-s04": 1.06,
+     "wont_be_the_same_again/s05-s06": 0.98,
+     "hair_of_the_dog/s01-s02": 0.97,
+     "wont_be_the_same_again/s07": 1.02,
+     "prologue/s03-s04": 1.03,
+     "fixation/s03-s04": 1.05,
      "prologue/s05-s06": 0.94,
      "wont_be_the_same_again/s08": 1.02,
      "prologue/s07-s08": 0.96,
-     "fixation/s06": 1.04
+     "fixation/s06": 1.04,
+     "prologue/s04": 1.02,
+     "myth_of_sisyphus/s06": 0.98,
+     "suspended/s02-s03": 1.03,
+     "suspended/s04": 0.99
     },
     "look": {
-     "stars": 0.98,
+     "stars": 0.96,
      "grad": 1.03,
-     "rings": 1.06,
-     "plasma": 0.96
+     "rings": 1.05,
+     "plasma": 0.96,
+     "clouds": 1.02,
+     "bars": 1.03,
+     "hills": 0.99
     },
     "length": {
-     "over 35s": 0.94,
-     "under 20s": 1.03,
-     "20-35s": 1.09
+     "over 35s": 0.93,
+     "under 20s": 1.05,
+     "20-35s": 1.06
     },
     "hour posted": {
-     "10:00": 0.95,
-     "13:00": 1.01,
-     "14:00": 0.97,
-     "17:00": 1.0,
-     "19:00": 1.0,
-     "22:00": 1.06,
-     "21:00": 1.04
+     "10:00": 0.94,
+     "13:00": 1.0,
+     "14:00": 0.96,
+     "17:00": 1.03,
+     "19:00": 0.99,
+     "22:00": 1.05,
+     "21:00": 1.04,
+     "12:00": 1.02
     },
     "caption": {
-     "Prologue: Before \u2013 Close Quarters": 1.04,
+     "Prologue: Before \u2013 Close Quarters": 1.03,
      "Won't Be the Same Again \u2013 Close Quarters": 1.0,
-     "Hair of the Dog \u2013 Close Quarters": 0.96,
-     "Fixation \u2013 Close Quarters": 1.06,
+     "Hair of the Dog \u2013 Close Quarters": 0.97,
+     "Fixation \u2013 Close Quarters": 1.05,
      "lesson 1 of 15. class is in session.": 0.94,
-     "your family computer in 2001 if it had taste": 1.05,
-     "lesson 13 of 15. class is in session.": 0.98,
-     "tell me this doesn't sound like 2am in new york": 0.96
+     "your family computer in 2001 if it had taste": 1.04,
+     "lesson 13 of 15. class is in session.": 0.99,
+     "tell me this doesn't sound like 2am in new york": 0.96,
+     "this is what our album sounds like. EDUCATION, out now.": 1.02,
+     "the lyrics are the video. turn the sound on.": 0.98,
+     "send this to someone who still misses windows 95": 1.03
+    },
+    "knob:caption": {
+     "montserrat": 1.02,
+     "inter": 0.97,
+     "anton": 1.03
+    },
+    "knob:chroma": {
+     "0": 1.0,
+     "2": 1.02
+    },
+    "knob:chrome": {
+     "win95": 1.03,
+     "mac": 0.99
+    },
+    "knob:cut": {
+     "tight": 1.03,
+     "full": 0.99
+    },
+    "knob:pictures": {
+     "0.85": 1.01,
+     "0.6": 0.98,
+     "0.35": 1.03
+    },
+    "knob:punch": {
+     "0.05": 1.03,
+     "0.035": 0.99
+    },
+    "knob:scan": {
+     "true": 1.03,
+     "false": 0.99
+    },
+    "knob:theme": {
+     "silver": 1.02,
+     "pink": 1.01,
+     "teal": 0.99
+    },
+    "knob:wall": {
+     "clouds": 1.02,
+     "stars": 0.98,
+     "bars": 1.03,
+     "hills": 0.99
     }
    },
    "stats": {
+    "style": {
+     "band": [
+      4,
+      3.87,
+      0.525
+     ]
+    },
     "opening line": {
      "without": [
-      10,
-      9.37,
-      0.509
+      11,
+      10.31,
+      0.513
+     ],
+     "with": [
+      3,
+      2.9,
+      0.484
+     ]
+    },
+    "hook": {
+     "your pc in 2001:": [
+      1,
+      0.96,
+      0.596
+     ],
+     "read along": [
+      1,
+      0.97,
+      0.409
+     ],
+     "rate this song 1-10": [
+      1,
+      0.97,
+      0.447
+     ]
+    },
+    "hook angle": {
+     "plain": [
+      1,
+      0.96,
+      0.596
+     ],
+     "curious": [
+      1,
+      0.97,
+      0.409
+     ],
+     "none": [
+      1,
+      0.97,
+      0.648
+     ],
+     "comment": [
+      1,
+      0.97,
+      0.447
+     ]
+    },
+    "hook style": {
+     "flash": [
+      3,
+      2.9,
+      0.484
+     ]
+    },
+    "faces": {
+     "without": [
+      2,
+      1.94,
+      0.521
+     ],
+     "with": [
+      2,
+      1.94,
+      0.529
      ]
     },
     "song": {
      "prologue": [
-      4,
-      3.75,
-      0.431
+      5,
+      4.71,
+      0.451
      ],
      "wont_be_the_same_again": [
       4,
-      3.76,
-      0.501
+      3.74,
+      0.502
      ],
      "hair_of_the_dog": [
       2,
-      1.88,
-      0.41
+      1.87,
+      0.418
      ],
      "fixation": [
       2,
       1.86,
-      0.726
+      0.699
+     ],
+     "myth_of_sisyphus": [
+      1,
+      0.97,
+      0.409
+     ],
+     "suspended": [
+      2,
+      1.94,
+      0.547
      ]
     },
     "section": {
      "prologue/s01-s02": [
       1,
       0.93,
-      0.51
+      0.481
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
-      0.94,
-      0.432
+      0.93,
+      0.404
      ],
      "hair_of_the_dog/s01-s02": [
       1,
       0.94,
-      0.335
+      0.355
      ],
      "wont_be_the_same_again/s07": [
       1,
       0.94,
-      0.556
+      0.587
      ],
      "prologue/s03-s04": [
       1,
       0.94,
-      0.693
+      0.653
      ],
      "fixation/s03-s04": [
       1,
-      0.92,
-      0.753
+      0.91,
+      0.718
      ],
      "prologue/s05-s06": [
       1,
       0.93,
-      0.198
+      0.207
      ],
      "wont_be_the_same_again/s08": [
       1,
-      0.94,
-      0.598
+      0.93,
+      0.587
      ],
      "prologue/s07-s08": [
       1,
       0.94,
-      0.322
+      0.314
      ],
      "fixation/s06": [
       1,
-      0.95,
-      0.699
+      0.94,
+      0.681
+     ],
+     "prologue/s04": [
+      1,
+      0.96,
+      0.596
+     ],
+     "myth_of_sisyphus/s06": [
+      1,
+      0.97,
+      0.409
+     ],
+     "suspended/s02-s03": [
+      1,
+      0.97,
+      0.648
+     ],
+     "suspended/s04": [
+      1,
+      0.97,
+      0.447
      ]
     },
     "look": {
      "stars": [
-      4,
-      3.76,
-      0.465
+      5,
+      4.71,
+      0.442
      ],
      "grad": [
       3,
       2.82,
-      0.563
+      0.558
      ],
      "rings": [
       1,
-      0.92,
-      0.753
+      0.91,
+      0.718
      ],
      "plasma": [
       2,
-      1.87,
-      0.398
+      1.86,
+      0.397
+     ],
+     "clouds": [
+      1,
+      0.96,
+      0.596
+     ],
+     "bars": [
+      1,
+      0.97,
+      0.648
+     ],
+     "hills": [
+      1,
+      0.97,
+      0.447
      ]
     },
     "length": {
      "over 35s": [
       6,
-      5.63,
-      0.415
+      5.61,
+      0.403
      ],
      "under 20s": [
-      2,
-      1.88,
-      0.577
+      5,
+      4.77,
+      0.565
      ],
      "20-35s": [
-      2,
-      1.86,
-      0.726
+      3,
+      2.83,
+      0.613
      ]
     },
     "hour posted": {
      "10:00": [
       2,
-      1.87,
-      0.354
+      1.86,
+      0.344
      ],
      "13:00": [
       2,
       1.87,
-      0.515
+      0.496
      ],
      "14:00": [
-      2,
-      1.88,
-      0.41
+      3,
+      2.84,
+      0.415
      ],
      "17:00": [
-      2,
-      1.88,
-      0.487
+      3,
+      2.85,
+      0.557
      ],
      "19:00": [
-      2,
-      1.89,
-      0.508
+      3,
+      2.86,
+      0.471
      ],
      "22:00": [
       1,
-      0.92,
-      0.753
+      0.91,
+      0.718
      ],
      "21:00": [
       1,
-      0.95,
-      0.699
+      0.94,
+      0.681
+     ],
+     "12:00": [
+      1,
+      0.96,
+      0.596
      ]
     },
     "caption": {
      "Prologue: Before \u2013 Close Quarters": [
       2,
-      1.88,
-      0.602
+      1.87,
+      0.567
      ],
      "Won't Be the Same Again \u2013 Close Quarters": [
       2,
-      1.88,
-      0.494
+      1.87,
+      0.495
      ],
      "Hair of the Dog \u2013 Close Quarters": [
       1,
       0.94,
-      0.335
+      0.355
      ],
      "Fixation \u2013 Close Quarters": [
       1,
-      0.92,
-      0.753
+      0.91,
+      0.718
      ],
      "lesson 1 of 15. class is in session.": [
       1,
       0.93,
-      0.198
+      0.207
      ],
      "your family computer in 2001 if it had taste": [
       3,
-      2.82,
-      0.595
+      2.81,
+      0.584
      ],
      "lesson 13 of 15. class is in session.": [
       1,
       0.94,
-      0.418
+      0.432
      ],
      "tell me this doesn't sound like 2am in new york": [
+      2,
+      1.91,
+      0.382
+     ],
+     "this is what our album sounds like. EDUCATION, out now.": [
       1,
-      0.94,
-      0.322
+      0.96,
+      0.596
+     ],
+     "the lyrics are the video. turn the sound on.": [
+      1,
+      0.97,
+      0.409
+     ],
+     "send this to someone who still misses windows 95": [
+      1,
+      0.97,
+      0.648
+     ]
+    },
+    "knob:caption": {
+     "montserrat": [
+      1,
+      0.96,
+      0.596
+     ],
+     "inter": [
+      2,
+      1.94,
+      0.428
+     ],
+     "anton": [
+      1,
+      0.97,
+      0.648
+     ]
+    },
+    "knob:chroma": {
+     "0": [
+      2,
+      1.93,
+      0.502
+     ],
+     "2": [
+      2,
+      1.94,
+      0.547
+     ]
+    },
+    "knob:chrome": {
+     "win95": [
+      3,
+      2.9,
+      0.551
+     ],
+     "mac": [
+      1,
+      0.97,
+      0.447
+     ]
+    },
+    "knob:cut": {
+     "tight": [
+      3,
+      2.9,
+      0.551
+     ],
+     "full": [
+      1,
+      0.97,
+      0.447
+     ]
+    },
+    "knob:pictures": {
+     "0.85": [
+      2,
+      1.94,
+      0.521
+     ],
+     "0.6": [
+      1,
+      0.97,
+      0.409
+     ],
+     "0.35": [
+      1,
+      0.97,
+      0.648
+     ]
+    },
+    "knob:punch": {
+     "0.05": [
+      3,
+      2.9,
+      0.551
+     ],
+     "0.035": [
+      1,
+      0.97,
+      0.447
+     ]
+    },
+    "knob:scan": {
+     "true": [
+      3,
+      2.9,
+      0.551
+     ],
+     "false": [
+      1,
+      0.97,
+      0.447
+     ]
+    },
+    "knob:theme": {
+     "silver": [
+      1,
+      0.96,
+      0.596
+     ],
+     "pink": [
+      2,
+      1.94,
+      0.529
+     ],
+     "teal": [
+      1,
+      0.97,
+      0.447
+     ]
+    },
+    "knob:wall": {
+     "clouds": [
+      1,
+      0.96,
+      0.596
+     ],
+     "stars": [
+      1,
+      0.97,
+      0.409
+     ],
+     "bars": [
+      1,
+      0.97,
+      0.648
+     ],
+     "hills": [
+      1,
+      0.97,
+      0.447
      ]
     }
    },
    "retired": {}
   },
   "psy_station": {
-   "posts": 18,
-   "waiting": 0,
-   "typical_views": 41.0,
+   "posts": 22,
+   "waiting": 4,
+   "typical_views": 61.0,
    "weights": {
     "style": {
      "psy": 1.0
     },
     "opening line": {
-     "without": 1.0
+     "without": 1.0,
+     "with": 1.0
+    },
+    "hook": {
+     "what do you see?": 1.0
     },
     "song": {
-     "prologue": 1.01,
-     "wont_be_the_same_again": 0.99,
-     "hair_of_the_dog": 1.05,
-     "fixation": 0.98,
-     "myth_of_sisyphus": 0.99,
-     "full_ride": 1.02,
-     "talk": 0.95
+     "prologue": 1.0,
+     "wont_be_the_same_again": 0.95,
+     "hair_of_the_dog": 1.04,
+     "fixation": 1.0,
+     "myth_of_sisyphus": 1.02,
+     "full_ride": 1.08,
+     "talk": 0.95,
+     "suspended": 1.0
     },
     "section": {
-     "prologue/s02": 0.98,
+     "prologue/s02": 0.96,
      "wont_be_the_same_again/s05-s06": 0.94,
      "hair_of_the_dog/s02": 1.06,
-     "wont_be_the_same_again/s05": 1.01,
-     "fixation/s03": 1.02,
+     "wont_be_the_same_again/s05": 0.99,
+     "fixation/s03": 1.0,
      "prologue/s09": 1.06,
-     "wont_be_the_same_again/s01": 1.03,
-     "hair_of_the_dog/s01": 0.99,
-     "prologue/s05": 0.98,
-     "fixation/s06": 0.96,
-     "myth_of_sisyphus/s02": 0.99,
-     "wont_be_the_same_again/s06": 1.02,
-     "full_ride/s02": 1.02,
-     "talk/s06": 0.95
+     "wont_be_the_same_again/s01": 1.0,
+     "hair_of_the_dog/s01": 0.98,
+     "prologue/s05": 0.97,
+     "fixation/s06": 0.95,
+     "myth_of_sisyphus/s02": 0.98,
+     "wont_be_the_same_again/s06": 1.0,
+     "full_ride/s02": 1.08,
+     "talk/s06": 0.95,
+     "prologue/s03-s04": 1.01,
+     "myth_of_sisyphus/s03": 1.03,
+     "suspended/s04": 1.0,
+     "fixation/s01": 1.06
     },
     "look": {
-     "kaleido": 1.01,
-     "cells": 0.95,
+     "kaleido": 1.05,
+     "cells": 0.94,
      "marble": 0.99,
-     "rings": 0.97,
-     "bryce": 1.06,
-     "tunnel": 1.01
+     "rings": 0.95,
+     "bryce": 1.03,
+     "tunnel": 0.98,
+     "moire": 1.01,
+     "julia": 1.03
     },
     "lyrics": {
-     "word": 0.98,
-     "line": 1.06
+     "word": 0.94,
+     "line": 1.07
     },
     "palette": {
-     "ocean": 0.97,
-     "candy": 1.01,
-     "lava": 1.0,
-     "acid": 1.01
+     "ocean": 0.94,
+     "candy": 1.02,
+     "lava": 1.02,
+     "acid": 0.99,
+     "ice": 1.03,
+     "neon": 1.0
     },
     "length": {
-     "20-35s": 1.01,
+     "20-35s": 0.99,
      "over 35s": 0.94,
-     "under 20s": 1.06
+     "under 20s": 1.09,
+     "under 10s": 1.01
     },
     "hour posted": {
-     "23:00": 1.02,
+     "23:00": 1.0,
      "11:00": 0.96,
-     "14:00": 1.0,
-     "16:00": 1.01,
-     "18:00": 0.93,
-     "21:00": 1.01,
-     "10:00": 1.08,
-     "12:00": 0.99,
+     "14:00": 1.03,
+     "16:00": 0.99,
+     "18:00": 0.97,
+     "21:00": 0.98,
+     "10:00": 1.06,
+     "12:00": 0.98,
      "13:00": 1.0,
-     "20:00": 0.99,
-     "17:00": 1.02,
-     "19:00": 1.02,
-     "22:00": 0.96
+     "20:00": 0.98,
+     "17:00": 1.0,
+     "19:00": 1.08,
+     "22:00": 0.97
     },
     "caption": {
-     "every colour change is a drum hit": 1.02,
-     "this is what the bass looks like. watch the centre": 1.01,
-     "turn it up and stare at the middle": 1.01,
-     "sound on. the picture is listening": 0.96,
-     "sound all the way up. don't blink.": 1.0,
-     "stare at the centre for 15 seconds. then look at your hand.": 0.99,
-     "how far did you make it before you looked away?": 0.98,
-     "tag someone who needs 20 seconds of this": 1.03,
-     "loop it. it gets deeper every time.": 1.02,
-     "send this to the friend who would stare at it for an hour": 0.98
+     "every colour change is a drum hit": 1.0,
+     "this is what the bass looks like. watch the centre": 0.99,
+     "turn it up and stare at the middle": 0.99,
+     "sound on. the picture is listening": 0.95,
+     "sound all the way up. don't blink.": 0.99,
+     "stare at the centre for 15 seconds. then look at your hand.": 0.96,
+     "how far did you make it before you looked away?": 0.97,
+     "tag someone who needs 20 seconds of this": 1.02,
+     "loop it. it gets deeper every time.": 1.0,
+     "send this to the friend who would stare at it for an hour": 1.03,
+     "pov: the song starts looking back at you": 1.04,
+     "what do you see in this? wrong answers only": 1.06
+    },
+    "knob:contour": {
+     "true": 1.08,
+     "false": 1.0
+    },
+    "knob:cut": {
+     "short": 1.01,
+     "full": 1.03,
+     "tight": 1.05
+    },
+    "knob:feedback": {
+     "true": 1.04,
+     "false": 1.06
+    },
+    "knob:field": {
+     "moire": 1.01,
+     "julia": 1.03,
+     "bryce": 1.0,
+     "kaleido": 1.06
+    },
+    "knob:font": {
+     "Poppins-Black.ttf": 1.01,
+     "Poppins-Bold.ttf": 1.03,
+     "DejaVuSerif-Bold.ttf": 1.06
+    },
+    "knob:grain": {
+     "true": 1.06,
+     "false": 1.03
+    },
+    "knob:lyrics": {
+     "word": 1.04,
+     "line": 1.06
+    },
+    "knob:mirror": {
+     "true": 1.01,
+     "false": 1.08
+    },
+    "knob:motif": {
+     "eye": 1.01,
+     "none": 1.07
+    },
+    "knob:pal": {
+     "lava": 1.06,
+     "ice": 1.03,
+     "neon": 1.0
+    },
+    "knob:poster": {
+     "false": 1.06,
+     "true": 1.03
+    },
+    "knob:ring": {
+     "false": 1.06,
+     "true": 1.03
+    },
+    "knob:second": {
+     "warp": 1.04,
+     "marble": 1.05
+    },
+    "knob:speed": {
+     "0.6": 1.06,
+     "1.6": 1.03
+    },
+    "knob:strobe": {
+     "false": 1.07
+    },
+    "knob:sym": {
+     "6": 1.01,
+     "5": 1.03,
+     "8": 1.05
+    },
+    "knob:word_y": {
+     "0.72": 1.06,
+     "0.5": 1.03
     }
    },
    "stats": {
     "style": {
      "psy": [
-      18,
-      16.91,
-      0.5
+      22,
+      20.73,
+      0.501
      ]
     },
     "opening line": {
      "without": [
-      18,
-      16.91,
-      0.5
+      21,
+      19.76,
+      0.501
+     ],
+     "with": [
+      1,
+      0.97,
+      0.501
+     ]
+    },
+    "hook": {
+     "what do you see?": [
+      1,
+      0.97,
+      0.501
      ]
     },
     "song": {
      "prologue": [
-      4,
-      3.73,
-      0.512
+      5,
+      4.69,
+      0.494
      ],
      "wont_be_the_same_again": [
       6,
-      5.64,
-      0.491
+      5.62,
+      0.436
      ],
      "hair_of_the_dog": [
       3,
-      2.82,
-      0.596
+      2.81,
+      0.571
      ],
      "fixation": [
-      2,
-      1.89,
-      0.453
+      3,
+      2.86,
+      0.508
      ],
      "myth_of_sisyphus": [
-      1,
-      0.95,
-      0.432
+      2,
+      1.91,
+      0.542
      ],
      "full_ride": [
       1,
       0.94,
-      0.594
+      0.843
      ],
      "talk": [
       1,
-      0.95,
-      0.282
+      0.94,
+      0.255
+     ],
+     "suspended": [
+      1,
+      0.97,
+      0.501
      ]
     },
     "section": {
      "prologue/s02": [
       2,
       1.86,
-      0.449
+      0.397
      ],
      "wont_be_the_same_again/s05-s06": [
       2,
       1.88,
-      0.326
+      0.323
      ],
      "hair_of_the_dog/s02": [
       2,
       1.88,
-      0.663
+      0.642
      ],
      "wont_be_the_same_again/s05": [
       1,
       0.94,
-      0.55
+      0.467
      ],
      "fixation/s03": [
       1,
-      0.95,
-      0.596
+      0.94,
+      0.49
      ],
      "prologue/s09": [
       1,
       0.93,
-      0.75
+      0.748
      ],
      "wont_be_the_same_again/s01": [
       2,
-      1.87,
-      0.571
+      1.86,
+      0.512
      ],
      "hair_of_the_dog/s01": [
       1,
-      0.94,
-      0.459
+      0.93,
+      0.43
      ],
      "prologue/s05": [
       1,
-      0.94,
-      0.4
+      0.93,
+      0.365
      ],
      "fixation/s06": [
       1,
       0.94,
-      0.309
+      0.269
      ],
      "myth_of_sisyphus/s02": [
       1,
-      0.95,
-      0.432
+      0.94,
+      0.43
      ],
      "wont_be_the_same_again/s06": [
       1,
       0.94,
-      0.604
+      0.483
      ],
      "full_ride/s02": [
       1,
       0.94,
-      0.594
+      0.843
      ],
      "talk/s06": [
       1,
-      0.95,
-      0.282
+      0.94,
+      0.255
+     ],
+     "prologue/s03-s04": [
+      1,
+      0.96,
+      0.562
+     ],
+     "myth_of_sisyphus/s03": [
+      1,
+      0.97,
+      0.651
+     ],
+     "suspended/s04": [
+      1,
+      0.97,
+      0.501
+     ],
+     "fixation/s01": [
+      1,
+      0.97,
+      0.756
      ]
     },
     "look": {
      "kaleido": [
-      6,
-      5.63,
-      0.52
+      7,
+      6.59,
+      0.556
      ],
      "cells": [
       2,
       1.87,
-      0.368
+      0.335
      ],
      "marble": [
       2,
-      1.89,
-      0.468
+      1.88,
+      0.484
      ],
      "rings": [
       3,
-      2.82,
-      0.439
+      2.81,
+      0.388
      ],
      "bryce": [
-      3,
-      2.82,
-      0.616
+      4,
+      3.78,
+      0.545
      ],
      "tunnel": [
       2,
-      1.89,
-      0.518
+      1.88,
+      0.457
+     ],
+     "moire": [
+      1,
+      0.96,
+      0.562
+     ],
+     "julia": [
+      1,
+      0.97,
+      0.651
      ]
     },
     "lyrics": {
      "word": [
-      9,
-      8.46,
-      0.477
+      10,
+      9.41,
+      0.433
      ],
      "line": [
       6,
-      5.62,
-      0.574
+      5.6,
+      0.592
      ]
     },
     "palette": {
      "ocean": [
       4,
-      3.75,
-      0.455
+      3.74,
+      0.405
      ],
      "candy": [
       8,
-      7.52,
-      0.518
+      7.5,
+      0.519
      ],
      "lava": [
-      4,
-      3.76,
-      0.495
+      6,
+      5.68,
+      0.526
      ],
      "acid": [
       2,
       1.88,
-      0.528
+      0.46
+     ],
+     "ice": [
+      1,
+      0.97,
+      0.651
+     ],
+     "neon": [
+      1,
+      0.97,
+      0.501
      ]
     },
     "length": {
      "20-35s": [
-      15,
-      14.1,
-      0.506
+      16,
+      15.02,
+      0.487
      ],
      "over 35s": [
       2,
       1.88,
-      0.326
+      0.323
      ],
      "under 20s": [
+      3,
+      2.87,
+      0.667
+     ],
+     "under 10s": [
       1,
-      0.93,
-      0.75
+      0.96,
+      0.562
      ]
     },
     "hour posted": {
      "23:00": [
       1,
       0.92,
-      0.571
+      0.514
      ],
      "11:00": [
       1,
       0.93,
-      0.335
+      0.305
      ],
      "14:00": [
-      2,
-      1.88,
-      0.51
-     ],
-     "16:00": [
-      1,
-      0.94,
+      3,
+      2.84,
       0.55
      ],
-     "18:00": [
+     "16:00": [
       2,
-      1.89,
-      0.32
+      1.91,
+      0.484
+     ],
+     "18:00": [
+      3,
+      2.85,
+      0.44
      ],
      "21:00": [
       3,
-      2.84,
-      0.528
+      2.83,
+      0.467
      ],
      "10:00": [
       2,
-      1.87,
-      0.706
+      1.86,
+      0.665
      ],
      "12:00": [
       1,
-      0.94,
-      0.459
+      0.93,
+      0.43
      ],
      "13:00": [
-      1,
-      0.94,
-      0.481
+      2,
+      1.9,
+      0.502
      ],
      "20:00": [
       1,
-      0.95,
-      0.432
+      0.94,
+      0.43
      ],
      "17:00": [
       1,
       0.94,
-      0.604
+      0.483
      ],
      "19:00": [
       1,
       0.94,
-      0.594
+      0.843
      ],
      "22:00": [
       1,
       0.95,
-      0.318
+      0.34
      ]
     },
     "caption": {
      "every colour change is a drum hit": [
       1,
       0.92,
-      0.571
+      0.514
      ],
      "this is what the bass looks like. watch the centre": [
       3,
-      2.82,
-      0.518
+      2.81,
+      0.475
      ],
      "turn it up and stare at the middle": [
       1,
       0.94,
-      0.55
+      0.467
      ],
      "sound on. the picture is listening": [
       1,
       0.94,
-      0.331
+      0.283
      ],
      "sound all the way up. don't blink.": [
       3,
-      2.82,
-      0.503
+      2.81,
+      0.48
      ],
      "stare at the centre for 15 seconds. then look at your hand.": [
       3,
-      2.81,
-      0.476
+      2.8,
+      0.427
      ],
      "how far did you make it before you looked away?": [
       1,
-      0.94,
-      0.4
+      0.93,
+      0.365
      ],
      "tag someone who needs 20 seconds of this": [
       2,
       1.89,
-      0.569
+      0.542
      ],
      "loop it. it gets deeper every time.": [
       1,
       0.94,
-      0.604
+      0.483
      ],
      "send this to the friend who would stare at it for an hour": [
+      3,
+      2.86,
+      0.561
+     ],
+     "pov: the song starts looking back at you": [
       2,
-      1.89,
-      0.456
+      1.93,
+      0.607
+     ],
+     "what do you see in this? wrong answers only": [
+      1,
+      0.97,
+      0.756
+     ]
+    },
+    "knob:contour": {
+     "true": [
+      3,
+      2.9,
+      0.657
+     ],
+     "false": [
+      1,
+      0.97,
+      0.501
+     ]
+    },
+    "knob:cut": {
+     "short": [
+      1,
+      0.96,
+      0.562
+     ],
+     "full": [
+      1,
+      0.97,
+      0.651
+     ],
+     "tight": [
+      2,
+      1.94,
+      0.629
+     ]
+    },
+    "knob:feedback": {
+     "true": [
+      3,
+      2.9,
+      0.571
+     ],
+     "false": [
+      1,
+      0.97,
+      0.756
+     ]
+    },
+    "knob:field": {
+     "moire": [
+      1,
+      0.96,
+      0.562
+     ],
+     "julia": [
+      1,
+      0.97,
+      0.651
+     ],
+     "bryce": [
+      1,
+      0.97,
+      0.501
+     ],
+     "kaleido": [
+      1,
+      0.97,
+      0.756
+     ]
+    },
+    "knob:font": {
+     "Poppins-Black.ttf": [
+      2,
+      1.93,
+      0.531
+     ],
+     "Poppins-Bold.ttf": [
+      1,
+      0.97,
+      0.651
+     ],
+     "DejaVuSerif-Bold.ttf": [
+      1,
+      0.97,
+      0.756
+     ]
+    },
+    "knob:grain": {
+     "true": [
+      3,
+      2.91,
+      0.607
+     ],
+     "false": [
+      1,
+      0.97,
+      0.651
+     ]
+    },
+    "knob:lyrics": {
+     "word": [
+      3,
+      2.9,
+      0.571
+     ],
+     "line": [
+      1,
+      0.97,
+      0.756
+     ]
+    },
+    "knob:mirror": {
+     "true": [
+      2,
+      1.93,
+      0.531
+     ],
+     "false": [
+      2,
+      1.94,
+      0.704
+     ]
+    },
+    "knob:motif": {
+     "eye": [
+      1,
+      0.96,
+      0.562
+     ],
+     "none": [
+      3,
+      2.91,
+      0.636
+     ]
+    },
+    "knob:pal": {
+     "lava": [
+      2,
+      1.94,
+      0.659
+     ],
+     "ice": [
+      1,
+      0.97,
+      0.651
+     ],
+     "neon": [
+      1,
+      0.97,
+      0.501
+     ]
+    },
+    "knob:poster": {
+     "false": [
+      2,
+      1.94,
+      0.659
+     ],
+     "true": [
+      2,
+      1.94,
+      0.576
+     ]
+    },
+    "knob:ring": {
+     "false": [
+      2,
+      1.94,
+      0.659
+     ],
+     "true": [
+      2,
+      1.94,
+      0.576
+     ]
+    },
+    "knob:second": {
+     "warp": [
+      2,
+      1.93,
+      0.607
+     ],
+     "marble": [
+      2,
+      1.94,
+      0.629
+     ]
+    },
+    "knob:speed": {
+     "0.6": [
+      3,
+      2.91,
+      0.607
+     ],
+     "1.6": [
+      1,
+      0.97,
+      0.651
+     ]
+    },
+    "knob:strobe": {
+     "false": [
+      4,
+      3.87,
+      0.618
+     ]
+    },
+    "knob:sym": {
+     "6": [
+      1,
+      0.96,
+      0.562
+     ],
+     "5": [
+      1,
+      0.97,
+      0.651
+     ],
+     "8": [
+      2,
+      1.94,
+      0.629
+     ]
+    },
+    "knob:word_y": {
+     "0.72": [
+      3,
+      2.91,
+      0.607
+     ],
+     "0.5": [
+      1,
+      0.97,
+      0.651
      ]
     }
    },
    "retired": {}
   },
   "nostalgia": {
-   "posts": 1,
-   "waiting": 0,
-   "typical_views": 271.0,
+   "posts": 5,
+   "waiting": 4,
+   "typical_views": 229.0,
    "weights": {
     "style": {
      "liminal": 1.0
     },
     "opening line": {
-     "with": 1.0
+     "with": 1.03,
+     "without": 0.96
     },
     "hook": {
-     "3am. the music is still on": 1.0
+     "3am. the music is still on": 0.99,
+     "have you seen this place?": 1.04
+    },
+    "song": {
+     "prologue": 0.98,
+     "suspended": 1.02
+    },
+    "section": {
+     "prologue/s07": 1.01,
+     "suspended/s01": 1.04,
+     "prologue/s06": 0.96,
+     "suspended/s04": 0.98
+    },
+    "length": {
+     "under 20s": 0.99,
+     "under 10s": 1.04,
+     "20-35s": 0.96
+    },
+    "hour posted": {
+     "22:00": 1.01,
+     "13:00": 0.98,
+     "17:00": 1.03,
+     "16:00": 0.98
+    },
+    "caption": {
+     "no one else is here. turn it up.": 1.02,
+     "if you remember this hallway you had a good childhood": 1.03,
+     "the mall at closing time hit different": 0.96,
+     "pause it and look behind you": 0.98
+    },
+    "knob:cut": {
+     "full": 0.96
+    },
+    "knob:label": {
+     "PLAY \u25b6": 0.96
+    },
+    "knob:pace": {
+     "walk": 0.96
+    },
+    "knob:place": {
+     "backrooms": 0.96
+    },
+    "knob:stamp": {
+     "date": 0.96
+    },
+    "knob:tape": {
+     "worn": 0.96
+    },
+    "knob:tint": {
+     "green": 0.96
+    }
+   },
+   "stats": {
+    "style": {
+     "liminal": [
+      5,
+      4.81,
+      0.5
+     ]
+    },
+    "opening line": {
+     "with": [
+      4,
+      3.85,
+      0.544
+     ],
+     "without": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "hook": {
+     "3am. the music is still on": [
+      2,
+      1.91,
+      0.487
+     ],
+     "have you seen this place?": [
+      2,
+      1.93,
+      0.6
+     ]
+    },
+    "song": {
+     "prologue": [
+      2,
+      1.91,
+      0.443
+     ],
+     "suspended": [
+      3,
+      2.9,
+      0.537
+     ]
+    },
+    "section": {
+     "prologue/s07": [
+      1,
+      0.95,
+      0.562
+     ],
+     "suspended/s01": [
+      2,
+      1.93,
+      0.6
+     ],
+     "prologue/s06": [
+      1,
+      0.97,
+      0.325
+     ],
+     "suspended/s04": [
+      1,
+      0.97,
+      0.412
+     ]
+    },
+    "length": {
+     "under 20s": [
+      2,
+      1.91,
+      0.487
+     ],
+     "under 10s": [
+      2,
+      1.93,
+      0.6
+     ],
+     "20-35s": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "hour posted": {
+     "22:00": [
+      1,
+      0.95,
+      0.562
+     ],
+     "13:00": [
+      2,
+      1.93,
+      0.444
+     ],
+     "17:00": [
+      1,
+      0.97,
+      0.638
+     ],
+     "16:00": [
+      1,
+      0.97,
+      0.412
+     ]
+    },
+    "caption": {
+     "no one else is here. turn it up.": [
+      2,
+      1.91,
+      0.562
+     ],
+     "if you remember this hallway you had a good childhood": [
+      1,
+      0.97,
+      0.638
+     ],
+     "the mall at closing time hit different": [
+      1,
+      0.97,
+      0.325
+     ],
+     "pause it and look behind you": [
+      1,
+      0.97,
+      0.412
+     ]
+    },
+    "knob:cut": {
+     "full": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "knob:label": {
+     "PLAY \u25b6": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "knob:pace": {
+     "walk": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "knob:place": {
+     "backrooms": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "knob:stamp": {
+     "date": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "knob:tape": {
+     "worn": [
+      1,
+      0.97,
+      0.325
+     ]
+    },
+    "knob:tint": {
+     "green": [
+      1,
+      0.97,
+      0.325
+     ]
+    }
+   },
+   "retired": {}
+  },
+  "nick_studio": {
+   "posts": 0,
+   "waiting": 1,
+   "weights": {}
+  },
+  "math_time": {
+   "posts": 2,
+   "waiting": 6,
+   "typical_views": 303.5,
+   "weights": {
+    "style": {
+     "math": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "prologue": 0.99,
+     "suspended": 1.01
+    },
+    "section": {
+     "prologue/s09": 0.99,
+     "suspended/s06": 1.01
+    },
+    "length": {
+     "under 20s": 0.99,
+     "over 35s": 1.01
+    },
+    "hour posted": {
+     "13:00": 0.99,
+     "14:00": 1.01
+    },
+    "caption": {
+     "send this to someone taking calc right now": 1.0
+    },
+    "knob:chip": {
+     "pill": 1.0
+    },
+    "knob:cut": {
+     "full": 1.0
+    },
+    "knob:font": {
+     "montserrat": 1.0
+    },
+    "knob:glow": {
+     "1.0": 0.99,
+     "0.6": 1.01
+    },
+    "knob:grid": {
+     "dots": 1.0
+    },
+    "knob:shake": {
+     "0.6": 1.0
+    },
+    "knob:theme": {
+     "mono": 0.99,
+     "chalk": 1.01
+    },
+    "knob:topic": {
+     "integral": 0.99,
+     "fourier": 1.01
+    }
+   },
+   "stats": {
+    "style": {
+     "math": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "song": {
+     "prologue": [
+      1,
+      0.96,
+      0.45
+     ],
+     "suspended": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "section": {
+     "prologue/s09": [
+      1,
+      0.96,
+      0.45
+     ],
+     "suspended/s06": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "length": {
+     "under 20s": [
+      1,
+      0.96,
+      0.45
+     ],
+     "over 35s": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "hour posted": {
+     "13:00": [
+      1,
+      0.96,
+      0.45
+     ],
+     "14:00": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "caption": {
+     "send this to someone taking calc right now": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:chip": {
+     "pill": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:cut": {
+     "full": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:font": {
+     "montserrat": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:glow": {
+     "1.0": [
+      1,
+      0.96,
+      0.45
+     ],
+     "0.6": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "knob:grid": {
+     "dots": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:shake": {
+     "0.6": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:theme": {
+     "mono": [
+      1,
+      0.96,
+      0.45
+     ],
+     "chalk": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "knob:topic": {
+     "integral": [
+      1,
+      0.96,
+      0.45
+     ],
+     "fourier": [
+      1,
+      0.97,
+      0.55
+     ]
+    }
+   },
+   "retired": {}
+  },
+  "glitch_archive": {
+   "posts": 2,
+   "waiting": 2,
+   "typical_views": 137.5,
+   "weights": {
+    "style": {
+     "glitch": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "suspended": 1.09,
+     "myth_of_sisyphus": 0.91
+    },
+    "section": {
+     "suspended/s04": 1.09,
+     "myth_of_sisyphus/s05": 0.91
+    },
+    "length": {
+     "20-35s": 1.09,
+     "under 20s": 0.91
+    },
+    "hour posted": {
+     "13:00": 1.09,
+     "14:00": 0.91
+    },
+    "caption": {
+     "tape found in a creek": 1.0
+    },
+    "knob:accent": {
+     "blocks": 1.0
+    },
+    "knob:cut": {
+     "full": 1.09,
+     "tight": 0.91
+    },
+    "knob:label": {
+     "none": 1.09,
+     "rec": 0.91
+    },
+    "knob:main": {
+     "track": 1.09,
+     "slit": 0.91
+    },
+    "knob:pace": {
+     "2": 1.0
+    },
+    "knob:source": {
+     "mixed": 1.0
+    },
+    "knob:tone": {
+     "night": 1.09,
+     "mono": 0.91
+    }
+   },
+   "stats": {
+    "style": {
+     "glitch": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "song": {
+     "suspended": [
+      1,
+      0.96,
+      0.9
+     ],
+     "myth_of_sisyphus": [
+      1,
+      0.97,
+      0.1
+     ]
+    },
+    "section": {
+     "suspended/s04": [
+      1,
+      0.96,
+      0.9
+     ],
+     "myth_of_sisyphus/s05": [
+      1,
+      0.97,
+      0.1
+     ]
+    },
+    "length": {
+     "20-35s": [
+      1,
+      0.96,
+      0.9
+     ],
+     "under 20s": [
+      1,
+      0.97,
+      0.1
+     ]
+    },
+    "hour posted": {
+     "13:00": [
+      1,
+      0.96,
+      0.9
+     ],
+     "14:00": [
+      1,
+      0.97,
+      0.1
+     ]
+    },
+    "caption": {
+     "tape found in a creek": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:accent": {
+     "blocks": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:cut": {
+     "full": [
+      1,
+      0.96,
+      0.9
+     ],
+     "tight": [
+      1,
+      0.97,
+      0.1
+     ]
+    },
+    "knob:label": {
+     "none": [
+      1,
+      0.96,
+      0.9
+     ],
+     "rec": [
+      1,
+      0.97,
+      0.1
+     ]
+    },
+    "knob:main": {
+     "track": [
+      1,
+      0.96,
+      0.9
+     ],
+     "slit": [
+      1,
+      0.97,
+      0.1
+     ]
+    },
+    "knob:pace": {
+     "2": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:source": {
+     "mixed": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:tone": {
+     "night": [
+      1,
+      0.96,
+      0.9
+     ],
+     "mono": [
+      1,
+      0.97,
+      0.1
+     ]
+    }
+   },
+   "retired": {}
+  },
+  "rocket_league": {
+   "posts": 1,
+   "waiting": 2,
+   "typical_views": 321.0,
+   "weights": {
+    "style": {
+     "rocket": 1.0
+    },
+    "opening line": {
+     "without": 1.0
     },
     "song": {
      "prologue": 1.0
@@ -1004,123 +2668,669 @@
      "prologue/s07": 1.0
     },
     "length": {
-     "under 20s": 1.0
+     "under 10s": 1.0
     },
     "hour posted": {
-     "22:00": 1.0
+     "17:00": 1.0
     },
     "caption": {
-     "no one else is here. turn it up.": 1.0
+     "replay worthy": 1.0
+    },
+    "knob:cut": {
+     "short": 1.0
+    },
+    "knob:format": {
+     "asis": 1.0
+    },
+    "knob:frame": {
+     "crop": 1.0
+    },
+    "knob:ramp": {
+     "slowmo": 1.0
     }
    },
    "stats": {
     "style": {
-     "liminal": [
+     "rocket": [
       1,
-      0.95,
+      0.97,
       0.5
      ]
     },
     "opening line": {
-     "with": [
+     "without": [
       1,
-      0.95,
-      0.5
-     ]
-    },
-    "hook": {
-     "3am. the music is still on": [
-      1,
-      0.95,
+      0.97,
       0.5
      ]
     },
     "song": {
      "prologue": [
       1,
-      0.95,
+      0.97,
       0.5
      ]
     },
     "section": {
      "prologue/s07": [
       1,
-      0.95,
+      0.97,
       0.5
      ]
     },
     "length": {
-     "under 20s": [
+     "under 10s": [
       1,
-      0.95,
+      0.97,
       0.5
      ]
     },
     "hour posted": {
-     "22:00": [
+     "17:00": [
       1,
-      0.95,
+      0.97,
       0.5
      ]
     },
     "caption": {
-     "no one else is here. turn it up.": [
+     "replay worthy": [
       1,
-      0.95,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:cut": {
+     "short": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:format": {
+     "asis": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:frame": {
+     "crop": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:ramp": {
+     "slowmo": [
+      1,
+      0.97,
       0.5
      ]
     }
    },
    "retired": {}
   },
-  "nick_studio": {
-   "posts": 0,
-   "waiting": 0,
-   "weights": {}
-  },
-  "math_time": {
-   "posts": 0,
-   "waiting": 0,
-   "weights": {}
-  },
-  "glitch_archive": {
-   "posts": 0,
-   "waiting": 0,
-   "weights": {}
-  },
-  "rocket_league": {
-   "posts": 0,
-   "waiting": 0,
-   "weights": {}
-  },
   "physics_sims": {
-   "posts": 0,
-   "waiting": 0,
-   "weights": {}
+   "posts": 2,
+   "waiting": 2,
+   "typical_views": 194.0,
+   "weights": {
+    "style": {
+     "physics": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "fixation": 0.99,
+     "prologue": 1.01
+    },
+    "section": {
+     "fixation/s03": 0.99,
+     "prologue/s04": 1.01
+    },
+    "length": {
+     "under 10s": 1.0
+    },
+    "hour posted": {
+     "13:00": 0.99,
+     "15:00": 1.01
+    },
+    "caption": {
+     "this is weirdly satisfying with sound": 0.99,
+     "count the bounces": 1.01
+    },
+    "knob:cut": {
+     "tight": 0.99,
+     "short": 1.01
+    },
+    "knob:hits": {
+     "drums": 0.99,
+     "melody": 1.01
+    },
+    "knob:hook": {
+     "none": 0.99,
+     "hits": 1.01
+    },
+    "knob:palette": {
+     "ice": 0.99,
+     "rainbow": 1.01
+    },
+    "knob:scene": {
+     "circle": 1.0
+    },
+    "knob:trail": {
+     "ribbon": 1.0
+    }
+   },
+   "stats": {
+    "style": {
+     "physics": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "song": {
+     "fixation": [
+      1,
+      0.96,
+      0.45
+     ],
+     "prologue": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "section": {
+     "fixation/s03": [
+      1,
+      0.96,
+      0.45
+     ],
+     "prologue/s04": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "length": {
+     "under 10s": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "hour posted": {
+     "13:00": [
+      1,
+      0.96,
+      0.45
+     ],
+     "15:00": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "caption": {
+     "this is weirdly satisfying with sound": [
+      1,
+      0.96,
+      0.45
+     ],
+     "count the bounces": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "knob:cut": {
+     "tight": [
+      1,
+      0.96,
+      0.45
+     ],
+     "short": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "knob:hits": {
+     "drums": [
+      1,
+      0.96,
+      0.45
+     ],
+     "melody": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "knob:hook": {
+     "none": [
+      1,
+      0.96,
+      0.45
+     ],
+     "hits": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "knob:palette": {
+     "ice": [
+      1,
+      0.96,
+      0.45
+     ],
+     "rainbow": [
+      1,
+      0.97,
+      0.55
+     ]
+    },
+    "knob:scene": {
+     "circle": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:trail": {
+     "ribbon": [
+      2,
+      1.93,
+      0.5
+     ]
+    }
+   },
+   "retired": {}
   },
   "ascii_art": {
-   "posts": 0,
-   "waiting": 0,
-   "weights": {}
+   "posts": 2,
+   "waiting": 5,
+   "typical_views": 193.0,
+   "weights": {
+    "style": {
+     "ascii": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "suspended": 1.01,
+     "myth_of_sisyphus": 0.99
+    },
+    "section": {
+     "suspended/s04": 1.01,
+     "myth_of_sisyphus/s08": 0.99
+    },
+    "length": {
+     "20-35s": 1.01,
+     "under 10s": 0.99
+    },
+    "hour posted": {
+     "13:00": 1.01,
+     "15:00": 0.99
+    },
+    "caption": {
+     "send this to someone who writes code": 1.0
+    },
+    "knob:cut": {
+     "full": 1.01,
+     "short": 0.99
+    },
+    "knob:layout": {
+     "clean": 1.0
+    },
+    "knob:palette": {
+     "ice": 1.01,
+     "reef": 0.99
+    },
+    "knob:ramp": {
+     "classic": 1.01,
+     "dense": 0.99
+    },
+    "knob:scene": {
+     "jelly": 1.01,
+     "planet": 0.99
+    },
+    "knob:sparks": {
+     "1.6": 1.01,
+     "1.0": 0.99
+    }
+   },
+   "stats": {
+    "style": {
+     "ascii": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "song": {
+     "suspended": [
+      1,
+      0.96,
+      0.55
+     ],
+     "myth_of_sisyphus": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "section": {
+     "suspended/s04": [
+      1,
+      0.96,
+      0.55
+     ],
+     "myth_of_sisyphus/s08": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "length": {
+     "20-35s": [
+      1,
+      0.96,
+      0.55
+     ],
+     "under 10s": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "hour posted": {
+     "13:00": [
+      1,
+      0.96,
+      0.55
+     ],
+     "15:00": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "caption": {
+     "send this to someone who writes code": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:cut": {
+     "full": [
+      1,
+      0.96,
+      0.55
+     ],
+     "short": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "knob:layout": {
+     "clean": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:palette": {
+     "ice": [
+      1,
+      0.96,
+      0.55
+     ],
+     "reef": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "knob:ramp": {
+     "classic": [
+      1,
+      0.96,
+      0.55
+     ],
+     "dense": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "knob:scene": {
+     "jelly": [
+      1,
+      0.96,
+      0.55
+     ],
+     "planet": [
+      1,
+      0.97,
+      0.45
+     ]
+    },
+    "knob:sparks": {
+     "1.6": [
+      1,
+      0.96,
+      0.55
+     ],
+     "1.0": [
+      1,
+      0.97,
+      0.45
+     ]
+    }
+   },
+   "retired": {}
   },
   "earth_data": {
-   "posts": 0,
-   "waiting": 0,
-   "weights": {}
+   "posts": 2,
+   "waiting": 2,
+   "typical_views": 163.0,
+   "weights": {
+    "style": {
+     "earth": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "prologue": 1.03,
+     "myth_of_sisyphus": 0.97
+    },
+    "section": {
+     "prologue/s02": 1.03,
+     "myth_of_sisyphus/s05": 0.97
+    },
+    "length": {
+     "under 20s": 1.03,
+     "20-35s": 0.97
+    },
+    "hour posted": {
+     "14:00": 1.0
+    },
+    "caption": {
+     "the planet, on the beat": 1.0
+    },
+    "knob:cut": {
+     "tight": 1.03,
+     "full": 0.97
+    },
+    "knob:hook": {
+     "question": 1.0
+    },
+    "knob:palette": {
+     "paper": 1.03,
+     "blueprint": 0.97
+    },
+    "knob:scene": {
+     "satellites": 1.03,
+     "quakes": 0.97
+    },
+    "knob:spin": {
+     "fast": 1.0
+    }
+   },
+   "stats": {
+    "style": {
+     "earth": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "song": {
+     "prologue": [
+      1,
+      0.97,
+      0.65
+     ],
+     "myth_of_sisyphus": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "section": {
+     "prologue/s02": [
+      1,
+      0.97,
+      0.65
+     ],
+     "myth_of_sisyphus/s05": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "length": {
+     "under 20s": [
+      1,
+      0.97,
+      0.65
+     ],
+     "20-35s": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "hour posted": {
+     "14:00": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "caption": {
+     "the planet, on the beat": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:cut": {
+     "tight": [
+      1,
+      0.97,
+      0.65
+     ],
+     "full": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:hook": {
+     "question": [
+      2,
+      1.93,
+      0.5
+     ]
+    },
+    "knob:palette": {
+     "paper": [
+      1,
+      0.97,
+      0.65
+     ],
+     "blueprint": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:scene": {
+     "satellites": [
+      1,
+      0.97,
+      0.65
+     ],
+     "quakes": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:spin": {
+     "fast": [
+      2,
+      1.93,
+      0.5
+     ]
+    }
+   },
+   "retired": {}
   },
   "retro_arcade": {
    "posts": 0,
-   "waiting": 0,
+   "waiting": 2,
    "weights": {}
   },
   "vintage_archive": {
    "posts": 0,
-   "waiting": 0,
+   "waiting": 1,
    "weights": {}
   },
   "nyc_daily": {
    "posts": 0,
-   "waiting": 0,
+   "waiting": 1,
    "weights": {}
   },
   "tiny_code": {

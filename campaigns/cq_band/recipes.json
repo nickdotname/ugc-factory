@@ -10155,6 +10155,459 @@
    },
    "lyrics_proven": true,
    "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s07_band_356411.mp4",
+   "song": "prologue",
+   "section": "s07",
+   "style": "band",
+   "seed": 356411,
+   "window": [
+    148.5,
+    168.33
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     159,
+     159,
+     99
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      146.71,
+      "cmd",
+      0,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      148.85,
+      "arr",
+      1,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      149.93,
+      "player",
+      2,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      152.15,
+      "wave",
+      3,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      152.97,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/d7b4210747bec593.jpg|lowres",
+      4,
+      [
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      154.31,
+      "cmd",
+      5,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      155.43,
+      "paint",
+      6,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      156.87,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/e83f6dcfd26c6386.jpg|webcam",
+      7,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      158.21,
+      "paint",
+      8,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      160.15,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/732746f79cfeac95.jpg|gif",
+      9,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      161.95,
+      "arr",
+      10,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      164.21,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/ff525692bc5ec847.jpg|lowres",
+      11,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      166.61,
+      "player",
+      12,
+      [
+       "invert",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "mac",
+    "caption": "montserrat",
+    "hook": "main character walk home song",
+    "hook_angle": "relatable",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "black",
+    "pictures": "0.85",
+    "wall": "rings",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "mac",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.65,
+    "bass": 0.62,
+    "other": 0.27
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_fixation_b1-1_lofi_21202.mp4",
+   "song": "fixation",
+   "section": "fixation_b1-1",
+   "style": "lofi",
+   "seed": 21202,
+   "window": [
+    102.19,
+    114.15
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     102.19,
+     114.15
+    ],
+    "scenes": [
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "rings",
+    "theme": "purple",
+    "pop": "3",
+    "tint": "0.4",
+    "pace": "2",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.82,
+    "bass": 0.76,
+    "other": 0.57
+   },
+   "lyrics_proven": true,
+   "clip": "hook_09.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-4_lofi_566571.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-4",
+   "style": "lofi",
+   "seed": 566571,
+   "window": [
+    40.77,
+    51.47
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     40.77,
+     51.47
+    ],
+    "scenes": [
+     "flat",
+     "pop",
+     "flat",
+     "rainbow",
+     "flat",
+     "pop",
+     "flat",
+     "rainbow"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "mac",
+    "wall": "rings",
+    "theme": "mono",
+    "pop": "3",
+    "tint": "0.0",
+    "pace": "1",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.7,
+    "bass": 0.67,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_wbtsa_b1-4_lofi_299730.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "wbtsa_b1-4",
+   "style": "lofi",
+   "seed": 299730,
+   "window": [
+    116.89,
+    128.89
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     116.89,
+     128.89
+    ],
+    "scenes": [
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "grad",
+    "theme": "teal",
+    "pop": "0",
+    "tint": "0.4",
+    "pace": "2",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.54,
+    "drums": 0.8,
+    "bass": 0.54,
+    "other": 0.32
+   },
+   "lyrics_proven": true,
+   "clip": "hook_10.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s10_cursor_852639.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "cursor",
+   "seed": 852639,
+   "window": [
+    230.63,
+    243.72
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "corridor",
+     "corridor",
+     "corridor",
+     "corridor"
+    ]
+   },
+   "knobs": {
+    "world": "corridor",
+    "glow": "green",
+    "cursor": "arrows",
+    "drift": "1.0",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.47,
+    "drums": 0.65,
+    "bass": 0.52,
+    "other": 0.91
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s02-s03_cursor_250233.mp4",
+   "song": "suspended",
+   "section": "s02-s03",
+   "style": "cursor",
+   "seed": 250233,
+   "window": [
+    28.88,
+    73.09
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs"
+    ]
+   },
+   "knobs": {
+    "world": "stairs",
+    "glow": "green",
+    "cursor": "arrows",
+    "drift": "1.0",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.68,
+    "bass": 0.34,
+    "other": 0.43
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_cursor_725070.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "cursor",
+   "seed": 725070,
+   "window": [
+    165.08,
+    182.04
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "cube",
+     "stairs",
+     "cube",
+     "stairs",
+     "corridor"
+    ]
+   },
+   "knobs": {
+    "world": "mix",
+    "glow": "purple",
+    "cursor": "arrows",
+    "drift": "0.6",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.72,
+    "bass": 0.6,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_11.mp4"
   }
  ],
  "since": "2026-11-22T06:56:33.728767+00:00",
