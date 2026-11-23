@@ -9,6 +9,9 @@ Back to [[README]]. Newest first; one line per change worth remembering.
   names the song from the outbox when history doesn't. Found while checking: before the held-slot guard (#97
   era, 22:39 ET 2026-11-22) accounts were often booked twice into one minute; none booked since.
 
+- 2026-11-23: the "share" hook angle is gone from studio/hook.py ("send this to your duo", "save this for your next
+  session"...): those are tag-a-friend asks. "your sign to start a band" moved to relatable.
+
 - 2026-11-23: caption banks. Songs without a bank of their own (the 7 added later, and every song on nyc and
   vintage) fell back to one line per campaign, so those posts read the same every day; each campaign's
   `captions.txt` now holds 22-40 song-agnostic lines. Every niche account has 25+ distinct openings, so the 7-day
