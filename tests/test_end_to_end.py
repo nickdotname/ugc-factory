@@ -468,6 +468,29 @@ class TestStaleSlotRecovery:
         times = [i.scheduled_for for i in load_queue(campaign / "queue.json").items]
         assert len(set(times)) == len(times), "reslot collided with a pending slot"
 
+    def test_topup_keeps_off_minutes_the_network_already_holds(
+        self, fanout_campaign: Path, monkeypatch
+    ) -> None:
+        """A render drops pushed items from queue.json, so after a late or an extra
+        render the new batch was handed the slots yesterday's pushes still held,
+        and both went out on the same minute (the.loose.change, 2026-11-22)."""
+        from datetime import timedelta
+
+        from src.publishers.base import DryRunPublisher
+
+        cli.cmd_render(render_args(), {})
+        q = load_queue(fanout_campaign / "queue.json")
+        first = min(i.scheduled_for for i in q.items)
+        # The network already has a post on every minute of the first item's hour.
+        held = [first.replace(second=0, microsecond=0) + timedelta(minutes=m) for m in range(-30, 90)]
+        monkeypatch.setattr(DryRunPublisher, "scheduled_slots", lambda self, channel: held)
+
+        cli.cmd_topup(topup_args(), {})
+        after = load_queue(fanout_campaign / "queue.json")
+        due = [p.scheduled_for for i in after.items for p in i.posts if p.scheduled_for is not None]
+        assert due, "nothing was pushed"
+        assert not set(due) & set(held), "a new post was given a minute the network already holds"
+
     def test_fanout_reslot_does_not_collide_with_a_slot_never_marked_stale(
         self, fanout_campaign: Path
     ) -> None:

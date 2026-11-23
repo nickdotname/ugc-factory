@@ -1530,11 +1530,24 @@ def _push_to_account(
         for p in i.posts
         if p.account == account.name and p.scheduled_for is not None
     }
+    # And the minutes the network already holds a post for. A render drops pushed
+    # items from queue.json, so after a late or an extra render its new batch can
+    # be handed the very slots yesterday's pushes still occupy; without this both
+    # posts went out on the same minute. A failed lookup only loses the guard.
+    try:
+        held = {
+            d.replace(second=0, microsecond=0)
+            for d in publisher.scheduled_slots(channel)
+        }
+    except Exception as exc:  # noqa: BLE001 - never let the guard stop the top-up
+        log.warning("scheduled_slots_unavailable", error=str(exc)[:200])
+        held = set()
+    taken |= held
     fresh = [
         slot
         for slot in upcoming_slots(
             now,
-            len(to_push) + 8,
+            len(to_push) + len(held) + 8,
             config.posting.start_hour,
             config.posting.end_hour,
             config.posting.posts_per_day,
