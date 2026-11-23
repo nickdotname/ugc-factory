@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-11-23T08:31:20.191958Z",
+  "generated_at": "2026-11-23T14:57:49.717327Z",
   "items": [
     {
-      "id": "1845d966-b189-45c5-9e8a-63dd6c7efd7e",
+      "id": "279cb4d9-0e9e-49ff-9676-ede8cb81e762",
       "scheduled_for": "2026-11-23T13:25:00-05:00",
-      "rendered_at": "2026-11-23T08:31:20.191958Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/1845d966-b189-45c5-9e8a-63dd6c7efd7e.mp4",
-      "caption": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "rendered_at": "2026-11-23T14:57:49.717327Z",
+      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/279cb4d9-0e9e-49ff-9676-ede8cb81e762.mp4",
+      "caption": "count the bounces\n🎧 Fixation – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
       "title": null,
       "parts": {
-        "hook": "hook_04.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.572,
-        "anchor_y": 0.654,
+        "anchor_x": 0.691,
+        "anchor_y": 0.434,
         "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -26,40 +26,30 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "prologue",
+      "creative": "fixation",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "physics_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-6a655889-7dff-480e-8dbb-8b4bd2556233",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T13:25:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Fixation – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "loop it. it lines up every time.\n🎧 Prologue: Before – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nPrologue: Before is out now. link in bio to stream it"
+        "instagram": "count the bounces\n🎧 Fixation – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "6d4a07ab-8b8c-49db-add2-3451aa4c8dcd",
+      "id": "59a08413-e288-4eaf-8a19-659c44158de2",
       "scheduled_for": "2026-11-23T16:45:00-05:00",
-      "rendered_at": "2026-11-23T08:31:20.191958Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/6d4a07ab-8b8c-49db-add2-3451aa4c8dcd.mp4",
-      "caption": "does it escape? watch to the end\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
+      "rendered_at": "2026-11-23T14:57:49.717327Z",
+      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/59a08413-e288-4eaf-8a19-659c44158de2.mp4",
+      "caption": "every bounce is a beat. sound on.\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball",
       "title": null,
       "parts": {
         "hook": "hook_03.mp4",
@@ -69,93 +59,30 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.348,
-        "anchor_y": 0.432,
+        "anchor_x": 0.642,
+        "anchor_y": 0.666,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "hair_of_the_dog",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "physics_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-50dcc4c0-a2d4-4f71-80ed-819c3744eeb2",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T16:45:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "does it escape? watch to the end\n🎧 Hair of the Dog – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Hair of the Dog"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "2b88e6d4-4a74-4857-ae5f-6798c74cb796",
-      "scheduled_for": "2026-11-23T20:05:00-05:00",
-      "rendered_at": "2026-11-23T08:31:20.191958Z",
-      "video_url": "https://factory.nickbenak.com/v/render-physics_sims-2026-11-23/2b88e6d4-4a74-4857-ae5f-6798c74cb796.mp4",
-      "caption": "Silver and Gold – Close Quarters\nevery bounce is a beat. EDUCATION is out now",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.379,
-        "anchor_y": 0.595,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "silver_and_gold",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Silver and Gold by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "physics_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-83a38915-017c-4116-9576-59d198865bcb",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T20:05:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "Silver and Gold – Close Quarters\nevery bounce is a beat. EDUCATION is out now\n\nstream Silver and Gold: link in bio"
+        "instagram": "every bounce is a beat. sound on.\n🎧 Talk – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
