@@ -91,18 +91,18 @@
         {
           "account": "retro_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-23T20:10:00-05:00"
         }
       ],
       "captions": {
         "instagram": "2am, console still on, this was playing\n🎧 Myth of Sisyphus – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
