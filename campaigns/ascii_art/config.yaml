@@ -36,6 +36,18 @@ creatives:
   - name: prologue
     title: "Prologue: Before"
     assets_release: assets-ascii_art-prologue
+  - name: subway_maintenance
+    title: "Subway Maintenance"
+    assets_release: assets-ascii_art-subway_maintenance
+  - name: silver_and_gold
+    title: "Silver and Gold"
+    assets_release: assets-ascii_art-silver_and_gold
+  - name: evil_close_quarters
+    title: "Evil Close Quarters"
+    assets_release: assets-ascii_art-evil_close_quarters
+  - name: notta_problem
+    title: "Notta Problem"
+    assets_release: assets-ascii_art-notta_problem
 
 # The ASCII account only, posted to Instagram directly as regular reels.
 accounts:

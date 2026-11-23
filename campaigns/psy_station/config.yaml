@@ -34,6 +34,18 @@ creatives:
   - name: prologue
     title: "Prologue: Before"
     assets_release: assets-psy_station-prologue-v2
+  - name: subway_maintenance
+    title: "Subway Maintenance"
+    assets_release: assets-psy_station-subway_maintenance
+  - name: silver_and_gold
+    title: "Silver and Gold"
+    assets_release: assets-psy_station-silver_and_gold
+  - name: evil_close_quarters
+    title: "Evil Close Quarters"
+    assets_release: assets-psy_station-evil_close_quarters
+  - name: notta_problem
+    title: "Notta Problem"
+    assets_release: assets-psy_station-notta_problem
 
 # psychedelic.station only, posted to Instagram directly as regular reels.
 accounts:
