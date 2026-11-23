@@ -231,6 +231,130 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s09_ascii_859671.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "ascii",
+   "seed": 859671,
+   "window": [
+    189.82,
+    209.24
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "fireworks",
+    "ramp": "blocks",
+    "palette": "ice",
+    "layout": "code",
+    "sparks": "1.0",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.67,
+    "bass": 0.51,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_s04_ascii_28589.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "ascii",
+   "seed": 28589,
+   "window": [
+    73.1,
+    95.63
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "galaxy",
+    "ramp": "classic",
+    "palette": "mono",
+    "layout": "code",
+    "sparks": "0.5",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.74,
+    "bass": 0.68,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_s01_ascii_817562.mp4",
+   "song": "fixation",
+   "section": "s01",
+   "style": "ascii",
+   "seed": 817562,
+   "window": [
+    12.08,
+    41.81
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "galaxy",
+    "ramp": "classic",
+    "palette": "sunset",
+    "layout": "clean",
+    "sparks": "0.5",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.27,
+    "drums": 0.14,
+    "bass": 0.31,
+    "other": 0.45
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s01_ascii_373364.mp4",
+   "song": "talk",
+   "section": "s01",
+   "style": "ascii",
+   "seed": 373364,
+   "window": [
+    23.69,
+    39.43
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "aurora",
+    "ramp": "classic",
+    "palette": "sunset",
+    "layout": "code",
+    "sparks": "1.0",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.93,
+    "bass": 0.74,
+    "other": 0.6
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }
