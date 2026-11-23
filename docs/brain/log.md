@@ -2,6 +2,10 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: from the account review. psychedelic.station's `star` motif drew a six-pointed star when the symmetry
+  was 3, 6 or 12; it now has eight points in those cases. "Rate this 1-10" lines removed from the hook menus and two
+  caption banks (a comment-ask is bait; open questions and the hot takes stay).
+
 - 2026-11-23: band footage. Notta Problem's dance clip starts where song.json's sections end, so the studio never
   offered it: footage styles (lofi, cutout) now also use stretches inside the footage itself. close__quarters favours
   those clips 3x within a song (`selection.favour_styles`), and a song with unposted footage clips comes up 3x as
