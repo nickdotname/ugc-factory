@@ -1,7 +1,8 @@
 name: lofi-inbox
 
-# A drop box for hand-made close__quarters videos: whatever is pushed to inbox/cq_band-*/hooks/ on this branch is
-# checked, named and added to that song's cq_band library by `ugc ingest`, and the names it was given are printed.
+# A drop box for finished videos: whatever is pushed to inbox/<library>/hooks/ on this branch (library = the release
+# name without "assets-", e.g. math_time-fixation) is checked, named and added to that library by `ugc ingest`, and the
+# names it was given are printed.
 # Tars pushed to library/ are the dance-footage cut-outs studio/lofi_lib.py reads: they go to the lofi-library release.
 on:
   push:
@@ -33,13 +34,22 @@ jobs:
           pip install -q -r requirements.txt
       - name: Add the videos to the libraries
         run: |
+          # inbox/<release name without "assets-">/hooks/*.mp4: the campaign and song are whichever creative uses that release
           shopt -s nullglob
-          for d in inbox/cq_band-*/; do
+          for d in inbox/*/; do
             lib=$(basename "$d"); files=("$d"hooks/*.mp4); [ ${#files[@]} -gt 0 ] || continue
-            creative=$(LIB="$lib" python -c "import os,yaml; c=yaml.safe_load(open('campaigns/cq_band/config.yaml')); print(next(x['name'] for x in c['creatives'] if x.get('assets_release','').removeprefix('assets-')==os.environ['LIB']))")
-            echo "== $lib -> $creative"
-            python -m src.cli ingest --campaign cq_band --creative "$creative" --report "report-$creative.json"
-            cat "report-$creative.json"; echo
+            read camp creative < <(LIB="$lib" python -c "
+          import glob, os, yaml
+          for p in sorted(glob.glob('campaigns/*/config.yaml')):
+              c = yaml.safe_load(open(p))
+              for x in c.get('creatives') or []:
+                  if x.get('assets_release', '').removeprefix('assets-') == os.environ['LIB']:
+                      print(c['slug'], x['name']); raise SystemExit
+          ")
+            [ -n "$creative" ] || { echo "::warning::no creative uses assets-$lib"; continue; }
+            echo "== $lib -> $camp / $creative"
+            python -m src.cli ingest --campaign "$camp" --creative "$creative" --report "report-$camp-$creative.json"
+            cat "report-$camp-$creative.json"; echo
           done
       - name: Add the footage cut-outs to the lofi-library release
         run: |
