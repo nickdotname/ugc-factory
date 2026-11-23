@@ -22,7 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import os
 import sys
 import uuid
@@ -530,6 +530,26 @@ def cmd_render(args: argparse.Namespace, env: dict[str, str]) -> int:
         return 1
 
 
+def _subjects(campaign_dir: Path, knobs: Sequence[str]) -> dict[tuple[str, str], str]:
+    """(creative, clip) -> what that video is about, from the studio's record of
+    every video in the current libraries (recipes.json, written by
+    studio/nightly.py). Clips with no record have no subject and are never held
+    back for one."""
+    if not knobs:
+        return {}
+    try:
+        rec = json.loads((campaign_dir / "recipes.json").read_text())
+    except (OSError, ValueError):
+        return {}
+    out: dict[tuple[str, str], str] = {}
+    for e in rec.get("nightly", []) if isinstance(rec, dict) else []:
+        kn = e.get("knobs") or {}
+        vals = [str(kn[k]) for k in knobs if kn.get(k) not in (None, "")]
+        if e.get("clip") and vals:
+            out[(str(e.get("creative")), str(e["clip"]))] = "/".join(vals)
+    return out
+
+
 def _render(
     args: argparse.Namespace,
     env: dict[str, str],
@@ -821,12 +841,45 @@ def _render(
             if (medians := _performance_medians(config, res.history, log)) is not None
         }
         pools = {name: (res.library, res.history) for name, res in resources.items()}
-        weights = {c.name: c.weight for c in config.creatives}
+        # A subject this account showed in the last subject_days days sits out:
+        # its videos leave the pool, and a song with nothing left sits the night out.
+        subject = _subjects(campaign_dir, config.selection.subject_knobs)
+        shown: set[str] = set()
+        if subject:
+            since = today - timedelta(days=config.selection.subject_days)
+            shown = {
+                subject[(e.creative, e.hook)] for e in full_history.entries
+                if e.timestamp >= since and (e.creative, e.hook) in subject
+            }
+            shown |= {
+                subject[(name, sel.hook)] for name, sel, _ in planned
+                if (name, sel.hook) in subject
+            }
+            fresh_pools = {}
+            for name, (lib, hist) in pools.items():
+                keep = tuple(h for h in lib.hooks if subject.get((name, h)) not in shown)
+                if keep:
+                    fresh_pools[name] = (replace(lib, hooks=keep), hist)
+            log.info("subject_spacing", shown=sorted(shown), pools=sorted(fresh_pools))
+            pools = fresh_pools
+        weights = {c.name: c.weight for c in config.creatives if c.name in pools}
         picks = selector.select_batch_multi(
             pools, weights, count, config.composition.bodies_per_video,
             config.composition.bodies_per_video_max,
             performance=performance,
-        )
+        ) if pools else []
+        if subject:                       # and one subject at most once a batch
+            kept = []
+            for name, o in picks:
+                s_ = subject.get((name, o.selection.hook))
+                if s_ is not None and s_ in shown:
+                    continue
+                if s_ is not None:
+                    shown.add(s_)
+                kept.append((name, o))
+            if len(kept) < len(picks):
+                log.info("subject_repeat_dropped", dropped=len(picks) - len(kept))
+            picks = kept
     relaxed = [(name, o) for name, o in picks if o.relaxation is not Relaxation.NONE]
     if relaxed and not config.selection.repeats:
         # No repeats on this account: a relaxed pick would put up a video it

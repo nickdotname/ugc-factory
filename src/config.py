@@ -589,6 +589,15 @@ class SelectionConfig(StrictModel):
     #: empty: posting less beats posting a duplicate.
     repeats: bool = True
 
+    #: What a video is about, for an account where people notice a repeated
+    #: idea (math posting Fourier again): the studio knobs that name it, read
+    #: from the campaign's recipes.json (studio/nightly.py). A video whose
+    #: subject this account put up in the last ``subject_days`` days is not
+    #: picked, and two videos on one subject never go out in the same batch.
+    #: Empty turns it off.
+    subject_knobs: tuple[str, ...] = ()
+    subject_days: int = Field(default=7, ge=0, le=90)
+
     @field_validator("dedupe_on")
     @classmethod
     def _non_empty_unique(
