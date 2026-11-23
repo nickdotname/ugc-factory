@@ -144,9 +144,9 @@
         {
           "account": "physics_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-83a38915-017c-4116-9576-59d198865bcb",
           "last_error": null,
           "scheduled_for": "2026-11-25T20:05:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Silver and Gold – Close Quarters\nevery bounce is a beat. EDUCATION is out now\n\nstream Silver and Gold: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
