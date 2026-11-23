@@ -38,9 +38,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-4d9dddec-5628-4350-9e00-526e76539abe",
           "last_error": null,
           "scheduled_for": "2026-11-26T11:50:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "Subway Maintenance – Close Quarters\ndrawn in letters. EDUCATION is out now\n\nSubway Maintenance is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
