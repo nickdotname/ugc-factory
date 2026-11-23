@@ -91,9 +91,9 @@
         {
           "account": "math_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-7d0d2076-eb03-40da-ac18-8e647cd1752a",
           "last_error": null,
           "scheduled_for": "2026-11-24T19:20:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "the math teacher you needed in high school\n🎧 Talk – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
