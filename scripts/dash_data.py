@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+"""Everything the Close Quarters dashboard (cqdash/) shows, in one file.
+
+    python scripts/dash_data.py [OUT]        (default cqdash/data.json)
+
+Run by the publish job every 15 minutes. Reads only what the repository already holds:
+  outbox/igo-*.json            every post to an account that posts to Instagram directly: when it is due, whether it
+                               went out, the video
+  campaigns/*/queue.json       what is lined up, per campaign and account (Buffer accounts too)
+  campaigns/*/history.json     which song and clip each post was, and which lineup entry if any
+  campaigns/*/posts.json       each post's numbers (views, reach, likes, comments, shares, saves, watch time)
+  campaigns/*/recipes.json     what each studio video is (its style and the knobs that say what it is about)
+"""
+import glob, json, os, sys
+from datetime import datetime, timezone
+
+import yaml
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HANDLES = {'close_quarters_ig': 'close__quarters', 'dylancantor23_ig': 'dylancantor23', 'psychedelic_station_ig': 'psychedelic.station',
+           'nostalgia_ig': 'nostalgia.hub.vhs', 'math_ig': 'math.explainers', 'glitch_ig': 'glitch.archive.exe',
+           'ascii_ig': 'ascii.terminal.dreams', 'physics_ig': 'physics.bounce.lab', 'earth_ig': 'earth.data.live',
+           'retro_ig': 'retro.vibes.arcade', 'rocket_ig': 'rocket.league.lit', 'nickdotname_ig': 'the.loose.change'}
+METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments': 'comments', 'shares': 'shares',
+           'saves': 'saves', 'averageTimeWatched': 'watch', 'skipRate': 'skip', 'follows': 'follows'}
+# the knobs that say what a studio video is about, per style (same idea as studio/nightly.py's SUBJECT)
+WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
+        'psy': ['field'], 'collage': ['palette'], 'liminal': ['place'], 'earth': ['scene'], 'glitch': ['source'],
+        'retro': ['theme'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
+        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look']}
+
+
+def load(path, default):
+    try:
+        with open(path) as f: return json.load(f)
+    except (OSError, ValueError):
+        return default
+
+
+def iso(s):
+    if not s: return None
+    try:
+        d = datetime.fromisoformat(str(s).replace('Z', '+00:00'))
+        return (d if d.tzinfo else d.replace(tzinfo=timezone.utc)).astimezone(timezone.utc).isoformat().replace('+00:00', 'Z')
+    except ValueError:
+        return None
+
+
+def main(out):
+    accounts = yaml.safe_load(open(os.path.join(ROOT, 'accounts.yaml')))['accounts']
+    by_channel = {str(a.get('channel_id')): a['name'] for a in accounts if a.get('channel_id')}
+    posts = {}                                   # post id -> row
+    now = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+    campaign_of_account = {}
+
+    def row(pid):
+        return posts.setdefault(pid, dict(id=pid, account=None, campaign=None, song=None, creative=None, clip=None, what=None,
+                                          style=None, lineup=None, status=None, due=None, posted=None, caption='', video=None,
+                                          trial=None, m={}))
+
+    for cdir in sorted(glob.glob(os.path.join(ROOT, 'campaigns', '*'))):
+        camp = os.path.basename(cdir)
+        if camp.startswith('_') or not os.path.exists(os.path.join(cdir, 'config.yaml')): continue
+        cfg = yaml.safe_load(open(os.path.join(cdir, 'config.yaml'))) or {}
+        if (cfg.get('posting') or {}).get('paused'): pass
+        titles = {c['name']: c.get('title') or c['name'] for c in cfg.get('creatives') or []}
+        names = ((cfg.get('accounts') or {}).get('names') or [])
+        for n in names: campaign_of_account.setdefault(n, camp)
+        rec = load(os.path.join(cdir, 'recipes.json'), {})
+        recipe = {}
+        for e in rec.get('nightly', []) if isinstance(rec, dict) else []:
+            if e.get('clip'):
+                kn = e.get('knobs') or {}
+                what = [str(kn[k]) for k in WHAT.get(e.get('style'), []) if kn.get(k) not in (None, '')]
+                recipe[(e.get('creative'), e['clip'])] = (e.get('style'), ' · '.join(what) or None)
+
+        def fill(r, item, creative, clip):
+            r['campaign'] = camp; r['creative'] = creative; r['song'] = titles.get(creative, creative); r['clip'] = clip
+            r['lineup'] = item.get('lineup_id') or r['lineup']
+            st, what = recipe.get((creative, clip), (None, None)); r['style'] = r['style'] or st; r['what'] = r['what'] or what
+
+        for e in load(os.path.join(cdir, 'history.json'), {}).get('entries', []):
+            for acc, pid in (e.get('post_ids') or {}).items():
+                if not pid: continue
+                r = row(pid); r['account'] = acc; fill(r, e, e.get('creative'), e.get('hook'))
+                r['caption'] = r['caption'] or (e.get('caption') or '')
+        q = load(os.path.join(cdir, 'queue.json'), {})
+        for it in (q.get('items') if isinstance(q, dict) else q) or []:
+            if not isinstance(it, dict): continue
+            hook = (it.get('parts') or {}).get('hook')
+            for p in it.get('posts') or []:
+                pid = p.get('buffer_post_id') or 'q-%s-%s' % (it.get('id'), p.get('account'))
+                r = row(pid); r['account'] = p.get('account'); fill(r, it, it.get('creative'), hook)
+                r['due'] = r['due'] or iso(p.get('scheduled_for') or it.get('scheduled_for'))
+                st = p.get('status')
+                if st == 'pushed' and not str(pid).startswith('igo-'):        # handed to Buffer: Buffer posts it at its time
+                    st = 'published' if r['due'] and r['due'] < now else 'scheduled'
+                    if st == 'published': r['posted'] = r['posted'] or r['due']
+                r['status'] = r['status'] or st
+                r['caption'] = (it.get('captions') or {}).get('instagram') or it.get('caption') or r['caption']
+                r['video'] = r['video'] or it.get('video_url')
+        for pid, p in (load(os.path.join(cdir, 'posts.json'), {}).get('posts') or {}).items():
+            r = row(pid); r['account'] = r['account'] or p.get('account'); r['campaign'] = r['campaign'] or camp
+            r['posted'] = r['posted'] or iso(p.get('sent_at')); r['status'] = 'published'
+            for m in p.get('metrics') or []:
+                k = METRICS.get(m.get('type'))
+                if k and m.get('value') is not None: r['m'][k] = round(float(m['value']), 2)
+
+    for f in glob.glob(os.path.join(ROOT, 'outbox', 'igo-*.json')):
+        d = load(f, {})
+        if not d.get('id'): continue
+        r = row(d['id'])
+        r['account'] = by_channel.get(str(d.get('channel_id')), r['account'])
+        r['status'] = d.get('status') or r['status']; r['due'] = iso(d.get('scheduled_for')) or r['due']
+        r['posted'] = iso(d.get('published_at')) or r['posted']; r['caption'] = d.get('caption') or r['caption']
+        r['video'] = d.get('video_url') or r['video']; r['trial'] = d.get('trial')
+        if not r['campaign']: r['campaign'] = campaign_of_account.get(r['account'])
+
+    rows = []
+    since = datetime.now(timezone.utc).timestamp() - 60 * 86400
+    for r in posts.values():
+        if r['account'] not in HANDLES or not r['status']: continue          # the Instagram accounts only (not old Buffer TikTok/YouTube)
+        when = r['posted'] or r['due']
+        if when and datetime.fromisoformat(when.replace('Z', '+00:00')).timestamp() < since: continue
+        r['handle'] = HANDLES.get(r['account'], r['account'])
+        r['caption'] = (r['caption'] or '').strip()[:400]
+        rows.append(r)
+    rows.sort(key=lambda r: r['posted'] or r['due'] or '', reverse=True)
+    accs = list(HANDLES)
+    data = dict(generated=datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+                accounts=[dict(name=a, handle=HANDLES.get(a, a), campaign=campaign_of_account.get(a)) for a in accs],
+                posts=rows)
+    old = load(out, {})
+    if old.get('posts') == json.loads(json.dumps(rows)) and old.get('accounts') == data['accounts']:
+        print('no change since %s' % old.get('generated')); return      # nothing new: leave the file (and the repo) alone
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    tmp = out + '.tmp'
+    with open(tmp, 'w') as f: json.dump(data, f, separators=(',', ':'), ensure_ascii=False)
+    os.replace(tmp, out)
+    print('%d posts, %d accounts -> %s' % (len(rows), len(accs), out))
+
+
+if __name__ == '__main__':
+    main(sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'cqdash', 'data.json'))

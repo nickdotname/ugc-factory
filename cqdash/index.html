@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0b14">
+<title>Close Quarters · dashboard</title>
+<style>
+:root{--bg:#0d0b14;--panel:#17141f;--panel2:#1f1b2a;--line:#2b2638;--fg:#f2eff8;--muted:#9a93ab;--dim:#6b6479;
+--a:#ffd166;--b:#2ec4b6;--c:#ff6392;--d:#5ac8ff;--ok:#6be38a;--warn:#ffb347;--bad:#ff5c5c;--r:14px}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;z-index:5;background:rgba(13,11,20,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:calc(10px + env(safe-area-inset-top)) 14px 0}
+.top{display:flex;align-items:center;gap:10px;justify-content:space-between}
+h1{font-size:17px;margin:0;letter-spacing:.2px}h1 span{color:var(--muted);font-weight:500}
+.upd{font-size:12px;color:var(--dim)}
+nav{display:flex;gap:4px;margin:10px 0 0}nav button{flex:1;background:none;border:0;color:var(--muted);font:600 14px inherit;padding:10px 4px 12px;border-bottom:2px solid transparent;cursor:pointer}
+nav button.on{color:var(--fg);border-color:var(--a)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:99px;padding:6px 11px;font-size:13px;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+main{padding:12px 14px calc(40px + env(safe-area-inset-bottom));max-width:980px;margin:0 auto}
+.day{margin:18px 0 8px;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;display:flex;justify-content:space-between}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:8px 0;display:grid;grid-template-columns:64px 1fr;gap:12px}
+.thumb{width:64px;height:112px;border-radius:10px;background:var(--panel2);overflow:hidden;position:relative;cursor:pointer;border:0;padding:0}
+.thumb video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.thumb:after{content:"▶";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;text-shadow:0 1px 6px #000}
+.row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.time{font-weight:700;font-variant-numeric:tabular-nums}
+.acc{font-size:13px;color:var(--fg);background:var(--panel2);border-radius:6px;padding:2px 7px}
+.st{font-size:11px;font-weight:700;border-radius:6px;padding:2px 6px;text-transform:uppercase;letter-spacing:.5px}
+.st.queued,.st.scheduled,.st.claimed{background:#2a2540;color:var(--d)}.st.published{background:#1d3324;color:var(--ok)}
+.st.failed{background:#3d1d24;color:var(--bad)}.st.cancelled{background:#2b2830;color:var(--dim)}.st.late{background:#3a2c14;color:var(--warn)}
+.song{margin-top:4px;font-weight:600}.what{color:var(--muted);font-size:13px}
+.cap{margin-top:6px;color:var(--muted);font-size:13px;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cap.open{-webkit-line-clamp:unset}
+.nums{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.nums b{color:var(--fg);font-weight:700}.nums .hot b{color:var(--a)}
+.tag{font-size:11px;color:var(--a);border:1px solid #4a3f22;border-radius:6px;padding:1px 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.acard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;cursor:pointer}
+.acard h3{margin:0 0 2px;font-size:15px}.acard .sub{font-size:12px;color:var(--dim)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 8px}.kpi{background:var(--panel2);border-radius:10px;padding:8px}
+.kpi b{display:block;font-size:18px;font-variant-numeric:tabular-nums}.kpi span{font-size:11px;color:var(--muted)}
+.spark{width:100%;height:40px;display:block}
+.next{font-size:13px;color:var(--muted);margin-top:6px}.next b{color:var(--fg)}
+.sort{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted);margin:4px 0}
+.sort select{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:5px 8px;font:inherit}
+.empty{color:var(--dim);text-align:center;padding:40px 0}
+.totals{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 14px}
+#player{position:fixed;inset:0;background:rgba(0,0,0,.86);display:none;align-items:center;justify-content:center;z-index:20;padding:20px}
+#player.on{display:flex}#player video{max-height:88vh;max-width:100%;border-radius:12px}
+#player .x{position:absolute;top:calc(14px + env(safe-area-inset-top));right:16px;font-size:28px;color:#fff;background:none;border:0;cursor:pointer}
+@media (min-width:700px){.card{grid-template-columns:80px 1fr}.thumb{width:80px;height:142px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top"><h1>Close Quarters <span>· dashboard</span></h1><div class="upd" id="upd">loading…</div></div>
+  <nav><button data-tab="next" class="on">Up next</button><button data-tab="posted">Posted</button><button data-tab="accounts">Accounts</button></nav>
+  <div class="chips" id="chips"></div>
+</header>
+<main id="main"><div class="empty">loading…</div></main>
+<div id="player"><button class="x" aria-label="close">×</button><video controls playsinline></video></div>
+<script>
+const $ = s => document.querySelector(s);
+const S = {tab: 'next', acc: localStorage.getItem('cq.acc') || 'all', sort: 'views', data: null};
+const TZ = 'America/New_York';
+const fmt = (d, o) => new Intl.DateTimeFormat('en-US', Object.assign({timeZone: TZ}, o)).format(d);
+const dayKey = d => fmt(d, {year: 'numeric', month: '2-digit', day: '2-digit'});
+const n = v => v == null ? '–' : v >= 1e6 ? (v / 1e6).toFixed(1) + 'M' : v >= 1e4 ? Math.round(v / 1e3) + 'k' : v >= 1e3 ? (v / 1e3).toFixed(1) + 'k' : String(Math.round(v));
+const esc = s => String(s || '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+function dayLabel(d) {
+  const t = dayKey(new Date()), k = dayKey(d), tm = dayKey(new Date(Date.now() + 864e5)), ys = dayKey(new Date(Date.now() - 864e5));
+  return k === t ? 'Today' : k === tm ? 'Tomorrow' : k === ys ? 'Yesterday' : fmt(d, {weekday: 'long', month: 'short', day: 'numeric'});
+}
+function ago(iso) { const s = (Date.now() - new Date(iso)) / 1e3; return s < 90 ? 'just now' : s < 5400 ? Math.round(s / 60) + ' min ago' : s < 129600 ? Math.round(s / 3600) + ' h ago' : Math.round(s / 86400) + ' d ago'; }
+async function load() {
+  try {
+    const r = await fetch('data.json?t=' + Date.now(), {cache: 'no-store'}); S.data = await r.json();
+    S.data.posts.forEach(p => { p.t = new Date(p.posted || p.due || 0); });
+    $('#upd').textContent = 'updated ' + ago(S.data.generated); chips(); draw();
+  } catch (e) { $('#main').innerHTML = '<div class="empty">Could not load the data. Pull to refresh.</div>'; }
+}
+function chips() {
+  const accs = [{name: 'all', handle: 'All accounts'}].concat(S.data.accounts);
+  $('#chips').innerHTML = accs.map(a => `<button class="chip ${S.acc === a.name ? 'on' : ''}" data-acc="${a.name}">${a.name === 'all' ? a.handle : '@' + esc(a.handle)}</button>`).join('');
+}
+const mine = p => S.acc === 'all' || p.account === S.acc;
+const upcoming = p => ['queued', 'scheduled', 'claimed', 'pending', 'held'].includes(p.status);
+function card(p, showNums) {
+  const late = upcoming(p) && p.due && new Date(p.due) < Date.now() - 20 * 60e3;
+  const st = late ? 'late' : p.status;
+  const m = p.m || {}; const rate = m.views ? ((m.shares || 0) + (m.saves || 0)) / Math.max(m.reach || m.views, 1) : null;
+  const what = [p.what, p.style && p.style !== p.what ? p.style : null].filter(Boolean).join(' · ');
+  return `<div class="card">
+    ${p.video ? `<button class="thumb" data-v="${esc(p.video)}"><video src="${esc(p.video)}#t=1" preload="none" muted playsinline></video></button>` : '<div class="thumb"></div>'}
+    <div>
+      <div class="row1"><span class="time">${fmt(p.t, {hour: 'numeric', minute: '2-digit'})}</span>
+        <span class="acc">@${esc(p.handle)}</span><span class="st ${st}">${st === 'late' ? 'overdue' : esc(st)}</span>
+        ${p.trial ? '<span class="tag">trial</span>' : ''}${p.lineup ? '<span class="tag">hand-picked</span>' : ''}</div>
+      <div class="song">${esc(p.song || (p.caption || '').split('\n')[0].slice(0, 60))}</div>
+      ${what ? `<div class="what">${esc(what)}</div>` : ''}
+      <div class="cap">${esc(p.caption)}</div>
+      ${showNums ? `<div class="nums">${m.views != null ? `<span class="hot"><b>${n(m.views)}</b> views</span>` : '<span>no numbers yet</span>'}
+        ${m.likes != null ? `<span><b>${n(m.likes)}</b> likes</span>` : ''}${m.comments != null ? `<span><b>${n(m.comments)}</b> comments</span>` : ''}
+        ${m.shares != null ? `<span><b>${n(m.shares)}</b> sends</span>` : ''}${m.saves != null ? `<span><b>${n(m.saves)}</b> saves</span>` : ''}
+        ${m.watch != null ? `<span><b>${m.watch.toFixed(1)}s</b> avg watch</span>` : ''}${rate != null ? `<span><b>${(rate * 100).toFixed(1)}%</b> sent/saved</span>` : ''}</div>` : ''}
+    </div></div>`;
+}
+function grouped(list, showNums) {
+  let out = '', last = '';
+  for (const p of list) { const k = dayKey(p.t); if (k !== last) { out += `<div class="day"><span>${dayLabel(p.t)}</span><span>${list.filter(q => dayKey(q.t) === k).length}</span></div>`; last = k; } out += card(p, showNums); }
+  return out || '<div class="empty">Nothing here.</div>';
+}
+function drawNext() {
+  const list = S.data.posts.filter(p => mine(p) && upcoming(p)).sort((a, b) => a.t - b.t);
+  return `<div class="sort">${list.length} lined up · times in New York</div>` + grouped(list, false);
+}
+function drawPosted() {
+  let list = S.data.posts.filter(p => mine(p) && p.status === 'published');
+  const key = {views: p => p.m.views || 0, sends: p => p.m.shares || 0, comments: p => p.m.comments || 0, saves: p => p.m.saves || 0, watch: p => p.m.watch || 0};
+  if (S.sort === 'newest') list.sort((a, b) => b.t - a.t); else list.sort((a, b) => key[S.sort](b) - key[S.sort](a));
+  const wk = list.filter(p => Date.now() - p.t < 7 * 864e5), sum = k => wk.reduce((s, p) => s + (p.m[k] || 0), 0);
+  const head = `<div class="totals"><div class="kpi"><b>${wk.length}</b><span>posts, 7 days</span></div><div class="kpi"><b>${n(sum('views'))}</b><span>views</span></div>
+    <div class="kpi"><b>${n(sum('shares'))}</b><span>sends</span></div><div class="kpi"><b>${n(sum('comments'))}</b><span>comments</span></div></div>
+    <div class="sort">Sort <select id="sort">${['views', 'sends', 'comments', 'saves', 'watch', 'newest'].map(k => `<option ${S.sort === k ? 'selected' : ''}>${k}</option>`).join('')}</select></div>`;
+  return head + (S.sort === 'newest' ? grouped(list, true) : list.map(p => card(p, true)).join('') || '<div class="empty">Nothing yet.</div>');
+}
+function spark(vals) {
+  const w = 240, h = 40, mx = Math.max(1, ...vals), st = w / Math.max(1, vals.length - 1);
+  const pts = vals.map((v, i) => `${(i * st).toFixed(1)},${(h - 3 - (v / mx) * (h - 8)).toFixed(1)}`).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="var(--a)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>`;
+}
+function drawAccounts() {
+  const days = [...Array(14)].map((_, i) => dayKey(new Date(Date.now() - (13 - i) * 864e5)));
+  return '<div class="grid">' + S.data.accounts.map(a => {
+    const ps = S.data.posts.filter(p => p.account === a.name);
+    const pub = ps.filter(p => p.status === 'published'), wk = pub.filter(p => Date.now() - p.t < 7 * 864e5);
+    const views = wk.map(p => p.m.views || 0).sort((x, y) => x - y), med = views.length ? views[Math.floor(views.length / 2)] : null;
+    const best = pub.filter(p => p.m.views).sort((x, y) => y.m.views - x.m.views)[0];
+    const nxt = ps.filter(upcoming).sort((x, y) => x.t - y.t)[0];
+    const per = days.map(k => pub.filter(p => dayKey(p.t) === k).reduce((s, p) => s + (p.m.views || 0), 0));
+    return `<div class="acard" data-acc="${a.name}"><h3>@${esc(a.handle)}</h3><div class="sub">${ps.filter(upcoming).length} lined up · ${pub.length} posted (60 days)</div>
+      <div class="kpis"><div class="kpi"><b>${wk.length}</b><span>posts 7d</span></div><div class="kpi"><b>${n(wk.reduce((s, p) => s + (p.m.views || 0), 0))}</b><span>views 7d</span></div><div class="kpi"><b>${n(med)}</b><span>median views</span></div></div>
+      ${spark(per)}<div class="next">${nxt ? `next: <b>${dayLabel(nxt.t)} ${fmt(nxt.t, {hour: 'numeric', minute: '2-digit'})}</b> · ${esc(nxt.song || '')}` : 'nothing lined up'}</div>
+      ${best ? `<div class="next">best: <b>${n(best.m.views)}</b> views · ${esc(best.song || '')}${best.what ? ' · ' + esc(best.what) : ''}</div>` : ''}</div>`;
+  }).join('') + '</div>';
+}
+function draw() {
+  if (!S.data) return;
+  $('#main').innerHTML = S.tab === 'next' ? drawNext() : S.tab === 'posted' ? drawPosted() : drawAccounts();
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === S.tab));
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-tab],[data-acc],[data-v],.cap,#player .x');
+  if (!t) return;
+  if (t.dataset.tab) { S.tab = t.dataset.tab; draw(); scrollTo(0, 0); }
+  else if (t.dataset.acc) { S.acc = t.dataset.acc; localStorage.setItem('cq.acc', S.acc); if (t.classList.contains('acard')) S.tab = 'posted'; chips(); draw(); scrollTo(0, 0); }
+  else if (t.dataset.v) { const v = $('#player video'); v.src = t.dataset.v; $('#player').classList.add('on'); v.play().catch(() => {}); }
+  else if (t.classList.contains('cap')) t.classList.toggle('open');
+  else { const v = $('#player video'); v.pause(); v.removeAttribute('src'); $('#player').classList.remove('on'); }
+});
+document.addEventListener('change', e => { if (e.target.id === 'sort') { S.sort = e.target.value; draw(); } });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+setInterval(load, 5 * 60e3); load();
+</script>
+</body>
+</html>

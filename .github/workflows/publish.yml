@@ -84,6 +84,17 @@ jobs:
           git commit -q -m "collab invites accepted [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
 
+      # The numbers on dashboard.closequarters.vip (cqdash/): rewritten when anything changed.
+      - name: Refresh the dashboard
+        if: ${{ inputs.dry_run != true }}
+        continue-on-error: true
+        run: |
+          python scripts/dash_data.py
+          git add cqdash/data.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "dashboard numbers [skip ci]"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+
       # GitHub's own schedules skip runs, and this job is started every 15 minutes
       # by an outside timer that does not. So it is the clock for the daily jobs
       # too: the run that starts in the first minutes of a job's quarter-hour starts
