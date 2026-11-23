@@ -465,6 +465,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-23T14:57:28.085969Z",
+      "item_id": "3ae39df3-4361-4d1f-bcf4-3277cfdd691a",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "replay worthy\n🎧 Prologue: Before – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "replay worthy\n🎧 Prologue: Before – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nstream Prologue: Before: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.401,
+        "anchor_y": 0.489,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-23T14:57:28.085969Z",
+      "item_id": "6599aca8-bc74-479e-aac9-d423569d405a",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the timing on this one\n🎧 Won't Be the Same Again – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
+      "title": null,
+      "creative": "wont_be_the_same_again",
+      "captions": {
+        "instagram": "the timing on this one\n🎧 Won't Be the Same Again – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nWon't Be the Same Again is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.311,
+        "anchor_y": 0.317,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
