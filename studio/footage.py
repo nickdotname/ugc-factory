@@ -256,7 +256,7 @@ def pull(themes=()):
 def purge():
     """Remove from the library (index and release) every clip the block list now rules out, or found by a query no longer asked."""
     idx = index(); asked = {q for ql in json.load(open(QUERIES)).values() for q in ql}
-    bad = [e for e in idx.get('clips', []) if BLOCK.search(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked]
+    bad = [e for e in idx.get('clips', []) if e.get('source') != 'own' and (BLOCK.search(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked)]
     if not bad: print('nothing to remove'); return
     rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)
     ids = {a['name']: a['id'] for a in rel.get('assets', [])}
@@ -266,9 +266,59 @@ def purge():
     idx['clips'] = [e for e in idx['clips'] if e not in bad]; json.dump(idx, open(INDEX, 'w'), indent=1)
 
 
+# ---------------------------------------------------------------- our own footage
+DRIVE = re.compile(r'(?:/d/|id=|^)([A-Za-z0-9_-]{25,})')
+
+
+def own(theme, items, licence='Own footage'):
+    """Add our own clips (Google Drive links shared as "anyone with the link", or local files) to the library under
+    `theme`. Unlike the archive films every clip is kept whole: up to 8 pieces of CLIP_SEC seconds from end to end,
+    or the clip as it is when it is shorter than that. Already-added links are skipped."""
+    idx = index(); seen = set(idx.get('seen', [])); new = []
+    work = os.path.join(DIR, 'new'); os.makedirs(work, exist_ok=True)
+    for item in items:
+        item = item.strip()
+        if not item or item.startswith('#'): continue
+        m = DRIVE.search(item) if not os.path.exists(item) else None
+        key = 'own:' + (m.group(1) if m else hashlib.sha1(open(item, 'rb').read()).hexdigest()[:16])
+        if key in seen: continue
+        src = item
+        if m:
+            src = os.path.join(work, '_own_' + m.group(1))
+            r = subprocess.run(['curl', '-sSL', '-o', src, 'https://drive.usercontent.google.com/download?id=%s&export=download&confirm=t' % m.group(1)])
+            if r.returncode or not os.path.exists(src) or os.path.getsize(src) < 50000: print('  could not download %s (is it shared as "anyone with the link"?)' % item); continue
+        dur = probe(src)[0]
+        starts = [0.0] if dur < CLIP_SEC + 2 else [k * CLIP_SEC for k in range(int((dur - 1) // CLIP_SEC))][:8]
+        for s0 in starts:
+            name = hashlib.sha1(('%s@%.1f' % (key, s0)).encode()).hexdigest()[:16] + '.mp4'; out = os.path.join(work, name)
+            r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', '%.2f' % s0, '-t', '%.1f' % min(CLIP_SEC, max(1.0, dur - s0)), '-i', src, '-an',
+                                '-vf', "scale=-2:'min(%d,ih)':flags=area,fps=30,format=yuv420p" % MAX_H, '-c:v', 'libx264', '-preset', 'medium', '-crf', '23',
+                                '-movflags', '+faststart', out], capture_output=True, text=True, timeout=600)
+            if r.returncode or not os.path.exists(out): continue
+            mo, lum = motion(out)
+            if lum < 12: os.remove(out); continue                                  # black
+            e = dict(asset=name, theme=theme, query='own', source='own', key=key, title=os.path.basename(item)[:120], licence=licence, page='',
+                     start=round(s0, 1), motion=round(mo, 2))
+            idx.setdefault('clips', []).append(e); new.append(e); print('+ %-6s %s @%.0fs' % (theme, item[:60], s0))
+        seen.add(key)
+        if m and os.path.exists(src): os.remove(src)
+    idx['seen'] = sorted(seen)
+    if new:
+        subprocess.run(['gh', 'release', 'view', RELEASE, '-R', REPO], capture_output=True).returncode and \
+            subprocess.run(['gh', 'release', 'create', RELEASE, '-R', REPO, '--title', 'Footage library (public domain)', '--notes',
+                            'Public-domain clips for glitch.archive. Sources and licences: studio/footage/index.json'], check=True)
+        files = [os.path.join(work, e['asset']) for e in new]
+        for k in range(0, len(files), 20): subprocess.run(['gh', 'release', 'upload', RELEASE, '-R', REPO, '--clobber'] + files[k:k + 20], check=True)
+    json.dump(idx, open(INDEX, 'w'), indent=1); print('%d new clips of our own' % len(new))
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
     if cmd == 'purge': purge(); sys.exit()
     if cmd == 'fetch': fetch(int(sys.argv[sys.argv.index('--max') + 1]) if '--max' in sys.argv else 40)
     elif cmd == 'pull': print(len(pull(tuple(sys.argv[2:]))), 'clips cached')
+    elif cmd == 'own':                     # footage.py own THEME FILE_OF_LINKS  (or links / paths after THEME)
+        rest = sys.argv[3:]
+        items = open(rest[0]).read().split() if len(rest) == 1 and rest[0].endswith('.txt') else rest
+        own(sys.argv[2], items)
     else: sys.exit(__doc__)

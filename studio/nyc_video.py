@@ -10,8 +10,10 @@ and are cut on bar lines.
          on the beat over darkened clips, with what it counts underneath
   look   the grade: natural, warm (golden hour), night (cool, crushed), film (grain and a little fade)
   pace   a cut every bar or every two bars
-The memes and facts are written below. The facts are ones that do not drift: if one is ever out of date, fix it
-here. All of them are knobs (studio/knobs.py), so the learner finds out what people watch.
+The memes and facts are written below. The facts are ones that do not drift, checked on 2026-11-23 against the MTA
+(472 stations, 24/7), Guinness (Grand Central's 44 platforms), NYC Planning (520 miles of waterfront), NYC Parks
+(1,700+ parks and facilities), the Endangered Language Alliance (700-800 languages) and the Empire State
+Building's 410 days. If one is ever out of date, fix it here. All of them are knobs (studio/knobs.py), so the learner finds out what people watch.
 """
 import json, os, random, subprocess, sys
 import numpy as np, cv2
@@ -63,7 +65,7 @@ FACTS = [
     (24, '{:,.0f}/7', 'the subway never closes'),
     (102, '{:,.0f}', 'floors in the empire state building'),
     (410, '{:,.0f}', 'days it took to build the empire state building'),
-    (800, 'UP TO {:,.0f}', 'languages are spoken in new york city'),
+    (700, '{:,.0f}+', 'languages spoken in new york'),
     (44, '{:,.0f}', 'platforms at grand central. the most of any station in the world'),
     (0, '${:,.0f}', 'to ride the staten island ferry'),
     (1904, '{:.0f}', 'the year the first subway line opened'),
@@ -72,7 +74,7 @@ FACTS = [
     (151, '{:,.0f} FT', 'statue of liberty, without the pedestal'),
     (1776, '{:,.0f} FT', 'one world trade center. on purpose'),
     (520, '{:,.0f} MI', 'of waterfront in new york city'),
-    (1700, '{:,.0f}+', 'parks in the five boroughs'),
+    (1700, '{:,.0f}+', 'parks, playgrounds and rec centers in the five boroughs'),
 ]
 LOOKS = ['natural', 'warm', 'night', 'film']
 
