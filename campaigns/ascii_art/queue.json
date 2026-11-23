@@ -91,9 +91,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-cb5de723-dac3-42d3-85c6-92dfa6d85c17",
           "last_error": null,
           "scheduled_for": "2026-11-23T15:50:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "every letter here is placed by code. sound on.\n🎧 Full Ride – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
