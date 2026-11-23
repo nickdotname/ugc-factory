@@ -85,6 +85,22 @@ jobs:
           git commit -q -m "collab invites accepted [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
 
+      # "what song is this?" under our posts gets the song and @close__quarters as a reply
+      # (studio/replies.py). Once a quarter hour, capped per account; nothing else is answered.
+      - name: Answer song questions in the comments
+        if: ${{ inputs.dry_run != true }}
+        continue-on-error: true
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          m=$(( 10#$(date -u +%M) )); [ $(( m % 15 )) -lt 5 ] || exit 0
+          python studio/replies.py
+          [ -d replies ] || exit 0
+          git add replies
+          git diff --cached --quiet && exit 0
+          git commit -q -m "comment replies [skip ci]"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+
       # The numbers on dashboard.closequarters.vip (cqdash/): rewritten when anything changed.
       - name: Refresh the dashboard
         if: ${{ inputs.dry_run != true }}
