@@ -474,19 +474,36 @@ class Selector:
             for name in names
         }
 
-        for _ in range(count):
+        # A song whose library has nothing left that may be posted sits out, and
+        # the others fill the batch. One exhausted song used to fail the whole
+        # account's render, so an account with plenty of fresh videos for other
+        # songs posted nothing at all.
+        exhausted: set[str] = set()
+        while len(picks) < count:
+            live = tuple(0.0 if n in exhausted else wi for n, wi in zip(names, w))
+            if not any(live):
+                self._log.warning(
+                    "libraries_exhausted", wanted=count, picked=len(picks),
+                    creatives=sorted(exhausted),
+                )
+                break
             fresh = tuple(
-                wi if used[n] < visuals[n] else 0.0 for n, wi in zip(names, w)
+                wi if used[n] < visuals[n] else 0.0 for n, wi in zip(names, live)
             )
-            name = self._rng.weighted_choice(names, fresh if any(fresh) else w)
-            used[name] += 1
+            name = self._rng.weighted_choice(names, fresh if any(fresh) else live)
             library, history = pools[name]
-            outcome = self.select_one(
-                library, history, bodies_per_video,
-                exclude=batch_hashes[name], recent=recent[name],
-                bodies_max=bodies_max,
-                performance=(performance or {}).get(name),
-            )
+            try:
+                outcome = self.select_one(
+                    library, history, bodies_per_video,
+                    exclude=batch_hashes[name], recent=recent[name],
+                    bodies_max=bodies_max,
+                    performance=(performance or {}).get(name),
+                )
+            except SelectionError as exc:
+                exhausted.add(name)
+                self._log.warning("creative_exhausted", creative=name, reason=str(exc)[:200])
+                continue
+            used[name] += 1
             selection = outcome.selection
             digest = tuple_hash(selection, self._config.dedupe_on)
             batch_hashes[name].add(digest)

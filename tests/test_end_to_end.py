@@ -198,6 +198,31 @@ class TestRenderEndToEnd:
         for path in published:
             assert path.stat().st_size > 1000
 
+    def test_one_video_failing_validation_does_not_sink_the_batch(
+        self, campaign: Path, monkeypatch
+    ) -> None:
+        """A 4-second clip under Instagram's floor used to fail the whole render
+        (rocket.league.lit, 2026-11-22); now that one video is skipped and its
+        slot goes to the next."""
+        from src.errors import ValidationError
+        from src.render import FfmpegRenderer
+
+        real = FfmpegRenderer.render
+        calls = {"n": 0}
+
+        def render(self, request):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise ValidationError("x.mp4 failed render validation: duration 4.34s is under the 5s floor")
+            return real(self, request)
+
+        monkeypatch.setattr(FfmpegRenderer, "render", render)
+        assert cli.cmd_render(render_args(), {}) == 0
+        queue = load_queue(campaign / "queue.json")
+        assert len(queue.items) == 2
+        slots = sorted(i.scheduled_for for i in queue.items)
+        assert len(set(slots)) == 2
+
     def test_render_records_history_for_dedupe(self, campaign: Path) -> None:
         cli.cmd_render(render_args(), {})
         history = load_history(campaign / "history.json")
@@ -467,6 +492,29 @@ class TestStaleSlotRecovery:
         cli.cmd_topup(topup_args(), {})
         times = [i.scheduled_for for i in load_queue(campaign / "queue.json").items]
         assert len(set(times)) == len(times), "reslot collided with a pending slot"
+
+    def test_topup_keeps_off_minutes_the_network_already_holds(
+        self, fanout_campaign: Path, monkeypatch
+    ) -> None:
+        """A render drops pushed items from queue.json, so after a late or an extra
+        render the new batch was handed the slots yesterday's pushes still held,
+        and both went out on the same minute (the.loose.change, 2026-11-22)."""
+        from datetime import timedelta
+
+        from src.publishers.base import DryRunPublisher
+
+        cli.cmd_render(render_args(), {})
+        q = load_queue(fanout_campaign / "queue.json")
+        first = min(i.scheduled_for for i in q.items)
+        # The network already has a post on every minute of the first item's hour.
+        held = [first.replace(second=0, microsecond=0) + timedelta(minutes=m) for m in range(-30, 90)]
+        monkeypatch.setattr(DryRunPublisher, "scheduled_slots", lambda self, channel: held)
+
+        cli.cmd_topup(topup_args(), {})
+        after = load_queue(fanout_campaign / "queue.json")
+        due = [p.scheduled_for for i in after.items for p in i.posts if p.scheduled_for is not None]
+        assert due, "nothing was pushed"
+        assert not set(due) & set(held), "a new post was given a minute the network already holds"
 
     def test_fanout_reslot_does_not_collide_with_a_slot_never_marked_stale(
         self, fanout_campaign: Path

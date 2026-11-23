@@ -45,6 +45,15 @@ creatives:
   - name: prologue
     title: "Prologue: Before"
     assets_release: assets-cq_producer-prologue-v2
+  - name: subway_maintenance
+    title: "Subway Maintenance"
+    assets_release: assets-cq_producer-subway_maintenance
+  - name: silver_and_gold
+    title: "Silver and Gold"
+    assets_release: assets-cq_producer-silver_and_gold
+  - name: evil_close_quarters
+    title: "Evil Close Quarters"
+    assets_release: assets-cq_producer-evil_close_quarters
 
 # dylancantor23 only, posted to Instagram directly as trial reels.
 accounts:
@@ -139,8 +148,12 @@ funnel:
       - "Full song — {name}: {link}"
       - "Listen to {name}: {link}"
   cta_every: 1
-  # Off: Buffer's free plan refuses posts that carry a first comment.
-  first_comment: []
+  # Posted by the account itself under each reel right after it goes out (Instagram only;
+  # Buffer's free plan refuses posts that carry one). Rotates; no asks for likes or tags.
+  first_comment:
+    - "🎧 {name} by @close__quarters, off our album EDUCATION. full album in bio"
+    - "this is {name} from EDUCATION (@close__quarters)"
+    - "{name} – @close__quarters. EDUCATION is out now, link in bio"
   # What each reel's sound is called on Instagram instead of "Original audio".
   audio_name: "{name} – Close Quarters"
   end_card: ""               # the render loops cleanly; a card would break the loop

@@ -1,52 +1,52 @@
 {
-  "generated_at": "2026-11-22T22:46:35.692890Z",
+  "generated_at": "2026-11-23T04:20:47.322770Z",
   "items": [
     {
-      "id": "ce3806fe-94c5-4772-9c24-193619ddc4b9",
-      "scheduled_for": "2026-11-22T20:40:00-05:00",
-      "rendered_at": "2026-11-22T22:46:35.692890Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-22/ce3806fe-94c5-4772-9c24-193619ddc4b9.mp4",
-      "caption": "a clay tennis court built from voxels, all of it code. every shot lands on the beat. sound on.\n🎧 Prologue: Before – @close__quarters #pixelart #creativecoding #generativeart #codeart #python",
+      "id": "0b5db548-2cec-4cba-ab2e-70ea45b497a0",
+      "scheduled_for": "2026-11-23T11:50:00-05:00",
+      "rendered_at": "2026-11-23T04:20:47.322770Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/0b5db548-2cec-4cba-ab2e-70ea45b497a0.mp4",
+      "caption": "the code is underneath. pause it.\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.381,
-        "anchor_y": 0.546,
+        "anchor_x": 0.323,
+        "anchor_y": 0.519,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
       "creative": "prologue",
       "overlay": null,
       "accounts": null,
-      "lineup_id": "court-first",
+      "lineup_id": null,
       "variants": {},
-      "first_comment": null,
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
       "posts": [
         {
           "account": "ascii_ig",
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-94a39c0d-22c0-4829-80db-2e7615b98b58",
+          "buffer_post_id": "igo-2b7f73fb-593d-48e1-aadd-7ea330630a61",
           "last_error": null,
-          "scheduled_for": "2026-11-22T20:40:00-05:00"
+          "scheduled_for": "2026-11-23T11:50:00-05:00"
         }
       ],
       "captions": {
-        "instagram": "a clay tennis court built from voxels, all of it code. every shot lands on the beat. sound on.\n🎧 Prologue: Before – @close__quarters #pixelart #creativecoding #generativeart #codeart #python\n\nstream Prologue: Before: link in bio"
+        "instagram": "the code is underneath. pause it.\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
       "status": "pushed",
@@ -55,11 +55,11 @@
       "last_error": null
     },
     {
-      "id": "7292f2d3-cfc2-4514-adfb-51a110b1f1fa",
-      "scheduled_for": "2026-11-22T21:40:00-05:00",
-      "rendered_at": "2026-11-22T22:46:35.692890Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-22/7292f2d3-cfc2-4514-adfb-51a110b1f1fa.mp4",
-      "caption": "an old bridge over a river, built from code. no sprites, no images. sound on.\n🎧 Fixation – @close__quarters #pixelart #creativecoding #generativeart #codeart #python",
+      "id": "8a59ab06-720a-4e70-a333-6b523a1adf84",
+      "scheduled_for": "2026-11-23T15:50:00-05:00",
+      "rendered_at": "2026-11-23T04:20:47.322770Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/8a59ab06-720a-4e70-a333-6b523a1adf84.mp4",
+      "caption": "every letter here is placed by code. sound on.\n🎧 Full Ride – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -69,8 +69,8 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.577,
-        "anchor_y": 0.397,
+        "anchor_x": 0.595,
+        "anchor_y": 0.605,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -81,25 +81,25 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "fixation",
+      "creative": "full_ride",
       "overlay": null,
       "accounts": null,
-      "lineup_id": "bridge-first",
+      "lineup_id": null,
       "variants": {},
-      "first_comment": null,
+      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
       "posts": [
         {
           "account": "ascii_ig",
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-4e03f0be-ff39-4c7b-b204-e31ccb9b2f76",
+          "buffer_post_id": "igo-cb5de723-dac3-42d3-85c6-92dfa6d85c17",
           "last_error": null,
-          "scheduled_for": "2026-11-22T21:40:00-05:00"
+          "scheduled_for": "2026-11-23T15:50:00-05:00"
         }
       ],
       "captions": {
-        "instagram": "an old bridge over a river, built from code. no sprites, no images. sound on.\n🎧 Fixation – @close__quarters #pixelart #creativecoding #generativeart #codeart #python\n\nFixation is out now. link in bio to stream it"
+        "instagram": "every letter here is placed by code. sound on.\n🎧 Full Ride – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
       "status": "pushed",
@@ -108,11 +108,11 @@
       "last_error": null
     },
     {
-      "id": "9bb5d59a-c6c3-4020-bdc5-946be934473b",
-      "scheduled_for": "2026-11-22T22:40:00-05:00",
-      "rendered_at": "2026-11-22T22:46:35.692890Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-22/9bb5d59a-c6c3-4020-bdc5-946be934473b.mp4",
-      "caption": "a galaxy drawn in letters, every one placed by code. sound on.\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "id": "9d64e229-d803-4c55-9d3f-89bcd0f560df",
+      "scheduled_for": "2026-11-23T19:50:00-05:00",
+      "rendered_at": "2026-11-23T04:20:47.322770Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-23/9d64e229-d803-4c55-9d3f-89bcd0f560df.mp4",
+      "caption": "3D, but it's only text\n🎧 Fixation – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -122,37 +122,37 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.581,
-        "anchor_y": 0.658,
+        "anchor_x": 0.342,
+        "anchor_y": 0.325,
         "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "prologue",
+      "creative": "fixation",
       "overlay": null,
       "accounts": null,
-      "lineup_id": "galaxy-first",
+      "lineup_id": null,
       "variants": {},
-      "first_comment": null,
+      "first_comment": "song: Fixation by @close__quarters. the full album EDUCATION is linked in our bio",
       "posts": [
         {
           "account": "ascii_ig",
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-04bd8474-e220-4452-b9dd-cee41c3af6bc",
+          "buffer_post_id": "igo-4d59d768-7cbf-4800-a902-e3fb82fe7694",
           "last_error": null,
-          "scheduled_for": "2026-11-22T22:40:00-05:00"
+          "scheduled_for": "2026-11-23T19:50:00-05:00"
         }
       ],
       "captions": {
-        "instagram": "a galaxy drawn in letters, every one placed by code. sound on.\n🎧 Prologue: Before – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Prologue: Before"
+        "instagram": "3D, but it's only text\n🎧 Fixation – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Fixation: link in bio"
       },
       "titles": {},
       "status": "pushed",

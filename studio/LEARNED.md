@@ -84,7 +84,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
-- prologue/s05-s06: weight 0.93 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+- prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
 
 **look**
 - rings: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
@@ -114,7 +114,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - lesson 13 of 15. class is in session.: weight 0.98 — 1 post, 82 views, 2.3s watched, 0 shares+saves per 1,000 views
 - tell me this doesn't sound like 2am in new york: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - Hair of the Dog – Close Quarters: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
-- lesson 1 of 15. class is in session.: weight 0.93 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+- lesson 1 of 15. class is in session.: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
@@ -138,7 +138,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
-- prologue/s05-s06: weight 0.93 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+- prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
 
 **look**
 - rings: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
@@ -168,7 +168,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - lesson 13 of 15. class is in session.: weight 0.98 — 1 post, 82 views, 2.3s watched, 0 shares+saves per 1,000 views
 - tell me this doesn't sound like 2am in new york: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - Hair of the Dog – Close Quarters: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
-- lesson 1 of 15. class is in session.: weight 0.93 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+- lesson 1 of 15. class is in session.: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
@@ -192,7 +192,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
-- prologue/s05-s06: weight 0.93 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+- prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
 
 **look**
 - rings: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
@@ -222,7 +222,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - lesson 13 of 15. class is in session.: weight 0.98 — 1 post, 82 views, 2.3s watched, 0 shares+saves per 1,000 views
 - tell me this doesn't sound like 2am in new york: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - Hair of the Dog – Close Quarters: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
-- lesson 1 of 15. class is in session.: weight 0.93 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+- lesson 1 of 15. class is in session.: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
 
 ## psy_station
 
@@ -238,8 +238,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - talk: weight 0.95 — 1 post, 109 views, 2.1s watched, 0 shares+saves per 1,000 views
 
 **section**
-- hair_of_the_dog/s02: weight 1.07 — 2 posts, 76 views, 5.4s watched, 13 shares+saves per 1,000 views
 - prologue/s09: weight 1.06 — 1 post, 106 views, 5.3s watched, 19 shares+saves per 1,000 views
+- hair_of_the_dog/s02: weight 1.06 — 2 posts, 76 views, 5.4s watched, 13 shares+saves per 1,000 views
 - wont_be_the_same_again/s01: weight 1.03 — 2 posts, 35 views, 4.5s watched, 43 shares+saves per 1,000 views
 - wont_be_the_same_again/s06: weight 1.02 — 1 post, 17 views, 7.3s watched, 0 shares+saves per 1,000 views
 - full_ride/s02: weight 1.02 — 1 post, 33 views, 6.9s watched, 30 shares+saves per 1,000 views
@@ -310,8 +310,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - talk: weight 0.95 — 1 post, 109 views, 2.1s watched, 0 shares+saves per 1,000 views
 
 **section**
-- hair_of_the_dog/s02: weight 1.07 — 2 posts, 76 views, 5.4s watched, 13 shares+saves per 1,000 views
 - prologue/s09: weight 1.06 — 1 post, 106 views, 5.3s watched, 19 shares+saves per 1,000 views
+- hair_of_the_dog/s02: weight 1.06 — 2 posts, 76 views, 5.4s watched, 13 shares+saves per 1,000 views
 - wont_be_the_same_again/s01: weight 1.03 — 2 posts, 35 views, 4.5s watched, 43 shares+saves per 1,000 views
 - wont_be_the_same_again/s06: weight 1.02 — 1 post, 17 views, 7.3s watched, 0 shares+saves per 1,000 views
 - full_ride/s02: weight 1.02 — 1 post, 33 views, 6.9s watched, 30 shares+saves per 1,000 views

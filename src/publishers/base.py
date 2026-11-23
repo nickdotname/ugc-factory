@@ -214,6 +214,16 @@ class Publisher(ABC):
     ) -> PublishedPost | None:
         """Find an existing post at this slot, for crash reconciliation."""
 
+    def scheduled_slots(self, channel_id: str) -> list[datetime]:
+        """When the posts already waiting on this channel are due.
+
+        The top-up keeps new posts off these minutes. A render drops pushed items
+        from queue.json, so after a late or an extra render the new batch can be
+        handed slots that posts pushed the day before still hold. Backends that
+        cannot list their queue return nothing and lose only this guard.
+        """
+        return []
+
     @abstractmethod
     def delete_post(self, post_id: str) -> None:
         """Remove a still-queued post. Raises if it has already published."""

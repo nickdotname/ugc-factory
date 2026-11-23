@@ -4,8 +4,9 @@ name: publish
 # until their slot (src/publishers/instagram.py). This sends whatever is due.
 # Accounts that post through Buffer are not touched: Buffer publishes those.
 #
-# Every 15 minutes. GitHub starts scheduled runs late under load, so a post
-# goes out some minutes after its slot rather than on it.
+# Every 5 minutes, started by an outside timer (the Cloudflare worker
+# ugc-publish-timer), so a post goes out within about 5 minutes of its slot.
+# GitHub's own schedule below is only a backup: it starts runs late under load.
 on:
   workflow_dispatch:
     inputs:
@@ -84,33 +85,57 @@ jobs:
           git commit -q -m "collab invites accepted [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
 
-      # GitHub's own schedules skip runs, and this job is started every 15 minutes
+      # The numbers on dashboard.closequarters.vip (cqdash/): rewritten when anything changed.
+      - name: Refresh the dashboard
+        if: ${{ inputs.dry_run != true }}
+        continue-on-error: true
+        env:                       # only to fetch each account's profile picture once a day
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
+          IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
+          IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
+          IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
+          IG_TOKEN_7: ${{ secrets.IG_TOKEN_7 }}
+          IG_TOKEN_8: ${{ secrets.IG_TOKEN_8 }}
+        run: |
+          pip install -q Pillow || true
+          python scripts/dash_data.py
+          git add cqdash/data.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "dashboard numbers [skip ci]"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+
+      # GitHub's own schedules skip runs, and this job is started every 5 minutes
       # by an outside timer that does not. So it is the clock for the daily jobs
-      # too: the run that starts in the first minutes of a job's quarter-hour starts
-      # it. GitHub's own backup runs (at :08, :23, :38, :53) and runs started by hand
-      # later in the quarter-hour start nothing, so a job is not started twice.
+      # too: only the run in the first 5 minutes of a job's quarter-hour starts it.
+      # The timer's other runs (:05, :10), GitHub's backup runs (:08, :23, :38, :53)
+      # and runs started by hand later in the quarter-hour start nothing, so a job
+      # is not started twice.
       - name: Start the daily jobs when their time comes
         if: inputs.dry_run != true && inputs.now != true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           m=$(( 10#$(date -u +%M) ))
-          [ $(( m % 15 )) -lt 7 ] || exit 0
+          [ $(( m % 15 )) -lt 5 ] || exit 0
           slot=$(date -u +%H:)$(printf '%02d' $(( m / 15 * 15 )))
           case "$slot" in
             06:45) gh workflow run studio.yml --ref main ;;                      # 1:45am New York: tonight's new videos
+            08:30) gh workflow run render.yml --ref main -f dry_run=false ;;     # 3:30am: turn tonight's videos into posts (render is demand-driven, so a second run adds nothing)
+            09:00|15:00|21:00) gh workflow run topup.yml --ref main -f dry_run=false ;;  # 4am, 10am, 4pm: book them into the day's slots
             14:15|17:15|21:15|01:15) gh workflow run carousel.yml --ref main ;;  # 9:15am, 12:15pm, 4:15pm, 8:15pm New York
             15:45|18:45|22:45|01:45) gh workflow run factreel.yml --ref main ;;  # 10:45am, 1:45pm, 5:45pm, 8:45pm New York
           esac
 
-      # A dead token or a refused post fails this job every 15 minutes with nobody told.
+      # A dead token or a refused post fails this job every 5 minutes with nobody told.
       # Once an hour is enough to be noticed without burying the channel.
       - name: Say so when publishing fails
         if: failure() && inputs.dry_run != true
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
-          m=$(( 10#$(date -u +%M) )); [ "$m" -lt 15 ] || exit 0
+          m=$(( 10#$(date -u +%M) )); [ "$m" -lt 5 ] || exit 0
           python - <<'PY' || true
           import os, requests
           from src.notify import extract_webhook_url
