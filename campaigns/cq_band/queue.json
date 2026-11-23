@@ -144,18 +144,18 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T09:50:00-05:00"
         }
       ],
       "captions": {
         "instagram": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now\n\nSilver and Gold is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
