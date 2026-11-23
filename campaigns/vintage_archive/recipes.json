@@ -1,0 +1,243 @@
+{
+ "clips": {},
+ "menu": {
+  "vintage": {
+   "tint": [
+    "sepia",
+    "amber",
+    "night",
+    "rose",
+    "green",
+    "bw"
+   ],
+   "crank": [
+    "1",
+    "2"
+   ],
+   "gate": [
+    "rounded",
+    "iris",
+    "full"
+   ],
+   "cards": [
+    "full",
+    "lower",
+    "none"
+   ],
+   "trip": [
+    "none",
+    "melt",
+    "burn",
+    "double"
+   ],
+   "pace": [
+    "1",
+    "2"
+   ],
+   "source": [
+    "silent",
+    "archive"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-23",
+   "creative": "notta_problem",
+   "file": "notta-problem_s02_vintage_188293.mp4",
+   "song": "notta-problem",
+   "section": "s02",
+   "style": "vintage",
+   "seed": 188293,
+   "window": [
+    48.55,
+    66.27
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "green",
+    "crank": "1",
+    "gate": "rounded",
+    "cards": "full",
+    "trip": "melt",
+    "pace": "1",
+    "source": "silent",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.82,
+    "bass": 0.26,
+    "other": 0.34
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06_vintage_18428.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06",
+   "style": "vintage",
+   "seed": 18428,
+   "window": [
+    149.34,
+    172.11
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "amber",
+    "crank": "2",
+    "gate": "full",
+    "cards": "none",
+    "trip": "none",
+    "pace": "1",
+    "source": "silent",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.66,
+    "bass": 0.32,
+    "other": 0.54
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s06_vintage_596546.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "vintage",
+   "seed": 596546,
+   "window": [
+    126.2,
+    148.99
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "bw",
+    "crank": "2",
+    "gate": "iris",
+    "cards": "none",
+    "trip": "double",
+    "pace": "1",
+    "source": "silent",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.65,
+    "bass": 0.6,
+    "other": 0.24
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s04_vintage_633884.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "vintage",
+   "seed": 633884,
+   "window": [
+    79.47,
+    91.78
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "bw",
+    "crank": "1",
+    "gate": "rounded",
+    "cards": "full",
+    "trip": "melt",
+    "pace": "2",
+    "source": "silent",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.66,
+    "bass": 0.54,
+    "other": 0.65
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_vintage_779280.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "vintage",
+   "seed": 779280,
+   "window": [
+    168.55,
+    180.55
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "sepia",
+    "crank": "1",
+    "gate": "full",
+    "cards": "none",
+    "trip": "none",
+    "pace": "2",
+    "source": "silent",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.62,
+    "drums": 0.73,
+    "bass": 0.61,
+    "other": 0.36
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s07_vintage_657213.mp4",
+   "song": "talk",
+   "section": "s07",
+   "style": "vintage",
+   "seed": 657213,
+   "window": [
+    141.65,
+    149.52
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "bw",
+    "crank": "2",
+    "gate": "iris",
+    "cards": "lower",
+    "trip": "double",
+    "pace": "1",
+    "source": "silent",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.27,
+    "drums": 0.82,
+    "bass": 0.58,
+    "other": 0.64
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}

@@ -233,7 +233,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - full_ride: weight 1.02 — 1 post, 33 views, 6.9s watched, 30 shares+saves per 1,000 views
 - prologue: weight 1.01 — 4 posts, 60 views, 4.1s watched, 43 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 0.99 — 6 posts, 28 views, 4.6s watched, 24 shares+saves per 1,000 views
-- myth_of_sisyphus: weight 0.98 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
+- myth_of_sisyphus: weight 0.99 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 - fixation: weight 0.98 — 2 posts, 25 views, 4.9s watched, 0 shares+saves per 1,000 views
 - talk: weight 0.95 — 1 post, 109 views, 2.1s watched, 0 shares+saves per 1,000 views
 
@@ -245,9 +245,9 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - full_ride/s02: weight 1.02 — 1 post, 33 views, 6.9s watched, 30 shares+saves per 1,000 views
 - fixation/s03: weight 1.02 — 1 post, 13 views, 6.7s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s05: weight 1.01 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
+- myth_of_sisyphus/s02: weight 0.99 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 - hair_of_the_dog/s01: weight 0.99 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
 - prologue/s05: weight 0.98 — 1 post, 42 views, 3.2s watched, 24 shares+saves per 1,000 views
-- prologue/s02: weight 0.98 — 2 posts, 43 views, 4.1s watched, 81 shares+saves per 1,000 views
 
 **look**
 - bryce: weight 1.06 — 3 posts, 57 views, 4.3s watched, 19 shares+saves per 1,000 views
@@ -281,8 +281,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - 16:00: weight 1.01 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
 - 14:00: weight 1.00 — 2 posts, 29 views, 4.9s watched, 34 shares+saves per 1,000 views
 - 13:00: weight 1.00 — 1 post, 13 views, 4.7s watched, 0 shares+saves per 1,000 views
+- 20:00: weight 0.99 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 - 12:00: weight 0.99 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
-- 20:00: weight 0.98 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 
 **caption**
 - tag someone who needs 20 seconds of this: weight 1.03 — 2 posts, 97 views, 3.2s watched, 10 shares+saves per 1,000 views
@@ -305,7 +305,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - full_ride: weight 1.02 — 1 post, 33 views, 6.9s watched, 30 shares+saves per 1,000 views
 - prologue: weight 1.01 — 4 posts, 60 views, 4.1s watched, 43 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 0.99 — 6 posts, 28 views, 4.6s watched, 24 shares+saves per 1,000 views
-- myth_of_sisyphus: weight 0.98 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
+- myth_of_sisyphus: weight 0.99 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 - fixation: weight 0.98 — 2 posts, 25 views, 4.9s watched, 0 shares+saves per 1,000 views
 - talk: weight 0.95 — 1 post, 109 views, 2.1s watched, 0 shares+saves per 1,000 views
 
@@ -317,9 +317,9 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - full_ride/s02: weight 1.02 — 1 post, 33 views, 6.9s watched, 30 shares+saves per 1,000 views
 - fixation/s03: weight 1.02 — 1 post, 13 views, 6.7s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s05: weight 1.01 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
+- myth_of_sisyphus/s02: weight 0.99 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 - hair_of_the_dog/s01: weight 0.99 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
 - prologue/s05: weight 0.98 — 1 post, 42 views, 3.2s watched, 24 shares+saves per 1,000 views
-- prologue/s02: weight 0.98 — 2 posts, 43 views, 4.1s watched, 81 shares+saves per 1,000 views
 
 **look**
 - bryce: weight 1.06 — 3 posts, 57 views, 4.3s watched, 19 shares+saves per 1,000 views
@@ -353,8 +353,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - 16:00: weight 1.01 — 1 post, 107 views, 3.7s watched, 28 shares+saves per 1,000 views
 - 14:00: weight 1.00 — 2 posts, 29 views, 4.9s watched, 34 shares+saves per 1,000 views
 - 13:00: weight 1.00 — 1 post, 13 views, 4.7s watched, 0 shares+saves per 1,000 views
+- 20:00: weight 0.99 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 - 12:00: weight 0.99 — 1 post, 60 views, 3.6s watched, 0 shares+saves per 1,000 views
-- 20:00: weight 0.98 — 1 post, 59 views, 2.2s watched, 17 shares+saves per 1,000 views
 
 **caption**
 - tag someone who needs 20 seconds of this: weight 1.03 — 2 posts, 97 views, 3.2s watched, 10 shares+saves per 1,000 views
@@ -403,6 +403,14 @@ No posts with numbers yet.
 No posts with numbers yet.
 
 ## retro_arcade
+
+No posts with numbers yet.
+
+## vintage_archive
+
+No posts with numbers yet.
+
+## nyc_daily
 
 No posts with numbers yet.
 
