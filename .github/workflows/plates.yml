@@ -1,0 +1,72 @@
+name: plates
+
+# The background plate library: still pictures made on Kaggle's free GPUs by an open image model (SDXL base 1.0,
+# CreativeML Open RAIL++-M); see studio/plates_gen.py. GitHub only orchestrates. Twice a week it spends up to
+# 1.5 GPU hours (about 200 pictures), on days retro.yml leaves free, well inside Kaggle's weekly hours.
+on:
+  workflow_dispatch:
+    inputs:
+      plates:
+        description: how many pictures to ask for (about 130 an hour on the two T4s)
+        required: false
+        default: "160"
+      hours:
+        description: GPU hours to spend at most
+        required: false
+        default: "1.5"
+      steps:
+        description: denoising steps per picture
+        required: false
+        default: "30"
+      themes:
+        description: only these themes, comma-separated (school, psych, liminal, psy; blank = all)
+        required: false
+        default: ""
+  schedule:
+    - cron: '41 4 * * 3,6'
+  push:
+    branches: [ai-plates]
+    paths: [studio/plates/kernel.py, studio/plates_gen.py, studio/plates/prompts.json, .github/workflows/plates.yml]
+
+concurrency:
+  group: plates
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    # A push to the work branch runs only when the commit asks: [plates-test] makes 8 pictures.
+    if: ${{ github.event_name != 'push' || contains(github.event.head_commit.message, '[plates-test]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+      KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: pip install -q kaggle six
+      - name: GPU hours left this week
+        run: python studio/plates_gen.py quota || true
+      - name: Make pictures on Kaggle and add them to the library
+        run: |
+          python studio/plates_gen.py run \
+            --plates "${{ contains(github.event.head_commit.message, '[plates-test]') && '8' || inputs.plates || '160' }}" \
+            --hours "${{ contains(github.event.head_commit.message, '[plates-test]') && '0.5' || inputs.hours || '1.5' }}" \
+            --steps "${{ inputs.steps || '30' }}" \
+            --themes "${{ inputs.themes || '' }}"
+      - name: Record the library
+        if: ${{ always() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add studio/plates/index.json 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -q -m "plates library: new pictures [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs origin "${{ github.ref_name }}" && git push -q origin "HEAD:${{ github.ref_name }}" && break; git rebase --abort 2>/dev/null; sleep 5; done

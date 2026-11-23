@@ -1,0 +1,88 @@
+{
+  "_about": "Still pictures for backgrounds, made by SDXL on Kaggle (studio/plates_gen.py). A plate is one scene + one look + a seed. Places only: no people, no text or signs, no brands or logos, no real landmarks, so nothing in a picture belongs to anyone else. school and psych are the worlds the band is set into on close__quarters (studio/scene_video.py); liminal is for nostalgia.hub.vhs, psy for psychedelic.station.",
+  "negative": "people, person, human, man, woman, child, face, body, hands, crowd, text, letters, words, numbers, sign, signage, writing, caption, watermark, logo, brand, trademark, poster, user interface, frame, border, cartoon, anime, illustration, painting, 3d render, cgi, plastic, oversaturated, blurry, low quality, jpeg artifacts, deformed, distorted, duplicate",
+  "width": 832,
+  "height": 1216,
+  "themes": {
+    "school": {
+      "scenes": [
+        "an empty high school hallway lined with metal lockers, long and straight, fluorescent ceiling lights, polished linoleum floor reflecting the lights",
+        "an empty high school classroom, rows of wooden desks with chairs, a green chalkboard on the front wall, late afternoon sun through tall windows, dust in the light",
+        "an empty school gymnasium, wooden bleachers pulled out, basketball hoops raised, high windows, dim evening light",
+        "the inside of an empty yellow school bus, rows of green vinyl seats, windows with dusk light, seen from the back looking forward",
+        "an empty school cafeteria, long tables with folded benches, linoleum floor, a few lights left on at night",
+        "a school library between tall bookshelves, wooden study carrels, green desk lamps, quiet evening",
+        "a concrete school stairwell with metal railings, painted cinder block walls, a small window at the landing, cold light",
+        "an empty high school parking lot at night under orange sodium lights, wet asphalt, the school building dark behind",
+        "an empty high school football field at dusk, stadium floodlights just switched on, wet grass, bleachers on one side",
+        "a high school band room with tiered risers, music stands and folding chairs, instrument lockers, evening",
+        "an empty high school science lab, black lab benches with sinks, stools, glass cabinets, blue night light from the windows",
+        "an empty high school auditorium seen from the stage, red velvet seats in rows, one spotlight on, the rest dark",
+        "a school courtyard at night with picnic tables and a single lamp post, brick walls, puddles",
+        "an empty locker room with wooden benches and green metal lockers, tiled floor, flickering fluorescent tube",
+        "a long school corridor with a row of classroom doors with small windows, a trophy cabinet glowing, after hours",
+        "an empty school playground at the edge of a field at golden hour, chain link fence, long shadows"
+      ],
+      "looks": {
+        "film": "35mm film photograph, 2003, Kodak Portra, soft grain, slightly faded colours, natural light, wide angle, eye level, photorealistic",
+        "night": "night photograph, 2000s digital camera, high ISO noise, deep shadows, practical lights only, cinematic, photorealistic",
+        "dusk": "blue hour photograph, cool dusk light mixed with warm interior lights, quiet, cinematic, photorealistic"
+      }
+    },
+    "psych": {
+      "scenes": [
+        "a vast desert of pale sand under a sky with two enormous moons, the dunes rippling like liquid, long shadows",
+        "a field of giant flowers taller than trees, petals glowing pink and orange, a tiny path between them, morning haze",
+        "a perfectly still lake that reflects a sky full of swirling aurora, mountains melting into the water at the horizon",
+        "a forest of enormous mushrooms with glowing gills, mist on the ground, deep blue night",
+        "rolling green hills under a sky made of slowly folding rainbow ribbons, a single tree on a hill",
+        "a canyon of smooth red rock that curves like waves, a river of mirror-bright water at the bottom, midday sun",
+        "an endless shallow sea with a giant stone staircase rising out of it into the clouds, soft pastel sky",
+        "a meadow at sunset where the clouds hang low and heavy like cotton, purple and orange light, dandelion seeds in the air",
+        "a salt flat at dawn mirroring the sky exactly, a doorway frame standing alone in the middle, pastel light",
+        "a jungle of fern and palm with leaves that shimmer like oil on water, beams of green light, humid haze",
+        "a beach of black sand with luminous turquoise waves, a starfield sky with a spiral galaxy rising",
+        "a snowy mountain pass where the snow is lit pink from inside, the sky deep violet, total calm"
+      ],
+      "looks": {
+        "photo": "landscape photograph, medium format, ultra detailed, natural photographic lighting, surreal but photorealistic, wide angle",
+        "70s": "1970s film photograph, warm faded colours, soft halation, grain, dreamlike, photorealistic",
+        "dream": "long exposure photograph, soft glow, gentle haze, saturated dream colours, photorealistic"
+      }
+    },
+    "liminal": {
+      "scenes": [
+        "an empty shopping mall in the early 2000s after closing, a fountain switched off, skylights, beige tiles, potted plants",
+        "an indoor swimming pool at night with tiled walls, the water perfectly still and lit from below, no one there",
+        "a hotel corridor that goes on too long, patterned carpet, identical doors, warm wall sconces",
+        "a closed arcade at night, rows of dark cabinets, one machine glowing, carpet with a cosmic pattern",
+        "a 2003 kid's bedroom at night lit by a CRT television, a bunk bed, posters with nothing on them, toys on the floor",
+        "a suburban street at 3am, one streetlight, parked cars, houses with every window dark, wet road",
+        "an empty waiting room with rows of joined plastic chairs, a water cooler, a clock, fluorescent light",
+        "a laundromat at night, rows of washing machines, one dryer spinning, a vending machine glowing",
+        "an empty indoor playground of a fast food place at night, tubes and a ball pit, lights left on",
+        "a yellow-walled empty office with low ceiling tiles and buzzing fluorescent lights, damp carpet, no windows"
+      ],
+      "looks": {
+        "vhs": "photograph from a 2000s compact digital camera, flash, slightly blown highlights, nostalgic, eerie, photorealistic",
+        "film": "35mm film photograph, faded colours, grain, quiet and eerie, photorealistic"
+      }
+    },
+    "psy": {
+      "scenes": [
+        "an infinite fractal temple of mirrored arches folding into itself, glowing geometric patterns",
+        "a liquid chrome landscape with rippling reflective hills under a rainbow sky",
+        "a bioluminescent forest where every leaf glows a different colour, fireflies like stars",
+        "a tunnel of stained glass petals spiralling towards a bright white light",
+        "an ocean of iridescent oil-slick colours with a sun made of concentric rings",
+        "a cathedral made of crystal growing from a mountain, prisms of light everywhere",
+        "a sky full of floating jellyfish-like lights over a dark mirror lake",
+        "a kaleidoscopic garden of geometric flowers in symmetrical rows, neon colours, deep black background"
+      ],
+      "looks": {
+        "vivid": "psychedelic, ultra detailed, vivid saturated colours, glowing light, symmetrical composition, photorealistic textures",
+        "soft": "psychedelic, soft focus, pastel neon glow, dreamy haze, photorealistic textures"
+      }
+    }
+  }
+}
