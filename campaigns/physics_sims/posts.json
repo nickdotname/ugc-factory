@@ -8,19 +8,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 9.0,
+          "value": 173.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 1.0,
+          "value": 115.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 1.0,
+          "value": 2.0,
           "unit": "count"
         },
         {
@@ -44,19 +44,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 43.473,
+          "value": 5.985,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 0.72455,
+          "value": 11.37265,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 20.0,
+          "value": 51.8,
           "unit": "count"
         },
         {
@@ -66,7 +66,8 @@
           "unit": "count"
         }
       ],
-      "account": "physics_ig"
+      "account": "physics_ig",
+      "fetched_at": "2026-11-23T21:43:01.845140Z"
     },
     "igo-89824dde-6666-487a-9fba-dda61666742d": {
       "post_id": "igo-89824dde-6666-487a-9fba-dda61666742d",
@@ -76,13 +77,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 128.0,
+          "value": 129.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 110.0,
+          "value": 111.0,
           "unit": "count"
         },
         {
@@ -112,19 +113,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.421,
+          "value": 5.378,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 10.028866666666667,
+          "value": 10.039883333333334,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 53.2,
+          "value": 53.6,
           "unit": "count"
         },
         {
@@ -134,7 +135,8 @@
           "unit": "count"
         }
       ],
-      "account": "physics_ig"
+      "account": "physics_ig",
+      "fetched_at": "2026-11-23T21:43:01.845140Z"
     },
     "igo-ca0423fa-41af-4cc0-9091-972ebae00b96": {
       "post_id": "igo-ca0423fa-41af-4cc0-9091-972ebae00b96",
@@ -202,7 +204,8 @@
           "unit": "count"
         }
       ],
-      "account": "physics_ig"
+      "account": "physics_ig",
+      "fetched_at": "2026-11-23T21:43:01.845140Z"
     },
     "igo-4c1de3a1-88ba-47a7-9be9-839cabeaf78d": {
       "post_id": "igo-4c1de3a1-88ba-47a7-9be9-839cabeaf78d",
@@ -270,7 +273,8 @@
           "unit": "count"
         }
       ],
-      "account": "physics_ig"
+      "account": "physics_ig",
+      "fetched_at": "2026-11-23T21:43:01.845140Z"
     }
   }
 }
