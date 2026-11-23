@@ -144,9 +144,9 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-eb66e407-372c-4f70-bcbc-b92a83a3ec5f",
           "last_error": null,
           "scheduled_for": "2026-11-24T12:10:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
