@@ -751,6 +751,26 @@ class TestSelectBatchMulti:
             assert set(selection.bodies) <= set(pool.bodies)
             assert not set(selection.bodies) & set(other.bodies)
 
+    def test_an_exhausted_creative_sits_out_instead_of_failing_the_batch(self) -> None:
+        """One song with nothing left to post used to fail the whole account's
+        render; now the other songs fill the batch, and a batch with nothing
+        left anywhere comes back short instead of raising."""
+        a, b = self._two_libraries()
+        sel = make_selector(seed=3, hook_cooldown_days=0, caption_cooldown_days=0)
+        real = sel.select_one
+
+        def select_one(library, *args, **kwargs):
+            if library is a:
+                raise SelectionError("no valid combination exists; library has 0 hooks")
+            return real(library, *args, **kwargs)
+
+        sel.select_one = select_one
+        picks = sel.select_batch_multi({"a": (a, History()), "b": (b, History())}, {"a": 9.0, "b": 1.0}, 4, 1)
+        assert len(picks) == 4 and {n for n, _ in picks} == {"b"}
+
+        sel.select_one = lambda *args, **kwargs: (_ for _ in ()).throw(SelectionError("empty"))
+        assert sel.select_batch_multi({"a": (a, History()), "b": (b, History())}, {"a": 1.0, "b": 1.0}, 4, 1) == []
+
     def test_a_single_clip_creative_is_not_picked_twice_while_others_wait(self) -> None:
         """One video per song (the studio styles): three posts in a batch must be
         three different videos, not the same clip with two captions."""
