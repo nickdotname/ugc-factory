@@ -238,6 +238,138 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_s02_vintage_707577.mp4",
+   "song": "fixation",
+   "section": "s02",
+   "style": "vintage",
+   "seed": 707577,
+   "window": [
+    86.97,
+    100.95
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "night",
+    "crank": "1",
+    "gate": "rounded",
+    "cards": "none",
+    "trip": "none",
+    "pace": "1",
+    "source": "silent",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.99,
+    "drums": 0.9,
+    "bass": 0.58,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "notta_problem",
+   "file": "notta-problem_s03-s04_vintage_647442.mp4",
+   "song": "notta-problem",
+   "section": "s03-s04",
+   "style": "vintage",
+   "seed": 647442,
+   "window": [
+    92.1,
+    98.98
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "amber",
+    "crank": "2",
+    "gate": "rounded",
+    "cards": "lower",
+    "trip": "burn",
+    "pace": "1",
+    "source": "silent",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.3,
+    "bass": 0.36,
+    "other": 0.66
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_s01_vintage_769765.mp4",
+   "song": "full-ride",
+   "section": "s01",
+   "style": "vintage",
+   "seed": 769765,
+   "window": [
+    7.58,
+    29.27
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "rose",
+    "crank": "1",
+    "gate": "iris",
+    "cards": "none",
+    "trip": "burn",
+    "pace": "2",
+    "source": "silent",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.67,
+    "bass": 0.7,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s02_vintage_629684.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s02",
+   "style": "vintage",
+   "seed": 629684,
+   "window": [
+    33.71,
+    40.73
+   ],
+   "plan": null,
+   "knobs": {
+    "tint": "bw",
+    "crank": "1",
+    "gate": "iris",
+    "cards": "none",
+    "trip": "double",
+    "pace": "1",
+    "source": "silent",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.28,
+    "drums": 0.15,
+    "bass": 0.12,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

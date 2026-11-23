@@ -454,6 +454,138 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s03_rocket_273104.mp4",
+   "song": "passage-waiting",
+   "section": "s03",
+   "style": "rocket",
+   "seed": 273104,
+   "window": [
+    39.81,
+    58.14
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "montage",
+    "frame": "crop",
+    "ramp": "slowmo",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.74,
+    "bass": 0.84,
+    "other": 0.82
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s02_rocket_189248.mp4",
+   "song": "recess-rewind",
+   "section": "s02",
+   "style": "rocket",
+   "seed": 189248,
+   "window": [
+    17.83,
+    35.57
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "asis",
+    "frame": "blur",
+    "ramp": "none",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.53,
+    "bass": 0.65,
+    "other": 0.66
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s09_rocket_838179.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "rocket",
+   "seed": 838179,
+   "window": [
+    191.79,
+    209.24
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "montage",
+    "frame": "crop",
+    "ramp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.65,
+    "bass": 0.54,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s05_rocket_815404.mp4",
+   "song": "suspended",
+   "section": "s05",
+   "style": "rocket",
+   "seed": 815404,
+   "window": [
+    98.79,
+    106.48
+   ],
+   "plan": {
+    "hook": "rocket league peaked in 2016. agree?",
+    "hook_angle": "debate",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "asis",
+    "frame": "crop",
+    "ramp": "slowmo",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.58,
+    "drums": 0.57,
+    "bass": 0.26,
+    "other": 0.68
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

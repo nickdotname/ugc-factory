@@ -296,6 +296,134 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s07_glitch_860757.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s07",
+   "style": "glitch",
+   "seed": 860757,
+   "window": [
+    105.89,
+    123.35
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "archive",
+    "main": "track",
+    "accent": "none",
+    "tone": "natural",
+    "pace": "1",
+    "label": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.59,
+    "bass": 0.68,
+    "other": 0.88
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_s03_glitch_111559.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "glitch",
+   "seed": 111559,
+   "window": [
+    51.26,
+    73.75
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "water",
+    "main": "sort",
+    "accent": "rgb",
+    "tone": "thermal",
+    "pace": "1",
+    "label": "rec",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.69,
+    "bass": 0.69,
+    "other": 0.6
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s02_glitch_730456.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s02",
+   "style": "glitch",
+   "seed": 730456,
+   "window": [
+    65.23,
+    78.94
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "nature",
+    "main": "slit",
+    "accent": "none",
+    "tone": "duotone",
+    "pace": "1",
+    "label": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.67,
+    "bass": 0.61,
+    "other": 0.45
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s01_glitch_670335.mp4",
+   "song": "recess-rewind",
+   "section": "s01",
+   "style": "glitch",
+   "seed": 670335,
+   "window": [
+    0.42,
+    17.83
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "space",
+    "main": "mosh",
+    "accent": "rgb",
+    "tone": "thermal",
+    "pace": "1",
+    "label": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.49,
+    "bass": 0.67,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

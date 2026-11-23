@@ -8,7 +8,9 @@
     "derivative",
     "zeta",
     "fold",
-    "sci8"
+    "sci8",
+    "sorts",
+    "paths"
    ],
    "theme": [
     "chalk",
@@ -47,6 +49,17 @@
    "room": [
     "night",
     "day"
+   ],
+   "subject": [
+    "brain",
+    "heart",
+    "eyes",
+    "fission"
+   ],
+   "sky": [
+    "violet",
+    "navy",
+    "plum"
    ]
   }
  },
@@ -507,6 +520,134 @@
     "other": 0.34
    },
    "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s05-s06_math_368460.mp4",
+   "song": "talk",
+   "section": "s05-s06",
+   "style": "math",
+   "seed": 368460,
+   "window": [
+    102.3,
+    140.08
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sci8",
+    "subject": "heart",
+    "sky": "plum",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.86,
+    "drums": 0.87,
+    "bass": 0.78,
+    "other": 0.46
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s05-s06_math_444379.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s05-s06",
+   "style": "math",
+   "seed": 444379,
+   "window": [
+    130.4,
+    164.83
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "fourier",
+    "theme": "mono",
+    "font": "inter",
+    "grid": "grid",
+    "shake": "0.6",
+    "glow": "1.0",
+    "chip": "tag",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.66,
+    "drums": 0.74,
+    "bass": 0.6,
+    "other": 0.34
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s01_math_374517.mp4",
+   "song": "recess-rewind",
+   "section": "s01",
+   "style": "math",
+   "seed": 374517,
+   "window": [
+    0.42,
+    17.83
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "derivative",
+    "theme": "chalk",
+    "font": "inter",
+    "grid": "none",
+    "shake": "1.0",
+    "glow": "1.0",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.49,
+    "bass": 0.67,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s01-s02_math_806485.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s01-s02",
+   "style": "math",
+   "seed": 806485,
+   "window": [
+    0.36,
+    35.51
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "zeta",
+    "theme": "midnight",
+    "font": "inter",
+    "grid": "dots",
+    "shake": "1.0",
+    "glow": "1.0",
+    "chip": "tag",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.3,
+    "bass": 0.7,
+    "other": 0.28
+   },
+   "lyrics_proven": false,
    "clip": "hook_01.mp4"
   }
  ]

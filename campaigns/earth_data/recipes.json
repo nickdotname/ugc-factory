@@ -263,6 +263,126 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s08_earth_267737.mp4",
+   "song": "prologue",
+   "section": "s08",
+   "style": "earth",
+   "seed": 267737,
+   "window": [
+    168.4,
+    190.47
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "flights",
+    "palette": "ember",
+    "spin": "fast",
+    "hook": "question",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.68,
+    "drums": 0.68,
+    "bass": 0.54,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s02_earth_301598.mp4",
+   "song": "passage-waiting",
+   "section": "s02",
+   "style": "earth",
+   "seed": 301598,
+   "window": [
+    21.18,
+    39.81
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "quakes",
+    "palette": "paper",
+    "spin": "slow",
+    "hook": "fact",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.81,
+    "bass": 0.73,
+    "other": 0.75
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s03_earth_739569.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s03",
+   "style": "earth",
+   "seed": 739569,
+   "window": [
+    86.36,
+    109.31
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "satellites",
+    "palette": "paper",
+    "spin": "fast",
+    "hook": "question",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.81,
+    "bass": 0.48,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s05_earth_133230.mp4",
+   "song": "recess-rewind",
+   "section": "s05",
+   "style": "earth",
+   "seed": 133230,
+   "window": [
+    70.16,
+    87.33
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "quakes",
+    "palette": "paper",
+    "spin": "slow",
+    "hook": "question",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.58,
+    "bass": 0.7,
+    "other": 0.73
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

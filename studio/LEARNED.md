@@ -224,6 +224,60 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - Hair of the Dog – Close Quarters: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
 - lesson 1 of 15. class is in session.: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
 
+## cq_band
+
+Ranked on completion (25%), sends per reach (25%), comments per reach (15%), views (15%), saves per reach (5%), not being skipped (15%).
+
+12 posts counted. Typical post: 86 views, 2.8 seconds watched.
+
+**song**
+- fixation: weight 1.09 — 2 posts, 140 views, 4.2s watched, 14 shares+saves per 1,000 views
+- wont_be_the_same_again: weight 1.00 — 4 posts, 86 views, 2.5s watched, 0 shares+saves per 1,000 views
+- hair_of_the_dog: weight 0.97 — 2 posts, 69 views, 3.2s watched, 0 shares+saves per 1,000 views
+- prologue: weight 0.96 — 4 posts, 87 views, 2.6s watched, 12 shares+saves per 1,000 views
+
+**section**
+- fixation/s03-s04: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
+- fixation/s06: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
+- prologue/s03-s04: weight 1.04 — 1 post, 109 views, 3.0s watched, 28 shares+saves per 1,000 views
+- wont_be_the_same_again/s08: weight 1.02 — 1 post, 108 views, 2.4s watched, 0 shares+saves per 1,000 views
+- wont_be_the_same_again/s07: weight 1.01 — 1 post, 90 views, 2.5s watched, 0 shares+saves per 1,000 views
+- prologue/s01-s02: weight 1.00 — 1 post, 104 views, 2.9s watched, 10 shares+saves per 1,000 views
+- wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
+- prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
+- hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
+- prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+
+**look**
+- rings: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
+- grad: weight 1.03 — 3 posts, 90 views, 2.8s watched, 3 shares+saves per 1,000 views
+- stars: weight 0.98 — 4 posts, 87 views, 2.8s watched, 12 shares+saves per 1,000 views
+- plasma: weight 0.96 — 2 posts, 73 views, 2.2s watched, 0 shares+saves per 1,000 views
+
+**length**
+- 20-35s: weight 1.09 — 2 posts, 140 views, 4.2s watched, 14 shares+saves per 1,000 views
+- under 20s: weight 1.03 — 2 posts, 99 views, 2.5s watched, 0 shares+saves per 1,000 views
+- over 35s: weight 0.94 — 6 posts, 73 views, 2.8s watched, 9 shares+saves per 1,000 views
+
+**hour posted**
+- 22:00: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
+- 21:00: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
+- 13:00: weight 1.01 — 2 posts, 92 views, 2.6s watched, 0 shares+saves per 1,000 views
+- 19:00: weight 1.00 — 2 posts, 89 views, 2.7s watched, 17 shares+saves per 1,000 views
+- 17:00: weight 1.00 — 2 posts, 86 views, 2.4s watched, 0 shares+saves per 1,000 views
+- 14:00: weight 0.97 — 2 posts, 69 views, 3.2s watched, 0 shares+saves per 1,000 views
+- 10:00: weight 0.95 — 2 posts, 71 views, 2.4s watched, 7 shares+saves per 1,000 views
+
+**caption**
+- Fixation – Close Quarters: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
+- your family computer in 2001 if it had taste: weight 1.05 — 3 posts, 108 views, 3.7s watched, 3 shares+saves per 1,000 views
+- Prologue: Before – Close Quarters: weight 1.04 — 2 posts, 106 views, 2.9s watched, 19 shares+saves per 1,000 views
+- Won't Be the Same Again – Close Quarters: weight 1.00 — 2 posts, 83 views, 2.6s watched, 0 shares+saves per 1,000 views
+- lesson 13 of 15. class is in session.: weight 0.98 — 1 post, 82 views, 2.3s watched, 0 shares+saves per 1,000 views
+- tell me this doesn't sound like 2am in new york: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
+- Hair of the Dog – Close Quarters: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
+- lesson 1 of 15. class is in session.: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
+
 ## psy_station
 
 18 posts counted. Typical post: 41 views, 4.3 seconds watched.
@@ -387,6 +441,10 @@ No posts with numbers yet.
 ## rocket_league
 
 Ranked on completion (25%), sends per reach (25%), comments per reach (15%), views (15%), saves per reach (5%), not being skipped (15%).
+
+No posts with numbers yet.
+
+## physics_sims
 
 No posts with numbers yet.
 

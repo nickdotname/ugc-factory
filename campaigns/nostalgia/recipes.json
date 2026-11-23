@@ -740,6 +740,264 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s02_liminal_52932.mp4",
+   "song": "silver-and-gold",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 52932,
+   "window": [
+    62.51,
+    73.37
+   ],
+   "plan": {
+    "place": "school",
+    "laps": 3,
+    "year": 1999,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "none",
+    "hook": "have you seen this place?",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "school",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.53,
+    "drums": 0.61,
+    "bass": 0.88,
+    "other": 0.52
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s02_liminal_315809.mp4",
+   "song": "passage-waiting",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 315809,
+   "window": [
+    21.18,
+    39.81
+   ],
+   "plan": {
+    "place": "office",
+    "laps": 5,
+    "year": 1994,
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "worn",
+    "label": "none",
+    "stamp": "date",
+    "hook": "have you seen this place?",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "office",
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "worn",
+    "label": "none",
+    "stamp": "date",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.81,
+    "bass": 0.73,
+    "other": 0.75
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_liminal_504245.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "liminal",
+   "seed": 504245,
+   "window": [
+    44.67,
+    61.81
+   ],
+   "plan": {
+    "place": "parking",
+    "laps": 2,
+    "year": 2001,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "parking",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.41,
+    "bass": 0.83,
+    "other": 0.63
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_s01_liminal_760350.mp4",
+   "song": "fixation",
+   "section": "s01",
+   "style": "liminal",
+   "seed": 760350,
+   "window": [
+    12.37,
+    26.35
+   ],
+   "plan": {
+    "place": "pool",
+    "laps": 5,
+    "year": 1997,
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "pool",
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.14,
+    "drums": 0.08,
+    "bass": 0.03,
+    "other": 0.48
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s03-s04_liminal_949803.mp4",
+   "song": "prologue",
+   "section": "s03-s04",
+   "style": "liminal",
+   "seed": 949803,
+   "window": [
+    78.37,
+    84.92
+   ],
+   "plan": {
+    "place": "mall",
+    "laps": 1,
+    "year": 2002,
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "none",
+    "hook": "don't turn around",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "mall",
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.61,
+    "bass": 0.71,
+    "other": 0.22
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s07_liminal_470709.mp4",
+   "song": "recess-rewind",
+   "section": "s07",
+   "style": "liminal",
+   "seed": 470709,
+   "window": [
+    104.43,
+    121.78
+   ],
+   "plan": {
+    "place": "school",
+    "laps": 4,
+    "year": 1999,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "chewed",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "hook": "sound on",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "school",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "chewed",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.84,
+    "bass": 0.62,
+    "other": 0.8
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ],
  "menu": {

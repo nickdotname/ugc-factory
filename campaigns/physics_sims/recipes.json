@@ -31,6 +31,37 @@
     "hits",
     "none"
    ]
+  },
+  "fluid": {
+   "obstacle": [
+    "title",
+    "guitar",
+    "note",
+    "headphones",
+    "plane",
+    "cassette",
+    "cylinder",
+    "airfoil"
+   ],
+   "view": [
+    "speed",
+    "vorticity",
+    "smoke"
+   ],
+   "palette": [
+    "inferno",
+    "plasma",
+    "magma",
+    "turbo"
+   ],
+   "gust": [
+    "kick",
+    "drums"
+   ],
+   "hook": [
+    "gust",
+    "none"
+   ]
   }
  },
  "nightly": [
@@ -343,6 +374,161 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_physics_388060.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "physics",
+   "seed": 388060,
+   "window": [
+    25.8,
+    48.27
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "rings",
+    "hits": "kick",
+    "palette": "ice",
+    "trail": "long",
+    "hook": "song",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.91,
+    "bass": 0.9,
+    "other": 0.16
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s10_physics_228207.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "physics",
+   "seed": 228207,
+   "window": [
+    226.24,
+    243.87
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "pendulum",
+    "hits": "kick",
+    "palette": "mono",
+    "trail": "long",
+    "hook": "song",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.49,
+    "drums": 0.64,
+    "bass": 0.56,
+    "other": 0.89
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s04_physics_626210.mp4",
+   "song": "talk",
+   "section": "s04",
+   "style": "physics",
+   "seed": 626210,
+   "window": [
+    77.99,
+    85.86
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "square",
+    "hits": "kick",
+    "palette": "ice",
+    "trail": "short",
+    "hook": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.41,
+    "drums": 0.77,
+    "bass": 0.58,
+    "other": 0.81
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_s02_fluid_842585.mp4",
+   "song": "fixation",
+   "section": "s02",
+   "style": "fluid",
+   "seed": 842585,
+   "window": [
+    80.59,
+    92.57
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "airfoil",
+    "view": "speed",
+    "palette": "inferno",
+    "gust": "kick",
+    "hook": "gust",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.99,
+    "drums": 0.89,
+    "bass": 0.51,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s02_fluid_603869.mp4",
+   "song": "silver-and-gold",
+   "section": "s02",
+   "style": "fluid",
+   "seed": 603869,
+   "window": [
+    50.6,
+    75.35
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "airfoil",
+    "view": "speed",
+    "palette": "turbo",
+    "gust": "kick",
+    "hook": "gust",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.44,
+    "drums": 0.57,
+    "bass": 0.81,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

@@ -257,6 +257,130 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s03-s04_nyc_932289.mp4",
+   "song": "talk",
+   "section": "s03-s04",
+   "style": "nyc",
+   "seed": 932289,
+   "window": [
+    67.6,
+    94.91
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "fact",
+    "look": "night",
+    "pace": "1",
+    "source": "nyc",
+    "fact": "12",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.47,
+    "drums": 0.83,
+    "bass": 0.73,
+    "other": 0.6
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s05_nyc_668380.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s05",
+   "style": "nyc",
+   "seed": 668380,
+   "window": [
+    71.12,
+    88.56
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "film",
+    "pace": "2",
+    "source": "nyc",
+    "line": "29",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.47,
+    "bass": 0.66,
+    "other": 0.47
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s10_nyc_917529.mp4",
+   "song": "recess-rewind",
+   "section": "s10",
+   "style": "nyc",
+   "seed": 917529,
+   "window": [
+    156.06,
+    173.54
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "fact",
+    "look": "film",
+    "pace": "1",
+    "source": "nyc",
+    "fact": "3",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.45,
+    "bass": 0.69,
+    "other": 0.62
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s05_nyc_577953.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s05",
+   "style": "nyc",
+   "seed": 577953,
+   "window": [
+    133.41,
+    145.41
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "natural",
+    "pace": "2",
+    "source": "nyc",
+    "line": "12",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.67,
+    "bass": 0.72,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }
