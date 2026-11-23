@@ -38,9 +38,9 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-fd4526ef-63ce-4409-87a5-47e50f2d157f",
           "last_error": null,
           "scheduled_for": "2026-11-24T19:10:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
