@@ -11,6 +11,6 @@ what went out, and how each post did (views, likes, comments, sends, saves, aver
 
 Sign-in is **Cloudflare Access** on the domain, with a policy that allows only the two of us by email (a one-time code
 is mailed at each sign-in). The emails live in that policy, not in this public repository. To add or remove someone:
-Cloudflare → Zero Trust → Access → Applications → Close Quarters dashboard → Policies.
+Cloudflare → Zero Trust → Access controls → Applications → dashboard → Policies (policy "Dylan and Nick only"). Login method: One-time PIN.
 
 Everything shown is already in this repository (it is public): the page puts it in one place, it does not reveal more.
