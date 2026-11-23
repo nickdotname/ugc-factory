@@ -91,18 +91,18 @@
         {
           "account": "rocket_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T15:55:00-05:00"
         }
       ],
       "captions": {
         "instagram": "Silver and Gold – Close Quarters\nrocket league to EDUCATION. out now\n\nstream Silver and Gold: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
