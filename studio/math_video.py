@@ -8,8 +8,8 @@ which explainers people watch; the look (theme, typeface, background, shake, glo
 inside studio/mathviz/kit.py. Every scene is choreographed in beats (44 of them, eleven bars), so it fits any song at
 its own tempo: it starts on the first bar line at or after the stretch nightly picked (CQ_WINDOW), and if the song
 ends too soon it moves back. The scenes themselves are in studio/mathviz/: integral, fourier, derivative, zeta (the Riemann hypothesis), fold
-(how many folds of paper reach the Moon, in pixel art), tests8 (8-bit play-along tests built from the song: count the
-flashes on the snare, read as fast as the verse is rapped).
+(how many folds of paper reach the Moon, in pixel art), sci8 (pixel-art science explainers in escalating parts: the brain, the
+heart, the eyes). tests8 (play-along tests) is kept but not chosen.
 """
 import importlib, json, math, os, random, sys
 import soundfile as sf
@@ -19,8 +19,8 @@ sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import knobs as K
 import beat as audio
 
-TOPICS = ['integral', 'fourier', 'derivative', 'zeta', 'fold', 'tests8']
-TOPIC_WEIGHTS = [1, 1, 1, 3, 3, 4]  # the Riemann hypothesis is in the news (AI results on it, Aug-Oct 2026); fold (paper to the Moon, in pixel art) is new
+TOPICS = ['integral', 'fourier', 'derivative', 'zeta', 'fold', 'sci8']
+TOPIC_WEIGHTS = [1, 1, 1, 3, 3, 5]  # the Riemann hypothesis is in the news (AI results on it, Aug-Oct 2026); fold (paper to the Moon, in pixel art) is new
 BEATS = 44
 
 def start_beat(song_dir, t0):
