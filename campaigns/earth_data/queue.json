@@ -1,12 +1,55 @@
 {
-  "generated_at": "2026-11-23T06:31:03.094681Z",
+  "generated_at": "2026-11-23T08:31:32.355592Z",
   "items": [
     {
-      "id": "64cb3317-97ad-4ba3-b811-2a9c53a9bd6f",
+      "id": "99a53e8b-bbc1-4364-a7b8-39ea1de59cfa",
       "scheduled_for": "2026-11-23T13:35:00-05:00",
-      "rendered_at": "2026-11-23T06:31:03.094681Z",
-      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/64cb3317-97ad-4ba3-b811-2a9c53a9bd6f.mp4",
-      "caption": "save this for the next time someone says the sky is empty\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps",
+      "rendered_at": "2026-11-23T08:31:32.355592Z",
+      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/99a53e8b-bbc1-4364-a7b8-39ea1de59cfa.mp4",
+      "caption": "Recess (Rewind) – Close Quarters\nreal data, taken this morning. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.505,
+        "anchor_y": 0.366,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "recess_rewind",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "Recess (Rewind) – Close Quarters\nreal data, taken this morning. EDUCATION is out now\n\nlink in bio to stream Recess (Rewind)"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "e3f5ea34-f2ab-450b-869f-72c7d528a1af",
+      "scheduled_for": "2026-11-23T16:55:00-05:00",
+      "rendered_at": "2026-11-23T08:31:32.355592Z",
+      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/e3f5ea34-f2ab-450b-869f-72c7d528a1af.mp4",
+      "caption": "every dot is real. sound on.\n🎧 Talk – @close__quarters #dataviz #datavisualization #earth #space #maps",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -16,115 +59,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.401,
-        "anchor_y": 0.697,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "prologue",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "earth_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-83ee6b74-794d-48b0-a7eb-47e96816e513",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T16:55:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "save this for the next time someone says the sky is empty\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nlink in bio to stream Prologue: Before"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "f38d999b-2224-40ff-b544-8753a8017576",
-      "scheduled_for": "2026-11-23T16:55:00-05:00",
-      "rendered_at": "2026-11-23T06:31:03.094681Z",
-      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/f38d999b-2224-40ff-b544-8753a8017576.mp4",
-      "caption": "every dot is real. sound on.\n🎧 Full Ride – @close__quarters #dataviz #datavisualization #earth #space #maps",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.715,
-        "anchor_y": 0.713,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "full_ride",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Full Ride by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "earth_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-bb2906cf-f39c-4ee8-8003-18a86460a378",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T20:15:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "every dot is real. sound on.\n🎧 Full Ride – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Full Ride: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "5c5c84e9-0ccd-4539-9a68-c530235155d4",
-      "scheduled_for": "2026-11-23T20:15:00-05:00",
-      "rendered_at": "2026-11-23T06:31:03.094681Z",
-      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/5c5c84e9-0ccd-4539-9a68-c530235155d4.mp4",
-      "caption": "this is what right now looks like\n🎧 Suspended – @close__quarters #dataviz #datavisualization #earth #space #maps",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.575,
-        "anchor_y": 0.525,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.338,
+        "anchor_y": 0.566,
+        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -134,28 +71,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "suspended",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "earth_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-865e0eb2-e338-496b-9c0c-71a4e7ca1655",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T13:35:00-05:00"
-        }
-      ],
+      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "this is what right now looks like\n🎧 Suspended – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nSuspended is out now. link in bio to stream it"
+        "instagram": "every dot is real. sound on.\n🎧 Talk – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ae472b10-52b5-4672-97e1-29b64672961f",
+      "scheduled_for": "2026-11-23T20:15:00-05:00",
+      "rendered_at": "2026-11-23T08:31:32.355592Z",
+      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-23/ae472b10-52b5-4672-97e1-29b64672961f.mp4",
+      "caption": "Passage (Waiting) – Close Quarters\nreal data, taken this morning. EDUCATION is out now",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.338,
+        "anchor_y": 0.436,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "passage_waiting",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Passage (Waiting) – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "Passage (Waiting) – Close Quarters\nreal data, taken this morning. EDUCATION is out now\n\nPassage (Waiting) is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
