@@ -144,9 +144,9 @@
         {
           "account": "vintage_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-f9f2bb03-1a50-4459-b878-7b10990fcc25",
           "last_error": null,
           "scheduled_for": "2026-11-24T19:40:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Notta Problem – Close Quarters\nfound reel. EDUCATION is out now\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
