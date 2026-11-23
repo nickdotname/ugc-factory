@@ -1,6 +1,11 @@
 name: metrics
 
-# Fetches performance metrics into campaigns/<slug>/metrics.json once a day.
+# Fetches performance metrics into campaigns/<slug>/metrics.json and posts.json.
+#
+# Started by publish.yml's clock (GitHub's own schedule skipped days: none ran
+# on 2026-11-23): the full run once a day at 06:30 UTC, and an
+# Instagram-only run (per-post figures, no Buffer requests) every three hours,
+# so the dashboard's numbers are never more than a few hours old.
 #
 # Deliberately NOT called from the dashboard. Buffer's free plan allows 3,000
 # API requests per 30 days and posting three campaigns at 24/day already spends
@@ -18,10 +23,12 @@ on:
         description: aggregation window in days
         required: false
         default: "30"
-  schedule:
-    # 06:30 UTC — after the nightly render, and late enough that yesterday's
-    # posts have had time for the networks to report on them.
-    - cron: "30 6 * * *"
+      instagram_only:
+        description: only the per-post figures of the Instagram accounts we post to directly (no Buffer requests)
+        type: boolean
+        default: false
+  # No schedule here: publish.yml starts this at 06:30 UTC (and every three hours
+  # for Instagram). A second start from GitHub's cron would spend Buffer's budget twice.
 
 permissions:
   contents: write   # commits the metrics cache
@@ -91,7 +98,8 @@ jobs:
         run: |
           python -m src.cli metrics \
             --campaign "${{ matrix.campaign }}" \
-            --days "${{ inputs.days || '30' }}"
+            --days "${{ inputs.days || '30' }}" \
+            ${{ inputs.instagram_only == true && '--instagram-only' || '' }}
 
       - name: Commit metrics
         run: |

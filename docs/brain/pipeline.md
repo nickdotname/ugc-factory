@@ -11,6 +11,8 @@ All times New York (UTC−5 in winter). Back to [[README]].
 | 04:00, 10:00, 16:00 | 09:00, 15:00, 21:00 | `topup.yml` | books queued posts into the next free slots of each account (Instagram → `outbox/igo-*.json`; Buffer → Buffer's queue) |
 | 09:15 12:15 16:15 20:15 | | `carousel.yml` | info carousels (psychedelic.station, nostalgia) |
 | 10:45 13:45 17:45 20:45 | | `factreel.yml` | fact reels |
+| 01:30 | 06:30 | `metrics.yml` | every account's per-post numbers → `campaigns/<c>/posts.json` (Buffer too: the only run that spends Buffer requests; campaigns whose accounts all post directly skip Buffer) |
+| every 3 h | 00:30 03:30 09:30 12:30 15:30 18:30 21:30 | `metrics.yml --instagram-only` | the Instagram accounts' numbers, so the dashboard and [[learning]] are never more than a few hours behind |
 | Mon 04:41 | 09:41 Mon | `footage.yml` | grows the public-domain footage library ([[footage]]) |
 | Mon/Thu | | `retro.yml` | PS2-style clips made on Kaggle GPUs for retro.vibes.arcade |
 

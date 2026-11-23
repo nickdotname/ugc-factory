@@ -2711,18 +2711,48 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
             print(f"{config.slug} is in dry run — no metrics to fetch")
             return 0
 
-        api_key = _secret(config.buffer.api_key_secret, env)
-        if not api_key:
-            raise ConfigError(f"{config.buffer.api_key_secret} is not set")
-        publisher = BufferPublisher(
-            api_key, log, organization_id=config.buffer.organization_id
+        # The accounts this campaign reaches. A campaign whose every account
+        # posts to Instagram directly has nothing on Buffer to total: asking
+        # Buffer for its campaign channel's windows only spent the Buffer
+        # budget the one Buffer account (Loose Change) posts with. Its numbers
+        # are the per-post figures below, straight from Instagram.
+        reached = (
+            list(accounts_for(load_accounts(REPO_ROOT / ACCOUNTS_FILE), config.accounts))
+            if config.posting.fan_out else []
         )
-        channel = _channel_id(config, env)
+        direct = bool(reached) and all(
+            a.provider is Provider.INSTAGRAM for a in reached
+        )
+        instagram_only = bool(getattr(args, "instagram_only", False))
+        if instagram_only and not any(
+            a.provider is Provider.INSTAGRAM for a in reached
+        ):
+            print(f"{config.slug} posts to no Instagram account directly — nothing to fetch")
+            return 0
+        windows_wanted = not instagram_only and not direct
 
         now = clock.now()
         local_date = now.astimezone(config.zone).strftime("%Y-%m-%d")
         path = _campaign_dir(config.slug) / "metrics.json"
         history = load_metrics(path)
+        publishers: dict[str, BufferPublisher | InstagramPublisher] = {}
+        snapshots: list[Snapshot] = []
+        lifetime_refused: tuple[datetime, datetime] | None = None
+        channel = ""
+        if windows_wanted:
+            api_key = _secret(config.buffer.api_key_secret, env)
+            if not api_key:
+                raise ConfigError(f"{config.buffer.api_key_secret} is not set")
+            publisher = BufferPublisher(
+                api_key, log, organization_id=config.buffer.organization_id
+            )
+            publishers[config.buffer.api_key_secret] = publisher
+            channel = _channel_id(config, env)
+        else:
+            log.info(
+                "metrics_windows_skipped", campaign=config.slug,
+                reason="instagram_only" if instagram_only else "all_accounts_post_directly",
+            )
 
         # The first post ever recorded bounds the lifetime window. history.json
         # is append-only and never pruned, so it is the authoritative record of
@@ -2737,10 +2767,8 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         windows = [
             (Scope.ROLLING, *default_window(now, args.days)),
             (Scope.LIFETIME, *lifetime_window(now, first_post)),
-        ]
+        ] if windows_wanted else []
 
-        snapshots: list[Snapshot] = []
-        lifetime_refused: tuple[datetime, datetime] | None = None
         for scope, start, end in windows:
             try:
                 rows, updated_at = publisher.fetch_metrics(channel, start, end)
@@ -2756,7 +2784,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                 log.warning("lifetime_metrics_unavailable", error=str(exc)[:200])
                 lifetime_refused = (start, end)
                 continue
-            snapshot = Snapshot(
+            taken = Snapshot(
                 date=local_date,
                 scope=scope,
                 fetched_at=now,
@@ -2769,10 +2797,11 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                 ],
                 metrics_updated_at=updated_at,
             )
-            history.upsert(snapshot)
-            snapshots.append(snapshot)
-        save_metrics(path, history)
-        snapshot = snapshots[0]  # rolling is first and never skipped
+            history.upsert(taken)
+            snapshots.append(taken)
+        if snapshots:
+            save_metrics(path, history)
+        snapshot: Snapshot | None = snapshots[0] if snapshots else None  # rolling is first and never skipped
 
         # Per-post figures, in the same breath. `metrics` rides along inside
         # the posts query and takes no arguments, so this costs a handful of
@@ -2784,14 +2813,12 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         # every figure is filed under the account it came from.
         sources: list[
             tuple[str | None, BufferPublisher | InstagramPublisher, str]
-        ] = [(None, publisher, channel)]
-        publishers: dict[str, BufferPublisher | InstagramPublisher] = {
-            config.buffer.api_key_secret: publisher
-        }
+        ] = [(None, publishers[config.buffer.api_key_secret], channel)] if windows_wanted else []
         if config.posting.fan_out:
             sources = []
-            registry = load_accounts(REPO_ROOT / ACCOUNTS_FILE)
-            for account in accounts_for(registry, config.accounts):
+            for account in reached:
+                if instagram_only and account.provider is not Provider.INSTAGRAM:
+                    continue        # Buffer accounts are read once a day, in the full run
                 slot = account.api_key_secret
                 if slot not in publishers:
                     key = _secret(slot, env)
@@ -2818,9 +2845,13 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                         account=account_name, error=str(exc)[:200],
                     )
                     continue
+                # Stamped with when they were read, so the dashboard can say how
+                # old a post's numbers are.
                 fresh += [
-                    r.model_copy(update={"account": account_name})
-                    if account_name else r
+                    r.model_copy(update=(
+                        {"account": account_name, "fetched_at": now}
+                        if account_name else {"fetched_at": now}
+                    ))
                     for r in rows_
                 ]
             cache_path = posts_path(_campaign_dir(config.slug))
@@ -2929,16 +2960,24 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
             # above is what preflight and the digest depend on.
             log.warning("post_metrics_failed", error=str(exc))
 
+        # Metrics runs daily per campaign and spends two requests each time.
+        # Leaving it out understated the tally by ~90/month — the same silent
+        # inaccuracy the rolling counter was added to remove. Only Buffer's
+        # requests: Instagram's are not on Buffer's budget.
+        buffer_requests = sum(
+            p.request_count for p in publishers.values() if isinstance(p, BufferPublisher)
+        )
+        if buffer_requests or windows_wanted:
+            _report_quota_count(buffer_requests, notifier, config, log, clock)
+        if snapshot is None:
+            log.info("metrics_saved", campaign=config.slug, date=local_date,
+                     posts_only=True, accounts=len(sources))
+            print(f"\n  {config.slug} · per-post figures from {len(sources)} "
+                  f"Instagram account(s) · {local_date}")
+            return 0
         log.info(
             "metrics_saved", campaign=config.slug, date=local_date,
             metrics=len(snapshot.metrics), snapshots=len(history.snapshots),
-        )
-        # Metrics runs daily per campaign and spends two requests each time.
-        # Leaving it out understated the tally by ~90/month — the same silent
-        # inaccuracy the rolling counter was added to remove.
-        _report_quota_count(
-            sum(p.request_count for p in publishers.values()),
-            notifier, config, log, clock,
         )
         lifetime = history.lifetime()
         print(f"\n  {config.slug} · {config.buffer.service.value} · {local_date}")
@@ -3904,6 +3943,9 @@ def build_parser() -> argparse.ArgumentParser:
     common(metrics)
     metrics.add_argument("--days", type=int, default=30,
                          help="aggregation window in days (default 30)")
+    metrics.add_argument("--instagram-only", action="store_true",
+                         help="only the per-post figures of accounts that post to Instagram "
+                              "directly: no Buffer requests (run every few hours)")
 
     setup = sub.add_parser("setup", help="readiness check: what is missing and how to fix it")
     common(setup)

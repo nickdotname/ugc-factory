@@ -128,6 +128,8 @@ class PostMetrics(BaseModel):
     #: and a campaign that posts to one channel needs no dimension to tell
     #: its posts apart.
     account: str | None = None
+    #: When these figures were read. Optional: older caches predate it.
+    fetched_at: datetime | None = None
 
     def value(self, metric_type: str) -> float | None:
         for row in self.metrics:
