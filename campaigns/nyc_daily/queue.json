@@ -144,9 +144,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-78a9205c-f7d0-4a0e-a5dd-415ff5be8a8e",
           "last_error": null,
           "scheduled_for": "2026-11-24T19:25:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "Epilogue: Dismissal – Close Quarters\nnew york, daily. EDUCATION is out now\n\nEpilogue: Dismissal is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
