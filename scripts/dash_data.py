@@ -167,6 +167,21 @@ def main(out):
                 r['status'] = r['status'] or st
                 r['caption'] = (it.get('captions') or {}).get('instagram') or it.get('caption') or r['caption']
                 r['video'] = r['video'] or it.get('video_url')
+            if not it.get('posts') and it.get('status') == 'pending':             # rendered, not yet offered to any account
+                for acc in names:                                                 # (a Buffer campaign waiting for room in the queue)
+                    if acc not in HANDLES: continue
+                    r = row('q-%s-%s' % (it.get('id'), acc)); r['account'] = acc; fill(r, it, it.get('creative'), hook)
+                    r['due'] = r['due'] or iso(it.get('scheduled_for')); r['status'] = r['status'] or 'pending'
+                    r['caption'] = (it.get('captions') or {}).get('instagram') or it.get('caption') or r['caption']
+                    r['video'] = r['video'] or it.get('video_url')
+        # What the scheduling backend (Buffer) holds for this campaign: the queue forgets a pushed item at the next
+        # render, long before Buffer posts it, so half of the.loose.change's booked posts were on no page.
+        for pid, b in (load(os.path.join(cdir, 'backend_queue.json'), {}).get('posts') or {}).items():
+            r = row(pid); r['account'] = r['account'] or b.get('account'); r['campaign'] = r['campaign'] or camp
+            r['due'] = r['due'] or iso(b.get('due')); r['via'] = r['via'] or 'buffer'
+            if not r['status']:
+                r['status'] = 'published' if r['due'] and r['due'] < now else 'scheduled'
+                if r['status'] == 'published': r['posted'] = r['posted'] or r['due']
         for pid, p in (load(os.path.join(cdir, 'posts.json'), {}).get('posts') or {}).items():
             r = row(pid); r['account'] = r['account'] or p.get('account'); r['campaign'] = r['campaign'] or camp
             r['posted'] = r['posted'] or iso(p.get('sent_at')); r['status'] = 'published'

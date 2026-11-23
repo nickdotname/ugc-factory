@@ -2,6 +2,13 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: the.loose.change's schedule. Buffer holds ten posts for a channel; `closequarters` (memes, 6 a day)
+  was topped up first and filled all ten, so `nick_studio` (type videos) read "full" on every run and almost never
+  posted. Each campaign now has a share of its own (`posting.buffer_share`: 6 and 4). The dashboard was missing
+  half of what Buffer held, because queue.json forgets a pushed item at the next render: topup now records the
+  campaign's own posts waiting in Buffer (`campaigns/<c>/backend_queue.json`) and the page shows them, and videos
+  rendered but not yet offered to Buffer show as waiting.
+
 - 2026-11-23: band footage. Notta Problem's dance clip starts where song.json's sections end, so the studio never
   offered it: footage styles (lofi, cutout) now also use stretches inside the footage itself. close__quarters favours
   those clips 3x within a song (`selection.favour_styles`), and a song with unposted footage clips comes up 3x as

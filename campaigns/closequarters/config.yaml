@@ -50,6 +50,7 @@ posting:
   start_hour: 0
   end_hour: 0
   max_buffer_queue: 10
+  buffer_share: 6          # of the ten posts Buffer holds for the channel: the type videos (nick_studio) get the other four
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
   # accounts.

@@ -375,6 +375,54 @@ class TestTopupEndToEnd:
         assert all(e.buffer_post_id for e in entries)
 
 
+@needs_ffmpeg
+class TestSharedChannel:
+    """Two campaigns feeding one Buffer channel (the.loose.change): the one
+    topped up first filled all ten places and the other read "full" on every
+    run, so its videos never went out. Each now has a share of its own."""
+
+    def _share(self, campaign: Path, n: int) -> None:
+        text = (campaign / "config.yaml").read_text(encoding="utf-8")
+        (campaign / "config.yaml").write_text(
+            text.replace("posting:\n", f"posting:\n  buffer_share: {n}\n", 1),
+            encoding="utf-8",
+        )
+
+    def test_a_campaign_stops_at_its_share(self, fanout_campaign: Path) -> None:
+        self._share(fanout_campaign, 1)
+        cli.cmd_render(render_args(), {})
+        assert cli.cmd_topup(topup_args(), {}) == 0
+        queue = load_queue(fanout_campaign / "queue.json")
+        pushed = [p for i in queue.items for p in i.posts if p.status is QueueStatus.PUSHED]
+        assert len(queue.items) > 1 and len(pushed) == 1
+
+    def test_its_own_posts_already_waiting_count(self, fanout_campaign: Path, monkeypatch) -> None:
+        from datetime import datetime, timedelta, timezone
+
+        from src.publishers.base import DryRunPublisher, QueueState
+
+        self._share(fanout_campaign, 1)
+        cli.cmd_render(render_args(), {})
+        cli.cmd_topup(topup_args(), {})
+        mine = next(
+            pid for e in load_history(fanout_campaign / "history.json").entries
+            for pid in e.post_ids.values()
+        )
+        due = datetime.now(timezone.utc) + timedelta(hours=3)
+
+        class Holding(DryRunPublisher):
+            def queue_state(self, channel_id: str) -> QueueState:
+                return QueueState(depth=2, next_due=due, scheduled=((mine, due), ("someone-elses", due)))
+
+        monkeypatch.setattr(cli, "_account_publishers", lambda a, c, e, log: {"BUFFER_API_KEY": Holding(log)})
+        assert cli.cmd_topup(topup_args(), {}) == 0
+        queue = load_queue(fanout_campaign / "queue.json")
+        pushed = [p for i in queue.items for p in i.posts if p.status is QueueStatus.PUSHED]
+        assert len(pushed) == 1, "its share was already in the queue: nothing more is pushed"
+        held = json.loads((fanout_campaign / "backend_queue.json").read_text())["posts"]
+        assert set(held) == {mine}, "only this campaign's own waiting posts are recorded"
+
+
 class TestPreflightEndToEnd:
     def test_preflight_passes_on_a_well_formed_campaign(self, campaign: Path) -> None:
         env = {

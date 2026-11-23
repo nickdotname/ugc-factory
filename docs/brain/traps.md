@@ -49,4 +49,6 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
 - OpenCV `remap` wants float32 maps: numpy float64 maths silently upcasts and crashes it.
 - GitHub concurrency groups keep one running and **one** pending run: dispatching the same workflow three times
   drops the middle one.
+- **Two campaigns on one Buffer channel starve each other**: the cap (`max_buffer_queue`, Buffer's ten) is the
+  channel's, and whichever campaign tops up first fills it. Give each a `posting.buffer_share`.
 - Old CI renders occasionally segfault when four run in parallel; nightly retries a failed render alone.

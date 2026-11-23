@@ -177,6 +177,11 @@ class QueueState:
     depth: int
     #: Earliest scheduled post, or None when nothing is queued.
     next_due: datetime | None = None
+    #: Each post holding a slot, as (backend post id, due time or None). Two
+    #: campaigns can feed one channel; this is what lets each count its own
+    #: share of the queue, and what the dashboard shows as booked. Empty when a
+    #: backend cannot list them.
+    scheduled: tuple[tuple[str, datetime | None], ...] = ()
 
     def gap_hours(self, now: datetime) -> float | None:
         """Hours until the next post, or None when nothing is scheduled.

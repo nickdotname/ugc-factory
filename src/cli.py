@@ -1451,6 +1451,15 @@ def _topup_fanout(
         save_queue(queue_path, queue)
 
     pushed_total = 0
+    # Posts of this campaign's own already waiting at the backend, by account:
+    # history records every post id a push returned.
+    own_post_ids = {
+        pid
+        for entry in load_history(history_path).entries
+        for pid in (entry.buffer_post_id, *entry.post_ids.values())
+        if pid
+    }
+    held: dict[str, list[tuple[str, datetime | None]]] = {}
     for account in targets:
         publisher = publishers[account.api_key_secret]
         channel = (
@@ -1482,13 +1491,21 @@ def _topup_fanout(
 
         state = publisher.queue_state(channel)
         need = depth_needed(state.depth, account.max_buffer_queue)
+        # A channel two campaigns feed: this one stops at its own share of the
+        # queue, so the other is not left reading "full" on every run.
+        share = config.posting.buffer_share
+        own = sum(1 for pid, _ in state.scheduled if pid in own_post_ids)
+        if share is not None:
+            need = min(need, max(0, share - own))
         ready = claimable_for(queue, account.name)
         to_push = ready[:need]
         gap = state.gap_hours(clock.now())
+        held[account.name] = [(pid, at) for pid, at in state.scheduled if pid in own_post_ids]
 
         alog.info(
             "topup_plan",
             buffer_depth=state.depth, cap=account.max_buffer_queue, need=need,
+            own=own, share=share,
             available=len(ready), pushing=len(to_push),
             next_due_in_hours=None if gap is None else round(gap, 1),
         )
@@ -1521,12 +1538,51 @@ def _topup_fanout(
             history_path, clock, notifier, alog, vcs,
         )
 
+    _record_backend_queue(campaign_dir, held, queue, clock, vcs, log)
     _report_quota_count(
         sum(getattr(p, "request_count", 0) for p in publishers.values()),
         notifier, config, log, clock, vcs,
     )
     log.info("topup_complete", pushed=pushed_total, accounts=len(targets))
     return 0
+
+
+def _record_backend_queue(
+    campaign_dir: Path,
+    held: dict[str, list[tuple[str, datetime | None]]],
+    queue: Queue,
+    clock: Clock,
+    vcs: Vcs,
+    log: StructuredLogger,
+) -> None:
+    """Keep what a scheduling backend holds for this campaign, for the dashboard.
+
+    queue.json forgets a pushed item at the next render, hours or days before
+    the backend publishes it, and history.json never knew its time: half of
+    what Buffer held was on no page anyone could look at. This file is the
+    campaign's own posts waiting there, by account, as read at the start of
+    this run plus what this run pushed. Nothing is written for a campaign whose
+    backends cannot list their queue (direct posting keeps its own outbox).
+    """
+    if not any(held.values()):
+        return
+    posts: dict[str, dict[str, str | None]] = {}
+    for name, rows in held.items():
+        for pid, at in rows:
+            posts[pid] = {"account": name, "due": at.isoformat() if at else None}
+    for item in queue.items:                      # this run's pushes, and any still in the queue
+        for post in item.posts:
+            if post.buffer_post_id and post.status is QueueStatus.PUSHED and post.account in held:
+                when = post.scheduled_for or item.scheduled_for
+                if when and when > clock.now():
+                    posts.setdefault(post.buffer_post_id, {"account": post.account, "due": when.isoformat()})
+    path = campaign_dir / "backend_queue.json"
+    body = json.dumps({"posts": dict(sorted(posts.items()))}, indent=1) + "\n"
+    if path.exists() and path.read_text() == body:
+        return
+    path.write_text(body)
+    vcs.commit([path], f"backend queue {campaign_dir.name}")
+    log.info("backend_queue_recorded", posts=len(posts))
 
 
 def _push_to_account(

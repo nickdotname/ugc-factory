@@ -55,6 +55,7 @@ posting:
   start_hour: 11
   end_hour: 23
   max_buffer_queue: 10
+  buffer_share: 4          # of the ten posts Buffer holds for the channel: the memes (closequarters) have six
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
   # accounts.
