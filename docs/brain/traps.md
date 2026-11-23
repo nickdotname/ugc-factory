@@ -52,3 +52,8 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
 - **Two campaigns on one Buffer channel starve each other**: the cap (`max_buffer_queue`, Buffer's ten) is the
   channel's, and whichever campaign tops up first fills it. Give each a `posting.buffer_share`.
 - Old CI renders occasionally segfault when four run in parallel; nightly retries a failed render alone.
+- **Every lyric/cut-out render segfaults in `librosa.util.peak_pick`** (even retried alone): librosa caches its
+  compiled helpers on disk, and renders starting at the same moment wrote that cache together and broke it.
+  nightly.py now builds it once in a single process (`NUMBA_CACHE_DIR` of the run's own) before any render.
+- **A song's stems can be shorter than its master** (four songs stop at 100 s). Anything reading stems past
+  their end gets silence: use `beat.stretch`, which falls back to the master.
