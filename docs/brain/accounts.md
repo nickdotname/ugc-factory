@@ -1,0 +1,40 @@
+# Accounts
+
+Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*/config.yaml` (what posts where).
+
+| account | `accounts.yaml` name | campaign | style(s) / renderer | posts/day | window (NY) |
+|---|---|---|---|---|---|
+| @close__quarters | close_quarters_ig | cq_band | band, lofi, cursor (lyric styles: the band's own footage) | 6 | 9–23 |
+| @dylancantor23 | dylancantor23_ig | cq_producer | producer (stems view) | 6 | 9–23 |
+| @the.loose.change (was nickdotname) | nickdotname_ig (Buffer) | nick_studio, closequarters | type (kinetic lyrics) + memes | 3 + 6 | 11–23 / all day |
+| @psychedelic.station | psychedelic_station_ig | psy_station | psy, collage (+ carousels, fact reels) | 8 | 9–23 |
+| @nostalgia.hub.vhs | nostalgia_ig | nostalgia | liminal (+ carousels, fact reels) | 4 | 9–23 |
+| @math.explainers | math_ig | math_time | math (integrals, Fourier, zeta, fold, sci8) | 3 | 10–23 |
+| @glitch.archive.exe | glitch_ig | glitch_archive | glitch | 3 | 12–23 |
+| @ascii.terminal.dreams | ascii_ig | ascii_art | ascii | 3 | 11–23 |
+| @physics.bounce.lab | physics_ig | physics_sims | physics (needs the song's Ableton hits) | 3 | 13–23 |
+| @earth.data.live | earth_ig | earth_data | earth | 3 | 13–23 |
+| @retro.vibes.arcade | retro_ig | retro_arcade | retro (Kaggle-made PS2 clips) | 3 | 12–23 |
+| @rocket.league.lit | rocket_ig | rocket_league | rocket (our own clips) | 3 | 12–23 |
+| @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 3 | 11–23 |
+| @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (memes, NYC facts) | 3 | 10–23 |
+
+`clubs` is the Clubs app's own campaign: blocked from every Close Quarters account. `knick_creates_*` are
+Nick's older Buffer channels (not Close Quarters).
+
+## How an Instagram account is connected
+
+Every direct-posting account is an Instagram **professional (Creator)** account linked to a **Facebook Page**
+that Dylan's Facebook manages. The app **"Close Quarters Clip Engine"** has been granted those Pages and
+Instagram accounts (opted in to *all current and future* Pages and Instagram accounts since 2026-11-23, so new
+ones need no re-grant). One user token, `IG_TOKEN` (a long-lived token from the Graph API Explorer, extended in
+the Access Token Debugger), posts for all of them. `channel_id` in `accounts.yaml` is the Instagram user id
+(`me/accounts?fields=name,instagram_business_account{username}` in the Explorer lists them).
+
+Nick's @nyc.daily.aesthetic lives in Nick's own Meta account; its Page sits under Dylan's Facebook so it rides the
+same token. Full steps: [[add-account]].
+
+## Profiles
+
+Each campaign's `brand/profile.jpg` is the account picture; the dashboard shows each account's live picture
+(fetched daily with business_discovery). Bios link to the band.
