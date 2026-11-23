@@ -37,10 +37,10 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 **palette**
 - #78ffaa: weight 1.08 — 2 posts, 67 views, 6.0s watched, 0 shares+saves per 1,000 views
 - #ffffff: weight 1.01 — 8 posts, 28 views, 3.7s watched, 3 shares+saves per 1,000 views
-- #ffbe6e: weight 0.92 — 4 posts, 46 views, 3.2s watched, 0 shares+saves per 1,000 views
+- #ffbe6e: weight 0.93 — 4 posts, 46 views, 3.2s watched, 0 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.08 — 6 posts, 71 views, 4.4s watched, 3 shares+saves per 1,000 views
+- under 20s: weight 1.07 — 6 posts, 71 views, 4.4s watched, 3 shares+saves per 1,000 views
 - 20-35s: weight 0.94 — 8 posts, 23 views, 3.7s watched, 0 shares+saves per 1,000 views
 
 **hour posted**
@@ -49,7 +49,7 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 - 21:00: weight 1.02 — 2 posts, 59 views, 5.3s watched, 0 shares+saves per 1,000 views
 - 17:00: weight 1.02 — 1 post, 118 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 10:00: weight 0.99 — 2 posts, 78 views, 4.1s watched, 0 shares+saves per 1,000 views
-- 14:00: weight 0.97 — 2 posts, 11 views, 2.9s watched, 0 shares+saves per 1,000 views
+- 14:00: weight 0.98 — 2 posts, 11 views, 2.9s watched, 0 shares+saves per 1,000 views
 - 16:00: weight 0.94 — 2 posts, 8 views, 2.5s watched, 0 shares+saves per 1,000 views
 - 19:00: weight 0.93 — 2 posts, 15 views, 2.1s watched, 0 shares+saves per 1,000 views
 
@@ -59,8 +59,8 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 - Hair of the Dog – Close Quarters: weight 1.00 — 2 posts, 30 views, 3.7s watched, 0 shares+saves per 1,000 views
 - i produced this. here's every layer of it.: weight 0.99 — 2 posts, 62 views, 3.8s watched, 0 shares+saves per 1,000 views
 - tag a producer who needs to hear this: weight 0.97 — 1 post, 24 views, 2.1s watched, 0 shares+saves per 1,000 views
+- Full Ride – Close Quarters: weight 0.96 — 1 post, 6 views, 2.2s watched, 0 shares+saves per 1,000 views
 - Talk – Close Quarters: weight 0.95 — 2 posts, 45 views, 3.8s watched, 0 shares+saves per 1,000 views
-- Full Ride – Close Quarters: weight 0.95 — 1 post, 6 views, 2.2s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
@@ -76,12 +76,12 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **section**
 - fixation/s03-s04: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- fixation/s06: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - prologue/s03-s04: weight 1.04 — 1 post, 109 views, 3.0s watched, 28 shares+saves per 1,000 views
+- fixation/s06: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - wont_be_the_same_again/s08: weight 1.02 — 1 post, 108 views, 2.4s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s07: weight 1.01 — 1 post, 90 views, 2.5s watched, 0 shares+saves per 1,000 views
 - prologue/s01-s02: weight 1.00 — 1 post, 104 views, 2.9s watched, 10 shares+saves per 1,000 views
-- wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
+- wont_be_the_same_again/s05-s06: weight 0.99 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
@@ -99,7 +99,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **hour posted**
 - 22:00: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- 21:00: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
+- 21:00: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - 13:00: weight 1.01 — 2 posts, 92 views, 2.6s watched, 0 shares+saves per 1,000 views
 - 19:00: weight 1.00 — 2 posts, 89 views, 2.7s watched, 17 shares+saves per 1,000 views
 - 17:00: weight 1.00 — 2 posts, 86 views, 2.4s watched, 0 shares+saves per 1,000 views
@@ -130,12 +130,12 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **section**
 - fixation/s03-s04: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- fixation/s06: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - prologue/s03-s04: weight 1.04 — 1 post, 109 views, 3.0s watched, 28 shares+saves per 1,000 views
+- fixation/s06: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - wont_be_the_same_again/s08: weight 1.02 — 1 post, 108 views, 2.4s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s07: weight 1.01 — 1 post, 90 views, 2.5s watched, 0 shares+saves per 1,000 views
 - prologue/s01-s02: weight 1.00 — 1 post, 104 views, 2.9s watched, 10 shares+saves per 1,000 views
-- wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
+- wont_be_the_same_again/s05-s06: weight 0.99 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
@@ -153,7 +153,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **hour posted**
 - 22:00: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- 21:00: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
+- 21:00: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - 13:00: weight 1.01 — 2 posts, 92 views, 2.6s watched, 0 shares+saves per 1,000 views
 - 19:00: weight 1.00 — 2 posts, 89 views, 2.7s watched, 17 shares+saves per 1,000 views
 - 17:00: weight 1.00 — 2 posts, 86 views, 2.4s watched, 0 shares+saves per 1,000 views
@@ -184,12 +184,12 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **section**
 - fixation/s03-s04: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- fixation/s06: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - prologue/s03-s04: weight 1.04 — 1 post, 109 views, 3.0s watched, 28 shares+saves per 1,000 views
+- fixation/s06: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - wont_be_the_same_again/s08: weight 1.02 — 1 post, 108 views, 2.4s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s07: weight 1.01 — 1 post, 90 views, 2.5s watched, 0 shares+saves per 1,000 views
 - prologue/s01-s02: weight 1.00 — 1 post, 104 views, 2.9s watched, 10 shares+saves per 1,000 views
-- wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
+- wont_be_the_same_again/s05-s06: weight 0.99 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
@@ -207,7 +207,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **hour posted**
 - 22:00: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- 21:00: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
+- 21:00: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - 13:00: weight 1.01 — 2 posts, 92 views, 2.6s watched, 0 shares+saves per 1,000 views
 - 19:00: weight 1.00 — 2 posts, 89 views, 2.7s watched, 17 shares+saves per 1,000 views
 - 17:00: weight 1.00 — 2 posts, 86 views, 2.4s watched, 0 shares+saves per 1,000 views
@@ -238,12 +238,12 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **section**
 - fixation/s03-s04: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- fixation/s06: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - prologue/s03-s04: weight 1.04 — 1 post, 109 views, 3.0s watched, 28 shares+saves per 1,000 views
+- fixation/s06: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - wont_be_the_same_again/s08: weight 1.02 — 1 post, 108 views, 2.4s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s07: weight 1.01 — 1 post, 90 views, 2.5s watched, 0 shares+saves per 1,000 views
 - prologue/s01-s02: weight 1.00 — 1 post, 104 views, 2.9s watched, 10 shares+saves per 1,000 views
-- wont_be_the_same_again/s05-s06: weight 0.98 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
+- wont_be_the_same_again/s05-s06: weight 0.99 — 1 post, 76 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s07-s08: weight 0.96 — 1 post, 70 views, 2.3s watched, 0 shares+saves per 1,000 views
 - hair_of_the_dog/s01-s02: weight 0.96 — 1 post, 60 views, 2.8s watched, 0 shares+saves per 1,000 views
 - prologue/s05-s06: weight 0.94 — 1 post, 39 views, 2.0s watched, 0 shares+saves per 1,000 views
@@ -261,7 +261,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **hour posted**
 - 22:00: weight 1.06 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
-- 21:00: weight 1.05 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
+- 21:00: weight 1.04 — 1 post, 126 views, 3.8s watched, 8 shares+saves per 1,000 views
 - 13:00: weight 1.01 — 2 posts, 92 views, 2.6s watched, 0 shares+saves per 1,000 views
 - 19:00: weight 1.00 — 2 posts, 89 views, 2.7s watched, 17 shares+saves per 1,000 views
 - 17:00: weight 1.00 — 2 posts, 86 views, 2.4s watched, 0 shares+saves per 1,000 views
@@ -469,6 +469,10 @@ No posts with numbers yet.
 No posts with numbers yet.
 
 ## nyc_daily
+
+No posts with numbers yet.
+
+## tiny_code
 
 No posts with numbers yet.
 

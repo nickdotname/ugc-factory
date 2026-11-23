@@ -1,0 +1,220 @@
+{
+ "clips": {},
+ "menu": {
+  "tinycode": {
+   "program": [
+    "attractor",
+    "galaxy",
+    "interference",
+    "knot",
+    "lissajous",
+    "metaballs",
+    "orbits",
+    "plasma",
+    "ridges",
+    "rose",
+    "spirograph",
+    "sunflower",
+    "tunnel"
+   ],
+   "palette": [
+    "acid",
+    "ice",
+    "neon",
+    "sunset"
+   ],
+   "glow": [
+    "0.6",
+    "1.0",
+    "1.5"
+   ],
+   "trail": [
+    "0.0",
+    "0.55",
+    "0.8"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-23",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s02_tinycode_410020.mp4",
+   "song": "evil-close-quarters",
+   "section": "s02",
+   "style": "tinycode",
+   "seed": 410020,
+   "window": [
+    40.73,
+    52.58
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "attractor",
+    "palette": "acid",
+    "glow": "0.6",
+    "trail": "0.0",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.6,
+    "bass": 0.74,
+    "other": 0.72
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01_tinycode_868993.mp4",
+   "song": "silver-and-gold",
+   "section": "s01",
+   "style": "tinycode",
+   "seed": 868993,
+   "window": [
+    37.09,
+    50.12
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "tunnel",
+    "palette": "neon",
+    "glow": "1.0",
+    "trail": "0.55",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.52,
+    "drums": 0.63,
+    "bass": 0.47,
+    "other": 0.77
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s03_tinycode_70014.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "tinycode",
+   "seed": 70014,
+   "window": [
+    69.69,
+    80.6
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "ridges",
+    "palette": "neon",
+    "glow": "0.6",
+    "trail": "0.55",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.51,
+    "drums": 0.58,
+    "bass": 0.8,
+    "other": 0.4
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_s02_tinycode_885816.mp4",
+   "song": "full-ride",
+   "section": "s02",
+   "style": "tinycode",
+   "seed": 885816,
+   "window": [
+    28.72,
+    51.91
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "tunnel",
+    "palette": "acid",
+    "glow": "0.6",
+    "trail": "0.8",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.67,
+    "bass": 0.66,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s01_tinycode_360096.mp4",
+   "song": "subway-maintenance",
+   "section": "s01",
+   "style": "tinycode",
+   "seed": 360096,
+   "window": [
+    52.86,
+    64.93
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "spirograph",
+    "palette": "acid",
+    "glow": "0.6",
+    "trail": "0.55",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.89,
+    "drums": 0.51,
+    "bass": 0.27,
+    "other": 0.73
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s02_tinycode_311254.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "tinycode",
+   "seed": 311254,
+   "window": [
+    30.71,
+    47.63
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "tunnel",
+    "palette": "acid",
+    "glow": "0.6",
+    "trail": "0.55",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.68,
+    "bass": 0.33,
+    "other": 0.4
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
