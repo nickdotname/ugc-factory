@@ -38,9 +38,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-650fa4ab-27b2-4c49-88cf-8102b3b1dab2",
           "last_error": null,
           "scheduled_for": "2026-11-25T10:45:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "Suspended – Close Quarters\nnew york, daily. EDUCATION is out now\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
