@@ -5,6 +5,12 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-23: from the account review. psychedelic.station's `star` motif drew a six-pointed star when the symmetry
   was 3, 6 or 12; it now has eight points in those cases. "Rate this 1-10" lines removed from the hook menus and two
   caption banks (a comment-ask is bait; open questions and the hot takes stay).
+- 2026-11-23: two things stopped Notta Problem's footage videos after #107. (1) Its dance clip sits at 99–150 s
+  and the song's stems stop at 100 s (as do Evil, Silver and Gold, Subway Maintenance: only their first half was
+  prepared), so every window read as silent and was skipped; now footage past the stems is accepted and
+  `beat.stretch` lets the master stand in for a stem that does not reach. (2) A studio run that began with four
+  lyric renders broke librosa's compiled cache (segfault in `peak_pick` for every render after); nightly now
+  builds that cache once, alone, before rendering. See [[traps]].
 
 - 2026-11-23: band footage. Notta Problem's dance clip starts where song.json's sections end, so the studio never
   offered it: footage styles (lofi, cutout) now also use stretches inside the footage itself. close__quarters favours
