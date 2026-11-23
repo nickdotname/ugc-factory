@@ -59,6 +59,10 @@ targets:
     style: physics
     per_night: 4
     join: 30
+  - campaign: physics_sims  # wind-tunnel fluid sims (studio/fluid_video.py): the song title, a guitar or a wing in real Navier-Stokes flow
+    style: fluid
+    per_night: 2
+    join: 30
   - campaign: ascii_art     # the ASCII account: 3D scenes drawn in letters, with their code (scene and look are knobs)
     style: ascii
     per_night: 3
