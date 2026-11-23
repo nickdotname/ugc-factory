@@ -33,6 +33,8 @@ main{padding:12px 14px calc(40px + env(safe-area-inset-bottom));max-width:980px;
 .thumb .pfp{position:absolute;left:4px;bottom:4px;width:22px;height:22px;border:2px solid var(--panel);z-index:1}
 .st{font-size:11px;font-weight:700;border-radius:6px;padding:2px 6px;text-transform:uppercase;letter-spacing:.5px}
 .st.queued,.st.scheduled,.st.claimed{background:#2a2540;color:var(--d)}.st.published{background:#1d3324;color:var(--ok)}
+.st.uploading{background:#173040;color:var(--d);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
 .st.failed{background:#3d1d24;color:var(--bad)}.st.cancelled{background:#2b2830;color:var(--dim)}.st.late{background:#3a2c14;color:var(--warn)}
 .song{margin-top:4px;font-weight:600}.what{color:var(--muted);font-size:13px}
 .cap{margin-top:6px;color:var(--muted);font-size:13px;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -95,8 +97,8 @@ function chips() {
 const mine = p => S.acc === 'all' || p.account === S.acc;
 const upcoming = p => ['queued', 'scheduled', 'claimed', 'pending', 'held'].includes(p.status);
 function card(p, showNums) {
-  const late = upcoming(p) && p.due && new Date(p.due) < Date.now() - 20 * 60e3;
-  const st = late ? 'late' : p.status;
+  const since = upcoming(p) && p.due ? Date.now() - new Date(p.due) : -1;   // ms past its slot
+  const st = since > 20 * 60e3 ? 'late' : since >= 0 ? 'uploading' : p.status;  // the posting job picks it up within minutes
   const m = p.m || {}; const rate = m.views ? ((m.shares || 0) + (m.saves || 0)) / Math.max(m.reach || m.views, 1) : null;
   const what = [p.what, p.style && p.style !== p.what ? p.style : null].filter(Boolean).join(' · ');
   return `<div class="card">
