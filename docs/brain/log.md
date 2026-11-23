@@ -2,6 +2,13 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: fresher posts. Within a night's batch an account plays each song once before any repeats, and
+  songs it posted in the last day are picked a quarter as often. A caption's opening line isn't reused on the
+  same account for 7 days while unused lines remain (`LINE_COOLDOWN_DAYS` in `src/selector.py`). Bait lines
+  ("tag a...", "comment it", "drop a 🎧") removed from the banks and hooks; ~70 new opening lines added for
+  psy_station, cq_band, cq_producer and nostalgia. Dashboard: a rendered video whose minute went to another
+  post shows "waiting for a slot", not OVERDUE.
+
 - 2026-11-23: `studio/replies.py` answers "what song is this?" under our Instagram posts with the song and
   @close__quarters (once a quarter hour from `publish.yml`; 3 a run, 6 an hour, 30 a day per account; nothing
   else is answered). Needs `instagram_manage_comments` on IG_TOKEN. Loose Change (Buffer) is not covered.

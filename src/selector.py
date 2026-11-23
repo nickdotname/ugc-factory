@@ -478,6 +478,19 @@ class Selector:
         # the others fill the batch. One exhausted song used to fail the whole
         # account's render, so an account with plenty of fresh videos for other
         # songs posted nothing at all.
+        # Songs spread across the day: a song already in this batch sits out until
+        # every other live song has had as many slots, and a song the account
+        # posted in the last day is drawn at a quarter of its weight, so the
+        # same song does not open and close an account's day.
+        in_batch = {name: 0 for name in names}
+        day_ago = now - timedelta(days=1)
+        yesterday = {
+            name for name in names
+            if any(e.timestamp > day_ago for e in pools[name][1].entries)
+        }
+        account: list[HistoryEntry] = [
+            e for name in names for e in pools[name][1].entries
+        ]
         exhausted: set[str] = set()
         while len(picks) < count:
             live = tuple(0.0 if n in exhausted else wi for n, wi in zip(names, w))
@@ -490,7 +503,13 @@ class Selector:
             fresh = tuple(
                 wi if used[n] < visuals[n] else 0.0 for n, wi in zip(names, live)
             )
-            name = self._rng.weighted_choice(names, fresh if any(fresh) else live)
+            pool_w = fresh if any(fresh) else live
+            least = min(in_batch[n] for n, wi in zip(names, pool_w) if wi > 0)
+            spread = tuple(
+                (wi * (0.25 if n in yesterday else 1.0)) if wi > 0 and in_batch[n] == least else 0.0
+                for n, wi in zip(names, pool_w)
+            )
+            name = self._rng.weighted_choice(names, spread)
             library, history = pools[name]
             try:
                 outcome = self.select_one(
@@ -498,12 +517,14 @@ class Selector:
                     exclude=batch_hashes[name], recent=recent[name],
                     bodies_max=bodies_max,
                     performance=(performance or {}).get(name),
+                    account_recent=[*account, *(e for r in recent.values() for e in r)],
                 )
             except SelectionError as exc:
                 exhausted.add(name)
                 self._log.warning("creative_exhausted", creative=name, reason=str(exc)[:200])
                 continue
             used[name] += 1
+            in_batch[name] += 1
             selection = outcome.selection
             digest = tuple_hash(selection, self._config.dedupe_on)
             batch_hashes[name].add(digest)
@@ -533,8 +554,14 @@ class Selector:
         recent: Sequence[HistoryEntry] = (),
         bodies_max: int | None = None,
         performance: Mapping[str, Mapping[str, float]] | None = None,
+        account_recent: Sequence[HistoryEntry] = (),
     ) -> SelectionOutcome:
         """Pick one combination, relaxing rules in SPEC §10's documented order.
+
+        ``account_recent`` is what the account posted lately under *any*
+        creative, plus this batch so far. Its captions' opening lines steer the
+        caption pick: every song's bank holds the same lines, so per-song
+        cooldowns alone let one line open three posts on the same day.
 
         ``recent`` carries picks already made in the current batch. They feed
         the LRU *weighting* only, never the cooldown filter or tuple dedupe.
@@ -563,6 +590,7 @@ class Selector:
         caption_last = _last_used(weighted, "caption")
         music_last = _last_used(weighted, "music")
         body_last = _last_used(weighted, "body")
+        line_last = _line_last(account_recent)
 
         # How many body clips this particular video gets. Chosen once, before
         # the relaxation ladder, so a pick that needs relaxing keeps the shape
@@ -588,6 +616,7 @@ class Selector:
                 music_last=music_last,
                 body_last=body_last,
                 performance=performance,
+                line_last=line_last,
             )
             if candidate is None:
                 continue
@@ -627,6 +656,7 @@ class Selector:
         music_last: Mapping[str, datetime],
         body_last: Mapping[str, datetime],
         performance: Mapping[str, Mapping[str, float]] | None = None,
+        line_last: Mapping[str, datetime] | None = None,
     ) -> Selection | None:
         """Attempt a pick under one relaxation level, or return None."""
         # Each level switches off exactly one more constraint than the previous.
@@ -651,9 +681,20 @@ class Selector:
             ]
         if not hooks or not captions:
             return None
+        # An opening line the account used in the last LINE_COOLDOWN_DAYS (under
+        # any song) sits out while the bank still has one it has not; among what
+        # is left, the account's least recently used lines are favoured.
+        if line_last:
+            line_cutoff = now - timedelta(days=LINE_COOLDOWN_DAYS)
+            floor = datetime.min.replace(tzinfo=now.tzinfo)
+            unused = [c for c in captions if line_last.get(opening_line(c), floor) <= line_cutoff]
+            captions = unused or captions
 
         hook_w = _lru_weights(hooks, hook_last, now)
         caption_w = _lru_weights(captions, caption_last, now)
+        if line_last:
+            line_w = _lru_weights([opening_line(c) for c in captions], line_last, now)
+            caption_w = [a * b for a, b in zip(caption_w, line_w)]
         body_w = _lru_weights(library.bodies, body_last, now)
         music_w = _lru_weights(library.music, music_last, now) if library.music else []
 
@@ -730,6 +771,28 @@ class Selector:
             remaining_w.pop(index)
             chosen.append(pick)
         return tuple(chosen)
+
+
+#: How long an opening line stays out of an account's captions once used there
+#: (while its bank still has a line the account has not used in that time).
+LINE_COOLDOWN_DAYS = 7
+
+
+def opening_line(caption: str) -> str:
+    """A caption's first line, normalised: the part that is the same across songs."""
+    return caption.strip().split("\n", 1)[0].strip().lower()
+
+
+def _line_last(entries: Sequence[HistoryEntry]) -> dict[str, datetime]:
+    """When each opening line was last used, over every creative of the account."""
+    out: dict[str, datetime] = {}
+    for e in entries:
+        if not e.caption:
+            continue
+        line = opening_line(e.caption)
+        if line not in out or e.timestamp > out[line]:
+            out[line] = e.timestamp
+    return out
 
 
 def pick_by_recency(
