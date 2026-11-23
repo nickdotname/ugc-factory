@@ -950,9 +950,8 @@ def _render(
         # Counts every post this campaign has ever made, so the rotation of
         # asks carries on across nights instead of restarting at the first.
         turn = len(full_history.entries) + index
-        timed = pinned is not None and pinned.at is not None
         slot = (
-            timed_slots[pinned.id] if timed
+            timed_slots[pinned.id] if pinned is not None and pinned.at is not None
             else (freed_slots.pop(0) if freed_slots else next(free))
         )
         record = res.record_for(selection.caption) if pinned is None else None
