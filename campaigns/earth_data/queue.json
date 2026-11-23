@@ -144,9 +144,9 @@
         {
           "account": "earth_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-865e0eb2-e338-496b-9c0c-71a4e7ca1655",
           "last_error": null,
           "scheduled_for": "2026-11-24T13:35:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "this is what right now looks like\n🎧 Suspended – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
