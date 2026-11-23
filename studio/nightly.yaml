@@ -26,6 +26,10 @@ targets:
     style: cursor
     per_night: 2
     join: 50
+  - campaign: cq_band       # close__quarters: the band's dance footage cut out full screen and thrown around on the beat (studio/cutout_video.py)
+    style: cutout
+    per_night: 3
+    join: 40
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
     per_night: 12
