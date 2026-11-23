@@ -2,6 +2,10 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: @tiny.code.loops live (Page "Tiny Code & Generative Art", campaign tiny_code, style tinycode, 4 a
+  night). ASCII Cinema & Film and Digital Petri Dish wait on new Facebook Pages: Facebook refused more Pages from
+  Dylan's profile that day ("created too many Pages recently"). The pixel bridge and court are off @ascii.terminal.dreams.
+
 - 2026-11-23: fresher posts. Within a night's batch an account plays each song once before any repeats, and
   songs it posted in the last day are picked a quarter as often. A caption's opening line isn't reused on the
   same account for 7 days while unused lines remain (`LINE_COOLDOWN_DAYS` in `src/selector.py`). Bait lines

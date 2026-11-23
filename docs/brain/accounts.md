@@ -18,6 +18,7 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @rocket.league.lit | rocket_ig | rocket_league | rocket (our own clips) | 3 | 12–23 |
 | @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 3 | 11–23 |
 | @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (memes, NYC facts) | 3 | 10–23 |
+| @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 3 | 10–23 |
 
 `clubs` is the Clubs app's own campaign: blocked from every Close Quarters account. `knick_creates_*` are
 Nick's older Buffer channels (not Close Quarters).

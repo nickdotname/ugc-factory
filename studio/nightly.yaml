@@ -87,3 +87,7 @@ targets:
     style: nyc
     per_night: 4
     join: 30
+  - campaign: tiny_code     # tiny.code.loops: a few lines of numpy shown in an editor, and what they draw (studio/tinycode_video.py)
+    style: tinycode
+    per_night: 4
+    join: 30
