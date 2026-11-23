@@ -168,6 +168,134 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s02_glitch_691018.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "glitch",
+   "seed": 691018,
+   "window": [
+    29.17,
+    47.63
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "nature",
+    "main": "mosh",
+    "accent": "rgb",
+    "tone": "xray",
+    "pace": "2",
+    "label": "rec",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.7,
+    "bass": 0.33,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s04_glitch_89687.mp4",
+   "song": "talk",
+   "section": "s04",
+   "style": "glitch",
+   "seed": 89687,
+   "window": [
+    77.99,
+    89.79
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "space",
+    "main": "sort",
+    "accent": "none",
+    "tone": "thermal",
+    "pace": "1",
+    "label": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.33,
+    "drums": 0.82,
+    "bass": 0.68,
+    "other": 0.75
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_glitch_511971.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "glitch",
+   "seed": 511971,
+   "window": [
+    26.09,
+    42.99
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "mixed",
+    "main": "slit",
+    "accent": "blocks",
+    "tone": "xray",
+    "pace": "2",
+    "label": "none",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.9,
+    "bass": 0.92,
+    "other": 0.17
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s05_glitch_787267.mp4",
+   "song": "prologue",
+   "section": "s05",
+   "style": "glitch",
+   "seed": 787267,
+   "window": [
+    104.93,
+    111.48
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "city",
+    "main": "track",
+    "accent": "rgb",
+    "tone": "thermal",
+    "pace": "2",
+    "label": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.6,
+    "drums": 0.77,
+    "bass": 0.75,
+    "other": 0.28
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

@@ -482,6 +482,264 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s05_liminal_129100.mp4",
+   "song": "prologue",
+   "section": "s05",
+   "style": "liminal",
+   "seed": 129100,
+   "window": [
+    110.53,
+    125.8
+   ],
+   "plan": {
+    "place": "mall",
+    "laps": 2,
+    "year": 1995,
+    "pace": "walk",
+    "tint": "green",
+    "tape": "chewed",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "hook": "have you seen this place?",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "mall",
+    "pace": "walk",
+    "tint": "green",
+    "tape": "chewed",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.77,
+    "bass": 0.58,
+    "other": 0.19
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s05_liminal_626618.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "liminal",
+   "seed": 626618,
+   "window": [
+    102.3,
+    117.04
+   ],
+   "plan": {
+    "place": "pool",
+    "laps": 5,
+    "year": 1999,
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "chewed",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "3am. the music is still on",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "pool",
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "chewed",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.85,
+    "bass": 0.77,
+    "other": 0.53
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06-s07_liminal_819473.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06-s07",
+   "style": "liminal",
+   "seed": 819473,
+   "window": [
+    149.34,
+    181.99
+   ],
+   "plan": {
+    "place": "pool",
+    "laps": 11,
+    "year": 2001,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "pool",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.68,
+    "drums": 0.67,
+    "bass": 0.34,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01_liminal_639269.mp4",
+   "song": "silver-and-gold",
+   "section": "s01",
+   "style": "liminal",
+   "seed": 639269,
+   "window": [
+    42.95,
+    49.46
+   ],
+   "plan": {
+    "place": "parking",
+    "laps": 1,
+    "year": 1996,
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "none",
+    "stamp": "none",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "parking",
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "none",
+    "stamp": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.46,
+    "drums": 0.65,
+    "bass": 0.47,
+    "other": 0.78
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s02-s03_liminal_760230.mp4",
+   "song": "evil-close-quarters",
+   "section": "s02-s03",
+   "style": "liminal",
+   "seed": 760230,
+   "window": [
+    45.84,
+    54.73
+   ],
+   "plan": {
+    "place": "pool",
+    "laps": 2,
+    "year": 1998,
+    "pace": "slow",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "pool",
+    "pace": "slow",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.57,
+    "bass": 0.77,
+    "other": 0.74
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s02_liminal_616967.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 616967,
+   "window": [
+    65.23,
+    80.66
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 3,
+    "year": 2002,
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "backrooms",
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "date",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.69,
+    "bass": 0.58,
+    "other": 0.45
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
   }
  ],
  "menu": {

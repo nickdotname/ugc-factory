@@ -7,7 +7,8 @@
     "fourier",
     "derivative",
     "zeta",
-    "fold"
+    "fold",
+    "sci8"
    ],
    "theme": [
     "chalk",
@@ -375,6 +376,138 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s03_math_50238.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "math",
+   "seed": 50238,
+   "window": [
+    69.4,
+    85.95
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "derivative",
+    "theme": "mono",
+    "font": "inter",
+    "grid": "grid",
+    "shake": "1.3",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.59,
+    "drums": 0.62,
+    "bass": 0.71,
+    "other": 0.35
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s02_math_883818.mp4",
+   "song": "talk",
+   "section": "s02",
+   "style": "math",
+   "seed": 883818,
+   "window": [
+    45.76,
+    68.23
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "zeta",
+    "theme": "synth",
+    "font": "inter",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.87,
+    "bass": 0.77,
+    "other": 0.39
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s02-s03_math_148522.mp4",
+   "song": "evil-close-quarters",
+   "section": "s02-s03",
+   "style": "math",
+   "seed": 148522,
+   "window": [
+    33.81,
+    68.74
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "zeta",
+    "theme": "synth",
+    "font": "inter",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.62,
+    "bass": 0.73,
+    "other": 0.71
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "notta_problem",
+   "file": "notta-problem_s02_math_354171.mp4",
+   "song": "notta-problem",
+   "section": "s02",
+   "style": "math",
+   "seed": 354171,
+   "window": [
+    48.55,
+    66.27
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "integral",
+    "theme": "mono",
+    "font": "montserrat",
+    "grid": "dots",
+    "shake": "0.6",
+    "glow": "0.6",
+    "chip": "tag",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.82,
+    "bass": 0.26,
+    "other": 0.34
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

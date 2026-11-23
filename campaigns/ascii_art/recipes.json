@@ -355,6 +355,97 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s07_ascii_817195.mp4",
+   "song": "prologue",
+   "section": "s07",
+   "style": "ascii",
+   "seed": 817195,
+   "window": [
+    149.87,
+    158.6
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "daisies",
+    "ramp": "dense",
+    "palette": "terminal",
+    "layout": "code",
+    "sparks": "1.0",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.64,
+    "bass": 0.6,
+    "other": 0.25
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s06_ascii_221132.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s06",
+   "style": "ascii",
+   "seed": 221132,
+   "window": [
+    157.93,
+    164.79
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "bridge",
+    "pixel_bg": "plum",
+    "pixel_cuts": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.8,
+    "bass": 0.52,
+    "other": 0.28
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_ascii_836158.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "ascii",
+   "seed": 836158,
+   "window": [
+    78.54,
+    84.58
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "aurora",
+    "ramp": "blocks",
+    "palette": "scene",
+    "layout": "code",
+    "sparks": "1.0",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.93,
+    "drums": 0.76,
+    "bass": 0.32,
+    "other": 0.52
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

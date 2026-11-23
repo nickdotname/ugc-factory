@@ -11462,6 +11462,1637 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "notta_problem",
+   "file": "notta-problem_s01-s02_producer_693396.mp4",
+   "song": "notta-problem",
+   "section": "s01-s02",
+   "style": "producer",
+   "seed": 693396,
+   "window": [
+    50.66,
+    64.41
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     41,
+     80,
+     59
+    ],
+    "pal": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "segs": [
+     [
+      48.9,
+      [
+       null,
+       110
+      ],
+      0,
+      [
+       "invert"
+      ]
+     ],
+     [
+      50.72,
+      [
+       3,
+       110
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      52.7,
+      [
+       1,
+       110
+      ],
+      2,
+      [
+       "stamp",
+       "invert"
+      ]
+     ],
+     [
+      55.0,
+      [
+       0,
+       140
+      ],
+      3,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      56.92,
+      [
+       null,
+       140
+      ],
+      4,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      59.15,
+      [
+       3,
+       140
+      ],
+      5,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      61.8,
+      [
+       2,
+       110
+      ],
+      6,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      63.0,
+      [
+       null,
+       110
+      ],
+      7,
+      [
+       "stamp",
+       "track"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.03,
+    "scan": true,
+    "chroma": 0,
+    "layout": "mixer",
+    "caption": "inter",
+    "pics": {},
+    "hook": "show this to someone who makes beats",
+    "hook_angle": "share",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "2",
+    "pictures": "0.0",
+    "wall": "stars",
+    "punch": "0.03",
+    "scan": "true",
+    "chroma": "0",
+    "layout": "mixer",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.91,
+    "bass": 0.18,
+    "other": 0.31
+   },
+   "lyrics_proven": true,
+   "clip": "hook_07.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_producer_307447.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "producer",
+   "seed": 307447,
+   "window": [
+    42.02,
+    65.37
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     41,
+     80,
+     59
+    ],
+    "pal": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "segs": [
+     [
+      42.37,
+      [
+       0,
+       110
+      ],
+      0,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      44.73,
+      [
+       null,
+       110
+      ],
+      1,
+      [
+       "invert"
+      ]
+     ],
+     [
+      46.41,
+      [
+       0,
+       110
+      ],
+      2,
+      [
+       "track"
+      ]
+     ],
+     [
+      48.35,
+      [
+       2,
+       84
+      ],
+      3,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      51.37,
+      [
+       0,
+       140
+      ],
+      4,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      51.61,
+      [
+       3,
+       140
+      ],
+      5,
+      [
+       "track"
+      ]
+     ],
+     [
+      53.33,
+      [
+       0,
+       84
+      ],
+      6,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      56.07,
+      [
+       1,
+       110
+      ],
+      7,
+      [
+       "track"
+      ]
+     ],
+     [
+      58.45,
+      [
+       3,
+       110
+      ],
+      8,
+      [
+       "invert"
+      ]
+     ],
+     [
+      60.15,
+      [
+       0,
+       110
+      ],
+      9,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      62.05,
+      [
+       null,
+       140
+      ],
+      10,
+      [
+       "invert"
+      ]
+     ],
+     [
+      65.07,
+      [
+       0,
+       84
+      ],
+      11,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      65.29,
+      [
+       null,
+       84
+      ],
+      12,
+      [
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.03,
+    "scan": false,
+    "chroma": 2,
+    "layout": "lanes",
+    "caption": "inter",
+    "pics": {},
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "2",
+    "pictures": "0.35",
+    "wall": "bars",
+    "punch": "0.03",
+    "scan": "false",
+    "chroma": "2",
+    "layout": "lanes",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.4,
+    "bass": 0.83,
+    "other": 0.64
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_s03_producer_582205.mp4",
+   "song": "fixation",
+   "section": "s03",
+   "style": "producer",
+   "seed": 582205,
+   "window": [
+    101.9,
+    114.77
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     77,
+     64,
+     43
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      100.53,
+      [
+       3,
+       84
+      ],
+      0,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      102.25,
+      [
+       2,
+       140
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      103.87,
+      [
+       3,
+       110
+      ],
+      2,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      105.11,
+      [
+       0,
+       84
+      ],
+      3,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      107.11,
+      [
+       2,
+       140
+      ],
+      4,
+      [
+       "track"
+      ]
+     ],
+     [
+      109.39,
+      [
+       0,
+       110
+      ],
+      5,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      110.83,
+      [
+       3,
+       140
+      ],
+      6,
+      [
+       "track",
+       "invert"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.015,
+    "scan": false,
+    "chroma": 2,
+    "layout": "mixer",
+    "caption": "anton",
+    "pics": {
+     "6": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/b3ca1cc48e487c66.jpg",
+      "crt"
+     ]
+    },
+    "hook": "pov: 3am in the studio",
+    "hook_angle": "relatable",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.6",
+    "wall": "rings",
+    "punch": "0.015",
+    "scan": "false",
+    "chroma": "2",
+    "layout": "mixer",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.84,
+    "bass": 0.74,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_producer_887269.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "producer",
+   "seed": 887269,
+   "window": [
+    25.8,
+    48.27
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     77,
+     64,
+     43
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      26.15,
+      [
+       3,
+       140
+      ],
+      0,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      27.63,
+      [
+       0,
+       84
+      ],
+      1,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      29.23,
+      [
+       2,
+       140
+      ],
+      2,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      30.41,
+      [
+       1,
+       110
+      ],
+      3,
+      [
+       "invert"
+      ]
+     ],
+     [
+      31.35,
+      [
+       3,
+       140
+      ],
+      4,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      32.81,
+      [
+       0,
+       140
+      ],
+      5,
+      [
+       "track"
+      ]
+     ],
+     [
+      33.79,
+      [
+       2,
+       110
+      ],
+      6,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      35.83,
+      [
+       3,
+       84
+      ],
+      7,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      37.33,
+      [
+       2,
+       84
+      ],
+      8,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      39.87,
+      [
+       1,
+       140
+      ],
+      9,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      41.29,
+      [
+       0,
+       84
+      ],
+      10,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      43.31,
+      [
+       null,
+       84
+      ],
+      11,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      44.55,
+      [
+       1,
+       84
+      ],
+      12,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      46.43,
+      [
+       null,
+       84
+      ],
+      13,
+      [
+       "invert"
+      ]
+     ],
+     [
+      47.97,
+      [
+       3,
+       110
+      ],
+      14,
+      [
+       "invert",
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     8,
+     16,
+     18
+    ],
+    "punch": 0.03,
+    "scan": true,
+    "chroma": 2,
+    "layout": "lanes",
+    "caption": "montserrat",
+    "pics": {
+     "4": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/4d6004bf0ab484f5.jpg",
+      "gif"
+     ],
+     "7": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/95a9749b795c6507.jpg",
+      "crt"
+     ],
+     "10": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/11573c07b97e0739.jpg",
+      "lowres"
+     ]
+    },
+    "hook": "show this to someone who makes beats",
+    "hook_angle": "share",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.6",
+    "wall": "tiles",
+    "punch": "0.03",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "lanes",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.91,
+    "bass": 0.9,
+    "other": 0.16
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01_producer_526396.mp4",
+   "song": "silver-and-gold",
+   "section": "s01",
+   "style": "producer",
+   "seed": 526396,
+   "window": [
+    28.0,
+    51.13
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     45,
+     70,
+     87
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      28.35,
+      [
+       0,
+       110
+      ],
+      0,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      30.35,
+      [
+       2,
+       84
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      32.63,
+      [
+       0,
+       84
+      ],
+      2,
+      [
+       "invert"
+      ]
+     ],
+     [
+      34.63,
+      [
+       3,
+       140
+      ],
+      3,
+      [
+       "track"
+      ]
+     ],
+     [
+      37.15,
+      [
+       1,
+       110
+      ],
+      4,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      39.13,
+      [
+       2,
+       140
+      ],
+      5,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      41.25,
+      [
+       1,
+       84
+      ],
+      6,
+      [
+       "invert"
+      ]
+     ],
+     [
+      43.01,
+      [
+       2,
+       84
+      ],
+      7,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      44.61,
+      [
+       0,
+       110
+      ],
+      8,
+      [
+       "invert"
+      ]
+     ],
+     [
+      47.11,
+      [
+       3,
+       84
+      ],
+      9,
+      [
+       "track"
+      ]
+     ],
+     [
+      50.95,
+      [
+       1,
+       84
+      ],
+      10,
+      [
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     16,
+     12,
+     22
+    ],
+    "punch": 0.03,
+    "scan": true,
+    "chroma": 2,
+    "layout": "mixer",
+    "caption": "inter",
+    "pics": {},
+    "hook": "pov: 3am in the studio",
+    "hook_angle": "relatable",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.6",
+    "wall": "rings",
+    "punch": "0.03",
+    "scan": "true",
+    "chroma": "2",
+    "layout": "mixer",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.57,
+    "drums": 0.57,
+    "bass": 0.46,
+    "other": 0.67
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_producer_550625.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "producer",
+   "seed": 550625,
+   "window": [
+    65.39,
+    84.88
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     82,
+     61,
+     46
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      64.14,
+      [
+       3,
+       140
+      ],
+      0,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      65.74,
+      [
+       1,
+       110
+      ],
+      1,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      67.94,
+      [
+       2,
+       140
+      ],
+      2,
+      [
+       "invert",
+       "track"
+      ]
+     ],
+     [
+      69.92,
+      [
+       0,
+       140
+      ],
+      3,
+      [
+       "stamp",
+       "track"
+      ]
+     ],
+     [
+      72.62,
+      [
+       null,
+       110
+      ],
+      4,
+      [
+       "track"
+      ]
+     ],
+     [
+      74.26,
+      [
+       2,
+       140
+      ],
+      5,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      75.32,
+      [
+       0,
+       84
+      ],
+      6,
+      [
+       "track"
+      ]
+     ],
+     [
+      78.6,
+      [
+       3,
+       84
+      ],
+      7,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      80.5,
+      [
+       2,
+       140
+      ],
+      8,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      83.68,
+      [
+       1,
+       140
+      ],
+      9,
+      [
+       "track",
+       "stamp"
+      ]
+     ]
+    ],
+    "bg": [
+     16,
+     12,
+     22
+    ],
+    "punch": 0.015,
+    "scan": false,
+    "chroma": 0,
+    "layout": "lanes",
+    "caption": "anton",
+    "pics": {},
+    "hook": "which part would you solo?",
+    "hook_angle": "comment",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.35",
+    "wall": "bars",
+    "punch": "0.015",
+    "scan": "false",
+    "chroma": "0",
+    "layout": "lanes",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.73,
+    "bass": 0.33,
+    "other": 0.58
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s03_producer_650585.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "producer",
+   "seed": 650585,
+   "window": [
+    61.41,
+    72.18
+   ],
+   "plan": {
+    "wall": "grad",
+    "acc": [
+     45,
+     70,
+     87
+    ],
+    "pal": [
+     [
+      255,
+      190,
+      110
+     ],
+     [
+      255,
+      90,
+      110
+     ],
+     [
+      150,
+      160,
+      255
+     ],
+     [
+      120,
+      220,
+      255
+     ]
+    ],
+    "segs": [
+     [
+      60.13,
+      [
+       0,
+       110
+      ],
+      0,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      61.47,
+      [
+       2,
+       140
+      ],
+      1,
+      [
+       "stamp",
+       "invert"
+      ]
+     ],
+     [
+      64.83,
+      [
+       null,
+       140
+      ],
+      2,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      67.15,
+      [
+       0,
+       110
+      ],
+      3,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      68.39,
+      [
+       3,
+       140
+      ],
+      4,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      69.89,
+      [
+       2,
+       110
+      ],
+      5,
+      [
+       "track"
+      ]
+     ],
+     [
+      70.27,
+      [
+       0,
+       84
+      ],
+      6,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      71.41,
+      [
+       null,
+       110
+      ],
+      7,
+      [
+       "track"
+      ]
+     ]
+    ],
+    "bg": [
+     16,
+     12,
+     22
+    ],
+    "punch": 0.03,
+    "scan": false,
+    "chroma": 0,
+    "layout": "lanes",
+    "caption": "anton",
+    "pics": {
+     "2": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/699d262a4549d9cd.jpg",
+      "gif"
+     ],
+     "4": [
+      "/home/runner/work/ugc-factory/ugc-factory/studio/photos/fd8a1334a247d1e5.jpg",
+      "jpeg"
+     ]
+    },
+    "hook": "which stem is carrying?",
+    "hook_angle": "comment",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "0",
+    "pictures": "0.6",
+    "wall": "grad",
+    "punch": "0.03",
+    "scan": "false",
+    "chroma": "0",
+    "layout": "lanes",
+    "caption": "anton",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.63,
+    "bass": 0.26,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s04_producer_807458.mp4",
+   "song": "evil-close-quarters",
+   "section": "s04",
+   "style": "producer",
+   "seed": 807458,
+   "window": [
+    70.75,
+    93.4
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     41,
+     80,
+     59
+    ],
+    "pal": [
+     [
+      120,
+      255,
+      170
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      110,
+      190,
+      255
+     ],
+     [
+      240,
+      240,
+      120
+     ]
+    ],
+    "segs": [
+     [
+      71.1,
+      [
+       0,
+       140
+      ],
+      0,
+      [
+       "invert"
+      ]
+     ],
+     [
+      74.26,
+      [
+       3,
+       140
+      ],
+      1,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      77.58,
+      [
+       1,
+       110
+      ],
+      2,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      82.24,
+      [
+       2,
+       84
+      ],
+      3,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      83.98,
+      [
+       1,
+       140
+      ],
+      4,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      85.72,
+      [
+       null,
+       110
+      ],
+      5,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      86.94,
+      [
+       3,
+       84
+      ],
+      6,
+      [
+       "track"
+      ]
+     ],
+     [
+      87.95,
+      [
+       0,
+       84
+      ],
+      7,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      90.34,
+      [
+       2,
+       110
+      ],
+      8,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      91.62,
+      [
+       0,
+       140
+      ],
+      9,
+      [
+       "stamp"
+      ]
+     ],
+     [
+      93.1,
+      [
+       2,
+       110
+      ],
+      10,
+      [
+       "track"
+      ]
+     ]
+    ],
+    "bg": [
+     11,
+     13,
+     16
+    ],
+    "punch": 0.015,
+    "scan": false,
+    "chroma": 0,
+    "layout": "mixer",
+    "caption": "montserrat",
+    "pics": {},
+    "hook": "which part would you solo?",
+    "hook_angle": "comment",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "colours": "2",
+    "pictures": "0.6",
+    "wall": "stars",
+    "punch": "0.015",
+    "scan": "false",
+    "chroma": "0",
+    "layout": "mixer",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.82,
+    "bass": 0.56,
+    "other": 0.6
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ],
  "since": "2026-11-22T06:46:46.461118+00:00",

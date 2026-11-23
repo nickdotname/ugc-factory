@@ -6721,6 +6721,1604 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_band_434966.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "band",
+   "seed": 434966,
+   "window": [
+    165.08,
+    182.04
+   ],
+   "plan": {
+    "wall": "clouds",
+    "acc": [
+     62,
+     98,
+     162
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      165.43,
+      "wave",
+      0,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      167.19,
+      "paint",
+      0,
+      [
+       "trail",
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      168.61,
+      "player",
+      1,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      170.65,
+      "paint",
+      1,
+      [
+       "pip",
+       "trail"
+      ]
+     ],
+     [
+      172.87,
+      "player",
+      2,
+      [
+       "invert",
+       "trail"
+      ]
+     ],
+     [
+      175.33,
+      "paint",
+      3,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      177.83,
+      "cmd",
+      4,
+      [
+       "pip",
+       "invert"
+      ]
+     ],
+     [
+      179.91,
+      "paint",
+      5,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": false,
+    "chroma": 0,
+    "chrome": "win95",
+    "caption": "inter",
+    "hook": "only real music fans will get this",
+    "hook_angle": "debate",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "black",
+    "pictures": "0.35",
+    "wall": "clouds",
+    "punch": "0.05",
+    "scan": "false",
+    "chroma": "0",
+    "chrome": "win95",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.72,
+    "bass": 0.6,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s01_band_38167.mp4",
+   "song": "subway-maintenance",
+   "section": "s01",
+   "style": "band",
+   "seed": 38167,
+   "window": [
+    42.91,
+    65.94
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     88,
+     142,
+     172
+    ],
+    "theme": "teal",
+    "bg": [
+     0,
+     128,
+     128
+    ],
+    "segs": [
+     [
+      43.26,
+      "paint",
+      0,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      44.42,
+      "arr",
+      0,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      46.2,
+      "notepad",
+      1,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      47.04,
+      "player",
+      2,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      48.4,
+      "notepad",
+      3,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      50.7,
+      "cmd",
+      4,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      52.92,
+      "notepad",
+      5,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      54.74,
+      "paint",
+      6,
+      [
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      57.0,
+      "notepad",
+      7,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      58.1,
+      "player",
+      8,
+      [
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      59.02,
+      "notepad",
+      9,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      59.32,
+      "cmd",
+      10,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      60.36,
+      "player",
+      11,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      61.26,
+      "paint",
+      12,
+      [
+       "trail",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      61.78,
+      "notepad",
+      13,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      62.78,
+      "arr",
+      13,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      64.14,
+      "paint",
+      14,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      65.74,
+      "arr",
+      15,
+      [
+       "track",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 4,
+    "chrome": "win95",
+    "caption": "montserrat",
+    "hook": "your pc in 2001:",
+    "hook_angle": "plain",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "teal",
+    "pictures": "0.6",
+    "wall": "tiles",
+    "punch": "0.02",
+    "scan": "true",
+    "chroma": "4",
+    "chrome": "win95",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.46,
+    "bass": 0.36,
+    "other": 0.7
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "notta_problem",
+   "file": "notta-problem_s02_band_342349.mp4",
+   "song": "notta-problem",
+   "section": "s02",
+   "style": "band",
+   "seed": 342349,
+   "window": [
+    52.64,
+    64.1
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     144,
+     101,
+     109
+    ],
+    "theme": "purple",
+    "bg": [
+     85,
+     60,
+     130
+    ],
+    "segs": [
+     [
+      50.72,
+      "face+flood",
+      0,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      52.7,
+      "face+wave",
+      1,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      55.0,
+      "paint",
+      2,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      56.92,
+      "cmd",
+      3,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      59.15,
+      "face+notepad",
+      4,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      60.58,
+      "player",
+      4,
+      [
+       "trail",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      61.8,
+      "face+paint",
+      5,
+      [
+       "pipwave",
+       "invert"
+      ]
+     ],
+     [
+      63.0,
+      "face+arr",
+      6,
+      [
+       "trail",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "xp",
+    "caption": "montserrat",
+    "hook": "unpopular opinion: this song is perfect",
+    "hook_angle": "debate",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "theme": "purple",
+    "pictures": "0.35",
+    "wall": "plasma",
+    "punch": "0.02",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "xp",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.99,
+    "bass": 0.19,
+    "other": 0.28
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s06_band_808445.mp4",
+   "song": "talk",
+   "section": "s06",
+   "style": "band",
+   "seed": 808445,
+   "window": [
+    120.57,
+    132.37
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     126,
+     124,
+     177
+    ],
+    "theme": "blue",
+    "bg": [
+     58,
+     110,
+     165
+    ],
+    "segs": [
+     [
+      118.17,
+      "paint",
+      0,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      120.63,
+      "wave",
+      1,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      122.49,
+      "paint",
+      2,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      125.09,
+      "arr",
+      3,
+      [
+       "stamp",
+       "pip"
+      ]
+     ],
+     [
+      126.61,
+      "wave",
+      4,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      128.43,
+      "arr",
+      5,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      130.25,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/f597ed1a1c5cc881.jpg|crt",
+      6,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      132.19,
+      "paint",
+      7,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": false,
+    "chroma": 4,
+    "chrome": "mac",
+    "caption": "montserrat",
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "blue",
+    "pictures": "0.35",
+    "wall": "stars",
+    "punch": "0.05",
+    "scan": "false",
+    "chroma": "4",
+    "chrome": "mac",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.93,
+    "drums": 0.9,
+    "bass": 0.78,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01_band_109787.mp4",
+   "song": "silver-and-gold",
+   "section": "s01",
+   "style": "band",
+   "seed": 109787,
+   "window": [
+    28.0,
+    51.13
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     133,
+     129,
+     157
+    ],
+    "theme": "silver",
+    "bg": [
+     110,
+     115,
+     125
+    ],
+    "segs": [
+     [
+      28.35,
+      "paint",
+      0,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      30.35,
+      "arr",
+      1,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      32.63,
+      "paint",
+      2,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      34.63,
+      "notepad",
+      3,
+      [
+       "trail",
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      37.15,
+      "arr",
+      4,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      39.13,
+      "cmd",
+      5,
+      [
+       "trail",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      41.25,
+      "paint",
+      6,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      43.01,
+      "arr",
+      7,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      44.61,
+      "wave",
+      8,
+      [
+       "trail",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      47.11,
+      "player",
+      9,
+      [
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      49.31,
+      "cmd",
+      9,
+      [
+       "pipwave",
+       "track"
+      ]
+     ],
+     [
+      50.95,
+      "paint",
+      10,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      52.89,
+      "wave",
+      10,
+      [
+       "track",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "mac",
+    "caption": "anton",
+    "hook": "rock and rap should never mix. right?",
+    "hook_angle": "debate",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "silver",
+    "pictures": "0.35",
+    "wall": "rings",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "mac",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.57,
+    "drums": 0.57,
+    "bass": 0.46,
+    "other": 0.67
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s03_band_90485.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "band",
+   "seed": 90485,
+   "window": [
+    50.1,
+    73.09
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     88,
+     165,
+     142
+    ],
+    "theme": "blue",
+    "bg": [
+     58,
+     110,
+     165
+    ],
+    "segs": [
+     [
+      49.07,
+      "cmd",
+      0,
+      [
+       "trail",
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      50.45,
+      "player",
+      1,
+      [
+       "pip",
+       "invert"
+      ]
+     ],
+     [
+      52.07,
+      "cmd",
+      2,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      53.63,
+      "wave",
+      3,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      55.09,
+      "paint",
+      3,
+      [
+       "pip",
+       "invert"
+      ]
+     ],
+     [
+      56.27,
+      "wave",
+      4,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      58.17,
+      "paint",
+      5,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      60.13,
+      "arr",
+      6,
+      [
+       "track",
+       "trail"
+      ]
+     ],
+     [
+      61.47,
+      "cmd",
+      7,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      63.27,
+      "paint",
+      7,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      64.83,
+      "player",
+      8,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      67.15,
+      "notepad",
+      9,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      68.39,
+      "arr",
+      10,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      69.89,
+      "paint",
+      11,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      70.27,
+      "arr",
+      12,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      71.41,
+      "paint",
+      13,
+      [
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      72.79,
+      "player",
+      14,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "mac",
+    "caption": "anton",
+    "hook": "is this rock or rap? wrong answers only",
+    "hook_angle": "debate",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "blue",
+    "pictures": "0.35",
+    "wall": "tiles",
+    "punch": "0.035",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "mac",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.66,
+    "bass": 0.3,
+    "other": 0.48
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s04_band_453603.mp4",
+   "song": "evil-close-quarters",
+   "section": "s04",
+   "style": "band",
+   "seed": 453603,
+   "window": [
+    82.18,
+    93.4
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     127,
+     153,
+     99
+    ],
+    "theme": "teal",
+    "bg": [
+     0,
+     128,
+     128
+    ],
+    "segs": [
+     [
+      82.24,
+      "notepad",
+      0,
+      [
+       "trail",
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      83.98,
+      "paint",
+      1,
+      [
+       "stamp",
+       "invert"
+      ]
+     ],
+     [
+      85.72,
+      "cmd",
+      2,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      86.94,
+      "paint",
+      3,
+      [
+       "trail",
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      87.95,
+      "cmd",
+      4,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      89.56,
+      "paint",
+      4,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      90.34,
+      "player",
+      5,
+      [
+       "trail",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      91.62,
+      "paint",
+      6,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      93.1,
+      "notepad",
+      7,
+      [
+       "track",
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 0,
+    "chrome": "xp",
+    "caption": "inter",
+    "hook": "too weird for the radio. agree?",
+    "hook_angle": "debate",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "teal",
+    "pictures": "0.85",
+    "wall": "rings",
+    "punch": "0.02",
+    "scan": "true",
+    "chroma": "0",
+    "chrome": "xp",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.67,
+    "bass": 0.69,
+    "other": 0.67
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s03_band_691776.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s03",
+   "style": "band",
+   "seed": 691776,
+   "window": [
+    53.37,
+    66.89
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     144,
+     101,
+     109
+    ],
+    "theme": "purple",
+    "bg": [
+     85,
+     60,
+     130
+    ],
+    "segs": [
+     [
+      53.43,
+      "paint",
+      0,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      54.49,
+      "notepad",
+      0,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      55.91,
+      "paint",
+      1,
+      [
+       "trail",
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      57.15,
+      "player",
+      1,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      58.27,
+      "notepad",
+      2,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      59.31,
+      "pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/60745b730d36d376.jpg|lowres",
+      3,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      61.35,
+      "arr",
+      4,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      63.55,
+      "notepad",
+      5,
+      [
+       "trail",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      65.09,
+      "paint",
+      6,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      66.49,
+      "player",
+      7,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": false,
+    "chroma": 2,
+    "chrome": "mac",
+    "caption": "montserrat",
+    "hook": "this band is either genius or mid",
+    "hook_angle": "debate",
+    "hook_mode": "flash",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "purple",
+    "pictures": "0.35",
+    "wall": "rings",
+    "punch": "0.035",
+    "scan": "false",
+    "chroma": "2",
+    "chrome": "mac",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.92,
+    "drums": 0.89,
+    "bass": 0.9,
+    "other": 0.17
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s03_lofi_332930.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s03",
+   "style": "lofi",
+   "seed": 332930,
+   "window": [
+    86.36,
+    109.31
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     86.36,
+     109.31
+    ],
+    "scenes": [
+     "flat",
+     "rainbow",
+     "pop",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "pop",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "pop",
+     "flat",
+     "rainbow"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "stars",
+    "theme": "wine",
+    "pop": "3",
+    "tint": "0.4",
+    "pace": "1",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.81,
+    "bass": 0.48,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_s02_lofi_294817.mp4",
+   "song": "fixation",
+   "section": "s02",
+   "style": "lofi",
+   "seed": 294817,
+   "window": [
+    80.59,
+    92.57
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     80.59,
+     92.57
+    ],
+    "scenes": [
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "rings",
+    "theme": "wine",
+    "pop": "0",
+    "tint": "0.0",
+    "pace": "2",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.99,
+    "drums": 0.89,
+    "bass": 0.51,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_s01_lofi_307305.mp4",
+   "song": "full-ride",
+   "section": "s01",
+   "style": "lofi",
+   "seed": 307305,
+   "window": [
+    7.58,
+    29.27
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     7.58,
+     29.27
+    ],
+    "scenes": [
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "mac",
+    "wall": "stars",
+    "theme": "purple",
+    "pop": "0",
+    "tint": "0.4",
+    "pace": "1",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.67,
+    "bass": 0.7,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_cursor_979595.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "cursor",
+   "seed": 979595,
+   "window": [
+    65.39,
+    84.88
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs"
+    ]
+   },
+   "knobs": {
+    "world": "stairs",
+    "glow": "green",
+    "cursor": "mixed",
+    "drift": "1.0",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.73,
+    "bass": 0.33,
+    "other": 0.58
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_cursor_266122.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "cursor",
+   "seed": 266122,
+   "window": [
+    46.35,
+    61.78
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs"
+    ]
+   },
+   "knobs": {
+    "world": "stairs",
+    "glow": "purple",
+    "cursor": "arrows",
+    "drift": "1.6",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.41,
+    "bass": 0.84,
+    "other": 0.64
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
   }
  ],
  "since": "2026-11-22T06:56:33.728767+00:00",
@@ -6774,6 +8372,61 @@
     "inter",
     "anton",
     "montserrat"
+   ]
+  },
+  "lofi": {
+   "chrome": [
+    "win95",
+    "mac"
+   ],
+   "wall": [
+    "plasma",
+    "rings",
+    "grad",
+    "stars",
+    "tiles"
+   ],
+   "theme": [
+    "mono",
+    "purple",
+    "teal",
+    "wine"
+   ],
+   "pop": [
+    "0",
+    "1",
+    "3"
+   ],
+   "tint": [
+    "0.0",
+    "0.4"
+   ],
+   "pace": [
+    "1",
+    "2"
+   ]
+  },
+  "cursor": {
+   "world": [
+    "stairs",
+    "corridor",
+    "cube",
+    "mix"
+   ],
+   "glow": [
+    "green",
+    "purple",
+    "red"
+   ],
+   "cursor": [
+    "arrows",
+    "mixed",
+    "busy"
+   ],
+   "drift": [
+    "0.6",
+    "1.0",
+    "1.6"
    ]
   }
  }

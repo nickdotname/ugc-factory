@@ -100,6 +100,126 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s03_retro_742839.mp4",
+   "song": "silver-and-gold",
+   "section": "s03",
+   "style": "retro",
+   "seed": 742839,
+   "window": [
+    82.61,
+    89.12
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "skate",
+    "screen": "crt",
+    "frame": "none",
+    "cut": "short",
+    "pace": "1"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.83,
+    "bass": 0.77,
+    "other": 0.79
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s08_retro_617265.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s08",
+   "style": "retro",
+   "seed": 617265,
+   "window": [
+    181.34,
+    224.45
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "mall",
+    "screen": "vhs",
+    "frame": "osd",
+    "cut": "full",
+    "pace": "2"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.11,
+    "drums": 0.1,
+    "bass": 0.42,
+    "other": 0.47
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s04_retro_171743.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "retro",
+   "seed": 171743,
+   "window": [
+    72.44,
+    94.21
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "city",
+    "screen": "vhs",
+    "frame": "none",
+    "cut": "full",
+    "pace": "2"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.67,
+    "bass": 0.49,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_retro_201612.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "retro",
+   "seed": 201612,
+   "window": [
+    74.2,
+    84.26
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "pool",
+    "screen": "clean",
+    "frame": "osd",
+    "cut": "tight",
+    "pace": "2"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.74,
+    "bass": 0.33,
+    "other": 0.55
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

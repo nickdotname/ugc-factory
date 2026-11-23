@@ -250,6 +250,99 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s09_physics_9873.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "physics",
+   "seed": 9873,
+   "window": [
+    190.55,
+    197.1
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "rings",
+    "hits": "drums",
+    "palette": "sunset",
+    "trail": "long",
+    "hook": "song",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.74,
+    "bass": 0.53,
+    "other": 0.27
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s01_physics_293468.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s01",
+   "style": "physics",
+   "seed": 293468,
+   "window": [
+    3.3,
+    25.83
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "square",
+    "hits": "drums",
+    "palette": "sunset",
+    "trail": "short",
+    "hook": "hits",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.73,
+    "bass": 0.65,
+    "other": 0.17
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "talk",
+   "file": "talk_s06_physics_117479.mp4",
+   "song": "talk",
+   "section": "s06",
+   "style": "physics",
+   "seed": 117479,
+   "window": [
+    117.82,
+    140.08
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "pendulum",
+    "hits": "kick",
+    "palette": "rainbow",
+    "trail": "long",
+    "hook": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.88,
+    "bass": 0.78,
+    "other": 0.41
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }
