@@ -37,6 +37,18 @@ creatives:
   - name: prologue
     title: "Prologue: Before"
     assets_release: assets-nostalgia-prologue-v2
+  - name: subway_maintenance
+    title: "Subway Maintenance"
+    assets_release: assets-nostalgia-subway_maintenance
+  - name: silver_and_gold
+    title: "Silver and Gold"
+    assets_release: assets-nostalgia-silver_and_gold
+  - name: evil_close_quarters
+    title: "Evil Close Quarters"
+    assets_release: assets-nostalgia-evil_close_quarters
+  - name: notta_problem
+    title: "Notta Problem"
+    assets_release: assets-nostalgia-notta_problem
 
 # The nostalgia account only, posted to Instagram directly as regular reels.
 accounts:

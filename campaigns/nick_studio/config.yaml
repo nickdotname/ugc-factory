@@ -32,6 +32,18 @@ creatives:
   - name: prologue
     title: "Prologue: Before"
     assets_release: assets-nick_studio-prologue-v2
+  - name: subway_maintenance
+    title: "Subway Maintenance"
+    assets_release: assets-nick_studio-subway_maintenance
+  - name: silver_and_gold
+    title: "Silver and Gold"
+    assets_release: assets-nick_studio-silver_and_gold
+  - name: evil_close_quarters
+    title: "Evil Close Quarters"
+    assets_release: assets-nick_studio-evil_close_quarters
+  - name: notta_problem
+    title: "Notta Problem"
+    assets_release: assets-nick_studio-notta_problem
 
 # nickdotname on Instagram, through Buffer (TikTok left out: posts there get almost no views).
 accounts:

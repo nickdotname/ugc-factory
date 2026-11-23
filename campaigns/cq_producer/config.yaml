@@ -45,6 +45,15 @@ creatives:
   - name: prologue
     title: "Prologue: Before"
     assets_release: assets-cq_producer-prologue-v2
+  - name: subway_maintenance
+    title: "Subway Maintenance"
+    assets_release: assets-cq_producer-subway_maintenance
+  - name: silver_and_gold
+    title: "Silver and Gold"
+    assets_release: assets-cq_producer-silver_and_gold
+  - name: evil_close_quarters
+    title: "Evil Close Quarters"
+    assets_release: assets-cq_producer-evil_close_quarters
 
 # dylancantor23 only, posted to Instagram directly as trial reels.
 accounts:
