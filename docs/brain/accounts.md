@@ -23,6 +23,8 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 5 | 9–23 |
 | @rotation.illusions ("Rotation Illusions") | illusions_ig | illusions | illusion (dot shapes whose turning direction is up to your eyes; a disc that reads as a cone; a wheel that runs backwards) | 5 | 8–23 |
 | @algorithm.races ("Algorithm Races", no Page: Unified login, token `IG_TOKEN_2`) | races_ig | algo_races | race (sorting algorithms on the same shuffled numbers; search algorithms through one maze) | 5 | 8–23 |
+| @8bit.tests ("8-Bit Tests", no Page, token `IG_TOKEN_3`) | tests8_ig | pixel_tests | tests8 (count the flashes; read as fast as he raps) | 5 | 8–23 |
+| @moth.ate.my.notes (no Page, token `IG_TOKEN_4`) | notes_ig | (none yet) | text-on-gradient reels: renderer not built yet | – | – |
 
 `clubs` is the Clubs app's own campaign: blocked from every Close Quarters account. `knick_creates_*` are
 Nick's older Buffer channels (not Close Quarters).

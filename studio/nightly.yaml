@@ -107,3 +107,7 @@ targets:
     style: race
     per_night: 5
     join: 30
+  - campaign: pixel_tests   # 8bit.tests: pixel-art tests you take along with the song (studio/tests8_video.py)
+    style: tests8
+    per_night: 5
+    join: 30

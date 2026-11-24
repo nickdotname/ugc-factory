@@ -31,6 +31,7 @@ it so [[learning]] can score it; `CQ_KNOBS` forces knobs.
 | alife | alife_video.py | digital.petri.dish | a slime mould of ~200,000 agents (each smells the trail ahead, turns to the strongest, leaves its own); the kick makes them run, the snare drops new ones in, the bass widens how far they look | start, palette, sense, steps |
 | illusion | illusion_video.py | rotation.illusions | a shape made of dots, turning with no depth cue, so the direction is up to the viewer, then flipped for them (cloud, shadow); a flat disc that reads as a cone; a wheel that seems to run backwards at 30 fps; twelve dots that are three squares and four triangles at once (group); stripes that never move under sliding discs (stripes). 12 shapes drawn from formulas | kind, shape, palette, ask |
 | race | race_video.py (scenes in studio/mathviz/: sorts, paths) | algorithm.races | algorithms racing on the same problem, one step each on the beat: four sorts on the same shuffled numbers; breadth-first, depth-first and A* through one maze | topic, lineup, maze, bars, theme |
+| tests8 | tests8_video.py (scene: studio/mathviz/tests8.py) | 8bit.tests | pixel-art tests taken along with the song, in a room with a boombox that plays it: count the flashes (one per snare, answer at the end), read as fast as he raps (words-per-minute gauge) | test, sky |
 
 Open PRs adding styles (not merged at the time of writing): **fluid** (wind-tunnel Navier-Stokes sims for
 physics.bounce.lab, #80), sorting/maze races for math (#77), goldfish for ascii (#79). See [[backlog]].
