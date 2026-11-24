@@ -8,19 +8,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 170.0,
+          "value": 198.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 129.0,
+          "value": 155.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 2.0,
+          "value": 3.0,
           "unit": "count"
         },
         {
@@ -44,19 +44,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.26,
+          "value": 4.287,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 9.940133333333334,
+          "value": 11.719533333333334,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 72.5,
+          "value": 72.6,
           "unit": "count"
         },
         {
@@ -67,7 +67,7 @@
         }
       ],
       "account": "tinycode_ig",
-      "fetched_at": "2026-11-24T03:45:25.013747Z"
+      "fetched_at": "2026-11-24T06:48:00.122707Z"
     },
     "igo-263e6977-d862-47ad-a9cc-77a813ce4c38": {
       "post_id": "igo-263e6977-d862-47ad-a9cc-77a813ce4c38",
@@ -77,13 +77,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 161.0,
+          "value": 182.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 131.0,
+          "value": 145.0,
           "unit": "count"
         },
         {
@@ -113,19 +113,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.581,
+          "value": 4.222,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 10.07905,
+          "value": 10.766266666666667,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 76.3,
+          "value": 80.4,
           "unit": "count"
         },
         {
@@ -136,7 +136,7 @@
         }
       ],
       "account": "tinycode_ig",
-      "fetched_at": "2026-11-24T03:45:25.013747Z"
+      "fetched_at": "2026-11-24T06:48:00.122707Z"
     }
   }
 }
