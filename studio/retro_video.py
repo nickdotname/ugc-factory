@@ -39,9 +39,26 @@ W, H, FPS = 1080, 1920, 30
 THEMES = list(json.load(open(lib.PROMPTS))['themes']) + ['mixed']
 SCREENS = ['ps2', 'crt', 'vhs', 'clean']
 FRAMES = ['osd', 'none']
-HOOKS = {'spot': ["pick one to live in", "where are you spending the night?", "you can only respawn in one", "which save point are you picking?",
-                  "one of these is yours for a year. which?", "pick the level you'd never leave", "which one is the save room?"],
-         'memory': ["you were here at 2am in 2004", "the level you never wanted to leave", "memory card slot 1 · 47 hours",
+# A "pick one" line has to fit what is on screen: nobody "lives" on a race track. So a spot video stays inside one
+# theme and its line is that theme's; if the theme has too few places (or is mixed) the line is a neutral one.
+SPOT = {
+    'racing': ["pick your track", "you get one lap. which track?", "which one are you racing on?", "pick the circuit you'd never get bored of"],
+    'skate': ["pick your skate spot", "which park are you skating first?", "one spot, all summer. which?"],
+    'hub': ["pick a world to live in", "which island is yours?", "pick the world you'd never leave"],
+    'town': ["pick the town you'd move to", "which street do you live on?", "pick the town you'd grow up in"],
+    'city': ["pick a city to get lost in", "which city are you walking at 2am?", "pick your city"],
+    'mall': ["pick your mall", "which mall are you spending saturday in?", "pick where you'd hang out after school"],
+    'pool': ["pick your pool", "which one are you swimming in?", "pick the pool you'd have all to yourself"],
+    'arcade': ["pick where you're spending friday night", "which one are you spending your quarters in?"],
+    'space': ["pick your station", "which one are you launching from?", "pick where you'd spend a year in space"],
+    'beach': ["pick your beach", "which one are you watching the sunset from?", "pick your summer"],
+    'snow': ["pick your mountain", "which run are you taking first?", "pick where you're snowed in"],
+    'water': ["which one are you diving into?", "pick where you'd explore first"],
+    'impossible': ["which dream are you walking into?", "pick the one you've dreamed about", "which door are you opening?"],
+    'aero': ["pick a world to live in", "which one was your desktop?", "pick the world you'd log into"],
+}
+SPOT_ANY = ["pick a level", "which level are you loading first?", "pick your save file", "which one are you playing first?"]
+HOOKS = {'memory': ["you were here at 2am in 2004", "the level you never wanted to leave", "memory card slot 1 · 47 hours",
                     "this loaded while dinner went cold", "nobody else remembers this level"]}
 TRANS = ['hard', 'flash', 'slide', 'dissolve']
 REJECTS = os.path.join(HERE, 'retro', 'rejects.json')
@@ -139,10 +156,22 @@ class Video:
         self.hook = K.pick('hook', ['spot', 'memory', 'none'], r, weights=[4, 2, 2])
         if self.hook == 'spot' and self.pace != 1:                 # a "pick one" needs at least three places to pick from
             self.pace = 1; K.CHOSEN['pace'] = '1'
-        self.line = r.choice(HOOKS[self.hook]) if self.hook != 'none' else ''
         bad = set(json.load(open(REJECTS)).get('clips', {})) if os.path.exists(REJECTS) else set()
         lib_ = [e for e in lib.pull(() if self.theme == 'mixed' else (self.theme,)) if e['asset'] not in bad]
-        if len({(e['theme'], e['scene']) for e in lib_}) < 3: lib_ = [e for e in lib.pull(()) if e['asset'] not in bad]
+        if len({(e['theme'], e['scene']) for e in lib_}) < 3:
+            every = [e for e in lib.pull(()) if e['asset'] not in bad]
+            full = sorted({t for t in {e['theme'] for e in every} if len({e['scene'] for e in every if e['theme'] == t}) >= 3})
+            if self.hook == 'spot' and full:                       # a "pick one" stays in one theme that has 3+ places
+                self.theme = r.choice(full); K.CHOSEN['theme'] = self.theme
+                lib_ = [e for e in every if e['theme'] == self.theme]
+            else:
+                lib_ = every
+        themes = {e['theme'] for e in lib_}
+        if self.hook == 'spot':                                    # the line has to fit the places on screen
+            only = next(iter(themes)) if len(themes) == 1 else None
+            self.line = r.choice(SPOT.get(only, SPOT_ANY))
+        else:
+            self.line = r.choice(HOOKS[self.hook]) if self.hook != 'none' else ''
         if not lib_: sys.exit('the retro library is empty: run the retro workflow first')
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
         self.kick = audio.hits(a['kicks'], n, 7.0); self.snare = audio.hits(a['snares'], n, 9.0)
