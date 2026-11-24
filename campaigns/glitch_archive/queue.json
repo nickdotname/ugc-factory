@@ -91,18 +91,18 @@
         {
           "account": "glitch_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T12:23:00-05:00"
         }
       ],
       "captions": {
         "instagram": "this file should not play\n🎧 Talk – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nTalk is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
