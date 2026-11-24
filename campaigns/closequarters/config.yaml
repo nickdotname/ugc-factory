@@ -90,9 +90,11 @@ variation:
   # a different moment of the song — as far as the song's library has spares.
   # This is what keeps accounts from posting the same video; the cosmetic
   # knobs below do not do that on their own (see PLAYBOOK §8).
-  per_account: false          # one account per network now, so each post is
-                              # one render sent to all three. Turn back on if a
-                              # second account on the same network is added.
+  per_account: true           # each account (the.loose.change on Instagram,
+                              # TikTok) gets its OWN clip: the same meme on both
+                              # was one of the reasons views fell after Nov 20.
+                              # An account with no fresh clip sits the post out
+                              # (selection.repeats: false) instead of a double.
   per_account_vary: [clip, caption, cue]
 
   # Cosmetic differences on top. Set any of them to 0 to switch it off.
@@ -142,7 +144,14 @@ funnel:
 selection:
   dedupe_on: [hook, music, caption]
   caption_cooldown_days: 0
-  hook_cooldown_days: 3         # a clip rests three days before it is used again (was 0: the same clip back every day)
+  # A clip rests 21 days on the account, across EVERY song: the six songs share
+  # one pool of clips (shared_videos), and until 2026-11-24 each song kept its own
+  # cooldown, so hook_05 went out 11 times in a week, three times in one day.
+  # Views fell from a median of 171 to 18 after Nov 20.
+  hook_cooldown_days: 21
+  # And no repeat when the pool runs dry: the slot stays empty. With 15 clips
+  # that is fewer than one meme a day; new clips are what raise it.
+  repeats: false
   min_runway_days: 7
   performance_weight: 0.5
   performance_statistic: mean
