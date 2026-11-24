@@ -17,7 +17,7 @@ import knobs as K
 
 W, H, FPS = 1080, 1920, 30
 CW, CH = 9, 17; ROWS = 66; COLS = W // CW
-CCW, CCH, CROWS = 6, 11, 108          # the colour scenes' finer grid: 180 x 108 letters
+CCW, CCH, CROWS = 10, 18, 66          # the colour scenes: 108 x 66 bold letters, each one big enough to read on a phone
 
 def _font(*names):
     roots = [os.path.join(REPO, 'fonts'), '/usr/share/fonts', '/Library/Fonts', os.path.expanduser('~/Library/Fonts')]
@@ -28,11 +28,18 @@ def _font(*names):
                 if n in fs: return os.path.join(d, n)
     raise SystemExit('no font: %s' % (names,))
 MONO = _font('DejaVuSansMono.ttf', 'DejaVuSansMono-Bold.ttf')
+BOLD = _font('DejaVuSansMono-Bold.ttf', 'DejaVuSansMono.ttf')
 
 RAMPS = {'classic': " .:;i!tjrxnuzcvXUJCLQ0OZqpdbkhao*#W&8%B@$",
          'dense': " .'`^\",:;Il!i><~+_-?][}{1)(tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$",
          'blocks': " .:-=+*#%@░▒▓█",
          'texture': " .'`:-+=<>(){}[]ilcrsunoeazx*%$&8B#@"}   # sorted by how much ink each letter has (below): letters as texture
+# The colour scenes' letters: few and heavy, so a patch of one brightness is a run of one letter (BBBB, @@@@, 0000)
+# and the picture reads as type, not as dots. Same knob names as RAMPS.
+CRAMPS = {'classic': " .:-=+oO0Q8#B@$",
+          'dense': " .,:;~=+xoO0Q8&#B@$",
+          'blocks': " .:-=+*x%#@",
+          'texture': " .:-~=<>coeax08&B#@"}
 PALETTES = {'sunset': [(255, 222, 150), (255, 165, 85), (255, 100, 120), (200, 90, 220), (120, 110, 255)],
             'reef': [(255, 105, 180), (235, 95, 235), (150, 110, 255), (80, 150, 255), (70, 225, 240)],
             'terminal': [(235, 255, 235), (150, 255, 180), (70, 225, 150), (40, 175, 175), (50, 120, 175)],
@@ -64,16 +71,23 @@ class Video:
         self.kick = audio.hits(a['kicks'], n, 5.0); self.snare = audio.hits(a['snares'], n, 9.0)
         self.bass = np.convolve(a['bass'], np.ones(3) / 3, 'same'); self.vox = np.convolve(a['vocals'], np.ones(5) / 5, 'same')
         self.pulse = np.clip(0.75 * self.kick + 0.45 * self.bass, 0, 1)
+        # A colour scene paints on a canvas measured in pixels. One drawn for the old small letters (6 px wide) gets a
+        # canvas that many times smaller, so its moon or flower covers as many letters as it was drawn to; a scene
+        # drawn for the big letters says ZOOM = 1.
+        z = float(getattr(self.SC, 'ZOOM', CCW / 6.0)) if self.colour else 1.0
         self.SC.setup(dict(kick=self.kick, snare=self.snare, bass=self.bass, vox=self.vox, pulse=self.pulse, n=n, kicks=a['kicks'],
-                           beats=a['beats'], spb=a['spb'], dur=t1 - t0, t0=t0, seed=seed, rows=self.rows, cols=self.cols, cw=self.cw, ch=self.ch, w=W,
+                           beats=a['beats'], spb=a['spb'], dur=t1 - t0, t0=t0, seed=seed, rows=self.rows, cols=self.cols, cw=self.cw / z, ch=self.ch / z, w=W / z,
                            snares=a['snares'], hats=a.get('hats', []), vocals=a['vocals']))
         self.grad = np.array(getattr(self.SC, 'GRAD', PALETTES['mono']) if self.palette == 'scene' else PALETTES[self.palette], np.float32)
-        ramp = RAMPS[self.ramp_name]; chars = sorted(set(ramp + EXTRA + getattr(self.SC, 'CHARS', '')))
-        f = ImageFont.truetype(MONO, 10 if self.colour else 15); self.atlas = np.zeros((len(chars), self.ch, self.cw), np.float32)
+        ramp = (CRAMPS if self.colour else RAMPS)[self.ramp_name]; chars = sorted(set(ramp + EXTRA + getattr(self.SC, 'CHARS', '')))
+        f = ImageFont.truetype(BOLD, 16) if self.colour else ImageFont.truetype(MONO, 15); self.atlas = np.zeros((len(chars), self.ch, self.cw), np.float32)
         for k, c in enumerate(chars):
-            im = Image.new('L', (self.cw, self.ch)); ImageDraw.Draw(im).text((0, -1 if self.colour else 0), c, font=f, fill=255); self.atlas[k] = np.asarray(im) / 255.0
+            im = Image.new('L', (self.cw, self.ch))
+            if self.colour: ImageDraw.Draw(im).text((self.cw / 2, self.ch - 4), c, font=f, fill=255, anchor='ms')
+            else: ImageDraw.Draw(im).text((0, 0), c, font=f, fill=255)
+            self.atlas[k] = np.asarray(im) / 255.0
         self.idx = {c: k for k, c in enumerate(chars)}
-        if self.ramp_name == 'texture': ramp = ''.join(sorted(ramp, key=lambda c: self.atlas[self.idx[c]].sum()))
+        if self.ramp_name == 'texture' or self.colour: ramp = ' ' + ''.join(sorted(ramp.replace(' ', ''), key=lambda c: self.atlas[self.idx[c]].sum()))
         self.ramp = np.array([self.idx[c] for c in ramp])
         self.label = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         lines = json.load(open(os.path.join(song_dir, 'lines.json'))) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
@@ -152,10 +166,13 @@ class Video:
         (edges as / | \\ -), lets the snare throw sparks off the bright parts, and adds the glow."""
         SC = self.SC; idx = self.idx; R, C = self.rows, self.cols
         L, rgb = SC.image(i); L = np.clip(L.astype(np.float32), 0, 1); rgb = rgb.astype(np.float32)
-        ch = self.ramp[np.clip((L ** 0.85 * (len(self.ramp) - 1)).astype(int), 0, len(self.ramp) - 1)]
-        gy = cv2.Sobel(L, cv2.CV_32F, 0, 1, ksize=3); gx = cv2.Sobel(L, cv2.CV_32F, 1, 0, ksize=3)
+        ch = self.ramp[np.clip(np.rint(L ** 0.8 * (len(self.ramp) - 1)).astype(int), 0, len(self.ramp) - 1)]
+        # The shaded side of a shape is hatched along its slope (//// \\\\ |||| ----); the lit side keeps its heavy letters.
+        soft = cv2.GaussianBlur(L, (0, 0), 0.8)
+        gy = cv2.Sobel(soft, cv2.CV_32F, 0, 1, ksize=3); gx = cv2.Sobel(soft, cv2.CV_32F, 1, 0, ksize=3)
         mag = np.hypot(gx, gy); ang = (np.degrees(np.arctan2(gy, gx)) + 180) % 180
-        edge = (mag > 1.4) & (L > 0.25) & getattr(SC, 'EDGES', True)
+        lo, hi = getattr(SC, 'HATCH', (0.10, 0.42))
+        edge = (mag > 0.22) & (L > lo) & (L < hi) & getattr(SC, 'EDGES', True)
         ech = np.where((ang < 22.5) | (ang >= 157.5), idx['|'], np.where(ang < 67.5, idx['\\'], np.where(ang < 112.5, idx['-'], idx['/'])))
         ch = np.where(edge, ech, ch)
         spark = np.zeros((R, C), bool); r2 = np.random.default_rng(i // 2)
@@ -168,14 +185,21 @@ class Video:
             if 0 <= y < R and 0 <= x < C and c in idx: ch[y, x] = idx[c]; rgb[y, x] = col; L[y, x] = max(L[y, x], 0.8)
         if self.palette != 'scene':                                  # a palette knob other than the scene's own: recolour by brightness
             rgb = self.gradient(1 - L) * (0.4 + 0.6 * (rgb.mean(-1, keepdims=True) / 255))
-        col = np.where(spark[..., None], np.array([255, 255, 255], np.float32), rgb) * (0.75 + 0.85 * L)[..., None]
+        # A letter is drawn at full strength in its own colour: a dim part of the picture is a light letter (. : -),
+        # not a faded one, so every letter stays crisp.
+        col = np.where(spark[..., None], np.array([255, 255, 255], np.float32), rgb) * (0.86 + 0.5 * L)[..., None]
+        blank = ch == idx[' ']
+        if getattr(SC, 'DOTS', True):                                 # the empty part of the page is a quiet grid of dots, so it is still type
+            yy, xx = np.mgrid[0:R, 0:C]; grid = blank & ((yy + xx) % 2 == 0)
+            ch = np.where(grid, idx['.'], ch); col = np.where(grid[..., None], np.array(getattr(SC, 'DOT', (46, 52, 64)), np.float32), col)
         mask = self.atlas[ch].transpose(0, 2, 1, 3).reshape(R * self.ch, C * self.cw)
         layer = mask[..., None] * np.repeat(np.repeat(col, self.ch, 0), self.cw, 1)
-        small = cv2.resize(layer, (layer.shape[1] // 3, layer.shape[0] // 3), interpolation=cv2.INTER_AREA)
-        g = getattr(SC, 'GLOW', 1.0)                                  # how much the scene glows (a busy one keeps its letters readable)
-        glow = (cv2.resize(cv2.GaussianBlur(small, (0, 0), 2.2), layer.shape[1::-1]) * (1.1 + 0.8 * self.vox[i])
-                + cv2.resize(cv2.GaussianBlur(small, (0, 0), 9), layer.shape[1::-1]) * (0.7 + 0.6 * self.pulse[i])) * g
-        return np.clip(layer + glow, 0, 255), int((ch != idx[' ']).sum()), int(spark.sum())
+        lit = layer * np.repeat(np.repeat((~blank)[..., None].astype(np.float32), self.ch, 0), self.cw, 1)
+        small = cv2.resize(lit, (layer.shape[1] // 3, layer.shape[0] // 3), interpolation=cv2.INTER_AREA)
+        g = getattr(SC, 'GLOW', 1.0) * 0.45                           # a halo behind the letters, never over them: the letters stay sharp
+        glow = (cv2.resize(cv2.GaussianBlur(small, (0, 0), 4), layer.shape[1::-1]) * (0.5 + 0.5 * self.vox[i])
+                + cv2.resize(cv2.GaussianBlur(small, (0, 0), 14), layer.shape[1::-1]) * (0.7 + 0.6 * self.pulse[i])) * g
+        return np.clip(np.maximum(layer, glow * (1 - mask[..., None])), 0, 255), int((~blank).sum()), int(spark.sum())
 
     def frame_colour(self, i):
         """The colour scenes' page: a header line of live counts, the art, the line being printed, the code underneath."""

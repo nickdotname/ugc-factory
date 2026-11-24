@@ -2,6 +2,14 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: the ASCII colour scenes were "not hi-def enough" next to other ASCII pages: 180 x 108 letters at
+  6 x 11 px are specks on a phone, on a mostly black frame. Now 108 x 66 **bold** letters (10 x 18 px), short
+  heavy ramps so one brightness is a run of one letter (`CRAMPS`), shaded parts hatched along their slope
+  (`//// ||||`, `HATCH`), a dot grid on empty cells (`DOTS`), and a halo behind the letters instead of a blur over
+  them. goldfish.py is redrawn for it: three koi (one fills the page) with white patches, a forked tail, eyes,
+  and water made of letters; its tail was also on the wrong end (in front of the head) and is now behind. The four
+  older colour scenes get a smaller canvas (`ZOOM`) so their subjects cover as many letters as they were drawn for.
+
 - 2026-11-24: a post could be sent twice (tiny.code.loops and psychedelic.station today, three accounts on
   Nov 21). `publish-due` now reads the branch as it is, claims each post on the branch before sending it and
   records each result as soon as it is out. See [[traps]], "The same post sent twice".

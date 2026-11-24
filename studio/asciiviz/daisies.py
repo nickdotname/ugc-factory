@@ -7,7 +7,7 @@ from paint import E
 
 FILE = 'daisies.py'
 # ----
-N_DAISIES, N_FLIES = 52, 26
+N_DAISIES, N_FLIES = 26, 20
 FLOWERS, FLIES, STARS = [], [], []
 
 
