@@ -28,6 +28,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import knobs as K
+import hook as _hook
 import footage
 from glitch_video import Clips              # library footage, cut on bar lines and cropped to the frame
 import lofi_video as LV                     # the footage, its timing, the lyrics and fonts (it reads the same argv)
@@ -39,6 +40,13 @@ PALETTES = {'acid': [(226, 255, 0), (255, 40, 160), (20, 20, 20), (0, 220, 255)]
 TINTS = [((40, 0, 95), (200, 40, 210), (255, 185, 250)), ((0, 30, 80), (0, 170, 200), (200, 255, 250)), ((60, 10, 0), (240, 90, 20), (255, 230, 160)),
          ((0, 50, 20), (40, 200, 90), (220, 255, 200))]
 ANTON = os.path.join(REPO, 'fonts', 'Anton-Regular.ttf')
+# The line on screen for the first two seconds (hook knob; 'none' too, so the learner can compare). Every one is true
+# of every video of this style (it is always the band's own phone footage of themselves dancing to the album) and
+# none asks the viewer for anything. The two hand-posted dance videos of 2026-11-22 (169 and 346 views, 5-6 s
+# watched) are the best this account has done; the automated band lyric videos sit at a median of 76.
+# Short, so the box stays big (hook.draw shrinks a long line to fit the width).
+HOOKS = ["the band, dancing to the band", "we danced to our own album", "our album. our living room.",
+         "new album. old moves."]
 GX, GY = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
 BGS = {'color': (), 'city': ('nyc', 'city'), 'space': ('space',), 'water': ('water',), 'archive': ('archive', 'silent')}
 
@@ -81,6 +89,8 @@ class Video:
         self.words = K.pick('words', ['big', 'none'], r, weights=[4, 1]) if LV.SHOW_LYRICS else 'none'
         self.bg = K.pick('bg', list(BGS), r, weights=[2, 3, 2, 2, 1])
         self.tone = K.pick('tone', ['duo', 'soft'], r)
+        self.hook = os.environ.get('CQ_HOOK') or K.pick('hook', HOOKS + ['none'], r)
+        if self.hook == 'none': self.hook = ''
         self.moves = random.Random(seed * 7919)          # where each beat sends the cut-out (drawn per beat, below)
         beats = [b for b in LV.BEATS if self.T0 - 2 <= b <= self.T1 + 2]
         self.beats = np.array(beats or [self.T0]); spb = float(np.median(np.diff(self.beats))) if len(self.beats) > 2 else 0.5
@@ -183,7 +193,8 @@ class Video:
         sp = spring(ph * self.spb / 0.45)
         dx, dy, rot, sz = (a_[j] + (b_[j] - a_[j]) * sp for j in range(4))
         into = (T - sc['t0']) / max(1e-3, 0.4 * self.spb)
-        if into < 1 and sc['kind'] in ('big', 'duo', 'echo'):
+        # every bar slides in from a side, except the first: frame 0 is the cover, and a slide put the cut-out off-screen
+        if into < 1 and sc['kind'] in ('big', 'duo', 'echo') and sc is not self.plan[0]:
             side = 1 if self.plan.index(sc) % 2 else -1
             dx += side * W * 0.9 * (1 - back_out(into))
         squash = float(self.kick[n])
@@ -226,13 +237,17 @@ class Video:
         elif self.trip == 'split':
             sh = int(4 + 26 * self.kick[n]); img[..., 0] = np.roll(img[..., 0], sh, axis=1); img[..., 2] = np.roll(img[..., 2], -sh, axis=1)
         out = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(out)
-        word = next((wd for t, wd in reversed(self.wordlist) if t <= T < t + 0.9), None)
+        held = bool(self.hook) and T - self.T0 < _hook.SHOW + _hook.FADE     # the opening line has the top to itself
+        word = None if held else next((wd for t, wd in reversed(self.wordlist) if t <= T < t + 0.9), None)
         if word:
             t0 = next(t for t, wd in reversed(self.wordlist) if t <= T and wd == word); age = T - t0
             s = 1.0 + 0.35 * math.exp(-age * 10); f = self.f_word.font_variant(size=int(190 * s))
             d.text((W / 2, H * (0.13 if sc['kind'] == 'grid' else 0.2)), word.strip(',.?!"').upper(), font=f, fill=(255, 255, 255), anchor='mm', stroke_width=12, stroke_fill=(0, 0, 0))
-        d.text((W / 2, H - 110), self.credit, font=self.f_credit, fill=(255, 255, 255), anchor='mm', stroke_width=3, stroke_fill=(0, 0, 0))
-        return np.asarray(out)
+        # the credit just above Instagram's caption area (bottom 420 px); it used to sit at H - 110, under the UI
+        d.text((W / 2, H - 450), self.credit, font=self.f_credit, fill=(255, 255, 255), anchor='mm', stroke_width=3, stroke_fill=(0, 0, 0))
+        a = np.asarray(out)
+        if held: a = _hook.draw(a, self.hook, T - self.T0, y=0.155)
+        return a
 
     def render(self, out):
         if '--frames' in sys.argv:
@@ -254,7 +269,7 @@ class Video:
         p.stdin.close(); p.wait()
         if p.returncode: sys.exit('encode failed')
         os.replace(tmp, out)
-        json.dump(dict(K.record(), plan=dict(hook='', window=[round(self.T0, 2), round(self.T1, 2)], scenes=[s['kind'] for s in self.plan],
+        json.dump(dict(K.record(), plan=dict(hook=self.hook, window=[round(self.T0, 2), round(self.T1, 2)], scenes=[s['kind'] for s in self.plan],
                                               people=sorted({s['who'] for s in self.plan}))), open(out[:-4] + '.json', 'w'))
         print('done', out, K.record()['knobs'])
 

@@ -28,7 +28,7 @@ import sys
 import uuid
 from datetime import date, datetime, timedelta
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 from src.keys import read_env
 from src.accounts import (
@@ -178,6 +178,7 @@ from src.selector import (
     Relaxation,
     Selector,
     days_until_first_repeat,
+    entry_hooks,
     tuple_hash,
 )
 from src.vcs import GitVcs, NullVcs, Vcs, VcsError
@@ -835,6 +836,7 @@ def _render(
             config.composition.bodies_per_video_max,
             performance=performance,
             boost=boost,
+            visual_pools=_visual_pools(config, resources),
         )
     relaxed = [(name, o) for name, o in picks if o.relaxation is not Relaxation.NONE]
     if relaxed and not config.selection.repeats:
@@ -909,6 +911,19 @@ def _render(
         and config.variation.per_account
     )
     vary = set(config.variation.per_account_vary)
+    # Clips no account version may use: anything under the hook cooldown in
+    # any creative sharing the clip's pool (every account's version counts),
+    # and anything already going out tonight. Keyed (pool, clip).
+    pools_by_creative = _visual_pools(config, resources)
+    clip_cutoff = today - timedelta(days=config.selection.hook_cooldown_days)
+    clips_taken: set[tuple[str, str]] = set()
+    for name, res in resources.items():
+        pool = pools_by_creative.get(name, f"creative:{name}")
+        for e in res.history.entries:
+            if e.timestamp > clip_cutoff:
+                clips_taken.update((pool, h) for h in entry_hooks(e))
+    for name, sel, _ in planned:
+        clips_taken.add((pools_by_creative.get(name, f"creative:{name}"), sel.hook))
 
     def _fill(text: str, creative: CreativeConfig) -> str:
         """Funnel text with this creative's own name and link filled in.
@@ -1025,10 +1040,29 @@ def _render(
                 )
                 v_overlay, v_title = overlay, title
                 if "clip" in vary:
-                    spare = tuple(h for h in res.library.hooks if h not in used_hooks)
+                    pool = pools_by_creative.get(creative_name, f"creative:{creative_name}")
+                    spare = tuple(
+                        h for h in res.library.hooks
+                        if h not in used_hooks and (pool, h) not in clips_taken
+                    )
+                    if not spare and config.selection.repeats:
+                        # Repeats allowed: a clip that is cooling down (or out
+                        # tonight on another post) still beats this account
+                        # getting the very same video as the first one.
+                        spare = tuple(h for h in res.library.hooks if h not in used_hooks)
                     if spare:
                         hook = rng.choice(spare)
                         used_hooks.add(hook)
+                        clips_taken.add((pool, hook))
+                    elif not config.selection.repeats:
+                        # No clip this account has not had lately: it sits this
+                        # post out rather than getting the same video as the
+                        # first account (the same meme on two accounts).
+                        log.warning(
+                            "variant_dropped", creative=creative_name,
+                            account=dest_account, hook=selection.hook,
+                        )
+                        continue
                 if "caption" in vary:
                     fresh = tuple(
                         d for d in res.descriptions if d.body not in used_captions
@@ -1056,6 +1090,10 @@ def _render(
                     }),
                     v_overlay, v_title,
                 ))
+            if len(versions) < len(going_to):
+                # An account that sat out must not get the item's own video at
+                # push time either (an account without a version gets that).
+                accounts = [name for name, _, _, _ in versions if name is not None]
         else:
             versions.append((None, selection, overlay, title))
 
@@ -2363,6 +2401,18 @@ def cmd_preflight(args: argparse.Namespace, env: dict[str, str]) -> int:
 
 
 # ------------------------------------------------------------------ command: ingest
+
+
+def _visual_pools(config: CampaignConfig, resources: Mapping[str, Any]) -> dict[str, str]:
+    """creative -> the clip pool (Release tag) its hooks come from, for creatives that share one.
+
+    Only ``shared_videos`` creatives are listed: theirs is the one case where two
+    songs' ``hook_05.mp4`` are the same picture, so a clip's cooldown has to be
+    the pool's, not the song's (``Selector.select_batch_multi``)."""
+    return {
+        c.name: config.creative_video_tag(c)
+        for c in config.creatives if c.shared_videos and c.name in resources
+    }
 
 
 def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:
