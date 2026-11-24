@@ -37,3 +37,21 @@ Back to [[README]] · see [[accounts]], [[traps]]. One format per account: a new
 ## 5. First posts
 After merge: `studio.yml` with `campaign=<name> count=6`, then `render.yml`, then `topup.yml`. Posts go out in the
 account's window the next day. Check the dashboard ([[health-check]]).
+
+## Without a Facebook Page (Unified login)
+When no Page can be made (the profile is blocked from creating Pages, nobody else is around). First used for
+@algorithm.races on 2026-11-24. One token per account, in `IG_TOKEN_2` … `IG_TOKEN_8`.
+
+1. Create the Instagram account in the phone app (Profile → account name → Add Instagram → Create new), then
+   Settings → Profile type and tools → Switch to professional → Digital creator → Creator.
+2. developers.facebook.com → Close Quarters Clip Engine → Use cases → Instagram API → Customize → **API setup with
+   Unified login** → 2. Generate access tokens → **Add account** → Continue → role **Instagram Tester** → type the
+   username → Add. (The app is already connected to the Close Quarters business portfolio and has its login
+   configuration; "API setup with Instagram login" is not offered to this app.)
+3. The invite can only be accepted on the **website**, logged in as that account (the phone app has no such screen):
+   instagram.com → More → Switch profiles (operator types the password) → instagram.com/accounts/manage_access →
+   **Tester Invites** → Accept.
+4. Back in the dashboard the account is listed with its Instagram user id and **Generate token**. The operator
+   generates it while the website is still logged in as that account and saves it as the next free `IG_TOKEN_n`.
+5. `accounts.yaml`: `api_key_secret: IG_TOKEN_n`, `channel_id` = the id from the dashboard. Add the account to
+   `TOKENS` in `studio/replies.py`. Run the **ig-check** workflow: it must answer with the account's username.

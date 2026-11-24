@@ -42,7 +42,9 @@ ACCOUNTS = {
     'cinema_ig': ('17841474330049873', 'ascii.cinema.tty'),
     'petri_ig': ('17841475752719438', 'digital.petri.dish'),
     'illusions_ig': ('17841449601538478', 'rotation.illusions'),
+    'races_ig': ('17841454673847359', 'algorithm.races'),
 }
+TOKENS = {'races_ig': 'IG_TOKEN_2'}     # accounts with no Facebook Page have a token of their own; the rest share IG_TOKEN
 OURS = {u for _, u in ACCOUNTS.values()} | {'the.loose.change'}
 BAND = {'close_quarters_ig'}            # the band's own account doesn't tag itself
 
@@ -154,15 +156,19 @@ def room(s, account, now):
 
 
 def run(dry=False, now=None):
-    token = os.environ.get('IG_TOKEN')
-    if not token: print('no IG_TOKEN; nothing to do'); return 0
+    shared = os.environ.get('IG_TOKEN')
+    if not shared: print('no IG_TOKEN; nothing to do'); return 0
     now = now or dt.datetime.now(dt.timezone.utc)
     s = load_state(); prune(s, now); titles = song_titles(); sent_total = 0; live = set()
     for account, (uid, handle) in ACCOUNTS.items():
+        own = TOKENS.get(account); token = os.environ.get(own) if own else shared
+        if not token: print('no %s; skipping %s' % (own, handle)); continue
         try:
             media = graph('GET', '%s/media' % uid, token, fields='id,comments_count,timestamp', limit=25).get('data', [])
         except NoPermission as exc:
-            print('no permission to read %s: %s\n-> the IG_TOKEN needs instagram_manage_comments' % (handle, exc)); break
+            print('no permission to read %s: %s\n-> the %s needs instagram_manage_comments' % (handle, exc, own or 'IG_TOKEN'))
+            if own: continue                # its own token: the others are unaffected
+            break
         except Exception as exc:
             print('could not read %s: %s' % (handle, exc)); continue
         budget = min(PER_RUN, room(s, account, now))

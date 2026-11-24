@@ -78,6 +78,9 @@ jobs:
         continue-on-error: true
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
+          IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
         run: |
           python studio/collabs.py accept
           git add outbox
