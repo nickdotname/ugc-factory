@@ -515,8 +515,19 @@ def github_token_from_env(env: dict[str, str] | None = None) -> str:
     return token
 
 
+#: Seconds to wait before asking again when the media site answers 5xx / 429
+#: or cannot be reached. A lone 502 from the site (retro_arcade's 04:00 topup,
+#: 2026-11-24) used to fail that campaign's whole topup; the same video posted
+#: fine later that day.
+READABLE_RETRY_WAITS: tuple[float, ...] = (4.0, 12.0)
+
+
 def assert_publicly_readable(
-    url: str, *, get: Callable[..., requests.Response] = requests.get
+    url: str,
+    *,
+    get: Callable[..., requests.Response] = requests.get,
+    sleep: Callable[[float], None] = time.sleep,
+    waits: tuple[float, ...] | None = None,
 ) -> None:
     """Fail unless ``url`` can be fetched by someone who is not signed in.
 
@@ -524,19 +535,31 @@ def assert_publicly_readable(
     URL" and that rejection is final, so pushing blind turns one broken
     address into a queue full of permanently failed posts. Asking for the
     first byte first costs nothing and leaves every item untouched.
+
+    A server-side hiccup (5xx, 429, a dropped connection) is asked again after
+    a short wait; 401/403/404 are final at once.
     """
-    try:
-        response = get(
-            url, headers={"Range": "bytes=0-0"}, stream=True, timeout=30,
-            allow_redirects=True,
-        )
-        status = response.status_code
-        response.close()
-    except requests.RequestException as exc:
-        raise MediaStoreError(
-            f"the rendered video at {url} could not be reached: {exc}. "
-            f"Nothing was sent to Buffer."
-        ) from exc
+    waits = READABLE_RETRY_WAITS if waits is None else waits
+    for attempt in range(len(waits) + 1):
+        try:
+            response = get(
+                url, headers={"Range": "bytes=0-0"}, stream=True, timeout=30,
+                allow_redirects=True,
+            )
+            status = response.status_code
+            response.close()
+        except requests.RequestException as exc:
+            if attempt < len(waits):
+                sleep(waits[attempt])
+                continue
+            raise MediaStoreError(
+                f"the rendered video at {url} could not be reached: {exc}. "
+                f"Nothing was sent to Buffer."
+            ) from exc
+        if (status >= 500 or status == 429) and attempt < len(waits):
+            sleep(waits[attempt])
+            continue
+        break
     if status not in (200, 206):
         raise MediaStoreError(
             f"the rendered video at {url} is not publicly readable (HTTP "

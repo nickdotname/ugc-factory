@@ -47,6 +47,7 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
 - **"Base branch was modified"** when merging: refresh the PR page and merge again.
 - **Overnight looks empty by design:** posting windows are daytime, and the queue only holds about a day ahead
   (`max_backlog_days: 1`), so the dashboard rarely shows more than tomorrow.
+- **A lone 502 from the media site failed a whole campaign's topup** (retro_arcade, 04:00 New York, 2026-11-24: `MediaStoreError ... not publicly readable (HTTP 502)`; the same video posted fine that afternoon). `assert_publicly_readable` (src/assets.py) now asks again after 4 s and 12 s on 5xx, 429 or a dropped connection; 401/403/404 still stop at once.
 
 ## Studio and media
 
