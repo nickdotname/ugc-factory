@@ -91,9 +91,9 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-5ca829f7-9d85-4e32-9725-3c3558b8c0be",
           "last_error": null,
           "scheduled_for": "2026-11-24T20:41:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "be so serious\n🎧 Subway Maintenance – @close__quarters #relatable #humor #createmode\n\nstream Subway Maintenance: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
