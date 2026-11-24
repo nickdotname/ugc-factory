@@ -250,9 +250,9 @@
         {
           "account": "vintage_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-2e61c897-e0d3-4fdc-bac3-8a199daf47de",
           "last_error": null,
           "scheduled_for": "2026-11-24T20:40:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "an intertitle and a drop\n🎧 Myth of Sisyphus – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
