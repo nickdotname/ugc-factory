@@ -250,18 +250,18 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T11:33:00-05:00"
         }
       ],
       "captions": {
         "instagram": "a quick one for your attention span\n🎧 Hair of the Dog – @close__quarters #pixelart #8bit #braingames #attention #rhythm\n\nstream Hair of the Dog: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
