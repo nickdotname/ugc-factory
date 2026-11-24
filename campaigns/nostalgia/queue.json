@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nostalgia_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-24T14:15:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "recorded over a birthday tape\n🎧 Epilogue: Dismissal – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nEpilogue: Dismissal is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
