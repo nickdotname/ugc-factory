@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Notta Problem by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "races_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-24T14:26:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "same problem. same start. different plans\n🎧 Notta Problem – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Evil Close Quarters by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "races_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "one of these is about to be embarrassed\n🎧 Evil Close Quarters – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nstream Evil Close Quarters: link in bio"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Silver and Gold – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "races_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "this is why your code is slow\n🎧 Silver and Gold – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nSilver and Gold is out now. link in bio to stream it"
       },
@@ -163,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "races_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the slow one is trying its best\n🎧 Prologue: Before – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nlink in bio to stream Prologue: Before"
       },
@@ -206,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Suspended by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "races_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "algorithms, but it's a race\n🎧 Suspended – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nstream Suspended: link in bio"
       },
