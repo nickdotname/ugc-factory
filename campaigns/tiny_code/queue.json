@@ -197,18 +197,18 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T15:31:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the code on top draws the picture below. live.\n🎧 Full Ride – @close__quarters #creativecoding #generativeart #python #numpy #codeart\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
