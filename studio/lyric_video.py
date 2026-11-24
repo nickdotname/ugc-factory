@@ -578,7 +578,14 @@ def band_frame(f, feat, plan, ctx, rng):
     return caption(a, kl, T, 1340, 64, 980) if kl is not None else a
 
 def plan_prod():
-    pals = [[(255, 190, 110), (255, 90, 110), (150, 160, 255), (120, 220, 255)], [(255, 255, 255), (255, 210, 60), (90, 220, 160), (255, 120, 200)], [(120, 255, 170), (255, 150, 80), (110, 190, 255), (240, 240, 120)]]
+    # What the video does with the song (2026-11-24). 'scroll' is the old stems view: the master under four scrolling
+    # waveforms, nothing changing in 20 s (median 22 views). 'build' and 'strip' make the stems mean something: the
+    # audio itself is rebuilt from them, one part alone and then the rest coming in on the bar (studio/README: stems/).
+    # 'scroll' is kept off the menu (the captions now promise a part heard on its own); CQ_STORY=scroll still draws it.
+    story = K.pick('story', ['build', 'strip'], R)
+    if os.environ.get('CQ_STORY') in ('build', 'strip', 'scroll'): story = os.environ['CQ_STORY']
+    if story != 'scroll': return plan_story(story)
+    pals =[[(255, 190, 110), (255, 90, 110), (150, 160, 255), (120, 220, 255)], [(255, 255, 255), (255, 210, 60), (90, 220, 160), (255, 120, 200)], [(120, 255, 170), (255, 150, 80), (110, 190, 255), (240, 240, 120)]]
     segs = []; prev = -1
     for k, (e, ws) in enumerate(LINES):
         if ws[0][1] > T1: break
@@ -613,7 +620,7 @@ def mixer_frame(f, feat, plan, ctx, rng):
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T); k = line_at(T); si = seg_at(plan, T); st, (foc, ppb), kk, ov = plan['segs'][si]
     if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
     im = Image.fromarray(make_bg(plan['wall'], T, plan['bg'], plan['acc'])); d = ImageDraw.Draw(im)
-    sub = ('%s - %s   %d BPM   %s' % (SONG['artist'], SONG['title'], round(60 / SPB), SONG.get('key', ''))).rstrip(); f2 = F(INTER_SB, 32); w = d.textlength(sub, font=f2); d.text(((W - w) / 2, 150), sub, font=f2, fill=(150, 160, 175))
+    sub = ('%s - %s   %d BPM   %s' % (SONG['artist'], SONG['title'], round(60 / SPB), SONG.get('key', ''))).rstrip(); f2 = F(INTER_SB, 32); w = d.textlength(sub, font=f2); d.text(((W - w) / 2, 470), sub, font=f2, fill=(150, 160, 175))
     strips = [('VOCAL', 'Vocals'), ('DRUMS', 'Drums'), ('INSTR', 'Other'), ('BASS', 'Bass')]
     x0, y0, y1 = 40, 600, 1560; sw = (W - 80) / 4; fade = ctx.setdefault('fader', [0.5] * 4); peak = ctx.setdefault('peak', [0.0] * 4)
     bar = int(beat // 4) + 1; d.text((40, 548), 'BAR %d.%d' % (bar, int(beat % 4) + 1), font=F(MONO, 30), fill=(200, 205, 215))
@@ -643,7 +650,7 @@ def mixer_frame(f, feat, plan, ctx, rng):
     a = fx(np.asarray(im), T, f, plan, [o for o in ov if o not in ('stamp', 'track')], st, (0, 580, W, 1560), ctx, rng)
     a = pic_card(a, plan, k, T)
     if plan.get('faces'): a = facecam(a, T, bands, beat, ctx)
-    return caption(a, k, T, 215, 76, 1000) if k is not None else a
+    return caption(a, k, T, 262, 70, 1000) if k is not None else a
 
 def prod_frame(f, feat, plan, ctx, rng):
     if plan.get('layout') == 'mixer': return mixer_frame(f, feat, plan, ctx, rng)
@@ -651,7 +658,7 @@ def prod_frame(f, feat, plan, ctx, rng):
     if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
     if foc == 3 and T < MEL_T: foc = 0
     im = Image.fromarray(make_bg(plan['wall'], T, plan['bg'], plan['acc'])); d = ImageDraw.Draw(im)
-    sub = ('%s - %s   %d BPM   %s' % (SONG['artist'], SONG['title'], round(60 / SPB), SONG.get('key', ''))).rstrip(); f2 = F(INTER_SB, 32); w = d.textlength(sub, font=f2); d.text(((W - w) / 2, 150), sub, font=f2, fill=(150, 160, 175))
+    sub = ('%s - %s   %d BPM   %s' % (SONG['artist'], SONG['title'], round(60 / SPB), SONG.get('key', ''))).rstrip(); f2 = F(INTER_SB, 32); w = d.textlength(sub, font=f2); d.text(((W - w) / 2, 470), sub, font=f2, fill=(150, 160, 175))
     total = 860; hs = [total * (0.55 if i == foc else 0.15) for i in range(4)] if foc is not None else [total / 4] * 4
     ph = 330; x_of = lambda b: ph + (b - beat) * ppb; y = 540; vis = W / ppb
     for li, (label, stem) in enumerate(PLN):
@@ -699,13 +706,211 @@ def prod_frame(f, feat, plan, ctx, rng):
     a = fx(np.asarray(im), T, f, plan, [o for o in ov if o != 'stamp'], st, (0, 580, W, 1560), ctx, rng)
     a = pic_card(a, plan, k, T)
     if plan.get('faces'): a = facecam(a, T, bands, beat, ctx)
-    return caption(a, k, T, 215, 76, 1000) if k is not None else a
+    return caption(a, k, T, 262, 70, 1000) if k is not None else a
+
+# ------------------------------------------------------------ producer stories: build / strip
+# One part of the song alone, then the rest coming in on the bar ('build'), or the full mix, then one part alone, then
+# everything back ('strip'). The sound is rebuilt from the stems to match what is on screen, so the lanes are not
+# decoration: a lane that is lit is what you hear. The full mix is always the master itself.
+ST_NAME = {'Vocals': 'VOCAL', 'Drums': 'DRUMS', 'Bass': 'BASS', 'Other': 'INSTRUMENTS'}
+ST_ORDER = ['Vocals', 'Drums', 'Bass', 'Other']
+ALL = frozenset(ST_ORDER)
+# The line over the first seconds. Every one is true of the video it is drawn on: it is chosen after the plan, from
+# what the plan does ({s} = seconds until the full mix, computed). Statements, no asks.
+STORY_LINES = {
+    ('build', 'Vocals'): ["the vocal on its own first. then the whole song", "just the vocal. the band comes in one by one",
+                          "acapella to full song in {s} seconds", "how this song stacks up, from the vocal"],
+    ('build', 'Drums'): ["drums first. then the rest of the song", "built up from the drums, one part at a time",
+                         "drums to full song in {s} seconds", "the beat on its own, then everything"],
+    ('strip', 'Vocals'): ["full mix. then just the vocal", "now the same bars with only the vocal",
+                          "what the vocal sounds like with nothing under it", "the song, then the vocal alone"],
+    ('strip', 'Drums'): ["full mix. then just the drums", "the same bars with only the drums",
+                         "the drum track on its own, then back in", "the song, then the drums alone"],
+}
+
+def _seg_energy(stem, a, b):
+    if stem not in ENV: return 0.0
+    e = ENV[stem]; i, j = int((a - STEMS_START) * 200), int((b - STEMS_START) * 200)
+    return float(e[max(0, i):max(i + 1, j)].mean()) if j > 0 else 0.0
+
+def plan_story(story):
+    pals = [[(255, 196, 92), (255, 92, 120), (110, 170, 255), (90, 225, 170)],          # amber, coral, blue, mint
+            [(250, 250, 250), (255, 210, 60), (90, 220, 160), (255, 120, 200)],
+            [(150, 255, 180), (255, 150, 80), (120, 190, 255), (240, 230, 120)]]
+    pal_ = pals[K.pick('colours', [0, 1, 2], R)]
+    first = K.pick('first', ['Vocals', 'Drums'], R)
+    L = T1 - T0; b0 = t2b(T0); bar = 4 * SPB
+    sol, add = (8, 4) if bar < 2.6 else (4, 4)                     # beats: about four seconds alone, then a bar per part
+    steps = 3 if story == 'build' else 1
+    while (sol + add * (steps - 1)) * SPB > 0.55 * L and sol > 2: sol //= 2; add = max(2, add // 2)
+    # the part has to be playing in that stretch: a solo of a silent stem is an empty video
+    other = 'Drums' if first == 'Vocals' else 'Vocals'
+    if _seg_energy(first, T0, b2t(b0 + sol)) < 0.12 and _seg_energy(other, T0, b2t(b0 + sol)) >= 0.12: first = other
+    if story == 'build':
+        rest = ['Drums', 'Bass'] if first == 'Vocals' else ['Bass', 'Other']
+        sets = [{first}, {first, rest[0]}, {first, rest[0], rest[1]}, ALL]
+        labels = [ST_NAME[first] + ' ONLY', '+ ' + ST_NAME[rest[0]], '+ ' + ST_NAME[rest[1]], 'FULL MIX']
+        at = [b0, b0 + sol, b0 + sol + add, b0 + sol + 2 * add]
+    else:
+        lead_in = sol
+        sets = [ALL, {first}, ALL]; labels = ['FULL MIX', ST_NAME[first] + ' ONLY', 'ALL BACK IN']
+        at = [b0, b0 + lead_in, b0 + lead_in + sol]
+    steps_ = [[round(b2t(b), 3), sorted(s), lab] for b, s, lab in zip(at, sets, labels) if b2t(b) < T1 - 0.5]
+    drop = next((t for t, s, _ in steps_[1:] if len(s) == 4), None)
+    rl = random.Random(seed * 613 + 1); line = rl.choice(STORY_LINES[(story, first)])
+    if '{s}' in line:
+        line = line.format(s=int(round(drop - T0))) if drop and drop - T0 >= 2 else rl.choice([l for l in STORY_LINES[(story, first)] if '{s}' not in l])
+    return dict(story=story, first=first, steps=steps_, drop=drop, line=line, pal=pal_, bg=(12, 13, 17),
+                punch=K.pick('punch', [0.015, 0.03], R), caption=K.pick('caption', ['inter', 'inter', 'anton', 'montserrat'], R), segs=[[T0, [None, 110], 0, []]])
+
+def story_step(plan, T):
+    s = [x for x in plan['steps'] if x[0] <= T + 1e-3]
+    return s[-1] if s else plan['steps'][0]
+
+def story_audio(plan, wav):
+    """Rewrites the cut clip so that each step plays only its stems: the master where everything plays, the sum of the
+    stems elsewhere, with 12 ms ramps at the bar lines. A part alone is lifted (at most +6 dB) towards the full mix's level."""
+    x, sr = sf.read(wav, always_2d=True, dtype='float32'); n = len(x); out = x.copy()
+    stems = {}
+    for nm in ST_ORDER:
+        if not os.path.exists(stem_path(nm)): continue
+        info = sf.info(stem_path(nm)); a = int((T0 - STEMS_START) * info.samplerate)
+        y, ssr = sf.read(stem_path(nm), start=max(0, a), stop=max(0, a) + int((T1 - T0) * info.samplerate) + 2, always_2d=True, dtype='float32')
+        if ssr != sr: y = librosa.resample(y.T, orig_sr=ssr, target_sr=sr).T
+        if y.shape[1] != x.shape[1]: y = np.repeat(y.mean(1, keepdims=True), x.shape[1], 1)
+        y = y[:n]; stems[nm] = np.pad(y, ((0, n - len(y)), (0, 0)))
+    if not stems: return
+    ramp = int(0.012 * sr); full_rms = float(np.sqrt(np.mean(x ** 2))) + 1e-9
+    gain_full = np.zeros(n, np.float32); g = {nm: np.zeros(n, np.float32) for nm in stems}
+    edges = [int((t - T0) * sr) for t, _, _ in plan['steps']] + [n]
+    for (t, on, _), a, b in zip(plan['steps'], edges, edges[1:]):
+        a, b = max(0, a), min(n, b)
+        if b <= a: continue
+        if len(on) == 4: gain_full[a:b] = 1
+        else:
+            mix = sum(stems[nm][a:b] for nm in on if nm in stems)
+            lift = min(2.0, max(1.0, 0.6 * full_rms / (float(np.sqrt(np.mean(mix ** 2))) + 1e-9))) if len(on) == 1 else 1.0
+            for nm in on:
+                if nm in g: g[nm][a:b] = lift
+    k = np.ones(ramp, np.float32) / ramp                                   # smooth every switch over the ramp
+    sm = lambda v: np.convolve(v, k, mode='same')
+    gf = sm(gain_full); out = x * gf[:, None]
+    for nm in stems: out += stems[nm] * sm(g[nm])[:, None]
+    fo = int(0.03 * sr); out[-fo:] *= np.linspace(1, 0, fo)[:, None]       # the loop restarts on a different part: no click
+    fi = int(0.008 * sr); out[:fi] *= np.linspace(0, 1, fi)[:, None]
+    peak = np.abs(out).max()
+    if peak > 0.98: out *= 0.98 / peak
+    sf.write(wav, out, sr)
+
+def _label(d, text, cx, y, font, fill, bgc, pad=(30, 14), radius=22):
+    tw = d.textlength(text, font=font); asc, desc = font.getmetrics(); h = asc + desc
+    d.rounded_rectangle([cx - tw / 2 - pad[0], y - pad[1], cx + tw / 2 + pad[0], y + h + pad[1] * 0.6], radius=radius, fill=bgc)
+    d.text((cx - tw / 2, y), text, font=font, fill=fill)
+
+LANE_Y0, LANE_H, LANE_GAP, HEAD_W, PH_X = 598, 192, 12, 238, 560   # tracks 598-1402, the meters under them to 1496
+def story_frame(f, feat, plan, ctx, rng):
+    bands, low = feat; T = T0 + f / FPS; beat = t2b(T)
+    st, on, lab = story_step(plan, T); on = set(on); since = T - st
+    if lab == 'ALL BACK IN' and since > 8 * SPB: lab = 'FULL MIX'                  # after two bars it is just the song again
+    pal = plan['pal']; bg = plan['bg']
+    a = np.empty((H, W, 3), np.uint8); a[:] = bg
+    grad = np.linspace(0, 1, H)[:, None, None]; a[:] = (np.array(bg) * (1 - grad * .4) + np.array((24, 26, 34)) * grad * .4).astype(np.uint8)
+    im = Image.fromarray(a); d = ImageDraw.Draw(im)
+    # the song: title and tempo, small, below Instagram's top bar
+    sub = '%s  ·  %s  ·  %d BPM' % (SONG['title'], SONG['artist'].lower(), round(60 / SPB)); f2 = F(INTER_SB, 34)
+    d.text(((W - d.textlength(sub, font=f2)) / 2, 262), sub, font=f2, fill=(150, 158, 172))
+    # the line over the first seconds, then the lyric (only while the vocal is in)
+    hook_on = plan.get('hook') and T - T0 < 3.2
+    if hook_on:
+        al = min(1.0, max(0.0, (3.2 - (T - T0)) / 0.3)); fh = F(INTER_XB, 58)                 # fully there in frame 0
+        rows = wrap(d, plan['hook'].split(), fh, 740); y = 306
+        for r in rows:
+            s_ = ' '.join(r); tw = d.textlength(s_, font=fh)
+            d.text(((W - tw) / 2, y), s_, font=fh, fill=tuple(int(bg[i] + (255 - bg[i]) * al) for i in range(3)))
+            y += 68
+    k = line_at(T)
+    if k is not None and 'Vocals' in on and not hook_on:
+        allw = [w for w, _ in LINES[k][1]]; size = next((z for z in (60, 52, 44) if len(wrap(d, allw, F(CAP, z), 740)) <= 2), 40)
+        karaoke(d, k, T, 306 + (60 - size), size=size, maxw=740, outline=False)          # two rows at most: the label is below
+    # what is playing now, in words: the label pops when it changes
+    pop = 1 + 0.22 * np.exp(-since * 14); fb = F(INTER_XB, int(58 * pop)); full = len(on) == 4
+    acc = (255, 255, 255) if full else tuple(pal[ST_ORDER.index(sorted(on, key=ST_ORDER.index)[-1])])
+    _label(d, lab, W / 2, 470 - int(58 * (pop - 1) / 2), fb, (14, 15, 20), acc)
+    # the arrangement: four tracks, header on the left, the clip with its waveform scrolling under the playhead
+    ppb = 74; vis0 = beat - PH_X / ppb
+    for i, nm in enumerate(ST_ORDER):
+        y0 = LANE_Y0 + i * (LANE_H + LANE_GAP); y1 = y0 + LANE_H; live = nm in on; col = tuple(pal[i])
+        d.rounded_rectangle([12, y0, HEAD_W, y1], radius=12, fill=(30, 32, 40))
+        d.rectangle([12, y0, 24, y1], fill=col if live else (70, 72, 80))
+        fn = F(INTER_XB, 34 if len(ST_NAME[nm]) < 8 else 22); d.text((38, y0 + 18), ST_NAME[nm], font=fn, fill=(240, 240, 245) if live else (110, 114, 124))
+        solo = live and len(on) == 1
+        for bi, (txt, lit, lc) in enumerate((('M', not live, (255, 186, 40)), ('S', solo, (80, 170, 255)))):
+            bx = 38 + bi * 64; by = y1 - 62
+            d.rounded_rectangle([bx, by, bx + 52, by + 44], radius=8, fill=lc if lit else (52, 55, 64))
+            d.text((bx + 15, by + 4), txt, font=F(INTER_XB, 32), fill=(20, 20, 24) if lit else (150, 154, 164))
+        lv = ev(nm, T) if live else 0.0; mh = int((LANE_H - 24) * min(1.0, lv))          # the track's meter
+        d.rectangle([HEAD_W - 30, y0 + 12, HEAD_W - 14, y1 - 12], fill=(16, 17, 22))
+        if mh: d.rectangle([HEAD_W - 30, y1 - 12 - mh, HEAD_W - 14, y1 - 12], fill=(90, 220, 120) if lv < .8 else (250, 200, 70))
+        # the clip: track colour when it plays, grey when muted, the waveform dark inside it, like the DAW draws it
+        cx0 = HEAD_W + 12; body = col if live else (64, 67, 76); wave = (18, 19, 24) if live else (44, 46, 54)
+        d.rounded_rectangle([cx0, y0, W + 20, y1], radius=10, fill=tuple(int(c * .82) for c in body) if live else body)
+        d.rectangle([cx0, y0, W, y0 + 22], fill=body)                          # the clip's title bar
+        d.text((cx0 + 12, y0 - 2), '%s.wav' % ST_NAME[nm].lower(), font=F(MONO, 22), fill=wave)
+        mid = (y0 + 24 + y1) / 2; amp = (y1 - y0 - 34) / 2
+        for x in range(cx0 + 4, W, 3):
+            v = ev(nm, b2t(beat + (x - PH_X) / ppb)) * amp
+            if v > 1: d.line([x, mid - v, x, mid + v], fill=wave, width=2)
+        if live and since < 0.35 and st > plan['steps'][0][0] and nm not in prev_on(plan, st):     # a part coming in lights up
+            fl = Image.new('RGBA', (W - cx0, LANE_H), (255, 255, 255, int(200 * (1 - since / 0.35))))
+            im.paste(fl, (cx0, y0), fl)
+    # bar lines and numbers, then the playhead over everything
+    top, bot = LANE_Y0 - 10, LANE_Y0 + 4 * (LANE_H + LANE_GAP) - LANE_GAP
+    for b in range(int(vis0) - 1, int(vis0 + W / ppb) + 2):
+        x = PH_X + (b - beat) * ppb
+        if b % 4 == 0 and HEAD_W + 12 < x < W:
+            d.line([x, top, x, bot], fill=(0, 0, 0), width=2)
+            d.text((x + 6, top - 28), str(b // 4 + 1), font=F(MONO, 20), fill=(110, 116, 128))
+    d.polygon([(PH_X - 14, top - 8), (PH_X + 14, top - 8), (PH_X, top + 10)], fill=(255, 255, 255))
+    d.line([PH_X, top, PH_X, bot], fill=(255, 255, 255), width=4)
+    # the master section under the tracks (bot+10 .. 1496): the mix's spectrum across, and a master meter with its peak
+    # hold on the right, so the band above Instagram's caption moves with the sound instead of sitting empty
+    fi = min(f, bands.shape[1] - 1); sx0, sx1, sy1 = 40, 900, 1496; sy0 = bot + 14; bw = (sx1 - sx0) / bands.shape[0]
+    d.rounded_rectangle([12, sy0 - 4, W - 12, sy1 + 4], radius=12, fill=(20, 22, 28))
+    for b in range(bands.shape[0]):
+        v = float(bands[b, max(0, fi - 1):fi + 1].mean()); hh = int(v * (sy1 - sy0 - 12)) + 3
+        d.rectangle([sx0 + b * bw, sy1 - hh, sx0 + (b + 1) * bw - 5, sy1], fill=(70, 78, 96) if not full else tuple(int(c * .75) for c in pal[b % 4]))
+    lv = float(np.clip(bands[:, max(0, fi - 1):fi + 1].mean() * 1.6, 0, 1)); pk = ctx['mpk'] = max(lv, ctx.get('mpk', 0.0) - 0.015)
+    mx0, mx1 = 930, 1052; mh = sy1 - sy0 - 8; segs = 10; sh_ = mh / segs
+    for i_ in range(segs):                                                           # green, then amber, then red
+        fr_ = (i_ + 1) / segs; yy = sy1 - (i_ + 1) * sh_; c = (90, 220, 120) if fr_ < .7 else (250, 200, 70) if fr_ < .9 else (255, 90, 80)
+        d.rectangle([mx0, yy + 2, mx1, yy + sh_ - 2], fill=c if fr_ <= lv else tuple(int(v * .2) for v in c))
+    py_ = sy1 - pk * mh; d.rectangle([mx0, py_ - 3, mx1, py_], fill=(255, 255, 255))
+    a = np.asarray(im)
+    if plan.get('faces') and plan.get('drop') and T >= plan['drop']:          # a reaction when everything comes in
+        a = _faces.paste_sprite(np.ascontiguousarray(a), ctx.setdefault('face', _faces.pick(FACE_WHO[0] if FACE_WHO else 'dylan', 2, (seed, 'drop'))),
+                                W - 96, 556, 240, T - plan['drop'], T, beat % 1, block=plan.get('face_block', 6))
+    # the frame punches in on each new part (hardest on the full mix) and, once the drums are in, a little on the beat
+    z = 1.0
+    if since < 0.4: z += (0.05 if full else 0.025) * np.exp(-since * 10)
+    if 'Drums' in on: z += plan['punch'] * np.exp(-((beat % 1) * SPB) * 9)
+    if z > 1.003:
+        cw, ch = int(W / z), int(H / z); xx, yy = (W - cw) // 2, (H - ch) // 2
+        a = cv2.resize(a[yy:yy + ch, xx:xx + cw], (W, H), interpolation=cv2.INTER_LINEAR)
+    return a
+
+def prev_on(plan, st):
+    i = [s[0] for s in plan['steps']].index(st)
+    return set(plan['steps'][i - 1][1]) if i > 0 else set()
 
 plan = plan_band() if mode == 'band' else plan_prod()
 CHROME = plan.get('chrome', 'win95'); CAP = CAPTION_FONTS.get(plan.get('caption'), INTER_XB)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
 plan['hook'] = _hook.pick(mode, seed)                       # the line shown for the first two seconds ('' = none)
 plan['hook_angle'] = _hook.angle(mode, plan['hook']); plan['hook_mode'] = _hook.mode(mode, seed)   # flash: first two seconds; hold: the whole video
+if plan.get('story'):                                        # a story draws its own line, one that says what this video does
+    plan['hook'] = '' if os.environ.get('CQ_HOOK') == 'none' else plan['line']
+    plan['hook_angle'] = 'story' if plan['hook'] else 'none'; plan['hook_mode'] = 'story'
+elif mode == 'producer' and plan['hook_mode'] == 'hold': plan['hook_mode'] = 'flash'   # a held line would sit on the lyric, now below the top 250 px
 import faces as _faces                                      # Dylan and Nick reacting, line by line, on some videos
 _fv = os.environ.get('CQ_FACES', '').lower()
 plan['faces'] = _faces.available() and (_fv in ('1', 'true', 'yes') or (_fv not in ('0', 'false', 'no') and random.Random(seed * 37 + 5).random() < 0.4))
@@ -716,16 +921,20 @@ if plan['faces']:
         for sg in plan['segs']:
             if sg[2] is not None and fr_.random() < 0.75: sg[1] = 'face+' + sg[1]
 FACE_WHO = _faces.plan(LINES, seed) if plan['faces'] else []
-wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav); feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
+wav = out[:-4] + '.wav'; dur = cut(MASTER, T0, T1, wav)
+if plan.get('story'): story_audio(plan, wav)
+feat = features(wav); n = int(round(dur * FPS)); rng = random.Random(seed); ctx = {}
 json.dump(json.loads(json.dumps(dict(mode=mode, seed=seed, song=SONG['slug'], window=[T0, T1], plan=plan, **K.record())).replace(SONG_DIR + '/', '')), open(out[:-4] + '.json', 'w'), indent=1)
-fr0 = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: prod_frame(f, feat, plan, ctx, rng))
-fr = ((lambda f: _hook.draw_hold(np.asarray(fr0(f)), plan['hook'], f / FPS, _hook.HOLD_Y[mode])) if plan['hook_mode'] == 'hold' else
+fr0 = (lambda f: band_frame(f, feat, plan, ctx, rng)) if mode == 'band' else (lambda f: story_frame(f, feat, plan, ctx, rng)) if plan.get('story') else (lambda f: prod_frame(f, feat, plan, ctx, rng))
+fr = (fr0 if plan['hook_mode'] == 'story' else
+      (lambda f: _hook.draw_hold(np.asarray(fr0(f)), plan['hook'], f / FPS, _hook.HOLD_Y[mode])) if plan['hook_mode'] == 'hold' else
       (lambda f: _hook.draw(np.asarray(fr0(f)), plan['hook'], f / FPS, y=0.43)))      # flash sits mid-screen: both styles keep titles and lyrics at the top
 if '--frames' in sys.argv:
     fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
     s = Image.new('RGB', (324 * len(fs), 576))
     for i, f in enumerate(fs):
-        fr(max(0, f - 1)); s.paste(Image.fromarray(fr(min(f, n - 1))).resize((324, 576)), (324 * i, 0))
+        fr(max(0, f - 1)); im_ = Image.fromarray(fr(min(f, n - 1))); s.paste(im_.resize((324, 576)), (324 * i, 0))
+        if os.environ.get('CQ_FULL'): im_.save(os.path.join(os.environ['CQ_FULL'], '%s_f%d.png' % (os.path.basename(out)[:-4], f)))   # full-size frames, to judge detail
     s.save(out[:-4] + '_sheet.png'); print('frames', n, [(x[1], x[3]) for x in plan['segs']])
 else:
     tmp = out[:-4] + '.tmp.mp4'

@@ -104,11 +104,22 @@ def read_lines(song_dir, song, t0, t1):
     return lines
 
 
+WEAK = set("""a an the and or but so if of to in on at by for with from up out as is am are was were be been being
+i i'm im me my mine you you're your yours he him his she her it it's its we us our they them their this that these those
+what who how when where why not no yeah yea oh uh just like gonna wanna got get do don't does did can can't will won't
+all some too very really then than there here now""".split())
+
+
+def _strong(word):
+    w = ''.join(c for c in word.lower() if c.isalpha() or c == "'")
+    return len(w.strip("'")) >= 3 and w not in WEAK and w.strip("'") not in WEAK
+
+
 class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed); self.r = r
-        self.layout = K.pick('layout', ['block', 'slam', 'scroll'], r, weights=[2, 1, 2])   # slam's giant word is often 'and' or 'you'
+        self.layout = K.pick('layout', ['block', 'slam', 'scroll'], r, weights=[2, 1, 2])   # slam holds the line's last strong word (never 'and'/'you')
         self.pal_name = K.pick('palette', sorted(STOCKS), r); self.stock = STOCKS[self.pal_name]
         self.face = K.pick('font', sorted(FACES), r)
         self.motion = K.pick('motion', ['wipe', 'pop', 'block'], r)
@@ -333,7 +344,10 @@ class Video:
 
     def draw_slam(self, plates, words, T):
         """slam: the word being sung (or the last one sung), as big as the frame is wide."""
-        cur = [w for w in words if w[4] - LEAD <= T] or words[:1]
+        # the giant word is the last STRONG word sung (never 'and', 'you', 'my'...): until the line's first strong
+        # word lands, the first strong word waits as an outline
+        strong = [w for w in words if _strong(w[0])] or [max(words, key=lambda w: len(w[0]))]
+        cur = [w for w in strong if w[4] - LEAD <= T] or strong[:1]
         text, a, b = cur[-1][0], cur[-1][4], cur[-1][5]
         ink, spot, ghost, knock = plates
         fit = min(520, 200 * (SAFE_R - SAFE_L) / max(1, self.ink_box(text, 200)[2] - self.ink_box(text, 200)[0]))

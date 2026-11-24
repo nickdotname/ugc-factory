@@ -9,7 +9,7 @@ inside studio/mathviz/kit.py. Every scene is choreographed in beats (44 of them,
 its own tempo: it starts on the first bar line at or after the stretch nightly picked (CQ_WINDOW), and if the song
 ends too soon it moves back. The scenes themselves are in studio/mathviz/: integral, fourier, derivative, zeta (the Riemann hypothesis), fold
 (how many folds of paper reach the Moon, in pixel art), sci8 (pixel-art science explainers in escalating parts: the brain, the
-heart, the eyes). tests8 (play-along tests) is kept but not chosen.
+heart, the eyes). tests8 (play-along tests, studio/tests8_video.py) has its own account and is not chosen here.
 """
 import importlib, json, math, os, random, sys
 import soundfile as sf
