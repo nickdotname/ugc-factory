@@ -215,6 +215,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-24T05:43:08.869184Z",
+      "item_id": "818dc120-a028-4cff-a5e8-a87db304e9aa",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "nobody drew this. it grew\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "creative": "talk",
+      "captions": {
+        "instagram": "nobody drew this. it grew\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Talk"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.423,
+        "anchor_y": 0.289,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
