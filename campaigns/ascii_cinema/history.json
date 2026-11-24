@@ -107,6 +107,108 @@
       "overlay": null,
       "lineup_id": "escalator-first",
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-24T04:30:33.008961Z",
+      "item_id": "21ff6e3c-22fe-4b51-956c-c2dea8fd392f",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "every frame of this film is made of letters\n🎧 Epilogue: Dismissal – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "title": null,
+      "creative": "epilogue_dismissal",
+      "captions": {
+        "instagram": "every frame of this film is made of letters\n🎧 Epilogue: Dismissal – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nlink in bio to stream Epilogue: Dismissal"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.474,
+        "anchor_y": 0.391,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-24T04:30:33.008961Z",
+      "item_id": "e813ddf2-aa73-4fe9-a423-47f775178e85",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "no pixels. only characters\n🎧 Won't Be the Same Again – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "title": null,
+      "creative": "wont_be_the_same_again",
+      "captions": {
+        "instagram": "no pixels. only characters\n🎧 Won't Be the Same Again – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nstream Won't Be the Same Again: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.275,
+        "anchor_y": 0.717,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-24T04:30:33.008961Z",
+      "item_id": "010ef0c0-61be-45b6-87c6-0dcdc8ac581a",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "cinema, typed out\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "title": null,
+      "creative": "recess_rewind",
+      "captions": {
+        "instagram": "cinema, typed out\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nRecess (Rewind) is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.464,
+        "anchor_y": 0.33,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
