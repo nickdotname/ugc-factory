@@ -2,6 +2,10 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: two new accounts, @ascii.cinema.tty (campaign `ascii_cinema`, style `cinema`) and @digital.petri.dish
+  (`petri_dish`, style `alife`). Dylan's profile had hit Facebook's Page limit, so Nick made the two Pages on his
+  own profile and gave Dylan full control. They start at 8 and 9 in the morning, earlier than the other niche pages.
+
 - 2026-11-23: the.loose.change's memes keep running, with less repetition: 4 a day (was 6), a clip rests 3 days
   (was 0; 15 clips had made 60 posts, one of them 11 times in a week, while median views fell from 500-870 to
   11-32), and the "tag the friend who needs..." overlay line is gone (bait). Still open: the clips themselves are

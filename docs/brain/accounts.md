@@ -19,6 +19,8 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 3 | 11–23 |
 | @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (memes, NYC facts) | 3 | 10–23 |
 | @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 3 | 10–23 |
+| @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (a public-domain film clip played back as coloured ASCII in a terminal) | 3 |
+| @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 3 |
 
 `clubs` is the Clubs app's own campaign: blocked from every Close Quarters account. `knick_creates_*` are
 Nick's older Buffer channels (not Close Quarters).

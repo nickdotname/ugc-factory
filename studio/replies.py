@@ -39,6 +39,8 @@ ACCOUNTS = {
     'vintage_ig': ('17841450664049438', 'vintage.media.archive'),
     'nyc_ig': ('17841417506734646', 'nyc.daily.aesthetic'),
     'tinycode_ig': ('17841456251449087', 'tiny.code.loops'),
+    'cinema_ig': ('17841474330049873', 'ascii.cinema.tty'),
+    'petri_ig': ('17841475752719438', 'digital.petri.dish'),
 }
 OURS = {u for _, u in ACCOUNTS.values()} | {'the.loose.change'}
 BAND = {'close_quarters_ig'}            # the band's own account doesn't tag itself
