@@ -214,7 +214,7 @@ def _last_used(
     for entry in entries:
         values: Sequence[str]
         if extract == "hook":
-            values = (entry.hook,)
+            values = entry_hooks(entry)
         elif extract == "caption":
             values = (entry.caption,)
         elif extract == "music":
@@ -226,6 +226,15 @@ def _last_used(
             if prior is None or entry.timestamp > prior:
                 seen[value] = entry.timestamp
     return seen
+
+
+def entry_hooks(entry: HistoryEntry) -> tuple[str, ...]:
+    """Every clip one history entry put out: its own hook and each account version's."""
+    extra = tuple(
+        v.get("hook", "") for v in (entry.variants or {}).values()
+        if v.get("hook") and v.get("hook") != entry.hook
+    )
+    return (entry.hook, *extra)
 
 
 def _lru_weights(
@@ -422,8 +431,19 @@ class Selector:
         bodies_max: int | None = None,
         performance: Mapping[str, Mapping[str, Mapping[str, float]]] | None = None,
         boost: Mapping[str, Mapping[str, float]] | None = None,
+        visual_pools: Mapping[str, str] | None = None,
     ) -> list[tuple[str, SelectionOutcome]]:
         """Pick ``count`` combinations, weighted-choosing a creative per slot.
+
+        ``visual_pools`` maps a creative to the clip library its hooks come
+        from (its Release tag). Creatives that name the same pool share their
+        clips (``shared_videos``): ``hook_05.mp4`` under one song is the very
+        same picture as ``hook_05.mp4`` under another. For those, the hook
+        cooldown is kept per CLIP across every creative in the pool (and every
+        account version of a post, ``HistoryEntry.variants``), and a clip
+        already picked in this batch is not picked again for another song.
+        Without it, one 15-clip pool shared by six songs let the same meme go
+        out eleven times in a week, three times in one day.
 
         HANDOFF phase 1: "clips never mix across creatives." Each creative in
         ``pools`` gets its own within-batch dedupe set and its own recency
@@ -474,6 +494,34 @@ class Selector:
             })
             for name in names
         }
+        pool_of = {n: (visual_pools or {}).get(n) for n in names}
+        # (pool, clip) -> when it last went out under ANY creative of the pool.
+        pool_last: dict[tuple[str, str], datetime] = {}
+        for name in names:
+            pool = pool_of[name]
+            if pool is None:
+                continue
+            for e in pools[name][1].entries:
+                for clip in entry_hooks(e):
+                    key = (pool, clip)
+                    if key not in pool_last or e.timestamp > pool_last[key]:
+                        pool_last[key] = e.timestamp
+        hook_cutoff = now - timedelta(days=self._config.hook_cooldown_days)
+        pool_batch: set[tuple[str, str]] = set()
+
+        def _blocked(name: str) -> set[str]:
+            """Clips of this creative another creative of its pool has used lately (or tonight)."""
+            pool = pool_of[name]
+            if pool is None:
+                return set()
+            return {
+                clip for (p, clip), at in pool_last.items() if p == pool and at > hook_cutoff
+            } | {clip for p, clip in pool_batch if p == pool}
+
+        for name in names:
+            if pool_of[name] is not None:
+                # A shared pool's "used" is the pool's, not this song's alone.
+                used[name] = max(used[name], len(_blocked(name) & set(pools[name][0].hooks)))
 
         # A song whose library has nothing left that may be posted sits out, and
         # the others fill the batch. One exhausted song used to fail the whole
@@ -520,6 +568,7 @@ class Selector:
                     performance=(performance or {}).get(name),
                     account_recent=[*account, *(e for r in recent.values() for e in r)],
                     boost=(boost or {}).get(name),
+                    hook_block=_blocked(name),
                 )
             except SelectionError as exc:
                 exhausted.add(name)
@@ -528,6 +577,12 @@ class Selector:
             used[name] += 1
             in_batch[name] += 1
             selection = outcome.selection
+            mine = pool_of[name]
+            if mine is not None:
+                pool_batch.add((mine, selection.hook))
+                for other in names:
+                    if other != name and pool_of[other] == pool_of[name]:
+                        used[other] += 1
             digest = tuple_hash(selection, self._config.dedupe_on)
             batch_hashes[name].add(digest)
             recent[name].append(
@@ -558,6 +613,7 @@ class Selector:
         performance: Mapping[str, Mapping[str, float]] | None = None,
         account_recent: Sequence[HistoryEntry] = (),
         boost: Mapping[str, float] | None = None,
+        hook_block: Iterable[str] = (),
     ) -> SelectionOutcome:
         """Pick one combination, relaxing rules in SPEC §10's documented order.
 
@@ -577,7 +633,13 @@ class Selector:
         a three-day cooldown — true, but a statement about library size that
         belongs in ``library_health`` and preflight, not something to discover
         by relaxing dedupe mid-render every single night.
+
+        ``hook_block`` names clips under cooldown for reasons outside this
+        creative's own history (a pool shared with other creatives). They are
+        treated exactly like this creative's own cooled-down hooks: kept out
+        at the strict level, allowed back only by relaxing the hook cooldown.
         """
+        hook_block = frozenset(hook_block)
         library.validate()
         exclude = exclude or set()
         now = self._clock.now()
@@ -621,6 +683,7 @@ class Selector:
                 performance=performance,
                 line_last=line_last,
                 boost=boost,
+                hook_block=hook_block,
             )
             if candidate is None:
                 continue
@@ -662,6 +725,7 @@ class Selector:
         performance: Mapping[str, Mapping[str, float]] | None = None,
         line_last: Mapping[str, datetime] | None = None,
         boost: Mapping[str, float] | None = None,
+        hook_block: frozenset[str] = frozenset(),
     ) -> Selection | None:
         """Attempt a pick under one relaxation level, or return None."""
         # Each level switches off exactly one more constraint than the previous.
@@ -675,8 +739,8 @@ class Selector:
         hooks = list(library.hooks)
         if enforce_hook_cooldown:
             hooks = [
-                h for h in hooks if hook_cooldown_last.get(h, datetime.min.replace(
-                    tzinfo=now.tzinfo)) <= hook_cutoff
+                h for h in hooks if h not in hook_block and hook_cooldown_last.get(
+                    h, datetime.min.replace(tzinfo=now.tzinfo)) <= hook_cutoff
             ]
         captions = list(library.captions)
         if enforce_caption_cooldown:
