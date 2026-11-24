@@ -216,9 +216,9 @@ class TestShippedRegistry:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
         # Six Buffer channels, plus the accounts that post to Instagram
         # directly (including the nostalgia, Math In Time, glitch, ASCII, physics, earth, retro, Rocket League,
-        # vintage, NYC and tiny code accounts).
-        assert len(cfg.accounts) == 20
-        assert len(cfg.live) == 20
+        # vintage, NYC and tiny code accounts), then ASCII cinema and the petri dish.
+        assert len(cfg.accounts) == 22
+        assert len(cfg.live) == 22
 
     def test_it_covers_both_logins_on_all_three_networks(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
