@@ -8,13 +8,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 134.0,
+          "value": 137.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 109.0,
+          "value": 110.0,
           "unit": "count"
         },
         {
@@ -44,19 +44,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.161,
+          "value": 3.204,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 6.112550000000001,
+          "value": 6.302266666666667,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 74.1,
+          "value": 73.7,
           "unit": "count"
         },
         {
@@ -67,7 +67,7 @@
         }
       ],
       "account": "glitch_ig",
-      "fetched_at": "2026-11-24T00:36:44.850306Z"
+      "fetched_at": "2026-11-24T03:36:43.930700Z"
     },
     "igo-2bce2d03-9071-4c52-a9e2-74b0db07d4ce": {
       "post_id": "igo-2bce2d03-9071-4c52-a9e2-74b0db07d4ce",
@@ -77,13 +77,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 39.0,
+          "value": 42.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 29.0,
+          "value": 32.0,
           "unit": "count"
         },
         {
@@ -113,19 +113,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 2.203,
+          "value": 2.209,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 1.13845,
+          "value": 1.2523166666666667,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 81.3,
+          "value": 82.4,
           "unit": "count"
         },
         {
@@ -136,7 +136,7 @@
         }
       ],
       "account": "glitch_ig",
-      "fetched_at": "2026-11-24T00:36:44.850306Z"
+      "fetched_at": "2026-11-24T03:36:43.930700Z"
     },
     "igo-e2acd562-1de6-4140-92c6-4c292b562dcc": {
       "post_id": "igo-e2acd562-1de6-4140-92c6-4c292b562dcc",
@@ -205,7 +205,7 @@
         }
       ],
       "account": "glitch_ig",
-      "fetched_at": "2026-11-24T00:36:44.850306Z"
+      "fetched_at": "2026-11-24T03:36:43.930700Z"
     },
     "igo-aafae8ff-6449-4258-b46a-8d2788264b3c": {
       "post_id": "igo-aafae8ff-6449-4258-b46a-8d2788264b3c",
@@ -274,7 +274,7 @@
         }
       ],
       "account": "glitch_ig",
-      "fetched_at": "2026-11-24T00:36:44.850306Z"
+      "fetched_at": "2026-11-24T03:36:43.930700Z"
     },
     "igo-464871c9-dbf0-47f4-850f-02f9626b4f10": {
       "post_id": "igo-464871c9-dbf0-47f4-850f-02f9626b4f10",
@@ -284,13 +284,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 32.0,
+          "value": 42.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 26.0,
+          "value": 32.0,
           "unit": "count"
         },
         {
@@ -320,19 +320,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 1.932,
+          "value": 2.333,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 0.8696833333333334,
+          "value": 1.3222833333333335,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 85.7,
+          "value": 88.2,
           "unit": "count"
         },
         {
@@ -343,7 +343,76 @@
         }
       ],
       "account": "glitch_ig",
-      "fetched_at": "2026-11-24T00:36:44.850306Z"
+      "fetched_at": "2026-11-24T03:36:43.930700Z"
+    },
+    "igo-62cb8fd3-d6ff-4087-ad97-9991b33e7024": {
+      "post_id": "igo-62cb8fd3-d6ff-4087-ad97-9991b33e7024",
+      "service": "instagram",
+      "sent_at": "2026-11-24T00:56:34.218103Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 6.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 8.081,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.40408333333333335,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 66.7,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "glitch_ig",
+      "fetched_at": "2026-11-24T03:36:43.930700Z"
     }
   }
 }
