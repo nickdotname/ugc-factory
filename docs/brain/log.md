@@ -154,3 +154,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
   Dylan and Nick with Cloudflare Access.
 - 2026-11-22: Rocket League library at 17 clips.
 - 2026-11-13: EDUCATION released.
+- 2026-11-24: @8bit.tests rebuilt (PR #137) after Dylan's "way too basic and weird". The flashes and read tests in the empty room are replaced by five play-along tests built from the song's hits: pause when it fits (4/2/1-frame windows with a frame counter), follow the gem, watch the order, count the fireworks, and early or late (the last landing moved 3-4 frames, revealed in ms). Drawn in new 2D parallax pixel worlds (`studio/mathviz/pix8.py`: city rooftop, moonlit forest, crystal cave) with reactive lights, particles, bloom and optional scanlines. Hits come from the Ableton project where a song has one, else the drum stem. New knobs `test`/`world`/`crt`, new caption bank. Frames and a full render reviewed; the campaign and nightly target are back on.
