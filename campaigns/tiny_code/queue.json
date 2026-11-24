@@ -91,9 +91,9 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-3fa3316d-5420-47b1-a714-a3d8f86ed594",
           "last_error": null,
           "scheduled_for": "2026-11-24T12:43:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "the k in the code is the kick drum\n🎧 Prologue: Before – @close__quarters #creativecoding #mathart #algorithmicart #python\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
