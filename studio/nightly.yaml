@@ -107,4 +107,9 @@ targets:
     style: race
     per_night: 5
     join: 30
-  # pixel_tests (8bit.tests, style tests8) is off until its tests are rebuilt (2026-11-24): put the target back then.
+  # pixel_tests (8bit.tests): rebuilt 2026-11-24 (five play-along tests in pixel worlds). Off until the frames are
+  # approved: uncomment these four lines, and set posting.paused: false in campaigns/pixel_tests/config.yaml.
+  # - campaign: pixel_tests   # 8bit.tests: play-along pixel tests built from the song's hits (studio/tests8_video.py)
+  #   style: tests8
+  #   per_night: 5
+  #   join: 30
