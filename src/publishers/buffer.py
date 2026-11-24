@@ -307,17 +307,25 @@ class BufferPublisher(Publisher):
         )
         edges = ((data.get("posts") or {}).get("edges")) or []
         due: list[datetime] = []
+        scheduled: list[tuple[str, datetime | None]] = []
         for edge in edges:
-            raw = ((edge or {}).get("node") or {}).get("dueAt")
-            if not raw:
-                continue
-            try:
-                due.append(datetime.fromisoformat(str(raw).replace("Z", "+00:00")))
-            except ValueError:
-                # One unparseable timestamp must not cost the whole reading —
-                # the depth is still correct and still worth returning.
-                self._log.warning("buffer_due_at_unparsable", value=str(raw)[:40])
-        state = QueueState(depth=len(edges), next_due=min(due) if due else None)
+            node = (edge or {}).get("node") or {}
+            raw = node.get("dueAt")
+            at: datetime | None = None
+            if raw:
+                try:
+                    at = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+                    due.append(at)
+                except ValueError:
+                    # One unparseable timestamp must not cost the whole reading —
+                    # the depth is still correct and still worth returning.
+                    self._log.warning("buffer_due_at_unparsable", value=str(raw)[:40])
+            if node.get("id"):
+                scheduled.append((str(node["id"]), at))
+        state = QueueState(
+            depth=len(edges), next_due=min(due) if due else None,
+            scheduled=tuple(scheduled),
+        )
         self._log.info(
             "buffer_queue_depth",
             channel_id_suffix=channel_id[-4:],

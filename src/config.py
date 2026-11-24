@@ -165,6 +165,13 @@ class PostingConfig(StrictModel):
     end_hour: int = Field(default=22, ge=0, le=23)
     # SPEC §4.1: free-plan cap is queue *depth*, not a daily cap.
     max_buffer_queue: int = Field(default=10, ge=1, le=100)
+    #: This campaign's own share of a channel's queue, when several campaigns
+    #: feed one channel. The cap above is the channel's (Buffer's plan holds
+    #: ten posts): the campaign topped up first used to fill all ten and the
+    #: others were told the queue needed nothing, for ever. With a share, a
+    #: campaign stops at this many posts of its own in the queue. None: no
+    #: limit of its own (a channel only it posts to).
+    buffer_share: int | None = Field(default=None, ge=1, le=100)
     #: Instagram, posting directly: the second of the video whose frame is the
     #: Reel's cover on the profile grid. Unset, Instagram takes the first
     #: frame, which for a video that builds a picture from nothing (the maths

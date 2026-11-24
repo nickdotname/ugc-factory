@@ -2,6 +2,21 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: the.loose.change's memes keep running, with less repetition: 4 a day (was 6), a clip rests 3 days
+  (was 0; 15 clips had made 60 posts, one of them 11 times in a week, while median views fell from 500-870 to
+  11-32), and the "tag the friend who needs..." overlay line is gone (bait). Still open: the clips themselves are
+  not our footage (see the band review); rebuild them on footage we may use. Also: files left open in
+  dash_data.py and replies.py failed the tests at random under CI (`filterwarnings = error`); closed properly.
+
+- 2026-11-23: the.loose.change's schedule. Buffer holds ten posts for a channel; `closequarters` (memes, 6 a day)
+  was topped up first and filled all ten, so `nick_studio` (type videos) read "full" on every run and almost never
+  posted. Each campaign now has a share of its own (`posting.buffer_share`: 6 and 4). The dashboard was missing
+  half of what Buffer held, because queue.json forgets a pushed item at the next render: topup now records the
+  campaign's own posts waiting in Buffer (`campaigns/<c>/backend_queue.json`) and the page shows them, and videos
+  rendered but not yet offered to Buffer show as waiting.
+- 2026-11-23: from the account review. psychedelic.station's `star` motif drew a six-pointed star when the symmetry
+  was 3, 6 or 12; it now has eight points in those cases. "Rate this 1-10" lines removed from the hook menus and two
+  caption banks (a comment-ask is bait; open questions and the hot takes stay).
 - 2026-11-23: physics.bounce.lab reworked after "the recent physics bounce is really bad": the box shrank to a
   third of the screen and nothing built up. Circle and square now fill the screen and follow a `rule` (grow, lines,
   multiply) stated in frame 0, the ball flies in from the first frame, the credit and counter sit above Instagram's

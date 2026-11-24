@@ -103,3 +103,23 @@ def test_post_metrics_keep_their_read_time_through_the_cache(tmp_path: Path) -> 
     # and a cache written before the field existed still loads
     (tmp_path / "old.json").write_text(json.dumps({"posts": {"igo-y": {"post_id": "igo-y", "service": "instagram"}}}))
     assert load_posts(tmp_path / "old.json").posts["igo-y"].fetched_at is None
+
+
+def test_posts_waiting_in_buffer_are_shown(dash) -> None:
+    """queue.json forgets a pushed item at the next render; Buffer still holds it."""
+    mod, root = dash
+    camp = root / "campaigns" / "closequarters"
+    camp.mkdir(parents=True)
+    (camp / "config.yaml").write_text(
+        "creatives:\n  - name: talk\n    title: Talk\naccounts:\n  mode: allow\n  names: [nickdotname_ig]\n"
+    )
+    (camp / "history.json").write_text(json.dumps({"entries": [
+        {"creative": "talk", "hook": "hook_01", "post_ids": {"nickdotname_ig": "buf-1"}, "caption": "c"}]}))
+    (camp / "backend_queue.json").write_text(json.dumps({"posts": {
+        "buf-1": {"account": "nickdotname_ig", "due": "2099-01-01T15:00:00+00:00"}}}))
+    (camp / "queue.json").write_text(json.dumps({"items": [
+        {"id": "it-2", "status": "pending", "creative": "talk", "scheduled_for": "2099-01-02T15:00:00Z", "posts": []}]}))
+    rows = {r["id"]: r for r in build(mod, root)["posts"]}
+    assert rows["buf-1"]["status"] == "scheduled" and rows["buf-1"]["song"] == "Talk"
+    assert rows["buf-1"]["due"] == "2099-01-01T15:00:00Z" and rows["buf-1"]["via"] == "buffer"
+    assert rows["q-it-2-nickdotname_ig"]["status"] == "pending", "rendered and waiting for room is shown too"

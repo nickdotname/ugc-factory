@@ -46,10 +46,11 @@ accounts:
   names: [nickdotname_ig, nickdotname_tt]
 
 posting:
-  posts_per_day: 6              # every four hours; nick_studio adds three lyric videos a day on Instagram
+  posts_per_day: 4              # six a day from 15 clips meant one clip went out 11 times in a week; four is what a 3-day rest per clip allows
   start_hour: 0
   end_hour: 0
   max_buffer_queue: 10
+  buffer_share: 6          # of the ten posts Buffer holds for the channel: the type videos (nick_studio) get the other four
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
   # accounts.
@@ -141,7 +142,7 @@ funnel:
 selection:
   dedupe_on: [hook, music, caption]
   caption_cooldown_days: 0
-  hook_cooldown_days: 0
+  hook_cooldown_days: 3         # a clip rests three days before it is used again (was 0: the same clip back every day)
   min_runway_days: 7
   performance_weight: 0.5
   performance_statistic: mean
