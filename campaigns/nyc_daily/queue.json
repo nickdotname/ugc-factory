@@ -1,12 +1,55 @@
 {
-  "generated_at": "2026-11-24T05:24:34.869367Z",
+  "generated_at": "2026-11-24T08:31:47.060185Z",
   "items": [
     {
-      "id": "ba35f17b-b5c4-472c-971d-74f96959b17a",
+      "id": "37219b4d-fcc6-4750-b9d0-b1488b22c52e",
       "scheduled_for": "2026-11-24T09:45:00-05:00",
-      "rendered_at": "2026-11-24T05:24:34.869367Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-24/ba35f17b-b5c4-472c-971d-74f96959b17a.mp4",
-      "caption": "new york, daily\n🎧 Won't Be the Same Again – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife",
+      "rendered_at": "2026-11-24T08:31:47.060185Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-24/37219b4d-fcc6-4750-b9d0-b1488b22c52e.mp4",
+      "caption": "the city, on the beat\n🎧 Recess (Rewind) – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.554,
+        "anchor_y": 0.613,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "recess_rewind",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Recess (Rewind) by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "the city, on the beat\n🎧 Recess (Rewind) – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife\n\nstream Recess (Rewind): link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "4dc49eff-879a-4d7a-9e1e-f0e178c8718c",
+      "scheduled_for": "2026-11-24T12:33:00-05:00",
+      "rendered_at": "2026-11-24T08:31:47.060185Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-24/4dc49eff-879a-4d7a-9e1e-f0e178c8718c.mp4",
+      "caption": "only in new york\n🎧 Subway Maintenance – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,12 +59,141 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.583,
-        "anchor_y": 0.709,
+        "anchor_x": 0.515,
+        "anchor_y": 0.75,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "subway_maintenance",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "only in new york\n🎧 Subway Maintenance – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife\n\nSubway Maintenance is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "73c56154-3b5b-4715-baea-9386f3fbf120",
+      "scheduled_for": "2026-11-24T15:21:00-05:00",
+      "rendered_at": "2026-11-24T08:31:47.060185Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-24/73c56154-3b5b-4715-baea-9386f3fbf120.mp4",
+      "caption": "real streets, real footage\n🎧 Notta Problem – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.683,
+        "anchor_y": 0.642,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "notta_problem",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Notta Problem by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "real streets, real footage\n🎧 Notta Problem – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife\n\nlink in bio to stream Notta Problem"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "5a4b8969-ba7c-4f9f-bc1e-715e15ad8bae",
+      "scheduled_for": "2026-11-24T18:09:00-05:00",
+      "rendered_at": "2026-11-24T08:31:47.060185Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-24/5a4b8969-ba7c-4f9f-bc1e-715e15ad8bae.mp4",
+      "caption": "a new york fact, counted on the beat\n🎧 Prologue: Before – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.33,
+        "anchor_y": 0.293,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "a new york fact, counted on the beat\n🎧 Prologue: Before – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife\n\nstream Prologue: Before: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "27066cd2-2669-4e6e-b542-00a25a209ddc",
+      "scheduled_for": "2026-11-24T20:57:00-05:00",
+      "rendered_at": "2026-11-24T08:31:47.060185Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-24/27066cd2-2669-4e6e-b542-00a25a209ddc.mp4",
+      "caption": "this is the commute\n🎧 Won't Be the Same Again – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.258,
+        "anchor_y": 0.313,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -33,23 +205,13 @@
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "nyc_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-5bf6dadb-f4e3-462b-855c-d9bde1543892",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T09:45:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "new york, daily\n🎧 Won't Be the Same Again – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife\n\nlink in bio to stream Won't Be the Same Again"
+        "instagram": "this is the commute\n🎧 Won't Be the Same Again – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
