@@ -2,6 +2,13 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: physics.bounce.lab reworked after "the recent physics bounce is really bad": the box shrank to a
+  third of the screen and nothing built up. Circle and square now fill the screen and follow a `rule` (grow, lines,
+  multiply) stated in frame 0, the ball flies in from the first frame, the credit and counter sit above Instagram's
+  buttons, and two captions that claimed "real physics / gravity, friction" (it is a straight path between notes)
+  were reworded. retro.vibes.arcade gets a `hook` line over the picture (spot / smoke / memory), places numbered for
+  the questions. Footage styles on close__quarters now give the song with the fewest videos its turn first.
+
 - 2026-11-23: two things stopped Notta Problem's footage videos after #107. (1) Its dance clip sits at 99–150 s
   and the song's stems stop at 100 s (as do Evil, Silver and Gold, Subway Maintenance: only their first half was
   prepared), so every window read as silent and was skipped; now footage past the stems is accepted and

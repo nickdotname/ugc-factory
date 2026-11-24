@@ -30,9 +30,9 @@ OURS_ONLY = {'nickdotname_ig'}
 METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments': 'comments', 'shares': 'shares',
            'saves': 'saves', 'averageTimeWatched': 'watch', 'skipRate': 'skip', 'follows': 'follows'}
 # the knobs that say what a studio video is about, per style (same idea as studio/nightly.py's SUBJECT)
-WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
+WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene', 'rule'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
         'psy': ['field'], 'collage': ['palette'], 'liminal': ['place'], 'earth': ['scene'], 'glitch': ['source'],
-        'retro': ['theme'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
+        'retro': ['theme', 'hook'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
         'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage', 'bg'], 'tinycode': ['program'], 'scene': ['scene', 'place']}
 
 

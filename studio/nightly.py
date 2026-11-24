@@ -275,7 +275,13 @@ for t in cfg['targets']:
     L = LEARNED.get(camp) or {}; W = L.get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
     menu = (rec.get('menu') or {}).get(style) or {}            # every knob this style's renderer has offered so far
     # fewest videos first, but a song or section that gets watched counts as having fewer (so it gets more), and vice versa
-    rng = random.Random(today + camp); rng.shuffle(cands); cands.sort(key=lambda c: (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0)))
+    # ... and in the footage styles, where only a few songs have footage and every stretch is new, the song with the
+    # fewest videos of this style goes first (Notta Problem lost the same coin toss in every style, every run of a day)
+    of_song = {}
+    for m in made:
+        if m.get('style') == style: of_song[m.get('song')] = of_song.get(m.get('song'), 0) + 1
+    rng = random.Random(today + camp + style); rng.shuffle(cands)
+    cands.sort(key=lambda c: (of_song.get(c[0], 0) if style in FOOTAGE else 0, (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0))))
     have = len(rec.get('nightly', []))                       # what the current libraries hold
     want = a.count or max(t['per_night'], min(cfg.get('first_fill_cap', 16), t.get('first_fill', cfg.get('first_fill', 0)) - have) if t['style'] not in VISUAL else t['per_night'])
     picked, per_song = [], {}

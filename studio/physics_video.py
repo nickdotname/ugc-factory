@@ -6,10 +6,15 @@
 The nightly job's renderer for the "physics" style (studio/nightly.py). The hits are found in one stem (all the
 drums, the kick, the bass, or the melody in "other"), and the simulation is solved backwards from them: the ball
 leaves one wall and arrives at the next exactly on the next hit, so what you see bounce is what you hear.
-Scenes (a knob): circle (a ball in a ring, trailing light), square (a bouncing square in a box that shrinks on
-every hit), rings (a ball inside rotating rings with gaps; on the big hits it escapes and the ring shatters),
-pendulum (a pendulum wave tuned to the tempo, realigning every four bars, each bob flashing as it passes the
-bottom on a hit). Palette, trail, hit source and the opening line are knobs too.
+Scenes (a knob): circle and square (a ball in an arena that fills the screen), rings (a ball inside rotating rings
+with gaps; on the big hits it escapes and the ring shatters), pendulum (a pendulum wave tuned to the tempo,
+realigning every four bars, each bob flashing as it passes the bottom on a hit).
+In circle and square something builds with every bounce, and the first frame says what (the `rule` knob), because a
+ball that only bounces gives nobody a reason to stay:
+  grow      the ball gets bigger every bounce, until on the last note it fills the arena
+  lines     every bounce leaves a line from where it hit to the ball: a web that thickens to the end
+  multiply  the balls keep doubling (1, 2, 4 ... 32), every one of them landing on every note
+Palette, trail, hit source and the opening line are knobs too. The ball is already flying in frame 0.
 """
 import json, math, os, random, subprocess, sys
 import numpy as np, cv2, librosa, soundfile as sf
@@ -59,13 +64,14 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed); self.r = r
-        self.scene = K.pick('scene', ['circle', 'square', 'rings', 'pendulum'], r)
+        self.scene = K.pick('scene', ['circle', 'square', 'rings', 'pendulum'], r, weights=[4, 3, 3, 1])
         # what the ball follows: the kick and snare most of the time (the groove you feel), sometimes the kick alone or
         # the lead line. Not the bass: a held bass note has no attack you can see a ball hit.
         self.source = K.pick('hits', ['drums', 'kick', 'melody'], r, weights=[0.6, 0.2, 0.2])
         self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
         self.trail = K.pick('trail', ['long', 'short', 'ribbon'], r)
         self.hook = K.pick('hook', ['song', 'hits', 'none'], r)
+        self.rule = K.pick('rule', ['grow', 'lines', 'multiply'], r) if self.scene in ('circle', 'square') else None
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
         # every collision comes from the song's Ableton project: its MIDI notes and the attacks in its arranged audio
         # clips, lined up with the master to a few milliseconds (studio/als_hits.py, studio/project_sync.py)
@@ -124,20 +130,29 @@ class Video:
             pts.append((self.hits[k], ang))
         return pts
 
-    def setup_circle(self):
-        self.R = 400.0; self.pts = self.wall_path(lambda i: self.R - 20, self.r); self.balls = 1
-        drops = [h for h in self.hits if self.kick[h] > 0.9 and self.bass[h] > 0.8]
-        self.split = drops[len(drops) // 2] if len(drops) > 4 else None
+    def setup_circle(self): self.A = 480.0; self.setup_bounce()
 
-    def setup_square(self):
-        self.S0 = 900.0; n = max(1, len(self.hits)); self.shrink = 0.55 / n
-        self.pts = self.wall_path(lambda i: self.side(i) / 2 - 30, self.r)
+    def setup_square(self): self.A = 470.0; self.setup_bounce()
 
-    def side(self, i):
-        k = sum(1 for h in self.hits if h <= i); return self.S0 * (1 - self.shrink * k)
+    def setup_bounce(self):
+        """One ball's path through the hits, and for `multiply` the balls that split off it: each new ball leaves from
+        where its parent just hit and takes its own way round, and all of them reach a wall on every note."""
+        N = len(self.hits); self.pts = self.wall_path(None, self.r); self.paths = [(0, self.pts)]
+        if self.rule == 'multiply' and N > 4:
+            stages = 5 if N >= 30 else 4 if N >= 16 else 3
+            for m in range(1, stages + 1):
+                at = max(1, min(N - 1, int(round(N * m / (stages + 1)))))
+                for _, parent in list(self.paths):
+                    own = self.wall_path(None, random.Random(self.r.random())); d = parent[at][1] - own[at][1]
+                    self.paths.append((at, [(h, a + d) for h, a in own]))
+
+    def ball_r(self, j):
+        """The ball's radius as it reaches its j-th wall."""
+        if self.rule != 'grow': return 26.0
+        return 26.0 + (self.A * 0.9 - 26.0) * (j / max(1, len(self.hits) - 1)) ** 1.5
 
     def setup_rings(self):
-        self.rings = [190 + 62 * j for j in range(5)]; self.gap = 0.55; self.spin = [0.9 * (-1) ** j * (1 + 0.15 * j) for j in range(5)]
+        self.rings = [210 + 66 * j for j in range(5)]; self.gap = 0.55; self.spin = [0.9 * (-1) ** j * (1 + 0.15 * j) for j in range(5)]
         bigs = [h for h in self.hits if self.kick[h] > 0.85]
         step = max(1, len(bigs) // 5); self.escapes = [int(b) for b in bigs[step::step][:4]] if bigs else []
         self.level = lambda i: sum(1 for e in self.escapes if e <= i)
@@ -149,7 +164,7 @@ class Video:
                 g = self.gap_angle(lvl, h); ang = ang + math.pi + self.r.uniform(-0.9, 0.9)
                 if abs((ang - g + math.pi) % (2 * math.pi) - math.pi) < self.gap: ang += 2 * self.gap   # never through the gap by accident
             self.pts.append((h, ang))
-        self.shards = []
+        self.shards = []; self.paths = [(0, self.pts)]
 
     def gap_angle(self, j, i): return (self.spin[min(j, 4)] * i / FPS + j * 1.3) % (2 * math.pi)
 
@@ -157,28 +172,27 @@ class Video:
         self.N = 15; cycle = 16 * self.spb                                     # they all line up again every four bars
         self.periods = [cycle / (20 + k) for k in range(self.N)]
 
-    def pos(self, i):
-        """Where the ball is at frame i: between the walls of the last hit and the next one, in a straight line."""
-        pts = self.pts
-        if not pts: return CX, CY, 0
-        k = max(0, max((j for j, (h, _) in enumerate(pts) if h <= i), default=0))
-        h0, a0 = pts[k]; h1, a1 = pts[min(k + 1, len(pts) - 1)]
+    def pos(self, i, pts=None):
+        """Where a ball is at frame i: between the walls of the last hit and the next one, in a straight line.
+        -> x, y, the wall it last reached, how far it is to the next (0..1)"""
+        pts = pts or self.pts
+        if not pts: return CX, CY, 0, 0.0
+        h0, a0 = pts[0]
+        if i < h0:                                                             # before the first note: already in flight towards it
+            p0 = self.wall_point(a0 + 2.5, self.reach(0)); p1 = self.wall_point(a0, self.reach(0)); u = i / max(1, h0)
+            return p0[0] + (p1[0] - p0[0]) * u, p0[1] + (p1[1] - p0[1]) * u, 0, 0.0
+        k = max((j for j, (h, _) in enumerate(pts) if h <= i), default=0); k1 = min(k + 1, len(pts) - 1)
+        h0, a0 = pts[k]; h1, a1 = pts[k1]
         u = 0 if h1 == h0 else min(1, max(0, (i - h0) / (h1 - h0)))
-        R0, R1 = self.radius_at(h0), self.radius_at(h1)
-        p0 = self.wall_point(a0, R0, h0); p1 = self.wall_point(a1, R1, h1)
-        return p0[0] + (p1[0] - p0[0]) * u, p0[1] + (p1[1] - p0[1]) * u, k
+        p0 = self.wall_point(a0, self.reach(k)); p1 = self.wall_point(a1, self.reach(k1))
+        return p0[0] + (p1[0] - p0[0]) * u, p0[1] + (p1[1] - p0[1]) * u, k, u
 
-    def contact(self, h):
-        """Where on the wall the ball hit at frame h."""
-        a = next((a for hh, a in self.pts if hh == h), 0.0)
-        return self.wall_point(a, self.radius_at(h), h)
+    def reach(self, j):
+        """How far from the middle the ball's centre is when it touches its j-th wall."""
+        if self.scene == 'rings': return self.rings[min(self.level(self.pts[j][0] - 1), 4)] - 22
+        return self.A - self.ball_r(j) - 4
 
-    def radius_at(self, i):
-        if self.scene == 'circle': return self.R - 20
-        if self.scene == 'square': return self.side(i - 1) / 2 - 30
-        return self.rings[min(self.level(i - 1), 4)] - 22
-
-    def wall_point(self, a, R, i):
+    def wall_point(self, a, R):
         if self.scene == 'square':                                             # the point on the square's edge in that direction
             c, s = math.cos(a), math.sin(a); m = max(abs(c), abs(s)); return CX + R * c / m, CY + R * s / m
         return CX + R * math.cos(a), CY + R * math.sin(a)
@@ -191,7 +205,7 @@ class Video:
         layer = np.zeros((H, W, 3), np.float32)
         def P(x, y): return (int(round(x * 16)), int(round(y * 16)))
         if self.scene == 'pendulum':                                        # a pendulum wave seen from above: a snake of bobs
-            top, gapy, A = H * 0.2, (H * 0.56) / (self.N - 1), 330
+            top, gapy, A = H * 0.17, (H * 0.6) / (self.N - 1), 430
             pts = []
             for k in range(self.N):
                 x = CX + A * math.sin(2 * math.pi * t / self.periods[k]); y = top + k * gapy; pts.append((x, y))
@@ -199,15 +213,14 @@ class Video:
             cv2.line(layer, P(CX, top - 40), P(CX, top + (self.N - 1) * gapy + 40), (50, 50, 64), 2, cv2.LINE_AA, 4)
             for k, (x, y) in enumerate(pts):
                 near = abs(x - CX) < 40; c = self.pal[k % len(self.pal)]
-                rad = 24 + (16 * fl if near else 0)
+                rad = 30 + (18 * fl if near else 0)
                 cv2.circle(layer, P(x, y), int(rad * 16), tuple(float(v) for v in c * (1.5 if near and fl > 0.3 else 1.0)), -1, cv2.LINE_AA, 4)
                 cv2.circle(self.trail_img, P(x, y), int(10 * 16), tuple(float(v) * 0.18 for v in c), -1, cv2.LINE_AA, 4)
         else:
             if self.scene == 'circle':
-                cv2.circle(layer, P(CX, CY), int(self.R * 16), tuple(float(v) for v in col * (0.6 + 0.8 * fl)), 6, cv2.LINE_AA, 4)
+                cv2.circle(layer, P(CX, CY), int(self.A * 16), tuple(float(v) for v in col * (0.6 + 0.8 * fl)), 7, cv2.LINE_AA, 4)
             elif self.scene == 'square':
-                s = self.side(i) / 2
-                cv2.rectangle(layer, P(CX - s, CY - s), P(CX + s, CY + s), tuple(float(v) for v in col * (0.6 + 0.8 * fl)), 6, cv2.LINE_AA, 4)
+                cv2.rectangle(layer, P(CX - self.A, CY - self.A), P(CX + self.A, CY + self.A), tuple(float(v) for v in col * (0.6 + 0.8 * fl)), 7, cv2.LINE_AA, 4)
             else:
                 lvl = self.level(i)
                 for j, Rr in enumerate(self.rings):
@@ -221,42 +234,61 @@ class Video:
                 for (e, x, y, vx, vy, j) in self.shards:
                     a = (i - e) / FPS
                     if 0 <= a < 1.3: cv2.circle(layer, P(x + vx * a * 30, y + vy * a * 30 + 260 * a * a), 5 * 16, tuple(float(v) for v in self.pal[j % len(self.pal)] * (1 - a / 1.3)), -1, cv2.LINE_AA, 4)
-            balls = [self.pos(i)]
-            if self.scene == 'circle' and self.split and i >= self.split:      # on the drop it becomes two
-                x, y, k = balls[0]; balls.append((2 * CX - x, 2 * CY - y, k))
+            live = [pp for at, pp in self.paths if at == 0 or hitk > at]       # a ball exists from the note it split off on
+            balls = [self.pos(i, pp) for pp in live]; wall = getattr(self, 'A', None)
+            if self.rule == 'lines':                                           # every wall it has hit keeps a line to the ball
+                x, y = balls[0][:2]
+                for j in range(hitk):
+                    cx, cy = self.wall_point(self.pts[j][1], wall); fresh = 1.0 if j == hitk - 1 else 0.0
+                    cv2.line(layer, P(cx, cy), P(x, y), tuple(float(v) for v in self.pal[j % len(self.pal)] * (0.42 + 0.5 * fresh * fl)), 2, cv2.LINE_AA, 4)
+                    cv2.circle(layer, P(cx, cy), 7 * 16, tuple(float(v) for v in self.pal[j % len(self.pal)] * 0.8), -1, cv2.LINE_AA, 4)
             last = max((h for h in self.hits if h <= i), default=None)
             age = (i - last) / FPS if last is not None else 9.0
-            if age < 0.3:                                                      # the impact: a ripple and sparks from where it hit
-                cx, cy = self.contact(last); nrm = math.atan2(CY - cy, CX - cx); st = 0.6 + 0.4 * self.strength.get(last, 1.0)
-                u = age / 0.3; c = tuple(float(v) for v in col * (1 - u))
-                cv2.circle(layer, P(cx, cy), int((24 + 150 * st * u ** 0.6) * 16), c, max(1, int(5 * (1 - u))), cv2.LINE_AA, 4)
-                rr = random.Random(int(last) * 7919)
-                for _ in range(12):
-                    q = nrm + rr.uniform(-1.25, 1.25); v = rr.uniform(500, 1100) * st
-                    d = v * age                                                  # straight out; they fade, not fall
-                    cv2.circle(layer, P(cx + d * math.cos(q), cy + d * math.sin(q)), int(max(1.0, 7 * (1 - u)) * 16), c, -1, cv2.LINE_AA, 4)
-            for (x, y, k) in balls:
-                rad = 26 * (1 + 0.25 * fl)
-                if self.trail == 'ribbon' and getattr(self, '_last', None):
-                    cv2.line(self.trail_img, P(*self._last), P(x, y), tuple(float(v) for v in col * 0.9), int(2 * rad), cv2.LINE_AA, 4)
-                else: cv2.circle(self.trail_img, P(x, y), int(rad * 16), tuple(float(v) * 0.7 for v in col), -1, cv2.LINE_AA, 4)
-                sq = max(0.0, 1 - age / 0.07) if age < 0.07 else 0.0           # squashed flat against the wall for an instant
-                if sq > 0:
+            if age < 0.3:                                                      # the impact: a ripple and sparks from where each hit
+                st = 0.6 + 0.4 * self.strength.get(last, 1.0); u = age / 0.3; c = tuple(float(v) for v in col * (1 - u))
+                for b, pp in enumerate(live):
+                    a = pp[hitk - 1][1]; cx, cy = self.wall_point(a, wall if wall else self.reach(hitk - 1)); nrm = math.atan2(CY - cy, CX - cx)
+                    cv2.circle(layer, P(cx, cy), int((24 + (150 if len(live) <= 8 else 60) * st * u ** 0.6) * 16), c, max(1, int(5 * (1 - u))), cv2.LINE_AA, 4)
+                    rr = random.Random(int(last) * 7919 + b)
+                    for _ in range(12 if len(live) <= 2 else 5):
+                        q = nrm + rr.uniform(-1.25, 1.25); d = rr.uniform(500, 1100) * st * age   # straight out; they fade, not fall
+                        cv2.circle(layer, P(cx + d * math.cos(q), cy + d * math.sin(q)), int(max(1.0, 7 * (1 - u)) * 16), c, -1, cv2.LINE_AA, 4)
+            small = 26 if len(balls) <= 4 else 21 if len(balls) <= 16 else 17
+            for b, (x, y, k, u) in enumerate(balls):
+                grown = self.ball_r(k) + (self.ball_r(min(k + 1, len(self.pts) - 1)) - self.ball_r(k)) * u if self.rule == 'grow' else small
+                rad = grown * (1 + 0.25 * fl) if grown < 60 else grown; bc = self.pal[(hitk + b) % len(self.pal)]
+                if grown < 60:
+                    if self.trail == 'ribbon' and len(balls) == 1 and getattr(self, '_last', None):
+                        cv2.line(self.trail_img, P(*self._last), P(x, y), tuple(float(v) for v in col * 0.9), int(2 * rad), cv2.LINE_AA, 4)
+                    else: cv2.circle(self.trail_img, P(x, y), int(rad * 16), tuple(float(v) * 0.7 for v in bc), -1, cv2.LINE_AA, 4)
+                sq = max(0.0, 1 - age / 0.07) if age < 0.07 and grown < 60 else 0.0   # squashed flat against the wall for an instant
+                if self.rule == 'grow' and grown >= 40:                        # a big ball is its colour, not a white-out, with a bright rim
+                    cv2.circle(layer, P(x, y), int(rad * 16), tuple(float(v) for v in col * (0.42 + 0.2 * fl)), -1, cv2.LINE_AA, 4)
+                    cv2.circle(layer, P(x, y), int(rad * 16), (255, 255, 255), 6, cv2.LINE_AA, 4)
+                elif sq > 0:
                     nrm_deg = math.degrees(math.atan2(CY - y, CX - x))
                     cv2.ellipse(layer, P(x, y), (int(rad * (1 - 0.38 * sq) * 16), int(rad * (1 + 0.3 * sq) * 16)), nrm_deg, 0, 360, (255, 255, 255), -1, cv2.LINE_AA, 4)
                 else: cv2.circle(layer, P(x, y), int(rad * 16), (255, 255, 255), -1, cv2.LINE_AA, 4)
-                if fl > 0.6:                                                   # the ring a hit throws out
+                if fl > 0.6 and grown < 60 and len(balls) <= 8:                # the ring a hit throws out
                     cv2.circle(layer, P(x, y), int(rad * (1 + 3 * (1 - fl)) * 16), tuple(float(v) for v in col), 3, cv2.LINE_AA, 4)
             self._last = balls[0][:2]
         img = self.trail_img + layer
         img = img + cv2.GaussianBlur(img, (0, 0), 14) * (0.7 + 0.6 * fl)       # glow
         img = np.clip(img + np.array([14, 10, 18], np.float32), 0, 255).astype(np.uint8)
         im = Image.fromarray(img); d = ImageDraw.Draw(im)
-        if self.hook != 'none' and t < 3.2:
-            txt = ('every bounce is a note from\n"%s"' % self.title) if self.hook == 'song' else 'every hit is a beat.\nsound on.'
-            d.multiline_text((W / 2, 230), txt, font=self.f_hook, fill=(255, 255, 255), anchor='mm', align='center', spacing=14)
-        d.text((W / 2, H * 0.82), '%d' % hitk, font=self.f_count, fill=(220, 220, 230), anchor='mm')
-        d.text((W / 2, H - 70), self.credit, font=self.f_small, fill=(170, 170, 185), anchor='mm')
+        # the premise, from the first frame: what builds, and that the bounces are the song (never under Instagram's
+        # own buttons: nothing below 80% of the height or in the top 10%)
+        says = {'grow': 'the ball grows\nevery bounce', 'lines': 'every bounce\nadds a line', 'multiply': 'the balls\nkeep doubling'}.get(self.rule)
+        if says is None and self.hook != 'none': says = 'every bounce is a note\nfrom "%s"' % self.title if self.hook == 'song' else 'every hit is a beat.\nsound on.'
+        if says and t < 3.5:
+            d.multiline_text((W / 2, 250), says, font=self.f_hook, fill=(255, 255, 255), anchor='mm', align='center', spacing=14, stroke_width=4, stroke_fill=(10, 8, 14))
+        elif self.rule and self.hook == 'song' and t < 7:
+            d.text((W / 2, 250), 'every bounce is a note from "%s"' % self.title, font=self.f_count, fill=(235, 235, 245), anchor='mm', stroke_width=3, stroke_fill=(10, 8, 14))
+        count = '%d' % hitk
+        if self.rule == 'lines': count = '%d lines' % hitk
+        if self.rule == 'multiply': count = '%d ball%s' % (len(live), '' if len(live) == 1 else 's')
+        d.text((W / 2, H * 0.765), count, font=self.f_hook if self.rule else self.f_count, fill=(235, 235, 245), anchor='mm')
+        d.text((W / 2, H * 0.80), self.credit, font=self.f_small, fill=(190, 190, 205), anchor='mm')
         return np.asarray(im)
 
     def render(self, out):
