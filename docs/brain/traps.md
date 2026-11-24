@@ -57,3 +57,10 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
   nightly.py now builds it once in a single process (`NUMBA_CACHE_DIR` of the run's own) before any render.
 - **A song's stems can be shorter than its master** (four songs stop at 100 s). Anything reading stems past
   their end gets silence: use `beat.stretch`, which falls back to the master.
+
+## apt hangs on the hosted runners
+
+`sudo apt-get install ffmpeg` sometimes sits for an hour with no output (seen on four jobs on 2026-11-24). The job
+shows "Install ffmpeg: in progress" and nothing else. Cancelling and re-running always worked. Workflows now call
+`bash scripts/apt_install.sh <packages>`, which gives each try a few minutes and retries three times. If a job is
+stuck on any other step for more than ten minutes, cancel it and dispatch it again; the jobs are safe to re-run.

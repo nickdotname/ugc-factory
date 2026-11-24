@@ -32,7 +32,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          bash scripts/apt_install.sh ffmpeg
           pip install -q numpy opencv-python-headless
       - name: Drop clips the block list or the queries no longer allow
         env:

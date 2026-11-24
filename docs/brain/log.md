@@ -2,6 +2,10 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: the "Install ffmpeg" step hung for 15-20 minutes on four jobs in one night (a studio run and three
+  render legs), which would have stalled a nightly run until its 170-minute limit. Every workflow now installs
+  through `scripts/apt_install.sh`: a time limit per try, three tries, no man-page index rebuild. See [[traps]].
+
 - 2026-11-23: more posts, earlier. Niche accounts go from 3 to 5 a day (retro 4), nostalgia 6, close__quarters and
   dylancantor23 8, psychedelic.station 10; every window now opens at 8 or 9 (several opened at 11–13, so mornings
   were empty). The studio makes 5 a night per niche account to match. topup now treats a day as full once the

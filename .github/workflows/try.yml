@@ -42,7 +42,7 @@ jobs:
             requirements.txt
             studio/requirements.txt
       - name: Install ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libsndfile1
+        run: bash scripts/apt_install.sh ffmpeg libsndfile1
       - name: Install dependencies
         run: pip install -q -r requirements.txt -r studio/requirements.txt
       - name: Make the reel and hold the post
