@@ -36,7 +36,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          bash scripts/apt_install.sh ffmpeg
           pip install -q numpy opencv-python-headless
       - name: Add the links
         env:
