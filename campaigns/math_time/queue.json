@@ -144,9 +144,9 @@
         {
           "account": "math_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-de389e3c-5503-4792-899d-8a0edb21759a",
           "last_error": null,
           "scheduled_for": "2026-11-24T17:40:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "the picture is the proof\n🎧 Full Ride – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
