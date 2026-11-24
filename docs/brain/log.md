@@ -2,6 +2,11 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: quality passes merged for ascii.terminal.dreams (#134: `asciiviz/letters.py` typesetter, footage scene
+  `wild`, painted skies and weather for the pixel worlds, `subject-*` clip prompts for Kaggle, fireworks retired) and
+  psychedelic.station (#135: kick punch, fewer overlays, readable fact reels, facts corrected, no follow-asks). Its mix
+  then changed: visualisers 10 → 8 a day (8 a night made), collage dropped, carousels 4 → 1 a day, fact reels stay 4.
+
 - 2026-11-24: @moth.ate.my.notes posts (campaign `notes_app`, style `notes`, `studio/text_video.py`): text-on-
   gradient reels in the look of Instagram's own text posts, from references Dylan sent. 78 thoughts of our own in
   `studio/notes/lines.txt` (add at the end; five are used a night, so the bank needs topping up about every two
