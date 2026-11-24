@@ -1,4 +1,177 @@
 {
-  "generated_at": "2026-11-24T05:24:38.981506Z",
-  "items": []
+  "generated_at": "2026-11-24T08:31:46.462856Z",
+  "items": [
+    {
+      "id": "ba3a43d8-104b-4c64-8f9a-c44bb7b0bbf9",
+      "scheduled_for": "2026-11-24T09:50:00-05:00",
+      "rendered_at": "2026-11-24T08:31:46.462856Z",
+      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-24/ba3a43d8-104b-4c64-8f9a-c44bb7b0bbf9.mp4",
+      "caption": "the demo disc had one more level\n🎧 Evil Close Quarters – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.307,
+        "anchor_y": 0.511,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Evil Close Quarters by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "the demo disc had one more level\n🎧 Evil Close Quarters – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nstream Evil Close Quarters: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "d34ddc1c-b38f-4a2d-9cda-aed5f3c0212e",
+      "scheduled_for": "2026-11-24T13:20:00-05:00",
+      "rendered_at": "2026-11-24T08:31:46.462856Z",
+      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-24/d34ddc1c-b38f-4a2d-9cda-aed5f3c0212e.mp4",
+      "caption": "found this level on a memory card from 2003. sound on.\n🎧 Suspended – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.272,
+        "anchor_y": 0.701,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "found this level on a memory card from 2003. sound on.\n🎧 Suspended – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nSuspended is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "3366bdad-db5f-4668-bdcb-4788b7bbb028",
+      "scheduled_for": "2026-11-24T16:50:00-05:00",
+      "rendered_at": "2026-11-24T08:31:46.462856Z",
+      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-24/3366bdad-db5f-4668-bdcb-4788b7bbb028.mp4",
+      "caption": "the soundtrack the game should have shipped with\n🎧 Won't Be the Same Again – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.605,
+        "anchor_y": 0.564,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "the soundtrack the game should have shipped with\n🎧 Won't Be the Same Again – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "1391893c-2950-4cdb-9e9b-f046935a1c34",
+      "scheduled_for": "2026-11-24T20:20:00-05:00",
+      "rendered_at": "2026-11-24T08:31:46.462856Z",
+      "video_url": "https://factory.nickbenak.com/v/render-retro_arcade-2026-11-24/1391893c-2950-4cdb-9e9b-f046935a1c34.mp4",
+      "caption": "the attract mode nobody watched\n🎧 Prologue: Before – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.564,
+        "anchor_y": 0.562,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "the attract mode nobody watched\n🎧 Prologue: Before – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nstream Prologue: Before: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    }
+  ]
 }
