@@ -38,9 +38,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-5d561012-55fe-4789-81c3-37eb6082c911",
           "last_error": null,
           "scheduled_for": "2026-11-24T18:14:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "raymarched, then rounded down to characters\n🎧 Fixation – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Fixation"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
