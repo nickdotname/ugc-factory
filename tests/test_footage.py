@@ -90,3 +90,34 @@ def test_fetch_gives_every_query_a_turn(monkeypatch, tmp_path):
     idx = json.loads(__import__("pathlib").Path(F.INDEX).read_text())
     assert sorted(e['query'] for e in idx['clips']) in (['a', 'a', 'b', 'c'], ['a', 'b', 'b', 'c'], ['a', 'b', 'c', 'c'])
     assert all(e['year'] == 1920 for e in idx['clips'])
+
+
+def test_nyc_clips_must_be_new_york_and_not_news():
+    import footage as F
+    ok = lambda title, src='commons': F.fits(dict(theme='nyc', source=src, title=title))
+    assert ok('New Brooklyn to New York via Brooklyn Bridge, no. 2 (1899)')
+    assert ok('Bryant Park and Hippodrome Theater,1905.webm')
+    assert not ok('Netanyahu 2026 UN visit Manhattan pro-Palestine protest.webm')
+    assert not ok('SunRail Grand Opening at LYNX Central Station.webm')
+    assert not ok('Film "Bela" (1913).webm')
+    assert not ok('Times Square Becomes Football Street Fair.webm')
+    assert ok('anything at all', src='own')                          # our own clips are always New York
+    assert F.fits(dict(theme='city', source='commons', title='Film "Bela" (1913).webm'))   # the rule is nyc's only
+    assert F.sources_for('nyc_now', 'manhattan skyline') == [('pexels', 'manhattan skyline')]
+
+
+def test_nyc_places_are_library_clips_and_labels_fit_the_safe_area():
+    import json, os
+    here = os.path.join(os.path.dirname(__file__), '..', 'studio')
+    clips = json.load(open(os.path.join(here, 'nyc', 'places.json')))['clips']
+    lib = {e['asset']: e for e in json.load(open(os.path.join(here, 'footage', 'index.json')))['clips']}
+    for asset, p in clips.items():
+        assert asset in lib, asset
+        assert lib[asset]['theme'] in ('nyc', 'nyc_now')
+        if p.get('skip'): continue
+        assert p.get('mood', 'day') in ('day', 'sunset', 'night', 'snow')
+        assert len(p.get('place', '')) <= 26                            # one row at 58 px inside x 96-930
+    pairs = {p['pair'] for p in clips.values() if p.get('pair') and not p.get('skip')}
+    for pr in pairs:                                                    # a then-and-now pair has both halves
+        assert any(lib[a]['theme'] == 'nyc' and p.get('pair') == pr for a, p in clips.items())
+        assert any(lib[a]['theme'] == 'nyc_now' and p.get('pair') == pr and not p.get('skip') for a, p in clips.items())

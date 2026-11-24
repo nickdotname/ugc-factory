@@ -17,7 +17,7 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @retro.vibes.arcade | retro_ig | retro_arcade | retro (Kaggle-made PS2 clips) | 4 | 9–23 |
 | @rocket.league.lit | rocket_ig | rocket_league | rocket (our own clips) | 5 | 8–23 |
 | @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 5 | 8–23 |
-| @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (memes, NYC facts) | 5 | 9–23 |
+| @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (city walk, memes, then/now, facts) | 5 | 9–23 |
 | @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 5 | 9–23 |
 | @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (a public-domain film clip played back as coloured ASCII in a terminal) | 5 | 8–23 |
 | @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 5 | 9–23 |
