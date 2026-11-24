@@ -784,8 +784,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-47a70d7d-d9e9-4c16-81d7-cd8f3989add0",
+      "post_ids": {
+        "nostalgia_ig": "igo-47a70d7d-d9e9-4c16-81d7-cd8f3989add0"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
