@@ -250,9 +250,9 @@
         {
           "account": "races_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-adc202a9-e60f-49e0-868b-9c60f5c7a16d",
           "last_error": null,
           "scheduled_for": "2026-11-25T11:26:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "algorithms, but it's a race\n🎧 Suspended – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
