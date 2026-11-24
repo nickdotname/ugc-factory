@@ -40,11 +40,11 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T18:10:00-05:00"
         },
         {
           "account": "nickdotname_tt",
@@ -61,7 +61,7 @@
         "tiktok": "Fixation – Close Quarters\nno skipping. listen to the whole thing once.\n\nstream Fixation: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -101,7 +101,26 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Full Ride – Close Quarters\nno skipping. listen to the whole thing once.\n\nlink in bio to stream Full Ride",
         "tiktok": "Full Ride – Close Quarters\nno skipping. listen to the whole thing once.\n\nlink in bio to stream Full Ride"
@@ -147,7 +166,26 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Talk – Close Quarters\nrun it back. you know the part.\n\nstream Talk: link in bio",
         "tiktok": "Talk – Close Quarters\nrun it back. you know the part.\n\nstream Talk: link in bio"
@@ -193,7 +231,26 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": null,
-      "posts": [],
+      "posts": [
+        {
+          "account": "nickdotname_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        },
+        {
+          "account": "nickdotname_tt",
+          "network": "tiktok",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Notta Problem – Close Quarters\nplay it for somebody and watch their face at this part\n\nNotta Problem is out now. link in bio to stream it",
         "tiktok": "Notta Problem – Close Quarters\nplay it for somebody and watch their face at this part\n\nNotta Problem is out now. link in bio to stream it"
