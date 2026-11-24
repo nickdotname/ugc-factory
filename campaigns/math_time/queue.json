@@ -144,18 +144,18 @@
         {
           "account": "math_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T17:40:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the picture is the proof\n🎧 Full Ride – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
