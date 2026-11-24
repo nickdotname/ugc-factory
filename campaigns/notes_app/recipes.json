@@ -1,0 +1,284 @@
+{
+ "clips": {},
+ "menu": {
+  "notes": {
+   "line": [
+    "n001",
+    "n002",
+    "n003",
+    "n004",
+    "n005",
+    "n006",
+    "n007",
+    "n008",
+    "n009",
+    "n010",
+    "n011",
+    "n012",
+    "n013",
+    "n014",
+    "n015",
+    "n016",
+    "n017",
+    "n018",
+    "n019",
+    "n020",
+    "n021",
+    "n022",
+    "n023",
+    "n024",
+    "n025",
+    "n026",
+    "n027",
+    "n028",
+    "n029",
+    "n030",
+    "n031",
+    "n032",
+    "n033",
+    "n034",
+    "n035",
+    "n036",
+    "n037",
+    "n038",
+    "n039",
+    "n040",
+    "n041",
+    "n042",
+    "n043",
+    "n044",
+    "n045",
+    "n046",
+    "n047",
+    "n048",
+    "n049",
+    "n050",
+    "n051",
+    "n052",
+    "n053",
+    "n054",
+    "n055",
+    "n056",
+    "n057",
+    "n058",
+    "n059",
+    "n060",
+    "n061",
+    "n062",
+    "n063",
+    "n064",
+    "n065",
+    "n066",
+    "n067",
+    "n068",
+    "n069",
+    "n070",
+    "n071",
+    "n072",
+    "n073",
+    "n074",
+    "n075",
+    "n076",
+    "n077",
+    "n078",
+    "n079"
+   ],
+   "look": [
+    "dusk",
+    "lagoon",
+    "orchid",
+    "sunset"
+   ],
+   "ink": [
+    "white",
+    "black"
+   ],
+   "face": [
+    "round",
+    "tall"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-24",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s02_notes_108505.mp4",
+   "song": "passage-waiting",
+   "section": "s02",
+   "style": "notes",
+   "seed": 108505,
+   "window": [
+    21.18,
+    39.81
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n014",
+    "look": "sunset",
+    "ink": "white",
+    "face": "tall",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.81,
+    "bass": 0.73,
+    "other": 0.75
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "full_ride",
+   "file": "full-ride_s01_notes_921761.mp4",
+   "song": "full-ride",
+   "section": "s01",
+   "style": "notes",
+   "seed": 921761,
+   "window": [
+    7.87,
+    17.04
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n036",
+    "look": "lagoon",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.67,
+    "bass": 0.78,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s02_notes_280427.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s02",
+   "style": "notes",
+   "seed": 280427,
+   "window": [
+    33.71,
+    40.73
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n070",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.28,
+    "drums": 0.15,
+    "bass": 0.12,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_notes_583845.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "notes",
+   "seed": 583845,
+   "window": [
+    72.56,
+    84.63
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n044",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.75,
+    "bass": 0.34,
+    "other": 0.59
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s06_notes_640919.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "notes",
+   "seed": 640919,
+   "window": [
+    126.2,
+    148.99
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n054",
+    "look": "sunset",
+    "ink": "black",
+    "face": "tall",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.65,
+    "bass": 0.6,
+    "other": 0.24
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s03_notes_798343.mp4",
+   "song": "silver-and-gold",
+   "section": "s03",
+   "style": "notes",
+   "seed": 798343,
+   "window": [
+    76.11,
+    89.14
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n044",
+    "look": "lagoon",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.73,
+    "bass": 0.79,
+    "other": 0.65
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
