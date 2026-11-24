@@ -114,9 +114,9 @@
         {
           "account": "nickdotname_tt",
           "network": "tiktok",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "6b05e96f53ba61949d5fcc59",
           "last_error": null,
           "scheduled_for": "2026-11-25T06:50:00-05:00"
         }
@@ -126,7 +126,7 @@
         "tiktok": "Full Ride – Close Quarters\nno skipping. listen to the whole thing once.\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
