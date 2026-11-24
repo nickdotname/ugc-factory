@@ -197,18 +197,18 @@
         {
           "account": "vintage_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T17:40:00-05:00"
         }
       ],
       "captions": {
         "instagram": "film from the 1920s, cut on every bar\n🎧 Suspended – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
