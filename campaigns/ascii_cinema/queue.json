@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-24T05:24:28.028447Z",
+  "generated_at": "2026-11-24T08:31:35.815479Z",
   "items": [
     {
-      "id": "33f40216-e495-416f-9ca1-e431f1134dc8",
+      "id": "3663b997-f69c-46fb-bdf3-f07698f75f4f",
       "scheduled_for": "2026-11-24T08:05:00-05:00",
-      "rendered_at": "2026-11-24T05:24:28.028447Z",
-      "video_url": "https://factory.nickbenak.com/v/render-ascii_cinema-2026-11-24/33f40216-e495-416f-9ca1-e431f1134dc8.mp4",
-      "caption": "archive footage, played in a terminal\n🎧 Epilogue: Dismissal – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "rendered_at": "2026-11-24T08:31:35.815479Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_cinema-2026-11-24/3663b997-f69c-46fb-bdf3-f07698f75f4f.mp4",
+      "caption": "this is text. watch it move\n🎧 Silver and Gold – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,10 +16,10 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.734,
-        "anchor_y": 0.44,
+        "anchor_x": 0.646,
+        "anchor_y": 0.474,
         "rotate_deg": -0.0,
-        "brightness": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
         "grain": 0.0,
@@ -28,28 +28,190 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "epilogue_dismissal",
+      "creative": "silver_and_gold",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Epilogue: Dismissal by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "cinema_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-5bb86814-9694-45ec-a7f1-2b58e49b61e2",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T11:05:00-05:00"
-        }
-      ],
+      "first_comment": "song: Silver and Gold by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "archive footage, played in a terminal\n🎧 Epilogue: Dismissal – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nlink in bio to stream Epilogue: Dismissal"
+        "instagram": "this is text. watch it move\n🎧 Silver and Gold – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nstream Silver and Gold: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "8a3d3f1a-af9b-4794-8c3f-ff35efe71ec4",
+      "scheduled_for": "2026-11-24T11:05:00-05:00",
+      "rendered_at": "2026-11-24T08:31:35.815479Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_cinema-2026-11-24/8a3d3f1a-af9b-4794-8c3f-ff35efe71ec4.mp4",
+      "caption": "the projector is a terminal\n🎧 Fixation – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.725,
+        "anchor_y": 0.387,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "fixation",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Fixation – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "the projector is a terminal\n🎧 Fixation – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nFixation is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "83ff879a-69b9-4000-a4e1-6de8bf5c8c28",
+      "scheduled_for": "2026-11-24T14:05:00-05:00",
+      "rendered_at": "2026-11-24T08:31:35.815479Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_cinema-2026-11-24/83ff879a-69b9-4000-a4e1-6de8bf5c8c28.mp4",
+      "caption": "film, one letter at a time\n🎧 Full Ride – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.577,
+        "anchor_y": 0.313,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "film, one letter at a time\n🎧 Full Ride – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nlink in bio to stream Full Ride"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7e1f6e8c-c9f6-4e1d-8b33-8b6d478e2565",
+      "scheduled_for": "2026-11-24T17:05:00-05:00",
+      "rendered_at": "2026-11-24T08:31:35.815479Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_cinema-2026-11-24/7e1f6e8c-c9f6-4e1d-8b33-8b6d478e2565.mp4",
+      "caption": "letters doing the acting\n🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.683,
+        "anchor_y": 0.301,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "letters doing the acting\n🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nstream Prologue: Before: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ed3a84df-65f1-46c1-8342-c7bb1293929c",
+      "scheduled_for": "2026-11-24T20:05:00-05:00",
+      "rendered_at": "2026-11-24T08:31:35.815479Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_cinema-2026-11-24/ed3a84df-65f1-46c1-8342-c7bb1293929c.mp4",
+      "caption": "played back at 30 pages a second\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.413,
+        "anchor_y": 0.481,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "recess_rewind",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Recess (Rewind) – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "played back at 30 pages a second\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nRecess (Rewind) is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
