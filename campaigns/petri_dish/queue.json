@@ -34,12 +34,22 @@
       "lineup_id": "violet-first",
       "variants": {},
       "first_comment": "🎧 the song is Fixation by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "petri_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-23T21:45:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "140,000 simulated slime-mould cells. three rules. no plan. nobody drew these lines. sound on.\n🎧 Fixation – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Fixation"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": "rain-first",
       "variants": {},
       "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "petri_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "it starts as noise. each cell smells left, ahead and right, turns, steps, leaves a trail. this is what comes out.\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nstream Talk: link in bio"
       },
@@ -120,7 +140,17 @@
       "lineup_id": "ring-first",
       "variants": {},
       "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "petri_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "a ring of digital slime mould, finding its own shortcuts.\n🎧 Suspended – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nSuspended is out now. link in bio to stream it"
       },
