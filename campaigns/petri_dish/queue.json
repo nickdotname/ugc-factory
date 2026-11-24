@@ -38,9 +38,9 @@
         {
           "account": "petri_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-bff30dfe-6305-4451-a5d3-9a27d0b628dd",
           "last_error": null,
           "scheduled_for": "2026-11-24T12:18:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "nobody drew this. it grew\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
