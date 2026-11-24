@@ -1,23 +1,66 @@
 {
-  "generated_at": "2026-11-24T05:43:08.869184Z",
+  "generated_at": "2026-11-24T08:31:36.815244Z",
   "items": [
     {
-      "id": "818dc120-a028-4cff-a5e8-a87db304e9aa",
+      "id": "dcd6b254-dbbe-48af-b4f6-bcc85a0e9429",
       "scheduled_for": "2026-11-24T09:30:00-05:00",
-      "rendered_at": "2026-11-24T05:43:08.869184Z",
-      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/818dc120-a028-4cff-a5e8-a87db304e9aa.mp4",
-      "caption": "nobody drew this. it grew\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "rendered_at": "2026-11-24T08:31:36.815244Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/dcd6b254-dbbe-48af-b4f6-bcc85a0e9429.mp4",
+      "caption": "no leader. still a network\n🎧 Passage (Waiting) – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.423,
-        "anchor_y": 0.289,
+        "anchor_x": 0.575,
+        "anchor_y": 0.64,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "passage_waiting",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "no leader. still a network\n🎧 Passage (Waiting) – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nstream Passage (Waiting): link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "e53f404a-46e6-4fd0-a530-500103ee3796",
+      "scheduled_for": "2026-11-24T12:18:00-05:00",
+      "rendered_at": "2026-11-24T08:31:36.815244Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/e53f404a-46e6-4fd0-a530-500103ee3796.mp4",
+      "caption": "simple rules, strange shapes\n🎧 Prologue: Before – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.74,
+        "anchor_y": 0.546,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
@@ -28,28 +71,147 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "simple rules, strange shapes\n🎧 Prologue: Before – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "382b0ef5-72ce-47ae-84ab-80d14b9b323a",
+      "scheduled_for": "2026-11-24T15:06:00-05:00",
+      "rendered_at": "2026-11-24T08:31:36.815244Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/382b0ef5-72ce-47ae-84ab-80d14b9b323a.mp4",
+      "caption": "it finds the shortest path on its own\n🎧 Won't Be the Same Again – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.642,
+        "anchor_y": 0.334,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "it finds the shortest path on its own\n🎧 Won't Be the Same Again – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "55ce073f-0fc0-4619-83a3-4e17fcef34db",
+      "scheduled_for": "2026-11-24T17:54:00-05:00",
+      "rendered_at": "2026-11-24T08:31:36.815244Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/55ce073f-0fc0-4619-83a3-4e17fcef34db.mp4",
+      "caption": "grown, not drawn\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.421,
+        "anchor_y": 0.342,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
       "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "petri_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-bff30dfe-6305-4451-a5d3-9a27d0b628dd",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T12:18:00-05:00"
-        }
-      ],
+      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "nobody drew this. it grew\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Talk"
+        "instagram": "grown, not drawn\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "a54113ed-2175-4d3f-99d5-94206c10d122",
+      "scheduled_for": "2026-11-24T20:42:00-05:00",
+      "rendered_at": "2026-11-24T08:31:36.815244Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/a54113ed-2175-4d3f-99d5-94206c10d122.mp4",
+      "caption": "every vein here built itself\n🎧 Epilogue: Dismissal – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.348,
+        "anchor_y": 0.746,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "epilogue_dismissal",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "every vein here built itself\n🎧 Epilogue: Dismissal – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nEpilogue: Dismissal is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
