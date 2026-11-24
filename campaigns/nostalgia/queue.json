@@ -144,18 +144,18 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T21:15:00-05:00"
         }
       ],
       "captions": {
         "instagram": "a hallway you walked once in 2004\n🎧 Talk – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
