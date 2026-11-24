@@ -15,6 +15,9 @@ Themes with the fewest clips are fetched first.
 | space | NASA Image and Video Library, NASA Scientific Visualization Studio (SVS), Commons | glitch, cinema, cutout bgs |
 | silent | Internet Archive and **Library of Congress** films dated 1890–1930 (US public domain by date); `commons>incategory:Videos_of_films_from_YYYY` queries; restorations, colourised copies, trailers and documentaries skipped | vintage, cinema |
 | nyc | Commons, Prelinger, silent-era New York films (IA and LoC), **and our own clips** | nyc, cinema, cutout bgs |
+| nyc_now | New York as it looks today: **Pexels** (Pexels licence: free to use and adapt, no credit; `PEXELS_API_KEY`). Pieces cut upright 720x1280 in our own grade (`NOW`, `GRADE`), titles about people or logos skipped (`PEOPLE`, `LOGO`) | nyc |
+
+**nyc must be New York and not news** (`fits`, 2026-11-24): Commons' "Times Square" / "Grand Central" / "Empire State Building" queries had brought in a 2026 political protest, a Florida rail opening, steam engines and Russian films of 1909-1913. A non-own nyc clip now needs a New York place in its title (`NYC_WORDS`) and none of `NYC_NOT` (protest, parade, fair, football ...); `pull` never serves one that fails, and `purge` removes them.
 
 A query goes to every source its theme lists (`BY_THEME`), unless it starts with `source>` (`loc>Edison`,
 `svs>ocean currents`, `commons>incategory:...`, `silent>collection:silent_films AND year:[1895 TO 1899]`), when only

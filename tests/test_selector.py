@@ -925,3 +925,64 @@ class TestSelectBatchMulti:
         # must not inherit a's boost — recency weighting alone governs b, and
         # every one of its hooks stays reachable.
         assert all(b_hooks[h] > 0 for h in b.hooks)
+
+
+class TestSharedClipPool:
+    """Songs that share one clip library (``shared_videos``) share each clip's cooldown.
+
+    closequarters: six songs over the same 15 meme clips, each song's history
+    seen alone, so hook_05 went out eleven times in a week (three in one day).
+    """
+
+    @staticmethod
+    def _pools(history_b: History | None = None):
+        lib = AssetLibrary(
+            hooks=tuple(f"hook_{i:02d}.mp4" for i in range(4)),
+            bodies=(), music=(), captions=("a\\nx", "b\\nx", "c\\nx"),
+            bodies_required=False,
+        )
+        return {"a": (lib, History()), "b": (lib, history_b or History())}
+
+    def test_clip_used_under_one_song_cools_for_the_other(self) -> None:
+        used = Selection(hook="hook_00.mp4", bodies=(), music=None, caption="a\\nx")
+        pools = self._pools(History(entries=[entry(used, NOW - timedelta(days=5))]))
+        sel = make_selector(hook_cooldown_days=21, caption_cooldown_days=0)
+        picks = sel.select_batch_multi(
+            pools, {"a": 1.0, "b": 1.0}, 3, 0, visual_pools={"a": "pool", "b": "pool"},
+        )
+        strict = [o.selection.hook for _, o in picks if o.relaxation is Relaxation.NONE]
+        assert "hook_00.mp4" not in strict
+        assert len(strict) == len(set(strict)) == 3      # and no clip twice tonight, across songs
+
+    def test_without_pools_songs_stay_independent(self) -> None:
+        used = Selection(hook="hook_00.mp4", bodies=(), music=None, caption="a\\nx")
+        pools = self._pools(History(entries=[entry(used, NOW - timedelta(days=5))]))
+        sel = make_selector(hook_cooldown_days=21, caption_cooldown_days=0)
+        hooks = {
+            o.selection.hook
+            for seed in range(30)
+            for name, o in make_selector(seed, hook_cooldown_days=21, caption_cooldown_days=0)
+            .select_batch_multi(pools, {"a": 1.0, "b": 0.0}, 1, 0)
+        }
+        assert "hook_00.mp4" in hooks
+
+    def test_pool_runs_dry_instead_of_repeating(self) -> None:
+        sel = make_selector(hook_cooldown_days=21, caption_cooldown_days=0)
+        picks = sel.select_batch_multi(
+            self._pools(), {"a": 1.0, "b": 1.0}, 8, 0, visual_pools={"a": "pool", "b": "pool"},
+        )
+        strict = [o.selection.hook for _, o in picks if o.relaxation is Relaxation.NONE]
+        assert sorted(strict) == [f"hook_{i:02d}.mp4" for i in range(4)]
+
+    def test_an_account_versions_clip_counts_as_used(self) -> None:
+        used = Selection(hook="hook_00.mp4", bodies=(), music=None, caption="a\\nx")
+        e = entry(used, NOW - timedelta(days=2)).model_copy(
+            update={"variants": {"tt": {"hook": "hook_01.mp4"}}}
+        )
+        pools = self._pools(History(entries=[e]))
+        sel = make_selector(hook_cooldown_days=21, caption_cooldown_days=0)
+        picks = sel.select_batch_multi(
+            pools, {"a": 1.0, "b": 1.0}, 4, 0, visual_pools={"a": "pool", "b": "pool"},
+        )
+        strict = {o.selection.hook for _, o in picks if o.relaxation is Relaxation.NONE}
+        assert strict == {"hook_02.mp4", "hook_03.mp4"}

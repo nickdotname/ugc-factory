@@ -6,7 +6,9 @@
 Only footage anyone may reuse with no credit is taken: Wikimedia Commons files marked public domain or CC0, the
 Prelinger Archives films on archive.org marked public domain, films published before 1931 (US public domain by
 date) from the Internet Archive and the Library of Congress, and NASA video and NASA Scientific Visualization
-Studio animations (not copyrighted, by US law). Every clip's source page, licence and title (and for old films
+Studio animations (not copyrighted, by US law); and, for New York as it looks today (theme nyc_now, NOW), Pexels
+videos under the Pexels licence (free to use and adapt, no credit; places only, stored in our own crop and grade).
+Every clip's source page, licence and title (and for old films
 the year) are kept in the index. From
 each film a few short pieces with real motion in them are cut (no sound, at most 960 px tall, a few MB each),
 uploaded as assets of the GitHub release "footage-library", and recorded in studio/footage/index.json with their
@@ -34,7 +36,7 @@ BLOCK = re.compile(r'strip|burlesque|nud|naked|sex|venereal|cigar|tobacco|smok|b
                    r'crime|police|prison|drug|narcot|marijuana|reefer|venus|hygiene|birth|disease|surgery|hospital|accident|crash|riot|'
                    r'commercial|advertis|\bad\b|\bads\b|\bspot\b|sponsor|brand|'
                    r'jew|cake.?walk|darkt?own|\bcoons?\b|mammy|pickaninny|sambo|uncle tom|harem|slave|'   # old films' caricature
-                   r'schleiertanz|veil.?dance', re.I)   # dancers in body stockings that read as nude on a phone
+                   r'schleiertanz|veil.?dance|florida enchantment', re.I)   # dancers in body stockings that read as nude on a phone
 # Ordinary words that contain a blocked stem ("skill" holds kill, "Essex" sex, "patriotic" riot, "smokestack" smok):
 # they are blanked out before BLOCK looks, so a film about a factory chimney or Indiana is not thrown away for them.
 SAFE = re.compile(r'skill|begun|burgundy|essex|sussex|middlesex|jewel|patriot|chariot|marriott|alternative|indiana|'
@@ -44,7 +46,7 @@ SAFE = re.compile(r'skill|begun|burgundy|essex|sussex|middlesex|jewel|patriot|ch
 # that mentions a policeman or a fight is fine (Keystone chases, Keaton's Cops); caricature, nudity and sex never are.
 HARD = re.compile(r'strip|burlesque|nud|naked|sex|venereal|nazi|hitler|racis|minstrel|blackface|savage|negro|pickaninny|sambo|'
                   r'mammy|darkt?own|\bcoons?\b|cake.?walk|uncle tom|harem|slave|lynch|\bjew|oriental|chinese|japanese|jap\b|chinaman|'
-                  r'indian|native|schleiertanz|veil.?dance', re.I)
+                  r'indian|native|schleiertanz|veil.?dance|florida enchantment', re.I)   # A Florida Enchantment (1914) has blackface scenes
 
 
 def blocked(text, rule=None):
@@ -291,9 +293,45 @@ def svs(q, n=5):
         yield key, page.get('title') or r.get('title', key), best['url'].replace('http://', 'https://'), 0.0, 'Public Domain (NASA SVS)', 'https://svs.gsfc.nasa.gov/%s/' % r['id']
 
 
-SOURCES = {'commons': commons, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent, 'loc': loc, 'svs': svs}
+def pexels(q, n=40):
+    """Pexels videos (the Pexels licence: free to use and adapt, commercially too, no credit needed), upright ones
+    first since that is the shape we post. Needs a free API key in PEXELS_API_KEY; without one it finds nothing.
+    Clips whose title is about a person (a portrait, a model, someone walking) are left out: places only."""
+    key = os.environ.get('PEXELS_API_KEY')
+    if not key: print('  pexels: no PEXELS_API_KEY, skipped'); return
+    for orient in ('portrait', 'landscape'):
+        url = 'https://api.pexels.com/videos/search?' + urllib.parse.urlencode(dict(query=q, per_page=n, orientation=orient, size='medium'))
+        r = json.loads(urllib.request.urlopen(urllib.request.Request(url, headers=dict(UA, Authorization=key)), timeout=60).read())
+        for v in r.get('videos') or []:
+            slug = urllib.parse.urlsplit(v.get('url') or '').path.strip('/').split('/')[-1]; title = re.sub(r'-?\d+$', '', slug).replace('-', ' ').strip()
+            if blocked(title) or PEOPLE.search(title) or LOGO.search(title): continue
+            files = [f for f in v.get('video_files') or [] if f.get('file_type') == 'video/mp4' and f.get('height') and f.get('link')]
+            if not files: continue
+            f = min(files, key=lambda f: abs(max(f['height'], f.get('width') or 0) - 1280))
+            yield 'pexels:%s' % v['id'], title or slug, f['link'], float(v.get('duration') or 0), 'Pexels License', v.get('url', '')
+
+
+PEOPLE = re.compile(r'\b(man|woman|men|women|girl|boy|person|people|model|couple|portrait|selfie|kid|child|baby|dancing|posing|smiling|walking|tourists?)\b', re.I)
+LOGO = re.compile(r'i heart|i love ny|\blogo|billboard|times square ad', re.I)      # the I-heart-NY mark is a trademark; ad screens are other people's brands
+NOW = {'nyc_now'}        # themes of a place as it looks today: upright 720x1280 pieces in our own grade, short clips kept whole
+SOURCES = {'commons': commons, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent, 'loc': loc, 'svs': svs, 'pexels': pexels}
 BY_THEME = {'space': ['nasa', 'svs', 'commons'], 'archive': ['prelinger'], 'city': ['commons', 'prelinger'], 'water': ['commons', 'prelinger'], 'nature': ['commons', 'nasa'],
-            'silent': ['silent', 'loc'], 'nyc': ['commons', 'prelinger', 'silent', 'loc']}
+            'silent': ['silent', 'loc'], 'nyc': ['commons', 'prelinger', 'silent', 'loc'],
+            'nyc_now': ['pexels']}       # Commons' no-credit files of today's New York are news clips (a 2026 protest, a street fair), not places
+# A clip of theme nyc must name a New York place in its title, and must not be news: "New York" queries on Commons
+# also return a Florida rail opening, steam engines, Russian films of 1909-1913 and a 2026 political protest.
+NYC_WORDS = re.compile(r'new york|n\.y\.|\bnyc\b|manhattan|brooklyn|bronx|queens|staten island|harlem|bowery|broadway|fifth avenue|wall street|'
+                       r'times square|herald square|union square|madison square|bryant park|central park|coney island|grand central|'
+                       r'flatiron|empire state|chrysler|hudson|east river|battery|ellis island|statue of liberty|elevated|manhatta\b|speedy', re.I)
+NYC_NOT = re.compile(r'protest|rally|demonstrat|march\b|riot|visit|parade|fair\b|interview|documents|immigra|election|campaign|'
+                     r'football|baseball|nfl|nba|concert|festival|sunrail|locomotive', re.I)
+
+
+def fits(e):
+    """Whether an index entry belongs in its theme (only nyc has a rule: a New York place, not news). Our own clips always do."""
+    if e.get('source') == 'own' or e.get('theme') != 'nyc': return True
+    t = e.get('title', '')
+    return bool(NYC_WORDS.search(t)) and not NYC_NOT.search(t)
 
 
 def sources_for(theme, q):
@@ -335,13 +373,15 @@ def motion(path):
     return looks(path)[:2]
 
 
-def cut(url, dur, out_dir, key):
-    """Up to PER_FILM pieces of CLIP_SEC seconds from spread-out points of a film, re-encoded small and silent."""
+def cut(url, dur, out_dir, key, now=False):
+    """Up to PER_FILM pieces of CLIP_SEC seconds from spread-out points of a film, re-encoded small and silent.
+    now: a piece for a NOW theme, cropped upright to 720x1280 and put through our film grade (so what the library
+    holds is our version of the clip, not a copy of the stock file), and a clip of 5-12 s is kept whole."""
     local = None
     if 'upload.wikimedia.org' in url:
         local = download(url, os.path.join(out_dir, '_film' + os.path.splitext(urllib.parse.urlsplit(url).path)[1][-5:]))
         url = local; time.sleep(3)
-    try: return _cut(url, dur, out_dir, key)
+    try: return _cut(url, dur, out_dir, key, now)
     finally:
         if local and os.path.exists(local): os.remove(local)
 
@@ -363,23 +403,28 @@ def bars(url, at, size):
     return 'crop=%d:%d:%d:%d,' % (w, h, x, y)
 
 
-def _cut(url, dur, out_dir, key):
+GRADE = ("scale=720:1280:force_original_aspect_ratio=increase:flags=area,crop=720:1280,fps=30,"
+         "curves=r='0/0.03 0.5/0.52 1/1':g='0/0.04 0.5/0.5 1/0.97':b='0/0.07 0.5/0.48 1/0.92',eq=saturation=0.88:contrast=1.04,format=yuv420p")
+
+
+def _cut(url, dur, out_dir, key, now=False):
     d0, W, H = probe(url)
     if dur <= 0: dur = d0
-    if dur < CLIP_SEC + 2: return []
-    starts = [dur * f for f in (0.18, 0.42, 0.66, 0.84)][:PER_FILM + 1]
-    crop = bars(url, starts[0], (W, H))
+    if dur < (5 if now else CLIP_SEC + 2): return []
+    starts = [0.0] if dur < CLIP_SEC + 2 else [dur * f for f in ((0.05, 0.5) if now and dur < 3 * CLIP_SEC else (0.18, 0.42, 0.66, 0.84))][:PER_FILM + 1]
+    crop = '' if now else bars(url, starts[0], (W, H))
     kept = []
     for s in starts:
         name = hashlib.sha1(('%s@%.1f' % (key, s)).encode()).hexdigest()[:16] + '.mp4'; out = os.path.join(out_dir, name)
         net = ['-user_agent', UA['User-Agent']] if url.startswith('http') else []
         r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y'] + net + ['-ss', '%.2f' % s, '-t', '%.1f' % CLIP_SEC, '-i', url, '-an',
-                            '-vf', crop + "scale=-2:'min(%d,ih)':flags=area,fps=30,format=yuv420p" % MAX_H, '-c:v', 'libx264', '-preset', 'medium', '-crf', '25', '-movflags', '+faststart', out],
+                            '-vf', GRADE if now else crop + "scale=-2:'min(%d,ih)':flags=area,fps=30,format=yuv420p" % MAX_H, '-c:v', 'libx264', '-preset', 'medium', '-crf', '25', '-movflags', '+faststart', out],
                            capture_output=True, text=True, timeout=600)
         if r.returncode or not os.path.exists(out): print('    ffmpeg: %s' % (r.stderr or '').strip()[-200:]); continue
         m, lum, h, card = looks(out)
         if h and h < MIN_H: os.remove(out); return kept                            # the whole copy is too small: no piece of it will do
-        if m < 1.2 or lum < 18 or lum > 240 or card > 0.34: os.remove(out); continue   # nothing moves, black / blown out, or mostly intertitles
+        if m < (0.5 if now else 1.2) or lum < (10 if now else 18) or lum > 240 or card > (1.0 if now else 0.34):   # a city at night is dark and slow: allowed
+            os.remove(out); continue                                                 # nothing moves, black / blown out, or mostly intertitles
         kept.append((name, s, m))
         if len(kept) >= PER_FILM: break
     return kept
@@ -411,7 +456,8 @@ def fetch(maximum):
                 except Exception as exc: print('  %s %r: %s' % (src, sq, exc)); found[job] = None; break
                 if key in seen: continue
                 took += 1
-                try: pieces = cut(url, dur, work, key)
+                if theme == 'nyc' and not fits(dict(theme=theme, title=title)): seen.add(key); SEEN.add(key); continue   # not New York, or news
+                try: pieces = cut(url, dur, work, key, **({'now': True} if theme in NOW else {}))
                 except Later as exc: print('  later %s: %s' % (key, exc)); continue
                 except Exception as exc: print('  cut failed %s: %s' % (key, exc)); pieces = []
                 seen.add(key); SEEN.add(key)
@@ -438,7 +484,7 @@ def fetch(maximum):
 def pull(themes=(), assets=()):
     """Download the library's clips (all, the given themes, or just the given assets) that are not cached yet. Needs read access to the repo's releases."""
     os.makedirs(CACHE, exist_ok=True)
-    want = [e for e in index().get('clips', []) if (not themes or e['theme'] in themes) and (not assets or e['asset'] in assets)]
+    want = [e for e in index().get('clips', []) if (not themes or e['theme'] in themes) and (not assets or e['asset'] in assets) and fits(e)]
     missing = [e for e in want if not os.path.exists(os.path.join(CACHE, e['asset']))]
     if not missing: return want
     rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)
@@ -451,9 +497,10 @@ def pull(themes=(), assets=()):
 
 
 def purge():
-    """Remove from the library (index and release) every clip the block list now rules out, or found by a query no longer asked."""
+    """Remove from the library (index and release) every clip the block list now rules out, found by a query no
+    longer asked, or that does not belong in its theme (fits: an nyc clip that is not New York, or is news)."""
     idx = index(); asked = {q for ql in _read_json(QUERIES).values() for q in ql}
-    bad = [e for e in idx.get('clips', []) if e.get('source') != 'own' and (blocked(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked)]
+    bad = [e for e in idx.get('clips', []) if e.get('source') != 'own' and (blocked(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked or not fits(e))]
     if not bad: print('nothing to remove'); return
     rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)
     ids = {a['name']: a['id'] for a in rel.get('assets', [])}

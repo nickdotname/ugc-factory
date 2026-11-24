@@ -235,12 +235,13 @@ def chrome_win(d, x0, y0, x1, y1, title, style):
 def desktop(T, st):
     th = THEMES[st['theme']]; im = Image.fromarray(wallpaper(st['wall'], T, th)); d = ImageDraw.Draw(im)
     top = 70 if st['chrome'] == 'mac' else 20
-    for q, nm in enumerate(['EDUCATION.cd', 'Subscribe.exe', 'Recycle Bin']):
+    for q, nm in enumerate(['EDUCATION.cd', 'lessons.txt', 'Recycle Bin']):
         x = 60 + q * 230; d.rectangle([x + 40, top + 16, x + 110, top + 80], fill=(255, 255, 255), outline=(0, 0, 0), width=3)
         d.rectangle([x + 52, top + 28, x + 98, top + 48], fill=th['icon']); fw = d.textlength(nm, font=F(SANS, 26))
         d.text((x + 75 - fw / 2, top + 88), nm, font=F(SANS, 26), fill=(255, 255, 255))
-    d.text((54, top + 140), SONG.get('album', 'EDUCATION'), font=F(INTER_XB, 76), fill=(255, 255, 255))
-    d.text((56, top + 230), 'lesson %d of %d: %s' % (SONG.get('track', 1), SONG.get('tracks_total', 15), SONG.get('title', SLUG)), font=F(INTER_SB, 40), fill=(225, 240, 255))
+    # under Instagram's top 250 px, whatever the chrome (with the mac menu bar it used to start at 210)
+    d.text((54, 262), SONG.get('album', 'EDUCATION'), font=F(INTER_XB, 70), fill=(255, 255, 255))
+    d.text((56, 344), 'lesson %d of %d: %s' % (SONG.get('track', 1), SONG.get('tracks_total', 15), SONG.get('title', SLUG)), font=F(INTER_SB, 38), fill=(225, 240, 255))
     name = SLUG.replace('-', '_')
     chrome_win(d, WX0, WY0, WX1, WY1, (name + '.avi - Media Player') if st['chrome'] != 'mac' else (name + '.mov'), st['chrome'])
     by = PY0 + PH * 2 + 14                                       # the transport: play, a seek bar that moves, the time

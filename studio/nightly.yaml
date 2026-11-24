@@ -14,13 +14,17 @@ targets:
     style: producer
     per_night: 8
     join: 45                # glue neighbouring sections into videos up to this many seconds
+  # close__quarters, 2026-11-24: the band's own dance footage is what has worked (two hand-posted dance videos: 169 and
+  # 346 views, 5-6 s watched, 21 shares on one) and the desktop lyric videos have not (median 76 views, 2.9 s, n=27).
+  # So fewer desktop videos and more full-screen cut-outs; the small media-player window (lofi) is kept at one a night
+  # for comparison only (median 48 views, 1.7 s, n=2).
   - campaign: cq_band       # close__quarters: retro desktop lyric videos
     style: band
-    per_night: 8
+    per_night: 6
     join: 50
   - campaign: cq_band       # close__quarters: the band's own dance footage, cut out, in a Y2K media player (studio/lofi_video.py)
     style: lofi
-    per_night: 3
+    per_night: 1
     join: 50
   - campaign: cq_band       # close__quarters: the band made of mouse cursors in a 3D Windows 98 world (studio/cursor_video.py)
     style: cursor
@@ -28,7 +32,7 @@ targets:
     join: 50
   - campaign: cq_band       # close__quarters: the band's dance footage cut out full screen and thrown around on the beat (studio/cutout_video.py)
     style: cutout
-    per_night: 3
+    per_night: 7
     join: 40
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
