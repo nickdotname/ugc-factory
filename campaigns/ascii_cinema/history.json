@@ -1,0 +1,106 @@
+{
+  "entries": [
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-24T02:01:09.548596Z",
+      "item_id": "b44e12a3-efd8-445d-af17-b1b459d39cbf",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "a rocket launch, played back as letters in a terminal. every frame is text. sound on.\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding",
+      "title": null,
+      "creative": "recess_rewind",
+      "captions": {
+        "instagram": "a rocket launch, played back as letters in a terminal. every frame is text. sound on.\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding\n\nlink in bio to stream Recess (Rewind)"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.589,
+        "anchor_y": 0.599,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": "rocket-first",
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-24T02:01:09.548596Z",
+      "item_id": "8f1f8056-b64a-413b-94e8-813654a1d779",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the earth from orbit, in green terminal dots. every frame is text.\n🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "the earth from orbit, in green terminal dots. every frame is text.\n🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding\n\nstream Prologue: Before: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.301,
+        "anchor_y": 0.401,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": "earth-first",
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-24T02:01:09.548596Z",
+      "item_id": "87246870-5eb6-44f1-8e66-22345f9f2977",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "an escalator ride, redrawn as 5,850 coloured letters a frame.\n🎧 Notta Problem – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding",
+      "title": null,
+      "creative": "notta_problem",
+      "captions": {
+        "instagram": "an escalator ride, redrawn as 5,850 coloured letters a frame.\n🎧 Notta Problem – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding\n\nNotta Problem is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.542,
+        "anchor_y": 0.511,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": "escalator-first",
+      "variants": {}
+    }
+  ]
+}
