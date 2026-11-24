@@ -38,9 +38,9 @@
         {
           "account": "cinema_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-137f915c-ff02-4b9f-8be6-11acca135edf",
           "last_error": null,
           "scheduled_for": "2026-11-24T14:05:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "this is text. watch it move\n🎧 Silver and Gold – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nstream Silver and Gold: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
