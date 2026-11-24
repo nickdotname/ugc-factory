@@ -713,6 +713,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-24T05:24:32.888193Z",
+      "item_id": "81f18576-7f55-4fe9-a113-c43ac77af5ea",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "watch it twice. it clicks the second time\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "watch it twice. it clicks the second time\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.413,
+        "anchor_y": 0.332,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-24T05:24:32.888193Z",
+      "item_id": "461b6528-3b1d-48b3-b626-97302c85f319",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "no textbook, just a beat\n🎧 Won't Be the Same Again – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "title": null,
+      "creative": "wont_be_the_same_again",
+      "captions": {
+        "instagram": "no textbook, just a beat\n🎧 Won't Be the Same Again – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.67,
+        "anchor_y": 0.695,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

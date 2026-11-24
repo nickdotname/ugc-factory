@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-11-23T14:56:35.423068Z",
+  "generated_at": "2026-11-24T05:24:32.888193Z",
   "items": [
     {
-      "id": "750b7c28-1e62-42ae-805f-9c67c44d5d02",
-      "scheduled_for": "2026-11-23T10:40:00-05:00",
-      "rendered_at": "2026-11-23T14:56:35.423068Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/750b7c28-1e62-42ae-805f-9c67c44d5d02.mp4",
-      "caption": "Recess (Rewind) – Close Quarters\nmath, in time with the music. EDUCATION is out now",
+      "id": "81f18576-7f55-4fe9-a113-c43ac77af5ea",
+      "scheduled_for": "2026-11-24T08:40:00-05:00",
+      "rendered_at": "2026-11-24T05:24:32.888193Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-24/81f18576-7f55-4fe9-a113-c43ac77af5ea.mp4",
+      "caption": "watch it twice. it clicks the second time\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.711,
-        "anchor_y": 0.456,
+        "anchor_x": 0.413,
+        "anchor_y": 0.332,
         "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -28,38 +28,28 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "recess_rewind",
+      "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Recess (Rewind) – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "math_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-66b11530-2af4-460a-b212-4ee9f82c1593",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T15:00:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "Recess (Rewind) – Close Quarters\nmath, in time with the music. EDUCATION is out now\n\nRecess (Rewind) is out now. link in bio to stream it"
+        "instagram": "watch it twice. it clicks the second time\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "f1b5e426-ac41-40c4-b9fe-236dc365b090",
-      "scheduled_for": "2026-11-23T15:00:00-05:00",
-      "rendered_at": "2026-11-23T14:56:35.423068Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/f1b5e426-ac41-40c4-b9fe-236dc365b090.mp4",
-      "caption": "calculus, but it's on the beat\n🎧 Talk – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "id": "461b6528-3b1d-48b3-b626-97302c85f319",
+      "scheduled_for": "2026-11-24T11:40:00-05:00",
+      "rendered_at": "2026-11-24T05:24:32.888193Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-24/461b6528-3b1d-48b3-b626-97302c85f319.mp4",
+      "caption": "no textbook, just a beat\n🎧 Won't Be the Same Again – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -69,9 +59,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.575,
-        "anchor_y": 0.591,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.67,
+        "anchor_y": 0.695,
+        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -81,81 +71,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "talk",
+      "creative": "wont_be_the_same_again",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "math_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-23208ef8-da95-4850-9e2a-919ca6751e2b",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T19:20:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "calculus, but it's on the beat\n🎧 Talk – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Talk"
+        "instagram": "no textbook, just a beat\n🎧 Won't Be the Same Again – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "0ea361e1-9d24-4a78-8931-dc973ab873a2",
-      "scheduled_for": "2026-11-23T19:20:00-05:00",
-      "rendered_at": "2026-11-23T14:56:35.423068Z",
-      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-23/0ea361e1-9d24-4a78-8931-dc973ab873a2.mp4",
-      "caption": "Epilogue: Dismissal – Close Quarters\nmath, in time with the music. EDUCATION is out now",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.517,
-        "anchor_y": 0.507,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "epilogue_dismissal",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Epilogue: Dismissal by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "math_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4dea921a-a87f-44ac-b760-8fdec8fc7c4b",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T10:40:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Epilogue: Dismissal – Close Quarters\nmath, in time with the music. EDUCATION is out now\n\nstream Epilogue: Dismissal: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
