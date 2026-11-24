@@ -498,11 +498,12 @@ class Selector:
         # (pool, clip) -> when it last went out under ANY creative of the pool.
         pool_last: dict[tuple[str, str], datetime] = {}
         for name in names:
-            if pool_of[name] is None:
+            pool = pool_of[name]
+            if pool is None:
                 continue
             for e in pools[name][1].entries:
                 for clip in entry_hooks(e):
-                    key = (pool_of[name], clip)
+                    key = (pool, clip)
                     if key not in pool_last or e.timestamp > pool_last[key]:
                         pool_last[key] = e.timestamp
         hook_cutoff = now - timedelta(days=self._config.hook_cooldown_days)
@@ -576,8 +577,9 @@ class Selector:
             used[name] += 1
             in_batch[name] += 1
             selection = outcome.selection
-            if pool_of[name] is not None:
-                pool_batch.add((pool_of[name], selection.hook))
+            mine = pool_of[name]
+            if mine is not None:
+                pool_batch.add((mine, selection.hook))
                 for other in names:
                     if other != name and pool_of[other] == pool_of[name]:
                         used[other] += 1
