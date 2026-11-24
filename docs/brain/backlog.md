@@ -8,6 +8,18 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   cleanly as of 2026-11-23.
 
 ## Next
+- **Formats from Dylan's inspiration reels (2026-11-24).** Each must be our own version: our pictures, our wording, no
+  "comment if you got it", no "follow for part 2", no invented statistics ("only 1% can").
+  - *Sorting race that unscrambles a picture* (quick sort vs merge sort on the same shuffled image, side by side):
+    the Algorithm Races account, on top of #77. Pictures: public-domain paintings or our own renders.
+  - *Pause at the right time* (a moving thing and an outline it fits for a few frames): the 8-Bit Tests account, in
+    our own pixel scenes. Not Minecraft or any other game's footage.
+  - *Every triangle splits into four, how small can they get* (a shape that subdivides on the beat, with a counter):
+    math.explainers.
+  - *How close can X get* (a distance halved again and again, the scale named at each step, down to atoms; the
+    picture at each scale is drawn procedurally): math.explainers. The biggest build; facts need sources.
+  - *10 cuts vs 1,000 cuts* (a solid sliced into more and more pieces that spill out, with a piece counter):
+    physics.bounce.lab.
 - **More pixel worlds** for ascii.terminal.dreams (studio/pixelviz/): each is a
   ~140-line voxel scene whose action lands on the song's hits. Built: bridge, court, hoops, subway. Candidates from the album:
   dorm room at night, lecture hall, rooftop, laundromat.

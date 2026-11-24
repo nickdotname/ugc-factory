@@ -2,6 +2,11 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: rotation.illusions gets two more kinds and a shape, from reels Dylan sent as inspiration: `group`
+  (twelve dots that are three turning squares and four turning triangles at once), `stripes` (static diagonal
+  stripes under sliding discs that swap black and white) and a tilted donut. Our own versions and wording. The
+  other formats he sent are in [[backlog]] with the account each belongs to.
+
 - 2026-11-24: the "Install ffmpeg" step hung for 15-20 minutes on four jobs in one night (a studio run and three
   render legs), which would have stalled a nightly run until its 170-minute limit. Every workflow now installs
   through `scripts/apt_install.sh`: a time limit per try, three tries, no man-page index rebuild. See [[traps]].
