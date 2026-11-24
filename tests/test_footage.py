@@ -21,7 +21,7 @@ def test_query_routing():
     assert F.sources_for('space', 'svs>aurora') == [('svs', 'aurora')]
     assert F._ia_terms('The Navigator Keaton') == 'Navigator AND Keaton'
     assert F._ia_terms('collection:silent_films AND year:[1895 TO 1899]').startswith('collection:')
-    qs = json.load(open(F.QUERIES))
+    qs = json.loads(__import__("pathlib").Path(F.QUERIES).read_text())
     for theme, ql in qs.items():
         assert len(ql) == len(set(ql)), theme
         for q in ql:
@@ -87,6 +87,6 @@ def test_fetch_gives_every_query_a_turn(monkeypatch, tmp_path):
     monkeypatch.setattr(F.time, 'sleep', lambda s: None)
     monkeypatch.setattr(F.subprocess, 'run', lambda *a, **k: type('R', (), {'returncode': 0})())
     F.fetch(4)
-    idx = json.load(open(F.INDEX))
+    idx = json.loads(__import__("pathlib").Path(F.INDEX).read_text())
     assert sorted(e['query'] for e in idx['clips']) in (['a', 'a', 'b', 'c'], ['a', 'b', 'b', 'c'], ['a', 'b', 'c', 'c'])
     assert all(e['year'] == 1920 for e in idx['clips'])

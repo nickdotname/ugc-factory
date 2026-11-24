@@ -52,6 +52,10 @@ def blocked(text, rule=None):
     return bool((rule or BLOCK).search(SAFE.sub(' ', text or '')))
 
 
+def _save_index(idx):
+    with open(INDEX, 'w') as f: json.dump(idx, f, indent=1)
+
+
 def _open(url, tries=4, raw=False):
     for k in range(tries):
         try:
@@ -421,7 +425,7 @@ def fetch(maximum):
                             'Public-domain clips for glitch.archive. Sources and licences: studio/footage/index.json'], check=True)
         files = [os.path.join(work, e['asset']) for e in new]
         for k in range(0, len(files), 20): subprocess.run(['gh', 'release', 'upload', RELEASE, '-R', REPO, '--clobber'] + files[k:k + 20], check=True)
-    json.dump(idx, open(INDEX, 'w'), indent=1)
+    _save_index(idx)
     per = {}
     for e in new: per[e['theme']] = per.get(e['theme'], 0) + 1
     print('%d new clips (%s), %d in the library' % (len(new), ', '.join('%s %d' % kv for kv in sorted(per.items())) or '-', len(idx.get('clips', []))))
@@ -452,7 +456,7 @@ def purge():
     for e in bad:
         if e['asset'] in ids: subprocess.run(['gh', 'api', '-X', 'DELETE', 'repos/%s/releases/assets/%d' % (REPO, ids[e['asset']])], check=True)
         print('removed', e['title'])
-    idx['clips'] = [e for e in idx['clips'] if e not in bad]; json.dump(idx, open(INDEX, 'w'), indent=1)
+    idx['clips'] = [e for e in idx['clips'] if e not in bad]; _save_index(idx)
 
 
 # ---------------------------------------------------------------- our own footage
@@ -498,7 +502,7 @@ def own(theme, items, licence='Own footage'):
                             'Public-domain clips for glitch.archive. Sources and licences: studio/footage/index.json'], check=True)
         files = [os.path.join(work, e['asset']) for e in new]
         for k in range(0, len(files), 20): subprocess.run(['gh', 'release', 'upload', RELEASE, '-R', REPO, '--clobber'] + files[k:k + 20], check=True)
-    json.dump(idx, open(INDEX, 'w'), indent=1); print('%d new clips of our own' % len(new))
+    _save_index(idx); print('%d new clips of our own' % len(new))
 
 
 if __name__ == '__main__':
