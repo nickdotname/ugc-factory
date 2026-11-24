@@ -65,7 +65,7 @@ class Video:
         self.sparks = float(K.pick('sparks', [0.5, 1.0, 1.6], r))
         # Colour scenes (SC.image) are pictures in full colour, set in small letters: a finer grid, and every letter
         # takes the colour of the picture under it. The older scenes raymarch a distance field into the coarse grid.
-        self.colour = hasattr(self.SC, 'image')
+        self.colour = hasattr(self.SC, 'image') or hasattr(self.SC, 'picture')
         self.rows, self.cols, self.cw, self.ch = (CROWS, W // CCW, CCW, CCH) if self.colour else (ROWS, COLS, CW, CH)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
         self.kick = audio.hits(a['kicks'], n, 5.0); self.snare = audio.hits(a['snares'], n, 9.0)
@@ -89,6 +89,9 @@ class Video:
         self.idx = {c: k for k, c in enumerate(chars)}
         if self.ramp_name == 'texture' or self.colour: ramp = ' ' + ''.join(sorted(ramp.replace(' ', ''), key=lambda c: self.atlas[self.idx[c]].sum()))
         self.ramp = np.array([self.idx[c] for c in ramp])
+        if hasattr(self.SC, 'picture'):                               # a scene that hands over a whole picture: letters.py sets it in type
+            import letters
+            self.type = letters.Typesetter(self.rows, self.cols, len(self.ramp))
         self.label = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         lines = json.load(open(os.path.join(song_dir, 'lines.json'))) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
         self.lines = [l for l in lines if l[1][0][1] < t1 and l[0] > t0]
@@ -165,6 +168,7 @@ class Video:
         """A colour scene: the scene paints brightness and colour per letter cell (SC.image), this picks the letters
         (edges as / | \\ -), lets the snare throw sparks off the bright parts, and adds the glow."""
         SC = self.SC; idx = self.idx; R, C = self.rows, self.cols
+        if hasattr(SC, 'picture'): return self.art_picture(i)
         L, rgb = SC.image(i); L = np.clip(L.astype(np.float32), 0, 1); rgb = rgb.astype(np.float32)
         ch = self.ramp[np.clip(np.rint(L ** 0.8 * (len(self.ramp) - 1)).astype(int), 0, len(self.ramp) - 1)]
         # The shaded side of a shape is hatched along its slope (//// \\\\ |||| ----); the lit side keeps its heavy letters.
@@ -200,6 +204,30 @@ class Video:
         glow = (cv2.resize(cv2.GaussianBlur(small, (0, 0), 4), layer.shape[1::-1]) * (0.5 + 0.5 * self.vox[i])
                 + cv2.resize(cv2.GaussianBlur(small, (0, 0), 14), layer.shape[1::-1]) * (0.7 + 0.6 * self.pulse[i])) * g
         return np.clip(np.maximum(layer, glow * (1 - mask[..., None])), 0, 255), int((~blank).sum()), int(spark.sum())
+
+    def art_picture(self, i):
+        """A scene that hands over a whole picture (SC.picture): letters.py chooses the letters, this draws them, lets
+        the snare throw sparks off the bright ones and puts a halo behind them."""
+        SC = self.SC; idx = self.idx; R, C = self.rows, self.cols
+        level, stroke, rgb, L = self.type.set(SC.picture(i))
+        ch = self.ramp[level]
+        ch = np.where(stroke >= 0, np.array([idx['|'], idx['\\'], idx['-'], idx['/']])[np.clip(stroke, 0, 3)], ch)
+        spark = np.zeros((R, C), bool)
+        if self.snare[i] > 0.4:
+            cand = np.argwhere(L > 0.6); r2 = np.random.default_rng(i // 2)
+            if len(cand):
+                for y, x in cand[r2.choice(len(cand), min(len(cand), int(26 * self.sparks * self.snare[i])), replace=False)]: spark[y, x] = True
+        ch = np.where(spark, idx['*'], ch)
+        for (y, x, c, col) in SC.particles(i, R, C):
+            if 0 <= y < R and 0 <= x < C and c in idx: ch[y, x] = idx[c]; rgb[y, x] = col
+        if self.palette != 'scene': rgb = self.gradient(1 - L) * (0.45 + 0.55 * (rgb.mean(-1, keepdims=True) / 255))
+        col = np.where(spark[..., None], np.array([255, 255, 255], np.float32), rgb) * (0.92 + 0.22 * self.bass[i])
+        mask = self.atlas[ch].transpose(0, 2, 1, 3).reshape(R * self.ch, C * self.cw)
+        layer = mask[..., None] * np.repeat(np.repeat(col, self.ch, 0), self.cw, 1)
+        small = cv2.resize(layer, (layer.shape[1] // 3, layer.shape[0] // 3), interpolation=cv2.INTER_AREA)
+        g = getattr(SC, 'GLOW', 1.0) * 0.45
+        glow = cv2.resize(cv2.GaussianBlur(small, (0, 0), 6), layer.shape[1::-1]) * (0.6 + 0.6 * self.pulse[i]) * g
+        return np.clip(np.maximum(layer, glow * (1 - mask[..., None])), 0, 255), R * C, int(spark.sum())
 
     def frame_colour(self, i):
         """The colour scenes' page: a header line of live counts, the art, the line being printed, the code underneath."""
