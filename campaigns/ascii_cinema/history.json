@@ -64,8 +64,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-691d4ca7-0b07-4e68-a603-548040d9aabc",
+      "post_ids": {
+        "cinema_ig": "igo-691d4ca7-0b07-4e68-a603-548040d9aabc"
+      },
       "overlay": null,
       "lineup_id": "earth-first",
       "variants": {}
