@@ -144,18 +144,18 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T12:43:00-05:00"
         }
       ],
       "captions": {
         "instagram": "under 300 characters of code\n🎧 Won't Be the Same Again – @close__quarters #creativecoding #mathart #algorithmicart #python\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
