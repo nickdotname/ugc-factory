@@ -197,18 +197,18 @@
         {
           "account": "races_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T08:26:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the slow one is trying its best\n🎧 Prologue: Before – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
