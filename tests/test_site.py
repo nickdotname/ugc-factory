@@ -83,14 +83,34 @@ class TestReadable:
     @pytest.mark.parametrize("status", [401, 403, 404, 500, 503])
     def test_an_unreadable_link_stops_the_run(self, status: int) -> None:
         with pytest.raises(MediaStoreError, match="not publicly readable"):
-            assert_publicly_readable(PUBLIC, get=lambda url, **kw: _Response(status))
+            assert_publicly_readable(PUBLIC, get=lambda url, **kw: _Response(status), sleep=lambda s: None)
 
     def test_a_site_that_is_down_stops_the_run(self) -> None:
         def get(url: str, **kwargs: object) -> _Response:
             raise requests.ConnectionError("no route")
 
         with pytest.raises(MediaStoreError, match="could not be reached"):
-            assert_publicly_readable(PUBLIC, get=get)
+            assert_publicly_readable(PUBLIC, get=get, sleep=lambda s: None)
+
+    def test_a_passing_hiccup_is_asked_again(self) -> None:
+        # One 502 from the media site used to fail a campaign's whole topup.
+        answers = [502, 503, 206]
+        waited: list[float] = []
+        assert_publicly_readable(
+            PUBLIC, get=lambda url, **kw: _Response(answers.pop(0)), sleep=waited.append
+        )
+        assert answers == [] and len(waited) == 2
+
+    def test_a_missing_video_is_not_asked_again(self) -> None:
+        calls: list[str] = []
+
+        def get(url: str, **kwargs: object) -> _Response:
+            calls.append(url)
+            return _Response(404)
+
+        with pytest.raises(MediaStoreError, match="not publicly readable"):
+            assert_publicly_readable(PUBLIC, get=get, sleep=lambda s: None)
+        assert len(calls) == 1
 
 
 class TestPostableUrl:
