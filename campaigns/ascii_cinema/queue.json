@@ -91,18 +91,18 @@
         {
           "account": "cinema_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-23T22:10:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the earth from orbit, in green terminal dots. every frame is text.\n🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
