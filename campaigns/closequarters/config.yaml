@@ -56,9 +56,15 @@ posting:
   # accounts.
   slot_offset_min: 10
   fan_out: true
-  # Both switches are ON so nothing can post until you have looked at a
-  # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false
+  # PAUSED 2026-11-24 (house rules, CLAUDE.md): all 15 meme clips in
+  # assets-closequarters are ripped film/TV/game/broadcast footage or other
+  # creators' memes with their text burned in (Star Wars, Marvel, Halo, Devil May
+  # Cry, anime, Family Guy with the FOX bug, NHL/college-football broadcasts,
+  # Marlboro packs, "hell yeah simulator" reposts). They are disabled in
+  # clips.json. Instagram also holds back reposted, unoriginal clips, which fits
+  # the.loose.change's fall in views. Un-pause only with a library of our own
+  # clips (public domain, Rocket League, Nick's NYC, SDXL plates).
+  paused: true
   dry_run: false
 
 video:
