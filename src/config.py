@@ -165,6 +165,11 @@ class PostingConfig(StrictModel):
     end_hour: int = Field(default=22, ge=0, le=23)
     # SPEC §4.1: free-plan cap is queue *depth*, not a daily cap.
     max_buffer_queue: int = Field(default=10, ge=1, le=100)
+    #: Instagram, posting directly: the second of the video whose frame is the
+    #: Reel's cover on the profile grid. Unset, Instagram takes the first
+    #: frame, which for a video that builds a picture from nothing (the maths
+    #: ones) is a blank square. Keep it shorter than the shortest video.
+    cover_at_sec: float | None = Field(default=None, ge=0, le=60)
     #: Shifts every slot by this many minutes.
     #:
     #: Campaigns sharing a cadence and a start hour produce *identical* slot

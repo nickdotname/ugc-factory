@@ -1678,6 +1678,10 @@ def _push_to_account(
                 trial_graduation=(
                     account.trial_graduation.value if account.trial_reels else None
                 ),
+                cover_at_ms=(
+                    None if config.posting.cover_at_sec is None
+                    else int(config.posting.cover_at_sec * 1000)
+                ),
             )
             try:
                 result = publisher.create_post(request)
