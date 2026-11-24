@@ -2,6 +2,12 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: two more pixel worlds for ascii.terminal.dreams. `hoops`: a pickup game on a blacktop court, one
+  bounce per kick or snare, the shot leaves on one hit and drops on the next. `subway`: a platform cut open (the
+  wall reads 8 ST - NYU); the train stops on a bar line, one rider off or on per beat, it leaves on another bar
+  line, then a rat moves on the hi-hats. Checked on all 15 songs at 7 s and 17 s. A new world is one file in
+  `studio/pixelviz/` (build, setup, dynamic, stats, CODE) plus its name in `ascii_video.py`.
+
 - 2026-11-23: the pixel worlds (bridge, court) are back on ascii.terminal.dreams, about a third of its videos.
   They were removed that morning as "not ASCII", but they were two of the account's three most-watched posts
   (1,261 and 1,130 views, longest watch time, most shares), so they stay there; no separate pixel account for now.

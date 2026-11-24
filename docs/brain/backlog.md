@@ -8,9 +8,9 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   cleanly as of 2026-11-23.
 
 ## Next
-- **More pixel worlds** for ascii.terminal.dreams (studio/pixelviz/): only the bridge and the court exist. Each is a
-  ~140-line voxel scene whose action lands on the song's hits. Candidates from the album: subway platform, dorm room
-  at night, basketball court, lecture hall, rooftop, laundromat.
+- **More pixel worlds** for ascii.terminal.dreams (studio/pixelviz/): each is a
+  ~140-line voxel scene whose action lands on the song's hits. Built: bridge, court, hoops, subway. Candidates from the album:
+  dorm room at night, lecture hall, rooftop, laundromat.
 - **Band in real places (scene style)**, inspired by dev_lemons but our own: three worlds — EDUCATION school places
   (AI-made plates: hallway, classroom, gym, bus; lyrics chalked on the board, yearbook portraits), psych-rock
   landscapes (AI plates, marker-scrawl lyrics), NYC film look (our NYC clips, matched light, subtitles). No letterbox,
