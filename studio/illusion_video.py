@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+"""Turning things your eyes cannot pin down, to a song: a new niche account's renderer (not live yet).
+
+    python studio/illusion_video.py SONG_DIR SEED OUT.mp4        (CQ_WINDOW="t0,t1" picks the stretch of the song)
+    python studio/illusion_video.py SONG_DIR SEED SHEET.png --frames 0,150,300
+
+Every video is a real perception effect drawn from scratch, and every line on screen is true of the picture:
+  cloud   a shape made of dots, turning, drawn with no depth at all (every dot the same size and brightness, no
+          perspective). Which way it turns is undecided, so the brain picks, and can be made to flip. Then the video
+          flips it for you: the near side is drawn larger and brighter one way, then the other, then the cue is taken
+          away again. Same dots throughout.
+  shadow  the same, as a flat filled shadow of the shape (the dancer effect), opening into dots for the two cues
+  cone    eccentric circles on a flat disc, turning: they read as a cone coming out of the screen (stereokinetic)
+  wheel   a spoked wheel that only ever speeds up; filmed at 30 frames a second it seems to slow, stop and run
+          backwards (the wagon-wheel effect), with its true speed counted beside it
+Shapes are our own, built here from formulas (a mug, a knot, a double helix, a tilted cube, a guitar, a ringed planet,
+a spiral stair, a chair, a key, an hourglass, a rocket): none is taken from anywhere, and the staging (a full-screen
+object, the flip done for you, the speed readout) is ours; no platform ring, no "difficulty" rating.
+One turn takes a whole number of bars, and the dots swell on the kick.
+Knobs (studio/knobs.py): kind, shape, palette, ask (the opening question).
+"""
+import json, math, os, random, subprocess, sys
+import numpy as np, cv2
+from PIL import Image, ImageDraw, ImageFont
+
+HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
+sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
+import beat as audio
+import knobs as K
+
+W, H, FPS = 1080, 1920, 30; audio.FPS = FPS
+CX, CY, S = W / 2, H * 0.47, 480.0
+PALETTES = {'bone': [(245, 240, 225)], 'acid': [(190, 255, 90), (90, 255, 200)], 'ember': [(255, 150, 70), (255, 80, 120)],
+            'ice': [(130, 215, 255), (200, 170, 255)], 'candy': [(255, 110, 200), (120, 220, 255), (255, 225, 90)]}
+SHAPES = ['mug', 'knot', 'helix', 'cube', 'guitar', 'planet', 'stair', 'chair', 'key', 'hourglass', 'rocket']
+ASKS = {'which': 'which way\nis it turning?', 'flip': 'left or right?\nnow make it switch', 'sure': 'it turns one way.\nare you sure which?'}
+
+
+def font(size):
+    for p in (os.path.join(REPO, 'fonts', 'Montserrat-ExtraBold.ttf'), os.path.join(REPO, 'fonts', 'Poppins-Bold.ttf')):
+        if os.path.exists(p): return ImageFont.truetype(p, size)
+    return ImageFont.load_default()
+
+
+def box(rng, n, lo, hi):
+    """n points on the faces of a box from corner lo to corner hi."""
+    lo, hi = np.array(lo, float), np.array(hi, float); p = rng.uniform(lo, hi, (n, 3)); ax = rng.integers(0, 3, n)
+    p[np.arange(n), ax] = np.where(rng.random(n) < 0.5, lo[ax], hi[ax]); return p
+
+
+def lathe(rng, n, prof):
+    """n points on the surface made by turning a profile [(radius, height), ...] about the upright axis."""
+    prof = np.array(prof, float); k = rng.integers(0, len(prof) - 1, n); u = rng.random(n); a = rng.uniform(0, 2 * np.pi, n)
+    r = prof[k, 0] + (prof[k + 1, 0] - prof[k, 0]) * u; y = prof[k, 1] + (prof[k + 1, 1] - prof[k, 1]) * u
+    return np.c_[r * np.cos(a), y, r * np.sin(a)]
+
+
+def tube(rng, n, curve, rad):
+    """n points on a tube of radius rad around curve(t), t in 0..1."""
+    t = rng.random(n); c = curve(t); d = curve(t + 1e-3) - c; d /= np.linalg.norm(d, axis=1, keepdims=True) + 1e-9
+    u = np.cross(d, [0.3, 1.0, 0.2]); u /= np.linalg.norm(u, axis=1, keepdims=True) + 1e-9; v = np.cross(d, u); a = rng.uniform(0, 2 * np.pi, n)[:, None]
+    return c + rad * (np.cos(a) * u + np.sin(a) * v)
+
+
+def shape(name, n, seed):
+    """n points on one of our shapes, inside the unit cube, upright along y. Each is lopsided on purpose: a shape
+    that looks the same all the way round would not seem to turn at all."""
+    r = np.random.default_rng(seed); T = 2 * np.pi
+    if name == 'mug':
+        return np.r_[lathe(r, int(n * .7), [(0, -.6), (.5, -.6), (.5, .6), (.44, .6), (.44, -.5)]),
+                     tube(r, n - int(n * .7), lambda t: np.c_[.5 + .34 * np.sin(np.pi * t), .38 * np.cos(np.pi * t), 0 * t], .06)]
+    if name == 'knot':
+        return tube(r, n, lambda t: np.c_[(2 + np.cos(3 * T * t)) * np.cos(2 * T * t), 1.25 * np.sin(3 * T * t), (2 + np.cos(3 * T * t)) * np.sin(2 * T * t)] / 3.3, .09)
+    if name == 'helix':
+        a = tube(r, n * 2 // 5, lambda t: np.c_[.45 * np.cos(2.5 * T * t), 1.8 * t - .9, .45 * np.sin(2.5 * T * t)], .05)
+        b = a * [-1, 1, -1]; k = r.integers(0, 14, n - 2 * len(a)); y = (k + .5) / 14 * 1.8 - .9; u = r.uniform(-1, 1, len(k)); th = 2.5 * T * (y + .9) / 1.8
+        return np.r_[a, b, np.c_[.45 * u * np.cos(th), y, .45 * u * np.sin(th)]]
+    if name == 'cube':
+        e = r.integers(0, 12, n); u = r.uniform(-.6, .6, n); s1 = np.where((e // 2) % 2, .6, -.6); s2 = np.where(e % 2, .6, -.6); ax = e // 4
+        p = np.zeros((n, 3)); idx = np.arange(n); p[idx, ax] = u; p[idx, (ax + 1) % 3] = s1; p[idx, (ax + 2) % 3] = s2
+        c, s = math.cos(.62), math.sin(.62); p = p @ np.array([[1, 0, 0], [0, c, -s], [0, s, c]]).T @ np.array([[c, -s, 0], [s, c, 0], [0, 0, 1]]).T
+        return p + r.normal(0, .012, p.shape)
+    if name == 'guitar':                                           # a flat body, a neck and a head, a finger thick
+        out = []
+        while len(out) < n:
+            x, y = r.uniform(-.5, .5), r.uniform(-.95, .95)
+            body = (x / .44) ** 2 + ((y + .58) / .36) ** 2 < 1 or (x / .33) ** 2 + ((y + .2) / .26) ** 2 < 1
+            hole = x * x + (y + .33) ** 2 < .012
+            neck = abs(x) < .055 and -.1 < y < .78; head = abs(x - .03) < .1 and .78 <= y < .95
+            if (body and not hole) or neck or head: out.append((x, y, r.uniform(-.07, .07)))
+        return np.array(out)
+    if name == 'planet':
+        v = r.normal(size=(n // 2, 3)); v = .5 * v / np.linalg.norm(v, axis=1, keepdims=True); a = r.uniform(0, T, n - n // 2); rr = np.sqrt(r.uniform(.72 ** 2, 1, len(a)))
+        ring = np.c_[rr * np.cos(a), 0 * a, rr * np.sin(a)]; c, s = math.cos(.45), math.sin(.45)
+        return np.r_[v, ring @ np.array([[c, -s, 0], [s, c, 0], [0, 0, 1]]).T]
+    if name == 'stair':
+        k = r.integers(0, 16, n); u = r.uniform(.08, .8, n); th = k * T / 9 + r.uniform(0, .5, n)
+        return np.r_[np.c_[u * np.cos(th), k / 16 * 1.7 - .85 + r.uniform(0, .03, n), u * np.sin(th)][: n * 4 // 5], lathe(r, n - n * 4 // 5, [(.07, -.9), (.07, .9)])]
+    if name == 'chair':
+        m = n // 6; legs = [box(r, m // 2, (sx * .4 - .05, -.9, sz * .4 - .05), (sx * .4 + .05, -.1, sz * .4 + .05)) for sx in (-1, 1) for sz in (-1, 1)]
+        return np.r_[np.vstack(legs), box(r, 2 * m, (-.47, -.1, -.47), (.47, 0, .47)), box(r, n - 4 * (m // 2) - 2 * m, (-.47, 0, .37), (.47, .9, .47))]
+    if name == 'key':
+        ring = tube(r, n // 2, lambda t: np.c_[.3 * np.cos(T * t), .55 + .3 * np.sin(T * t), 0 * t], .06)
+        return np.r_[ring, box(r, n // 3, (-.05, -.9, -.05), (.05, .25, .05)), box(r, n - n // 2 - n // 3, (.05, -.85, -.04), (.3, -.55, .04))]
+    if name == 'hourglass':
+        return np.r_[lathe(r, n * 3 // 4, [(.5, -.85), (.5, -.75), (.06, 0), (.5, .75), (.5, .85)]), box(r, n - n * 3 // 4, (.42, -.85, -.05), (.52, .85, .05))]
+    return np.r_[lathe(r, n * 2 // 3, [(0, .95), (.18, .6), (.24, .1), (.24, -.6), (.14, -.7)]),               # a rocket with three fins, one longer
+                 np.vstack([box(r, (n - n * 2 // 3) // 3 + 1, (.22, -.9, -.03), (.36 + .2 * (k == 0), -.3, .03)) @ np.array([[math.cos(k * T / 3), 0, -math.sin(k * T / 3)], [0, 1, 0], [math.sin(k * T / 3), 0, math.cos(k * T / 3)]]) for k in range(3)])]
+
+
+class Video:
+    def __init__(self, song_dir, seed, t0, t1):
+        self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
+        r = random.Random(seed)
+        self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel'], r, weights=[5, 3, 2, 2])
+        self.shape = K.pick('shape', SHAPES, r); self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
+        self.ask = K.pick('ask', sorted(ASKS), r)
+        a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
+        self.kick = audio.hits(a['kicks'], n, 6.0)
+        self.turn = 8 * self.spb * FPS                                         # frames in a turn: two bars
+        self.pts = shape(self.shape, 5200, seed); self.col = np.array([self.pal[k % len(self.pal)] for k in range(len(self.pts))], np.float32)
+        ph = [0.42, 0.62, 0.82]                                                # undecided, cued one way, cued the other, undecided again
+        self.marks = [int(p * n) for p in ph]
+        song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
+        self.credit = '♪ %s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
+        self.f_big, self.f_mid = font(70), font(44)
+        sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',) if os.path.exists(p)), None)
+        self.f_small = ImageFont.truetype(sans, 28) if sans else font(26)
+
+    def cue(self, i):
+        """How strongly depth is shown, and which way round: 0 none, +1 the true near side, -1 the far side as near."""
+        a, b, c = self.marks; ramp = lambda x: float(np.clip(x / (0.4 * FPS), 0, 1))
+        if i < a: return 0.0
+        if i < b: return ramp(i - a) * (1 - ramp(i - (b - 0.4 * FPS)))
+        if i < c: return -ramp(i - b) * (1 - ramp(i - (c - 0.4 * FPS)))
+        return 0.0
+
+    def says(self, i):
+        a, b, c = self.marks
+        if self.kind == 'cone': return 'this is flat.\ncircles on a disc, turning' if i < a else 'your eyes build a cone\nout of it' if i < c else 'still flat.'
+        if self.kind == 'wheel': return 'this wheel only\never speeds up' if i < a else '30 pictures a second\nare fooling you' if i < c else 'it never slowed down.'
+        if i < a: return ASKS[self.ask]
+        if i < b: return 'now it turns right →'
+        if i < c: return '← now it turns left'
+        return 'same dots the whole time.\nyou choose'
+
+    def frame(self, i):
+        img = np.zeros((H, W, 3), np.float32); k = float(self.kick[min(i, self.n - 1)])
+        def P(x, y): return (int(round(x * 16)), int(round(y * 16)))
+        if self.kind == 'cone':
+            th = 2 * math.pi * i / self.turn
+            for j in range(13, 0, -1):
+                u = j / 13; off = 170 * (1 - u); c = self.pal[j % len(self.pal)] * (0.55 + 0.45 * (j % 2))
+                cv2.circle(img, P(CX + off * math.cos(th), CY + off * math.sin(th)), int(S * 1.0 * u * 16), tuple(float(v) for v in c), 9 + int(6 * k), cv2.LINE_AA, 4)
+        elif self.kind == 'wheel':
+            N = 12; top = 2.25 * 2 * math.pi / N                               # radians a frame at the end: past two spokes' spacing
+            th = 0.5 * top * i * i / max(1, self.n)                            # the angle so far, speed rising steadily from rest
+            rpm = top * i / max(1, self.n) * FPS * 60 / (2 * math.pi)
+            cv2.circle(img, P(CX, CY), int(S * 1.05 * 16), tuple(float(v) for v in self.pal[0]), 12, cv2.LINE_AA, 4)
+            for j in range(N):
+                q = th + j * 2 * math.pi / N
+                cv2.line(img, P(CX + 60 * math.cos(q), CY + 60 * math.sin(q)), P(CX + S * 1.0 * math.cos(q), CY + S * 1.0 * math.sin(q)), tuple(float(v) for v in self.pal[0]), 14, cv2.LINE_AA, 4)
+            cv2.circle(img, P(CX, CY), int((60 + 10 * k) * 16), tuple(float(v) for v in self.pal[-1]), -1, cv2.LINE_AA, 4)
+            self._rpm = rpm
+        else:
+            th = 2 * math.pi * i / self.turn; cu = self.cue(i); ct, st = math.cos(th), math.sin(th); e = 0.2  # seen from a little above
+            x = self.pts[:, 0] * ct + self.pts[:, 2] * st; z = -self.pts[:, 0] * st + self.pts[:, 2] * ct
+            y = self.pts[:, 1] * math.cos(e) - z * math.sin(e); near = cu * z                                # +1: towards us
+            pers = 1 / (1 - 0.22 * near); sx = CX + S * x * pers; sy = CY - S * y * pers
+            if self.kind == 'shadow' and abs(cu) < 0.05:                       # a flat shadow: no dot tells you front from back
+                m = np.zeros((H, W), np.uint8)
+                for px, py in zip(sx, sy): cv2.circle(m, (int(px), int(py)), 11, 255, -1)
+                m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((21, 21), np.uint8))
+                img[m > 0] = self.pal[0] * (0.85 + 0.15 * k)
+            else:
+                rad = (3.6 + 1.6 * k) * (1 + 0.75 * near); lum = np.clip(0.9 + 0.75 * near, 0.18, 1.6)
+                for j in np.argsort(near):                                     # far ones first, so near ones cover them when cued
+                    cv2.circle(img, P(sx[j], sy[j]), int(max(1.0, rad[j]) * 16), tuple(float(v) for v in self.col[j] * lum[j]), -1, cv2.LINE_AA, 4)
+        img = img + cv2.GaussianBlur(img, (0, 0), 9) * 0.35
+        im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
+        d.multiline_text((W / 2, 300), self.says(i), font=self.f_big, fill=(255, 255, 255), anchor='mm', align='center', spacing=16, stroke_width=4, stroke_fill=(0, 0, 0))
+        if self.kind == 'wheel': d.text((W / 2, H * 0.755), '%d turns a minute' % self._rpm, font=self.f_mid, fill=(235, 235, 245), anchor='mm')
+        d.text((W / 2, H * 0.80), self.credit, font=self.f_small, fill=(180, 180, 195), anchor='mm')
+        return np.asarray(im)
+
+    def render(self, out):
+        if '--frames' in sys.argv:
+            fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
+            ims = [Image.fromarray(self.frame(min(f, self.n - 1))).resize((360, 640)) for f in fs]
+            sheet = Image.new('RGB', (360 * len(ims), 640))
+            for j, im in enumerate(ims): sheet.paste(im, (360 * j, 0))
+            sheet.save(out); print('sheet', out, K.record()['knobs'], self.n, 'frames'); return
+        tmp = out[:-4] + '.part.mp4'
+        p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
+                              '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '19'),
+                              '-maxrate', os.environ.get('CQ_MAXRATE', '8M'), '-bufsize', os.environ.get('CQ_BUFSIZE', '16M'), '-pix_fmt', 'yuv420p', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
+        for i in range(self.n):
+            p.stdin.write(self.frame(i).tobytes())
+            if i % 60 == 0: print(i, '/', self.n, flush=True)
+        p.stdin.close(); p.wait()
+        aud = out[:-4] + '.m4a'; audio.audio_clip(self.slug, self.t0, self.t1, aud)
+        r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', tmp, '-i', aud, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'copy', '-shortest', '-movflags', '+faststart', out])
+        os.remove(tmp); os.remove(aud)
+        if r.returncode: sys.exit('mux failed')
+        json.dump(K.record(), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
+
+
+if __name__ == '__main__':
+    w = os.environ.get('CQ_WINDOW'); t0, t1 = (float(x) for x in w.split(',')) if w else (30.0, 44.0)
+    Video(sys.argv[1], int(sys.argv[2]), t0, t1).render(sys.argv[3])

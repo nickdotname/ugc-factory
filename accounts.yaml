@@ -332,3 +332,18 @@ accounts:
     trial_reels: false
     trial_graduation: SS_PERFORMANCE
     title_strategy: derive
+
+  # @rotation.illusions: shapes made of dots that turn, and which way is up to your eyes
+  # (studio/illusion_video.py). Linked through the Facebook Page "Rotation Illusions"
+  # (made on Nick's profile, Dylan has full control).
+  # Instagram user id read from the Graph API Explorer (me/accounts) on 2026-11-23.
+  - name: illusions_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN
+    channel_id: "17841449601538478"
+    post_type: reel
+    trial_reels: false
+    trial_graduation: SS_PERFORMANCE
+    title_strategy: derive

@@ -41,6 +41,7 @@ ACCOUNTS = {
     'tinycode_ig': ('17841456251449087', 'tiny.code.loops'),
     'cinema_ig': ('17841474330049873', 'ascii.cinema.tty'),
     'petri_ig': ('17841475752719438', 'digital.petri.dish'),
+    'illusions_ig': ('17841449601538478', 'rotation.illusions'),
 }
 OURS = {u for _, u in ACCOUNTS.values()} | {'the.loose.change'}
 BAND = {'close_quarters_ig'}            # the band's own account doesn't tag itself

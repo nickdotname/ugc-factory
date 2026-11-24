@@ -21,6 +21,7 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 3 | 10–23 |
 | @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (a public-domain film clip played back as coloured ASCII in a terminal) | 3 |
 | @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 3 |
+| @rotation.illusions ("Rotation Illusions") | illusions_ig | illusions | illusion (dot shapes whose turning direction is up to your eyes; a disc that reads as a cone; a wheel that runs backwards) | 3 | 8–23 |
 
 `clubs` is the Clubs app's own campaign: blocked from every Close Quarters account. `knick_creates_*` are
 Nick's older Buffer channels (not Close Quarters).

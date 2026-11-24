@@ -99,3 +99,7 @@ targets:
     style: alife
     per_night: 4
     join: 30
+  - campaign: illusions     # rotation.illusions: turning shapes your eyes cannot pin down (studio/illusion_video.py)
+    style: illusion
+    per_night: 4
+    join: 30
