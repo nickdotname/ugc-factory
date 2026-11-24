@@ -23,6 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
+import sync_check
 
 W, H, FPS = 1080, 1920, 30
 TOP, BOTTOM = 300, H - 520            # Instagram covers the top bar and the bottom fifth: the words stay between
@@ -57,7 +58,7 @@ class Video:
         self._fonts = {}
         song = json.load(open(os.path.join(song_dir, 'song.json')))
         self.title = song.get('title', self.slug); self.artist = song.get('artist', 'Close Quarters')
-        lines = [(e, [(w, t) for w, t in ws]) for e, ws in json.load(open(os.path.join(song_dir, 'lines.json')))]
+        lines = sync_check.load_lines(song_dir)          # lines whose sync is not proven come whole, never word by word
         lyrics = os.environ.get('CQ_LYRICS') != 'none'
         self.lines = [L for L in lines if L[1] and L[0] > t0 and L[1][0][1] < t1] if lyrics else []
         a = audio.load(self.slug, t0, t1); self.n = a['n']
@@ -90,10 +91,11 @@ class Video:
 
     # ---------------------------------------------------------------- which words are up
     def line_at(self, T):
+        hit = None                     # the latest line that has started wins, so a lingering line never holds back the next one's first word
         for k, (e, ws) in enumerate(self.lines):
             nxt = self.lines[k + 1][1][0][1] if k + 1 < len(self.lines) else e + 0.6
-            if ws[0][1] - 0.05 <= T < max(e + 0.25, min(nxt - 0.05, e + 0.9)): return k
-        return None
+            if ws[0][1] - 0.05 <= T < max(e + 0.25, min(nxt - 0.05, e + 0.9)): hit = k
+        return hit
 
     def ease(self, s):
         """How a word arrives s seconds after it is sung: (scale, dy)."""

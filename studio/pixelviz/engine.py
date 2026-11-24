@@ -66,7 +66,7 @@ class Video:
         self.world_no = world_no
         self.shots = self.plan(downs)
         self.fs = ImageFont.truetype(MONO, 20); self.fh = ImageFont.truetype(MONO, 21); self.fc = ImageFont.truetype(MONO, 22)
-        lines = json.load(open(os.path.join(song_dir, 'lines.json'))) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
+        lines = __import__('sync_check').load_lines(song_dir) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
         self.lines = [l for l in lines if l[1][0][1] < t1 and l[0] > t0]
         code = self.SC.CODE.split('\n'); self.code_n = len(code); self.lh = 33
         img = Image.new('RGB', (W, self.lh * (len(code) + 20)), (13, 17, 23)); d = ImageDraw.Draw(img)

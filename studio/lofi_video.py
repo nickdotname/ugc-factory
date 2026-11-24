@@ -63,8 +63,9 @@ BEATS = np.array(SONG.get('beat_times') or [0.0])
 MASTER = next((os.path.join(SONG_DIR, 'master' + e) for e in ('.ogg', '.flac', '.wav') if os.path.exists(os.path.join(SONG_DIR, 'master' + e))), '')
 _OWN = os.path.join(HERE, 'lofi', 'lines', SLUG + '.json')      # lyrics aligned just for the footage's stretch (studio/lofi/lines/)
 _LP = _OWN if os.path.exists(_OWN) else os.path.join(SONG_DIR, 'lines.json')
-LINES = json.load(open(_LP)) if SONG_DIR and os.path.exists(_LP) else []
-SHOW_LYRICS = (os.environ.get('CQ_LYRICS') != 'none' or _LP == _OWN) and bool(LINES)
+import sync_check                                   # lines whose sync is not proven come whole, never word by word
+LINES = [[e, [list(x) for x in ws]] for e, ws in sync_check.load_lines(SONG_DIR, _OWN if _LP == _OWN else None)] if SONG_DIR and os.path.exists(_LP) else []
+SHOW_LYRICS = os.environ.get('CQ_LYRICS') != 'none' and bool(LINES)     # nightly says none where the words do not measure as in sync (own lines too)
 CLIPS = {}                                       # who -> [(clip id, song time of frame 1, frames)], filled in main()
 
 def _dur(path):

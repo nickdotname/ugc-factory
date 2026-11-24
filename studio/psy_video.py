@@ -240,7 +240,8 @@ def frame(i, prev):
 
 
 # ---- what sits on top (drawn at full size so type and lines stay sharp) ------------------
-LINES = [(e, ws) for e, ws in json.load(open(os.path.join(SONG_DIR, 'lines.json'))) if ws and ws[0][1] < T1 and e > T0]
+import sync_check                                    # lines whose sync is not proven come whole, never word by word
+LINES = [(e, ws) for e, ws in sync_check.load_lines(SONG_DIR) if ws and ws[0][1] < T1 and e > T0]
 VRAW, VSR = sf.read(stem_path('Vocals'), dtype='float32'); VRAW = VRAW[int(T0 * VSR):int(T1 * VSR)]
 VRAW = VRAW / (np.abs(VRAW).max() + 1e-9)
 def _font(size):
@@ -262,9 +263,10 @@ def stamp(a, m, cx, cy, col, k=1.0):
     mm = m[Y0 - y0:Y1 - y0, X0 - x0:X1 - x0, None] * k; reg = a[Y0:Y1, X0:X1].astype(np.float32)
     a[Y0:Y1, X0:X1] = (reg * (1 - mm) + np.array(col, np.float32) * mm).astype(np.uint8)
 def now_line(Ta):
+    hit = None                         # the latest line that has started wins, so a lingering line never holds back the next one's first word
     for e, ws in LINES:
-        if ws[0][1] - .05 <= Ta <= e + .25: return e, ws
-    return None
+        if ws[0][1] - .05 <= Ta <= e + .25: hit = (e, ws)
+    return hit
 def overlays(a, i):
     T = i / FPS; Ta = T0 + T; b, dr = BASS[i], DRUM[i]; cx, cy = W // 2, H // 2
     if plan['motif']:

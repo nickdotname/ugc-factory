@@ -28,11 +28,12 @@ a = ap.parse_args(); cfg = yaml.safe_load(open(os.path.join(HERE, 'nightly.yaml'
 MINC = cfg.get('min_confidence', 0.45); failed = False
 LEARNED = (json.load(open(os.path.join(HERE, 'weights.json'))) if os.path.exists(os.path.join(HERE, 'weights.json')) else {}).get('campaigns', {})   # from learn.py
 
-def stretches(song, join, floor=None):
+def stretches(song, join, floor=None, sync=None):
     """Each usable section on its own, plus neighbours glued together up to `join` seconds.
-    A section is usable when its lyric timing scored at least `floor` (min_confidence unless given)."""
+    A section is usable when its lyric timing scored at least `floor` (min_confidence unless given) and, when `sync` is
+    given ({section id: passed}, studio/sync_check.py), its words measured as sung on time against the vocal stem."""
     floor = MINC if floor is None else floor
-    good = [s for s in song.get('sections', []) if s.get('confidence', 1) >= floor]; out = {s['id']: (s['start'], s['end']) for s in good}
+    good = [s for s in song.get('sections', []) if s.get('confidence', 1) >= floor and (sync is None or sync.get(s['id'], False))]; out = {s['id']: (s['start'], s['end']) for s in good}
     cur = None
     for s in good:
         if cur and s['start'] - cur[2] < 4 and s['end'] - cur[1] <= join: cur = [cur[0].split('-')[0] + '-' + s['id'], cur[1], s['end']]
@@ -77,6 +78,7 @@ VISUAL['rocket'] = 'rocket_video.py'
 # an option with real results uses those instead. The ASCII account is about the code, so most videos show it.
 PRIOR = {'ascii': {'layout': {'code': [0, 3, 0.7], 'clean': [0, 3, 0.35]}}}
 sys.path.insert(0, HERE); import hook as _hook
+import sync_check as _sync          # the lyric sync gate: a stretch carries lyrics only where its words measure as on time
 VISUAL['retro'] = 'retro_video.py'
 VISUAL['fluid'] = 'fluid_video.py'    # wind-tunnel sims for the physics account (lattice Boltzmann; every gust a kick)
 VISUAL['vintage'] = 'vintage_video.py'   # vintage.media.archive: films from before 1931 as old prints (footage theme silent)
@@ -267,15 +269,17 @@ for t in cfg['targets']:
         if not any(os.path.exists(os.path.join(sd, 'master' + e)) for e in ('.wav', '.flac', '.ogg')): continue
         if style in NEEDS_PROJECT and not os.path.exists(os.path.join(sd, 'project_hits.json')): continue
         lv = levels(sd)
-        sure = stretches(song, t.get('join', 0)); every = dict(sure)
+        sure = stretches(song, t.get('join', 0), sync=_sync.sections_ok(sd)); every = dict(sure)     # lyrics only where they measure as in sync
         if style in VISUAL:                               # the visualiser can use any stretch: where the lyric timing is not proven it simply shows no lyrics
             for sid, win in stretches(song, t.get('join', 0), floor=0.0).items(): every.setdefault(sid, win)
         own = footage_windows(slug) if style in FOOTAGE else {}
         if style in FOOTAGE: every.update(own)
+        own_lines = os.path.join(HERE, 'lofi', 'lines', slug + '.json')
+        proven = {sid for sid, win in own.items() if _sync.window_ok(sd, win[0], win[1], own_lines if os.path.exists(own_lines) else None)}
         for sid, win in every.items():
             if style in FOOTAGE and lofi_cover(slug, win) < 0.7: continue          # only where the band filmed themselves
             past = sid in own and all(len(v) < (win[0] + win[1]) / 2 for v in lv.values())   # footage beyond where the stems reach (Notta Problem): they are performing, so it suits
-            if past or suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure or sid in own))
+            if past or suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure or sid in proven))
             else: print('   skip %s %s for %s: %s' % (slug, sid, style, playing(lv, win)))
         LV[slug] = lv
     L = LEARNED.get(camp) or {}; W = L.get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
