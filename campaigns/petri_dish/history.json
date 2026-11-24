@@ -107,6 +107,108 @@
       "overlay": null,
       "lineup_id": "ring-first",
       "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-24T04:26:54.547283Z",
+      "item_id": "eb3363ef-f202-4dbe-bf31-c1fee30406f8",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "140,000 agents. three rules. no plan\n🎧 Epilogue: Dismissal – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "creative": "epilogue_dismissal",
+      "captions": {
+        "instagram": "140,000 agents. three rules. no plan\n🎧 Epilogue: Dismissal – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Epilogue: Dismissal"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.303,
+        "anchor_y": 0.601,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-24T04:26:54.547283Z",
+      "item_id": "e38f6385-2b05-4a5a-8eea-f7e5c431c814",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "each dot only smells what is in front of it\n🎧 Won't Be the Same Again – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "creative": "wont_be_the_same_again",
+      "captions": {
+        "instagram": "each dot only smells what is in front of it\n🎧 Won't Be the Same Again – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nstream Won't Be the Same Again: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.515,
+        "anchor_y": 0.423,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-24T04:26:54.547283Z",
+      "item_id": "d4a17307-7893-4772-bfda-06db0756f226",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "a slime mould, simulated\n🎧 Full Ride – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "creative": "full_ride",
+      "captions": {
+        "instagram": "a slime mould, simulated\n🎧 Full Ride – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nFull Ride is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.283,
+        "anchor_y": 0.725,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

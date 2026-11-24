@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-24T02:01:19.510138Z",
+  "generated_at": "2026-11-24T04:26:54.547283Z",
   "items": [
     {
-      "id": "c61d721a-ae02-4e92-8c29-80ae5158f4ca",
-      "scheduled_for": "2026-11-23T21:45:00-05:00",
-      "rendered_at": "2026-11-24T02:01:19.510138Z",
-      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/c61d721a-ae02-4e92-8c29-80ae5158f4ca.mp4",
-      "caption": "140,000 simulated slime-mould cells. three rules. no plan. nobody drew these lines. sound on.\n🎧 Fixation – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "id": "eb3363ef-f202-4dbe-bf31-c1fee30406f8",
+      "scheduled_for": "2026-11-24T09:30:00-05:00",
+      "rendered_at": "2026-11-24T04:26:54.547283Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/eb3363ef-f202-4dbe-bf31-c1fee30406f8.mp4",
+      "caption": "140,000 agents. three rules. no plan\n🎧 Epilogue: Dismissal – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,50 +16,40 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.299,
-        "anchor_y": 0.642,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.303,
+        "anchor_y": 0.601,
+        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "fixation",
+      "creative": "epilogue_dismissal",
       "overlay": null,
       "accounts": null,
-      "lineup_id": "violet-first",
+      "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Fixation by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "petri_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-bc34af87-6a9b-4f90-b43b-84273123abb7",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T21:45:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Epilogue: Dismissal by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "140,000 simulated slime-mould cells. three rules. no plan. nobody drew these lines. sound on.\n🎧 Fixation – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Fixation"
+        "instagram": "140,000 agents. three rules. no plan\n🎧 Epilogue: Dismissal – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Epilogue: Dismissal"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "f611dff3-ae2f-4853-a9b3-94fb0c65abd1",
-      "scheduled_for": "2026-11-23T22:20:00-05:00",
-      "rendered_at": "2026-11-24T02:01:19.510138Z",
-      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/f611dff3-ae2f-4853-a9b3-94fb0c65abd1.mp4",
-      "caption": "it starts as noise. each cell smells left, ahead and right, turns, steps, leaves a trail. this is what comes out.\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "id": "e38f6385-2b05-4a5a-8eea-f7e5c431c814",
+      "scheduled_for": "2026-11-24T14:10:00-05:00",
+      "rendered_at": "2026-11-24T04:26:54.547283Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/e38f6385-2b05-4a5a-8eea-f7e5c431c814.mp4",
+      "caption": "each dot only smells what is in front of it\n🎧 Won't Be the Same Again – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -69,9 +59,52 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.728,
-        "anchor_y": 0.536,
+        "anchor_x": 0.515,
+        "anchor_y": 0.423,
         "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "each dot only smells what is in front of it\n🎧 Won't Be the Same Again – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nstream Won't Be the Same Again: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "d4a17307-7893-4772-bfda-06db0756f226",
+      "scheduled_for": "2026-11-24T18:50:00-05:00",
+      "rendered_at": "2026-11-24T04:26:54.547283Z",
+      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/d4a17307-7893-4772-bfda-06db0756f226.mp4",
+      "caption": "a slime mould, simulated\n🎧 Full Ride – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.283,
+        "anchor_y": 0.725,
+        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -81,81 +114,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "talk",
+      "creative": "full_ride",
       "overlay": null,
       "accounts": null,
-      "lineup_id": "rain-first",
+      "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "petri_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-ecf50cd7-951b-4fe2-9bbf-8c4403eb7ce9",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T22:20:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Full Ride – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "it starts as noise. each cell smells left, ahead and right, turns, steps, leaves a trail. this is what comes out.\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nstream Talk: link in bio"
+        "instagram": "a slime mould, simulated\n🎧 Full Ride – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nFull Ride is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "f24dc4c4-790b-410d-a581-70bfe3c8b271",
-      "scheduled_for": "2026-11-23T22:55:00-05:00",
-      "rendered_at": "2026-11-24T02:01:19.510138Z",
-      "video_url": "https://factory.nickbenak.com/v/render-petri_dish-2026-11-24/f24dc4c4-790b-410d-a581-70bfe3c8b271.mp4",
-      "caption": "a ring of digital slime mould, finding its own shortcuts.\n🎧 Suspended – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.266,
-        "anchor_y": 0.43,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": "ring-first",
-      "variants": {},
-      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "petri_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-123ff7f2-d18f-4ed8-afc3-b6a83593997e",
-          "last_error": null,
-          "scheduled_for": "2026-11-23T22:55:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "a ring of digital slime mould, finding its own shortcuts.\n🎧 Suspended – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nSuspended is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
