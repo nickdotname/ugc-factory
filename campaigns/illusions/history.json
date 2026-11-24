@@ -28,8 +28,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-c4fa91c6-e614-4d20-aa7e-0c8bc218d526",
+      "post_ids": {
+        "illusions_ig": "igo-c4fa91c6-e614-4d20-aa7e-0c8bc218d526"
+      },
       "overlay": null,
       "lineup_id": "knot-first",
       "variants": {}
