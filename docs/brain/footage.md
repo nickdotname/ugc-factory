@@ -41,6 +41,8 @@ weapons, racist caricature terms, crime, medical, adverts. Metadata can't catch 
 cartoons: watch the first vintage posts and add a frame check if anything slips (see [[backlog]]).
 
 
+The silent theme is small (Nov 2026: 7 films, 21 usable clips; 6 of them are 320x240 copies of Nosferatu), so vintage posts repeat films often. The Veil Dance (Schleiertanz, 1906) is blocked: its dancers wear body stockings that read as nude at phone size. More silent films (Keaton, Chaplin, Lloyd, Lumière and city films are in `queries.json` but nothing from them is in the library yet) would help vintage more than any look change.
+
 ## Our own clips
 
 - **NYC** (PR #94): add Google Drive links (shared "anyone with the link"), one per line, to
