@@ -8,7 +8,7 @@ the audio-reactive visuals, with a stretch of a Close Quarters song under it, en
 full carousel. For every account, it takes the oldest carousel already posted that has no reel yet, so every reel has a
 carousel on the profile to send people to. Recorded in studio/carousels/reeled.json.
 """
-import argparse, datetime, glob, json, os, random, subprocess, sys, tempfile, uuid
+import argparse, datetime, glob, json, os, random, re, subprocess, sys, tempfile, uuid
 import yaml
 
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE); CDIR = os.path.join(HERE, 'carousels')
@@ -20,6 +20,20 @@ ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.
 # Per look: the renderer that draws the visuals and the tags the caption ends on.
 LOOKS = {'retro': ('liminal_video.py', '#nostalgia #2000s #90skids #liminalspaces #y2k'),
          '':      ('psy_video.py',     '#psychedelic #declassified #rabbithole #conspiracy #history')}
+OPEN_S, END_S = 2.8, 2.4
+
+def read_time(text):
+    """Seconds a slide stays up: a beat for the big word, then ~4 words a second, kept between 3 and 5.5 s."""
+    return min(5.5, max(3.0, 1.2 + 0.26 * len(text.split())))
+
+def reel_line(spec):
+    """The caption's first line for a reel: the carousel's hook without its 'slide 5 is ...' sentence (there are no
+    slides in a reel), or the spec's own reel_hook when it has one."""
+    if spec.get('reel_hook'): return spec['reel_hook']
+    first = spec['caption'].split('\n')[0]
+    kept = [x for x in re.split(r'(?<=[.!?])\s+', first) if not re.search(r'\b(slide|swipe)\b', x, re.I)]
+    return ' '.join(kept).strip() or spec['headline'].rstrip('.').lower()
+
 count = {}
 for r in reeled: count[r['slug']] = count.get(r['slug'], 0) + 1
 
@@ -32,12 +46,16 @@ def reel(slug, name):
     renderer, tags = LOOKS.get(spec.get('theme', ''), LOOKS[''])
     rng = random.Random(slug + datetime.date.today().isoformat() + str(part))
 
-    # the cards: hook, three slides, the pointer. ~3.3s each, so ~16.5s and it loops.
-    slides = spec['slides'][:3] if part == 1 else spec['slides'][3:6]; D = 3.3
+    # the cards: hook, three slides, the pointer. The headline is on screen from frame 0 (it is the cover and the
+    # hook); each slide stays long enough to read at a comfortable pace (about 4 words a second plus a beat for the
+    # big word), instead of the old flat 3.3 s that cut 25-word slides off mid-sentence. ~15-20 s in all.
+    slides = spec['slides'][:3] if part == 1 else spec['slides'][3:6]
     opener = spec['headline'] if part == 1 else 'Part 2: ' + spec['headline'][0].lower() + spec['headline'][1:]
-    cards = [[0, D, '', opener]] + [[D * (k + 1), D * (k + 2), b, t] for k, (b, t, *_) in enumerate(slides)]   # a slide may also name its pictures
-    cards.append([D * 4, D * 5, 'swipe the full story', 'it is on our page. 6 slides, sources on the last one.'])
-    dur = D * 5
+    cards = [[0, OPEN_S, '', opener]]; t = OPEN_S
+    for b, txt, *_ in slides:                                                                 # a slide may also name its pictures
+        d = read_time(txt); cards.append([round(t, 2), round(t + d, 2), b, txt]); t += d
+    cards.append([round(t, 2), round(t + END_S, 2), 'the full story', 'all 6 slides and the sources are in the carousel on our page.'])
+    dur = round(t + END_S, 2)
 
     # the music: a stretch of a Close Quarters song, at its own speed
     songs = []
@@ -64,8 +82,8 @@ def reel(slug, name):
         subprocess.run(['gh', 'release', 'create', tag, '--title', tag, '--notes', 'Fact reels, served to Instagram by the site.'], check=True, cwd=REPO)
     subprocess.run(['gh', 'release', 'upload', tag, os.path.join(tmp, nm)], check=True, cwd=REPO)
     base = yaml.safe_load(open(os.path.join(REPO, 'site.yaml')))['media_base_url'].rstrip('/')
-    first = spec['caption'].split('\n')[0] if part == 1 else 'part 2 of ' + spec['headline'].rstrip('.').lower()
-    caption = '%s\nthe full story is the carousel on our page\n🎧 %s – @close__quarters %s' % (first, title, tags)
+    first = reel_line(spec) if part == 1 else 'part 2 of ' + spec['headline'].rstrip('.').lower()
+    caption = '%s\nthe full story, with sources, is the carousel on our page\n🎧 %s – @close__quarters %s' % (first, title, tags)
     pid = 'igo-' + str(uuid.uuid4())
     import collabs                                   # one collab post a day brings the band account in
     collab = collabs.invite(name, sum(1 for r in reeled if r.get('account') == name and r.get('date') == now.strftime('%Y-%m-%d') and r.get('collab')))
