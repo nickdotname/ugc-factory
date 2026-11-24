@@ -2,6 +2,10 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: a post could be sent twice (tiny.code.loops and psychedelic.station today, three accounts on
+  Nov 21). `publish-due` now reads the branch as it is, claims each post on the branch before sending it and
+  records each result as soon as it is out. See [[traps]], "The same post sent twice".
+
 - 2026-11-24: rotation.illusions gets two more kinds and a shape, from reels Dylan sent as inspiration: `group`
   (twelve dots that are three turning squares and four turning triangles at once), `stripes` (static diagonal
   stripes under sliding discs that swap black and white) and a tilted donut. Our own versions and wording. The
