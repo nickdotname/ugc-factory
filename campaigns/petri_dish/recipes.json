@@ -144,6 +144,96 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "talk",
+   "file": "talk_s03-s04_alife_803104.mp4",
+   "song": "talk",
+   "section": "s03-s04",
+   "style": "alife",
+   "seed": 803104,
+   "window": [
+    73.85,
+    89.59
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "rain",
+    "palette": "ember",
+    "sense": "6",
+    "steps": "1",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.43,
+    "drums": 0.83,
+    "bass": 0.7,
+    "other": 0.65
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s01_alife_894169.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s01",
+   "style": "alife",
+   "seed": 894169,
+   "window": [
+    0.36,
+    17.88
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "seeds",
+    "palette": "gold",
+    "sense": "6",
+    "steps": "1",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.22,
+    "bass": 0.71,
+    "other": 0.18
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "full_ride",
+   "file": "full-ride_s01_alife_134788.mp4",
+   "song": "full-ride",
+   "section": "s01",
+   "style": "alife",
+   "seed": 134788,
+   "window": [
+    7.87,
+    23.16
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "ring",
+    "palette": "gold",
+    "sense": "6",
+    "steps": "1",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.68,
+    "bass": 0.72,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }
