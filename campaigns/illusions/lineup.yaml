@@ -1,0 +1,25 @@
+# Hand-picked posts, each posted exactly as written, once (src/lineup.py).
+# Anything not listed here is filled by the randomizer.
+posts:
+  # The account's first three, out the night it was linked.
+  - id: knot-first
+    creative: epilogue_dismissal
+    hook: hook_01.mp4
+    caption: |
+      which way is it turning? it is the same dots the whole time. sound on.
+      🎧 Epilogue: Dismissal – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser
+    at: 2026-11-23 23:05
+  - id: planet-first
+    creative: suspended
+    hook: hook_01.mp4
+    caption: |
+      it turns one way. are you sure which?
+      🎧 Suspended – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser
+    at: 2026-11-23 23:25
+  - id: mug-first
+    creative: recess_rewind
+    hook: hook_01.mp4
+    caption: |
+      a mug made of dots with no depth at all. your brain decides which way it spins.
+      🎧 Recess (Rewind) – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser
+    at: 2026-11-23 23:50
