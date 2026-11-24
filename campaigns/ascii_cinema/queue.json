@@ -250,9 +250,9 @@
         {
           "account": "cinema_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-1c17f88f-93c6-4a26-bfec-97024c774ac1",
           "last_error": null,
           "scheduled_for": "2026-11-25T17:05:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "played back at 30 pages a second\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nRecess (Rewind) is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
