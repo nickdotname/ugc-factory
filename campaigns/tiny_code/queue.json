@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Epilogue: Dismissal by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tinycode_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-24T18:19:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "every frame is this program, run again\n🎧 Epilogue: Dismissal – @close__quarters #creativecoding #generativeart #python #numpy #codeart\n\nlink in bio to stream Epilogue: Dismissal"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Recess (Rewind) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tinycode_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "math you can watch\n🎧 Recess (Rewind) – @close__quarters #generativeart #creativecoding #codeart #tinycode\n\nstream Recess (Rewind): link in bio"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tinycode_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "under 300 characters of code\n🎧 Won't Be the Same Again – @close__quarters #creativecoding #mathart #algorithmicart #python\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
@@ -163,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tinycode_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the code on top draws the picture below. live.\n🎧 Full Ride – @close__quarters #creativecoding #generativeart #python #numpy #codeart\n\nlink in bio to stream Full Ride"
       },
@@ -206,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tinycode_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "pause on the code. it's short enough to copy.\n🎧 Prologue: Before – @close__quarters #creativecoding #generativeart #mathart #python\n\nstream Prologue: Before: link in bio"
       },
