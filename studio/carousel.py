@@ -92,7 +92,7 @@ for i, sl in enumerate(spec['slides'], 1):
 
 # ---- last: sources, music, follow ----------------------------------------------------------
 a = (art(W, H, seed * 7 + 99).astype(np.float32) * .45).astype(np.uint8); im = Image.fromarray(a); d = ImageDraw.Draw(im, 'RGBA')
-f, rows, size = fit(d, 'FOLLOW FOR MORE OF WHAT THEY LEFT OUT', HEAD, W - 120, 520, 150); y = 330
+f, rows, size = fit(d, 'ALL OF IT IS ON THE RECORD', HEAD, W - 120, 520, 150); y = 330      # no follow-ask: the end slide points at the sources
 for r_ in rows: d.text(((W - d.textlength(r_, font=f)) / 2, y), r_, font=f, fill=(255, 255, 255), stroke_width=3, stroke_fill=(0, 0, 0)); y += size * 1.08
 h_ = '@' + spec['handle']; fh = font(BODY, 54); tag(d, (W - d.textlength(h_, font=fh)) / 2 - 12, y + 40, h_, fh)
 fs = font(BODY, 28); y = H - 230

@@ -14,7 +14,7 @@ it so [[learning]] can score it; `CQ_KNOBS` forces knobs.
 | cutout | cutout_video.py | close__quarters | the dance footage cut out full screen with sticker outlines, thrown around on the beat (big, echo, grid, duo); behind them flat colour with rings or library footage graded to the palette; spring motion, squash on the kick, a slide in each bar | stage, palette, trip, outline, words, bg, tone |
 | producer | lyric_video.py | dylancantor23 | the song's stems as lanes / a mixer | layout, wall, colours, caption, ... |
 | type | type_video.py | the.loose.change | kinetic type lyrics | layout, font, motion, palette, texture |
-| psy | psy_video.py | psychedelic.station | audio-reactive fields (oil, julia, tunnel, ...) | field, pal, sym, motif, feedback, mirror, lyrics, ... |
+| psy | psy_video.py | psychedelic.station | audio-reactive fields (kaleido, tunnel, marble, oil, julia, moire, warp, voronoi, spiral) or a Bryce-style ray-traced world; every real drum hit punches the picture in and splits its colours; no lyric word or line in frame 0 (it is the cover); hook box below the top 250 px; with `CQ_CARDS` it is the fact-reel background (no line figures through the cards). rings and cells were dropped 2026-11-24 | field, pal, sym, motif, feedback, mirror, lyrics, trip (bryce in acid colours that turn on the drums), ... |
 | collage | collage_video.py | psychedelic.station | mirrored techno-temple collage | palette, density, ground |
 | liminal | liminal_video.py | nostalgia.hub.vhs | liminal spaces on VHS | place, tape, tint, label, stamp, pace |
 | math | math_video.py (+ studio/mathviz/) | math.explainers | integrals, Fourier, derivative, zeta, paper fold, sci8 pixel science (brain, heart, eyes, fission) | topic, theme, room, grid, target, ... |
@@ -36,6 +36,11 @@ it so [[learning]] can score it; `CQ_KNOBS` forces knobs.
 
 Open PRs adding styles (not merged at the time of writing): **fluid** (wind-tunnel Navier-Stokes sims for
 physics.bounce.lab, #80), sorting/maze races for math (#77), goldfish for ascii (#79). See [[backlog]].
+
+**psychedelic.station fact reels** (`post_factreel.py` over `psy_video.py`): the carousel's headline is on screen
+from frame 0; each slide stays up for its reading time (1.2 s + 0.26 s a word, 3–5.5 s), so a reel runs ~18–22 s; the
+caption opens on the carousel's hook minus its "slide N" sentence (or a spec's own `reel_hook`). Carousel specs:
+every fact sourced in the spec's `sources`; no dose amounts or sourcing information on any slide; no follow-asks.
 
 ## Shared conventions
 
