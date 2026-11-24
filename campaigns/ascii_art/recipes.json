@@ -10,7 +10,11 @@
     "daisies",
     "galaxy",
     "fireworks",
-    "goldfish"
+    "goldfish",
+    "bridge",
+    "court",
+    "hoops",
+    "subway"
    ],
    "ramp": [
     "blocks",
@@ -539,6 +543,161 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s02_ascii_455417.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "ascii",
+   "seed": 455417,
+   "window": [
+    27.33,
+    46.97
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "goldfish",
+    "ramp": "texture",
+    "palette": "ice",
+    "layout": "code",
+    "sparks": "1.0",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.03,
+    "drums": 0.06,
+    "bass": 0.36,
+    "other": 0.25
+   },
+   "lyrics_proven": false,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "fixation",
+   "file": "fixation_s02_ascii_249911.mp4",
+   "song": "fixation",
+   "section": "s02",
+   "style": "ascii",
+   "seed": 249911,
+   "window": [
+    86.97,
+    98.95
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "aurora",
+    "ramp": "blocks",
+    "palette": "scene",
+    "layout": "clean",
+    "sparks": "0.5",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 1.01,
+    "drums": 0.91,
+    "bass": 0.54,
+    "other": 0.49
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s02_ascii_359243.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s02",
+   "style": "ascii",
+   "seed": 359243,
+   "window": [
+    17.88,
+    35.51
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "daisies",
+    "ramp": "classic",
+    "palette": "scene",
+    "layout": "code",
+    "sparks": "0.5",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.39,
+    "bass": 0.7,
+    "other": 0.38
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s01_ascii_491385.mp4",
+   "song": "passage-waiting",
+   "section": "s01",
+   "style": "ascii",
+   "seed": 491385,
+   "window": [
+    2.06,
+    21.18
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "fireworks",
+    "ramp": "texture",
+    "palette": "ember",
+    "layout": "code",
+    "sparks": "0.5",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.74,
+    "bass": 0.73,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_ascii_844921.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "ascii",
+   "seed": 844921,
+   "window": [
+    165.37,
+    180.8
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "planet",
+    "ramp": "classic",
+    "palette": "ember",
+    "layout": "clean",
+    "sparks": "0.5",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.64,
+    "drums": 0.72,
+    "bass": 0.6,
+    "other": 0.36
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

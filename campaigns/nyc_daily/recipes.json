@@ -381,6 +381,161 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_s01_nyc_403535.mp4",
+   "song": "notta-problem",
+   "section": "s01",
+   "style": "nyc",
+   "seed": 403535,
+   "window": [
+    35.08,
+    45.78
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "fact",
+    "look": "night",
+    "pace": "1",
+    "source": "nyc",
+    "fact": "0",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.34,
+    "bass": 0.15,
+    "other": 0.51
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s07_nyc_962937.mp4",
+   "song": "recess-rewind",
+   "section": "s07",
+   "style": "nyc",
+   "seed": 962937,
+   "window": [
+    104.43,
+    121.78
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "natural",
+    "pace": "1",
+    "source": "nyc",
+    "line": "25",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.84,
+    "bass": 0.62,
+    "other": 0.8
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s04_nyc_935410.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s04",
+   "style": "nyc",
+   "seed": 935410,
+   "window": [
+    108.66,
+    131.05
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "fact",
+    "look": "warm",
+    "pace": "1",
+    "source": "nyc",
+    "fact": "6",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.54,
+    "drums": 0.8,
+    "bass": 0.54,
+    "other": 0.32
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_nyc_361427.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "nyc",
+   "seed": 361427,
+   "window": [
+    65.39,
+    84.88
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "look": "warm",
+    "pace": "1",
+    "source": "nyc",
+    "line": "13",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.73,
+    "bass": 0.33,
+    "other": 0.58
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s03_nyc_510989.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "nyc",
+   "seed": 510989,
+   "window": [
+    76.79,
+    83.34
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "fact",
+    "look": "warm",
+    "pace": "1",
+    "source": "nyc",
+    "fact": "9",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.66,
+    "drums": 0.64,
+    "bass": 0.7,
+    "other": 0.17
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

@@ -586,6 +586,171 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s03_rocket_632525.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "rocket",
+   "seed": 632525,
+   "window": [
+    78.37,
+    84.92
+   ],
+   "plan": {
+    "hook": "rocket league players will get it",
+    "hook_angle": "curious",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "montage",
+    "frame": "blur",
+    "ramp": "none",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.61,
+    "bass": 0.71,
+    "other": 0.22
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "talk",
+   "file": "talk_s07_rocket_483935.mp4",
+   "song": "talk",
+   "section": "s07",
+   "style": "rocket",
+   "seed": 483935,
+   "window": [
+    139.77,
+    153.54
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "asis",
+    "frame": "crop",
+    "ramp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.34,
+    "drums": 0.84,
+    "bass": 0.66,
+    "other": 0.58
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s04_rocket_924254.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s04",
+   "style": "rocket",
+   "seed": 924254,
+   "window": [
+    116.89,
+    130.6
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "montage",
+    "frame": "crop",
+    "ramp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.54,
+    "drums": 0.8,
+    "bass": 0.52,
+    "other": 0.32
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s01_rocket_861019.mp4",
+   "song": "subway-maintenance",
+   "section": "s01",
+   "style": "rocket",
+   "seed": 861019,
+   "window": [
+    42.91,
+    65.94
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "asis",
+    "frame": "blur",
+    "ramp": "slowmo",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.46,
+    "bass": 0.36,
+    "other": 0.7
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s09_rocket_620813.mp4",
+   "song": "recess-rewind",
+   "section": "s09",
+   "style": "rocket",
+   "seed": 620813,
+   "window": [
+    138.54,
+    156.06
+   ],
+   "plan": {
+    "hook": "bronze players could do this",
+    "hook_angle": "debate",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "montage",
+    "frame": "blur",
+    "ramp": "none",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.7,
+    "bass": 0.64,
+    "other": 0.78
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

@@ -998,6 +998,307 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "suspended",
+   "file": "suspended_s03_liminal_808490.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "liminal",
+   "seed": 808490,
+   "window": [
+    50.1,
+    73.09
+   ],
+   "plan": {
+    "place": "office",
+    "laps": 6,
+    "year": 1997,
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "office",
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "date",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.66,
+    "bass": 0.3,
+    "other": 0.48
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s05_liminal_281111.mp4",
+   "song": "recess-rewind",
+   "section": "s05",
+   "style": "liminal",
+   "seed": 281111,
+   "window": [
+    70.16,
+    87.33
+   ],
+   "plan": {
+    "place": "parking",
+    "laps": 1,
+    "year": 2000,
+    "pace": "slow",
+    "tint": "warm",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "parking",
+    "pace": "slow",
+    "tint": "warm",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "date",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.58,
+    "bass": 0.7,
+    "other": 0.73
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_s03-s04_liminal_739967.mp4",
+   "song": "notta-problem",
+   "section": "s03-s04",
+   "style": "liminal",
+   "seed": 739967,
+   "window": [
+    71.82,
+    80.99
+   ],
+   "plan": {
+    "place": "pool",
+    "laps": 2,
+    "year": 2000,
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "hook": "have you seen this place?",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "pool",
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "date",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.53,
+    "drums": 0.51,
+    "bass": 0.72,
+    "other": 0.54
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s02_liminal_845902.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 845902,
+   "window": [
+    17.88,
+    35.51
+   ],
+   "plan": {
+    "place": "mall",
+    "laps": 2,
+    "year": 1995,
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "don't turn around",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "mall",
+    "pace": "walk",
+    "tint": "cold",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.39,
+    "bass": 0.7,
+    "other": 0.38
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "full_ride",
+   "file": "full-ride_s02_liminal_869549.mp4",
+   "song": "full-ride",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 869549,
+   "window": [
+    35.25,
+    41.37
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 1,
+    "year": 2003,
+    "pace": "slow",
+    "tint": "green",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "backrooms",
+    "pace": "slow",
+    "tint": "green",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "date",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.68,
+    "bass": 0.61,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s02_liminal_602915.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 602915,
+   "window": [
+    27.33,
+    46.97
+   ],
+   "plan": {
+    "place": "school",
+    "laps": 5,
+    "year": 2001,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "none",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "school",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.03,
+    "drums": 0.06,
+    "bass": 0.36,
+    "other": 0.25
+   },
+   "lyrics_proven": false,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s03_liminal_509472.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s03",
+   "style": "liminal",
+   "seed": 509472,
+   "window": [
+    55.62,
+    77.61
+   ],
+   "plan": {
+    "place": "office",
+    "laps": 3,
+    "year": 1995,
+    "pace": "slow",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "office",
+    "pace": "slow",
+    "tint": "warm",
+    "tape": "clean",
+    "label": "REC \u25cf",
+    "stamp": "date",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.67,
+    "drums": 0.7,
+    "bass": 0.77,
+    "other": 0.45
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ],
  "menu": {

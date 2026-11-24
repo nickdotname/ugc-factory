@@ -383,6 +383,156 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "talk",
+   "file": "talk_s05_earth_369238.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "earth",
+   "seed": 369238,
+   "window": [
+    105.01,
+    116.81
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "satellites",
+    "palette": "night",
+    "spin": "slow",
+    "hook": "question",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.84,
+    "bass": 0.74,
+    "other": 0.57
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s01_earth_760761.mp4",
+   "song": "passage-waiting",
+   "section": "s01",
+   "style": "earth",
+   "seed": 760761,
+   "window": [
+    2.06,
+    21.18
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "quakes",
+    "palette": "night",
+    "spin": "fast",
+    "hook": "question",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.74,
+    "bass": 0.73,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_s03_earth_287227.mp4",
+   "song": "notta-problem",
+   "section": "s03",
+   "style": "earth",
+   "seed": 287227,
+   "window": [
+    71.82,
+    85.57
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "satellites",
+    "palette": "ember",
+    "spin": "fast",
+    "hook": "fact",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.6,
+    "drums": 0.44,
+    "bass": 0.52,
+    "other": 0.65
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s03_earth_867900.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s03",
+   "style": "earth",
+   "seed": 867900,
+   "window": [
+    35.51,
+    52.98
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "flights",
+    "palette": "ember",
+    "spin": "fast",
+    "hook": "fact",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.53,
+    "bass": 0.65,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "full_ride",
+   "file": "full-ride_s02_earth_727587.mp4",
+   "song": "full-ride",
+   "section": "s02",
+   "style": "earth",
+   "seed": 727587,
+   "window": [
+    35.25,
+    42.89
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "quakes",
+    "palette": "paper",
+    "spin": "slow",
+    "hook": "question",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.72,
+    "bass": 0.65,
+    "other": 0.56
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

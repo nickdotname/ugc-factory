@@ -1907,6 +1907,130 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s08_type_730521.mp4",
+   "song": "prologue",
+   "section": "s08",
+   "style": "type",
+   "seed": 730521,
+   "window": [
+    176.13,
+    189.22
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "stack",
+    "palette": "mono",
+    "font": "montserrat",
+    "motion": "shake",
+    "texture": "halftone",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.67,
+    "bass": 0.51,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "suspended",
+   "file": "suspended_s02_type_43837.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "type",
+   "seed": 43837,
+   "window": [
+    30.71,
+    47.63
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "split",
+    "palette": "acid",
+    "font": "montserrat",
+    "motion": "pop",
+    "texture": "grain",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.68,
+    "bass": 0.33,
+    "other": 0.4
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "talk",
+   "file": "talk_s05_type_659793.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "type",
+   "seed": 659793,
+   "window": [
+    102.3,
+    117.04
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "stack",
+    "palette": "mono",
+    "font": "poppins",
+    "motion": "shake",
+    "texture": "grain",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.85,
+    "bass": 0.77,
+    "other": 0.53
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06_type_780916.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06",
+   "style": "type",
+   "seed": 780916,
+   "window": [
+    159.99,
+    170.52
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "split",
+    "palette": "sunset",
+    "font": "inter",
+    "motion": "shake",
+    "texture": "grain",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.69,
+    "drums": 0.61,
+    "bass": 0.32,
+    "other": 0.49
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ],
  "since": "2026-11-22T20:42:47.589548+00:00",

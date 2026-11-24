@@ -234,6 +234,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s02_alife_335730.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s02",
+   "style": "alife",
+   "seed": 335730,
+   "window": [
+    65.01,
+    73.58
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "seeds",
+    "palette": "bio",
+    "sense": "9",
+    "steps": "1",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.64,
+    "bass": 0.64,
+    "other": 0.51
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s04_alife_86588.mp4",
+   "song": "passage-waiting",
+   "section": "s04",
+   "style": "alife",
+   "seed": 86588,
+   "window": [
+    58.14,
+    76.42
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "rain",
+    "palette": "violet",
+    "sense": "6",
+    "steps": "1",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.74,
+    "bass": 0.89,
+    "other": 0.73
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s07_alife_437868.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s07",
+   "style": "alife",
+   "seed": 437868,
+   "window": [
+    105.89,
+    123.35
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "seeds",
+    "palette": "violet",
+    "sense": "14",
+    "steps": "1",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.59,
+    "bass": 0.68,
+    "other": 0.88
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s08_alife_750189.mp4",
+   "song": "prologue",
+   "section": "s08",
+   "style": "alife",
+   "seed": 750189,
+   "window": [
+    177.75,
+    184.3
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "ring",
+    "palette": "gold",
+    "sense": "14",
+    "steps": "2",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.67,
+    "bass": 0.56,
+    "other": 0.34
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "talk",
+   "file": "talk_s01_alife_273366.mp4",
+   "song": "talk",
+   "section": "s01",
+   "style": "alife",
+   "seed": 273366,
+   "window": [
+    23.69,
+    39.43
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "rain",
+    "palette": "gold",
+    "sense": "9",
+    "steps": "1",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.93,
+    "bass": 0.74,
+    "other": 0.6
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }
