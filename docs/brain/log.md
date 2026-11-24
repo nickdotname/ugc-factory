@@ -2,6 +2,10 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: new account @rotation.illusions (campaign `illusions`, style `illusion`), on the Page "Rotation
+  Illusions" that Nick made and shared. Three a day from 8:20. Three more Pages are coming from Nick (8-Bit Tests,
+  Algorithm Races, Notes App Thoughts): one account each, when their formats are ready.
+
 - 2026-11-23: two more pixel worlds for ascii.terminal.dreams. `hoops`: a pickup game on a blacktop court, one
   bounce per kick or snare, the shot leaves on one hit and drops on the next. `subway`: a platform cut open (the
   wall reads 8 ST - NYU); the train stops on a bar line, one rider off or on per beat, it leaves on another bar
