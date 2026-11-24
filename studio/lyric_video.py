@@ -561,11 +561,12 @@ def band_frame(f, feat, plan, ctx, rng):
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T); si = seg_at(plan, T); st, kind, k, ov = plan['segs'][si]
     if ctx.get('si') != si: ctx['old'] = ctx.get('clean'); ctx['si'] = si
     im = Image.fromarray(make_bg(plan['wall'], T, plan['bg'], plan['acc'])); d = ImageDraw.Draw(im)
-    for q, nm in enumerate(['EDUCATION.cd', 'Subscribe.exe', 'Recycle Bin']):
+    for q, nm in enumerate(['EDUCATION.cd', 'lessons.txt', 'Recycle Bin']):
         x = 60 + q * 230; d.rectangle([x + 40, 86, x + 110, 150], fill=(255, 255, 255), outline=(0, 0, 0), width=3)
         d.rectangle([x + 52, 98, x + 98, 118], fill=PAL[q * 3]); fw = d.textlength(nm, font=F(SANS, 26)); d.text((x + 75 - fw / 2, 158), nm, font=F(SANS, 26), fill=(255, 255, 255))
-    d.text((54, 214), SONG['album'], font=F(INTER_XB, 76), fill=(255, 255, 255))
-    d.text((56, 304), 'lesson %d of %d: %s' % (SONG['track'], SONG.get('tracks_total', SONG['track']), SONG['title']), font=F(INTER_SB, 40), fill=(225, 240, 255))
+    # the album and lesson line sit just under Instagram's top 250 px (they used to start at 214, under the UI)
+    d.text((54, 256), SONG['album'], font=F(INTER_XB, 62), fill=(255, 255, 255))
+    d.text((56, 330), 'lesson %d of %d: %s' % (SONG['track'], SONG.get('tracks_total', SONG['track']), SONG['title']), font=F(INTER_SB, 34), fill=(225, 240, 255))
     face = kind.startswith('face+'); kind = kind[5:] if face else kind      # a scene with one of the band in front of it
     if kind.startswith('pic|'): _, pth, sty = kind.split('|'); sc_pic(d, pth, sty, T, st, (10, 10, 30), mixc(plan['bg'], (255, 255, 255), .75))
     else: draw(kind, d, k, T, f, bands, beat)
@@ -910,10 +911,14 @@ plan['hook_angle'] = _hook.angle(mode, plan['hook']); plan['hook_mode'] = _hook.
 if plan.get('story'):                                        # a story draws its own line, one that says what this video does
     plan['hook'] = '' if os.environ.get('CQ_HOOK') == 'none' else plan['line']
     plan['hook_angle'] = 'story' if plan['hook'] else 'none'; plan['hook_mode'] = 'story'
-elif mode == 'producer' and plan['hook_mode'] == 'hold': plan['hook_mode'] = 'flash'   # a held line would sit on the lyric, now below the top 250 px
+elif plan['hook_mode'] == 'hold': plan['hook_mode'] = 'flash'   # producer: a held line would sit on the lyric; band: its held line sat at
+                                                                 # 1488-1600 px, under Instagram's caption (and held lines got 69 median views to flash's 82)
 import faces as _faces                                      # Dylan and Nick reacting, line by line, on some videos
 _fv = os.environ.get('CQ_FACES', '').lower()
-plan['faces'] = _faces.available() and (_fv in ('1', 'true', 'yes') or (_fv not in ('0', 'false', 'no') and random.Random(seed * 37 + 5).random() < 0.4))
+# band: the band's own faces on the band's own account, on most videos (with faces: 3.2 s watched, 82 median views, n=10;
+# without: 2.8 s, 76, n=17 by 2026-11-24). producer keeps two in five.
+_face_p = 0.75 if mode == 'band' else 0.4
+plan['faces'] = _faces.available() and (_fv in ('1', 'true', 'yes') or (_fv not in ('0', 'false', 'no') and random.Random(seed * 37 + 5).random() < _face_p))
 if plan['faces']:
     plan['face_block'] = random.Random(seed * 41).choice([5, 6, 7])          # how chunky the pixels are: chunky, but the face still reads
     if mode == 'band':                                       # most lyric lines become a reaction window; the rest stay desktop scenes

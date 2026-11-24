@@ -6,8 +6,8 @@
 The band and producer styles also try two ways of showing the line (mode(style, seed)):
     'flash'  a yellow box for the first two seconds, as before
     'hold'   a caption that stays on for the whole video, in the place that style leaves free (draw_hold)
-Each recipe records the line ("hook"), its angle ("hook_angle": relatable / comment / curious /
-plain / debate) and the way it was shown ("hook_mode"), so the stats can say which of each keeps people and gets shared.
+Each recipe records the line ("hook"), its angle ("hook_angle": relatable / curious / plain /
+statement for band) and the way it was shown ("hook_mode"), so the stats can say which of each keeps people and gets shared.
 """
 import os, random
 import numpy as np
@@ -23,17 +23,15 @@ ANGLES = {
         'relatable': ["pov: you found your new favourite band", "songs that sound like 2am", "when the lyrics say what you couldn't",
                       "this is for the overthinkers", "the song you didn't know you needed", "main character walk home song",
                       "your sign to start a band with your friends"],
-        'comment':   ["which line hit hardest?", "wait for the last line. thoughts?"],
-        'curious':   ["read along", "nobody is talking about this band", "underrated song alert", "lyrics on screen. sound on"],
+        'curious':   ["read along", "underrated song alert", "lyrics on screen. sound on"],
         'plain':     ["your pc in 2001:", "class is in session"],
-        # Hot takes that make the viewer pick a side on the song before it has played, so they say so in the
-        # comments. Opinions and questions only: nothing here claims a fact about the song or anyone.
-        'debate':    ["unpopular opinion: this song is perfect", "this song is overrated. change my mind",
-                      "rock and rap should never mix. right?", "genius or unlistenable? pick one",
-                      "be honest: skip or replay?",
-                      "your parents would hate this song", "this band is either genius or mid",
-                      "only real music fans will get this", "this would've been huge in 2007. agree?",
-                      "too weird for the radio. agree?"],
+        # Hot takes said, not asked (2026-11-24): the old 'debate' and 'comment' lines ("change my mind", "agree?",
+        # "pick one", "skip or replay?", "which line hit hardest?") asked for comments, which is engagement bait
+        # (CLAUDE.md), and they were the weakest angle on close__quarters anyway: median 67 views over 8 posts against
+        # 76-106 for the others, and about one comment each. Opinions only: nothing here claims a fact or a number.
+        'statement': ["rock and rap in one song. on purpose.", "this would've been huge in 2007",
+                      "too weird for the radio", "your parents would hate this song",
+                      "an album about college, in 15 lessons", "this song is perfect. no notes."],
     },
     'producer': {
         'relatable': ["pov: 3am in the studio", "musicians will understand", "this is what a song looks like inside",
@@ -71,10 +69,10 @@ _FONT = {}
 HOLD_Y = {'band': 0.775, 'producer': 0.205}
 NONE_SHARE = {'band': 0.12, 'producer': 0.12, 'rocket': 0.5, 'psy': 0.5}   # psy: posts with no line were watched more (68 vs 41 median views, n=18/10)     # the rest keep the old quarter: enough "no line" posts to compare against
 # (rocket: a line on about two videos in five at first; the learner's 'none' angle can lower that)
-# An angle a style opens with most of the time, whatever the learner has found so far: (angle, share). The
-# close__quarters trial reels open on a hot take so people argue about the song in the comments; the other
-# 30% are left to the learner (other angles, no line), so there is something to compare the comments against.
-LEAD = {'band': ('debate', 0.7)}
+# An angle a style opens with some of the time, whatever the learner has found so far: (angle, share). The
+# close__quarters trial reels open on a hot take half the time (said as a statement, not a question: statement
+# lines out-pull question lines on Reels, and asking for comments is bait); the rest are left to the learner.
+LEAD = {'band': ('statement', 0.5)}
 
 def lead(style, seed):
     """The angle this video must open with ('' if it is free to choose)."""
