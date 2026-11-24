@@ -1,65 +1,12 @@
 {
-  "generated_at": "2026-11-23T14:56:27.542157Z",
+  "generated_at": "2026-11-24T05:24:39.031913Z",
   "items": [
     {
-      "id": "f19a206f-0ef6-4768-82c8-572aa70a7909",
-      "scheduled_for": "2026-11-23T11:40:00-05:00",
-      "rendered_at": "2026-11-23T14:56:27.542157Z",
-      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/f19a206f-0ef6-4768-82c8-572aa70a7909.mp4",
-      "caption": "Myth of Sisyphus – Close Quarters\nfound reel. EDUCATION is out now",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.285,
-        "anchor_y": 0.742,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "myth_of_sisyphus",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Myth of Sisyphus by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "vintage_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-224c51a8-2020-4fac-98e8-424e7bb5a87c",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T11:40:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Myth of Sisyphus – Close Quarters\nfound reel. EDUCATION is out now\n\nlink in bio to stream Myth of Sisyphus"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "b7c2c8e8-033f-4271-876d-629f19090029",
-      "scheduled_for": "2026-11-23T15:40:00-05:00",
-      "rendered_at": "2026-11-23T14:56:27.542157Z",
-      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/b7c2c8e8-033f-4271-876d-629f19090029.mp4",
-      "caption": "Fixation – Close Quarters\nfound reel. EDUCATION is out now",
+      "id": "b61d8e81-d5a6-464a-afde-e9c6f04b2d91",
+      "scheduled_for": "2026-11-24T08:40:00-05:00",
+      "rendered_at": "2026-11-24T05:24:39.031913Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-24/b61d8e81-d5a6-464a-afde-e9c6f04b2d91.mp4",
+      "caption": "found reel\n🎧 Won't Be the Same Again – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -69,62 +16,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.542,
-        "anchor_y": 0.707,
+        "anchor_x": 0.597,
+        "anchor_y": 0.734,
         "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "fixation",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Fixation by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "vintage_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-245cab8b-7782-49be-bef2-f5aa87b8d445",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T15:40:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Fixation – Close Quarters\nfound reel. EDUCATION is out now\n\nstream Fixation: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "fbfa8eb6-3c31-4982-912e-3cd02465bdc9",
-      "scheduled_for": "2026-11-23T19:40:00-05:00",
-      "rendered_at": "2026-11-23T14:56:27.542157Z",
-      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-23/fbfa8eb6-3c31-4982-912e-3cd02465bdc9.mp4",
-      "caption": "Myth of Sisyphus – Close Quarters\nfound reel. EDUCATION is out now",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.348,
-        "anchor_y": 0.37,
-        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -134,28 +28,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "myth_of_sisyphus",
+      "creative": "wont_be_the_same_again",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "vintage_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-ac4382d9-3210-4fce-bbde-e8f4b5fc3b82",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T19:40:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "Myth of Sisyphus – Close Quarters\nfound reel. EDUCATION is out now\n\nMyth of Sisyphus is out now. link in bio to stream it"
+        "instagram": "found reel\n🎧 Won't Be the Same Again – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
