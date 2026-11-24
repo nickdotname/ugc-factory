@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-24T05:24:39.031913Z",
+  "generated_at": "2026-11-24T08:46:54.958501Z",
   "items": [
     {
-      "id": "b61d8e81-d5a6-464a-afde-e9c6f04b2d91",
+      "id": "11790ccb-0ad4-4b4f-b8d7-fcc5211fbac8",
       "scheduled_for": "2026-11-24T08:40:00-05:00",
-      "rendered_at": "2026-11-24T05:24:39.031913Z",
-      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-24/b61d8e81-d5a6-464a-afde-e9c6f04b2d91.mp4",
-      "caption": "found reel\n🎧 Won't Be the Same Again – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
+      "rendered_at": "2026-11-24T08:46:54.958501Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-24/11790ccb-0ad4-4b4f-b8d7-fcc5211fbac8.mp4",
+      "caption": "a film from before sound, with sound\n🎧 Epilogue: Dismissal – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,10 +16,139 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.597,
-        "anchor_y": 0.734,
+        "anchor_x": 0.421,
+        "anchor_y": 0.74,
         "rotate_deg": -0.0,
-        "brightness": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "epilogue_dismissal",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Epilogue: Dismissal by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "a film from before sound, with sound\n🎧 Epilogue: Dismissal – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nstream Epilogue: Dismissal: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "53af48a3-44aa-493a-85a9-9ef8d8aada82",
+      "scheduled_for": "2026-11-24T11:40:00-05:00",
+      "rendered_at": "2026-11-24T08:46:54.958501Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-24/53af48a3-44aa-493a-85a9-9ef8d8aada82.mp4",
+      "caption": "public domain, cut to a new song\n🎧 Recess (Rewind) – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.45,
+        "anchor_y": 0.368,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "recess_rewind",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Recess (Rewind) – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "public domain, cut to a new song\n🎧 Recess (Rewind) – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nRecess (Rewind) is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7c4e3c24-7c19-4a2b-a571-542edd9c9beb",
+      "scheduled_for": "2026-11-24T14:40:00-05:00",
+      "rendered_at": "2026-11-24T08:46:54.958501Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-24/7c4e3c24-7c19-4a2b-a571-542edd9c9beb.mp4",
+      "caption": "the projector is running a little fast\n🎧 Passage (Waiting) – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.579,
+        "anchor_y": 0.666,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "passage_waiting",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Passage (Waiting) by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "the projector is running a little fast\n🎧 Passage (Waiting) – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nlink in bio to stream Passage (Waiting)"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ae24cba1-d06c-45b6-952e-78bd04c58d0a",
+      "scheduled_for": "2026-11-24T17:40:00-05:00",
+      "rendered_at": "2026-11-24T08:46:54.958501Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-24/ae24cba1-d06c-45b6-952e-78bd04c58d0a.mp4",
+      "caption": "film from the 1920s, cut on every bar\n🎧 Suspended – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.375,
+        "anchor_y": 0.715,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
@@ -28,28 +157,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "vintage_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-58ed7d84-38d6-460a-84f3-a4d350461fa6",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T08:40:00-05:00"
-        }
-      ],
+      "first_comment": "song: Suspended by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "found reel\n🎧 Won't Be the Same Again – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nlink in bio to stream Won't Be the Same Again"
+        "instagram": "film from the 1920s, cut on every bar\n🎧 Suspended – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "42a58ece-85dd-4d74-8d44-58e46e74f807",
+      "scheduled_for": "2026-11-24T20:40:00-05:00",
+      "rendered_at": "2026-11-24T08:46:54.958501Z",
+      "video_url": "https://factory.nickbenak.com/v/render-vintage_archive-2026-11-24/42a58ece-85dd-4d74-8d44-58e46e74f807.mp4",
+      "caption": "an intertitle and a drop\n🎧 Myth of Sisyphus – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.517,
+        "anchor_y": 0.717,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "myth_of_sisyphus",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "an intertitle and a drop\n🎧 Myth of Sisyphus – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
