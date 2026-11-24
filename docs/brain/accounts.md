@@ -4,24 +4,24 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 
 | account | `accounts.yaml` name | campaign | style(s) / renderer | posts/day | window (NY) |
 |---|---|---|---|---|---|
-| @close__quarters | close_quarters_ig | cq_band | band, lofi, cursor (lyric styles: the band's own footage) | 6 | 9–23 |
-| @dylancantor23 | dylancantor23_ig | cq_producer | producer (stems view) | 6 | 9–23 |
-| @the.loose.change (was nickdotname) | nickdotname_ig (Buffer) | nick_studio, closequarters | type (kinetic lyrics) + memes | 3 + 6 | 11–23 / all day |
-| @psychedelic.station | psychedelic_station_ig | psy_station | psy, collage (+ carousels, fact reels) | 8 | 9–23 |
-| @nostalgia.hub.vhs | nostalgia_ig | nostalgia | liminal (+ carousels, fact reels) | 4 | 9–23 |
-| @math.explainers | math_ig | math_time | math (integrals, Fourier, zeta, fold, sci8) | 3 | 10–23 |
-| @glitch.archive.exe | glitch_ig | glitch_archive | glitch | 3 | 12–23 |
-| @ascii.terminal.dreams | ascii_ig | ascii_art | ascii | 3 | 11–23 |
-| @physics.bounce.lab | physics_ig | physics_sims | physics (needs the song's Ableton hits) | 3 | 13–23 |
-| @earth.data.live | earth_ig | earth_data | earth | 3 | 13–23 |
-| @retro.vibes.arcade | retro_ig | retro_arcade | retro (Kaggle-made PS2 clips) | 3 | 12–23 |
-| @rocket.league.lit | rocket_ig | rocket_league | rocket (our own clips) | 3 | 12–23 |
-| @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 3 | 11–23 |
-| @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (memes, NYC facts) | 3 | 10–23 |
-| @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 3 | 10–23 |
-| @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (a public-domain film clip played back as coloured ASCII in a terminal) | 3 |
-| @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 3 |
-| @rotation.illusions ("Rotation Illusions") | illusions_ig | illusions | illusion (dot shapes whose turning direction is up to your eyes; a disc that reads as a cone; a wheel that runs backwards) | 3 | 8–23 |
+| @close__quarters | close_quarters_ig | cq_band | band, lofi, cursor (lyric styles: the band's own footage) | 8 | 9–23 |
+| @dylancantor23 | dylancantor23_ig | cq_producer | producer (stems view) | 8 | 9–23 |
+| @the.loose.change (was nickdotname) | nickdotname_ig (Buffer) | nick_studio, closequarters | type (kinetic lyrics) + memes | 3 + 4 | 11–23 / all day |
+| @psychedelic.station | psychedelic_station_ig | psy_station | psy, collage (+ carousels, fact reels) | 10 | 9–23 |
+| @nostalgia.hub.vhs | nostalgia_ig | nostalgia | liminal (+ carousels, fact reels) | 6 | 9–23 |
+| @math.explainers | math_ig | math_time | math (integrals, Fourier, zeta, fold, sci8) | 5 | 8–23 |
+| @glitch.archive.exe | glitch_ig | glitch_archive | glitch | 5 | 9–23 |
+| @ascii.terminal.dreams | ascii_ig | ascii_art | ascii | 5 | 9–23 |
+| @physics.bounce.lab | physics_ig | physics_sims | physics (needs the song's Ableton hits) | 5 | 8–23 |
+| @earth.data.live | earth_ig | earth_data | earth | 5 | 8–23 |
+| @retro.vibes.arcade | retro_ig | retro_arcade | retro (Kaggle-made PS2 clips) | 4 | 9–23 |
+| @rocket.league.lit | rocket_ig | rocket_league | rocket (our own clips) | 5 | 8–23 |
+| @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 5 | 8–23 |
+| @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (memes, NYC facts) | 5 | 9–23 |
+| @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 5 | 9–23 |
+| @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (a public-domain film clip played back as coloured ASCII in a terminal) | 5 | 8–23 |
+| @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 5 | 9–23 |
+| @rotation.illusions ("Rotation Illusions") | illusions_ig | illusions | illusion (dot shapes whose turning direction is up to your eyes; a disc that reads as a cone; a wheel that runs backwards) | 5 | 8–23 |
 
 `clubs` is the Clubs app's own campaign: blocked from every Close Quarters account. `knick_creates_*` are
 Nick's older Buffer channels (not Close Quarters).

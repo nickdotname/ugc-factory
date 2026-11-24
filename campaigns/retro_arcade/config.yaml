@@ -62,8 +62,8 @@ accounts:
   names: [retro_ig]
 
 posting:
-  posts_per_day: 3
-  start_hour: 12
+  posts_per_day: 4
+  start_hour: 9
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1

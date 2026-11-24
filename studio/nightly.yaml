@@ -40,7 +40,7 @@ targets:
     join: 40
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
-    per_night: 6
+    per_night: 7
     join: 40
   - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
     style: type
@@ -49,15 +49,15 @@ targets:
     first_fill: 8
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
     style: math
-    per_night: 4
+    per_night: 5
     join: 40
   - campaign: glitch_archive  # glitch.archive: public-domain footage, moshed / tracked / sorted on the beat (studio/footage.py for the clips)
     style: glitch
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: rocket_league  # rocket.league.lit: our Rocket League clips to the songs, straight or as montages (studio/rocket_lib.py for the clips)
     style: rocket
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: physics_sims  # satisfying physics sims: every collision lands on a hit from the song
     style: physics
@@ -69,11 +69,11 @@ targets:
     join: 30
   - campaign: ascii_art     # the ASCII account: 3D scenes drawn in letters, with their code (scene and look are knobs)
     style: ascii
-    per_night: 3
+    per_night: 5
     join: 30
   - campaign: earth_data    # the real planet on the beat: satellites, airliners, earthquakes (studio/earthdata.py fetches them daily)
     style: earth
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: retro_arcade  # retro.vibes.arcade: PS2-era game levels made on Kaggle (studio/retro_gen.py), cut on the bar
     style: retro
@@ -81,25 +81,25 @@ targets:
     join: 30
   - campaign: vintage_archive  # vintage.media.archive: films and cartoons from before 1931, cut on the beat as old prints (studio/vintage_video.py)
     style: vintage
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: nyc_daily     # nyc.daily.aesthetic: New York clips as memes and animated facts (studio/nyc_video.py)
     style: nyc
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: tiny_code     # tiny.code.loops: a few lines of numpy shown in an editor, and what they draw (studio/tinycode_video.py)
     style: tinycode
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: ascii_cinema  # ascii.cinema.tty: a public-domain film clip as coloured ASCII in a terminal (studio/cinema_video.py)
     style: cinema
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: petri_dish    # digital.petri.dish: a slime-mould simulation moving to the song (studio/alife_video.py)
     style: alife
-    per_night: 4
+    per_night: 5
     join: 30
   - campaign: illusions     # rotation.illusions: turning shapes your eyes cannot pin down (studio/illusion_video.py)
     style: illusion
-    per_night: 4
+    per_night: 5
     join: 30

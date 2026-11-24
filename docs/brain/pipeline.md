@@ -42,6 +42,7 @@ moving render to 08:30 UTC, after studio).
 - @the.loose.change (`nickdotname_ig`) still posts through **Buffer** (`BUFFER_API_KEY_2`).
 - Slots: `upcoming_slots` per campaign; `topup` refuses minutes another campaign or the network already holds
   on the same account (`publisher.scheduled_slots`), so two posts never land on one minute.
+  A day is full at `posts_per_day` posts for the account (lineup posts with an `at:` are exempt).
 - Posting windows are daytime (9–23 NY, per campaign). Nothing posts overnight by design.
 
 ## Failure handling worth knowing

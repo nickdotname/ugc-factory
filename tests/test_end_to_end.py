@@ -564,6 +564,39 @@ class TestStaleSlotRecovery:
         assert due, "nothing was pushed"
         assert not set(due) & set(held), "a new post was given a minute the network already holds"
 
+    def test_topup_does_not_overfill_a_day_the_network_already_holds(
+        self, fanout_campaign: Path, monkeypatch
+    ) -> None:
+        """Slots were only checked minute by minute. When a campaign's grid changed (an
+        earlier window, more posts a day), the new grid's posts went on top of what the
+        old grid had already booked, and a three-a-day account got eight (2026-11-23)."""
+        from collections import Counter
+        from zoneinfo import ZoneInfo
+
+        from src.config import load_config
+        from src.publishers.base import DryRunPublisher
+
+        cli.cmd_render(render_args(), {})
+        config = load_config(fanout_campaign / "config.yaml")
+        zone = ZoneInfo(config.timezone)
+        cap = config.posting.posts_per_day
+        q = load_queue(fanout_campaign / "queue.json")
+        first = min(i.scheduled_for for i in q.items).astimezone(zone)
+        # The first day already holds a full day's posts, on minutes the grid does not use.
+        held = [first.replace(hour=23, minute=41 + k, second=0, microsecond=0) for k in range(cap)]
+        monkeypatch.setattr(DryRunPublisher, "scheduled_slots", lambda self, channel: held)
+
+        cli.cmd_topup(topup_args(), {})
+        after = load_queue(fanout_campaign / "queue.json")
+        due = [p.scheduled_for for i in after.items for p in i.posts if p.scheduled_for is not None]
+        assert due, "nothing was pushed"
+        by_account = Counter(
+            (p.account, p.scheduled_for.astimezone(zone).date())
+            for i in after.items for p in i.posts if p.scheduled_for is not None
+        )
+        assert first.date() not in {d for (_, d) in by_account}, "a full day was given more posts"
+        assert max(by_account.values()) <= cap, "a later day was given more than a day's posts"
+
     def test_fanout_reslot_does_not_collide_with_a_slot_never_marked_stale(
         self, fanout_campaign: Path
     ) -> None:

@@ -1628,11 +1628,21 @@ def _push_to_account(
         log.warning("scheduled_slots_unavailable", error=str(exc)[:200])
         held = set()
     taken |= held
+    # A day is full once the account holds posts_per_day posts on it. Slots were only ever checked minute by
+    # minute, so a change of grid (an earlier window, more posts a day) put the new grid's posts on top of
+    # everything the old grid had already booked. A campaign that shares its channel is limited by its
+    # buffer_share instead: the other campaign's posts are not its own day.
+    cap = None if config.posting.buffer_share is not None else config.posting.posts_per_day
+    per_day = Counter(t.astimezone(config.zone).date() for t in taken)
+
+    def full(when: datetime) -> bool:
+        return cap is not None and per_day[when.astimezone(config.zone).date()] >= cap
+
     fresh = [
         slot
         for slot in upcoming_slots(
             now,
-            len(to_push) + len(held) + 8,
+            len(to_push) + len(held) + 8 + 5 * config.posting.posts_per_day,
             config.posting.start_hour,
             config.posting.end_hour,
             config.posting.posts_per_day,
@@ -1656,7 +1666,11 @@ def _push_to_account(
         # item reslotted onto some fresh slot, and a separate item whose own
         # due was never stale could still land on that identical slot with
         # no check at all, and both went out on the same minute.
-        if due <= now + lead or due in taken:
+        # A hand-timed post keeps the time it was given, however full its day is.
+        pinned = item.lineup_id is not None
+        if due <= now + lead or due in taken or (full(due) and not pinned):
+            while fresh and full(fresh[0]):
+                fresh.pop(0)
             if not fresh:
                 log.warning("reslot_exhausted", item_id=item.id)
                 break
@@ -1666,6 +1680,7 @@ def _push_to_account(
                 was=was.isoformat(), now_at=due.isoformat(),
             )
         taken.add(due)
+        per_day[due.astimezone(config.zone).date()] += 1
         post.scheduled_for = due
 
         # This account's own version if it has one; otherwise this network's

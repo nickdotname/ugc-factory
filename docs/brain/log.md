@@ -2,6 +2,13 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: more posts, earlier. Niche accounts go from 3 to 5 a day (retro 4), nostalgia 6, close__quarters and
+  dylancantor23 8, psychedelic.station 10; every window now opens at 8 or 9 (several opened at 11–13, so mornings
+  were empty). The studio makes 5 a night per niche account to match. topup now treats a day as full once the
+  account holds posts_per_day posts on it: slots were only checked minute by minute, so a changed grid would have
+  stacked new posts on top of the days already booked (hand-timed lineup posts are exempt; a campaign with a
+  `buffer_share` is limited by that instead). Nightly studio time will grow; its limit is 170 minutes.
+
 - 2026-11-23: new account @rotation.illusions (campaign `illusions`, style `illusion`), on the Page "Rotation
   Illusions" that Nick made and shared. Three a day from 8:20. Three more Pages are coming from Nick (8-Bit Tests,
   Algorithm Races, Notes App Thoughts): one account each, when their formats are ready.

@@ -61,7 +61,7 @@ accounts:
   names: [dylancantor23_ig]
 
 posting:
-  posts_per_day: 6              # six trial reels a day across the songs below
+  posts_per_day: 8              # six trial reels a day across the songs below
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10

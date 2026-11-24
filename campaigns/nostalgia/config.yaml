@@ -65,7 +65,7 @@ accounts:
   names: [nostalgia_ig]
 
 posting:
-  posts_per_day: 4              # liminal tapes; up to 4 carousels and 4 fact reels a day are posted on top
+  posts_per_day: 6              # liminal tapes; up to 4 carousels and 4 fact reels a day are posted on top
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10

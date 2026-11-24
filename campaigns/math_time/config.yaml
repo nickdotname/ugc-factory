@@ -64,9 +64,9 @@ accounts:
   names: [math_ig]
 
 posting:
-  posts_per_day: 3
+  posts_per_day: 5
   cover_at_sec: 5          # the grid cover: a frame with the picture on it, not the empty first one
-  start_hour: 10
+  start_hour: 8
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
