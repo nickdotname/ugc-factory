@@ -1999,6 +1999,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "c2beffffc884921a061efd7492193746f070ac5dba46671500c27b77bbb67181",
+      "timestamp": "2026-11-24T08:47:02.658615Z",
+      "item_id": "18485251-d4b7-411e-ac40-4e53ba584d52",
+      "hook": "hook_05.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "this one breathes if you stare long enough\n🎧 Evil Close Quarters – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "creative": "evil_close_quarters",
+      "captions": {
+        "instagram": "this one breathes if you stare long enough\n🎧 Evil Close Quarters – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nEvil Close Quarters is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.528,
+        "anchor_y": 0.472,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-24T08:47:02.658615Z",
+      "item_id": "128924e8-a378-48c4-b0cf-d687e14961d0",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "turn the lights off first\n🎧 Silver and Gold – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "creative": "silver_and_gold",
+      "captions": {
+        "instagram": "turn the lights off first\n🎧 Silver and Gold – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Silver and Gold"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.595,
+        "anchor_y": 0.417,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

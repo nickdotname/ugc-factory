@@ -1,25 +1,68 @@
 {
-  "generated_at": "2026-11-24T05:24:36.600698Z",
+  "generated_at": "2026-11-24T08:47:02.658615Z",
   "items": [
     {
-      "id": "3aec9e25-727e-4deb-adfc-87e1cd8eeee5",
+      "id": "18485251-d4b7-411e-ac40-4e53ba584d52",
       "scheduled_for": "2026-11-24T09:20:00-05:00",
-      "rendered_at": "2026-11-24T05:24:36.600698Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-24/3aec9e25-727e-4deb-adfc-87e1cd8eeee5.mp4",
-      "caption": "let your eyes go soft\n🎧 Passage (Waiting) – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "rendered_at": "2026-11-24T08:47:02.658615Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-24/18485251-d4b7-411e-ac40-4e53ba584d52.mp4",
+      "caption": "this one breathes if you stare long enough\n🎧 Evil Close Quarters – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_05.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.336,
-        "anchor_y": 0.374,
+        "anchor_x": 0.528,
+        "anchor_y": 0.472,
         "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "this one breathes if you stare long enough\n🎧 Evil Close Quarters – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nEvil Close Quarters is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "128924e8-a378-48c4-b0cf-d687e14961d0",
+      "scheduled_for": "2026-11-24T10:44:00-05:00",
+      "rendered_at": "2026-11-24T08:47:02.658615Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-24/128924e8-a378-48c4-b0cf-d687e14961d0.mp4",
+      "caption": "turn the lights off first\n🎧 Silver and Gold – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.595,
+        "anchor_y": 0.417,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
@@ -28,81 +71,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "passage_waiting",
+      "creative": "silver_and_gold",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-52b14e03-957f-4fe1-92cd-d1b784aa8e61",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T10:44:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Silver and Gold by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "let your eyes go soft\n🎧 Passage (Waiting) – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Passage (Waiting): link in bio"
+        "instagram": "turn the lights off first\n🎧 Silver and Gold – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "6d9f9cb7-8233-4a8f-83e4-cefb5a7e51e4",
-      "scheduled_for": "2026-11-24T10:44:00-05:00",
-      "rendered_at": "2026-11-24T05:24:36.600698Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-24/6d9f9cb7-8233-4a8f-83e4-cefb5a7e51e4.mp4",
-      "caption": "watch the edges, not the middle\n🎧 Subway Maintenance – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.685,
-        "anchor_y": 0.562,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "subway_maintenance",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-21236370-e118-4c02-8ede-9ea0c2fb48da",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T12:08:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "watch the edges, not the middle\n🎧 Subway Maintenance – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nSubway Maintenance is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
