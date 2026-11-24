@@ -35,7 +35,7 @@ def reel(slug, name):
     # the cards: hook, three slides, the pointer. ~3.3s each, so ~16.5s and it loops.
     slides = spec['slides'][:3] if part == 1 else spec['slides'][3:6]; D = 3.3
     opener = spec['headline'] if part == 1 else 'Part 2: ' + spec['headline'][0].lower() + spec['headline'][1:]
-    cards = [[0, D, '', opener]] + [[D * (k + 1), D * (k + 2), b, t] for k, (b, t) in enumerate(slides)]
+    cards = [[0, D, '', opener]] + [[D * (k + 1), D * (k + 2), b, t] for k, (b, t, *_) in enumerate(slides)]   # a slide may also name its pictures
     cards.append([D * 4, D * 5, 'swipe the full story', 'it is on our page. 6 slides, sources on the last one.'])
     dur = D * 5
 

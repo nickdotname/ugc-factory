@@ -2,6 +2,9 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: fact reels stopped (20:45 run): the newer carousel specs give each slide a third field (its
+  pictures) and `post_factreel.py` unpacked exactly two. It now ignores anything after the heading and the text.
+
 - 2026-11-23: two new accounts, @ascii.cinema.tty (campaign `ascii_cinema`, style `cinema`) and @digital.petri.dish
   (`petri_dish`, style `alife`). Dylan's profile had hit Facebook's Page limit, so Nick made the two Pages on his
   own profile and gave Dylan full control. They start at 8 and 9 in the morning, earlier than the other niche pages.
