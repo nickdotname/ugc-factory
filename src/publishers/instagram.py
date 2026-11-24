@@ -249,6 +249,11 @@ class InstagramPublisher(Publisher):
         self.request_count = 0
         #: Files written during this run, for the caller to commit.
         self.touched: list[Path] = []
+        #: Called with (file, "claim") just before a post is sent and with
+        #: (file, "sent") just after, so the caller can make each step durable
+        #: (commit and push it) instead of once at the end of the run. A
+        #: "claim" that raises stops the post from being sent.
+        self.checkpoint: Callable[[Path, str], None] | None = None
 
     # ----------------------------------------------------------------- plumbing
 
@@ -526,7 +531,13 @@ class InstagramPublisher(Publisher):
         # between, the next run finds the container and asks Instagram what
         # became of it instead of posting the video a second time.
         item["status"] = PUBLISHING
-        self.touched.append(self.outbox.save(item))
+        claim = self.outbox.save(item)
+        self.touched.append(claim)
+        if self.checkpoint is not None:
+            # A file on the runner's disk is gone when the job ends. The claim
+            # only protects anything once it is on the branch, so it goes
+            # there now; if it cannot, the post is not sent on this run.
+            self.checkpoint(claim, "claim")
 
         state = self._wait_until_ready(str(item["container_id"]))
         if state != "PUBLISHED":
@@ -538,7 +549,15 @@ class InstagramPublisher(Publisher):
         item["status"] = PUBLISHED
         item["published_at"] = self._now().isoformat()
         item.pop("error", None)
-        self.touched.append(self.outbox.save(item))
+        sent = self.outbox.save(item)
+        self.touched.append(sent)
+        if self.checkpoint is not None:
+            try:
+                self.checkpoint(sent, "sent")
+            except Exception as exc:  # noqa: BLE001 - the post is out
+                # The claim is already on the branch, so the next run asks
+                # Instagram about the container instead of sending it again.
+                self._log.exception("instagram_sent_not_recorded", exc, post_id=item["id"])
 
         comment = item.get("first_comment")
         if comment and item.get("media_id"):

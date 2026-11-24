@@ -411,3 +411,49 @@ def test_a_cover_frame_is_asked_for_when_set(tmp_path: Path) -> None:
     publisher.publish_due()
     create = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")][0]
     assert create.kwargs["data"]["thumb_offset"] == "5000"
+
+
+def test_claim_is_made_durable_before_the_post_is_sent(tmp_path):
+    """The claim has to leave the runner before Instagram is asked to publish."""
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request())
+    seen: list[tuple[str, str, int]] = []
+
+    def checkpoint(path, what):
+        status = json.loads(path.read_text())["status"]
+        seen.append((what, status, len(session.calls_to("/media_publish"))))
+
+    publisher.checkpoint = checkpoint
+    publisher.publish_due()
+    assert seen == [("claim", PUBLISHING, 0), ("sent", PUBLISHED, 1)]
+
+
+def test_a_refused_claim_sends_nothing(tmp_path):
+    """Another run took the post first: this one must not publish it too."""
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request())
+
+    def checkpoint(path, what):
+        raise RuntimeError("someone else changed this post")
+
+    publisher.checkpoint = checkpoint
+    with pytest.raises(RuntimeError):
+        publisher.publish_due()
+    assert session.calls_to("/media_publish") == []
+
+
+def test_a_sent_post_survives_a_failed_record(tmp_path):
+    """Once the post is out, failing to write that down must not fail the post."""
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request())
+
+    def checkpoint(path, what):
+        if what == "sent":
+            raise RuntimeError("push refused")
+
+    publisher.checkpoint = checkpoint
+    changed = publisher.publish_due()
+    assert [i["status"] for i in changed] == [PUBLISHED]
