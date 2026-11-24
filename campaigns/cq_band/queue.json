@@ -1,165 +1,6 @@
 {
-  "generated_at": "2026-11-24T00:46:11.319278Z",
+  "generated_at": "2026-11-24T05:24:41.612443Z",
   "items": [
-    {
-      "id": "58805e0f-cf37-4230-891d-398a8e44b616",
-      "scheduled_for": "2026-11-23T16:50:00-05:00",
-      "rendered_at": "2026-11-23T08:32:07.274844Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/58805e0f-cf37-4230-891d-398a8e44b616.mp4",
-      "caption": "if you know every word by the end, follow\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
-      "title": null,
-      "parts": {
-        "hook": "hook_04.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.442,
-        "anchor_y": 0.523,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "Suspended is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-2fdbb710-217b-4e14-9779-86e395bbf7f0",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T12:10:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "if you know every word by the end, follow\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Suspended"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "01ad0a4e-fddb-4162-8f52-7e7b8f5c8bce",
-      "scheduled_for": "2026-11-23T19:10:00-05:00",
-      "rendered_at": "2026-11-23T08:32:07.274844Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/01ad0a4e-fddb-4162-8f52-7e7b8f5c8bce.mp4",
-      "caption": "for walking home with your headphones on\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
-      "title": null,
-      "parts": {
-        "hook": "hook_06.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.389,
-        "anchor_y": 0.705,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "fixation",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "Fixation, from EDUCATION. the whole album is linked in our bio",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-db5db337-9907-4143-9421-7b2aaa18a51c",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T14:30:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "for walking home with your headphones on\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Fixation: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "dc3d20d2-0acf-4130-a2cf-24f638167ded",
-      "scheduled_for": "2026-11-23T21:30:00-05:00",
-      "rendered_at": "2026-11-23T06:31:11.310418Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-23/dc3d20d2-0acf-4130-a2cf-24f638167ded.mp4",
-      "caption": "if you know every word by the end, follow\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
-      "title": null,
-      "parts": {
-        "hook": "hook_06.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.503,
-        "anchor_y": 0.75,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "wont_be_the_same_again",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "EDUCATION is out now. Won't Be the Same Again is just one of them, link in bio",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-a3ec5a9c-c31c-4ec3-8e4a-a0f0681319d6",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T16:50:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "if you know every word by the end, follow\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nWon't Be the Same Again is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
     {
       "id": "dbe59a12-e87e-42f2-a929-bbe0f0c3d556",
       "scheduled_for": "2026-11-24T09:50:00-05:00",
@@ -206,6 +47,49 @@
       ],
       "captions": {
         "instagram": "pov: you found this on limewire in 2003\nEvil Close Quarters – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nEvil Close Quarters is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ac65e994-0806-49d0-ba38-b1f1f448f6a0",
+      "scheduled_for": "2026-11-24T11:35:00-05:00",
+      "rendered_at": "2026-11-24T05:24:41.612443Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-24/ac65e994-0806-49d0-ba38-b1f1f448f6a0.mp4",
+      "caption": "the song you didn't know you needed today\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_05.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.587,
+        "anchor_y": 0.356,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "notta_problem",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "EDUCATION is out now. Notta Problem is just one of them, link in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "the song you didn't know you needed today\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
       "status": "pending",
@@ -267,6 +151,49 @@
       "last_error": null
     },
     {
+      "id": "63a7dc5e-9e81-4429-b195-1c7695765a84",
+      "scheduled_for": "2026-11-24T13:20:00-05:00",
+      "rendered_at": "2026-11-24T05:24:41.612443Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-24/63a7dc5e-9e81-4429-b195-1c7695765a84.mp4",
+      "caption": "nobody's talking about this album yet. be early.\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_10.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.74,
+        "anchor_y": 0.574,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "fixation",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Fixation is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
+      "posts": [],
+      "captions": {
+        "instagram": "nobody's talking about this album yet. be early.\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Fixation"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
       "id": "2d7262e3-eb67-461d-9519-d35cc01f00fb",
       "scheduled_for": "2026-11-24T14:30:00-05:00",
       "rendered_at": "2026-11-24T00:29:49.905593Z",
@@ -312,6 +239,135 @@
       ],
       "captions": {
         "instagram": "play this in the car and see who asks what it is\nPrologue: Before – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Prologue: Before: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "1d088cb8-7185-43b9-85ff-e1de895f228b",
+      "scheduled_for": "2026-11-24T15:05:00-05:00",
+      "rendered_at": "2026-11-24T05:24:41.612443Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-24/1d088cb8-7185-43b9-85ff-e1de895f228b.mp4",
+      "caption": "lyrics on the screen. volume up.\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.409,
+        "anchor_y": 0.409,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "talk",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Talk, from EDUCATION. the whole album is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "lyrics on the screen. volume up.\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Talk: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "24829933-8e69-4453-856f-54c4fdcf6ee0",
+      "scheduled_for": "2026-11-24T16:50:00-05:00",
+      "rendered_at": "2026-11-24T05:24:41.612443Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-24/24829933-8e69-4453-856f-54c4fdcf6ee0.mp4",
+      "caption": "windows 98 had feelings too\nFull Ride – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_07.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.662,
+        "anchor_y": 0.632,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "EDUCATION is out now. Full Ride is just one of them, link in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "windows 98 had feelings too\nFull Ride – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nFull Ride is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "ee2c0554-3668-485d-8262-4de5b9e57e72",
+      "scheduled_for": "2026-11-24T18:35:00-05:00",
+      "rendered_at": "2026-11-24T05:24:41.612443Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-24/ee2c0554-3668-485d-8262-4de5b9e57e72.mp4",
+      "caption": "for whoever needed this today\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_12.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.55,
+        "anchor_y": 0.417,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Won't Be the Same Again is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
+      "posts": [],
+      "captions": {
+        "instagram": "for whoever needed this today\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
       "status": "pending",
