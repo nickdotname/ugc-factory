@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Epilogue: Dismissal by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "cinema_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-24T11:05:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "archive footage, played in a terminal\n🎧 Epilogue: Dismissal – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nlink in bio to stream Epilogue: Dismissal"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
