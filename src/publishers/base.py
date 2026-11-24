@@ -65,6 +65,9 @@ class PublishRequest(BaseModel):
     #: or ``SS_PERFORMANCE`` (Instagram, if it does well).
     trial: bool = False
     trial_graduation: str | None = None
+    #: Instagram only: where in the video its cover frame is, in milliseconds
+    #: (Instagram's ``thumb_offset``). None leaves it to Instagram: frame 0.
+    cover_at_ms: int | None = Field(default=None, ge=0)
     #: Instagram only, Facebook Login only: a track from Instagram's music
     #: catalogue to attach, so the Reel links to the song's own audio page
     #: instead of being labelled "Original audio". Volumes are 1-100.
