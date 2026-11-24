@@ -807,7 +807,7 @@ def _label(d, text, cx, y, font, fill, bgc, pad=(30, 14), radius=22):
     d.rounded_rectangle([cx - tw / 2 - pad[0], y - pad[1], cx + tw / 2 + pad[0], y + h + pad[1] * 0.6], radius=radius, fill=bgc)
     d.text((cx - tw / 2, y), text, font=font, fill=fill)
 
-LANE_Y0, LANE_H, LANE_GAP, HEAD_W, PH_X = 712, 170, 14, 238, 560
+LANE_Y0, LANE_H, LANE_GAP, HEAD_W, PH_X = 598, 192, 12, 238, 560   # tracks 598-1402, the meters under them to 1496
 def story_frame(f, feat, plan, ctx, rng):
     bands, low = feat; T = T0 + f / FPS; beat = t2b(T)
     st, on, lab = story_step(plan, T); on = set(on); since = T - st
@@ -818,24 +818,24 @@ def story_frame(f, feat, plan, ctx, rng):
     im = Image.fromarray(a); d = ImageDraw.Draw(im)
     # the song: title and tempo, small, below Instagram's top bar
     sub = '%s  ·  %s  ·  %d BPM' % (SONG['title'], SONG['artist'].lower(), round(60 / SPB)); f2 = F(INTER_SB, 34)
-    d.text(((W - d.textlength(sub, font=f2)) / 2, 268), sub, font=f2, fill=(150, 158, 172))
+    d.text(((W - d.textlength(sub, font=f2)) / 2, 262), sub, font=f2, fill=(150, 158, 172))
     # the line over the first seconds, then the lyric (only while the vocal is in)
     hook_on = plan.get('hook') and T - T0 < 3.2
     if hook_on:
-        al = min(1.0, max(0.0, (3.2 - (T - T0)) / 0.3)); fh = F(INTER_XB, 62)                 # fully there in frame 0
-        rows = wrap(d, plan['hook'].split(), fh, 800); y = 336
+        al = min(1.0, max(0.0, (3.2 - (T - T0)) / 0.3)); fh = F(INTER_XB, 58)                 # fully there in frame 0
+        rows = wrap(d, plan['hook'].split(), fh, 740); y = 306
         for r in rows:
             s_ = ' '.join(r); tw = d.textlength(s_, font=fh)
             d.text(((W - tw) / 2, y), s_, font=fh, fill=tuple(int(bg[i] + (255 - bg[i]) * al) for i in range(3)))
-            y += 74
+            y += 68
     k = line_at(T)
     if k is not None and 'Vocals' in on and not hook_on:
-        allw = [w for w, _ in LINES[k][1]]; size = next((z for z in (66, 56, 48) if len(wrap(d, allw, F(CAP, z), 800)) <= 2), 42)
-        karaoke(d, k, T, 338 + (66 - size), size=size, maxw=800, outline=False)          # two rows at most: the label is below
+        allw = [w for w, _ in LINES[k][1]]; size = next((z for z in (60, 52, 44) if len(wrap(d, allw, F(CAP, z), 740)) <= 2), 40)
+        karaoke(d, k, T, 306 + (60 - size), size=size, maxw=740, outline=False)          # two rows at most: the label is below
     # what is playing now, in words: the label pops when it changes
-    pop = 1 + 0.22 * np.exp(-since * 14); fb = F(INTER_XB, int(66 * pop)); full = len(on) == 4
+    pop = 1 + 0.22 * np.exp(-since * 14); fb = F(INTER_XB, int(58 * pop)); full = len(on) == 4
     acc = (255, 255, 255) if full else tuple(pal[ST_ORDER.index(sorted(on, key=ST_ORDER.index)[-1])])
-    _label(d, lab, W / 2, 566 - int(66 * (pop - 1) / 2), fb, (14, 15, 20), acc)
+    _label(d, lab, W / 2, 470 - int(58 * (pop - 1) / 2), fb, (14, 15, 20), acc)
     # the arrangement: four tracks, header on the left, the clip with its waveform scrolling under the playhead
     ppb = 74; vis0 = beat - PH_X / ppb
     for i, nm in enumerate(ST_ORDER):
@@ -869,18 +869,26 @@ def story_frame(f, feat, plan, ctx, rng):
         x = PH_X + (b - beat) * ppb
         if b % 4 == 0 and HEAD_W + 12 < x < W:
             d.line([x, top, x, bot], fill=(0, 0, 0), width=2)
-            d.text((x + 6, top - 34), str(b // 4 + 1), font=F(MONO, 24), fill=(110, 116, 128))
+            d.text((x + 6, top - 28), str(b // 4 + 1), font=F(MONO, 20), fill=(110, 116, 128))
     d.polygon([(PH_X - 14, top - 8), (PH_X + 14, top - 8), (PH_X, top + 10)], fill=(255, 255, 255))
     d.line([PH_X, top, PH_X, bot], fill=(255, 255, 255), width=4)
-    # the master meter under the tracks: the whole mix's spectrum, so the frame moves with the sound
-    fi = min(f, bands.shape[1] - 1); bw = (W - 2 * 40) / bands.shape[0]
+    # the master section under the tracks (bot+10 .. 1496): the mix's spectrum across, and a master meter with its peak
+    # hold on the right, so the band above Instagram's caption moves with the sound instead of sitting empty
+    fi = min(f, bands.shape[1] - 1); sx0, sx1, sy1 = 40, 900, 1496; sy0 = bot + 14; bw = (sx1 - sx0) / bands.shape[0]
+    d.rounded_rectangle([12, sy0 - 4, W - 12, sy1 + 4], radius=12, fill=(20, 22, 28))
     for b in range(bands.shape[0]):
-        v = float(bands[b, max(0, fi - 1):fi + 1].mean()); hh = int(v * 56) + 2
-        d.rectangle([40 + b * bw, 1494 - hh, 40 + (b + 1) * bw - 6, 1494], fill=(70, 78, 96) if not full else tuple(int(c * .7) for c in pal[b % 4]))
+        v = float(bands[b, max(0, fi - 1):fi + 1].mean()); hh = int(v * (sy1 - sy0 - 12)) + 3
+        d.rectangle([sx0 + b * bw, sy1 - hh, sx0 + (b + 1) * bw - 5, sy1], fill=(70, 78, 96) if not full else tuple(int(c * .75) for c in pal[b % 4]))
+    lv = float(np.clip(bands[:, max(0, fi - 1):fi + 1].mean() * 1.6, 0, 1)); pk = ctx['mpk'] = max(lv, ctx.get('mpk', 0.0) - 0.015)
+    mx0, mx1 = 930, 1052; mh = sy1 - sy0 - 8; segs = 10; sh_ = mh / segs
+    for i_ in range(segs):                                                           # green, then amber, then red
+        fr_ = (i_ + 1) / segs; yy = sy1 - (i_ + 1) * sh_; c = (90, 220, 120) if fr_ < .7 else (250, 200, 70) if fr_ < .9 else (255, 90, 80)
+        d.rectangle([mx0, yy + 2, mx1, yy + sh_ - 2], fill=c if fr_ <= lv else tuple(int(v * .2) for v in c))
+    py_ = sy1 - pk * mh; d.rectangle([mx0, py_ - 3, mx1, py_], fill=(255, 255, 255))
     a = np.asarray(im)
     if plan.get('faces') and plan.get('drop') and T >= plan['drop']:          # a reaction when everything comes in
         a = _faces.paste_sprite(np.ascontiguousarray(a), ctx.setdefault('face', _faces.pick(FACE_WHO[0] if FACE_WHO else 'dylan', 2, (seed, 'drop'))),
-                                W * 0.80, 1430, 420, T - plan['drop'], T, beat % 1, block=plan.get('face_block', 6))
+                                W - 96, 556, 240, T - plan['drop'], T, beat % 1, block=plan.get('face_block', 6))
     # the frame punches in on each new part (hardest on the full mix) and, once the drums are in, a little on the beat
     z = 1.0
     if since < 0.4: z += (0.05 if full else 0.025) * np.exp(-since * 10)
