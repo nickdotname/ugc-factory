@@ -8,14 +8,6 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   cleanly as of 2026-11-23.
 
 ## Next
-- **@moth.ate.my.notes: the text account** (registered as `notes_ig`, token `IG_TOKEN_4`, no campaign yet). Renderer
-  to build: Instagram "Create mode" look. Gradients blue→purple, red→orange, pink→magenta; lowercase text, centred,
-  white with a soft shadow or black with none; two faces (rounded bold, tall condensed). Shapes seen in the
-  references Dylan sent on 2026-11-24: a one-liner about an ex or a situationship; a current-events twist; a dash
-  list; setup / turn / punchline with blank lines between. A band posting this format with its own song attached
-  did well, which is our case. No song label on the card (Dylan). Lines are ours, written in that voice: never
-  copied from other pages, nothing explicit, nothing about real private people. Prototypes: `/tmp/textcards/` in
-  the 2026-11-24 session (not in the repo).
 - **Account ideas from the same day** (each needs an Instagram account made on the phone and a tester invite; four
   token slots are free, `IG_TOKEN_5`…`8`):
   - *Reveal* ("can you guess it?"): a closed outline drawn by Fourier epicycles with N = 3, 5, 8, 20… circles, the

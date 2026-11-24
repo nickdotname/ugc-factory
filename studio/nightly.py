@@ -87,6 +87,7 @@ VISUAL['alife'] = 'alife_video.py'       # digital.petri.dish: a slime-mould sim
 VISUAL['illusion'] = 'illusion_video.py' # rotation.illusions: dot shapes whose turning direction is up to your eyes
 VISUAL['race'] = 'race_video.py'       # algorithm.races: sorting and pathfinding algorithms racing on the same problem
 VISUAL['tests8'] = 'tests8_video.py'   # 8bit.tests: pixel-art tests you take along with the song
+VISUAL['notes'] = 'text_video.py'      # moth.ate.my.notes: one thought on a gradient, like a text post
 
 def lofi_cover(slug, win):
     """How much of a stretch the band's dance footage covers (0..1)."""
@@ -128,7 +129,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line'}
 FRESH = 0.6
 
 def freshen(style, menu, kn, recent, learned, r):
