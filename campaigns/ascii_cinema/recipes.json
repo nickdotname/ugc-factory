@@ -1,0 +1,166 @@
+{
+ "clips": {},
+ "menu": {
+  "cinema": {
+   "cell": [
+    "12",
+    "14",
+    "18"
+   ],
+   "ramp": [
+    "classic",
+    "blocks",
+    "dots"
+   ],
+   "look": [
+    "colour",
+    "phosphor",
+    "amber"
+   ],
+   "crt": [
+    "on",
+    "off"
+   ],
+   "source": [
+    "Brooklyn Bridge",
+    "Melies",
+    "Nosferatu",
+    "amusement park",
+    "aurora",
+    "automobile",
+    "earth from space",
+    "escalator",
+    "highway",
+    "neon signs",
+    "railroad",
+    "rocket launch"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-24",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s04_cinema_232887.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s04",
+   "style": "cinema",
+   "seed": 232887,
+   "window": [
+    52.98,
+    71.12
+   ],
+   "plan": null,
+   "knobs": {
+    "cell": "14",
+    "ramp": "blocks",
+    "look": "amber",
+    "crt": "on",
+    "source": "escalator",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.65,
+    "bass": 0.7,
+    "other": 0.56
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s02_cinema_680484.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "cinema",
+   "seed": 680484,
+   "window": [
+    27.33,
+    36.06
+   ],
+   "plan": null,
+   "knobs": {
+    "cell": "12",
+    "ramp": "dots",
+    "look": "phosphor",
+    "crt": "on",
+    "source": "earth from space",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.04,
+    "drums": 0.06,
+    "bass": 0.11,
+    "other": 0.21
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s05_cinema_628827.mp4",
+   "song": "recess-rewind",
+   "section": "s05",
+   "style": "cinema",
+   "seed": 628827,
+   "window": [
+    70.16,
+    87.33
+   ],
+   "plan": null,
+   "knobs": {
+    "cell": "14",
+    "ramp": "classic",
+    "look": "colour",
+    "crt": "on",
+    "source": "rocket launch",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.58,
+    "bass": 0.7,
+    "other": 0.73
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_s02_cinema_744727.mp4",
+   "song": "notta-problem",
+   "section": "s02",
+   "style": "cinema",
+   "seed": 744727,
+   "window": [
+    48.55,
+    66.27
+   ],
+   "plan": null,
+   "knobs": {
+    "cell": "12",
+    "ramp": "blocks",
+    "look": "colour",
+    "crt": "off",
+    "source": "escalator",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.82,
+    "bass": 0.26,
+    "other": 0.34
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
