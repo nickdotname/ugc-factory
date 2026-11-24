@@ -244,8 +244,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-ea2e03e7-542b-46ea-a29e-0aefa9236dbf",
+      "post_ids": {
+        "illusions_ig": "igo-ea2e03e7-542b-46ea-a29e-0aefa9236dbf"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
