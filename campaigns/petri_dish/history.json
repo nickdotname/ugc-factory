@@ -28,8 +28,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-bc34af87-6a9b-4f90-b43b-84273123abb7",
+      "post_ids": {
+        "petri_ig": "igo-bc34af87-6a9b-4f90-b43b-84273123abb7"
+      },
       "overlay": null,
       "lineup_id": "violet-first",
       "variants": {}
