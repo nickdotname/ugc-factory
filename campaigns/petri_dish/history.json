@@ -100,8 +100,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-123ff7f2-d18f-4ed8-afc3-b6a83593997e",
+      "post_ids": {
+        "petri_ig": "igo-123ff7f2-d18f-4ed8-afc3-b6a83593997e"
+      },
       "overlay": null,
       "lineup_id": "ring-first",
       "variants": {}
