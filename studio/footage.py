@@ -52,6 +52,10 @@ def blocked(text, rule=None):
     return bool((rule or BLOCK).search(SAFE.sub(' ', text or '')))
 
 
+def _read_json(path):
+    with open(path) as f: return json.load(f)
+
+
 def _save_index(idx):
     with open(INDEX, 'w') as f: json.dump(idx, f, indent=1)
 
@@ -98,7 +102,7 @@ def download(url, path, max_mb=400, tries=5):
 
 
 def index():
-    try: return json.load(open(INDEX))
+    try: return _read_json(INDEX)
     except (OSError, ValueError): return {'clips': [], 'seen': []}
 
 
@@ -386,7 +390,7 @@ def fetch(maximum):
     before the next is asked; only when all have had a turn do they give more. (Before, a popular query such as
     "Melies" could fill the whole run, and Keaton, Chaplin and Lloyd were never reached.)"""
     import random
-    idx = index(); seen = set(idx.get('seen', [])); SEEN.clear(); SEEN.update(seen); qs = json.load(open(QUERIES)); new = []
+    idx = index(); seen = set(idx.get('seen', [])); SEEN.clear(); SEEN.update(seen); qs = _read_json(QUERIES); new = []
     work = os.path.join(DIR, 'new'); os.makedirs(work, exist_ok=True)
     order = [(theme, q) for theme, ql in qs.items() for q in ql]; random.Random(time.strftime('%Y%W')).shuffle(order)
     have = {}
@@ -448,7 +452,7 @@ def pull(themes=(), assets=()):
 
 def purge():
     """Remove from the library (index and release) every clip the block list now rules out, or found by a query no longer asked."""
-    idx = index(); asked = {q for ql in json.load(open(QUERIES)).values() for q in ql}
+    idx = index(); asked = {q for ql in _read_json(QUERIES).values() for q in ql}
     bad = [e for e in idx.get('clips', []) if e.get('source') != 'own' and (blocked(e.get('title', '') + ' ' + e.get('query', '')) or e.get('query') not in asked)]
     if not bad: print('nothing to remove'); return
     rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)
