@@ -28,8 +28,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-23855b2e-b009-49d5-a8ba-0449795eb334",
+      "post_ids": {
+        "cinema_ig": "igo-23855b2e-b009-49d5-a8ba-0449795eb334"
+      },
       "overlay": null,
       "lineup_id": "rocket-first",
       "variants": {}
