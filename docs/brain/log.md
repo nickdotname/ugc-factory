@@ -2,6 +2,11 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: @8bit.tests added (campaign `pixel_tests`, style `tests8`): the play-along pixel tests that
+  math.explainers never chose, in a fuller room (a boombox whose cones follow the kick, a rug, books, a plant, a
+  second creature). @moth.ate.my.notes is registered (`notes_ig`, `IG_TOKEN_4`) with no campaign yet. Both have no
+  Facebook Page (Unified login).
+
 - 2026-11-24: @algorithm.races added (campaign `algo_races`, style `race`, `studio/race_video.py`): the sorting and
   maze races move there from math.explainers. First account with **no Facebook Page**: Dylan's profile could not
   create Pages and Nick was away, so the app was connected to the Close Quarters business portfolio and the account

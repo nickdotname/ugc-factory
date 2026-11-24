@@ -216,9 +216,9 @@ class TestShippedRegistry:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
         # Six Buffer channels, plus the accounts that post to Instagram
         # directly (including the nostalgia, Math In Time, glitch, ASCII, physics, earth, retro, Rocket League,
-        # vintage, NYC and tiny code accounts), then ASCII cinema, the petri dish, the rotation illusions and the algorithm races.
-        assert len(cfg.accounts) == 24
-        assert len(cfg.live) == 24
+        # vintage, NYC and tiny code accounts), then ASCII cinema, the petri dish, the rotation illusions the algorithm races, the 8-bit tests and the notes account.
+        assert len(cfg.accounts) == 26
+        assert len(cfg.live) == 26
 
     def test_it_covers_both_logins_on_all_three_networks(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
@@ -232,6 +232,8 @@ class TestShippedRegistry:
             "IG_TOKEN": {Service.INSTAGRAM},
             # An account with no Page (Unified login) has a token of its own.
             "IG_TOKEN_2": {Service.INSTAGRAM},
+            "IG_TOKEN_3": {Service.INSTAGRAM},
+            "IG_TOKEN_4": {Service.INSTAGRAM},
         }
 
     def test_every_shipped_campaign_channel_has_an_account(self) -> None:

@@ -70,7 +70,7 @@ LYRIC['cursor'] = 'cursor_video.py'  # the band rebuilt out of mouse cursors in 
 LYRIC['cutout'] = 'cutout_video.py'  # the same dance footage, full screen and thrown around on the beat (dev_lemons-style), now and then trippy
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 VISUAL['collage'] = 'collage_video.py'
-WHOLE = {'math', 'race'}      # styles choreographed to a fixed number of beats: never cut shorter
+WHOLE = {'math', 'race', 'tests8'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 VISUAL['rocket'] = 'rocket_video.py'
 # What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
@@ -86,6 +86,7 @@ VISUAL['cinema'] = 'cinema_video.py'     # ascii.cinema.tty: a public-domain fil
 VISUAL['alife'] = 'alife_video.py'       # digital.petri.dish: a slime-mould simulation, the music as its weather
 VISUAL['illusion'] = 'illusion_video.py' # rotation.illusions: dot shapes whose turning direction is up to your eyes
 VISUAL['race'] = 'race_video.py'       # algorithm.races: sorting and pathfinding algorithms racing on the same problem
+VISUAL['tests8'] = 'tests8_video.py'   # 8bit.tests: pixel-art tests you take along with the song
 
 def lofi_cover(slug, win):
     """How much of a stretch the band's dance footage covers (0..1)."""
@@ -127,7 +128,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test'}
 FRESH = 0.6
 
 def freshen(style, menu, kn, recent, learned, r):

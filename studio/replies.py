@@ -43,8 +43,10 @@ ACCOUNTS = {
     'petri_ig': ('17841475752719438', 'digital.petri.dish'),
     'illusions_ig': ('17841449601538478', 'rotation.illusions'),
     'races_ig': ('17841454673847359', 'algorithm.races'),
+    'tests8_ig': ('17841466661331560', '8bit.tests'),
+    'notes_ig': ('17841472459232759', 'moth.ate.my.notes'),
 }
-TOKENS = {'races_ig': 'IG_TOKEN_2'}     # accounts with no Facebook Page have a token of their own; the rest share IG_TOKEN
+TOKENS = {'races_ig': 'IG_TOKEN_2', 'tests8_ig': 'IG_TOKEN_3', 'notes_ig': 'IG_TOKEN_4'}     # accounts with no Facebook Page have a token of their own; the rest share IG_TOKEN
 OURS = {u for _, u in ACCOUNTS.values()} | {'the.loose.change'}
 BAND = {'close_quarters_ig'}            # the band's own account doesn't tag itself
 
