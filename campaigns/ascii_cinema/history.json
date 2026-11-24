@@ -100,8 +100,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-9523275a-0d38-4877-b702-ab91757f88cf",
+      "post_ids": {
+        "cinema_ig": "igo-9523275a-0d38-4877-b702-ab91757f88cf"
+      },
       "overlay": null,
       "lineup_id": "escalator-first",
       "variants": {}
