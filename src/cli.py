@@ -1045,6 +1045,11 @@ def _render(
                         h for h in res.library.hooks
                         if h not in used_hooks and (pool, h) not in clips_taken
                     )
+                    if not spare and config.selection.repeats:
+                        # Repeats allowed: a clip that is cooling down (or out
+                        # tonight on another post) still beats this account
+                        # getting the very same video as the first one.
+                        spare = tuple(h for h in res.library.hooks if h not in used_hooks)
                     if spare:
                         hook = rng.choice(spare)
                         used_hooks.add(hook)
