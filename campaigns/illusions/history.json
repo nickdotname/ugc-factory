@@ -100,8 +100,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-056e731f-097a-4744-830b-4ee7b737db6d",
+      "post_ids": {
+        "illusions_ig": "igo-056e731f-097a-4744-830b-4ee7b737db6d"
+      },
       "overlay": null,
       "lineup_id": "mug-first",
       "variants": {}
