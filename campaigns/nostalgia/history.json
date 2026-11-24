@@ -954,8 +954,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-6902ede6-15d7-499a-8c3d-36488b77f6de",
+      "post_ids": {
+        "nostalgia_ig": "igo-6902ede6-15d7-499a-8c3d-36488b77f6de"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
