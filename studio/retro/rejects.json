@@ -1,0 +1,7 @@
+{
+ "_about": "retro.vibes.arcade: library clips the renderer never uses (studio/retro_video.py), each with why. Judged by eye from frames; add to it when a clip looks wrong. The clip stays in the release and index.json, so nothing is deleted.",
+ "clips": {
+  "4bcf6586df3ff9d2.mp4": "snow/ice cave, look ps2: the whole frame is melted blue texture, nothing reads as a place",
+  "556b665774ba2d78.mp4": "water/underwater, look ps2: smeared kelp and a garbled ship, vertical streaks"
+ }
+}
