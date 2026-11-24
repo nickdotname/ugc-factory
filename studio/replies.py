@@ -95,7 +95,8 @@ def song_titles():
     """media id -> song title, from what we posted (outbox/igo-*.json: audio_name, else the first comment)."""
     out = {}
     for f in glob.glob(os.path.join(REPO, 'outbox', 'igo-*.json')):
-        try: d = json.load(open(f))
+        try:
+            with open(f) as fh: d = json.load(fh)
         except Exception: continue
         if not d.get('media_id'): continue
         name = str(d.get('audio_name') or '')
@@ -131,7 +132,8 @@ def when(s):
 
 
 def load_state():
-    try: s = json.load(open(STATE))
+    try:
+        with open(STATE) as fh: s = json.load(fh)
     except Exception: s = {}
     s.setdefault('seen', {}); s.setdefault('done', {}); s.setdefault('sent', {})
     return s
@@ -201,7 +203,7 @@ def run(dry=False, now=None):
 def save(s, dry):
     if dry: return
     os.makedirs(os.path.dirname(STATE), exist_ok=True)
-    json.dump(s, open(STATE, 'w'), indent=1, sort_keys=True); open(STATE, 'a').write('\n')
+    with open(STATE, 'w') as fh: json.dump(s, fh, indent=1, sort_keys=True); fh.write('\n')
 
 
 if __name__ == '__main__':

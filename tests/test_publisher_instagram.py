@@ -102,6 +102,7 @@ def test_due_post_is_published_and_never_twice(tmp_path):
     create = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")][0]
     assert create.kwargs["data"]["media_type"] == "REELS"
     assert create.kwargs["data"]["share_to_feed"] == "true"
+    assert "thumb_offset" not in create.kwargs["data"], "no cover asked for: Instagram's own choice"
     assert create.kwargs["headers"]["Authorization"] == "Bearer fake-token"
     assert "fake-token" not in create.url
 
@@ -400,3 +401,13 @@ def test_refused_collaborators_do_not_cost_the_post(tmp_path):
     assert [i["status"] for i in changed] == [PUBLISHED]
     assert changed[0]["collaborators"] is None
     assert changed[0]["collaborators_refused"] == ["close__quarters"]
+
+
+def test_a_cover_frame_is_asked_for_when_set(tmp_path: Path) -> None:
+    """The maths videos start on an empty grid; their cover is a later frame."""
+    session = happy(FakeSession())
+    publisher, _ = make(tmp_path, session)
+    publisher.create_post(request(cover_at_ms=5000))
+    publisher.publish_due()
+    create = [c for c in session.calls if c.url.endswith(f"/{CHANNEL}/media")][0]
+    assert create.kwargs["data"]["thumb_offset"] == "5000"

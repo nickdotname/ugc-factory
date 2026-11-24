@@ -10608,6 +10608,2451 @@
    },
    "lyrics_proven": true,
    "clip": "hook_11.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "prologue",
+   "file": "prologue_s09_band_429380.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "band",
+   "seed": 429380,
+   "window": [
+    189.82,
+    209.24
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     127,
+     153,
+     99
+    ],
+    "theme": "teal",
+    "bg": [
+     0,
+     128,
+     128
+    ],
+    "segs": [
+     [
+      189.03,
+      "face+cmd",
+      0,
+      [
+       "invert",
+       "trail"
+      ]
+     ],
+     [
+      190.17,
+      "face+paint",
+      1,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      190.61,
+      "face+arr",
+      2,
+      [
+       "trail",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      191.85,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/eed0229b8acdb75e.jpg|gif",
+      3,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      192.87,
+      "face+cmd",
+      3,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      194.25,
+      "wave",
+      4,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      196.47,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/b8e86ff05fd54fa6.jpg|webcam",
+      5,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      198.57,
+      "face+notepad",
+      6,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      200.63,
+      "face+pic|/home/runner/work/ugc-factory/ugc-factory/studio/photos/4b562f8d8a50cf03.jpg|crt",
+      7,
+      [
+       "pipwave",
+       "track"
+      ]
+     ],
+     [
+      202.55,
+      "wave",
+      8,
+      [
+       "stamp",
+       "pip"
+      ]
+     ],
+     [
+      203.51,
+      "face+arr",
+      9,
+      [
+       "pipwave",
+       "invert"
+      ]
+     ],
+     [
+      204.71,
+      "face+wave",
+      10,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      205.59,
+      "arr",
+      11,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      206.89,
+      "face+cmd",
+      12,
+      [
+       "pip",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": false,
+    "chroma": 4,
+    "chrome": "win95",
+    "caption": "anton",
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "theme": "teal",
+    "pictures": "0.85",
+    "wall": "plasma",
+    "punch": "0.035",
+    "scan": "false",
+    "chroma": "4",
+    "chrome": "win95",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.67,
+    "bass": 0.51,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s03_band_552670.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "band",
+   "seed": 552670,
+   "window": [
+    60.07,
+    72.38
+   ],
+   "plan": {
+    "wall": "stars",
+    "acc": [
+     89,
+     134,
+     70
+    ],
+    "theme": "green",
+    "bg": [
+     0,
+     110,
+     70
+    ],
+    "segs": [
+     [
+      58.17,
+      "notepad",
+      0,
+      [
+       "pipwave",
+       "pip"
+      ]
+     ],
+     [
+      60.13,
+      "face+player",
+      1,
+      [
+       "trail",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      61.47,
+      "face+paint",
+      2,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      63.27,
+      "face+arr",
+      2,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      64.83,
+      "face+player",
+      3,
+      [
+       "trail",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      67.15,
+      "face+arr",
+      4,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      68.39,
+      "face+cmd",
+      5,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      69.89,
+      "wave",
+      6,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      70.27,
+      "face+notepad",
+      7,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      71.41,
+      "face+paint",
+      8,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": false,
+    "chroma": 0,
+    "chrome": "mac",
+    "caption": "montserrat",
+    "hook": "rock and rap should never mix. right?",
+    "hook_angle": "debate",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "theme": "green",
+    "pictures": "0.35",
+    "wall": "stars",
+    "punch": "0.05",
+    "scan": "false",
+    "chroma": "0",
+    "chrome": "mac",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.86,
+    "drums": 0.63,
+    "bass": 0.36,
+    "other": 0.54
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s01_band_161747.mp4",
+   "song": "subway-maintenance",
+   "section": "s01",
+   "style": "band",
+   "seed": 161747,
+   "window": [
+    42.91,
+    65.94
+   ],
+   "plan": {
+    "wall": "hills",
+    "acc": [
+     79,
+     140,
+     81
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      43.26,
+      "face+wave",
+      0,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      44.42,
+      "face+cmd",
+      0,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      46.2,
+      "face+arr",
+      1,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      47.04,
+      "face+player",
+      2,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      48.4,
+      "face+wave",
+      3,
+      [
+       "pipwave",
+       "trail"
+      ]
+     ],
+     [
+      50.7,
+      "face+player",
+      4,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      52.92,
+      "face+wave",
+      5,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      54.74,
+      "face+arr",
+      6,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      57.0,
+      "face+paint",
+      7,
+      [
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      58.1,
+      "cmd",
+      8,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      59.02,
+      "face+notepad",
+      9,
+      [
+       "trail",
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      59.32,
+      "face+cmd",
+      10,
+      [
+       "track",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      60.36,
+      "face+arr",
+      11,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      61.26,
+      "paint",
+      12,
+      [
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      61.78,
+      "face+wave",
+      13,
+      [
+       "track",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      62.78,
+      "face+paint",
+      13,
+      [
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      64.14,
+      "face+notepad",
+      14,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      65.74,
+      "face+arr",
+      15,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "xp",
+    "caption": "montserrat",
+    "hook": "unpopular opinion: this song is perfect",
+    "hook_angle": "debate",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "theme": "black",
+    "pictures": "0.35",
+    "wall": "hills",
+    "punch": "0.02",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "xp",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.46,
+    "bass": 0.36,
+    "other": 0.7
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_fixation_a1-2_lofi_277744.mp4",
+   "song": "fixation",
+   "section": "fixation_a1-2",
+   "style": "lofi",
+   "seed": 277744,
+   "window": [
+    86.54,
+    97.84
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     86.54,
+     97.84
+    ],
+    "scenes": [
+     "rainbow",
+     "flat",
+     "split",
+     "flat"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "chrome": "mac",
+    "wall": "grad",
+    "theme": "wine",
+    "pop": "0",
+    "tint": "0.0",
+    "pace": "2",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 1.02,
+    "drums": 0.9,
+    "bass": 0.51,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_10.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-2_lofi_855204.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-2",
+   "style": "lofi",
+   "seed": 855204,
+   "window": [
+    26.05,
+    36.17
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     26.05,
+     36.17
+    ],
+    "scenes": [
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "grad",
+    "theme": "purple",
+    "pop": "0",
+    "tint": "0.4",
+    "pace": "1",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.93,
+    "drums": 0.59,
+    "bass": 0.64,
+    "other": 0.6
+   },
+   "lyrics_proven": true,
+   "clip": "hook_07.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_wbtsa_a2-1_lofi_560252.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "wbtsa_a2-1",
+   "style": "lofi",
+   "seed": 560252,
+   "window": [
+    144.38,
+    160.38
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     144.38,
+     160.38
+    ],
+    "scenes": [
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "chrome": "mac",
+    "wall": "tiles",
+    "theme": "mono",
+    "pop": "0",
+    "tint": "0.0",
+    "pace": "2",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.64,
+    "drums": 0.8,
+    "bass": 0.53,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_12.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "suspended",
+   "file": "suspended_s02_cursor_8812.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "cursor",
+   "seed": 8812,
+   "window": [
+    30.71,
+    47.63
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "cube",
+     "cube",
+     "cube",
+     "cube",
+     "cube",
+     "cube"
+    ]
+   },
+   "knobs": {
+    "world": "cube",
+    "glow": "purple",
+    "cursor": "arrows",
+    "drift": "1.6",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.68,
+    "bass": 0.33,
+    "other": 0.4
+   },
+   "lyrics_proven": true,
+   "clip": "hook_07.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_cursor_119341.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "cursor",
+   "seed": 119341,
+   "window": [
+    65.39,
+    84.88
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs"
+    ]
+   },
+   "knobs": {
+    "world": "stairs",
+    "glow": "green",
+    "cursor": "busy",
+    "drift": "1.0",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.73,
+    "bass": 0.33,
+    "other": 0.58
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_s04_cursor_627384.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "cursor",
+   "seed": 627384,
+   "window": [
+    74.57,
+    88.33
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "corridor",
+     "corridor",
+     "corridor",
+     "corridor",
+     "corridor"
+    ]
+   },
+   "knobs": {
+    "world": "corridor",
+    "glow": "purple",
+    "cursor": "mixed",
+    "drift": "1.0",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.73,
+    "bass": 0.66,
+    "other": 0.57
+   },
+   "lyrics_proven": true,
+   "clip": "hook_08.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "fixation",
+   "file": "fixation_fixation_a1-0_cutout_722730.mp4",
+   "song": "fixation",
+   "section": "fixation_a1-0",
+   "style": "cutout",
+   "seed": 722730,
+   "window": [
+    70.54,
+    86.54
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     70.54,
+     86.54
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "grid",
+     "grid",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "echo",
+    "palette": "edu",
+    "trip": "none",
+    "outline": "0",
+    "words": "big",
+    "bg": "archive",
+    "tone": "soft",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.89,
+    "bass": 0.64,
+    "other": 0.43
+   },
+   "lyrics_proven": true,
+   "clip": "hook_11.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-5_cutout_591596.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-5",
+   "style": "cutout",
+   "seed": 591596,
+   "window": [
+    44.17,
+    60.17
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     44.17,
+     60.17
+    ],
+    "scenes": [
+     "echo",
+     "grid",
+     "echo",
+     "grid",
+     "big",
+     "big",
+     "echo",
+     "echo",
+     "echo",
+     "big",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "mix",
+    "palette": "candy",
+    "trip": "melt",
+    "outline": "14",
+    "words": "big",
+    "bg": "space",
+    "tone": "duo",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.68,
+    "bass": 0.72,
+    "other": 0.54
+   },
+   "lyrics_proven": true,
+   "clip": "hook_09.mp4"
+  },
+  {
+   "date": "2026-11-23",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_wbtsa_b1-2_cutout_514524.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "wbtsa_b1-2",
+   "style": "cutout",
+   "seed": 514524,
+   "window": [
+    96.92,
+    112.92
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     96.92,
+     112.92
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "big",
+     "echo",
+     "grid",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "echo",
+    "palette": "mono",
+    "trip": "melt",
+    "outline": "0",
+    "words": "big",
+    "bg": "city",
+    "tone": "duo",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.8,
+    "bass": 0.51,
+    "other": 0.29
+   },
+   "lyrics_proven": true,
+   "clip": "hook_13.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01-s02_band_952083.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01-s02",
+   "style": "band",
+   "seed": 952083,
+   "window": [
+    46.35,
+    65.21
+   ],
+   "plan": {
+    "wall": "bars",
+    "acc": [
+     45,
+     139,
+     191
+    ],
+    "theme": "teal",
+    "bg": [
+     0,
+     128,
+     128
+    ],
+    "segs": [
+     [
+      44.73,
+      "wave",
+      0,
+      [
+       "pip",
+       "track"
+      ]
+     ],
+     [
+      46.41,
+      "cmd",
+      1,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      48.35,
+      "paint",
+      2,
+      [
+       "trail",
+       "pipwave"
+      ]
+     ],
+     [
+      50.03,
+      "player",
+      2,
+      [
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      51.37,
+      "wave",
+      3,
+      [
+       "stamp",
+       "invert"
+      ]
+     ],
+     [
+      51.61,
+      "paint",
+      4,
+      [
+       "stamp",
+       "invert"
+      ]
+     ],
+     [
+      53.33,
+      "notepad",
+      5,
+      [
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      56.07,
+      "player",
+      6,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      57.19,
+      "paint",
+      6,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      58.45,
+      "cmd",
+      7,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      60.15,
+      "paint",
+      8,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      62.05,
+      "notepad",
+      9,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      63.75,
+      "arr",
+      9,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      65.07,
+      "paint",
+      10,
+      [
+       "trail",
+       "track"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": true,
+    "chroma": 4,
+    "chrome": "xp",
+    "caption": "anton",
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "teal",
+    "pictures": "0.85",
+    "wall": "bars",
+    "punch": "0.05",
+    "scan": "true",
+    "chroma": "4",
+    "chrome": "xp",
+    "caption": "anton",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.41,
+    "bass": 0.81,
+    "other": 0.64
+   },
+   "lyrics_proven": true,
+   "clip": "hook_14.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s01-s02_band_853613.mp4",
+   "song": "subway-maintenance",
+   "section": "s01-s02",
+   "style": "band",
+   "seed": 853613,
+   "window": [
+    42.91,
+    84.88
+   ],
+   "plan": {
+    "wall": "tiles",
+    "acc": [
+     150,
+     155,
+     147
+    ],
+    "theme": "orange",
+    "bg": [
+     200,
+     110,
+     40
+    ],
+    "segs": [
+     [
+      43.26,
+      "face+notepad",
+      0,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      44.42,
+      "face+arr",
+      0,
+      [
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      46.2,
+      "face+wave",
+      1,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      47.04,
+      "face+notepad",
+      2,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      48.4,
+      "face+paint",
+      3,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      50.7,
+      "face+notepad",
+      4,
+      [
+       "trail",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      52.92,
+      "face+cmd",
+      5,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      54.74,
+      "face+notepad",
+      6,
+      [
+       "trail",
+       "invert"
+      ]
+     ],
+     [
+      57.0,
+      "wave",
+      7,
+      [
+       "track",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      58.1,
+      "face+notepad",
+      8,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      59.02,
+      "face+paint",
+      9,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      59.32,
+      "face+wave",
+      10,
+      [
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      60.36,
+      "face+player",
+      11,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      61.26,
+      "face+wave",
+      12,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      61.78,
+      "face+arr",
+      13,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      62.78,
+      "face+cmd",
+      13,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      64.14,
+      "arr",
+      14,
+      [
+       "trail",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      65.74,
+      "face+cmd",
+      15,
+      [
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      67.94,
+      "face+arr",
+      16,
+      [
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      69.92,
+      "face+wave",
+      17,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      71.0,
+      "face+player",
+      17,
+      [
+       "trail",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      72.62,
+      "wave",
+      18,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      74.26,
+      "face+notepad",
+      19,
+      [
+       "trail",
+       "track"
+      ]
+     ],
+     [
+      75.32,
+      "face+wave",
+      20,
+      [
+       "invert",
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      76.76,
+      "cmd",
+      20,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      78.6,
+      "face+paint",
+      21,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      80.5,
+      "face+wave",
+      22,
+      [
+       "trail",
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      81.44,
+      "face+player",
+      22,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      83.68,
+      "face+paint",
+      23,
+      [
+       "track",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.035,
+    "scan": true,
+    "chroma": 2,
+    "chrome": "win95",
+    "caption": "inter",
+    "hook": "only real music fans will get this",
+    "hook_angle": "debate",
+    "hook_mode": "hold",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "theme": "orange",
+    "pictures": "0.6",
+    "wall": "tiles",
+    "punch": "0.035",
+    "scan": "true",
+    "chroma": "2",
+    "chrome": "win95",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.58,
+    "bass": 0.34,
+    "other": 0.65
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_s02_band_659710.mp4",
+   "song": "notta-problem",
+   "section": "s02",
+   "style": "band",
+   "seed": 659710,
+   "window": [
+    52.64,
+    64.1
+   ],
+   "plan": {
+    "wall": "clouds",
+    "acc": [
+     100,
+     132,
+     190
+    ],
+    "theme": "silver",
+    "bg": [
+     110,
+     115,
+     125
+    ],
+    "segs": [
+     [
+      50.72,
+      "notepad",
+      0,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      52.7,
+      "cmd",
+      1,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      55.0,
+      "arr",
+      2,
+      [
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      56.92,
+      "paint",
+      3,
+      [
+       "track",
+       "pipwave"
+      ]
+     ],
+     [
+      59.15,
+      "notepad",
+      4,
+      [
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      60.58,
+      "arr",
+      4,
+      [
+       "stamp",
+       "pipwave"
+      ]
+     ],
+     [
+      61.8,
+      "cmd",
+      5,
+      [
+       "trail",
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      63.0,
+      "paint",
+      6,
+      [
+       "invert",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": false,
+    "chroma": 0,
+    "chrome": "win95",
+    "caption": "inter",
+    "hook": "this would've been huge in 2007. agree?",
+    "hook_angle": "debate",
+    "hook_mode": "hold",
+    "faces": false
+   },
+   "knobs": {
+    "theme": "silver",
+    "pictures": "0.6",
+    "wall": "clouds",
+    "punch": "0.02",
+    "scan": "false",
+    "chroma": "0",
+    "chrome": "win95",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.99,
+    "bass": 0.19,
+    "other": 0.28
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s04_band_704330.mp4",
+   "song": "evil-close-quarters",
+   "section": "s04",
+   "style": "band",
+   "seed": 704330,
+   "window": [
+    70.75,
+    93.4
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     88,
+     133,
+     143
+    ],
+    "theme": "green",
+    "bg": [
+     0,
+     110,
+     70
+    ],
+    "segs": [
+     [
+      71.1,
+      "face+cmd",
+      0,
+      [
+       "track",
+       "trail"
+      ]
+     ],
+     [
+      72.84,
+      "face+player",
+      0,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      74.26,
+      "face+paint",
+      1,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      75.68,
+      "face+notepad",
+      1,
+      [
+       "trail",
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      77.58,
+      "paint",
+      2,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      78.64,
+      "face+arr",
+      2,
+      [
+       "stamp",
+       "pipwave"
+      ]
+     ],
+     [
+      80.22,
+      "player",
+      null,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      82.24,
+      "face+notepad",
+      3,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      83.98,
+      "face+cmd",
+      4,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      85.72,
+      "face+paint",
+      5,
+      [
+       "invert",
+       "stamp"
+      ]
+     ],
+     [
+      86.94,
+      "face+arr",
+      6,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      87.95,
+      "wave",
+      7,
+      [
+       "trail",
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      89.56,
+      "face+cmd",
+      7,
+      [
+       "track",
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      90.34,
+      "wave",
+      8,
+      [
+       "trail",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      91.62,
+      "face+notepad",
+      9,
+      [
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      93.1,
+      "wave",
+      10,
+      [
+       "invert",
+       "stamp"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": false,
+    "chroma": 0,
+    "chrome": "mac",
+    "caption": "montserrat",
+    "hook": "only real music fans will get this",
+    "hook_angle": "debate",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "theme": "green",
+    "pictures": "0.6",
+    "wall": "plasma",
+    "punch": "0.05",
+    "scan": "false",
+    "chroma": "0",
+    "chrome": "mac",
+    "caption": "montserrat",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.82,
+    "bass": 0.56,
+    "other": 0.6
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "fixation",
+   "file": "fixation_fixation_a1-1_lofi_358578.mp4",
+   "song": "fixation",
+   "section": "fixation_a1-1",
+   "style": "lofi",
+   "seed": 358578,
+   "window": [
+    80.59,
+    94.54
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     80.59,
+     94.54
+    ],
+    "scenes": [
+     "rainbow",
+     "pop",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "split"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "grad",
+    "theme": "wine",
+    "pop": "1",
+    "tint": "0.0",
+    "pace": "1",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.99,
+    "drums": 0.89,
+    "bass": 0.52,
+    "other": 0.4
+   },
+   "lyrics_proven": true,
+   "clip": "hook_12.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_wbtsa_a1-0_lofi_25220.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "wbtsa_a1-0",
+   "style": "lofi",
+   "seed": 25220,
+   "window": [
+    68.75,
+    82.46
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     68.75,
+     82.46
+    ],
+    "scenes": [
+     "flat",
+     "pop",
+     "flat",
+     "split"
+    ],
+    "people": [
+     "a",
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "plasma",
+    "theme": "teal",
+    "pop": "3",
+    "tint": "0.0",
+    "pace": "2",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.72,
+    "bass": 0.46,
+    "other": 0.41
+   },
+   "lyrics_proven": true,
+   "clip": "hook_15.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-0_lofi_556187.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-0",
+   "style": "lofi",
+   "seed": 556187,
+   "window": [
+    7.87,
+    18.57
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     7.87,
+     18.57
+    ],
+    "scenes": [
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "flat"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "mac",
+    "wall": "tiles",
+    "theme": "mono",
+    "pop": "0",
+    "tint": "0.4",
+    "pace": "1",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.68,
+    "bass": 0.75,
+    "other": 0.59
+   },
+   "lyrics_proven": true,
+   "clip": "hook_10.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_notta_a1-1_lofi_319253.mp4",
+   "song": "notta-problem",
+   "section": "notta_a1-1",
+   "style": "lofi",
+   "seed": 319253,
+   "window": [
+    107.69,
+    123.69
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     107.69,
+     123.69
+    ],
+    "scenes": [
+     "flat"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "chrome": "mac",
+    "wall": "plasma",
+    "theme": "wine",
+    "pop": "3",
+    "tint": "0.4",
+    "pace": "1",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.0,
+    "bass": 0.0,
+    "other": 0.0
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_cursor_756369.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "cursor",
+   "seed": 756369,
+   "window": [
+    46.35,
+    65.21
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "corridor",
+     "stairs",
+     "cube",
+     "stairs",
+     "cube",
+     "corridor"
+    ]
+   },
+   "knobs": {
+    "world": "mix",
+    "glow": "green",
+    "cursor": "busy",
+    "drift": "1.6",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.41,
+    "bass": 0.81,
+    "other": 0.64
+   },
+   "lyrics_proven": true,
+   "clip": "hook_16.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "talk",
+   "file": "talk_s06_cursor_690694.mp4",
+   "song": "talk",
+   "section": "s06",
+   "style": "cursor",
+   "seed": 690694,
+   "window": [
+    118.11,
+    135.81
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs",
+     "stairs"
+    ]
+   },
+   "knobs": {
+    "world": "stairs",
+    "glow": "red",
+    "cursor": "mixed",
+    "drift": "0.6",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.92,
+    "drums": 0.88,
+    "bass": 0.77,
+    "other": 0.4
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01-s02_cursor_694017.mp4",
+   "song": "silver-and-gold",
+   "section": "s01-s02",
+   "style": "cursor",
+   "seed": 694017,
+   "window": [
+    64.39,
+    75.25
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "corridor",
+     "corridor",
+     "corridor"
+    ]
+   },
+   "knobs": {
+    "world": "corridor",
+    "glow": "red",
+    "cursor": "busy",
+    "drift": "1.0",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.57,
+    "drums": 0.64,
+    "bass": 0.88,
+    "other": 0.53
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_s01-s02_cursor_798396.mp4",
+   "song": "notta-problem",
+   "section": "s01-s02",
+   "style": "cursor",
+   "seed": 798396,
+   "window": [
+    54.94,
+    66.27
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "cube",
+     "cube",
+     "cube"
+    ]
+   },
+   "knobs": {
+    "world": "cube",
+    "glow": "green",
+    "cursor": "arrows",
+    "drift": "1.6",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.95,
+    "bass": 0.3,
+    "other": 0.31
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "fixation",
+   "file": "fixation_fixation_b1-0_cutout_758482.mp4",
+   "song": "fixation",
+   "section": "fixation_b1-0",
+   "style": "cutout",
+   "seed": 758482,
+   "window": [
+    92.99,
+    106.97
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     92.99,
+     106.97
+    ],
+    "scenes": [
+     "big",
+     "big",
+     "big",
+     "big",
+     "grid",
+     "echo",
+     "big",
+     "big"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "big",
+    "palette": "edu",
+    "trip": "glitch",
+    "outline": "8",
+    "words": "none",
+    "bg": "space",
+    "tone": "duo",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.88,
+    "bass": 0.71,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_13.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_wbtsa_a2-0_cutout_972547.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "wbtsa_a2-0",
+   "style": "cutout",
+   "seed": 972547,
+   "window": [
+    139.31,
+    151.31
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     139.31,
+     151.31
+    ],
+    "scenes": [
+     "echo",
+     "grid",
+     "echo",
+     "big",
+     "echo",
+     "big",
+     "big"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "mix",
+    "palette": "edu",
+    "trip": "glitch",
+    "outline": "0",
+    "words": "big",
+    "bg": "water",
+    "tone": "soft",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.6,
+    "drums": 0.71,
+    "bass": 0.63,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_17.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_notta_a1-0_cutout_877072.mp4",
+   "song": "notta-problem",
+   "section": "notta_a1-0",
+   "style": "cutout",
+   "seed": 877072,
+   "window": [
+    102.94,
+    114.4
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     102.94,
+     114.4
+    ],
+    "scenes": [
+     "grid",
+     "grid",
+     "grid",
+     "echo",
+     "echo",
+     "grid"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "grid",
+    "palette": "edu",
+    "trip": "none",
+    "outline": "8",
+    "words": "none",
+    "bg": "archive",
+    "tone": "duo",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.0,
+    "bass": 0.0,
+    "other": 0.0
+   },
+   "lyrics_proven": true,
+   "clip": "hook_07.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-1_cutout_913287.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-1",
+   "style": "cutout",
+   "seed": 913287,
+   "window": [
+    13.95,
+    26.18
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     13.95,
+     26.18
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "grid",
+     "echo",
+     "big",
+     "big",
+     "big",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "mix",
+    "palette": "mono",
+    "trip": "none",
+    "outline": "0",
+    "words": "none",
+    "bg": "water",
+    "tone": "duo",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.68,
+    "bass": 0.65,
+    "other": 0.55
+   },
+   "lyrics_proven": true,
+   "clip": "hook_11.mp4"
   }
  ],
  "since": "2026-11-22T06:56:33.728767+00:00",
@@ -10746,6 +13191,17 @@
    "words": [
     "big",
     "none"
+   ],
+   "bg": [
+    "color",
+    "city",
+    "space",
+    "water",
+    "archive"
+   ],
+   "tone": [
+    "duo",
+    "soft"
    ]
   }
  }

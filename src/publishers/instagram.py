@@ -349,6 +349,7 @@ class InstagramPublisher(Publisher):
             "share_to_feed": request.share_to_feed,
             "trial": request.trial,
             "trial_graduation": request.trial_graduation,
+            "cover_at_ms": request.cover_at_ms,
             "audio_id": request.audio_id,
             "audio_volume": request.audio_volume,
             "video_volume": request.video_volume,
@@ -404,6 +405,9 @@ class InstagramPublisher(Publisher):
             "video_url": item["video_url"],
             "caption": cap_hashtags(item.get("caption") or ""),
         }
+        if item.get("cover_at_ms") is not None:
+            # The frame shown on the profile grid; without it, the first frame.
+            params["thumb_offset"] = str(int(item["cover_at_ms"]))
         if item.get("trial"):
             # A trial reel is shown to non-followers only, and Instagram
             # refuses share_to_feed alongside it.

@@ -13,6 +13,11 @@ on the bar lines of the song (every bar or every two). Knobs (studio/knobs.py), 
           stems), osd (a VCR's PLAY and counter), none
   cut     how a clip gives way to the next: hard, flash (a white pop on the downbeat), slide (the old clip pushed off)
   pace    1 or 2 bars per clip
+  hook    a line over the picture, the kind people send to a friend: spot (a question about the places: "pick one to
+          live in"; each place gets a number so there is something to answer with), smoke (the same, as "where would
+          you smoke?"; its own value so the numbers show whether Instagram holds those back: it may not recommend
+          posts it reads as promoting smoking), memory (a line about having been here: "you were here at 2am in
+          2004"), none. Questions only: never "comment", "tag" or "send this".
 """
 import json, math, os, random, subprocess, sys
 import numpy as np, cv2
@@ -28,6 +33,11 @@ W, H, FPS = 1080, 1920, 30
 THEMES = list(json.load(open(lib.PROMPTS))['themes']) + ['mixed']
 SCREENS = ['ps2', 'crt', 'vhs', 'clean']
 FRAMES = ['player', 'osd', 'none']
+HOOKS = {'spot': ["pick one to live in", "where are you spending the night?", "you can only respawn in one", "which save point are you picking?",
+                  "one of these is yours for a year. which?"],
+         'smoke': ["where would you smoke?", "pick one to smoke in", "where are we lighting up?"],
+         'memory': ["you were here at 2am in 2004", "the level you never wanted to leave", "memory card slot 1 · 47 hours",
+                    "this loaded while dinner went cold", "nobody else remembers this level"]}
 CUTS = ['hard', 'flash', 'slide']
 
 
@@ -105,6 +115,8 @@ class Video:
         r = random.Random(seed); self.r = r
         self.theme = K.pick('theme', THEMES, r); self.screen = K.pick('screen', SCREENS, r)
         self.frame_kind = K.pick('frame', FRAMES, r); self.cut = K.pick('cut', CUTS, r); self.pace = int(K.pick('pace', [1, 2], r))
+        self.hook = K.pick('hook', ['spot', 'smoke', 'memory', 'none'], r, weights=[3, 2, 2, 2])
+        self.line = r.choice(HOOKS[self.hook]) if self.hook != 'none' else ''
         lib_ = lib.pull(() if self.theme == 'mixed' else (self.theme,))
         if len({(e['theme'], e['scene']) for e in lib_}) < 3: lib_ = lib.pull(())
         if not lib_: sys.exit('the retro library is empty: run the retro workflow first')
@@ -121,6 +133,11 @@ class Video:
         self.title = song.get('title', self.slug); self.artist = song.get('artist', 'Close Quarters')
         self.credit = '♪ %s — %s' % (self.title.lower(), self.artist.lower())
         self.f_credit, self.f_ui, self.f_ui_s, self.f_osd = font(30), font(30), font(24, False), font(46, mono=True)
+        self.f_hook, self.f_num = font(68), font(120)
+        seen = []                                                  # each place's number, in the order it first appears
+        for _c, e, *_ in self.clips.plan:
+            if e['asset'] not in seen: seen.append(e['asset'])
+        self.number = {a: k + 1 for k, a in enumerate(seen)}
         self.spec = np.zeros(20); self.peak = np.zeros(20); self.marquee = 0.0; self.prev_small = None
         self.chrome = self.player_skin() if self.frame_kind == 'player' else None
 
@@ -217,6 +234,15 @@ class Video:
             if (i // 20) % 4 != 3: d.text((70, 120), 'PLAY ▶', font=self.f_osd, fill=(245, 245, 245, 255), stroke_width=3, stroke_fill=(0, 0, 0, 255))
             d.text((W - 70, 120), 'CH 03', font=self.f_osd, fill=(245, 245, 245, 255), anchor='ra', stroke_width=3, stroke_fill=(0, 0, 0, 255))
             d.text((70, H - 560), 'SP  %d:%02d:%02d' % (t // 3600, (t // 60) % 60, t % 60), font=self.f_osd, fill=(245, 245, 245, 255), stroke_width=3, stroke_fill=(0, 0, 0, 255))
+        if self.line and (self.hook != 'memory' or i < 4.5 * FPS):          # a question stays up: someone can land on any second of a loop
+            words = self.line.split(); half = len(words) // 2 + 1
+            rows = [self.line] if d.textlength(self.line, font=self.f_hook) < W - 160 else [' '.join(words[:half]), ' '.join(words[half:])]
+            y0h = 330 if self.frame_kind != 'osd' else 400
+            for k, row in enumerate(rows):
+                d.text((W / 2, y0h + k * 84), row, font=self.f_hook, fill=(255, 255, 255, 255), anchor='mm', stroke_width=7, stroke_fill=(0, 0, 0, 255))
+            if self.hook in ('spot', 'smoke'):
+                num = self.number.get(self.clips.plan[self.clips.seg(i)][1]['asset'], 1); y1 = y0h + len(rows) * 84 + 70
+                d.text((W / 2, y1), str(num), font=self.f_num, fill=(255, 232, 80, 255), anchor='mm', stroke_width=8, stroke_fill=(0, 0, 0, 255))
         if self.frame_kind != 'player':
             d.text((W / 2, H - 440), self.credit, font=self.f_credit, fill=(240, 240, 240, 255), anchor='mm', stroke_width=3, stroke_fill=(0, 0, 0, 255))
 

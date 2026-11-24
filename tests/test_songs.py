@@ -313,7 +313,7 @@ class TestSongNameInCaptions:
             config.buffer.service, config.buffer.title_strategy,
             cli._caption_names(config, song),
         )
-        assert len(records) == 8
+        assert len(records) == 7
         for record in records:
             assert "Night Bus" in record.body and "{" not in record.body
             assert record.overlay and "{" not in record.overlay

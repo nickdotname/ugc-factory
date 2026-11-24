@@ -172,6 +172,11 @@ class PostingConfig(StrictModel):
     #: campaign stops at this many posts of its own in the queue. None: no
     #: limit of its own (a channel only it posts to).
     buffer_share: int | None = Field(default=None, ge=1, le=100)
+    #: Instagram, posting directly: the second of the video whose frame is the
+    #: Reel's cover on the profile grid. Unset, Instagram takes the first
+    #: frame, which for a video that builds a picture from nothing (the maths
+    #: ones) is a blank square. Keep it shorter than the shortest video.
+    cover_at_sec: float | None = Field(default=None, ge=0, le=60)
     #: Shifts every slot by this many minutes.
     #:
     #: Campaigns sharing a cadence and a start hour produce *identical* slot

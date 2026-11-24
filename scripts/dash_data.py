@@ -12,6 +12,7 @@ Run by the publish job every 15 minutes. Reads only what the repository already 
   campaigns/*/recipes.json     what each studio video is (its style and the knobs that say what it is about)
 and, once a day, each account's profile picture from Instagram (with the IG_TOKEN* secrets in the environment).
 """
+from pathlib import Path
 import base64, glob, io, json, os, sys, urllib.parse, urllib.request
 from datetime import datetime, timezone
 
@@ -30,10 +31,15 @@ OURS_ONLY = {'nickdotname_ig'}
 METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments': 'comments', 'shares': 'shares',
            'saves': 'saves', 'averageTimeWatched': 'watch', 'skipRate': 'skip', 'follows': 'follows'}
 # the knobs that say what a studio video is about, per style (same idea as studio/nightly.py's SUBJECT)
-WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
+WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene', 'rule'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
         'psy': ['field'], 'collage': ['palette'], 'liminal': ['place'], 'earth': ['scene'], 'glitch': ['source'],
-        'retro': ['theme'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
+        'retro': ['theme', 'hook'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
         'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage', 'bg'], 'tinycode': ['program'], 'scene': ['scene', 'place']}
+
+
+def read_yaml(path):
+    """A YAML file, read and closed (a file left open for the collector to close is an error under the tests)."""
+    with open(path) as f: return yaml.safe_load(f)
 
 
 def load(path, default):
@@ -99,7 +105,7 @@ def pfps(accounts, old, campaign_of_account):
                 out[name] = (p['pfp'], stamp); continue      # keep the old one; try again tomorrow
         brand = os.path.join(ROOT, 'campaigns', campaign_of_account.get(name) or '-', 'brand', 'profile.jpg')
         if p.get('pfp'): out[name] = (p['pfp'], at)
-        elif os.path.exists(brand): out[name] = (_small(open(brand, 'rb').read()), None)
+        elif os.path.exists(brand): out[name] = (_small(Path(brand).read_bytes()), None)
     return out
 
 
@@ -113,7 +119,7 @@ def iso(s):
 
 
 def main(out):
-    accounts = yaml.safe_load(open(os.path.join(ROOT, 'accounts.yaml')))['accounts']
+    accounts = read_yaml(os.path.join(ROOT, 'accounts.yaml'))['accounts']
     by_channel = {str(a.get('channel_id')): a['name'] for a in accounts if a.get('channel_id')}
     posts = {}                                   # post id -> row
     now = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
@@ -127,7 +133,7 @@ def main(out):
     for cdir in sorted(glob.glob(os.path.join(ROOT, 'campaigns', '*'))):
         camp = os.path.basename(cdir)
         if camp.startswith('_') or not os.path.exists(os.path.join(cdir, 'config.yaml')): continue
-        cfg = yaml.safe_load(open(os.path.join(cdir, 'config.yaml'))) or {}
+        cfg = read_yaml(os.path.join(cdir, 'config.yaml')) or {}
         if (cfg.get('posting') or {}).get('paused'): pass
         titles = {c['name']: c.get('title') or c['name'] for c in cfg.get('creatives') or []}
         acc_cfg = cfg.get('accounts') or {}
