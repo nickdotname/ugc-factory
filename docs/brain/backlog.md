@@ -4,10 +4,33 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
 
 ## Open PRs (waiting for a merge)
 - #92 the three instrumentals in rotation · #93 fission (math.explainers) · #94 NYC facts + own-clip inbox
-- #75 fresh subjects · #77 math sorting/maze races · #79 ASCII goldfish · #80 fluid sims (physics). All merge
+- #75 fresh subjects · #79 ASCII goldfish · #80 fluid sims (physics). All merge
   cleanly as of 2026-11-23.
 
 ## Next
+- **@moth.ate.my.notes: the text account** (registered as `notes_ig`, token `IG_TOKEN_4`, no campaign yet). Renderer
+  to build: Instagram "Create mode" look. Gradients blue→purple, red→orange, pink→magenta; lowercase text, centred,
+  white with a soft shadow or black with none; two faces (rounded bold, tall condensed). Shapes seen in the
+  references Dylan sent on 2026-11-24: a one-liner about an ex or a situationship; a current-events twist; a dash
+  list; setup / turn / punchline with blank lines between. A band posting this format with its own song attached
+  did well, which is our case. No song label on the card (Dylan). Lines are ours, written in that voice: never
+  copied from other pages, nothing explicit, nothing about real private people. Prototypes: `/tmp/textcards/` in
+  the 2026-11-24 session (not in the repo).
+- **Account ideas from the same day** (each needs an Instagram account made on the phone and a tester invite; four
+  token slots are free, `IG_TOKEN_5`…`8`):
+  - *Reveal* ("can you guess it?"): a closed outline drawn by Fourier epicycles with N = 3, 5, 8, 20… circles, the
+    error falling as N grows, the answer at the end. Our subjects only: animals, instruments, countries, everyday
+    objects (the reference used Pokémon, which we cannot draw). `studio/mathviz/fourier.py` already draws
+    epicycles. Difficulty tags are fine; "only true fans" / "you're a genius" lines are not.
+  - *What if* (a question, then a small 3D scene that plays it out with one live number): "what if the ocean froze
+    for 5 seconds", "what if a 1 km asteroid hit 50 km away". Voxel scenes like `studio/pixelviz/`. Every number
+    shown must be computed (a shockwave's arrival time from the distance and the speed of sound), not made up. No
+    real people (the reference used a pop-star figure).
+  - *Choose a world* ("choose a planet, you must survive one year"): four numbered worlds, a countdown, then a
+    walk through each with a pixel caption. Fits retro.vibes.arcade today, from clips already in `retro-library`.
+  - *Harder levels* for rotation.illusions ("level: hard ++++": more dots, two shells turning against each other).
+  - *Same prompt, four models* (a drawing made by code from each of several AI models, side by side): only if each
+    panel is really that model's output. Not from our renderers with model names on them.
 - **Formats from Dylan's inspiration reels (2026-11-24).** Each must be our own version: our pictures, our wording, no
   "comment if you got it", no "follow for part 2", no invented statistics ("only 1% can").
   - *Sorting race that unscrambles a picture* (quick sort vs merge sort on the same shuffled image, side by side):
