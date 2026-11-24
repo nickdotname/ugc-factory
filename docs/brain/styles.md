@@ -27,6 +27,8 @@ it so [[learning]] can score it; `CQ_KNOBS` forces knobs.
 | vintage | vintage_video.py | vintage.media.archive | pre-1931 film as an old print: tint, crank stutter, gate/iris, grain, dust, scratches, intertitle lyric cards; sometimes melts, burns or double-exposes | tint, crank, gate, cards, trip, pace, source |
 | nyc | nyc_video.py | nyc.daily.aesthetic | NYC footage as a meme (white caption bar) or a fact that counts up on the beat | kind, look, pace, line/fact, source |
 | tinycode | tinycode_video.py | tiny.code.loops | a few lines of numpy in an editor, and what they draw (13 programs: sunflower, knot, ridges, orbits, interference, lissajous, rose, spirograph, attractor, plasma, tunnel, metaballs, galaxy); the code shown is the code run | program, palette, glow, trail |
+| cinema | cinema_video.py | ascii.cinema.tty | a public-domain film clip cut into a grid of letter cells, each the letter whose ink matches its brightness and the colour of the film under it, in a terminal; the kick pushes in, the snare flashes the brightest letters | cell, ramp, look, crt |
+| alife | alife_video.py | digital.petri.dish | a slime mould of ~200,000 agents (each smells the trail ahead, turns to the strongest, leaves its own); the kick makes them run, the snare drops new ones in, the bass widens how far they look | start, palette, sense, steps |
 
 Open PRs adding styles (not merged at the time of writing): **fluid** (wind-tunnel Navier-Stokes sims for
 physics.bounce.lab, #80), sorting/maze races for math (#77), goldfish for ascii (#79). See [[backlog]].

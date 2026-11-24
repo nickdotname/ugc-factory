@@ -91,3 +91,11 @@ targets:
     style: tinycode
     per_night: 4
     join: 30
+  - campaign: ascii_cinema  # ascii.cinema.tty: a public-domain film clip as coloured ASCII in a terminal (studio/cinema_video.py)
+    style: cinema
+    per_night: 4
+    join: 30
+  - campaign: petri_dish    # digital.petri.dish: a slime-mould simulation moving to the song (studio/alife_video.py)
+    style: alife
+    per_night: 4
+    join: 30
