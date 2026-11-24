@@ -8,7 +8,8 @@ The nightly job's renderer for the "ascii" style (studio/nightly.py): it plays t
 colours, the layout and how many sparks the snare throws, so the learner finds out what gets watched. The engine
 and the scenes are in studio/asciiviz/.
 
-Two scenes are isometric pixel worlds instead of letters (an old bridge over a river, a clay tennis court): voxels
+Four scenes are isometric pixel worlds instead of letters (an old bridge over a river, a clay tennis court, a pickup
+basketball game, a subway platform): voxels
 drawn in code, no sprites or image files, with the same timing (studio/pixelviz/). They were taken off for a few
 hours on 2026-11-23 as "not ASCII" and put back the same night: they were two of the account's three most-watched
 posts, and the page is creative coding as much as ASCII.
@@ -19,9 +20,9 @@ sys.path.insert(0, os.path.join(HERE, 'asciiviz')); sys.path.insert(0, HERE)
 import knobs as K
 from engine import Video
 
-SCENES = ['planet', 'boulder', 'jelly', 'aurora', 'daisies', 'galaxy', 'fireworks', 'goldfish', 'bridge', 'court']
-WEIGHTS = [1, 1, 1, 3, 3, 3, 3, 6, 5, 5]   # the newer scenes get more until the learner has a view; the pixel worlds are about a third
-PIXEL = {'bridge': 1, 'court': 2}     # scene -> the world number shown in the frame
+SCENES = ['planet', 'boulder', 'jelly', 'aurora', 'daisies', 'galaxy', 'fireworks', 'goldfish', 'bridge', 'court', 'hoops', 'subway']
+WEIGHTS = [1, 1, 1, 3, 3, 3, 3, 6, 2, 2, 4, 4]   # the newer scenes get more until the learner has a view; the pixel worlds are about a third
+PIXEL = {'bridge': 1, 'court': 2, 'hoops': 3, 'subway': 4}     # scene -> its world number
 
 if __name__ == '__main__':
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
