@@ -34,6 +34,14 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
   now also avoids minutes the network already holds (`scheduled_slots`).
 - **One exhausted creative used to fail the whole campaign**, and one too-short clip failed the render; both are
   now skipped (`creative_exhausted`, `item_rejected`).
+- **The same post sent twice.** A run that waits its turn behind another sender (fact reel, carousel, the run
+  before it) is checked out at the commit that *started* it, so a post the earlier job just sent still read as
+  unsent and went out again; the two then changed the same outbox file, the push failed, and every other post that
+  run had sent lost its record and was sent again five minutes later. It happened three times (Nov 21 13:00 and
+  22:15, Nov 24 10:55 New York; seven extra posts). `publish-due` now pulls the branch before reading the outbox
+  (`vcs.sync`), pushes a `publishing` claim for each post before asking Instagram to publish it, and pushes the
+  result straight after with `vcs.record`, which cannot be refused. A failed `publish.yml` run is the sign to look
+  for: `gh api '...workflows/publish.yml/runs?status=failure'`.
 - **GitHub cron is late and skips.** The 5-minute clock is a Cloudflare Worker; GitHub's cron is only the backup.
   Cloudflare's settings UI needs its "Unsaved changes → Save" bar clicked or nothing changes.
 - **"Base branch was modified"** when merging: refresh the PR page and merge again.

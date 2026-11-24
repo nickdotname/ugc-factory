@@ -43,6 +43,17 @@ class Vcs(ABC):
         outcome and not an error.
         """
 
+    def sync(self) -> None:
+        """Bring the working copy up to the branch as it is now.
+
+        A job that waited its turn was checked out at the commit that started
+        it, not at the commit the job before it left behind.
+        """
+
+    def record(self, paths: Sequence[Path], message: str) -> bool:
+        """Commit files whose content must reach the branch whatever landed first."""
+        return self.commit(paths, message)
+
 
 class GitVcs(Vcs):
     """The real implementation, shelling out to git."""
@@ -103,6 +114,58 @@ class GitVcs(Vcs):
             self._push_with_rebase(message)
         self._log.info("vcs_committed", message=message, files=len(paths))
         return True
+
+    def sync(self) -> None:
+        if not self._push:
+            return
+        pull = self._git("pull", "--rebase", "--autostash", check=False)
+        if pull.returncode != 0:
+            self._git("rebase", "--abort", check=False)
+            raise VcsError(
+                f"could not bring the working copy up to date: "
+                f"{(pull.stderr or pull.stdout)[-300:]}"
+            )
+
+    def record(self, paths: Sequence[Path], message: str, attempts: int = 5) -> bool:
+        """Commit a fact that has already happened, so it cannot be refused.
+
+        ``commit`` gives up when another job changed the same file first. That
+        is right for a claim (do not act on something someone else took) and
+        wrong for a result: the post is on Instagram, and a run that fails to
+        say so leaves it marked unsent for the next run to send again. Here our
+        copy of these files wins.
+        """
+        keep = {p: p.read_bytes() for p in paths if p.is_file()}
+        try:
+            return self.commit(paths, message)
+        except VcsError as exc:
+            if not self._push or not keep:
+                raise
+            self._log.warning("vcs_record_contested", message=message, error=str(exc)[:200])
+        for attempt in range(1, attempts + 1):
+            self._git("rebase", "--abort", check=False)
+            # Replay our commit on top of the branch; where both changed the
+            # same lines, ours are kept ("theirs" is the commit being replayed).
+            pull = self._git("pull", "--rebase", "--autostash", "-X", "theirs", check=False)
+            if pull.returncode != 0:
+                self._git("rebase", "--abort", check=False)
+                self._git("fetch", check=False)
+                self._git("reset", "--hard", "@{upstream}")
+            for path, data in keep.items():
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(data)
+            self._git("add", "--", *[str(p) for p in keep])
+            if self._git("diff", "--cached", "--quiet", check=False).returncode != 0:
+                self._git(
+                    "-c", f"user.name={self._author_name}",
+                    "-c", f"user.email={self._author_email}",
+                    "commit", "-m", f"{message} [skip ci]",
+                )
+            if self._git("push", check=False).returncode == 0:
+                self._log.info("vcs_recorded", message=message, attempt=attempt)
+                return True
+            self._sleep(0.5 * attempt + random.random() * 0.5)
+        raise VcsError(f"could not record {message!r} after {attempts} tries")
 
     def _push_with_rebase(self, message: str, attempts: int = 8) -> None:
         """Push, rebasing onto whatever landed first if the push is rejected.

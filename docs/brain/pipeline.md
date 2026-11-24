@@ -38,7 +38,9 @@ moving render to 08:30 UTC, after studio).
 
 - Instagram accounts post **directly** through the Graph API (`src/publishers/instagram.py`, token `IG_TOKEN`).
   A post is made as a container, then published at its slot; then the first comment is added (failure of the
-  comment never fails the post).
+  comment never fails the post). Each post makes two commits: `publishing <id>` (the claim, pushed before
+  Instagram is asked to publish) and `published <id>` (the result). A post left at `publishing` is asked about,
+  never sent again.
 - @the.loose.change (`nickdotname_ig`) still posts through **Buffer** (`BUFFER_API_KEY_2`).
 - Slots: `upcoming_slots` per campaign; `topup` refuses minutes another campaign or the network already holds
   on the same account (`publisher.scheduled_slots`), so two posts never land on one minute.

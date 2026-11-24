@@ -180,7 +180,7 @@ from src.selector import (
     days_until_first_repeat,
     tuple_hash,
 )
-from src.vcs import GitVcs, NullVcs, Vcs
+from src.vcs import GitVcs, NullVcs, Vcs, VcsError
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CAMPAIGNS_DIR = REPO_ROOT / "campaigns"
@@ -3674,6 +3674,18 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
     vcs: Vcs = (
         NullVcs(log) if args.dry_run or args.no_commit else GitVcs(REPO_ROOT, log)
     )
+    # This run may have waited behind another sender, and was checked out at
+    # the commit that started it. Read the outbox as it is now, or a post the
+    # run before this one sent still looks unsent here and goes out twice.
+    vcs.sync()
+
+    def checkpoint(path: Path, what: str) -> None:
+        if what == "claim":
+            # Refused if anyone else changed this post first: then it is not ours.
+            vcs.commit([path], f"publishing {path.stem[:12]}")
+        else:
+            vcs.record([path], f"published {path.stem[:12]}")
+
     exit_code = 0
     for slot, accounts in by_slot.items():
         names = {_account_channel(a, env): a.name for a in accounts}
@@ -3690,9 +3702,16 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
                 state = publisher.queue_state(channel)
                 print(f"{name}: {state.depth} held, next due {state.next_due}")
             continue
-        changed = publisher.publish_due(
-            channel_ids=set(names), send_next=bool(getattr(args, "now", False))
-        )
+        publisher.checkpoint = checkpoint
+        try:
+            changed = publisher.publish_due(
+                channel_ids=set(names), send_next=bool(getattr(args, "now", False))
+            )
+        except VcsError as exc:
+            # A claim was refused: another run holds that post. Everything sent
+            # so far is already recorded; the rest goes out on the next run.
+            print(f"stopped: {exc}", file=sys.stderr)
+            return 1
         for item in changed:
             name = names.get(str(item.get("channel_id")), "?")
             status = item.get("status")
@@ -3701,8 +3720,8 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
             if item.get("error"):
                 exit_code = 1
         if publisher.touched:
-            vcs.commit(
-                [REPO_ROOT / OUTBOX_DIR],
+            vcs.record(
+                sorted(set(publisher.touched)),
                 f"publish {len(changed)} for {', '.join(sorted(names.values()))}",
             )
     return exit_code
