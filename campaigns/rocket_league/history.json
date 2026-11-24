@@ -607,6 +607,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-24T08:47:20.147055Z",
+      "item_id": "d40eaad7-a749-4ad3-8b28-15e0a1d7ab0d",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "ceiling shot, but make it Recess (Rewind)\n🎧 Recess (Rewind) – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
+      "title": null,
+      "creative": "recess_rewind",
+      "captions": {
+        "instagram": "ceiling shot, but make it Recess (Rewind)\n🎧 Recess (Rewind) – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nRecess (Rewind) is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.648,
+        "anchor_y": 0.681,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-24T08:47:20.147055Z",
+      "item_id": "9277ad83-f80a-419b-82dd-aa2fa1ed7336",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "flip reset, beat drop\n🎧 Talk – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
+      "title": null,
+      "creative": "talk",
+      "captions": {
+        "instagram": "flip reset, beat drop\n🎧 Talk – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nstream Talk: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.634,
+        "anchor_y": 0.562,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
