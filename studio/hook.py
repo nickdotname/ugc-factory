@@ -36,18 +36,19 @@ ANGLES = {
     'producer': {
         'relatable': ["pov: 3am in the studio", "musicians will understand", "this is what a song looks like inside",
                       "every layer. one screen.", "when the mix finally sits right"],
-        'comment':   ["which part would you solo?", "producers: what would you change?", "which stem is carrying?"],
-        'curious':   ["the song, pulled apart", "hear it. now see it.", "watch the vocals", "sound on"],
+        # statements, not asks (2026-11-24): the old 'comment' lines asked for comments (bait, CLAUDE.md)
+        'statement': ["the vocal alone hits different", "the bass is doing all the work here", "four tracks. one song."],
+        'curious':   ["the song, pulled apart", "every part on its own, then all of it", "watch the vocals", "sound on"],
         'plain':     ["lesson of the day"],
     },
 }
 # rocket.league.lit: our own clips, any of which may be a goal, a save or a demo, so nothing names what happens.
 # A line only now and then (NONE_SHARE); which angle earns its place is left to the learner.
 ANGLES['rocket'] = {
-    'debate':  ["clean or lucky?", "this was pure luck. change my mind", "bronze players could do this",
-                "rocket league peaked in 2016. agree?",
-                "ball cam on or off? defend yourself", "controller or keyboard? pick a side", "this game is dead. right?"],
-    'comment': ["guess our rank", "how many hours to pull this off?", "what rank is this?"],
+    # statements, not asks (2026-11-24): the old 'debate' and 'comment' lines ("change my mind", "agree?", "guess our
+    # rank") asked for comments, which is engagement bait (CLAUDE.md). Opinions only, no claims about ranks or hours.
+    'statement': ["this was pure luck", "ball cam stays on. always.", "this game never gets old",
+                  "rocket league peaked in 2016", "no one on our team saw this coming", "the cleanest one this week"],
     'curious': ["wait for it", "rocket league, but on beat", "sound on", "watch the ball", "this is why we can't stop playing",
                 "rocket league players will get it"],
 }
