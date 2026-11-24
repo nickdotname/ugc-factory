@@ -8,13 +8,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 213.0,
+          "value": 216.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 183.0,
+          "value": 184.0,
           "unit": "count"
         },
         {
@@ -44,19 +44,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.033,
+          "value": 3.993,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 12.772016666666667,
+          "value": 12.8473,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 72.6,
+          "value": 73.1,
           "unit": "count"
         },
         {
@@ -67,7 +67,7 @@
         }
       ],
       "account": "petri_ig",
-      "fetched_at": "2026-11-24T12:44:02.843671Z"
+      "fetched_at": "2026-11-24T15:43:20.280502Z"
     },
     "igo-bc34af87-6a9b-4f90-b43b-84273123abb7": {
       "post_id": "igo-bc34af87-6a9b-4f90-b43b-84273123abb7",
@@ -136,7 +136,7 @@
         }
       ],
       "account": "petri_ig",
-      "fetched_at": "2026-11-24T12:44:02.843671Z"
+      "fetched_at": "2026-11-24T15:43:20.280502Z"
     },
     "igo-123ff7f2-d18f-4ed8-afc3-b6a83593997e": {
       "post_id": "igo-123ff7f2-d18f-4ed8-afc3-b6a83593997e",
@@ -146,13 +146,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 149.0,
+          "value": 152.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 126.0,
+          "value": 129.0,
           "unit": "count"
         },
         {
@@ -182,19 +182,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 2.8890000000000002,
+          "value": 2.873,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 6.259816666666667,
+          "value": 6.369916666666667,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 73.1,
+          "value": 72.9,
           "unit": "count"
         },
         {
@@ -205,7 +205,76 @@
         }
       ],
       "account": "petri_ig",
-      "fetched_at": "2026-11-24T12:44:02.843671Z"
+      "fetched_at": "2026-11-24T15:43:20.280502Z"
+    },
+    "igo-4ebf0082-2b5f-429a-a0d3-1fd3bfb001d6": {
+      "post_id": "igo-4ebf0082-2b5f-429a-a0d3-1fd3bfb001d6",
+      "service": "instagram",
+      "sent_at": "2026-11-24T14:31:03.151195Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 23.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 18.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 2.902,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.8708833333333333,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 66.7,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "petri_ig",
+      "fetched_at": "2026-11-24T15:43:20.280502Z"
     }
   }
 }
