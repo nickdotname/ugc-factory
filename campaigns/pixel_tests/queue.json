@@ -197,9 +197,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-83b5e654-6199-43a6-97c2-852661d0541c",
           "last_error": null,
           "scheduled_for": "2026-11-25T08:33:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "the fireflies are on beat. are you\n🎧 Talk – @close__quarters #pixelart #8bit #braingames #attention #rhythm\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
