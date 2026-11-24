@@ -1,186 +1,27 @@
 {
-  "generated_at": "2026-11-23T08:32:00.038736Z",
+  "generated_at": "2026-11-24T05:45:01.831441Z",
   "items": [
     {
-      "id": "333c70e3-7793-4607-8ece-c2dbcd619a5a",
-      "scheduled_for": "2026-11-23T09:35:00-05:00",
-      "rendered_at": "2026-11-23T08:32:00.038736Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-23/333c70e3-7793-4607-8ece-c2dbcd619a5a.mp4",
-      "caption": "Recess (Rewind) – Close Quarters",
+      "id": "64f2baf8-2096-4287-a4c2-d1bd54b12e97",
+      "scheduled_for": "2026-11-24T09:35:00-05:00",
+      "rendered_at": "2026-11-24T05:45:01.831441Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-24/64f2baf8-2096-4287-a4c2-d1bd54b12e97.mp4",
+      "caption": "you woke up here. what do you do first?\n🎧 Prologue: Before – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.525,
-        "anchor_y": 0.538,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "recess_rewind",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Recess (Rewind) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-ba28bad2-0b23-4a2c-831a-a14147a08850",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T13:05:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Recess (Rewind) – Close Quarters\n\nstream Recess (Rewind): link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "f25b4428-f9a6-49f8-b611-bb5bd3681924",
-      "scheduled_for": "2026-11-23T13:05:00-05:00",
-      "rendered_at": "2026-11-23T08:32:00.038736Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-23/f25b4428-f9a6-49f8-b611-bb5bd3681924.mp4",
-      "caption": "you've been here before. sound on.\n🎧 Fixation – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.656,
-        "anchor_y": 0.738,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "fixation",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Fixation – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-30c4b9ff-8b21-4f02-9686-c7844aff22cb",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T16:35:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "you've been here before. sound on.\n🎧 Fixation – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nFixation is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "530f6e68-fc8d-4efb-856d-db245eaeca12",
-      "scheduled_for": "2026-11-23T16:35:00-05:00",
-      "rendered_at": "2026-11-23T08:32:00.038736Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-23/530f6e68-fc8d-4efb-856d-db245eaeca12.mp4",
-      "caption": "Passage (Waiting) – Close Quarters",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.289,
-        "anchor_y": 0.293,
+        "anchor_x": 0.275,
+        "anchor_y": 0.595,
         "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "passage_waiting",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Passage (Waiting) by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-0f2564b5-c4b9-4c69-8f09-32226b4db8b4",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T20:05:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Passage (Waiting) – Close Quarters\n\nlink in bio to stream Passage (Waiting)"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "b273092d-73b3-459b-825c-167316785087",
-      "scheduled_for": "2026-11-23T20:05:00-05:00",
-      "rendered_at": "2026-11-23T08:32:00.038736Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-23/b273092d-73b3-459b-825c-167316785087.mp4",
-      "caption": "if you remember this hallway you had a good childhood\n🎧 Prologue: Before – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.425,
-        "anchor_y": 0.53,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -192,23 +33,228 @@
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-c318a969-e940-4573-a377-0044f3f91269",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T09:35:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "if you remember this hallway you had a good childhood\n🎧 Prologue: Before – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nstream Prologue: Before: link in bio"
+        "instagram": "you woke up here. what do you do first?\n🎧 Prologue: Before – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "922ac1d7-cf23-4dc7-a17c-1e9b48d4f576",
+      "scheduled_for": "2026-11-24T11:55:00-05:00",
+      "rendered_at": "2026-11-24T05:45:01.831441Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-24/922ac1d7-cf23-4dc7-a17c-1e9b48d4f576.mp4",
+      "caption": "the mall after the lights go off\n🎧 Won't Be the Same Again – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.521,
+        "anchor_y": 0.505,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "the mall after the lights go off\n🎧 Won't Be the Same Again – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "de54b504-f1c2-49a1-a118-734cf6e9ac41",
+      "scheduled_for": "2026-11-24T14:15:00-05:00",
+      "rendered_at": "2026-11-24T05:45:01.831441Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-24/de54b504-f1c2-49a1-a118-734cf6e9ac41.mp4",
+      "caption": "a hallway you walked once in 2004\n🎧 Talk – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.45,
+        "anchor_y": 0.701,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "talk",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "a hallway you walked once in 2004\n🎧 Talk – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nstream Talk: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "be81e735-cb65-41fa-8f8e-622e63fdcf20",
+      "scheduled_for": "2026-11-24T16:35:00-05:00",
+      "rendered_at": "2026-11-24T05:45:01.831441Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-24/be81e735-cb65-41fa-8f8e-622e63fdcf20.mp4",
+      "caption": "found footage from nowhere in particular\n🎧 Myth of Sisyphus – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.507,
+        "anchor_y": 0.677,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "myth_of_sisyphus",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "found footage from nowhere in particular\n🎧 Myth of Sisyphus – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "9d50bfa2-e962-4b67-9b53-b79241691757",
+      "scheduled_for": "2026-11-24T18:55:00-05:00",
+      "rendered_at": "2026-11-24T05:45:01.831441Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-24/9d50bfa2-e962-4b67-9b53-b79241691757.mp4",
+      "caption": "the pool smells like chlorine and summer\n🎧 Silver and Gold – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.395,
+        "anchor_y": 0.497,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "silver_and_gold",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Silver and Gold by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "the pool smells like chlorine and summer\n🎧 Silver and Gold – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nlink in bio to stream Silver and Gold"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "a6cf6806-3210-4ac7-9830-5d724c225665",
+      "scheduled_for": "2026-11-24T21:15:00-05:00",
+      "rendered_at": "2026-11-24T05:45:01.831441Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-24/a6cf6806-3210-4ac7-9830-5d724c225665.mp4",
+      "caption": "the hotel hallway on the family road trip\n🎧 Won't Be the Same Again – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.628,
+        "anchor_y": 0.521,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "the hotel hallway on the family road trip\n🎧 Won't Be the Same Again – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nstream Won't Be the Same Again: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
