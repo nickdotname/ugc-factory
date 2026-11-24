@@ -144,9 +144,9 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-fd7cf7ea-5ca4-4b5c-9372-77d3bc65cac9",
           "last_error": null,
           "scheduled_for": "2026-11-24T15:31:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "short enough to read before the drop\n🎧 Suspended – @close__quarters #creativecoding #generativeart #mathart #python\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
