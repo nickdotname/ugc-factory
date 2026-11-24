@@ -7,11 +7,11 @@ import os
 import sys
 from pathlib import Path
 
-import numpy as np
 import pytest
 
 STUDIO = Path(__file__).resolve().parent.parent / "studio"
 sys.path.insert(0, str(STUDIO))
+np = pytest.importorskip("numpy")
 sf = pytest.importorskip("soundfile")
 pytest.importorskip("librosa")
 import sync_check as S  # noqa: E402
