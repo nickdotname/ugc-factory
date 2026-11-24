@@ -356,9 +356,9 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-0de64dd6-246b-4a6d-b011-4407cc24e52a",
           "last_error": null,
           "scheduled_for": "2026-11-24T19:50:00-05:00"
         }
@@ -367,7 +367,7 @@
         "instagram": "Notta Problem – Close Quarters\nlesson of the day. EDUCATION is out now\n\nstream Notta Problem: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
