@@ -2,6 +2,11 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: @moth.ate.my.notes posts (campaign `notes_app`, style `notes`, `studio/text_video.py`): text-on-
+  gradient reels in the look of Instagram's own text posts, from references Dylan sent. 78 thoughts of our own in
+  `studio/notes/lines.txt` (add at the end; five are used a night, so the bank needs topping up about every two
+  weeks). No song label on the card. 8bit.tests was paused the same day ("way too basic") pending a rebuild.
+
 - 2026-11-24: @8bit.tests added (campaign `pixel_tests`, style `tests8`): the play-along pixel tests that
   math.explainers never chose, in a fuller room (a boombox whose cones follow the kick, a rug, books, a plant, a
   second creature). @moth.ate.my.notes is registered (`notes_ig`, `IG_TOKEN_4`) with no campaign yet. Both have no
