@@ -67,7 +67,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T18:45:07.898536Z"
+      "fetched_at": "2026-11-24T21:46:10.487867Z"
     },
     "igo-5bf950b8-6630-498f-a92f-018a7dff8ff2": {
       "post_id": "igo-5bf950b8-6630-498f-a92f-018a7dff8ff2",
@@ -136,7 +136,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T18:45:07.898536Z"
+      "fetched_at": "2026-11-24T21:46:10.487867Z"
     },
     "igo-269080de-3fcb-41fe-990e-8057e046f951": {
       "post_id": "igo-269080de-3fcb-41fe-990e-8057e046f951",
@@ -146,13 +146,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 14.0,
+          "value": 15.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 12.0,
+          "value": 13.0,
           "unit": "count"
         },
         {
@@ -182,19 +182,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.988,
+          "value": 5.619,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 1.1977,
+          "value": 1.2175500000000001,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 75.0,
+          "value": 76.9,
           "unit": "count"
         },
         {
@@ -205,7 +205,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T18:45:07.898536Z"
+      "fetched_at": "2026-11-24T21:46:10.487867Z"
     },
     "igo-5bf6dadb-f4e3-462b-855c-d9bde1543892": {
       "post_id": "igo-5bf6dadb-f4e3-462b-855c-d9bde1543892",
@@ -215,19 +215,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 77.0,
+          "value": 102.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 63.0,
+          "value": 86.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 2.0,
+          "value": 3.0,
           "unit": "count"
         },
         {
@@ -251,19 +251,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.059,
+          "value": 3.118,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 3.2129833333333333,
+          "value": 4.5213,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 67.2,
+          "value": 71.6,
           "unit": "count"
         },
         {
@@ -274,7 +274,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T18:45:07.898536Z"
+      "fetched_at": "2026-11-24T21:46:10.487867Z"
     },
     "igo-c084e4fc-43a0-4d2b-8c8c-24167b3cc3e1": {
       "post_id": "igo-c084e4fc-43a0-4d2b-8c8c-24167b3cc3e1",
@@ -343,7 +343,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T18:45:07.898536Z"
+      "fetched_at": "2026-11-24T21:46:10.487867Z"
     },
     "igo-b98f1e9d-a14e-46b5-aa85-d190b26d95ea": {
       "post_id": "igo-b98f1e9d-a14e-46b5-aa85-d190b26d95ea",
@@ -353,13 +353,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 5.0,
+          "value": 6.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 4.0,
+          "value": 5.0,
           "unit": "count"
         },
         {
@@ -389,19 +389,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.606,
+          "value": 5.144,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 0.30710000000000004,
+          "value": 0.4287,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 75.0,
+          "value": 80.0,
           "unit": "count"
         },
         {
@@ -412,7 +412,76 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T18:45:07.898536Z"
+      "fetched_at": "2026-11-24T21:46:10.487867Z"
+    },
+    "igo-19f86428-453e-44dc-9ab1-d143a6615f9c": {
+      "post_id": "igo-19f86428-453e-44dc-9ab1-d143a6615f9c",
+      "service": "instagram",
+      "sent_at": "2026-11-24T20:07:09.812627Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.73,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.028833333333333336,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 100.0,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "nyc_ig",
+      "fetched_at": "2026-11-24T21:46:10.487867Z"
     }
   }
 }

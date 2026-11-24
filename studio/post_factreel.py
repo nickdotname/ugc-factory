@@ -71,6 +71,7 @@ def reel(slug, name):
     tmp = tempfile.mkdtemp(); cj = os.path.join(tmp, 'cards.json'); json.dump(cards, open(cj, 'w'))
     out = os.path.join(tmp, 'factreel.mp4'); seed = rng.randrange(1000, 10 ** 6)
     env = dict(os.environ, CQ_WINDOW='%s,%s' % (t0, round(t0 + dur, 2)), CQ_CARDS=cj, CQ_LYRICS='none', CQ_HOOK='none', CQ_CRF='23', CQ_PRESET='medium', CQ_MAXRATE='6M', CQ_BUFSIZE='12M')
+    if spec.get('place'): env['CQ_PLACE'] = spec['place']          # a retro reel's room matches its story (a mall for Blockbuster)
     r = subprocess.run([sys.executable, os.path.join(HERE, renderer), sd, str(seed), out], env=env, capture_output=True, text=True)
     if r.returncode or not os.path.exists(out): sys.exit('render failed:\n' + r.stderr[-800:])
     print('rendered', out, 'from', title, t0, 'with', renderer)

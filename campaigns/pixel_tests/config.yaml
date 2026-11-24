@@ -1,7 +1,8 @@
-# 8bit.tests (8-Bit Tests): pixel-art tests you take along with the song. Count
-# the flashes (a jar of fireflies blinks on every snare; the answer comes after)
-# and read as fast as he raps (the verse a word at a time, with a words-per-minute
-# gauge). Drawn in studio/mathviz/tests8.py; no footage.
+# 8bit.tests (8-Bit Tests): play-along pixel-art tests built from the song itself
+# (studio/mathviz/tests8.py): pause when it fits, follow the gem, watch the order,
+# count the fireworks, early or late. Every move lands on one of the song's hits,
+# so every answer is exact. Drawn in code as pixel worlds (studio/mathviz/pix8.py);
+# no footage.
 # No Facebook Page: connected through Meta's Unified login as an Instagram
 # tester of the app, with its own token (IG_TOKEN_3).
 #
@@ -75,7 +76,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true                 # 2026-11-24: Dylan: "way too basic and weird". Off until the tests are rebuilt.
+  paused: false                # 2026-11-24: rebuilt after "way too basic and weird" (five play-along tests); frames and a full render approved, back on.
   dry_run: false
 
 video:

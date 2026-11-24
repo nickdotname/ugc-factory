@@ -2,6 +2,11 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: quality passes merged for ascii.terminal.dreams (#134: `asciiviz/letters.py` typesetter, footage scene
+  `wild`, painted skies and weather for the pixel worlds, `subject-*` clip prompts for Kaggle, fireworks retired) and
+  psychedelic.station (#135: kick punch, fewer overlays, readable fact reels, facts corrected, no follow-asks). Its mix
+  then changed: visualisers 10 → 8 a day (8 a night made), collage dropped, carousels 4 → 1 a day, fact reels stay 4.
+
 - 2026-11-24: @moth.ate.my.notes posts (campaign `notes_app`, style `notes`, `studio/text_video.py`): text-on-
   gradient reels in the look of Instagram's own text posts, from references Dylan sent. 78 thoughts of our own in
   `studio/notes/lines.txt` (add at the end; five are used a night, so the bank needs topping up about every two
@@ -149,3 +154,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
   Dylan and Nick with Cloudflare Access.
 - 2026-11-22: Rocket League library at 17 clips.
 - 2026-11-13: EDUCATION released.
+- 2026-11-24: @8bit.tests rebuilt (PR #137) after Dylan's "way too basic and weird". The flashes and read tests in the empty room are replaced by five play-along tests built from the song's hits: pause when it fits (4/2/1-frame windows with a frame counter), follow the gem, watch the order, count the fireworks, and early or late (the last landing moved 3-4 frames, revealed in ms). Drawn in new 2D parallax pixel worlds (`studio/mathviz/pix8.py`: city rooftop, moonlit forest, crystal cave) with reactive lights, particles, bloom and optional scanlines. Hits come from the Ableton project where a song has one, else the drum stem. New knobs `test`/`world`/`crt`, new caption bank. Frames and a full render reviewed; the campaign and nightly target are back on.
