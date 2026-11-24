@@ -79,7 +79,10 @@ class Video:
                            beats=a['beats'], spb=a['spb'], dur=t1 - t0, t0=t0, seed=seed, rows=self.rows, cols=self.cols, cw=self.cw / z, ch=self.ch / z, w=W / z,
                            snares=a['snares'], hats=a.get('hats', []), vocals=a['vocals']))
         self.grad = np.array(getattr(self.SC, 'GRAD', PALETTES['mono']) if self.palette == 'scene' else PALETTES[self.palette], np.float32)
-        ramp = (CRAMPS if self.colour else RAMPS)[self.ramp_name]; chars = sorted(set(ramp + EXTRA + getattr(self.SC, 'CHARS', '')))
+        self.typeset = hasattr(self.SC, 'picture')                    # a scene that hands over a whole picture: letters.py sets it in type
+        if self.typeset: import letters
+        ramp = (CRAMPS if self.colour else RAMPS)[self.ramp_name]
+        chars = sorted(set(ramp + EXTRA + getattr(self.SC, 'CHARS', '') + (letters.CHARS if self.typeset else '')))
         f = ImageFont.truetype(BOLD, 16) if self.colour else ImageFont.truetype(MONO, 15); self.atlas = np.zeros((len(chars), self.ch, self.cw), np.float32)
         for k, c in enumerate(chars):
             im = Image.new('L', (self.cw, self.ch))
@@ -89,9 +92,10 @@ class Video:
         self.idx = {c: k for k, c in enumerate(chars)}
         if self.ramp_name == 'texture' or self.colour: ramp = ' ' + ''.join(sorted(ramp.replace(' ', ''), key=lambda c: self.atlas[self.idx[c]].sum()))
         self.ramp = np.array([self.idx[c] for c in ramp])
-        if hasattr(self.SC, 'picture'):                               # a scene that hands over a whole picture: letters.py sets it in type
-            import letters
-            self.type = letters.Typesetter(self.rows, self.cols, len(self.ramp))
+        if self.typeset:
+            self.type = letters.Typesetter(self.rows, self.cols, {c: float(self.atlas[self.idx[c]].mean()) for c in letters.CHARS})
+            self.lut = np.zeros(0x3000, np.int32)
+            for c, k in self.idx.items(): self.lut[ord(c)] = k
         self.label = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         lines = json.load(open(os.path.join(song_dir, 'lines.json'))) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
         self.lines = [l for l in lines if l[1][0][1] < t1 and l[0] > t0]
@@ -206,12 +210,11 @@ class Video:
         return np.clip(np.maximum(layer, glow * (1 - mask[..., None])), 0, 255), int((~blank).sum()), int(spark.sum())
 
     def art_picture(self, i):
-        """A scene that hands over a whole picture (SC.picture): letters.py chooses the letters, this draws them, lets
-        the snare throw sparks off the bright ones and puts a halo behind them."""
+        """A scene that hands over a whole picture (SC.picture, RGB): letters.py chooses the letters and their colours,
+        this draws them over the wash, lets the snare throw sparks off the bright ones and lifts the lot on the kick."""
         SC = self.SC; idx = self.idx; R, C = self.rows, self.cols
-        level, stroke, rgb, L = self.type.set(SC.picture(i))
-        ch = self.ramp[level]
-        ch = np.where(stroke >= 0, np.array([idx['|'], idx['\\'], idx['-'], idx['/']])[np.clip(stroke, 0, 3)], ch)
+        char, ink, wash, L = self.type.set(SC.picture(i))
+        ch = self.lut[char.view(np.uint32).reshape(R, C)]
         spark = np.zeros((R, C), bool)
         if self.snare[i] > 0.4:
             cand = np.argwhere(L > 0.6); r2 = np.random.default_rng(i // 2)
@@ -219,15 +222,16 @@ class Video:
                 for y, x in cand[r2.choice(len(cand), min(len(cand), int(26 * self.sparks * self.snare[i])), replace=False)]: spark[y, x] = True
         ch = np.where(spark, idx['*'], ch)
         for (y, x, c, col) in SC.particles(i, R, C):
-            if 0 <= y < R and 0 <= x < C and c in idx: ch[y, x] = idx[c]; rgb[y, x] = col
-        if self.palette != 'scene': rgb = self.gradient(1 - L) * (0.45 + 0.55 * (rgb.mean(-1, keepdims=True) / 255))
-        col = np.where(spark[..., None], np.array([255, 255, 255], np.float32), rgb) * (0.92 + 0.22 * self.bass[i])
-        mask = self.atlas[ch].transpose(0, 2, 1, 3).reshape(R * self.ch, C * self.cw)
-        layer = mask[..., None] * np.repeat(np.repeat(col, self.ch, 0), self.cw, 1)
-        small = cv2.resize(layer, (layer.shape[1] // 3, layer.shape[0] // 3), interpolation=cv2.INTER_AREA)
-        g = getattr(SC, 'GLOW', 1.0) * 0.45
-        glow = cv2.resize(cv2.GaussianBlur(small, (0, 0), 6), layer.shape[1::-1]) * (0.6 + 0.6 * self.pulse[i]) * g
-        return np.clip(np.maximum(layer, glow * (1 - mask[..., None])), 0, 255), R * C, int(spark.sum())
+            if 0 <= y < R and 0 <= x < C and c in idx: ch[y, x] = idx[c]; ink[y, x] = col
+        if self.palette != 'scene':                                   # a palette knob: the same picture in that palette's colours
+            g = self.gradient(1 - L); k = 0.5 + 0.5 * (ink.max(-1, keepdims=True) / 255)
+            ink = g * k; wash = g * 0.2 * k
+        lift = 0.94 + 0.16 * self.pulse[i]
+        ink = np.where(spark[..., None], np.array([255, 255, 255], np.float32), ink * lift)
+        mask = self.atlas[ch].transpose(0, 2, 1, 3).reshape(R * self.ch, C * self.cw)[..., None]
+        up = lambda a: np.repeat(np.repeat(a, self.ch, 0), self.cw, 1)
+        ground = cv2.resize(wash.astype(np.float32) * lift, (C * self.cw, R * self.ch), interpolation=cv2.INTER_LINEAR)
+        return np.clip(ground * (1 - mask) + up(ink.astype(np.float32)) * mask, 0, 255), R * C, int(spark.sum())
 
     def frame_colour(self, i):
         """The colour scenes' page: a header line of live counts, the art, the line being printed, the code underneath."""

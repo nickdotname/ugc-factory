@@ -107,6 +107,7 @@ def dynamic(cv, i, E):
 def stats(i, E, info, voxels):
     return 'voxels %s   rally %d shots   kicks %d' % (format(voxels, ','), info['shots'], int((E['kicks'] <= i).sum()))
 
+WEATHER = ('clear', 'rain')        # snow would hide the clay, which is the picture
 FILE = 'court.py'
 CODE = '''def world():
     # a clay court, drawn block by block
