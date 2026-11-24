@@ -28,7 +28,8 @@ BLOCK = re.compile(r'strip|burlesque|nud|naked|sex|venereal|cigar|tobacco|smok|b
                    r'propaganda|nazi|hitler|racis|minstrel|blackface|savage|native|indian|negro|oriental|chinese|japanese|jap\b|'
                    r'crime|police|prison|drug|narcot|marijuana|reefer|venus|hygiene|birth|disease|surgery|hospital|accident|crash|riot|'
                    r'commercial|advertis|\bad\b|\bads\b|\bspot\b|sponsor|brand|'
-                   r'jew|cake.?walk|darkt?own|\bcoons?\b|mammy|pickaninny|sambo|uncle tom|harem|slave', re.I)   # old films' caricature
+                   r'jew|cake.?walk|darkt?own|\bcoons?\b|mammy|pickaninny|sambo|uncle tom|harem|slave|'   # old films' caricature
+                   r'schleiertanz|veil.?dance', re.I)   # dancers in body stockings that read as nude on a phone
 
 
 def _open(url, tries=4, raw=False):
