@@ -2454,6 +2454,117 @@
       "overlay": "this part. | every single time.",
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "4ab35d02bfa36e2cd2868141a106273b98050bd5d55bbdec00cfc3ae47e0352e",
+      "timestamp": "2026-11-24T05:45:43.838915Z",
+      "item_id": "3a17d095-c2de-40bf-b6f6-0a0c741b73a6",
+      "hook": "hook_09.mp4",
+      "bodies": [],
+      "music": "music_full_ride_01.m4a",
+      "music_offset_sec": 30.0,
+      "caption": "Full Ride – Close Quarters\nno skipping. listen to the whole thing once.",
+      "title": "Full Ride – Close Quarters",
+      "creative": "full_ride",
+      "captions": {
+        "instagram": "Full Ride – Close Quarters\nno skipping. listen to the whole thing once.\n\nlink in bio to stream Full Ride",
+        "tiktok": "Full Ride – Close Quarters\nno skipping. listen to the whole thing once.\n\nlink in bio to stream Full Ride"
+      },
+      "treatment": {
+        "zoom": 0.0369,
+        "anchor_x": 0.417,
+        "anchor_y": 0.525,
+        "rotate_deg": 0.011,
+        "brightness": -0.0036,
+        "saturation": 0.9522,
+        "hue_deg": -2.76,
+        "grain": 1.43,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0,
+        "trim_start": 0.373,
+        "overlay_shift": 0.002
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "headphones in. | Full Ride. | all the way through.",
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "53cdf49c560ff3531b9be41d30ea5b4d77325e83a9145b591fe104eeea979815",
+      "timestamp": "2026-11-24T05:45:43.838915Z",
+      "item_id": "c642e447-032c-40fb-ae31-1a920bf6b980",
+      "hook": "hook_14.mp4",
+      "bodies": [],
+      "music": "music_talk_01.m4a",
+      "music_offset_sec": 90.0,
+      "caption": "Talk – Close Quarters\nrun it back. you know the part.",
+      "title": "Talk by Close Quarters",
+      "creative": "talk",
+      "captions": {
+        "instagram": "Talk – Close Quarters\nrun it back. you know the part.\n\nstream Talk: link in bio",
+        "tiktok": "Talk – Close Quarters\nrun it back. you know the part.\n\nstream Talk: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0022,
+        "anchor_x": 0.746,
+        "anchor_y": 0.256,
+        "rotate_deg": -0.14,
+        "brightness": 0.0187,
+        "saturation": 0.9852,
+        "hue_deg": 1.99,
+        "grain": 0.2,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0,
+        "trim_start": 0.312,
+        "overlay_shift": -0.0051
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "this part. | every single time.",
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "1691d3b485b80037084492f5831e276492a1507568cc7256349b336533b99f22",
+      "timestamp": "2026-11-24T05:45:43.838915Z",
+      "item_id": "1b49e97e-1141-426c-a204-5aaf0b0fbfb3",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": "music_notta_problem_01.m4a",
+      "music_offset_sec": 135.0,
+      "caption": "Notta Problem – Close Quarters\nplay it for somebody and watch their face at this part",
+      "title": "Notta Problem – Close Quarters",
+      "creative": "notta_problem",
+      "captions": {
+        "instagram": "Notta Problem – Close Quarters\nplay it for somebody and watch their face at this part\n\nNotta Problem is out now. link in bio to stream it",
+        "tiktok": "Notta Problem – Close Quarters\nplay it for somebody and watch their face at this part\n\nNotta Problem is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0096,
+        "anchor_x": 0.709,
+        "anchor_y": 0.705,
+        "rotate_deg": 0.275,
+        "brightness": 0.0032,
+        "saturation": 1.0266,
+        "hue_deg": -1.16,
+        "grain": 2.49,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0,
+        "trim_start": 0.218,
+        "overlay_shift": 0.0084
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": "me waiting for my friend | to get to the good part",
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
