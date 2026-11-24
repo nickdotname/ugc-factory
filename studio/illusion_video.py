@@ -13,8 +13,12 @@ Every video is a real perception effect drawn from scratch, and every line on sc
   cone    eccentric circles on a flat disc, turning: they read as a cone coming out of the screen (stereokinetic)
   wheel   a spoked wheel that only ever speeds up; filmed at 30 frames a second it seems to slow, stop and run
           backwards (the wagon-wheel effect), with its true speed counted beside it
+  group   twelve dots that are three turning squares and four turning triangles at once; the lines show each
+          reading in turn, then go away
+  stripes diagonal stripes that are identical in every frame, with discs sliding over them that swap black and
+          white inside; the stripes seem to slide, and never do
 Shapes are our own, built here from formulas (a mug, a knot, a double helix, a tilted cube, a guitar, a ringed planet,
-a spiral stair, a chair, a key, an hourglass, a rocket): none is taken from anywhere, and the staging (a full-screen
+a spiral stair, a chair, a key, an hourglass, a rocket, a tilted donut): none is taken from anywhere, and the staging (a full-screen
 object, the flip done for you, the speed readout) is ours; no platform ring, no "difficulty" rating.
 One turn takes a whole number of bars, and the dots swell on the kick.
 Knobs (studio/knobs.py): kind, shape, palette, ask (the opening question).
@@ -32,7 +36,7 @@ W, H, FPS = 1080, 1920, 30; audio.FPS = FPS
 CX, CY, S = W / 2, H * 0.47, 480.0
 PALETTES = {'bone': [(245, 240, 225)], 'acid': [(190, 255, 90), (90, 255, 200)], 'ember': [(255, 150, 70), (255, 80, 120)],
             'ice': [(130, 215, 255), (200, 170, 255)], 'candy': [(255, 110, 200), (120, 220, 255), (255, 225, 90)]}
-SHAPES = ['mug', 'knot', 'helix', 'cube', 'guitar', 'planet', 'stair', 'chair', 'key', 'hourglass', 'rocket']
+SHAPES = ['mug', 'knot', 'helix', 'cube', 'guitar', 'planet', 'stair', 'chair', 'key', 'hourglass', 'rocket', 'donut']
 ASKS = {'which': 'which way\nis it turning?', 'flip': 'left or right?\nnow make it switch', 'sure': 'it turns one way.\nare you sure which?'}
 
 
@@ -69,6 +73,9 @@ def shape(name, n, seed):
     if name == 'mug':
         return np.r_[lathe(r, int(n * .7), [(0, -.6), (.5, -.6), (.5, .6), (.44, .6), (.44, -.5)]),
                      tube(r, n - int(n * .7), lambda t: np.c_[.5 + .34 * np.sin(np.pi * t), .38 * np.cos(np.pi * t), 0 * t], .06)]
+    if name == 'donut':                                            # tilted, so it wobbles as it turns
+        p = tube(r, n, lambda t: np.c_[.6 * np.cos(T * t), 0 * t, .6 * np.sin(T * t)], .24); c, q = math.cos(.5), math.sin(.5)
+        return p @ np.array([[1, 0, 0], [0, c, -q], [0, q, c]]).T
     if name == 'knot':
         return tube(r, n, lambda t: np.c_[(2 + np.cos(3 * T * t)) * np.cos(2 * T * t), 1.25 * np.sin(3 * T * t), (2 + np.cos(3 * T * t)) * np.sin(2 * T * t)] / 3.3, .09)
     if name == 'helix':
@@ -112,7 +119,7 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed)
-        self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel'], r, weights=[5, 3, 2, 2])
+        self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel', 'group', 'stripes'], r, weights=[5, 3, 2, 2, 3, 3])
         self.shape = K.pick('shape', SHAPES, r); self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
         self.ask = K.pick('ask', sorted(ASKS), r)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
@@ -139,6 +146,8 @@ class Video:
         a, b, c = self.marks
         if self.kind == 'cone': return 'this is flat.\ncircles on a disc, turning' if i < a else 'your eyes build a cone\nout of it' if i < c else 'still flat.'
         if self.kind == 'wheel': return 'this wheel only\never speeds up' if i < a else '30 pictures a second\nare fooling you' if i < c else 'it never slowed down.'
+        if self.kind == 'group': return 'three squares\nor four triangles?' if i < a else 'three squares' if i < b else 'four triangles' if i < c else 'same twelve dots.\nyou choose'
+        if self.kind == 'stripes': return 'the stripes never move' if i < a else 'only the circles do' if i < c else 'pause it and check.'
         if i < a: return ASKS[self.ask]
         if i < b: return 'now it turns right →'
         if i < c: return '← now it turns left'
@@ -162,6 +171,36 @@ class Video:
                 cv2.line(img, P(CX + 60 * math.cos(q), CY + 60 * math.sin(q)), P(CX + S * 1.0 * math.cos(q), CY + S * 1.0 * math.sin(q)), tuple(float(v) for v in self.pal[0]), 14, cv2.LINE_AA, 4)
             cv2.circle(img, P(CX, CY), int((60 + 10 * k) * 16), tuple(float(v) for v in self.pal[-1]), -1, cv2.LINE_AA, 4)
             self._rpm = rpm
+        elif self.kind == 'group':
+            # Twelve dots at A*u_a + B*v_b: for each a the four are a square, for each b the three are a triangle.
+            # Both readings are true at once, so the eye picks one; the lines show each in turn.
+            A, B = 0.50 * S, 0.40 * S; al = 2 * math.pi * i / self.turn; be = -2 * math.pi * i / (1.5 * self.turn)
+            u = [(A * math.cos(al + 2 * math.pi * j / 3), A * math.sin(al + 2 * math.pi * j / 3)) for j in range(3)]
+            v = [(B * math.cos(be + 2 * math.pi * j / 4), B * math.sin(be + 2 * math.pi * j / 4)) for j in range(4)]
+            pt = lambda j, m: (CX + u[j][0] + v[m][0], CY + u[j][1] + v[m][1])
+            m0, m1, m2 = self.marks; col = lambda j: tuple(float(c) for c in self.pal[j % len(self.pal)])
+            if m0 <= i < m1:
+                for j in range(3):
+                    for m in range(4): cv2.line(img, P(*pt(j, m)), P(*pt(j, (m + 1) % 4)), col(j), 7, cv2.LINE_AA, 4)
+            elif m1 <= i < m2:
+                for m in range(4):
+                    for j in range(3): cv2.line(img, P(*pt(j, m)), P(*pt((j + 1) % 3, m)), col(m), 7, cv2.LINE_AA, 4)
+            for j in range(3):
+                for m in range(4): cv2.circle(img, P(*pt(j, m)), int((17 + 9 * k) * 16), (245.0, 245.0, 245.0), -1, cv2.LINE_AA, 4)
+        elif self.kind == 'stripes':
+            # Diagonal stripes that are the same in every frame. Discs slide across; inside a disc black and white
+            # swap. Nothing striped ever moves, but the stripes seem to slide and ripple.
+            R = int(S * 1.05); yy, xx = np.mgrid[-R:R, -R:R]; wd = 34
+            stripe = (((xx + yy) // wd) % 2).astype(np.float32); mask = np.zeros(stripe.shape, np.uint8)
+            sp = 2 * R / (4 * self.spb * FPS)                                  # one crossing every bar
+            for row, dy in enumerate((-0.62, 0.0, 0.62)):
+                for q in range(3):
+                    x = ((q * 2 * R / 3 + (1 if row % 2 == 0 else -1) * sp * i) % (2 * R + 260)) - R - 130
+                    cv2.circle(mask, (int(x + R), int(dy * R + R)), 118, 255, -1, cv2.LINE_AA)
+            val = np.where(mask > 127, 1 - stripe, stripe) * (215 + 40 * k)
+            x0, y0 = int(CX) - R, int(CY) - R
+            img[y0:y0 + 2 * R, x0:x0 + 2 * R] = val[..., None] * (np.array(self.pal[0], np.float32) / 255.0 * 0.25 + 0.75)
+            cv2.rectangle(img, (x0, y0), (x0 + 2 * R, y0 + 2 * R), tuple(float(c) for c in self.pal[-1]), 6)
         else:
             th = 2 * math.pi * i / self.turn; cu = self.cue(i); ct, st = math.cos(th), math.sin(th); e = 0.2  # seen from a little above
             x = self.pts[:, 0] * ct + self.pts[:, 2] * st; z = -self.pts[:, 0] * st + self.pts[:, 2] * ct
@@ -176,7 +215,7 @@ class Video:
                 rad = (3.6 + 1.6 * k) * (1 + 0.75 * near); lum = np.clip(0.9 + 0.75 * near, 0.18, 1.6)
                 for j in np.argsort(near):                                     # far ones first, so near ones cover them when cued
                     cv2.circle(img, P(sx[j], sy[j]), int(max(1.0, rad[j]) * 16), tuple(float(v) for v in self.col[j] * lum[j]), -1, cv2.LINE_AA, 4)
-        img = img + cv2.GaussianBlur(img, (0, 0), 9) * 0.35
+        if self.kind != 'stripes': img = img + cv2.GaussianBlur(img, (0, 0), 9) * 0.35
         im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
         d.multiline_text((W / 2, 300), self.says(i), font=self.f_big, fill=(255, 255, 255), anchor='mm', align='center', spacing=16, stroke_width=4, stroke_fill=(0, 0, 0))
         if self.kind == 'wheel': d.text((W / 2, H * 0.755), '%d turns a minute' % self._rpm, font=self.f_mid, fill=(235, 235, 245), anchor='mm')
