@@ -1,0 +1,25 @@
+# Hand-picked posts, each posted exactly as written, once (src/lineup.py).
+# Anything not listed here is filled by the randomizer.
+posts:
+  # The account's first three, out the night it was linked.
+  - id: violet-first
+    creative: fixation
+    hook: hook_01.mp4
+    caption: |
+      140,000 simulated slime-mould cells. three rules. no plan. nobody drew these lines. sound on.
+      🎧 Fixation – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding
+    at: 2026-11-23 21:45
+  - id: rain-first
+    creative: talk
+    hook: hook_01.mp4
+    caption: |
+      it starts as noise. each cell smells left, ahead and right, turns, steps, leaves a trail. this is what comes out.
+      🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding
+    at: 2026-11-23 22:20
+  - id: ring-first
+    creative: suspended
+    hook: hook_01.mp4
+    caption: |
+      a ring of digital slime mould, finding its own shortcuts.
+      🎧 Suspended – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding
+    at: 2026-11-23 22:55
