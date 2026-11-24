@@ -1,59 +1,6 @@
 {
-  "generated_at": "2026-11-24T05:24:19.807078Z",
+  "generated_at": "2026-11-24T08:31:35.736639Z",
   "items": [
-    {
-      "id": "63c62229-51d1-4484-ad1d-7185cd90aba8",
-      "scheduled_for": "2026-11-23T19:30:00-05:00",
-      "rendered_at": "2026-11-23T06:31:04.137696Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nick_studio-2026-11-23/63c62229-51d1-4484-ad1d-7185cd90aba8.mp4",
-      "caption": "your family computer in 2001 if it had taste\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.436,
-        "anchor_y": 0.56,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "wont_be_the_same_again",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": null,
-      "posts": [
-        {
-          "account": "nickdotname_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "6b052564286252d73837c471",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T19:30:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "your family computer in 2001 if it had taste\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Won't Be the Same Again: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
     {
       "id": "5bd21660-a811-499c-bac4-3e7b8af36073",
       "scheduled_for": "2026-11-24T11:30:00-05:00",
@@ -153,6 +100,49 @@
       ],
       "captions": {
         "instagram": "lesson 5 of 15. class is in session.\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Fixation"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "6381a2b3-439f-414e-8b68-a700d7edf718",
+      "scheduled_for": "2026-11-24T19:30:00-05:00",
+      "rendered_at": "2026-11-24T08:31:35.736639Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nick_studio-2026-11-24/6381a2b3-439f-414e-8b68-a700d7edf718.mp4",
+      "caption": "lesson 1 of 15. class is in session.\nPrologue: Before – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.495,
+        "anchor_y": 0.605,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "lesson 1 of 15. class is in session.\nPrologue: Before – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
       "status": "pending",
