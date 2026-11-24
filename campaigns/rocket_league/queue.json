@@ -1,65 +1,12 @@
 {
-  "generated_at": "2026-11-23T14:57:28.085969Z",
+  "generated_at": "2026-11-24T05:24:36.887827Z",
   "items": [
     {
-      "id": "3ae39df3-4361-4d1f-bcf4-3277cfdd691a",
-      "scheduled_for": "2026-11-23T12:15:00-05:00",
-      "rendered_at": "2026-11-23T14:57:28.085969Z",
-      "video_url": "https://factory.nickbenak.com/v/render-rocket_league-2026-11-23/3ae39df3-4361-4d1f-bcf4-3277cfdd691a.mp4",
-      "caption": "replay worthy\n🎧 Prologue: Before – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.401,
-        "anchor_y": 0.489,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "prologue",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "rocket_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-cca0f9a5-c0f2-400f-8642-a22d5907e831",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T15:55:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "replay worthy\n🎧 Prologue: Before – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nstream Prologue: Before: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "6599aca8-bc74-479e-aac9-d423569d405a",
-      "scheduled_for": "2026-11-23T15:55:00-05:00",
-      "rendered_at": "2026-11-23T14:57:28.085969Z",
-      "video_url": "https://factory.nickbenak.com/v/render-rocket_league-2026-11-23/6599aca8-bc74-479e-aac9-d423569d405a.mp4",
-      "caption": "the timing on this one\n🎧 Won't Be the Same Again – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
+      "id": "0017dcba-b649-487f-969f-32fce9153130",
+      "scheduled_for": "2026-11-24T08:15:00-05:00",
+      "rendered_at": "2026-11-24T05:24:36.887827Z",
+      "video_url": "https://factory.nickbenak.com/v/render-rocket_league-2026-11-24/0017dcba-b649-487f-969f-32fce9153130.mp4",
+      "caption": "ceiling shot, but make it Suspended\n🎧 Suspended – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -69,8 +16,8 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.311,
-        "anchor_y": 0.317,
+        "anchor_x": 0.366,
+        "anchor_y": 0.301,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -81,81 +28,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "rocket_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-d806a942-7e3a-4e7e-8f92-24ddc5b39d07",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T19:35:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "the timing on this one\n🎧 Won't Be the Same Again – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nWon't Be the Same Again is out now. link in bio to stream it"
+        "instagram": "ceiling shot, but make it Suspended\n🎧 Suspended – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "07beda2b-8463-4a10-913f-816c54c4a502",
-      "scheduled_for": "2026-11-23T19:35:00-05:00",
-      "rendered_at": "2026-11-23T08:31:22.186418Z",
-      "video_url": "https://factory.nickbenak.com/v/render-rocket_league-2026-11-23/07beda2b-8463-4a10-913f-816c54c4a502.mp4",
-      "caption": "Passage (Waiting) – Close Quarters\nrocket league to EDUCATION. out now",
+      "id": "76441164-fee1-4558-b566-ee238ef56a0a",
+      "scheduled_for": "2026-11-24T11:15:00-05:00",
+      "rendered_at": "2026-11-24T05:24:36.887827Z",
+      "video_url": "https://factory.nickbenak.com/v/render-rocket_league-2026-11-24/76441164-fee1-4558-b566-ee238ef56a0a.mp4",
+      "caption": "the bounce read on this\n🎧 Myth of Sisyphus – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.346,
-        "anchor_y": 0.705,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "anchor_x": 0.699,
+        "anchor_y": 0.352,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "passage_waiting",
+      "creative": "myth_of_sisyphus",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Passage (Waiting) by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "rocket_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-f802a574-117e-42c6-83bc-ebf742af2774",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T12:15:00-05:00"
-        }
-      ],
+      "first_comment": "song: Myth of Sisyphus by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "Passage (Waiting) – Close Quarters\nrocket league to EDUCATION. out now\n\nlink in bio to stream Passage (Waiting)"
+        "instagram": "the bounce read on this\n🎧 Myth of Sisyphus – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
