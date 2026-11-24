@@ -197,18 +197,18 @@
         {
           "account": "glitch_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T17:59:00-05:00"
         }
       ],
       "captions": {
         "instagram": "pixels dragged across the cut\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
