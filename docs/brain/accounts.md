@@ -5,7 +5,7 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | account | `accounts.yaml` name | campaign | style(s) / renderer | posts/day | window (NY) |
 |---|---|---|---|---|---|
 | @close__quarters | close_quarters_ig | cq_band | band, lofi, cursor (lyric styles: the band's own footage) | 8 | 9–23 |
-| @dylancantor23 | dylancantor23_ig | cq_producer | producer (stems view) | 8 | 9–23 |
+| @dylancantor23 | dylancantor23_ig | cq_producer | producer (stems build / strip in a DAW) | 8 | 9–23 |
 | @the.loose.change (was nickdotname) | nickdotname_ig (Buffer) | nick_studio, closequarters | type (kinetic lyrics) + memes | 3 + 4 | 11–23 / all day |
 | @psychedelic.station | psychedelic_station_ig | psy_station | psy, collage (+ carousels, fact reels) | 10 | 9–23 |
 | @nostalgia.hub.vhs | nostalgia_ig | nostalgia | liminal (+ carousels, fact reels) | 6 | 9–23 |
