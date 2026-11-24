@@ -266,7 +266,7 @@
      ],
      "prologue": [
       3,
-      2.76,
+      2.75,
       0.559
      ],
      "wont_be_the_same_again": [
@@ -385,7 +385,7 @@
     "look": {
      "grad": [
       4,
-      3.66,
+      3.65,
       0.555
      ],
      "stars": [
@@ -476,7 +476,7 @@
      ],
      "16:00": [
       4,
-      3.74,
+      3.73,
       0.438
      ],
      "19:00": [
@@ -594,7 +594,7 @@
      ],
      "0": [
       4,
-      3.82,
+      3.81,
       0.427
      ],
      "2": [
@@ -611,7 +611,7 @@
      ],
      "full": [
       5,
-      4.79,
+      4.78,
       0.384
      ]
     },
@@ -950,7 +950,7 @@
     "hook style": {
      "flash": [
       4,
-      3.77,
+      3.76,
       0.435
      ],
      "hold": [
@@ -979,7 +979,7 @@
      ],
      "wont_be_the_same_again": [
       7,
-      6.5,
+      6.49,
       0.56
      ],
      "hair_of_the_dog": [
@@ -1081,7 +1081,7 @@
      ],
      "fixation/s02-s03": [
       1,
-      0.95,
+      0.94,
       0.411
      ],
      "wont_be_the_same_again/s01-s02": [
@@ -1113,7 +1113,7 @@
     "look": {
      "stars": [
       6,
-      5.53,
+      5.52,
       0.408
      ],
      "grad": [
@@ -1165,7 +1165,7 @@
      ],
      "20-35s": [
       5,
-      4.67,
+      4.66,
       0.533
      ]
     },
@@ -1182,7 +1182,7 @@
      ],
      "14:00": [
       4,
-      3.73,
+      3.72,
       0.423
      ],
      "17:00": [
@@ -1279,7 +1279,7 @@
      ],
      "which line hit hardest? comment it": [
       1,
-      0.95,
+      0.94,
       0.411
      ],
      "pov: it's 2am and this comes on shuffle": [
@@ -1369,7 +1369,7 @@
     "knob:pictures": {
      "0.85": [
       3,
-      2.83,
+      2.82,
       0.437
      ],
      "0.6": [
@@ -1457,7 +1457,7 @@
      ],
      "stars": [
       2,
-      1.89,
+      1.88,
       0.419
      ],
      "bars": [
@@ -1701,7 +1701,7 @@
     "style": {
      "psy": [
       26,
-      23.96,
+      23.95,
       0.496
      ],
      "collage": [
@@ -1713,7 +1713,7 @@
     "opening line": {
      "without": [
       24,
-      22.06,
+      22.05,
       0.5
      ],
      "with": [
@@ -1834,7 +1834,7 @@
      ],
      "myth_of_sisyphus/s02": [
       1,
-      0.92,
+      0.91,
       0.436
      ],
      "wont_be_the_same_again/s06": [
@@ -1896,7 +1896,7 @@
     "look": {
      "kaleido": [
       10,
-      9.26,
+      9.25,
       0.529
      ],
      "cells": [
@@ -1943,7 +1943,7 @@
     "lyrics": {
      "word": [
       10,
-      9.14,
+      9.13,
       0.432
      ],
      "line": [
@@ -1997,7 +1997,7 @@
     "length": {
      "20-35s": [
       16,
-      14.59,
+      14.58,
       0.483
      ],
      "over 35s": [
@@ -2291,7 +2291,7 @@
     "knob:mirror": {
      "true": [
       5,
-      4.74,
+      4.73,
       0.493
      ],
      "false": [
@@ -2464,9 +2464,9 @@
    "retired": {}
   },
   "nostalgia": {
-   "posts": 9,
-   "waiting": 3,
-   "typical_views": 71.0,
+   "posts": 10,
+   "waiting": 2,
+   "typical_views": 64.0,
    "weights": {
     "style": {
      "liminal": 1.0
@@ -2477,34 +2477,36 @@
     },
     "hook": {
      "3am. the music is still on": 1.02,
-     "have you seen this place?": 1.06,
+     "have you seen this place?": 1.07,
      "no one else is here": 0.95
     },
     "song": {
-     "prologue": 1.0,
-     "suspended": 1.04,
-     "wont_be_the_same_again": 0.94
+     "prologue": 1.01,
+     "suspended": 1.05,
+     "wont_be_the_same_again": 0.94,
+     "full_ride": 0.99
     },
     "section": {
-     "prologue/s07": 1.03,
-     "suspended/s01": 1.06,
+     "prologue/s07": 1.04,
+     "suspended/s01": 1.07,
      "wont_be_the_same_again/s05-s06": 0.95,
      "prologue/s06": 0.97,
      "suspended/s04": 1.02,
      "wont_be_the_same_again/s03": 0.97,
-     "suspended/s04-s05": 0.98
+     "suspended/s04-s05": 0.98,
+     "full_ride/s03": 0.99
     },
     "length": {
      "under 20s": 1.02,
-     "under 10s": 1.06,
+     "under 10s": 1.05,
      "20-35s": 0.92
     },
     "hour posted": {
-     "22:00": 1.03,
+     "22:00": 1.04,
      "13:00": 0.99,
      "17:00": 1.04,
-     "20:00": 0.96,
-     "16:00": 1.02,
+     "20:00": 0.97,
+     "16:00": 1.01,
      "09:00": 0.97
     },
     "caption": {
@@ -2513,11 +2515,13 @@
      "found this tape in my parents' basement": 0.94,
      "the mall at closing time hit different": 0.98,
      "pause it and look behind you": 1.02,
-     "the pool after everyone went home": 0.98
+     "the pool after everyone went home": 0.98,
+     "you've been here before. sound on.": 0.99
     },
     "knob:cut": {
      "full": 0.95,
-     "tight": 0.98
+     "tight": 0.98,
+     "short": 0.99
     },
     "knob:label": {
      "PLAY \u25b6": 0.94
@@ -2527,26 +2531,29 @@
     },
     "knob:place": {
      "backrooms": 0.95,
-     "school": 0.98
+     "school": 0.98,
+     "hotel": 0.99
     },
     "knob:stamp": {
-     "date": 0.96,
+     "date": 0.95,
      "none": 0.97
     },
     "knob:tape": {
      "worn": 0.95,
-     "chewed": 0.98
+     "chewed": 0.98,
+     "clean": 0.99
     },
     "knob:tint": {
      "green": 0.95,
-     "cold": 0.98
+     "cold": 0.98,
+     "neutral": 0.99
     }
    },
    "stats": {
     "style": {
      "liminal": [
-      9,
-      8.5,
+      10,
+      9.47,
       0.499
      ]
     },
@@ -2554,149 +2561,159 @@
      "with": [
       7,
       6.6,
-      0.534
+      0.541
      ],
      "without": [
-      2,
-      1.9,
-      0.377
+      3,
+      2.87,
+      0.401
      ]
     },
     "hook": {
      "3am. the music is still on": [
       4,
       3.77,
-      0.539
+      0.541
      ],
      "have you seen this place?": [
       2,
       1.88,
-      0.653
+      0.669
      ],
      "no one else is here": [
       1,
       0.95,
-      0.278
+      0.286
      ]
     },
     "song": {
      "prologue": [
       2,
-      1.86,
-      0.506
+      1.85,
+      0.517
      ],
      "suspended": [
       5,
       4.73,
-      0.564
+      0.569
      ],
      "wont_be_the_same_again": [
       2,
       1.91,
-      0.33
+      0.327
+     ],
+     "full_ride": [
+      1,
+      0.97,
+      0.461
      ]
     },
     "section": {
      "prologue/s07": [
       1,
       0.92,
-      0.644
+      0.661
      ],
      "suspended/s01": [
       2,
       1.88,
-      0.653
+      0.669
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
       0.95,
-      0.278
+      0.286
      ],
      "prologue/s06": [
       1,
       0.94,
-      0.372
+      0.375
      ],
      "suspended/s04": [
       2,
       1.89,
-      0.556
+      0.561
      ],
      "wont_be_the_same_again/s03": [
       1,
       0.96,
-      0.381
+      0.367
      ],
      "suspended/s04-s05": [
       1,
       0.97,
-      0.406
+      0.389
+     ],
+     "full_ride/s03": [
+      1,
+      0.97,
+      0.461
      ]
     },
     "length": {
      "under 20s": [
       4,
       3.77,
-      0.539
+      0.541
      ],
      "under 10s": [
-      2,
-      1.88,
-      0.653
+      3,
+      2.85,
+      0.598
      ],
      "20-35s": [
       3,
       2.85,
-      0.344
+      0.343
      ]
     },
     "hour posted": {
      "22:00": [
       1,
       0.92,
-      0.644
+      0.661
      ],
      "13:00": [
       3,
       2.84,
-      0.473
+      0.474
      ],
      "17:00": [
       1,
       0.94,
-      0.662
+      0.678
      ],
      "20:00": [
       2,
       1.89,
-      0.405
+      0.407
      ],
      "16:00": [
-      1,
-      0.94,
-      0.581
+      2,
+      1.91,
+      0.527
      ],
      "09:00": [
       1,
       0.96,
-      0.381
+      0.367
      ]
     },
     "caption": {
      "no one else is here. turn it up.": [
       2,
-      1.86,
-      0.644
+      1.85,
+      0.661
      ],
      "if you remember this hallway you had a good childhood": [
       1,
       0.94,
-      0.662
+      0.678
      ],
      "found this tape in my parents' basement": [
       2,
       1.91,
-      0.33
+      0.327
      ],
      "the mall at closing time hit different": [
       2,
@@ -2706,86 +2723,111 @@
      "pause it and look behind you": [
       1,
       0.94,
-      0.581
+      0.594
      ],
      "the pool after everyone went home": [
       1,
       0.97,
-      0.406
+      0.389
+     ],
+     "you've been here before. sound on.": [
+      1,
+      0.97,
+      0.461
      ]
     },
     "knob:cut": {
      "full": [
       2,
       1.9,
-      0.377
+      0.371
      ],
      "tight": [
       1,
       0.97,
-      0.406
+      0.389
+     ],
+     "short": [
+      1,
+      0.97,
+      0.461
      ]
     },
     "knob:label": {
      "PLAY \u25b6": [
-      3,
-      2.87,
-      0.387
+      4,
+      3.84,
+      0.398
      ]
     },
     "knob:pace": {
      "walk": [
-      3,
-      2.87,
-      0.387
+      4,
+      3.84,
+      0.398
      ]
     },
     "knob:place": {
      "backrooms": [
       2,
       1.9,
-      0.377
+      0.371
      ],
      "school": [
       1,
       0.97,
-      0.406
+      0.389
+     ],
+     "hotel": [
+      1,
+      0.97,
+      0.461
      ]
     },
     "knob:stamp": {
      "date": [
-      2,
-      1.91,
-      0.389
+      3,
+      2.88,
+      0.409
      ],
      "none": [
       1,
       0.96,
-      0.381
+      0.367
      ]
     },
     "knob:tape": {
      "worn": [
       2,
       1.9,
-      0.377
+      0.371
      ],
      "chewed": [
       1,
       0.97,
-      0.406
+      0.389
+     ],
+     "clean": [
+      1,
+      0.97,
+      0.461
      ]
     },
     "knob:tint": {
      "green": [
       2,
       1.9,
-      0.377
+      0.371
      ],
      "cold": [
       1,
       0.97,
-      0.406
+      0.389
+     ],
+     "neutral": [
+      1,
+      0.97,
+      0.461
      ]
     }
    },
@@ -3081,7 +3123,7 @@
      ],
      "prologue/s10": [
       1,
-      0.95,
+      0.94,
       0.474
      ],
      "full_ride/s03": [
@@ -3101,7 +3143,7 @@
      ],
      "myth_of_sisyphus/s06-s07": [
       1,
-      0.97,
+      0.96,
       0.18
      ],
      "myth_of_sisyphus/s06": [
@@ -3160,7 +3202,7 @@
      ],
      "10:00": [
       1,
-      0.97,
+      0.96,
       0.18
      ],
      "15:00": [
@@ -3177,7 +3219,7 @@
      ],
      "sound on. the math moves with the music": [
       1,
-      0.95,
+      0.94,
       0.474
      ],
      "fold a sheet of paper 42 times and it reaches the moon. watch it happen": [
@@ -3233,7 +3275,7 @@
      ],
      "poppins": [
       1,
-      0.97,
+      0.96,
       0.18
      ]
     },
@@ -3257,7 +3299,7 @@
      ],
      "none": [
       1,
-      0.95,
+      0.94,
       0.474
      ],
      "grid": [
@@ -3322,7 +3364,7 @@
      ],
      "fourier": [
       3,
-      2.86,
+      2.85,
       0.534
      ],
      "fold": [
@@ -3606,7 +3648,7 @@
     "knob:pace": {
      "2": [
       4,
-      3.82,
+      3.81,
       0.564
      ],
      "1": [
@@ -4011,7 +4053,7 @@
     "hour posted": {
      "13:00": [
       2,
-      1.91,
+      1.9,
       0.514
      ],
      "15:00": [
@@ -4074,12 +4116,12 @@
     "knob:hook": {
      "none": [
       2,
-      1.91,
+      1.9,
       0.514
      ],
      "hits": [
       2,
-      1.89,
+      1.88,
       0.482
      ]
     },
@@ -4724,7 +4766,7 @@
      ],
      "fact": [
       2,
-      1.92,
+      1.91,
       0.502
      ]
     },
@@ -4850,7 +4892,7 @@
     "song": {
      "fixation": [
       1,
-      0.95,
+      0.94,
       0.35
      ],
      "hair_of_the_dog": [
@@ -4867,7 +4909,7 @@
     "section": {
      "fixation/s02": [
       1,
-      0.95,
+      0.94,
       0.35
      ],
      "hair_of_the_dog/s01": [
@@ -4884,7 +4926,7 @@
     "length": {
      "20-35s": [
       1,
-      0.95,
+      0.94,
       0.35
      ],
      "under 10s": [
@@ -4896,7 +4938,7 @@
     "hour posted": {
      "19:00": [
       1,
-      0.95,
+      0.94,
       0.35
      ],
      "12:00": [
@@ -4925,7 +4967,7 @@
     "knob:cut": {
      "full": [
       1,
-      0.95,
+      0.94,
       0.35
      ],
      "short": [
@@ -4956,7 +4998,7 @@
     "knob:screen": {
      "ps2": [
       1,
-      0.95,
+      0.94,
       0.35
      ],
      "crt": [
@@ -4968,7 +5010,7 @@
     "knob:theme": {
      "space": [
       1,
-      0.95,
+      0.94,
       0.35
      ],
      "water": [
@@ -5259,7 +5301,7 @@
     "song": {
      "prologue": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "talk": [
@@ -5271,7 +5313,7 @@
     "section": {
      "prologue/s09": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "talk/s05": [
@@ -5283,7 +5325,7 @@
     "length": {
      "under 10s": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "under 20s": [
@@ -5295,7 +5337,7 @@
     "hour posted": {
      "10:00": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "15:00": [
@@ -5307,7 +5349,7 @@
     "caption": {
      "Prologue: Before \u2013 Close Quarters": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "Talk \u2013 Close Quarters": [
@@ -5319,7 +5361,7 @@
     "knob:cut": {
      "short": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "tight": [
@@ -5338,7 +5380,7 @@
     "knob:line": {
      "23": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "10": [
@@ -5350,7 +5392,7 @@
     "knob:look": {
      "night": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "film": [
@@ -5362,7 +5404,7 @@
     "knob:pace": {
      "1": [
       1,
-      0.97,
+      0.96,
       0.65
      ],
      "2": [
@@ -5527,6 +5569,11 @@
    "weights": {}
   },
   "algo_races": {
+   "posts": 0,
+   "waiting": 0,
+   "weights": {}
+  },
+  "pixel_tests": {
    "posts": 0,
    "waiting": 0,
    "weights": {}

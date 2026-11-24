@@ -1075,69 +1075,76 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 ## nostalgia
 
-9 posts counted (3 more are too new). Typical post: 71 views, 2.7 seconds watched.
+10 posts counted (2 more are too new). Typical post: 64 views, 2.4 seconds watched.
 
 **opening line**
 - with: weight 1.03 — 7 posts, 71 views, 3.2s watched, 2 shares+saves per 1,000 views
-- without: weight 0.95 — 2 posts, 137 views, 1.8s watched, 11 shares+saves per 1,000 views
+- without: weight 0.95 — 3 posts, 54 views, 2.0s watched, 9 shares+saves per 1,000 views
 
 **hook**
-- have you seen this place?: weight 1.06 — 2 posts, 157 views, 3.2s watched, 0 shares+saves per 1,000 views
+- have you seen this place?: weight 1.07 — 2 posts, 157 views, 3.2s watched, 0 shares+saves per 1,000 views
 - 3am. the music is still on: weight 1.02 — 4 posts, 52 views, 3.2s watched, 5 shares+saves per 1,000 views
 - no one else is here: weight 0.95 — 1 post, 154 views, 2.1s watched, 0 shares+saves per 1,000 views
 
 **song**
-- suspended: weight 1.04 — 5 posts, 57 views, 3.3s watched, 4 shares+saves per 1,000 views
-- prologue: weight 1.00 — 2 posts, 252 views, 2.3s watched, 2 shares+saves per 1,000 views
+- suspended: weight 1.05 — 5 posts, 57 views, 3.3s watched, 4 shares+saves per 1,000 views
+- prologue: weight 1.01 — 2 posts, 252 views, 2.3s watched, 2 shares+saves per 1,000 views
+- full_ride: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 0.94 — 2 posts, 100 views, 2.1s watched, 10 shares+saves per 1,000 views
 
 **section**
-- suspended/s01: weight 1.06 — 2 posts, 157 views, 3.2s watched, 0 shares+saves per 1,000 views
-- prologue/s07: weight 1.03 — 1 post, 276 views, 3.2s watched, 0 shares+saves per 1,000 views
+- suspended/s01: weight 1.07 — 2 posts, 157 views, 3.2s watched, 0 shares+saves per 1,000 views
+- prologue/s07: weight 1.04 — 1 post, 276 views, 3.2s watched, 0 shares+saves per 1,000 views
 - suspended/s04: weight 1.02 — 2 posts, 52 views, 3.7s watched, 10 shares+saves per 1,000 views
+- full_ride/s03: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - suspended/s04-s05: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 - wont_be_the_same_again/s03: weight 0.97 — 1 post, 46 views, 2.1s watched, 43 shares+saves per 1,000 views
 - prologue/s06: weight 0.97 — 1 post, 229 views, 1.4s watched, 4 shares+saves per 1,000 views
 - wont_be_the_same_again/s05-s06: weight 0.95 — 1 post, 154 views, 2.1s watched, 0 shares+saves per 1,000 views
 
 **length**
-- under 10s: weight 1.06 — 2 posts, 157 views, 3.2s watched, 0 shares+saves per 1,000 views
+- under 10s: weight 1.05 — 3 posts, 71 views, 2.7s watched, 0 shares+saves per 1,000 views
 - under 20s: weight 1.02 — 4 posts, 52 views, 3.2s watched, 5 shares+saves per 1,000 views
 - 20-35s: weight 0.92 — 3 posts, 154 views, 2.1s watched, 7 shares+saves per 1,000 views
 
 **hour posted**
+- 22:00: weight 1.04 — 1 post, 276 views, 3.2s watched, 0 shares+saves per 1,000 views
 - 17:00: weight 1.04 — 1 post, 71 views, 3.8s watched, 0 shares+saves per 1,000 views
-- 22:00: weight 1.03 — 1 post, 276 views, 3.2s watched, 0 shares+saves per 1,000 views
-- 16:00: weight 1.02 — 1 post, 48 views, 4.1s watched, 21 shares+saves per 1,000 views
+- 16:00: weight 1.01 — 2 posts, 51 views, 3.1s watched, 10 shares+saves per 1,000 views
 - 13:00: weight 0.99 — 3 posts, 229 views, 2.2s watched, 4 shares+saves per 1,000 views
+- 20:00: weight 0.97 — 2 posts, 105 views, 2.7s watched, 0 shares+saves per 1,000 views
 - 09:00: weight 0.97 — 1 post, 46 views, 2.1s watched, 43 shares+saves per 1,000 views
-- 20:00: weight 0.96 — 2 posts, 105 views, 2.7s watched, 0 shares+saves per 1,000 views
 
 **caption**
 - no one else is here. turn it up.: weight 1.06 — 2 posts, 259 views, 2.9s watched, 0 shares+saves per 1,000 views
 - if you remember this hallway you had a good childhood: weight 1.04 — 1 post, 71 views, 3.8s watched, 0 shares+saves per 1,000 views
 - pause it and look behind you: weight 1.02 — 1 post, 48 views, 4.1s watched, 21 shares+saves per 1,000 views
+- you've been here before. sound on.: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - the pool after everyone went home: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 - the mall at closing time hit different: weight 0.98 — 2 posts, 143 views, 2.4s watched, 3 shares+saves per 1,000 views
 - found this tape in my parents' basement: weight 0.94 — 2 posts, 100 views, 2.1s watched, 10 shares+saves per 1,000 views
 
 **knob:cut**
+- short: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - tight: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 - full: weight 0.95 — 2 posts, 137 views, 1.8s watched, 11 shares+saves per 1,000 views
 
 **knob:place**
+- hotel: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - school: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 - backrooms: weight 0.95 — 2 posts, 137 views, 1.8s watched, 11 shares+saves per 1,000 views
 
 **knob:stamp**
 - none: weight 0.97 — 1 post, 46 views, 2.1s watched, 43 shares+saves per 1,000 views
-- date: weight 0.96 — 2 posts, 132 views, 1.8s watched, 8 shares+saves per 1,000 views
+- date: weight 0.95 — 3 posts, 54 views, 2.0s watched, 6 shares+saves per 1,000 views
 
 **knob:tape**
+- clean: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - chewed: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 - worn: weight 0.95 — 2 posts, 137 views, 1.8s watched, 11 shares+saves per 1,000 views
 
 **knob:tint**
+- neutral: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - cold: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 - green: weight 0.95 — 2 posts, 137 views, 1.8s watched, 11 shares+saves per 1,000 views
 
@@ -1710,6 +1717,10 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 4 posts are too new to count yet.
 
 ## algo_races
+
+No posts with numbers yet.
+
+## pixel_tests
 
 No posts with numbers yet.
 
