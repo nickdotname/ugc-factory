@@ -91,9 +91,9 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-fe852d99-ebe4-4094-acf5-cd1548cc1f13",
           "last_error": null,
           "scheduled_for": "2026-11-25T09:55:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "math you can watch\n🎧 Recess (Rewind) – @close__quarters #generativeart #creativecoding #codeart #tinycode\n\nstream Recess (Rewind): link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
