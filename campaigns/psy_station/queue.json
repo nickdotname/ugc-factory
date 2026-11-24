@@ -409,9 +409,9 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-8fb14689-c452-400e-b608-9108a0e21b36",
           "last_error": null,
           "scheduled_for": "2026-11-24T21:35:00-05:00"
         }
@@ -420,7 +420,7 @@
         "instagram": "Evil Close Quarters – Close Quarters\nlesson of the day. EDUCATION is out now\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
