@@ -1,0 +1,39 @@
+# Which Instagram accounts can their tokens reach? (scripts/ig_check.py)
+# Run by hand after adding an account or a token: it prints, per account, the username Instagram answers with and
+# which host the token works on. No token is ever printed.
+name: ig-check
+
+on:
+  workflow_dispatch:
+    inputs:
+      accounts:
+        description: "account names from accounts.yaml, space-separated (empty = all)"
+        default: ""
+  push:
+    branches: [ig-check]          # a scratch branch: push there to try a change to the check itself
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q requests pyyaml
+      - name: Ask Instagram who each token is for
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
+          IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
+          IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
+          IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
+          IG_TOKEN_7: ${{ secrets.IG_TOKEN_7 }}
+          IG_TOKEN_8: ${{ secrets.IG_TOKEN_8 }}
+          ACCOUNTS: ${{ inputs.accounts }}
+        run: python scripts/ig_check.py $ACCOUNTS

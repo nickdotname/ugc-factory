@@ -2,6 +2,13 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-24: @algorithm.races added (campaign `algo_races`, style `race`, `studio/race_video.py`): the sorting and
+  maze races move there from math.explainers. First account with **no Facebook Page**: Dylan's profile could not
+  create Pages and Nick was away, so the app was connected to the Close Quarters business portfolio and the account
+  added as an Instagram tester through Meta's Unified login; it has its own token (`IG_TOKEN_2`). `ig-check.yml`
+  (`scripts/ig_check.py`) says which accounts each token reaches. Comment replies use each account's own token.
+  See [[playbooks/add-account]], "Without a Facebook Page".
+
 - 2026-11-24: the ASCII colour scenes were "not hi-def enough" next to other ASCII pages: 180 x 108 letters at
   6 x 11 px are specks on a phone, on a mostly black frame. Now 108 x 66 **bold** letters (10 x 18 px), short
   heavy ramps so one brightness is a run of one letter (`CRAMPS`), shaded parts hatched along their slope

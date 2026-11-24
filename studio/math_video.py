@@ -8,8 +8,7 @@ which explainers people watch; the look (theme, typeface, background, shake, glo
 inside studio/mathviz/kit.py. Every scene is choreographed in beats (44 of them, eleven bars), so it fits any song at
 its own tempo: it starts on the first bar line at or after the stretch nightly picked (CQ_WINDOW), and if the song
 ends too soon it moves back. The scenes themselves are in studio/mathviz/: integral, fourier, derivative, zeta (the Riemann hypothesis), fold
-(how many folds of paper reach the Moon, in pixel art), sorts (four sorting algorithms race on the same numbers), paths (breadth-first, depth-first and A* race
-through one maze), sci8 (pixel-art science explainers in escalating parts: the brain, the
+(how many folds of paper reach the Moon, in pixel art), sci8 (pixel-art science explainers in escalating parts: the brain, the
 heart, the eyes). tests8 (play-along tests) is kept but not chosen.
 """
 import importlib, json, math, os, random, sys
@@ -20,8 +19,8 @@ sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import knobs as K
 import beat as audio
 
-TOPICS = ['integral', 'fourier', 'derivative', 'zeta', 'fold', 'sci8', 'sorts', 'paths']
-TOPIC_WEIGHTS = [1, 1, 1, 3, 3, 5, 5, 4]  # sorts / paths: algorithm races (comp sci);  the Riemann hypothesis is in the news (AI results on it, Aug-Oct 2026); fold (paper to the Moon, in pixel art) is new
+TOPICS = ['integral', 'fourier', 'derivative', 'zeta', 'fold', 'sci8']
+TOPIC_WEIGHTS = [1, 1, 1, 3, 3, 5]  # the algorithm races (sorts, paths) moved to their own account on 2026-11-24: studio/race_video.py;  the Riemann hypothesis is in the news (AI results on it, Aug-Oct 2026); fold (paper to the Moon, in pixel art) is new
 BEATS = 44
 
 def start_beat(song_dir, t0):
@@ -32,10 +31,14 @@ def start_beat(song_dir, t0):
     last = math.floor((audio.beat_of_time(s, sf.info(master).duration) - BEATS - 1) / 4) * 4
     return max(0, min(math.ceil(audio.beat_of_time(s, t0) / 4) * 4, last))
 
-if __name__ == '__main__':
+def main(topics, weights):
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
-    topic = K.pick('topic', TOPICS, random.Random(seed * 7919), weights=TOPIC_WEIGHTS)
+    topic = K.pick('topic', topics, random.Random(seed * 7919), weights=weights)
     t0 = float(os.environ.get('CQ_WINDOW', '0,0').split(',')[0])
     os.environ.update(CQ_MATH_SONG=os.path.basename(os.path.normpath(song_dir)), CQ_MATH_B0=str(start_beat(song_dir, t0)), CQ_MATH_SEED=str(seed))
     scene = importlib.import_module(topic)
     scene.render(scene.frame, scene.CL, out)
+
+
+if __name__ == '__main__':
+    main(TOPICS, TOPIC_WEIGHTS)

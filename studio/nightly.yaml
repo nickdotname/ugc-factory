@@ -103,3 +103,7 @@ targets:
     style: illusion
     per_night: 5
     join: 30
+  - campaign: algo_races    # algorithm.races: sorting and pathfinding algorithms racing each other (studio/race_video.py)
+    style: race
+    per_night: 5
+    join: 30
