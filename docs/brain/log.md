@@ -2,6 +2,11 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: the pixel worlds (bridge, court) are back on ascii.terminal.dreams, about a third of its videos.
+  They were removed that morning as "not ASCII", but they were two of the account's three most-watched posts
+  (1,261 and 1,130 views, longest watch time, most shares), so they stay there; no separate pixel account for now.
+  Next: more worlds, so the same two don't come round too often.
+
 - 2026-11-23: fact reels stopped (20:45 run): the newer carousel specs give each slide a third field (its
   pictures) and `post_factreel.py` unpacked exactly two. It now ignores anything after the heading and the text.
 - 2026-11-23: ascii.cinema.tty and digital.petri.dish go live: three hand-timed first posts each tonight
