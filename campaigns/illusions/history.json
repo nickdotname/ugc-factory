@@ -64,8 +64,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-0edf0836-149b-43f2-9c66-ef9e482c93ca",
+      "post_ids": {
+        "illusions_ig": "igo-0edf0836-149b-43f2-9c66-ef9e482c93ca"
+      },
       "overlay": null,
       "lineup_id": "planet-first",
       "variants": {}
