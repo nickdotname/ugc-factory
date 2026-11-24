@@ -38,18 +38,18 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T12:10:00-05:00"
         }
       ],
       "captions": {
         "instagram": "if you know every word by the end, follow\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -193,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "EDUCATION is out now. Evil Close Quarters is just one of them, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "pov: you found this on limewire in 2003\nEvil Close Quarters – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
@@ -236,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Subway Maintenance is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "your new favourite band. you're welcome\nSubway Maintenance – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Subway Maintenance"
       },
@@ -279,7 +299,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Prologue: Before, from EDUCATION. the whole album is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "play this in the car and see who asks what it is\nPrologue: Before – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Prologue: Before: link in bio"
       },
