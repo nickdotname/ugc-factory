@@ -2,6 +2,10 @@
 
 Back to [[README]]. Newest first; one line per change worth remembering.
 
+- 2026-11-23: ascii.cinema.tty and digital.petri.dish go live: three hand-timed first posts each tonight
+  (`lineup.yaml`), then the usual three a day. Two captions corrected to match the videos (the petri sim has
+  140,000 agents, not 200,000; ascii cinema's footage is not always a century old: NASA and CC0 clips too).
+
 - 2026-11-23: two new accounts, @ascii.cinema.tty (campaign `ascii_cinema`, style `cinema`) and @digital.petri.dish
   (`petri_dish`, style `alife`). Dylan's profile had hit Facebook's Page limit, so Nick made the two Pages on his
   own profile and gave Dylan full control. They start at 8 and 9 in the morning, earlier than the other niche pages.

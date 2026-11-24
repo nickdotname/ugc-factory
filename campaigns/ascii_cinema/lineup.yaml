@@ -1,0 +1,25 @@
+# Hand-picked posts, each posted exactly as written, once (src/lineup.py).
+# Anything not listed here is filled by the randomizer.
+posts:
+  # The account's first three, out the night it was linked.
+  - id: rocket-first
+    creative: recess_rewind
+    hook: hook_01.mp4
+    caption: |
+      a rocket launch, played back as letters in a terminal. every frame is text. sound on.
+      🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding
+    at: 2026-11-23 21:35
+  - id: earth-first
+    creative: prologue
+    hook: hook_01.mp4
+    caption: |
+      the earth from orbit, in green terminal dots. every frame is text.
+      🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding
+    at: 2026-11-23 22:10
+  - id: escalator-first
+    creative: notta_problem
+    hook: hook_01.mp4
+    caption: |
+      an escalator ride, redrawn as 5,850 coloured letters a frame.
+      🎧 Notta Problem – @close__quarters #asciiart #textmode #terminal #publicdomain #creativecoding
+    at: 2026-11-23 22:45
