@@ -144,9 +144,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-5b9ab952-e7cd-4426-90ba-563bcd22aa04",
           "last_error": null,
           "scheduled_for": "2026-11-25T12:33:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "real streets, real footage\n🎧 Notta Problem – @close__quarters #nyc #newyork #newyorkcity #nycmemes #nyclife\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
