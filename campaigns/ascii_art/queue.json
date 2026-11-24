@@ -144,9 +144,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-b9035db0-2ca1-465a-9cd0-c9da4f9ce87f",
           "last_error": null,
           "scheduled_for": "2026-11-25T09:50:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "loop it. the code never stops running.\n🎧 Won't Be the Same Again – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
