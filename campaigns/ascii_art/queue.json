@@ -91,18 +91,18 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-78bc5dc0-d640-4eee-876d-5478097fcfda",
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T21:02:00-05:00"
         }
       ],
       "captions": {
         "instagram": "eighty columns wide and it still moves like this\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

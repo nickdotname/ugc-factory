@@ -68,6 +68,15 @@ def plan(n, rng):
         prompt = '%s. %s' % (bank['themes'][th][sc], bank['looks'][lk])
         jobs.append(dict(id='%s-%d-%s-%04d' % (th, sc, lk, rng.randrange(10 ** 4)), theme=th, scene=sc, look=lk, prompt=prompt,
                          seed=rng.randrange(2 ** 31)))
+    # A third of a run makes single subjects for ascii.terminal.dreams (bank['subjects']): its own look, its own themes
+    # (subject-koi, ...), the least-made first. They replace the last jobs of the plan, so the run is no longer.
+    sub = bank.get('subjects', {}).get('scenes', {})
+    for k in range(min(len(jobs), n // 3) if sub else 0):
+        name = min(sub, key=lambda s: (have.get('subject-' + s, 0), rng.random())); th = 'subject-' + name
+        sc = min(range(len(sub[name])), key=lambda c: (used.get((th, c, 'subject'), 0), rng.random()))
+        have[th] = have.get(th, 0) + 1; used[(th, sc, 'subject')] = used.get((th, sc, 'subject'), 0) + 1
+        jobs[-1 - k] = dict(id='%s-%d-subject-%04d' % (th, sc, rng.randrange(10 ** 4)), theme=th, scene=sc, look='subject',
+                            prompt='%s. %s' % (sub[name][sc], bank['subjects']['look']), seed=rng.randrange(2 ** 31))
     return jobs, bank['negative']
 
 
@@ -153,8 +162,10 @@ def collect(api, kid, want_batch=None):
 
 
 def pull(themes=()):
-    """Download the library's clips (all, or the given themes) that are not cached yet; returns their index entries."""
-    os.makedirs(CACHE, exist_ok=True); want = [e for e in index().get('clips', []) if not themes or e['theme'] in themes]
+    """Download the library's clips (all, or the given themes) that are not cached yet; returns their index entries.
+    All means all of retro's: the ASCII account's single subjects (theme subject-...) only come when asked for."""
+    os.makedirs(CACHE, exist_ok=True)
+    want = [e for e in index().get('clips', []) if (e['theme'] in themes if themes else not e['theme'].startswith('subject-'))]
     miss = [e['asset'] for e in want if not os.path.exists(os.path.join(CACHE, e['asset']))]
     if miss:
         for k in range(0, len(miss), 30):

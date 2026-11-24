@@ -57,7 +57,10 @@ HOOKS = {
     'producer': [l for ls in ANGLES['producer'].values() for l in ls],
     'band': [l for ls in ANGLES['band'].values() for l in ls],
     'liminal': ["you've been here before", "don't turn around", "3am. the music is still on", "sound on", "have you seen this place?", "no one else is here"],
-    'psy': ["sound on", "don't blink", "watch the centre", "let it loop", "what do you see?", "headphones on"],
+    # psychedelic.station (2026-11-24): every line true of any psy video (each is drawn by code from the song's own
+    # stems; the colours step on the drum hits in every field). Statements that open a question, not instructions.
+    'psy': ["this song is drawing this", "no camera. no AI. just this song", "the picture jumps on every drum hit",
+            "it never draws the same frame twice", "the bass is moving the picture", "made from the song's own drum track"],
     'rocket': [l for ls in ANGLES['rocket'].values() for l in ls],
 }
 SHOW, FADE = 2.2, 0.4
@@ -66,7 +69,7 @@ _FONT = {}
 # Where a held line sits (fraction of the height) in each style: band, under the stack of windows and above
 # Instagram's own caption; producer, between the lyrics at the top and the first lane.
 HOLD_Y = {'band': 0.775, 'producer': 0.205}
-NONE_SHARE = {'band': 0.12, 'producer': 0.12, 'rocket': 0.5}     # the rest keep the old quarter: enough "no line" posts to compare against
+NONE_SHARE = {'band': 0.12, 'producer': 0.12, 'rocket': 0.5, 'psy': 0.5}   # psy: posts with no line were watched more (68 vs 41 median views, n=18/10)     # the rest keep the old quarter: enough "no line" posts to compare against
 # (rocket: a line on about two videos in five at first; the learner's 'none' angle can lower that)
 # An angle a style opens with most of the time, whatever the learner has found so far: (angle, share). The
 # close__quarters trial reels open on a hot take so people argue about the song in the comments; the other

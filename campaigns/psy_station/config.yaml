@@ -62,7 +62,7 @@ accounts:
   names: [psychedelic_station_ig]
 
 posting:
-  posts_per_day: 10              # visualiser reels; 4 carousels and 2 fact reels a day are posted on top
+  posts_per_day: 8               # visualiser reels; 1 carousel and 4 fact reels a day are posted on top (2026-11-24)
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10

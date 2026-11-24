@@ -32,12 +32,9 @@ targets:
     join: 40
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
-    per_night: 12
+    per_night: 8
     join: 40
-  - campaign: psy_station   # psychedelic.station: the mirrored techno-temple collage (studio/collage_video.py), beside the visuals so the learner can compare
-    style: collage
-    per_night: 6
-    join: 40
+  # psy_station collage (studio/collage_video.py) dropped 2026-11-24: median 13 views over 3 posts, flat and samey.
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
     per_night: 7
@@ -107,9 +104,11 @@ targets:
     style: race
     per_night: 5
     join: 30
-  # pixel_tests (8bit.tests): rebuilt 2026-11-24 (five play-along tests in pixel worlds). Off until the frames are
-  # approved: uncomment these four lines, and set posting.paused: false in campaigns/pixel_tests/config.yaml.
-  # - campaign: pixel_tests   # 8bit.tests: play-along pixel tests built from the song's hits (studio/tests8_video.py)
-  #   style: tests8
-  #   per_night: 5
-  #   join: 30
+  - campaign: pixel_tests   # 8bit.tests: play-along pixel tests built from the song's hits (studio/tests8_video.py); rebuilt 2026-11-24
+    style: tests8
+    per_night: 5
+    join: 30
+  - campaign: notes_app     # moth.ate.my.notes: one thought on a gradient (studio/text_video.py); short, so nothing is joined
+    style: notes
+    per_night: 5
+    join: 12

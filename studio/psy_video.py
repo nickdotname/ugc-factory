@@ -38,6 +38,8 @@ def env(name, smooth):
 BASS, DRUM, VOX, OTH = env('Bass', .85), env('Drums', .7), env('Vocals', .8), env('Other', .9)
 onset = np.clip(np.diff(DRUM, prepend=0), 0, None); onset = onset / (onset.max() + 1e-9)
 hue_kick = np.cumsum(onset * (onset > .35)) * 0.07      # each real drum hit moves the colours on a step
+PUNCH = np.zeros(N); _v = 0.0                             # each real drum hit punches the whole picture in, then lets go
+for _i in range(N): _v = max(float(onset[_i]) if onset[_i] > .35 else 0.0, _v * .78); PUNCH[_i] = _v
 
 # ---- the plan this seed makes -----------------------------------------------------------
 PALS = {'acid': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, .33, .67)], 'sunset': [(.5, .5, .5), (.5, .5, .5), (1, 1, .5), (.8, .9, .3)],
@@ -47,19 +49,24 @@ PALS = {'acid': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, .33, .67)], 'sunset'
         'vapor': [(.66, .5, .74), (.34, .36, .26), (1, 1, 1), (.85, .15, .45)], 'toxic': [(.4, .6, .3), (.5, .5, .4), (1, 1, .5), (.6, .2, .8)],
         'mono': [(.5, .5, .5), (.5, .5, .5), (1, 1, 1), (0, 0, 0)]}
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import knobs as K
-FIELDS = ['kaleido', 'tunnel', 'marble', 'rings', 'cells', 'bryce', 'bryce', 'bryce', 'oil', 'julia', 'spiral', 'moire', 'warp', 'voronoi']
+# Repeats set the odds. 2026-11-24 review: kaleido, tunnel and marble are the fields people watched most and the
+# richest on a phone; bryce is the operator's ask. rings (flat target rings) and cells (a blurry blob soup) read as
+# screensavers and were dropped from the menu; spiral (median 21 views, the lowest) is kept at one share.
+FIELDS = ['kaleido', 'kaleido', 'tunnel', 'tunnel', 'marble', 'marble', 'bryce', 'bryce', 'bryce', 'oil', 'julia', 'spiral', 'moire', 'warp', 'voronoi']
 if os.environ.get('CQ_FIELD'): K.FORCED.setdefault('field', os.environ['CQ_FIELD'])      # the old way of asking for one
 plan = dict(field=K.pick('field', FIELDS, rng), sym=K.pick('sym', [3, 4, 5, 6, 8, 12], rng),
-            pal=K.pick('pal', sorted(PALS), rng), feedback=K.flag('feedback', .6, rng), spin=rng.choice([-1, 1]) * rng.uniform(.03, .12),
-            warp=rng.uniform(.6, 1.6), mirror=K.flag('mirror', .35, rng), grain=K.flag('grain', .5, rng), strobe=K.flag('strobe', .3, rng),
-            lyrics=(lambda pick: None if os.environ.get('CQ_LYRICS') == 'none' else pick)(K.pick('lyrics', ['word', 'word', 'word', 'line', 'line', None], rng)), ring=K.flag('ring', .5, rng),
-            motif=K.pick('motif', [None, None, 'poly', 'star', 'eye', 'cube'], rng), contour=K.flag('contour', .55, rng), poster=K.flag('poster', .3, rng),
+            pal=K.pick('pal', sorted(p for p in PALS if p != 'mono'), rng), feedback=K.flag('feedback', .35, rng), spin=rng.choice([-1, 1]) * rng.uniform(.03, .12),
+            warp=rng.uniform(.6, 1.6), mirror=K.flag('mirror', .35, rng), grain=K.flag('grain', .5, rng), strobe=K.flag('strobe', .12, rng),
+            lyrics=(lambda pick: None if os.environ.get('CQ_LYRICS') == 'none' else pick)(K.pick('lyrics', ['word', 'line', None, None, None], rng)), ring=K.flag('ring', .2, rng),
+            motif=K.pick('motif', [None, None, None, None, 'poly', 'star', 'eye'], rng), contour=K.flag('contour', .55, rng), poster=K.flag('poster', .3, rng),
             font=K.pick('font', ['Poppins-Bold.ttf', 'Poppins-Black.ttf', 'DejaVuSerif-Bold.ttf'], rng), word_y=K.pick('word_y', [.5, .5, .72], rng),
             scale=rng.uniform(2.2, 4.5), second=K.pick('second', [None, 'kaleido', 'rings', 'marble', 'spiral', 'warp'], rng), flip_at=rng.uniform(.4, .65),
             speed=K.pick('speed', [.6, 1.0, 1.0, 1.6], rng))
 if plan['field'] == 'bryce': plan.update(motif=None, ring=False, strobe=False, word_y=.5)      # the landscape is busy enough: words only
+if plan['field'] == 'bryce': plan['trip'] = K.flag('trip', .65, rng)      # the Bryce world in acid colours that turn on the drums (else as rendered in 1996)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
 plan['hook'] = _hook.pick('psy', seed)                       # the line shown for the first two seconds ('' = none)
+if os.environ.get('CQ_CARDS'): plan.update(motif=None, ring=False, strobe=False)      # fact reels: nothing drawn through the text cards
 ys, xs = np.mgrid[0:h, 0:w].astype(np.float32); X = (xs - w / 2) / (w / 2); Y = (ys - h / 2) / (w / 2)
 R = np.sqrt(X * X + Y * Y) + 1e-6; A = np.arctan2(Y, X)
 
@@ -149,7 +156,7 @@ def bryce_setup():
     sun = np.array([r.uniform(-.5, .5), r.uniform(.12, .35), 1.0]) if scene == 'flight' else np.array([r.uniform(-.25, .25), r.uniform(.3, .5), 1.0]); sun /= np.linalg.norm(sun)
     sph = [(r.uniform(-.9, .9), r.uniform(.55, 1.3), r.uniform(2.6, 4.6), r.uniform(.22, .5), r.uniform(0, 6)) for _ in range(int(r.integers(1, 4)) if scene == 'flight' else int(r.integers(0, 3)))]
     return dict(hgt=hgt, gx=gx.astype(np.float32), gy=gy.astype(np.float32), cl=cl, u=u, v=v, sun=sun, sph=sph, pal={k: np.array(c, np.float32) for k, c in BPAL[r.choice(sorted(BPAL))].items()},
-                speed=r.uniform(.35, .8), sway=r.uniform(.2, .7), camy=r.uniform(.75, 1.25), n=n, S=S, scene=scene, orb=orb, checker=r.random() < .5, strata=r.uniform(10, 22))
+                speed=r.uniform(.35, .8), sway=r.uniform(.2, .7), camy=r.uniform(.75, 1.25), n=n, S=S, scene=scene, orb=orb, checker=r.random() < .5, strata=r.uniform(10, 22), trip=plan.get('trip', False))
 BR = None
 def bsample(m, x, z):                                                   # look the map up at world x,z (it tiles for ever)
     return cv2.remap(m, ((x * BR['S']) % BR['n']).astype(np.float32), ((z * BR['S']) % BR['n']).astype(np.float32), cv2.INTER_LINEAR, borderMode=cv2.BORDER_WRAP)
@@ -201,6 +208,12 @@ def bryce(i):
         ref = np.where((ry > 0)[..., None], bsky(rx, ry, rz, T, i), (P['wat'] * .5 + P['mid'] * .5) * (.5 + .5 * np.clip(-ry, 0, 1))[..., None] + bsky(rx, -ry, rz, T, i) * .35)
         img = np.where(on[..., None], ref * (.82 + .18 * np.clip(1 + dn, 0, 1)[..., None]), img); depth = np.where(on, ts, depth)
     img = np.clip(img * (.92 + .25 * dr), 0, 1) ** .9
+    if BR['trip']:                                                      # the trippy grade: colours pushed and turned round the wheel, a step on every drum hit
+        g = img.mean(-1, keepdims=True); img = np.clip(g + (img - g) * 1.55, 0, 1)
+        th = 6.28318 * (T * .03 + hue_kick[i] * .6); c_, s_ = np.cos(th), np.sin(th)
+        yiq = img @ np.array([[.299, .596, .211], [.587, -.274, -.523], [.114, -.322, .312]], np.float32)
+        yiq[..., 1], yiq[..., 2] = yiq[..., 1] * c_ - yiq[..., 2] * s_, yiq[..., 1] * s_ + yiq[..., 2] * c_
+        img = np.clip(yiq @ np.array([[1, 1, 1], [.956, -.272, -1.106], [.621, -.647, 1.703]], np.float32), 0, 1)
     bay = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]], np.float32) / 16 - .5        # the 1994 colour depth
     img = np.floor(img * 23 + np.tile(bay, (BH // 4, BW // 4))[..., None] + .5) / 23
     return cv2.resize(np.clip(img, 0, 1).astype(np.float32), (w, h), interpolation=cv2.INTER_NEAREST)
@@ -279,15 +292,7 @@ def overlays(a, i):
             rr = 230 + 60 * b + seg * 150; ang = np.linspace(0, 6.28318, n, endpoint=False) + T * .4
             pts = np.stack([cx + rr * np.cos(ang), cy + rr * np.sin(ang)], 1).astype(np.int32)
             cv2.polylines(a, [pts], True, (0, 0, 0), 9, cv2.LINE_AA); cv2.polylines(a, [pts], True, (255, 255, 255), 4, cv2.LINE_AA)
-    if plan['field'] == 'bryce':                                                             # the title, in soft glowing 90s lettering
-        key = ('title', SONG['title'])
-        if key not in _cache:
-            f = ImageFont.truetype(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'fonts', 'Anton-Regular.ttf'), 150) if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'fonts', 'Anton-Regular.ttf')) else _font(150)
-            txt = SONG['title'].upper().split(':')[0]; l, t, r, bb = f.getbbox(txt); sc = min(1.0, (W - 140) / (r - l)); im = Image.new('L', (r - l + 120, bb - t + 120), 0); ImageDraw.Draw(im).text((60 - l, 60 - t), txt, font=f, fill=255)
-            m = np.asarray(im, np.float32) / 255; m = cv2.resize(m, None, fx=sc, fy=sc) if sc < 1 else m; _cache[key] = (m, np.clip(cv2.GaussianBlur(m, (0, 0), 14) * 2.2, 0, 1))
-        m, glow = _cache[key]; pal = BR['pal'] if BR else None; ty = H * .88
-        if pal is not None: stamp(a, glow, cx, ty, tuple(255 * np.clip(pal['hi'], 0, 1)), .85 * (.7 + .3 * b)); stamp(a, m, cx, ty, tuple(255 * np.clip(pal['zen'] * .9 + pal['wat'] * .3, 0, 1)))
-    ln = now_line(Ta) if plan['lyrics'] else None
+    ln = now_line(Ta) if plan['lyrics'] and T >= (2.6 if plan['hook'] else 0.8) else None      # frame 0 is the cover: never a stray lyric word on it, never two texts at once
     if ln and plan['lyrics'] == 'word':                                                      # one huge word at a time
         e, ws = ln; k = max([j for j, (wd, st) in enumerate(ws) if st <= Ta + .03] or [0]); wd, st = ws[k]
         age = Ta - st; m = word_img(wd.strip('.,').upper(), 230); pop = 1 + .25 * max(0, 1 - age * 7)
@@ -299,7 +304,7 @@ def overlays(a, i):
         for j, wd in enumerate(words):
             if cur and f.getlength(' '.join(words[q] for q in cur + [j])) > W - 160: rows.append(cur); cur = []
             cur.append(j)
-        rows.append(cur); im = Image.fromarray(a); d = ImageDraw.Draw(im); y = int(H * .70)
+        rows.append(cur); im = Image.fromarray(a); d = ImageDraw.Draw(im); y = int(H * .60)
         for row in rows:
             x = (W - f.getlength(' '.join(words[q] for q in row))) / 2
             for q in row:
@@ -338,7 +343,7 @@ def cards(a, t):
     bl = _wrap(d, big.upper(), fb, W_ * .86); sl = _wrap(d, small, fs, W_ * .84)
     lh = 80 if big else 112
     h = len(bl) * 165 + (30 if bl and sl else 0) + len(sl) * lh; y = H_ * .5 - h / 2
-    pop = min(1.0, (t - c[0]) / .18); alpha = int(215 * pop)
+    pop = 1.0 if c[0] == 0 else min(1.0, (t - c[0]) / .18); alpha = int(215 * pop)
     d.rectangle([0, y - 60, W_, y + h + 60], fill=(8, 6, 14, alpha))
     for ln in bl:
         d.text(((W_ - d.textlength(ln, font=fb)) / 2, y), ln, font=fb, fill=(255, 226, 60, int(255 * pop))); y += 165
@@ -352,7 +357,12 @@ def finish(img, i):
     if plan['grain']:
         g = np.random.default_rng(seed * 100003 + i).integers(-9, 10, (H // 2, W // 2, 1), dtype=np.int16)
         a = np.clip(a.astype(np.int16) + cv2.resize(g.astype(np.float32), (W, H), interpolation=cv2.INTER_NEAREST)[..., None].astype(np.int16), 0, 255).astype(np.uint8)
-    a = _hook.draw(overlays(np.ascontiguousarray(a), i), plan['hook'], i / FPS)
+    p_ = PUNCH[i]
+    if p_ > .04:                                             # the kick: the picture jumps in and its colours split, then settle
+        z = 1 + .07 * p_; cw, ch = int(W / z) // 2 * 2, int(H / z) // 2 * 2; x0, y0 = (W - cw) // 2, (H - ch) // 2
+        a = cv2.resize(a[y0:y0 + ch, x0:x0 + cw], (W, H), interpolation=cv2.INTER_LINEAR); d = int(16 * p_)
+        if d: a = a.copy(); a[:, d:, 0] = a[:, :-d, 0]; a[:, :-d, 2] = a[:, d:, 2]
+    a = _hook.draw(overlays(np.ascontiguousarray(a), i), plan['hook'], i / FPS, y=.165)
     if CARDS: a = cards(np.ascontiguousarray(a), i / FPS)
     # No fade-in: Instagram uses the first frame as the cover, and a black one is a black square on the profile.
     # The end only dips (never to black) so the loop back to frame one is a breath, not a blink.
