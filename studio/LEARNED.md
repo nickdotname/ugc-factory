@@ -1292,71 +1292,71 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 ## ascii_art
 
-6 posts counted (2 more are too new). Typical post: 665 views, 4.5 seconds watched.
+6 posts counted (3 more are too new). Typical post: 740 views, 4.5 seconds watched.
 
 **song**
-- prologue: weight 1.08 — 2 posts, 1520 views, 5.0s watched, 14 shares+saves per 1,000 views
-- fixation: weight 1.07 — 1 post, 1129 views, 5.6s watched, 12 shares+saves per 1,000 views
-- suspended: weight 0.97 — 1 post, 201 views, 4.0s watched, 20 shares+saves per 1,000 views
-- talk: weight 0.94 — 1 post, 173 views, 4.4s watched, 6 shares+saves per 1,000 views
-- myth_of_sisyphus: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
+- prologue: weight 1.08 — 2 posts, 1543 views, 5.0s watched, 14 shares+saves per 1,000 views
+- fixation: weight 1.06 — 1 post, 1278 views, 5.4s watched, 12 shares+saves per 1,000 views
+- suspended: weight 0.97 — 1 post, 203 views, 4.0s watched, 20 shares+saves per 1,000 views
+- talk: weight 0.94 — 1 post, 177 views, 4.3s watched, 6 shares+saves per 1,000 views
+- myth_of_sisyphus: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **section**
-- prologue/s08: weight 1.08 — 2 posts, 1520 views, 5.0s watched, 14 shares+saves per 1,000 views
-- fixation/s03: weight 1.07 — 1 post, 1129 views, 5.6s watched, 12 shares+saves per 1,000 views
-- suspended/s04: weight 0.97 — 1 post, 201 views, 4.0s watched, 20 shares+saves per 1,000 views
-- talk/s07: weight 0.94 — 1 post, 173 views, 4.4s watched, 6 shares+saves per 1,000 views
-- myth_of_sisyphus/s08: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
+- prologue/s08: weight 1.08 — 2 posts, 1543 views, 5.0s watched, 14 shares+saves per 1,000 views
+- fixation/s03: weight 1.06 — 1 post, 1278 views, 5.4s watched, 12 shares+saves per 1,000 views
+- suspended/s04: weight 0.97 — 1 post, 203 views, 4.0s watched, 20 shares+saves per 1,000 views
+- talk/s07: weight 0.94 — 1 post, 177 views, 4.3s watched, 6 shares+saves per 1,000 views
+- myth_of_sisyphus/s08: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.12 — 3 posts, 1261 views, 5.3s watched, 14 shares+saves per 1,000 views
-- under 10s: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 20-35s: weight 0.93 — 2 posts, 187 views, 4.2s watched, 13 shares+saves per 1,000 views
+- under 20s: weight 1.12 — 3 posts, 1293 views, 5.3s watched, 14 shares+saves per 1,000 views
+- under 10s: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
+- 20-35s: weight 0.93 — 2 posts, 190 views, 4.2s watched, 13 shares+saves per 1,000 views
 
 **hour posted**
-- 21:00: weight 1.07 — 1 post, 1129 views, 5.6s watched, 12 shares+saves per 1,000 views
-- 22:00: weight 1.02 — 1 post, 1780 views, 4.6s watched, 12 shares+saves per 1,000 views
-- 20:00: weight 1.01 — 2 posts, 717 views, 4.9s watched, 17 shares+saves per 1,000 views
-- 13:00: weight 0.97 — 1 post, 201 views, 4.0s watched, 20 shares+saves per 1,000 views
-- 15:00: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
+- 21:00: weight 1.06 — 1 post, 1278 views, 5.4s watched, 12 shares+saves per 1,000 views
+- 22:00: weight 1.02 — 1 post, 1793 views, 4.6s watched, 12 shares+saves per 1,000 views
+- 20:00: weight 1.01 — 2 posts, 735 views, 4.8s watched, 16 shares+saves per 1,000 views
+- 13:00: weight 0.97 — 1 post, 203 views, 4.0s watched, 20 shares+saves per 1,000 views
+- 15:00: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **caption**
-- an old bridge over a river, built from code. no sprites, no images. so: weight 1.07 — 1 post, 1129 views, 5.6s watched, 12 shares+saves per 1,000 views
-- a clay tennis court built from voxels, all of it code. every shot land: weight 1.07 — 1 post, 1261 views, 5.3s watched, 18 shares+saves per 1,000 views
-- a galaxy drawn in letters, every one placed by code. sound on.: weight 1.02 — 1 post, 1780 views, 4.6s watched, 12 shares+saves per 1,000 views
-- send this to someone who writes code: weight 0.89 — 3 posts, 191 views, 4.0s watched, 9 shares+saves per 1,000 views
+- a clay tennis court built from voxels, all of it code. every shot land: weight 1.07 — 1 post, 1293 views, 5.3s watched, 18 shares+saves per 1,000 views
+- an old bridge over a river, built from code. no sprites, no images. so: weight 1.06 — 1 post, 1278 views, 5.4s watched, 12 shares+saves per 1,000 views
+- a galaxy drawn in letters, every one placed by code. sound on.: weight 1.02 — 1 post, 1793 views, 4.6s watched, 12 shares+saves per 1,000 views
+- send this to someone who writes code: weight 0.89 — 3 posts, 192 views, 4.0s watched, 9 shares+saves per 1,000 views
 
 **knob:cut**
-- tight: weight 1.08 — 2 posts, 1520 views, 5.0s watched, 14 shares+saves per 1,000 views
-- full: weight 0.98 — 3 posts, 201 views, 4.4s watched, 13 shares+saves per 1,000 views
-- short: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
+- tight: weight 1.08 — 2 posts, 1543 views, 5.0s watched, 14 shares+saves per 1,000 views
+- full: weight 0.98 — 3 posts, 203 views, 4.3s watched, 12 shares+saves per 1,000 views
+- short: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **knob:layout**
-- code: weight 1.02 — 3 posts, 1261 views, 4.6s watched, 14 shares+saves per 1,000 views
-- clean: weight 0.92 — 2 posts, 196 views, 3.5s watched, 10 shares+saves per 1,000 views
+- code: weight 1.02 — 3 posts, 1293 views, 4.6s watched, 14 shares+saves per 1,000 views
+- clean: weight 0.92 — 2 posts, 197 views, 3.5s watched, 10 shares+saves per 1,000 views
 
 **knob:palette**
-- ember: weight 1.08 — 2 posts, 1520 views, 5.0s watched, 14 shares+saves per 1,000 views
-- ice: weight 0.97 — 1 post, 201 views, 4.0s watched, 20 shares+saves per 1,000 views
-- scene: weight 0.94 — 1 post, 173 views, 4.4s watched, 6 shares+saves per 1,000 views
-- reef: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
+- ember: weight 1.08 — 2 posts, 1543 views, 5.0s watched, 14 shares+saves per 1,000 views
+- ice: weight 0.97 — 1 post, 203 views, 4.0s watched, 20 shares+saves per 1,000 views
+- scene: weight 0.94 — 1 post, 177 views, 4.3s watched, 6 shares+saves per 1,000 views
+- reef: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **knob:ramp**
-- blocks: weight 1.02 — 3 posts, 1261 views, 4.6s watched, 14 shares+saves per 1,000 views
-- classic: weight 0.97 — 1 post, 201 views, 4.0s watched, 20 shares+saves per 1,000 views
-- dense: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
+- blocks: weight 1.02 — 3 posts, 1293 views, 4.6s watched, 14 shares+saves per 1,000 views
+- classic: weight 0.97 — 1 post, 203 views, 4.0s watched, 20 shares+saves per 1,000 views
+- dense: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **knob:scene**
-- court: weight 1.07 — 1 post, 1261 views, 5.3s watched, 18 shares+saves per 1,000 views
-- bridge: weight 1.07 — 1 post, 1129 views, 5.6s watched, 12 shares+saves per 1,000 views
-- galaxy: weight 1.02 — 1 post, 1780 views, 4.6s watched, 12 shares+saves per 1,000 views
-- jelly: weight 0.97 — 1 post, 201 views, 4.0s watched, 20 shares+saves per 1,000 views
-- planet: weight 0.94 — 1 post, 191 views, 3.0s watched, 0 shares+saves per 1,000 views
-- boulder: weight 0.94 — 1 post, 173 views, 4.4s watched, 6 shares+saves per 1,000 views
+- court: weight 1.07 — 1 post, 1293 views, 5.3s watched, 18 shares+saves per 1,000 views
+- bridge: weight 1.06 — 1 post, 1278 views, 5.4s watched, 12 shares+saves per 1,000 views
+- galaxy: weight 1.02 — 1 post, 1793 views, 4.6s watched, 12 shares+saves per 1,000 views
+- jelly: weight 0.97 — 1 post, 203 views, 4.0s watched, 20 shares+saves per 1,000 views
+- planet: weight 0.94 — 1 post, 192 views, 3.0s watched, 0 shares+saves per 1,000 views
+- boulder: weight 0.94 — 1 post, 177 views, 4.3s watched, 6 shares+saves per 1,000 views
 
 **knob:sparks**
-- 1.6: weight 0.97 — 1 post, 201 views, 4.0s watched, 20 shares+saves per 1,000 views
-- 1.0: weight 0.97 — 4 posts, 726 views, 4.5s watched, 13 shares+saves per 1,000 views
+- 1.0: weight 0.98 — 4 posts, 742 views, 4.5s watched, 13 shares+saves per 1,000 views
+- 1.6: weight 0.97 — 1 post, 203 views, 4.0s watched, 20 shares+saves per 1,000 views
 
 ## earth_data
 
@@ -1418,9 +1418,13 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 ## ascii_cinema
 
-No posts with numbers yet.
+2 posts are too new to count yet.
 
 ## petri_dish
+
+No posts with numbers yet.
+
+## illusions
 
 No posts with numbers yet.
 

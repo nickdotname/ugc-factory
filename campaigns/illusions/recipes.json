@@ -1,0 +1,160 @@
+{
+ "clips": {},
+ "menu": {
+  "illusion": {
+   "kind": [
+    "cloud",
+    "shadow",
+    "cone",
+    "wheel"
+   ],
+   "shape": [
+    "mug",
+    "knot",
+    "helix",
+    "cube",
+    "guitar",
+    "planet",
+    "stair",
+    "chair",
+    "key",
+    "hourglass",
+    "rocket"
+   ],
+   "palette": [
+    "acid",
+    "bone",
+    "candy",
+    "ember",
+    "ice"
+   ],
+   "ask": [
+    "flip",
+    "sure",
+    "which"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-24",
+   "creative": "suspended",
+   "file": "suspended_s02_illusion_55201.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "illusion",
+   "seed": 55201,
+   "window": [
+    28.88,
+    50.75
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "shadow",
+    "shape": "planet",
+    "palette": "candy",
+    "ask": "sure",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.7,
+    "bass": 0.38,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s07_illusion_806485.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s07",
+   "style": "illusion",
+   "seed": 806485,
+   "window": [
+    105.89,
+    123.35
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "cloud",
+    "shape": "knot",
+    "palette": "bone",
+    "ask": "flip",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.59,
+    "bass": 0.68,
+    "other": 0.88
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s02_illusion_325702.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "illusion",
+   "seed": 325702,
+   "window": [
+    27.33,
+    36.06
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "cone",
+    "shape": "key",
+    "palette": "acid",
+    "ask": "flip",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.04,
+    "drums": 0.06,
+    "bass": 0.11,
+    "other": 0.21
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s08_illusion_429303.mp4",
+   "song": "recess-rewind",
+   "section": "s08",
+   "style": "illusion",
+   "seed": 429303,
+   "window": [
+    121.78,
+    138.54
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "cloud",
+    "shape": "mug",
+    "palette": "ice",
+    "ask": "which",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.51,
+    "bass": 0.67,
+    "other": 0.72
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
