@@ -8,6 +8,13 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   cleanly as of 2026-11-23.
 
 ## Next
+- **Illusions account** (asked for 2026-11-23, after an account of spinning dot-cloud animals): `studio/illusion_video.py`
+  is the renderer, not registered anywhere yet. Four kinds (a dot cloud whose direction of turning is undecided and
+  that the video flips for you; the same as a flat shadow; flat circles that read as a cone; a wheel that seems to
+  reverse at 30 frames a second) over eleven shapes of our own. More turning effects to add: a window that seems to
+  swing (Ames), a mask that seems to bulge both ways, a barber pole, a Necker cube with one face lit, counter-turning
+  rings of dots that read as a cylinder. Needs: the Instagram account (operator), a Facebook Page (the Page limit
+  comes first), then playbooks/add-account. No "comment which way" lines: questions only.
 - **Band in real places (scene style)**, inspired by dev_lemons but our own: three worlds — EDUCATION school places
   (AI-made plates: hallway, classroom, gym, bus; lyrics chalked on the board, yearbook portraits), psych-rock
   landscapes (AI plates, marker-scrawl lyrics), NYC film look (our NYC clips, matched light, subtitles). No letterbox,
