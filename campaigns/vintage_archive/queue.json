@@ -144,9 +144,9 @@
         {
           "account": "vintage_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-fe1f422d-4a5d-47fc-baf8-6e0b9b994faa",
           "last_error": null,
           "scheduled_for": "2026-11-25T14:40:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "the projector is running a little fast\n🎧 Passage (Waiting) – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nlink in bio to stream Passage (Waiting)"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
