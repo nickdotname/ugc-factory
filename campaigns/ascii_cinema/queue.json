@@ -144,9 +144,9 @@
         {
           "account": "cinema_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-3dfc0dc4-935a-4661-ba79-4c3022cd22be",
           "last_error": null,
           "scheduled_for": "2026-11-24T18:05:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "cinema, typed out\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #oldfilms\n\nRecess (Rewind) is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
