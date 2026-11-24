@@ -91,18 +91,18 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-24T15:30:00-05:00"
         }
       ],
       "captions": {
         "instagram": "Silver and Gold – Close Quarters\nlesson of the day. EDUCATION is out now\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
