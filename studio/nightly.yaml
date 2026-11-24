@@ -104,8 +104,11 @@ targets:
     style: race
     per_night: 5
     join: 30
+  - campaign: pixel_tests   # 8bit.tests: play-along pixel tests built from the song's hits (studio/tests8_video.py); rebuilt 2026-11-24
+    style: tests8
+    per_night: 5
+    join: 30
   - campaign: notes_app     # moth.ate.my.notes: one thought on a gradient (studio/text_video.py); short, so nothing is joined
     style: notes
     per_night: 5
     join: 12
-  # pixel_tests (8bit.tests, style tests8) is off until its tests are rebuilt (2026-11-24): put the target back then.

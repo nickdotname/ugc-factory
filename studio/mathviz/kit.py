@@ -68,6 +68,8 @@ class Clock:
         k = audio.hits(a['kicks'], self.n, 7.0); self.kick = np.convolve(k, [0.25, 0.5, 0.25], 'same')   # a touch softened: no one-frame pops
         self.snare = audio.hits(a['snares'], self.n, 10.0); self.bass = a['bass']
         self.kick_beats = [self.beat(f) for f in a['kicks']]; self.snare_beats = [self.beat(f) for f in a['snares']]
+        self.kick_frames = [int(f) for f in a['kicks']]; self.snare_frames = [int(f) for f in a['snares']]   # the same hits, as video frames
+        self.hat = audio.hits(a['hats'], self.n, 14.0); self.vox = a['vocals']
     def beat(self, i): return audio.beat_of_time(self.song, self.t0 + i / FPS) - self.b0
 
 _FC = {}
@@ -244,7 +246,7 @@ def overlay_fixed(f, st, k, beats, credit):
 
 def render(frame, clock, out, style=None):
     if '--frames' in sys.argv:
-        fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
+        fs = [min(int(x), clock.n - 1) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]   # past the end: the last frame
         ims = [Image.fromarray(frame(f)).resize((360, 640)) for f in fs]
         sheet = Image.new('RGB', (360 * min(4, len(ims)), 640 * ((len(ims) + 3) // 4)))
         for j, im in enumerate(ims): sheet.paste(im, ((j % 4) * 360, (j // 4) * 640))

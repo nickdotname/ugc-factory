@@ -3,9 +3,10 @@
 
     python studio/tests8_video.py SONG_DIR SEED OUT.mp4
 
-The nightly job's renderer for the "tests8" style (studio/nightly.py). The scenes are in studio/mathviz/tests8.py
-(count the flashes: one firefly flash per snare; read as fast as he raps: the verse a word at a time with a
-words-per-minute gauge), drawn with the math account's kit. Which test and which sky are knobs.
+The nightly job's renderer for the "tests8" style (studio/nightly.py). The scenes are in studio/mathviz/tests8.py:
+five play-along tests built from the song's own hits (pause when it fits, follow the gem, watch the order, count the
+fireworks, early or late), drawn as detailed pixel worlds (studio/mathviz/pix8.py: city rooftop, moonlit forest,
+crystal cave). Which test, which world and the scanlines are knobs.
 """
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))

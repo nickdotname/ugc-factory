@@ -113,8 +113,8 @@ for i, sl in enumerate(spec['slides'], 1):
 
 # ---- last: follow, sources, music ------------------------------------------------------------------
 im, d = desktop()
-ix0, iy0, ix1, iy1 = window(d, (150, 230, W - 60, H - 190), 'save_this.txt')
-f, rows, size = fit(d, 'SAVE THIS. FOLLOW FOR MORE OF WHAT WE GREW UP WITH', HEAD, ix1 - ix0, 430, 120); y = iy0
+ix0, iy0, ix1, iy1 = window(d, (150, 230, W - 60, H - 190), 'the_end.txt')
+f, rows, size = fit(d, 'MORE OF WHAT WE GREW UP WITH, EVERY DAY', HEAD, ix1 - ix0, 430, 120); y = iy0      # a statement, not an ask
 for r_ in rows: d.text((ix0, y), r_, font=f, fill=(0, 0, 0)); y += size * 1.12
 y += 20; button(d, ix0, y, '@' + spec['handle']); y += 120
 fs = font(BODY, 28)
