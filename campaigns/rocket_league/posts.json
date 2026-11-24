@@ -8,19 +8,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 346.0,
+          "value": 359.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 273.0,
+          "value": 280.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 4.0,
+          "value": 5.0,
           "unit": "count"
         },
         {
@@ -44,19 +44,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.849,
+          "value": 6.002,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 26.81035,
+          "value": 28.61416666666667,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 29.1,
+          "value": 29.4,
           "unit": "count"
         },
         {
@@ -67,7 +67,7 @@
         }
       ],
       "account": "rocket_ig",
-      "fetched_at": "2026-11-24T00:43:07.407851Z"
+      "fetched_at": "2026-11-24T03:44:40.179636Z"
     },
     "igo-5a1c8bf6-ee18-4f99-8d65-88de132d0a97": {
       "post_id": "igo-5a1c8bf6-ee18-4f99-8d65-88de132d0a97",
@@ -77,7 +77,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 208.0,
+          "value": 209.0,
           "unit": "count"
         },
         {
@@ -113,19 +113,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.84,
+          "value": 3.826,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 10.0497,
+          "value": 10.076733333333333,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 69.9,
+          "value": 70.1,
           "unit": "count"
         },
         {
@@ -136,7 +136,7 @@
         }
       ],
       "account": "rocket_ig",
-      "fetched_at": "2026-11-24T00:43:07.407851Z"
+      "fetched_at": "2026-11-24T03:44:40.179636Z"
     },
     "igo-c35b3156-89e8-47a2-9519-ff5d8cd4082f": {
       "post_id": "igo-c35b3156-89e8-47a2-9519-ff5d8cd4082f",
@@ -146,7 +146,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 322.0,
+          "value": 326.0,
           "unit": "count"
         },
         {
@@ -182,19 +182,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 8.024000000000001,
+          "value": 8.034,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 25.946583333333333,
+          "value": 26.11371666666667,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 30.9,
+          "value": 30.8,
           "unit": "count"
         },
         {
@@ -205,7 +205,7 @@
         }
       ],
       "account": "rocket_ig",
-      "fetched_at": "2026-11-24T00:43:07.407851Z"
+      "fetched_at": "2026-11-24T03:44:40.179636Z"
     },
     "igo-bfb4c45d-4bd9-47ba-abc7-11f2cbcf61af": {
       "post_id": "igo-bfb4c45d-4bd9-47ba-abc7-11f2cbcf61af",
@@ -215,19 +215,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 204.0,
+          "value": 210.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 158.0,
+          "value": 162.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 4.0,
+          "value": 5.0,
           "unit": "count"
         },
         {
@@ -251,30 +251,99 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.984,
+          "value": 5.918,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 15.85975,
+          "value": 16.177583333333335,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 35.8,
+          "value": 36.0,
           "unit": "count"
         },
         {
           "type": "reposts",
           "name": "Reposts",
-          "value": 1.0,
+          "value": 2.0,
           "unit": "count"
         }
       ],
       "account": "rocket_ig",
-      "fetched_at": "2026-11-24T00:43:07.407851Z"
+      "fetched_at": "2026-11-24T03:44:40.179636Z"
+    },
+    "igo-ff9824da-88d9-42b0-9055-64956a484c0c": {
+      "post_id": "igo-ff9824da-88d9-42b0-9055-64956a484c0c",
+      "service": "instagram",
+      "sent_at": "2026-11-24T00:36:48.883031Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 190.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 117.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 4.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 6.906000000000001,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 13.6979,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 47.5,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 2.0,
+          "unit": "count"
+        }
+      ],
+      "account": "rocket_ig",
+      "fetched_at": "2026-11-24T03:44:40.179636Z"
     }
   }
 }
