@@ -67,7 +67,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T09:41:00.320584Z"
+      "fetched_at": "2026-11-24T12:43:03.625747Z"
     },
     "igo-5bf950b8-6630-498f-a92f-018a7dff8ff2": {
       "post_id": "igo-5bf950b8-6630-498f-a92f-018a7dff8ff2",
@@ -136,7 +136,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T09:41:00.320584Z"
+      "fetched_at": "2026-11-24T12:43:03.625747Z"
     },
     "igo-269080de-3fcb-41fe-990e-8057e046f951": {
       "post_id": "igo-269080de-3fcb-41fe-990e-8057e046f951",
@@ -146,7 +146,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 10.0,
+          "value": 12.0,
           "unit": "count"
         },
         {
@@ -194,7 +194,7 @@
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 62.5,
+          "value": 50.0,
           "unit": "count"
         },
         {
@@ -205,7 +205,7 @@
         }
       ],
       "account": "nyc_ig",
-      "fetched_at": "2026-11-24T09:41:00.320584Z"
+      "fetched_at": "2026-11-24T12:43:03.625747Z"
     }
   }
 }
