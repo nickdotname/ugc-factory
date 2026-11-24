@@ -109,8 +109,8 @@ def test_nyc_clips_must_be_new_york_and_not_news():
 def test_nyc_places_are_library_clips_and_labels_fit_the_safe_area():
     import json, os
     here = os.path.join(os.path.dirname(__file__), '..', 'studio')
-    clips = json.load(open(os.path.join(here, 'nyc', 'places.json')))['clips']
-    lib = {e['asset']: e for e in json.load(open(os.path.join(here, 'footage', 'index.json')))['clips']}
+    clips = json.loads(__import__('pathlib').Path(os.path.join(here, 'nyc', 'places.json')).read_text())['clips']
+    lib = {e['asset']: e for e in json.loads(__import__('pathlib').Path(os.path.join(here, 'footage', 'index.json')).read_text())['clips']}
     for asset, p in clips.items():
         assert asset in lib, asset
         assert lib[asset]['theme'] in ('nyc', 'nyc_now')

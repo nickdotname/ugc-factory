@@ -36,7 +36,7 @@ BLOCK = re.compile(r'strip|burlesque|nud|naked|sex|venereal|cigar|tobacco|smok|b
                    r'crime|police|prison|drug|narcot|marijuana|reefer|venus|hygiene|birth|disease|surgery|hospital|accident|crash|riot|'
                    r'commercial|advertis|\bad\b|\bads\b|\bspot\b|sponsor|brand|'
                    r'jew|cake.?walk|darkt?own|\bcoons?\b|mammy|pickaninny|sambo|uncle tom|harem|slave|'   # old films' caricature
-                   r'schleiertanz|veil.?dance', re.I)   # dancers in body stockings that read as nude on a phone
+                   r'schleiertanz|veil.?dance|florida enchantment', re.I)   # dancers in body stockings that read as nude on a phone
 # Ordinary words that contain a blocked stem ("skill" holds kill, "Essex" sex, "patriotic" riot, "smokestack" smok):
 # they are blanked out before BLOCK looks, so a film about a factory chimney or Indiana is not thrown away for them.
 SAFE = re.compile(r'skill|begun|burgundy|essex|sussex|middlesex|jewel|patriot|chariot|marriott|alternative|indiana|'
@@ -46,7 +46,7 @@ SAFE = re.compile(r'skill|begun|burgundy|essex|sussex|middlesex|jewel|patriot|ch
 # that mentions a policeman or a fight is fine (Keystone chases, Keaton's Cops); caricature, nudity and sex never are.
 HARD = re.compile(r'strip|burlesque|nud|naked|sex|venereal|nazi|hitler|racis|minstrel|blackface|savage|negro|pickaninny|sambo|'
                   r'mammy|darkt?own|\bcoons?\b|cake.?walk|uncle tom|harem|slave|lynch|\bjew|oriental|chinese|japanese|jap\b|chinaman|'
-                  r'indian|native|schleiertanz|veil.?dance', re.I)
+                  r'indian|native|schleiertanz|veil.?dance|florida enchantment', re.I)   # A Florida Enchantment (1914) has blackface scenes
 
 
 def blocked(text, rule=None):
