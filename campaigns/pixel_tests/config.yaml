@@ -75,7 +75,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false
+  paused: true                 # 2026-11-24: Dylan: "way too basic and weird". Off until the tests are rebuilt.
   dry_run: false
 
 video:
