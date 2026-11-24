@@ -240,9 +240,10 @@ def fetch(maximum):
     json.dump(idx, open(INDEX, 'w'), indent=1); print('%d new clips, %d in the library' % (len(new), len(idx.get('clips', []))))
 
 
-def pull(themes=()):
-    """Download the library's clips (all, or the given themes) that are not cached yet. Needs read access to the repo's releases."""
-    os.makedirs(CACHE, exist_ok=True); want = [e for e in index().get('clips', []) if not themes or e['theme'] in themes]
+def pull(themes=(), assets=()):
+    """Download the library's clips (all, the given themes, or just the given assets) that are not cached yet. Needs read access to the repo's releases."""
+    os.makedirs(CACHE, exist_ok=True)
+    want = [e for e in index().get('clips', []) if (not themes or e['theme'] in themes) and (not assets or e['asset'] in assets)]
     missing = [e for e in want if not os.path.exists(os.path.join(CACHE, e['asset']))]
     if not missing: return want
     rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)

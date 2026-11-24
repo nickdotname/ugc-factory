@@ -16,6 +16,7 @@ sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(STUDIO, 'mathviz')); s
 import beat as audio
 import knobs as K
 from vox import Canvas, upscale
+from sky import Air, SKIES
 
 W, H, FPS = 1080, 1920, 30
 LW, LH, BASE = 270, 480, 4                              # the pixel canvas, blown up four times
@@ -33,9 +34,11 @@ class Video:
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         song = json.load(open(os.path.join(song_dir, 'song.json')))
         r = random.Random(seed); self.rng = np.random.default_rng(seed)
-        self.bg = BGS[K.pick('pixel_bg', sorted(BGS), r)]
+        self.bg = BGS['ink']
         self.cuts = K.pick('pixel_cuts', ['bars', 'none'], r)
+        sky = K.pick('pixel_sky', sorted(SKIES), r); weather = K.pick('pixel_weather', ['clear', 'rain', 'snow'], r, weights=[2, 1, 1])
         self.SC = importlib.import_module(scene)
+        if weather not in getattr(self.SC, 'WEATHER', ('clear', 'rain', 'snow')): weather = 'clear'; K.CHOSEN['pixel_weather'] = 'clear'
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
         E = dict(n=n, spb=a['spb'], beats=a['beats'], kicks=a['kicks'], snares=a['snares'], hats=a['hats'],
                  kick=audio.hits(a['kicks'], n, 7.0), snare=audio.hits(a['snares'], n, 9.0), hat=audio.hits(a['hats'], n, 14.0),
@@ -48,6 +51,14 @@ class Video:
         self.world = self.SC.build(self.rng); self.SC.setup(E, self.rng)
         cv = Canvas(LW, LH, getattr(self.SC, 'OX', LW // 2), getattr(self.SC, 'OY', 170), self.bg)
         self.voxels = cv.world(self.world); self.static = cv
+        rows = np.where((cv.key >= 0).any(1))[0]; cols = np.where((cv.key >= 0).any(0))[0]
+        # the wide shot: as big as the world allows, in whole pixels (a small world is drawn five times over, not four)
+        span = (cols[-1] - cols[0] + 16) if len(cols) else LW
+        self.wide = 5 if span <= W // 5 else BASE
+        cx = (cols[0] + cols[-1]) / 2 if len(cols) else LW / 2; cy = (rows[0] + rows[-1]) / 2 if len(rows) else LH / 2
+        ww, wh = W // self.wide, PANEL // self.wide
+        self.wx0 = int(np.clip(cx - ww / 2, 0, LW - ww)); self.wy0 = int(np.clip(cy - wh * 0.56, 0, LH - wh))
+        self.air = Air(sky, weather, LW, LH, int(rows[0]) if len(rows) else 150, np.random.default_rng(seed + 11), view=self.wy0 if self.wide != BASE else 0)
         yy, xx = np.mgrid[0:LH, 0:LW]
         self.dots = ((xx % 6 == 3) & (yy % 6 == 3))
         self.flies = [(self.rng.uniform(20, LW - 20), self.rng.uniform(120, 330), self.rng.uniform(0, 6.28), self.rng.uniform(0.3, 0.9)) for _ in range(36)]
@@ -103,8 +114,10 @@ class Video:
         E = self.E; kick = float(E['kick'][i]); snare = float(E['snare'][i])
         bass = float(min(1.2, E['bassf'][i])); vox = float(min(1.2, E['vox'][i]))
         solid = cv.key >= 0
+        rgb = self.air.light_world(rgb, solid, cv, i, E)
         rgb[solid] *= 0.90 + 0.16 * bass
-        rgb[~solid & self.dots] = np.array(self.bg, np.float32) + 18 + 30 * kick
+        sky = self.air.backdrop(i, E)
+        rgb[~solid] = sky[~solid] * (1 + 0.12 * kick)
         n = 0
         if snare > 0.35:                                   # sparks: bright pixels on the tops of things
             tops = np.argwhere(cv.face == 1)
@@ -127,11 +140,14 @@ class Video:
         rgb = cv.rgb
         if hasattr(SC, 'water'): rgb = SC.water(cv, rgb, i, E)
         sparks = self.react(cv, rgb, i)
+        rgb = self.air.front(rgb, i, E)
         rgb = np.clip(rgb, 0, 255)
         hop = int(round(2 * float(E['kick'][i])))          # the whole world hops a pixel or two on the kick
         if hop: rgb = np.concatenate([rgb[hop:], np.repeat(rgb[-1:], hop, 0)], 0)
         focus = self.shot(i)
-        if focus is None:
+        if focus is None and self.wide != BASE:
+            big = upscale(rgb[self.wy0:self.wy0 + H // self.wide + 1, self.wx0:self.wx0 + W // self.wide], self.wide)
+        elif focus is None:
             big = upscale(rgb, BASE)
         else:
             sc = 6; cw, ch = W // sc, H // sc
@@ -151,7 +167,7 @@ class Video:
         d.ellipse([W - 250, py + 21, W - 238, py + 33], fill=(88, 166, 255) if (i // 15) % 2 == 0 else (40, 90, 160))
         d.text((W - 228, py + 14), 'running   30 fps', font=self.fh, fill=(88, 166, 255))
         sy = py - 118
-        d.rectangle([0, sy - 12, W, py], fill=tuple(int(c) for c in self.bg))
+        d.rectangle([0, sy - 12, W, py], fill=(13, 17, 23))
         d.text((24, sy), SC.stats(i, E, info, self.voxels), font=self.fs, fill=(150, 160, 175))
         d.text((24, sy + 30), 'sparks %d' % sparks, font=self.fs, fill=(150, 160, 175))
         ly = self.lyric(t)

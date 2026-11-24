@@ -99,7 +99,7 @@ def water(t, h, w):
     return L, P.ramp3((40, 58, 98), (52, 90, 130), (104, 150, 176), (L - 0.09) / 0.21)
 
 
-def image(i):
+def image(i, full=False):
     t = P.t_of(i); push = float(E['kick'][i]); R, C = E['rows'], E['cols']
     h, w = R * SS, C * SS; sx, sy = w / E['AW'], h / E['AH']
     zb = np.full((h, w), 1e9, np.float32); Lb = np.zeros((h, w), np.float32); rgb = np.zeros((h, w, 3), np.float32)
@@ -135,6 +135,8 @@ def image(i):
     wL, wrgb = water(t, h, w)
     L = np.where(body, Lb, np.where(fin, np.clip(0.12 + 0.24 * ray, 0, 0.42), wL))
     col = np.where(body[..., None], rgb, np.where(fin[..., None], P.lerp((200, 80, 20), (255, 190, 90), ray / 1.25), wrgb))
+    if full:                                                                # the whole picture, for letters.py to set in type
+        return np.clip(col * (0.55 + 0.6 * L[..., None]) * (0.9 + 0.2 * E['bass'][i]), 0, 255).astype(np.uint8)
     # down to letter cells: a cell that is mostly fish is fish (no half-and-half letters on the outline)
     part = body.reshape(R, SS, C, SS).mean((1, 3)) > 0.45
     def cells(v, m):
@@ -143,6 +145,10 @@ def image(i):
         return (v * m).reshape(R, SS, C, SS).sum((1, 3)) / n
     Lc = np.where(part, cells(L, body), cells(L, ~body)); cc = np.where(part[..., None], cells(col, body), cells(col, ~body))
     return np.clip(Lc, 0, 1), cc * (0.88 + 0.24 * E['bass'][i])          # the bass brightens the colours; the letters hold still
+
+
+def picture(i):
+    return image(i, full=True)
 
 
 def particles(i, rows, cols):
