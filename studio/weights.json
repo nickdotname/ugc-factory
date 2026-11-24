@@ -2,1406 +2,1544 @@
  "updated": "2026-11-24",
  "campaigns": {
   "cq_producer": {
-   "posts": 18,
-   "waiting": 6,
-   "typical_views": 59.5,
+   "posts": 22,
+   "waiting": 3,
+   "typical_views": 45.0,
    "weights": {
     "style": {
-     "producer": 1.05
+     "producer": 0.98
     },
     "opening line": {
-     "without": 0.98,
-     "with": 1.05
+     "without": 0.99,
+     "with": 1.01
     },
     "hook": {
-     "every layer. one screen.": 1.05,
-     "show this to someone who makes beats": 0.98,
-     "producers: what would you change?": 1.04
+     "every layer. one screen.": 1.06,
+     "show this to someone who makes beats": 0.99,
+     "producers: what would you change?": 1.04,
+     "watch the vocals": 0.94
     },
     "hook angle": {
-     "relatable": 1.05,
-     "none": 1.0,
-     "share": 0.98,
-     "comment": 1.04
+     "relatable": 1.06,
+     "none": 0.96,
+     "share": 0.99,
+     "comment": 1.04,
+     "curious": 0.94
     },
     "hook style": {
-     "flash": 1.05
+     "flash": 1.07,
+     "hold": 0.94
     },
     "faces": {
-     "without": 1.03,
-     "with": 1.04
+     "without": 1.0,
+     "with": 0.98
     },
     "song": {
-     "notta_problem": 1.11,
-     "talk": 0.96,
-     "hair_of_the_dog": 0.99,
-     "full_ride": 0.92,
-     "prologue": 1.01,
-     "wont_be_the_same_again": 0.99,
-     "fixation": 1.04,
-     "myth_of_sisyphus": 1.0,
-     "suspended": 0.98
+     "notta_problem": 1.1,
+     "talk": 0.97,
+     "hair_of_the_dog": 1.0,
+     "full_ride": 0.93,
+     "prologue": 1.03,
+     "wont_be_the_same_again": 0.96,
+     "fixation": 1.05,
+     "myth_of_sisyphus": 1.01,
+     "suspended": 0.94
     },
     "section": {
-     "notta_problem/verse 1, first half": 1.11,
+     "notta_problem/verse 1, first half": 1.12,
      "talk/s01": 1.02,
-     "hair_of_the_dog/s01": 0.99,
-     "hair_of_the_dog/s02": 0.99,
-     "talk/s02": 0.93,
-     "full_ride/s01": 0.95,
-     "prologue/s02": 0.98,
-     "wont_be_the_same_again/s06": 1.0,
+     "hair_of_the_dog/s01": 1.0,
+     "hair_of_the_dog/s02": 1.0,
+     "talk/s02": 0.94,
+     "full_ride/s01": 0.96,
+     "prologue/s02": 0.99,
+     "wont_be_the_same_again/s06": 1.01,
      "full_ride/s02": 0.96,
-     "wont_be_the_same_again/s07": 0.99,
-     "prologue/s03": 0.98,
-     "fixation/s03": 1.01,
-     "prologue/s04": 1.05,
-     "myth_of_sisyphus/s06": 1.0,
-     "suspended/s02-s03": 0.98,
-     "fixation/s02": 1.04
+     "wont_be_the_same_again/s07": 1.0,
+     "prologue/s03": 0.99,
+     "fixation/s03": 1.02,
+     "prologue/s04": 1.06,
+     "myth_of_sisyphus/s06": 1.01,
+     "suspended/s02-s03": 0.99,
+     "fixation/s02": 1.04,
+     "wont_be_the_same_again/s05": 0.95,
+     "suspended/s04": 0.94
     },
     "look": {
-     "grad": 1.02,
-     "stars": 0.98,
-     "plasma": 0.96,
-     "rings": 1.04,
-     "tiles": 1.0
+     "grad": 1.03,
+     "stars": 1.0,
+     "plasma": 0.95,
+     "rings": 1.06,
+     "tiles": 0.96
     },
     "palette": {
-     "#ffffff": 1.03,
+     "#ffffff": 1.07,
      "#ffbe6e": 0.93,
-     "#78ffaa": 1.05
+     "#78ffaa": 1.0
     },
     "length": {
-     "under 20s": 1.09,
+     "under 20s": 1.07,
      "20-35s": 0.93,
-     "over 35s": 0.98
+     "over 35s": 0.99
     },
     "hour posted": {
      "18:00": 1.06,
-     "17:00": 1.02,
-     "21:00": 1.05,
-     "10:00": 0.97,
-     "13:00": 1.05,
-     "14:00": 1.0,
-     "16:00": 0.94,
-     "19:00": 0.94
+     "17:00": 1.03,
+     "21:00": 1.06,
+     "10:00": 0.99,
+     "13:00": 1.06,
+     "14:00": 0.97,
+     "16:00": 0.96,
+     "19:00": 0.95,
+     "09:00": 0.98,
+     "11:00": 0.95
     },
     "caption": {
-     "Notta Problem \u2013 Close Quarters": 1.11,
-     "Talk \u2013 Close Quarters": 0.96,
-     "Hair of the Dog \u2013 Close Quarters": 0.99,
-     "Full Ride \u2013 Close Quarters": 0.95,
-     "i produced this. here's every layer of it.": 0.97,
-     "this is what a song looks like before it's a song": 0.97,
-     "tag a producer who needs to hear this": 0.98,
-     "sound on. this is the song pulled apart": 1.05,
-     "hear it first. then watch what it is made of": 0.98,
-     "would you have mixed the vocal louder? be honest": 1.04
+     "Notta Problem \u2013 Close Quarters": 1.12,
+     "Talk \u2013 Close Quarters": 0.97,
+     "Hair of the Dog \u2013 Close Quarters": 1.0,
+     "Full Ride \u2013 Close Quarters": 0.96,
+     "i produced this. here's every layer of it.": 0.99,
+     "this is what a song looks like before it's a song": 0.99,
+     "tag a producer who needs to hear this": 0.99,
+     "sound on. this is the song pulled apart": 1.06,
+     "hear it first. then watch what it is made of": 0.99,
+     "would you have mixed the vocal louder? be honest": 0.99,
+     "pov: 3am, one more bounce": 0.98,
+     "which part should i break down next?": 0.94
     },
     "knob:caption": {
-     "inter": 1.05,
-     "anton": 1.03,
-     "montserrat": 0.98
+     "inter": 0.95,
+     "anton": 1.04,
+     "montserrat": 0.99
     },
     "knob:chroma": {
-     "0": 1.03,
-     "2": 1.03
+     "0": 0.99,
+     "2": 0.99
     },
     "knob:colours": {
      "1": 1.08,
-     "0": 0.99
+     "0": 0.96,
+     "2": 0.94
     },
     "knob:cut": {
      "tight": 1.08,
-     "full": 0.99
+     "full": 0.92
     },
     "knob:layout": {
-     "lanes": 1.05,
+     "lanes": 0.96,
      "mixer": 1.02
     },
     "knob:pictures": {
-     "0.6": 1.05,
-     "0.0": 1.03,
-     "0.35": 0.98
+     "0.6": 0.99,
+     "0.0": 0.99,
+     "0.35": 0.99
     },
     "knob:punch": {
-     "0.015": 1.05
+     "0.015": 1.07,
+     "0.03": 0.91
     },
     "knob:scan": {
-     "true": 1.05,
-     "false": 1.0
+     "true": 1.01,
+     "false": 0.96
     },
     "knob:wall": {
-     "rings": 1.05,
-     "tiles": 1.0,
-     "plasma": 0.98,
+     "rings": 1.06,
+     "tiles": 0.96,
+     "plasma": 0.94,
      "grad": 1.04
     }
    },
    "stats": {
     "style": {
      "producer": [
-      4,
-      3.83,
-      0.579
+      7,
+      6.67,
+      0.477
      ]
     },
     "opening line": {
      "without": [
-      15,
-      13.82,
-      0.478
+      17,
+      15.55,
+      0.492
      ],
      "with": [
-      3,
-      2.87,
-      0.604
+      4,
+      3.8,
+      0.522
      ]
     },
     "hook": {
      "every layer. one screen.": [
       1,
-      0.95,
-      0.734
+      0.94,
+      0.759
      ],
      "show this to someone who makes beats": [
       1,
-      0.96,
-      0.421
+      0.94,
+      0.453
      ],
      "producers: what would you change?": [
       1,
-      0.96,
-      0.659
+      0.95,
+      0.671
+     ],
+     "watch the vocals": [
+      1,
+      0.97,
+      0.214
      ]
     },
     "hook angle": {
      "relatable": [
       1,
-      0.95,
-      0.734
+      0.94,
+      0.759
      ],
      "none": [
-      1,
-      0.95,
-      0.504
+      3,
+      2.87,
+      0.419
      ],
      "share": [
       1,
-      0.96,
-      0.421
+      0.94,
+      0.453
      ],
      "comment": [
       1,
-      0.96,
-      0.659
+      0.95,
+      0.671
+     ],
+     "curious": [
+      1,
+      0.97,
+      0.214
      ]
     },
     "hook style": {
      "flash": [
       3,
-      2.87,
-      0.604
+      2.83,
+      0.627
+     ],
+     "hold": [
+      1,
+      0.97,
+      0.214
      ]
     },
     "faces": {
      "without": [
-      3,
-      2.87,
-      0.553
+      4,
+      3.79,
+      0.492
      ],
      "with": [
-      1,
-      0.96,
-      0.659
+      3,
+      2.88,
+      0.458
      ]
     },
     "song": {
      "notta_problem": [
-      3,
-      2.74,
-      0.711
+      4,
+      3.67,
+      0.67
      ],
      "talk": [
       2,
-      1.82,
-      0.385
+      1.8,
+      0.405
      ],
      "hair_of_the_dog": [
       2,
-      1.84,
-      0.46
+      1.81,
+      0.507
      ],
      "full_ride": [
       2,
-      1.85,
-      0.282
+      1.82,
+      0.304
      ],
      "prologue": [
       3,
-      2.8,
-      0.516
+      2.76,
+      0.559
      ],
      "wont_be_the_same_again": [
-      2,
-      1.84,
-      0.467
+      4,
+      3.75,
+      0.427
      ],
      "fixation": [
       2,
-      1.89,
-      0.605
+      1.86,
+      0.631
      ],
      "myth_of_sisyphus": [
       1,
-      0.95,
-      0.504
+      0.94,
+      0.552
      ],
      "suspended": [
-      1,
-      0.96,
-      0.421
+      2,
+      1.91,
+      0.332
      ]
     },
     "section": {
      "notta_problem/verse 1, first half": [
       3,
-      2.74,
-      0.711
+      2.7,
+      0.728
      ],
      "talk/s01": [
       1,
-      0.9,
-      0.593
+      0.89,
+      0.615
      ],
      "hair_of_the_dog/s01": [
       1,
-      0.92,
-      0.465
+      0.9,
+      0.514
      ],
      "hair_of_the_dog/s02": [
       1,
-      0.92,
-      0.456
+      0.91,
+      0.499
      ],
      "talk/s02": [
       1,
-      0.92,
-      0.182
+      0.91,
+      0.201
      ],
      "full_ride/s01": [
       1,
-      0.93,
-      0.275
+      0.91,
+      0.291
      ],
      "prologue/s02": [
       1,
-      0.92,
-      0.394
+      0.9,
+      0.448
      ],
      "wont_be_the_same_again/s06": [
       1,
-      0.92,
-      0.487
+      0.91,
+      0.527
      ],
      "full_ride/s02": [
       1,
-      0.92,
-      0.288
+      0.91,
+      0.316
      ],
      "wont_be_the_same_again/s07": [
       1,
-      0.92,
-      0.447
+      0.91,
+      0.482
      ],
      "prologue/s03": [
       1,
-      0.93,
-      0.412
+      0.91,
+      0.465
      ],
      "fixation/s03": [
       1,
-      0.93,
-      0.549
+      0.92,
+      0.591
      ],
      "prologue/s04": [
       1,
-      0.95,
-      0.734
+      0.94,
+      0.759
      ],
      "myth_of_sisyphus/s06": [
       1,
-      0.95,
-      0.504
+      0.94,
+      0.552
      ],
      "suspended/s02-s03": [
       1,
-      0.96,
-      0.421
+      0.94,
+      0.453
      ],
      "fixation/s02": [
       1,
-      0.96,
-      0.659
+      0.95,
+      0.671
+     ],
+     "wont_be_the_same_again/s05": [
+      2,
+      1.93,
+      0.354
+     ],
+     "suspended/s04": [
+      1,
+      0.97,
+      0.214
      ]
     },
     "look": {
      "grad": [
       4,
-      3.71,
-      0.534
+      3.66,
+      0.555
      ],
      "stars": [
       3,
-      2.77,
-      0.46
+      2.73,
+      0.492
      ],
      "plasma": [
-      5,
-      4.63,
-      0.441
+      6,
+      5.53,
+      0.428
      ],
      "rings": [
       5,
-      4.64,
-      0.555
+      4.57,
+      0.591
      ],
      "tiles": [
-      1,
-      0.95,
-      0.504
+      3,
+      2.87,
+      0.419
      ]
     },
     "palette": {
      "#ffffff": [
       10,
-      9.27,
-      0.538
+      9.14,
+      0.571
      ],
      "#ffbe6e": [
-      6,
-      5.58,
-      0.395
+      8,
+      7.43,
+      0.408
      ],
      "#78ffaa": [
-      2,
-      1.84,
-      0.63
+      3,
+      2.78,
+      0.5
      ]
     },
     "length": {
      "under 20s": [
-      8,
-      7.42,
-      0.609
+      10,
+      9.25,
+      0.577
      ],
      "20-35s": [
-      9,
-      8.31,
-      0.412
+      10,
+      9.16,
+      0.423
      ],
      "over 35s": [
       1,
-      0.96,
-      0.421
+      0.94,
+      0.453
      ]
     },
     "hour posted": {
      "18:00": [
       1,
-      0.9,
-      0.756
+      0.88,
+      0.777
      ],
      "17:00": [
       1,
-      0.92,
-      0.606
+      0.91,
+      0.631
      ],
      "21:00": [
       3,
-      2.79,
-      0.601
+      2.75,
+      0.626
      ],
      "10:00": [
       2,
-      1.83,
-      0.429
+      1.81,
+      0.481
      ],
      "13:00": [
       2,
-      1.84,
-      0.63
+      1.81,
+      0.653
      ],
      "14:00": [
-      3,
-      2.79,
-      0.495
+      4,
+      3.72,
+      0.446
      ],
      "16:00": [
-      3,
-      2.8,
-      0.379
+      4,
+      3.74,
+      0.438
      ],
      "19:00": [
       3,
-      2.81,
-      0.37
+      2.77,
+      0.404
+     ],
+     "09:00": [
+      1,
+      0.96,
+      0.419
+     ],
+     "11:00": [
+      1,
+      0.97,
+      0.289
      ]
     },
     "caption": {
      "Notta Problem \u2013 Close Quarters": [
       3,
-      2.74,
-      0.711
+      2.7,
+      0.728
      ],
      "Talk \u2013 Close Quarters": [
       2,
-      1.82,
-      0.385
+      1.8,
+      0.405
      ],
      "Hair of the Dog \u2013 Close Quarters": [
       2,
-      1.84,
-      0.46
+      1.81,
+      0.507
      ],
      "Full Ride \u2013 Close Quarters": [
       1,
-      0.93,
-      0.275
+      0.91,
+      0.291
      ],
      "i produced this. here's every layer of it.": [
       2,
-      1.84,
-      0.421
+      1.81,
+      0.465
      ],
      "this is what a song looks like before it's a song": [
-      3,
-      2.77,
-      0.442
+      4,
+      3.7,
+      0.486
      ],
      "tag a producer who needs to hear this": [
       1,
-      0.93,
-      0.412
+      0.91,
+      0.465
      ],
      "sound on. this is the song pulled apart": [
       2,
-      1.91,
-      0.619
+      1.88,
+      0.655
      ],
      "hear it first. then watch what it is made of": [
       1,
-      0.96,
-      0.421
+      0.94,
+      0.453
      ],
      "would you have mixed the vocal louder? be honest": [
+      2,
+      1.91,
+      0.478
+     ],
+     "pov: 3am, one more bounce": [
       1,
       0.96,
-      0.659
+      0.419
+     ],
+     "which part should i break down next?": [
+      1,
+      0.97,
+      0.214
      ]
     },
     "knob:caption": {
      "inter": [
-      1,
-      0.95,
-      0.734
+      4,
+      3.84,
+      0.418
      ],
      "anton": [
       2,
-      1.92,
-      0.582
+      1.89,
+      0.612
      ],
      "montserrat": [
       1,
-      0.96,
-      0.421
+      0.94,
+      0.453
      ]
     },
     "knob:chroma": {
      "0": [
-      2,
-      1.91,
-      0.577
+      3,
+      2.85,
+      0.472
      ],
      "2": [
-      2,
-      1.92,
-      0.582
+      4,
+      3.82,
+      0.481
      ]
     },
     "knob:colours": {
      "1": [
       2,
-      1.91,
-      0.696
+      1.89,
+      0.714
      ],
      "0": [
-      2,
-      1.91,
-      0.462
+      4,
+      3.82,
+      0.427
+     ],
+     "2": [
+      1,
+      0.97,
+      0.214
      ]
     },
     "knob:cut": {
      "tight": [
       2,
-      1.91,
-      0.696
+      1.89,
+      0.714
      ],
      "full": [
-      2,
-      1.91,
-      0.462
+      5,
+      4.79,
+      0.384
      ]
     },
     "knob:layout": {
      "lanes": [
-      2,
-      1.91,
-      0.619
+      5,
+      4.78,
+      0.444
      ],
      "mixer": [
       2,
-      1.92,
-      0.54
+      1.89,
+      0.562
      ]
     },
     "knob:pictures": {
      "0.6": [
-      1,
-      0.95,
-      0.734
+      2,
+      1.91,
+      0.482
      ],
      "0.0": [
-      2,
-      1.92,
-      0.582
+      4,
+      3.82,
+      0.481
      ],
      "0.35": [
       1,
-      0.96,
-      0.421
+      0.94,
+      0.453
      ]
     },
     "knob:punch": {
      "0.015": [
       4,
-      3.83,
-      0.579
+      3.77,
+      0.608
+     ],
+     "0.03": [
+      3,
+      2.9,
+      0.307
      ]
     },
     "knob:scan": {
      "true": [
-      3,
-      2.87,
-      0.604
+      5,
+      4.76,
+      0.516
      ],
      "false": [
-      1,
-      0.95,
-      0.504
+      2,
+      1.91,
+      0.381
      ]
     },
     "knob:wall": {
      "rings": [
       1,
-      0.95,
-      0.734
+      0.94,
+      0.759
      ],
      "tiles": [
-      1,
-      0.95,
-      0.504
+      3,
+      2.87,
+      0.419
      ],
      "plasma": [
-      1,
-      0.96,
-      0.421
+      2,
+      1.91,
+      0.332
      ],
      "grad": [
       1,
-      0.96,
-      0.659
+      0.95,
+      0.671
      ]
     }
    },
    "retired": {}
   },
   "cq_band": {
-   "posts": 21,
-   "waiting": 6,
-   "typical_views": 100.0,
+   "posts": 24,
+   "waiting": 4,
+   "typical_views": 98.5,
    "weights": {
     "style": {
-     "band": 1.01
+     "band": 1.02
     },
     "opening line": {
-     "without": 0.98,
-     "with": 0.99
+     "without": 0.97,
+     "with": 1.01
     },
     "hook": {
      "your pc in 2001:": 0.99,
-     "read along": 0.98,
-     "send this to the friend who'd get it": 1.04,
-     "be honest: skip or replay?": 1.0,
-     "rate this song 1-10": 0.98
+     "read along": 0.97,
+     "send this to the friend who'd get it": 1.07,
+     "be honest: skip or replay?": 0.99,
+     "rate this song 1-10": 0.97,
+     "songs that sound like 2am": 1.02
     },
     "hook angle": {
      "plain": 0.99,
-     "curious": 0.98,
+     "curious": 0.97,
      "none": 1.03,
-     "share": 1.04,
-     "debate": 1.0,
-     "comment": 0.98
+     "share": 1.07,
+     "debate": 0.99,
+     "comment": 0.97,
+     "relatable": 1.02
     },
     "hook style": {
-     "flash": 0.97,
-     "hold": 1.02
+     "flash": 0.96,
+     "hold": 1.05
     },
     "faces": {
      "without": 0.99,
-     "with": 1.02
+     "with": 1.03
     },
     "song": {
-     "prologue": 0.94,
-     "wont_be_the_same_again": 1.04,
+     "prologue": 0.93,
+     "wont_be_the_same_again": 1.05,
      "hair_of_the_dog": 0.96,
-     "fixation": 1.07,
-     "myth_of_sisyphus": 0.98,
-     "suspended": 1.0
+     "fixation": 1.05,
+     "myth_of_sisyphus": 0.97,
+     "suspended": 0.99,
+     "talk": 1.02,
+     "full_ride": 1.01
     },
     "section": {
      "prologue/s01-s02": 0.99,
      "wont_be_the_same_again/s05-s06": 0.97,
-     "hair_of_the_dog/s01-s02": 0.97,
+     "hair_of_the_dog/s01-s02": 0.96,
      "wont_be_the_same_again/s07": 1.01,
      "prologue/s03-s04": 1.02,
-     "fixation/s03-s04": 1.04,
+     "fixation/s03-s04": 1.03,
      "prologue/s05-s06": 0.93,
      "wont_be_the_same_again/s08": 1.01,
      "prologue/s07-s08": 0.95,
      "fixation/s06": 1.03,
      "prologue/s04": 1.01,
-     "myth_of_sisyphus/s06": 0.98,
-     "suspended/s02-s03": 1.03,
-     "fixation/s02-s03": 0.99,
-     "wont_be_the_same_again/s01-s02": 1.04,
-     "fixation/s02": 1.0,
-     "suspended/s04": 0.98
+     "myth_of_sisyphus/s06": 0.97,
+     "suspended/s02-s03": 1.02,
+     "fixation/s02-s03": 0.98,
+     "wont_be_the_same_again/s01-s02": 1.07,
+     "fixation/s02": 0.99,
+     "suspended/s04": 0.97,
+     "talk/s05": 1.02,
+     "full_ride/s04": 1.01
     },
     "look": {
-     "stars": 0.95,
+     "stars": 0.93,
      "grad": 1.01,
-     "rings": 1.04,
-     "plasma": 0.99,
+     "rings": 1.03,
+     "plasma": 1.01,
      "clouds": 1.01,
-     "bars": 1.01,
-     "hills": 0.98
+     "bars": 1.0,
+     "hills": 0.97,
+     "tiles": 1.02
     },
     "length": {
-     "over 35s": 0.91,
-     "under 20s": 1.03,
-     "20-35s": 1.03
+     "over 35s": 0.9,
+     "under 20s": 1.04,
+     "20-35s": 1.02
     },
     "hour posted": {
      "10:00": 0.93,
      "13:00": 0.98,
-     "14:00": 0.95,
-     "17:00": 1.01,
-     "19:00": 0.96,
+     "14:00": 0.96,
+     "17:00": 1.0,
+     "19:00": 0.95,
      "22:00": 1.08,
-     "21:00": 1.1,
-     "12:00": 1.01,
-     "20:00": 1.0
+     "21:00": 1.09,
+     "12:00": 1.02,
+     "09:00": 1.04,
+     "20:00": 0.99
     },
     "caption": {
-     "Prologue: Before \u2013 Close Quarters": 1.01,
+     "Prologue: Before \u2013 Close Quarters": 1.0,
      "Won't Be the Same Again \u2013 Close Quarters": 0.98,
-     "Hair of the Dog \u2013 Close Quarters": 0.97,
-     "Fixation \u2013 Close Quarters": 1.04,
+     "Hair of the Dog \u2013 Close Quarters": 0.96,
+     "Fixation \u2013 Close Quarters": 1.03,
      "lesson 1 of 15. class is in session.": 0.93,
      "your family computer in 2001 if it had taste": 1.02,
      "lesson 13 of 15. class is in session.": 0.98,
-     "tell me this doesn't sound like 2am in new york": 0.94,
+     "tell me this doesn't sound like 2am in new york": 0.96,
      "this is what our album sounds like. EDUCATION, out now.": 1.01,
-     "the lyrics are the video. turn the sound on.": 0.98,
-     "send this to someone who still misses windows 95": 1.03,
-     "which line hit hardest? comment it": 0.99,
+     "the lyrics are the video. turn the sound on.": 0.97,
+     "send this to someone who still misses windows 95": 1.05,
+     "which line hit hardest? comment it": 0.98,
      "pov: it's 2am and this comes on shuffle": 1.04,
-     "be honest \ud83d\udc47 skip or replay?": 1.0,
+     "be honest \ud83d\udc47 skip or replay?": 0.99,
      "we cut ourselves out of the living room and into the media player. who did it better? \ud83d\udc47": 1.05,
      "chin up. who's got the better moves? \ud83d\udc47": 1.06
     },
     "knob:caption": {
      "montserrat": 1.01,
-     "inter": 0.99,
-     "anton": 1.03
+     "inter": 1.0,
+     "anton": 1.04
     },
     "knob:chroma": {
-     "0": 1.02,
-     "2": 1.0,
-     "4": 0.99
+     "0": 1.04,
+     "2": 0.99,
+     "4": 1.01
     },
     "knob:chrome": {
      "win95": 1.01,
-     "xp": 1.02,
-     "mac": 0.98
+     "xp": 1.04,
+     "mac": 0.97
     },
     "knob:cut": {
-     "tight": 1.02,
-     "full": 0.98
+     "tight": 1.03,
+     "full": 1.0
     },
     "knob:pictures": {
-     "0.85": 0.98,
-     "0.6": 1.01,
-     "0.35": 1.03
+     "0.85": 0.97,
+     "0.6": 1.03,
+     "0.35": 1.04
     },
     "knob:punch": {
-     "0.05": 1.03,
-     "0.02": 0.99,
+     "0.05": 1.04,
+     "0.02": 1.0,
      "0.035": 0.98
     },
     "knob:scan": {
-     "true": 1.02,
-     "false": 0.98
+     "true": 1.03,
+     "false": 0.99
     },
     "knob:theme": {
      "silver": 1.01,
-     "pink": 1.0,
-     "orange": 0.99,
-     "black": 1.04,
-     "blue": 1.0,
-     "teal": 0.98
+     "pink": 0.99,
+     "orange": 1.0,
+     "black": 1.07,
+     "blue": 0.99,
+     "teal": 0.97,
+     "purple": 1.01
     },
     "knob:wall": {
      "clouds": 1.01,
-     "stars": 0.98,
-     "bars": 1.01,
-     "plasma": 1.04,
-     "hills": 0.98
+     "stars": 0.97,
+     "bars": 1.0,
+     "plasma": 1.07,
+     "hills": 0.97,
+     "tiles": 1.02,
+     "grad": 1.01
     }
    },
    "stats": {
     "style": {
      "band": [
-      7,
-      6.7,
-      0.508
+      10,
+      9.5,
+      0.522
      ]
     },
     "opening line": {
      "without": [
-      11,
-      10.16,
-      0.475
+      12,
+      10.98,
+      0.467
      ],
      "with": [
-      6,
-      5.74,
-      0.49
+      8,
+      7.59,
+      0.51
      ]
     },
     "hook": {
      "your pc in 2001:": [
       2,
-      1.91,
-      0.485
+      1.88,
+      0.467
      ],
      "read along": [
       1,
-      0.95,
-      0.388
+      0.94,
+      0.362
      ],
      "send this to the friend who'd get it": [
-      1,
-      0.96,
-      0.682
+      2,
+      1.91,
+      0.676
      ],
      "be honest: skip or replay?": [
       1,
-      0.96,
-      0.497
+      0.95,
+      0.476
      ],
      "rate this song 1-10": [
       1,
-      0.96,
-      0.403
+      0.94,
+      0.378
+     ],
+     "songs that sound like 2am": [
+      1,
+      0.97,
+      0.575
      ]
     },
     "hook angle": {
      "plain": [
       2,
-      1.91,
-      0.485
+      1.88,
+      0.467
      ],
      "curious": [
       1,
-      0.95,
-      0.388
+      0.94,
+      0.362
      ],
      "none": [
-      1,
-      0.96,
-      0.613
+      2,
+      1.91,
+      0.567
      ],
      "share": [
-      1,
-      0.96,
-      0.682
+      2,
+      1.91,
+      0.676
      ],
      "debate": [
       1,
-      0.96,
-      0.497
+      0.95,
+      0.476
      ],
      "comment": [
       1,
-      0.96,
-      0.403
+      0.94,
+      0.378
+     ],
+     "relatable": [
+      1,
+      0.97,
+      0.575
      ]
     },
     "hook style": {
      "flash": [
       4,
-      3.82,
-      0.456
+      3.77,
+      0.435
      ],
      "hold": [
-      2,
-      1.92,
-      0.559
+      4,
+      3.82,
+      0.585
      ]
     },
     "faces": {
      "without": [
-      2,
-      1.91,
-      0.469
+      3,
+      2.85,
+      0.484
      ],
      "with": [
-      5,
-      4.79,
-      0.523
+      7,
+      6.65,
+      0.538
      ]
     },
     "song": {
      "prologue": [
       5,
-      4.64,
-      0.409
+      4.57,
+      0.398
      ],
      "wont_be_the_same_again": [
-      6,
-      5.61,
-      0.549
+      7,
+      6.5,
+      0.56
      ],
      "hair_of_the_dog": [
       2,
-      1.84,
-      0.398
+      1.82,
+      0.388
      ],
      "fixation": [
       5,
-      4.71,
-      0.595
+      4.64,
+      0.577
      ],
      "myth_of_sisyphus": [
       1,
-      0.95,
-      0.388
+      0.94,
+      0.362
      ],
      "suspended": [
       2,
-      1.91,
-      0.508
+      1.89,
+      0.481
+     ],
+     "talk": [
+      1,
+      0.97,
+      0.575
+     ],
+     "full_ride": [
+      1,
+      0.97,
+      0.55
      ]
     },
     "section": {
      "prologue/s01-s02": [
       1,
-      0.92,
-      0.443
+      0.9,
+      0.432
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
-      0.92,
-      0.368
+      0.91,
+      0.348
      ],
      "hair_of_the_dog/s01-s02": [
       1,
-      0.92,
-      0.336
+      0.91,
+      0.322
      ],
      "wont_be_the_same_again/s07": [
       1,
-      0.92,
-      0.547
+      0.91,
+      0.532
      ],
      "prologue/s03-s04": [
       1,
-      0.93,
-      0.601
+      0.91,
+      0.582
      ],
      "fixation/s03-s04": [
       1,
-      0.9,
-      0.665
+      0.89,
+      0.645
      ],
      "prologue/s05-s06": [
       1,
-      0.92,
-      0.185
+      0.9,
+      0.178
      ],
      "wont_be_the_same_again/s08": [
       1,
-      0.92,
-      0.539
+      0.91,
+      0.526
      ],
      "prologue/s07-s08": [
       1,
-      0.93,
-      0.277
+      0.91,
+      0.27
      ],
      "fixation/s06": [
       1,
-      0.93,
-      0.649
+      0.92,
+      0.626
      ],
      "prologue/s04": [
       1,
-      0.95,
-      0.536
+      0.94,
+      0.523
      ],
      "myth_of_sisyphus/s06": [
       1,
-      0.95,
-      0.388
+      0.94,
+      0.362
      ],
      "suspended/s02-s03": [
       1,
-      0.96,
-      0.613
+      0.94,
+      0.584
      ],
      "fixation/s02-s03": [
       1,
-      0.96,
-      0.435
+      0.95,
+      0.411
      ],
      "wont_be_the_same_again/s01-s02": [
-      1,
-      0.96,
-      0.682
+      2,
+      1.91,
+      0.676
      ],
      "fixation/s02": [
       1,
-      0.96,
-      0.497
+      0.95,
+      0.476
      ],
      "suspended/s04": [
       1,
-      0.96,
-      0.403
+      0.94,
+      0.378
+     ],
+     "talk/s05": [
+      1,
+      0.97,
+      0.575
+     ],
+     "full_ride/s04": [
+      1,
+      0.97,
+      0.55
      ]
     },
     "look": {
      "stars": [
       6,
-      5.61,
-      0.424
+      5.53,
+      0.408
      ],
      "grad": [
-      3,
-      2.77,
-      0.522
+      4,
+      3.7,
+      0.515
      ],
      "rings": [
       1,
-      0.9,
-      0.665
+      0.89,
+      0.645
      ],
      "plasma": [
-      3,
-      2.8,
-      0.472
+      4,
+      3.72,
+      0.519
      ],
      "clouds": [
       1,
-      0.95,
-      0.536
+      0.94,
+      0.523
      ],
      "bars": [
       2,
-      1.91,
-      0.524
+      1.89,
+      0.497
      ],
      "hills": [
       1,
-      0.96,
-      0.403
+      0.94,
+      0.378
+     ],
+     "tiles": [
+      1,
+      0.97,
+      0.575
      ]
     },
     "length": {
      "over 35s": [
       6,
-      5.53,
-      0.369
+      5.45,
+      0.356
      ],
      "under 20s": [
-      7,
-      6.62,
-      0.534
+      9,
+      8.46,
+      0.541
      ],
      "20-35s": [
-      4,
-      3.75,
-      0.551
+      5,
+      4.67,
+      0.533
      ]
     },
     "hour posted": {
      "10:00": [
       2,
-      1.83,
-      0.314
+      1.81,
+      0.305
      ],
      "13:00": [
       2,
-      1.84,
-      0.453
+      1.81,
+      0.437
      ],
      "14:00": [
-      3,
-      2.8,
-      0.394
+      4,
+      3.73,
+      0.423
      ],
      "17:00": [
       3,
-      2.8,
-      0.521
+      2.76,
+      0.505
      ],
      "19:00": [
       4,
-      3.77,
-      0.429
+      3.72,
+      0.41
      ],
      "22:00": [
       2,
-      1.86,
-      0.706
+      1.84,
+      0.698
      ],
      "21:00": [
       3,
-      2.85,
-      0.689
+      2.81,
+      0.674
      ],
      "12:00": [
+      2,
+      1.9,
+      0.549
+     ],
+     "09:00": [
       1,
-      0.95,
-      0.536
+      0.96,
+      0.689
      ],
      "20:00": [
       1,
-      0.96,
-      0.497
+      0.95,
+      0.476
      ]
     },
     "caption": {
      "Prologue: Before \u2013 Close Quarters": [
       2,
-      1.84,
-      0.522
+      1.82,
+      0.507
      ],
      "Won't Be the Same Again \u2013 Close Quarters": [
       2,
-      1.84,
-      0.457
+      1.82,
+      0.441
      ],
      "Hair of the Dog \u2013 Close Quarters": [
       1,
-      0.92,
-      0.336
+      0.91,
+      0.322
      ],
      "Fixation \u2013 Close Quarters": [
       1,
-      0.9,
-      0.665
+      0.89,
+      0.645
      ],
      "lesson 1 of 15. class is in session.": [
       1,
-      0.92,
-      0.185
+      0.9,
+      0.178
      ],
      "your family computer in 2001 if it had taste": [
-      3,
-      2.77,
-      0.55
+      4,
+      3.7,
+      0.539
      ],
      "lesson 13 of 15. class is in session.": [
       1,
-      0.92,
-      0.4
+      0.91,
+      0.395
      ],
      "tell me this doesn't sound like 2am in new york": [
-      2,
-      1.89,
-      0.341
+      3,
+      2.83,
+      0.41
      ],
      "this is what our album sounds like. EDUCATION, out now.": [
       1,
-      0.95,
-      0.536
+      0.94,
+      0.523
      ],
      "the lyrics are the video. turn the sound on.": [
       1,
-      0.95,
-      0.388
+      0.94,
+      0.362
      ],
      "send this to someone who still misses windows 95": [
-      1,
-      0.96,
-      0.613
+      2,
+      1.91,
+      0.637
      ],
      "which line hit hardest? comment it": [
       1,
-      0.96,
-      0.435
+      0.95,
+      0.411
      ],
      "pov: it's 2am and this comes on shuffle": [
       1,
-      0.96,
-      0.682
+      0.95,
+      0.663
      ],
      "be honest \ud83d\udc47 skip or replay?": [
       1,
-      0.96,
-      0.497
+      0.95,
+      0.476
      ],
      "we cut ourselves out of the living room and into the media player. who did it better? \ud83d\udc47": [
       1,
-      0.96,
+      0.95,
       0.732
      ],
      "chin up. who's got the better moves? \ud83d\udc47": [
       1,
-      0.96,
-      0.745
+      0.95,
+      0.749
      ]
     },
     "knob:caption": {
      "montserrat": [
       1,
-      0.95,
-      0.536
+      0.94,
+      0.523
      ],
      "inter": [
-      5,
-      4.79,
-      0.481
+      6,
+      5.69,
+      0.497
      ],
      "anton": [
-      1,
-      0.96,
-      0.613
+      3,
+      2.88,
+      0.569
      ]
     },
     "knob:chroma": {
      "0": [
-      3,
-      2.86,
-      0.536
+      4,
+      3.79,
+      0.56
      ],
      "2": [
       3,
-      2.87,
-      0.504
+      2.83,
+      0.479
      ],
      "4": [
-      1,
-      0.96,
-      0.435
+      3,
+      2.88,
+      0.513
      ]
     },
     "knob:chrome": {
      "win95": [
-      3,
-      2.86,
-      0.512
+      5,
+      4.75,
+      0.519
      ],
      "xp": [
-      3,
-      2.88,
-      0.538
+      4,
+      3.8,
+      0.56
      ],
      "mac": [
       1,
-      0.96,
-      0.403
+      0.94,
+      0.378
      ]
     },
     "knob:cut": {
      "tight": [
-      5,
-      4.78,
-      0.531
+      6,
+      5.67,
+      0.54
      ],
      "full": [
-      2,
-      1.92,
-      0.45
+      4,
+      3.83,
+      0.495
      ]
     },
     "knob:pictures": {
      "0.85": [
       3,
-      2.87,
-      0.457
+      2.83,
+      0.437
      ],
      "0.6": [
-      3,
-      2.87,
-      0.523
+      4,
+      3.8,
+      0.549
      ],
      "0.35": [
-      1,
-      0.96,
-      0.613
+      3,
+      2.88,
+      0.569
      ]
     },
     "knob:punch": {
      "0.05": [
-      4,
-      3.82,
-      0.555
+      5,
+      4.73,
+      0.565
      ],
      "0.02": [
-      1,
-      0.96,
-      0.435
+      2,
+      1.91,
+      0.494
      ],
      "0.035": [
-      2,
-      1.92,
-      0.45
+      3,
+      2.86,
+      0.469
      ]
     },
     "knob:scan": {
      "true": [
-      5,
-      4.78,
-      0.531
+      7,
+      6.64,
+      0.541
      ],
      "false": [
-      2,
-      1.92,
-      0.45
+      3,
+      2.86,
+      0.477
      ]
     },
     "knob:theme": {
      "silver": [
       1,
-      0.95,
-      0.536
+      0.94,
+      0.523
      ],
      "pink": [
       2,
-      1.91,
-      0.501
+      1.88,
+      0.473
      ],
      "orange": [
-      1,
-      0.96,
-      0.435
+      2,
+      1.91,
+      0.494
      ],
      "black": [
-      1,
-      0.96,
-      0.682
+      2,
+      1.91,
+      0.676
      ],
      "blue": [
       1,
-      0.96,
-      0.497
+      0.95,
+      0.476
      ],
      "teal": [
       1,
-      0.96,
-      0.403
+      0.94,
+      0.378
+     ],
+     "purple": [
+      1,
+      0.97,
+      0.55
      ]
     },
     "knob:wall": {
      "clouds": [
       1,
-      0.95,
-      0.536
+      0.94,
+      0.523
      ],
      "stars": [
       2,
-      1.91,
-      0.442
+      1.89,
+      0.419
      ],
      "bars": [
       2,
-      1.91,
-      0.524
+      1.89,
+      0.497
      ],
      "plasma": [
-      1,
-      0.96,
-      0.682
+      2,
+      1.91,
+      0.676
      ],
      "hills": [
       1,
-      0.96,
-      0.403
+      0.94,
+      0.378
+     ],
+     "tiles": [
+      1,
+      0.97,
+      0.575
+     ],
+     "grad": [
+      1,
+      0.97,
+      0.55
      ]
     }
    },
    "retired": {}
   },
   "psy_station": {
-   "posts": 24,
-   "waiting": 6,
+   "posts": 27,
+   "waiting": 4,
    "typical_views": 57.0,
    "weights": {
     "style": {
-     "psy": 1.0
+     "psy": 1.0,
+     "collage": 1.02
     },
     "opening line": {
      "without": 1.0,
-     "with": 1.01
+     "with": 1.0
     },
     "hook": {
-     "what do you see?": 1.01
+     "what do you see?": 1.01,
+     "don't blink": 1.0
     },
     "song": {
      "prologue": 1.0,
-     "wont_be_the_same_again": 0.96,
+     "wont_be_the_same_again": 0.95,
      "hair_of_the_dog": 1.03,
-     "fixation": 1.0,
-     "myth_of_sisyphus": 1.02,
-     "full_ride": 1.08,
-     "talk": 0.95,
-     "suspended": 1.01
+     "fixation": 1.01,
+     "myth_of_sisyphus": 1.01,
+     "full_ride": 1.07,
+     "talk": 0.96,
+     "suspended": 1.01,
+     "silver_and_gold": 1.02
     },
     "section": {
      "prologue/s02": 0.96,
      "wont_be_the_same_again/s05-s06": 0.94,
      "hair_of_the_dog/s02": 1.05,
      "wont_be_the_same_again/s05": 0.99,
-     "fixation/s03": 1.0,
+     "fixation/s03": 0.99,
      "prologue/s09": 1.06,
-     "wont_be_the_same_again/s01": 1.01,
+     "wont_be_the_same_again/s01": 1.0,
      "hair_of_the_dog/s01": 0.98,
      "prologue/s05": 0.97,
      "fixation/s06": 0.95,
      "myth_of_sisyphus/s02": 0.99,
      "wont_be_the_same_again/s06": 1.0,
-     "full_ride/s02": 1.08,
+     "full_ride/s02": 1.07,
      "talk/s06": 0.95,
      "prologue/s03-s04": 1.02,
      "myth_of_sisyphus/s03": 1.03,
      "suspended/s04": 1.01,
      "fixation/s01": 1.06,
-     "wont_be_the_same_again/s07": 0.98
+     "wont_be_the_same_again/s07": 0.97,
+     "suspended/s06": 1.0,
+     "talk/s05-s06": 1.0,
+     "silver_and_gold/s03": 1.02
     },
     "look": {
      "kaleido": 1.03,
@@ -1411,116 +1549,134 @@
      "bryce": 1.03,
      "tunnel": 0.99,
      "moire": 1.02,
-     "julia": 1.03
+     "julia": 1.03,
+     "oil": 1.0
     },
     "lyrics": {
      "word": 0.94,
-     "line": 1.05
+     "line": 1.04
     },
     "palette": {
      "ocean": 0.95,
      "candy": 1.02,
-     "lava": 1.02,
+     "lava": 1.03,
      "acid": 0.98,
-     "ice": 1.03,
+     "ice": 1.02,
      "neon": 1.01,
-     "mono": 0.98
+     "mono": 0.97,
+     "vapor": 1.0
     },
     "length": {
-     "20-35s": 0.99,
+     "20-35s": 0.98,
      "over 35s": 0.94,
      "under 20s": 1.06,
      "under 10s": 1.02
     },
     "hour posted": {
      "23:00": 1.0,
-     "11:00": 0.96,
-     "14:00": 1.03,
-     "16:00": 1.0,
-     "18:00": 0.97,
+     "11:00": 0.97,
+     "14:00": 1.02,
+     "16:00": 1.02,
+     "18:00": 0.98,
      "21:00": 0.99,
      "10:00": 1.07,
      "12:00": 0.98,
      "13:00": 1.0,
      "20:00": 0.96,
      "17:00": 1.0,
-     "19:00": 1.08,
-     "22:00": 0.97
+     "19:00": 1.07,
+     "22:00": 0.97,
+     "09:00": 1.0
     },
     "caption": {
      "every colour change is a drum hit": 1.0,
      "this is what the bass looks like. watch the centre": 0.99,
      "turn it up and stare at the middle": 0.99,
-     "sound on. the picture is listening": 0.95,
-     "sound all the way up. don't blink.": 0.99,
+     "sound on. the picture is listening": 0.96,
+     "sound all the way up. don't blink.": 1.0,
      "stare at the centre for 15 seconds. then look at your hand.": 0.96,
      "how far did you make it before you looked away?": 0.97,
      "tag someone who needs 20 seconds of this": 1.02,
      "loop it. it gets deeper every time.": 1.0,
-     "send this to the friend who would stare at it for an hour": 1.04,
-     "pov: the song starts looking back at you": 1.04,
+     "send this to the friend who would stare at it for an hour": 1.03,
+     "pov: the song starts looking back at you": 1.03,
      "what do you see in this? wrong answers only": 1.06,
-     "this is your sign to put your headphones on": 0.97
+     "this is your sign to put your headphones on": 0.97,
+     "Silver and Gold \u2013 Close Quarters": 1.02
     },
     "knob:contour": {
-     "true": 1.09,
-     "false": 0.99
+     "true": 1.07,
+     "false": 0.98
     },
     "knob:cut": {
      "short": 1.02,
      "full": 1.03,
      "tight": 1.03
     },
+    "knob:density": {
+     "0.75": 1.02
+    },
     "knob:feedback": {
-     "true": 1.04,
-     "false": 1.03
+     "true": 1.03,
+     "false": 1.02
     },
     "knob:field": {
      "moire": 1.02,
      "julia": 1.03,
      "bryce": 1.01,
-     "kaleido": 1.03
+     "kaleido": 1.02,
+     "oil": 1.0
     },
     "knob:font": {
      "Poppins-Black.ttf": 1.02,
-     "Poppins-Bold.ttf": 1.03,
-     "DejaVuSerif-Bold.ttf": 1.03
+     "Poppins-Bold.ttf": 1.02,
+     "DejaVuSerif-Bold.ttf": 1.02
     },
     "knob:grain": {
      "true": 1.06,
-     "false": 1.01
+     "false": 1.0
+    },
+    "knob:ground": {
+     "field": 1.02
     },
     "knob:lyrics": {
-     "word": 1.04,
-     "line": 1.03
+     "word": 1.03,
+     "line": 1.02,
+     "none": 1.0
     },
     "knob:mirror": {
      "true": 1.0,
-     "false": 1.08
+     "false": 1.07
     },
     "knob:motif": {
      "eye": 1.02,
      "none": 1.08,
-     "star": 0.98
+     "star": 0.98,
+     "cube": 1.0
     },
     "knob:pal": {
      "lava": 1.07,
-     "ice": 1.03,
+     "ice": 1.02,
      "neon": 1.01,
-     "mono": 0.98
+     "mono": 0.97,
+     "vapor": 1.0
+    },
+    "knob:palette": {
+     "ice": 1.02
     },
     "knob:poster": {
-     "false": 1.07,
-     "true": 1.01
+     "false": 1.06,
+     "true": 1.0
     },
     "knob:ring": {
-     "false": 1.07,
-     "true": 1.01
+     "false": 1.06,
+     "true": 1.0
     },
     "knob:second": {
-     "warp": 1.04,
+     "warp": 1.03,
      "marble": 1.06,
-     "none": 0.98
+     "none": 0.97,
+     "spiral": 1.0
     },
     "knob:speed": {
      "0.6": 1.06,
@@ -1528,965 +1684,1256 @@
      "1.0": 0.98
     },
     "knob:strobe": {
-     "false": 1.05
+     "false": 1.04
     },
     "knob:sym": {
      "6": 1.02,
-     "5": 1.01,
-     "8": 1.06
+     "5": 1.0,
+     "8": 1.05,
+     "4": 1.0
     },
     "knob:word_y": {
-     "0.72": 1.04,
-     "0.5": 1.03
+     "0.72": 1.03,
+     "0.5": 1.02
     }
    },
    "stats": {
     "style": {
      "psy": [
-      24,
-      22.35,
-      0.5
+      26,
+      23.96,
+      0.496
+     ],
+     "collage": [
+      1,
+      0.97,
+      0.6
      ]
     },
     "opening line": {
      "without": [
-      23,
-      21.39,
-      0.499
+      24,
+      22.06,
+      0.5
      ],
      "with": [
-      1,
-      0.95,
-      0.535
+      3,
+      2.87,
+      0.508
      ]
     },
     "hook": {
      "what do you see?": [
+      2,
+      1.9,
+      0.516
+     ],
+     "don't blink": [
       1,
-      0.95,
-      0.535
+      0.97,
+      0.49
      ]
     },
     "song": {
      "prologue": [
       5,
-      4.62,
-      0.499
+      4.55,
+      0.502
      ],
      "wont_be_the_same_again": [
       8,
-      7.46,
-      0.445
+      7.35,
+      0.439
      ],
      "hair_of_the_dog": [
       3,
-      2.77,
-      0.563
+      2.73,
+      0.557
      ],
      "fixation": [
       3,
-      2.81,
-      0.509
+      2.77,
+      0.511
      ],
      "myth_of_sisyphus": [
       2,
-      1.88,
-      0.549
+      1.85,
+      0.532
      ],
      "full_ride": [
       1,
-      0.93,
-      0.85
+      0.91,
+      0.833
      ],
      "talk": [
-      1,
-      0.93,
-      0.261
+      2,
+      1.88,
+      0.381
      ],
      "suspended": [
+      2,
+      1.9,
+      0.516
+     ],
+     "silver_and_gold": [
       1,
-      0.95,
-      0.535
+      0.97,
+      0.6
      ]
     },
     "section": {
      "prologue/s02": [
       2,
-      1.83,
-      0.398
+      1.8,
+      0.401
      ],
      "wont_be_the_same_again/s05-s06": [
       2,
-      1.85,
-      0.326
+      1.82,
+      0.332
      ],
      "hair_of_the_dog/s02": [
       2,
-      1.85,
-      0.641
+      1.82,
+      0.634
      ],
      "wont_be_the_same_again/s05": [
       1,
-      0.92,
-      0.47
+      0.91,
+      0.473
      ],
      "fixation/s03": [
       1,
-      0.93,
-      0.489
+      0.92,
+      0.473
      ],
      "prologue/s09": [
       1,
-      0.92,
-      0.763
+      0.9,
+      0.779
      ],
      "wont_be_the_same_again/s01": [
       2,
-      1.84,
-      0.52
+      1.81,
+      0.512
      ],
      "hair_of_the_dog/s01": [
       1,
-      0.92,
+      0.91,
       0.404
      ],
      "prologue/s05": [
       1,
-      0.92,
-      0.364
+      0.91,
+      0.357
      ],
      "fixation/s06": [
       1,
-      0.93,
-      0.267
+      0.91,
+      0.265
      ],
      "myth_of_sisyphus/s02": [
       1,
-      0.93,
-      0.44
+      0.92,
+      0.436
      ],
      "wont_be_the_same_again/s06": [
       1,
-      0.93,
-      0.496
+      0.91,
+      0.49
      ],
      "full_ride/s02": [
       1,
-      0.93,
-      0.85
+      0.91,
+      0.833
      ],
      "talk/s06": [
       1,
-      0.93,
-      0.261
+      0.92,
+      0.265
      ],
      "prologue/s03-s04": [
       1,
-      0.95,
-      0.567
+      0.94,
+      0.571
      ],
      "myth_of_sisyphus/s03": [
       1,
-      0.95,
-      0.654
+      0.94,
+      0.625
      ],
      "suspended/s04": [
       1,
-      0.95,
-      0.535
+      0.94,
+      0.531
      ],
      "fixation/s01": [
       1,
-      0.96,
-      0.763
+      0.94,
+      0.785
      ],
      "wont_be_the_same_again/s07": [
       2,
-      1.92,
-      0.451
+      1.89,
+      0.43
+     ],
+     "suspended/s06": [
+      1,
+      0.96,
+      0.502
+     ],
+     "talk/s05-s06": [
+      1,
+      0.97,
+      0.49
+     ],
+     "silver_and_gold/s03": [
+      1,
+      0.97,
+      0.6
      ]
     },
     "look": {
      "kaleido": [
-      9,
-      8.41,
-      0.536
+      10,
+      9.26,
+      0.529
      ],
      "cells": [
       2,
-      1.84,
-      0.339
+      1.81,
+      0.34
      ],
      "marble": [
       2,
-      1.85,
-      0.484
+      1.83,
+      0.477
      ],
      "rings": [
       3,
-      2.77,
-      0.38
+      2.73,
+      0.381
      ],
      "bryce": [
       4,
-      3.72,
-      0.557
+      3.67,
+      0.552
      ],
      "tunnel": [
       2,
-      1.85,
-      0.468
+      1.83,
+      0.463
      ],
      "moire": [
       1,
-      0.95,
-      0.567
+      0.94,
+      0.571
      ],
      "julia": [
       1,
-      0.95,
-      0.654
+      0.94,
+      0.625
+     ],
+     "oil": [
+      1,
+      0.96,
+      0.502
      ]
     },
     "lyrics": {
      "word": [
       10,
-      9.27,
-      0.435
+      9.14,
+      0.432
      ],
      "line": [
       8,
-      7.44,
-      0.561
+      7.33,
+      0.553
      ]
     },
     "palette": {
      "ocean": [
       4,
-      3.69,
+      3.63,
       0.408
      ],
      "candy": [
       8,
-      7.39,
-      0.524
+      7.28,
+      0.519
      ],
      "lava": [
       6,
-      5.6,
-      0.532
+      5.52,
+      0.539
      ],
      "acid": [
       2,
-      1.85,
-      0.447
+      1.82,
+      0.439
      ],
      "ice": [
-      1,
-      0.95,
-      0.654
+      2,
+      1.9,
+      0.563
      ],
      "neon": [
       1,
-      0.95,
-      0.535
+      0.94,
+      0.531
      ],
      "mono": [
       2,
-      1.92,
-      0.451
+      1.89,
+      0.43
+     ],
+     "vapor": [
+      1,
+      0.97,
+      0.49
      ]
     },
     "length": {
      "20-35s": [
       16,
-      14.8,
-      0.489
+      14.59,
+      0.483
      ],
      "over 35s": [
       2,
-      1.85,
-      0.326
+      1.82,
+      0.332
      ],
      "under 20s": [
-      5,
-      4.75,
-      0.591
+      8,
+      7.58,
+      0.567
      ],
      "under 10s": [
       1,
-      0.95,
-      0.567
+      0.94,
+      0.571
      ]
     },
     "hour posted": {
      "23:00": [
       1,
-      0.9,
-      0.513
+      0.89,
+      0.512
      ],
      "11:00": [
-      1,
-      0.92,
-      0.313
+      2,
+      1.87,
+      0.409
      ],
      "14:00": [
       3,
-      2.79,
-      0.551
+      2.75,
+      0.533
      ],
      "16:00": [
-      2,
-      1.88,
-      0.503
+      3,
+      2.82,
+      0.536
      ],
      "18:00": [
       3,
-      2.81,
-      0.443
+      2.77,
+      0.452
      ],
      "21:00": [
       4,
-      3.75,
-      0.485
+      3.7,
+      0.475
      ],
      "10:00": [
       2,
-      1.83,
-      0.68
+      1.81,
+      0.685
      ],
      "12:00": [
       1,
-      0.92,
+      0.91,
       0.404
      ],
      "13:00": [
       2,
-      1.87,
-      0.506
+      1.84,
+      0.503
      ],
      "20:00": [
       2,
-      1.89,
-      0.402
+      1.86,
+      0.393
      ],
      "17:00": [
       1,
-      0.93,
-      0.496
+      0.91,
+      0.49
      ],
      "19:00": [
       1,
-      0.93,
-      0.85
+      0.91,
+      0.833
      ],
      "22:00": [
       1,
-      0.93,
-      0.339
+      0.92,
+      0.34
+     ],
+     "09:00": [
+      1,
+      0.96,
+      0.502
      ]
     },
     "caption": {
      "every colour change is a drum hit": [
       1,
-      0.9,
-      0.513
+      0.89,
+      0.512
      ],
      "this is what the bass looks like. watch the centre": [
       3,
-      2.77,
-      0.478
+      2.73,
+      0.471
      ],
      "turn it up and stare at the middle": [
       1,
-      0.92,
-      0.47
+      0.91,
+      0.473
      ],
      "sound on. the picture is listening": [
       1,
-      0.93,
-      0.287
+      0.91,
+      0.294
      ],
      "sound all the way up. don't blink.": [
       3,
-      2.77,
-      0.488
+      2.73,
+      0.491
      ],
      "stare at the centre for 15 seconds. then look at your hand.": [
       3,
-      2.76,
-      0.422
+      2.72,
+      0.42
      ],
      "how far did you make it before you looked away?": [
       1,
-      0.92,
-      0.364
+      0.91,
+      0.357
      ],
      "tag someone who needs 20 seconds of this": [
       2,
-      1.86,
-      0.546
+      1.83,
+      0.544
      ],
      "loop it. it gets deeper every time.": [
       1,
-      0.93,
-      0.496
+      0.91,
+      0.49
      ],
      "send this to the friend who would stare at it for an hour": [
-      3,
-      2.81,
-      0.574
+      4,
+      3.74,
+      0.547
      ],
      "pov: the song starts looking back at you": [
-      2,
-      1.9,
-      0.611
+      3,
+      2.84,
+      0.565
      ],
      "what do you see in this? wrong answers only": [
       2,
-      1.92,
-      0.649
+      1.89,
+      0.646
      ],
      "this is your sign to put your headphones on": [
       1,
-      0.96,
-      0.365
+      0.95,
+      0.352
+     ],
+     "Silver and Gold \u2013 Close Quarters": [
+      1,
+      0.97,
+      0.6
      ]
     },
     "knob:contour": {
      "true": [
-      3,
-      2.86,
-      0.662
+      4,
+      3.78,
+      0.617
      ],
      "false": [
-      3,
-      2.88,
-      0.479
+      4,
+      3.8,
+      0.473
      ]
     },
     "knob:cut": {
      "short": [
       1,
-      0.95,
-      0.567
+      0.94,
+      0.571
      ],
      "full": [
       1,
-      0.95,
-      0.654
+      0.94,
+      0.625
      ],
      "tight": [
-      4,
-      3.83,
-      0.55
+      7,
+      6.68,
+      0.538
+     ]
+    },
+    "knob:density": {
+     "0.75": [
+      1,
+      0.97,
+      0.6
      ]
     },
     "knob:feedback": {
      "true": [
-      3,
-      2.86,
-      0.585
+      4,
+      3.78,
+      0.557
      ],
      "false": [
-      3,
-      2.88,
-      0.555
+      4,
+      3.8,
+      0.534
      ]
     },
     "knob:field": {
      "moire": [
       1,
-      0.95,
-      0.567
+      0.94,
+      0.571
      ],
      "julia": [
       1,
-      0.95,
-      0.654
+      0.94,
+      0.625
      ],
      "bryce": [
       1,
-      0.95,
-      0.535
+      0.94,
+      0.531
      ],
      "kaleido": [
-      3,
-      2.88,
-      0.555
+      4,
+      3.8,
+      0.534
+     ],
+     "oil": [
+      1,
+      0.96,
+      0.502
      ]
     },
     "knob:font": {
      "Poppins-Black.ttf": [
-      2,
-      1.91,
-      0.551
+      3,
+      2.84,
+      0.53
      ],
      "Poppins-Bold.ttf": [
-      1,
-      0.95,
-      0.654
+      2,
+      1.9,
+      0.563
      ],
      "DejaVuSerif-Bold.ttf": [
       3,
-      2.88,
-      0.555
+      2.84,
+      0.548
      ]
     },
     "knob:grain": {
      "true": [
-      3,
-      2.86,
-      0.622
+      4,
+      3.78,
+      0.597
      ],
      "false": [
-      3,
-      2.87,
-      0.518
+      4,
+      3.8,
+      0.494
+     ]
+    },
+    "knob:ground": {
+     "field": [
+      1,
+      0.97,
+      0.6
      ]
     },
     "knob:lyrics": {
      "word": [
-      3,
-      2.86,
-      0.585
+      4,
+      3.78,
+      0.557
      ],
      "line": [
       3,
-      2.88,
-      0.555
+      2.84,
+      0.548
+     ],
+     "none": [
+      1,
+      0.97,
+      0.49
      ]
     },
     "knob:mirror": {
      "true": [
-      4,
-      3.83,
-      0.501
+      5,
+      4.74,
+      0.493
      ],
      "false": [
-      2,
-      1.91,
-      0.709
+      3,
+      2.85,
+      0.632
      ]
     },
     "knob:motif": {
      "eye": [
       1,
-      0.95,
-      0.567
+      0.94,
+      0.571
      ],
      "none": [
       3,
-      2.86,
-      0.651
+      2.82,
+      0.647
      ],
      "star": [
-      2,
-      1.92,
+      3,
+      2.86,
       0.451
+     ],
+     "cube": [
+      1,
+      0.96,
+      0.502
      ]
     },
     "knob:pal": {
      "lava": [
       2,
-      1.91,
-      0.666
+      1.88,
+      0.678
      ],
      "ice": [
-      1,
-      0.95,
-      0.654
+      2,
+      1.9,
+      0.563
      ],
      "neon": [
       1,
-      0.95,
-      0.535
+      0.94,
+      0.531
      ],
      "mono": [
       2,
-      1.92,
-      0.451
+      1.89,
+      0.43
+     ],
+     "vapor": [
+      1,
+      0.97,
+      0.49
+     ]
+    },
+    "knob:palette": {
+     "ice": [
+      1,
+      0.97,
+      0.6
      ]
     },
     "knob:poster": {
      "false": [
-      2,
-      1.91,
-      0.666
+      3,
+      2.84,
+      0.619
      ],
      "true": [
-      4,
-      3.83,
-      0.522
+      5,
+      4.74,
+      0.501
      ]
     },
     "knob:ring": {
      "false": [
-      2,
-      1.91,
-      0.666
+      3,
+      2.85,
+      0.615
      ],
      "true": [
-      4,
-      3.83,
-      0.522
+      5,
+      4.74,
+      0.503
      ]
     },
     "knob:second": {
      "warp": [
-      2,
-      1.9,
-      0.611
+      3,
+      2.84,
+      0.565
      ],
      "marble": [
       2,
-      1.91,
-      0.649
+      1.88,
+      0.658
      ],
      "none": [
       2,
-      1.92,
-      0.451
+      1.89,
+      0.43
+     ],
+     "spiral": [
+      1,
+      0.97,
+      0.49
      ]
     },
     "knob:speed": {
      "0.6": [
-      3,
-      2.86,
-      0.622
+      4,
+      3.78,
+      0.597
      ],
      "1.6": [
       1,
-      0.95,
-      0.654
+      0.94,
+      0.625
      ],
      "1.0": [
-      2,
-      1.92,
+      3,
+      2.86,
       0.451
      ]
     },
     "knob:strobe": {
      "false": [
-      6,
-      5.74,
-      0.57
+      8,
+      7.58,
+      0.545
      ]
     },
     "knob:sym": {
      "6": [
       1,
-      0.95,
-      0.567
+      0.94,
+      0.571
      ],
      "5": [
       3,
-      2.87,
-      0.518
+      2.83,
+      0.495
      ],
      "8": [
-      2,
-      1.91,
-      0.649
+      3,
+      2.85,
+      0.601
+     ],
+     "4": [
+      1,
+      0.96,
+      0.502
      ]
     },
     "knob:word_y": {
      "0.72": [
-      5,
-      4.78,
-      0.553
+      6,
+      5.68,
+      0.541
      ],
      "0.5": [
-      1,
-      0.95,
-      0.654
+      2,
+      1.9,
+      0.557
      ]
     }
    },
    "retired": {}
   },
   "nostalgia": {
-   "posts": 7,
-   "waiting": 4,
-   "typical_views": 154.0,
+   "posts": 9,
+   "waiting": 3,
+   "typical_views": 71.0,
    "weights": {
     "style": {
      "liminal": 1.0
     },
     "opening line": {
-     "with": 1.01,
-     "without": 0.98
+     "with": 1.03,
+     "without": 0.95
     },
     "hook": {
      "3am. the music is still on": 1.02,
-     "have you seen this place?": 1.05,
+     "have you seen this place?": 1.06,
      "no one else is here": 0.95
     },
     "song": {
      "prologue": 1.0,
-     "suspended": 1.03,
-     "wont_be_the_same_again": 0.95
+     "suspended": 1.04,
+     "wont_be_the_same_again": 0.94
     },
     "section": {
-     "prologue/s07": 1.02,
-     "suspended/s01": 1.05,
+     "prologue/s07": 1.03,
+     "suspended/s01": 1.06,
      "wont_be_the_same_again/s05-s06": 0.95,
-     "prologue/s06": 0.98,
-     "suspended/s04": 1.0
+     "prologue/s06": 0.97,
+     "suspended/s04": 1.02,
+     "wont_be_the_same_again/s03": 0.97,
+     "suspended/s04-s05": 0.98
     },
     "length": {
      "under 20s": 1.02,
-     "under 10s": 1.05,
-     "20-35s": 0.94
+     "under 10s": 1.06,
+     "20-35s": 0.92
     },
     "hour posted": {
-     "22:00": 1.02,
-     "13:00": 1.0,
-     "17:00": 1.03,
-     "20:00": 0.95,
-     "16:00": 1.01
+     "22:00": 1.03,
+     "13:00": 0.99,
+     "17:00": 1.04,
+     "20:00": 0.96,
+     "16:00": 1.02,
+     "09:00": 0.97
     },
     "caption": {
-     "no one else is here. turn it up.": 1.04,
-     "if you remember this hallway you had a good childhood": 1.03,
-     "found this tape in my parents' basement": 0.95,
-     "the mall at closing time hit different": 0.97,
-     "pause it and look behind you": 1.01
+     "no one else is here. turn it up.": 1.06,
+     "if you remember this hallway you had a good childhood": 1.04,
+     "found this tape in my parents' basement": 0.94,
+     "the mall at closing time hit different": 0.98,
+     "pause it and look behind you": 1.02,
+     "the pool after everyone went home": 0.98
     },
     "knob:cut": {
-     "full": 0.98
+     "full": 0.95,
+     "tight": 0.98
     },
     "knob:label": {
-     "PLAY \u25b6": 0.98
+     "PLAY \u25b6": 0.94
     },
     "knob:pace": {
-     "walk": 0.98
+     "walk": 0.94
     },
     "knob:place": {
-     "backrooms": 0.98
+     "backrooms": 0.95,
+     "school": 0.98
     },
     "knob:stamp": {
-     "date": 0.98
+     "date": 0.96,
+     "none": 0.97
     },
     "knob:tape": {
-     "worn": 0.98
+     "worn": 0.95,
+     "chewed": 0.98
     },
     "knob:tint": {
-     "green": 0.98
+     "green": 0.95,
+     "cold": 0.98
     }
    },
    "stats": {
     "style": {
      "liminal": [
-      7,
-      6.66,
+      9,
+      8.5,
       0.499
      ]
     },
     "opening line": {
      "with": [
-      6,
-      5.71,
-      0.517
+      7,
+      6.6,
+      0.534
      ],
      "without": [
-      1,
-      0.95,
-      0.396
+      2,
+      1.9,
+      0.377
      ]
     },
     "hook": {
      "3am. the music is still on": [
-      3,
-      2.85,
-      0.53
+      4,
+      3.77,
+      0.539
      ],
      "have you seen this place?": [
       2,
-      1.91,
-      0.621
+      1.88,
+      0.653
      ],
      "no one else is here": [
       1,
-      0.96,
-      0.271
+      0.95,
+      0.278
      ]
     },
     "song": {
      "prologue": [
       2,
-      1.88,
-      0.501
+      1.86,
+      0.506
      ],
      "suspended": [
-      4,
-      3.82,
-      0.556
+      5,
+      4.73,
+      0.564
      ],
      "wont_be_the_same_again": [
-      1,
-      0.96,
-      0.271
+      2,
+      1.91,
+      0.33
      ]
     },
     "section": {
      "prologue/s07": [
       1,
-      0.93,
-      0.608
+      0.92,
+      0.644
      ],
      "suspended/s01": [
       2,
-      1.91,
-      0.621
+      1.88,
+      0.653
      ],
      "wont_be_the_same_again/s05-s06": [
       1,
-      0.96,
-      0.271
+      0.95,
+      0.278
      ],
      "prologue/s06": [
       1,
-      0.95,
-      0.396
+      0.94,
+      0.372
      ],
      "suspended/s04": [
       2,
-      1.92,
-      0.492
+      1.89,
+      0.556
+     ],
+     "wont_be_the_same_again/s03": [
+      1,
+      0.96,
+      0.381
+     ],
+     "suspended/s04-s05": [
+      1,
+      0.97,
+      0.406
      ]
     },
     "length": {
      "under 20s": [
-      3,
-      2.85,
-      0.53
+      4,
+      3.77,
+      0.539
      ],
      "under 10s": [
       2,
-      1.91,
-      0.621
+      1.88,
+      0.653
      ],
      "20-35s": [
-      2,
-      1.91,
-      0.333
+      3,
+      2.85,
+      0.344
      ]
     },
     "hour posted": {
      "22:00": [
       1,
-      0.93,
-      0.608
+      0.92,
+      0.644
      ],
      "13:00": [
-      2,
-      1.9,
-      0.502
+      3,
+      2.84,
+      0.473
      ],
      "17:00": [
       1,
-      0.96,
-      0.633
+      0.94,
+      0.662
      ],
      "20:00": [
       2,
-      1.92,
-      0.365
+      1.89,
+      0.405
      ],
      "16:00": [
       1,
+      0.94,
+      0.581
+     ],
+     "09:00": [
+      1,
       0.96,
-      0.525
+      0.381
      ]
     },
     "caption": {
      "no one else is here. turn it up.": [
       2,
-      1.88,
-      0.608
+      1.86,
+      0.644
      ],
      "if you remember this hallway you had a good childhood": [
       1,
-      0.96,
-      0.633
+      0.94,
+      0.662
      ],
      "found this tape in my parents' basement": [
-      1,
-      0.96,
-      0.271
+      2,
+      1.91,
+      0.33
      ],
      "the mall at closing time hit different": [
       2,
-      1.91,
-      0.427
+      1.88,
+      0.452
      ],
      "pause it and look behind you": [
       1,
-      0.96,
-      0.525
+      0.94,
+      0.581
+     ],
+     "the pool after everyone went home": [
+      1,
+      0.97,
+      0.406
      ]
     },
     "knob:cut": {
      "full": [
+      2,
+      1.9,
+      0.377
+     ],
+     "tight": [
       1,
-      0.95,
-      0.396
+      0.97,
+      0.406
      ]
     },
     "knob:label": {
      "PLAY \u25b6": [
-      1,
-      0.95,
-      0.396
+      3,
+      2.87,
+      0.387
      ]
     },
     "knob:pace": {
      "walk": [
-      1,
-      0.95,
-      0.396
+      3,
+      2.87,
+      0.387
      ]
     },
     "knob:place": {
      "backrooms": [
+      2,
+      1.9,
+      0.377
+     ],
+     "school": [
       1,
-      0.95,
-      0.396
+      0.97,
+      0.406
      ]
     },
     "knob:stamp": {
      "date": [
+      2,
+      1.91,
+      0.389
+     ],
+     "none": [
       1,
-      0.95,
-      0.396
+      0.96,
+      0.381
      ]
     },
     "knob:tape": {
      "worn": [
+      2,
+      1.9,
+      0.377
+     ],
+     "chewed": [
       1,
-      0.95,
-      0.396
+      0.97,
+      0.406
      ]
     },
     "knob:tint": {
      "green": [
+      2,
+      1.9,
+      0.377
+     ],
+     "cold": [
       1,
-      0.95,
-      0.396
+      0.97,
+      0.406
      ]
     }
    },
    "retired": {}
   },
   "nick_studio": {
-   "posts": 0,
-   "waiting": 1,
-   "weights": {}
+   "posts": 1,
+   "waiting": 0,
+   "typical_views": 1.0,
+   "weights": {
+    "style": {
+     "type": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "wont_be_the_same_again": 1.0
+    },
+    "section": {
+     "wont_be_the_same_again/s05": 1.0
+    },
+    "length": {
+     "under 20s": 1.0
+    },
+    "hour posted": {
+     "11:00": 1.0
+    },
+    "caption": {
+     "the lyrics are the video. turn the sound on.": 1.0
+    },
+    "knob:cut": {
+     "full": 1.0
+    },
+    "knob:font": {
+     "montserrat": 1.0
+    },
+    "knob:layout": {
+     "split": 1.0
+    },
+    "knob:motion": {
+     "drop": 1.0
+    },
+    "knob:palette": {
+     "riso": 1.0
+    },
+    "knob:texture": {
+     "grain": 1.0
+    }
+   },
+   "stats": {
+    "style": {
+     "type": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "song": {
+     "wont_be_the_same_again": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "section": {
+     "wont_be_the_same_again/s05": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "length": {
+     "under 20s": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "hour posted": {
+     "11:00": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "caption": {
+     "the lyrics are the video. turn the sound on.": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:cut": {
+     "full": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:font": {
+     "montserrat": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:layout": {
+     "split": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:motion": {
+     "drop": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:palette": {
+     "riso": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:texture": {
+     "grain": [
+      1,
+      0.97,
+      0.5
+     ]
+    }
+   },
+   "retired": {}
   },
   "math_time": {
-   "posts": 7,
-   "waiting": 3,
+   "posts": 9,
+   "waiting": 2,
    "typical_views": 201.0,
    "weights": {
     "style": {
@@ -2497,356 +2944,404 @@
     },
     "song": {
      "prologue": 1.01,
-     "suspended": 0.97,
-     "full_ride": 1.03,
-     "fixation": 1.0
+     "suspended": 0.99,
+     "full_ride": 1.05,
+     "fixation": 1.01,
+     "myth_of_sisyphus": 0.96
     },
     "section": {
      "prologue/s09": 1.02,
-     "suspended/s06": 1.03,
+     "suspended/s06": 1.02,
      "prologue/s10": 0.99,
-     "full_ride/s03": 1.03,
-     "suspended/s01": 0.97,
-     "suspended/s03": 0.97
+     "full_ride/s03": 1.05,
+     "suspended/s01": 0.98,
+     "suspended/s03": 0.98,
+     "myth_of_sisyphus/s06-s07": 0.93,
+     "myth_of_sisyphus/s06": 1.02
     },
     "length": {
      "under 20s": 1.01,
-     "over 35s": 1.03,
+     "over 35s": 1.02,
      "20-35s": 0.97
     },
     "hour posted": {
      "13:00": 1.02,
-     "14:00": 1.03,
-     "19:00": 0.96,
-     "20:00": 1.03,
-     "22:00": 0.97,
-     "21:00": 1.0
+     "14:00": 1.02,
+     "19:00": 0.98,
+     "20:00": 1.05,
+     "22:00": 0.98,
+     "21:00": 1.01,
+     "10:00": 0.93,
+     "15:00": 1.02
     },
     "caption": {
-     "send this to someone taking calc right now": 1.04,
+     "send this to someone taking calc right now": 0.98,
      "sound on. the math moves with the music": 0.99,
-     "fold a sheet of paper 42 times and it reaches the moon. watch it happen": 1.03,
-     "the riemann hypothesis, moving to the music. every zero found so far sits on one line": 0.97,
-     "the one explanation that finally made sense": 0.97,
-     "4 sorting algorithms. the same 48 numbers. which one finishes first?": 1.0
+     "fold a sheet of paper 42 times and it reaches the moon. watch it happen": 1.05,
+     "the riemann hypothesis, moving to the music. every zero found so far sits on one line": 0.98,
+     "the one explanation that finally made sense": 1.0,
+     "4 sorting algorithms. the same 48 numbers. which one finishes first?": 1.01
     },
     "knob:chip": {
-     "pill": 1.01,
-     "tag": 0.96
+     "pill": 1.03,
+     "tag": 0.93
     },
     "knob:cut": {
      "full": 1.0
     },
     "knob:font": {
-     "montserrat": 1.0,
-     "inter": 0.97
+     "montserrat": 1.01,
+     "inter": 1.0,
+     "poppins": 0.93
     },
     "knob:glow": {
      "1.0": 1.02,
-     "0.6": 0.97
+     "0.6": 0.96
     },
     "knob:grid": {
-     "dots": 0.99,
-     "none": 0.99
+     "dots": 1.0,
+     "none": 0.99,
+     "grid": 0.96
     },
     "knob:room": {
-     "night": 1.03
+     "night": 1.05
     },
     "knob:shake": {
-     "0.6": 0.98
+     "0.6": 0.96,
+     "1.0": 1.02
     },
     "knob:target": {
-     "moon": 1.03
+     "moon": 1.05
     },
     "knob:theme": {
      "mono": 1.02,
      "chalk": 1.0,
-     "paper": 0.99,
-     "synth": 0.97
+     "paper": 1.01,
+     "synth": 0.93
     },
     "knob:topic": {
-     "integral": 1.01,
-     "fourier": 1.0,
-     "fold": 1.03,
-     "zeta": 0.97
+     "integral": 0.96,
+     "fourier": 1.02,
+     "fold": 1.05,
+     "zeta": 0.98
     }
    },
    "stats": {
     "style": {
      "math": [
-      6,
-      5.74,
-      0.501
+      8,
+      7.6,
+      0.496
      ]
     },
     "opening line": {
      "without": [
-      6,
-      5.74,
-      0.501
+      8,
+      7.6,
+      0.496
      ]
     },
     "song": {
      "prologue": [
       2,
-      1.91,
-      0.519
+      1.88,
+      0.538
      ],
      "suspended": [
       3,
-      2.87,
-      0.442
+      2.83,
+      0.472
      ],
      "full_ride": [
       1,
-      0.96,
-      0.642
+      0.95,
+      0.7
      ],
      "fixation": [
       1,
-      0.96,
-      0.492
+      0.95,
+      0.525
+     ],
+     "myth_of_sisyphus": [
+      2,
+      1.94,
+      0.391
      ]
     },
     "section": {
      "prologue/s09": [
       1,
-      0.95,
-      0.595
+      0.94,
+      0.604
      ],
      "suspended/s06": [
       1,
-      0.95,
-      0.625
+      0.94,
+      0.606
      ],
      "prologue/s10": [
       1,
-      0.96,
-      0.444
+      0.95,
+      0.474
      ],
      "full_ride/s03": [
       1,
-      0.96,
-      0.642
+      0.95,
+      0.7
      ],
      "suspended/s01": [
       1,
-      0.96,
-      0.343
+      0.95,
+      0.417
      ],
      "suspended/s03": [
       1,
-      0.96,
-      0.359
+      0.95,
+      0.393
+     ],
+     "myth_of_sisyphus/s06-s07": [
+      1,
+      0.97,
+      0.18
+     ],
+     "myth_of_sisyphus/s06": [
+      1,
+      0.97,
+      0.601
      ]
     },
     "length": {
      "under 20s": [
       2,
-      1.91,
-      0.519
+      1.88,
+      0.538
      ],
      "over 35s": [
       1,
-      0.95,
-      0.625
+      0.94,
+      0.606
      ],
      "20-35s": [
-      3,
-      2.88,
-      0.448
+      5,
+      4.78,
+      0.458
      ]
     },
     "hour posted": {
      "13:00": [
       1,
-      0.95,
-      0.595
+      0.94,
+      0.604
      ],
      "14:00": [
       1,
-      0.95,
-      0.625
+      0.94,
+      0.606
      ],
      "19:00": [
       2,
-      1.92,
-      0.402
+      1.89,
+      0.433
      ],
      "20:00": [
       1,
-      0.96,
-      0.642
+      0.95,
+      0.7
      ],
      "22:00": [
       1,
-      0.96,
-      0.343
+      0.95,
+      0.417
      ],
      "21:00": [
       1,
-      0.96,
-      0.492
+      0.95,
+      0.525
+     ],
+     "10:00": [
+      1,
+      0.97,
+      0.18
+     ],
+     "15:00": [
+      1,
+      0.97,
+      0.601
      ]
     },
     "caption": {
      "send this to someone taking calc right now": [
-      2,
-      1.9,
-      0.61
+      3,
+      2.84,
+      0.461
      ],
      "sound on. the math moves with the music": [
       1,
-      0.96,
-      0.444
+      0.95,
+      0.474
      ],
      "fold a sheet of paper 42 times and it reaches the moon. watch it happen": [
       1,
-      0.96,
-      0.642
+      0.95,
+      0.7
      ],
      "the riemann hypothesis, moving to the music. every zero found so far sits on one line": [
       1,
-      0.96,
-      0.343
+      0.95,
+      0.417
      ],
      "the one explanation that finally made sense": [
-      1,
-      0.96,
-      0.359
+      2,
+      1.92,
+      0.498
      ],
      "4 sorting algorithms. the same 48 numbers. which one finishes first?": [
       1,
-      0.96,
-      0.492
+      0.95,
+      0.525
      ]
     },
     "knob:chip": {
      "pill": [
-      3,
-      2.86,
-      0.526
+      4,
+      3.79,
+      0.551
      ],
      "tag": [
-      2,
-      1.92,
-      0.394
+      3,
+      2.86,
+      0.356
      ]
     },
     "knob:cut": {
      "full": [
-      6,
-      5.74,
-      0.501
+      8,
+      7.6,
+      0.496
      ]
     },
     "knob:font": {
      "montserrat": [
       4,
-      3.82,
-      0.501
+      3.77,
+      0.525
      ],
      "inter": [
+      2,
+      1.92,
+      0.498
+     ],
+     "poppins": [
       1,
-      0.96,
-      0.359
+      0.97,
+      0.18
      ]
     },
     "knob:glow": {
      "1.0": [
       1,
-      0.95,
-      0.595
+      0.94,
+      0.604
      ],
      "0.6": [
-      4,
-      3.83,
-      0.443
+      6,
+      5.71,
+      0.445
      ]
     },
     "knob:grid": {
      "dots": [
       4,
-      3.82,
-      0.48
+      3.77,
+      0.505
      ],
      "none": [
       1,
-      0.96,
-      0.444
+      0.95,
+      0.474
+     ],
+     "grid": [
+      2,
+      1.94,
+      0.391
      ]
     },
     "knob:room": {
      "night": [
       1,
-      0.96,
-      0.642
+      0.95,
+      0.7
      ]
     },
     "knob:shake": {
      "0.6": [
-      5,
-      4.78,
-      0.473
+      6,
+      5.68,
+      0.444
+     ],
+     "1.0": [
+      1,
+      0.97,
+      0.601
      ]
     },
     "knob:target": {
      "moon": [
       1,
-      0.96,
-      0.642
+      0.95,
+      0.7
      ]
     },
     "knob:theme": {
      "mono": [
       1,
-      0.95,
-      0.595
+      0.94,
+      0.604
      ],
      "chalk": [
       2,
-      1.91,
-      0.492
+      1.88,
+      0.499
      ],
      "paper": [
-      1,
-      0.96,
-      0.444
+      2,
+      1.92,
+      0.538
      ],
      "synth": [
-      1,
-      0.96,
-      0.343
+      2,
+      1.91,
+      0.298
      ]
     },
     "knob:topic": {
      "integral": [
-      2,
-      1.91,
-      0.519
+      3,
+      2.85,
+      0.417
      ],
      "fourier": [
-      2,
-      1.91,
-      0.492
+      3,
+      2.86,
+      0.534
      ],
      "fold": [
       1,
-      0.96,
-      0.642
+      0.95,
+      0.7
      ],
      "zeta": [
       1,
-      0.96,
-      0.343
+      0.95,
+      0.417
      ]
     }
    },
    "retired": {}
   },
   "glitch_archive": {
-   "posts": 3,
-   "waiting": 3,
+   "posts": 5,
+   "waiting": 2,
    "typical_views": 116.0,
    "weights": {
     "style": {
@@ -2857,249 +3352,315 @@
     },
     "song": {
      "suspended": 1.1,
-     "myth_of_sisyphus": 0.96,
-     "fixation": 0.94
+     "myth_of_sisyphus": 0.98,
+     "fixation": 0.94,
+     "full_ride": 1.01,
+     "prologue": 0.97
     },
     "section": {
      "suspended/s04": 1.1,
-     "myth_of_sisyphus/s05": 0.96,
-     "fixation/s03": 0.94
+     "myth_of_sisyphus/s05": 0.98,
+     "fixation/s03": 0.94,
+     "full_ride/s04": 1.01,
+     "prologue/s05": 0.97
     },
     "length": {
      "20-35s": 1.1,
-     "under 20s": 0.96,
-     "under 10s": 0.94
+     "under 20s": 0.99,
+     "under 10s": 0.93
     },
     "hour posted": {
      "13:00": 1.1,
-     "14:00": 0.96,
-     "20:00": 0.94
+     "14:00": 0.98,
+     "20:00": 0.94,
+     "12:00": 1.01,
+     "16:00": 0.97
     },
     "caption": {
      "tape found in a creek": 1.0
     },
     "knob:accent": {
-     "blocks": 1.0
+     "blocks": 1.01,
+     "none": 1.01,
+     "rgb": 0.97
     },
     "knob:cut": {
      "full": 1.1,
-     "tight": 0.96,
-     "short": 0.94
+     "tight": 0.99,
+     "short": 0.93
     },
     "knob:label": {
-     "none": 1.1,
-     "rec": 0.92
+     "none": 1.06,
+     "rec": 0.93
     },
     "knob:main": {
-     "track": 1.1,
-     "slit": 0.96,
-     "points": 0.94
+     "track": 1.06,
+     "slit": 0.98,
+     "points": 0.94,
+     "mosh": 1.01
     },
     "knob:pace": {
-     "2": 1.05,
+     "2": 1.04,
      "1": 0.94
     },
     "knob:source": {
-     "mixed": 1.05,
-     "space": 0.94
+     "mixed": 1.07,
+     "space": 0.96,
+     "city": 0.97
     },
     "knob:tone": {
      "night": 1.1,
-     "mono": 0.96,
-     "xray": 0.94
+     "mono": 0.98,
+     "xray": 0.96,
+     "thermal": 0.97
     }
    },
    "stats": {
     "style": {
      "glitch": [
-      3,
-      2.86,
+      5,
+      4.76,
       0.499
      ]
     },
     "opening line": {
      "without": [
-      3,
-      2.86,
+      5,
+      4.76,
       0.499
      ]
     },
     "song": {
      "suspended": [
       1,
-      0.95,
+      0.94,
       0.95
      ],
      "myth_of_sisyphus": [
       1,
-      0.95,
-      0.325
+      0.94,
+      0.4
      ],
      "fixation": [
       1,
-      0.96,
-      0.225
+      0.95,
+      0.237
+     ],
+     "full_ride": [
+      1,
+      0.97,
+      0.525
+     ],
+     "prologue": [
+      1,
+      0.97,
+      0.387
      ]
     },
     "section": {
      "suspended/s04": [
       1,
-      0.95,
+      0.94,
       0.95
      ],
      "myth_of_sisyphus/s05": [
       1,
-      0.95,
-      0.325
+      0.94,
+      0.4
      ],
      "fixation/s03": [
       1,
-      0.96,
-      0.225
+      0.95,
+      0.237
+     ],
+     "full_ride/s04": [
+      1,
+      0.97,
+      0.525
+     ],
+     "prologue/s05": [
+      1,
+      0.97,
+      0.387
      ]
     },
     "length": {
      "20-35s": [
       1,
-      0.95,
+      0.94,
       0.95
      ],
      "under 20s": [
-      1,
-      0.95,
-      0.325
+      2,
+      1.91,
+      0.463
      ],
      "under 10s": [
-      1,
-      0.96,
-      0.225
+      2,
+      1.92,
+      0.314
      ]
     },
     "hour posted": {
      "13:00": [
       1,
-      0.95,
+      0.94,
       0.95
      ],
      "14:00": [
       1,
-      0.95,
-      0.325
+      0.94,
+      0.4
      ],
      "20:00": [
       1,
-      0.96,
-      0.225
+      0.95,
+      0.237
+     ],
+     "12:00": [
+      1,
+      0.97,
+      0.525
+     ],
+     "16:00": [
+      1,
+      0.97,
+      0.387
      ]
     },
     "caption": {
      "tape found in a creek": [
-      3,
-      2.86,
+      5,
+      4.76,
       0.499
      ]
     },
     "knob:accent": {
      "blocks": [
       3,
-      2.86,
-      0.499
+      2.82,
+      0.528
+     ],
+     "none": [
+      1,
+      0.97,
+      0.525
+     ],
+     "rgb": [
+      1,
+      0.97,
+      0.387
      ]
     },
     "knob:cut": {
      "full": [
       1,
-      0.95,
+      0.94,
       0.95
      ],
      "tight": [
-      1,
-      0.95,
-      0.325
+      2,
+      1.91,
+      0.463
      ],
      "short": [
-      1,
-      0.96,
-      0.225
+      2,
+      1.92,
+      0.314
      ]
     },
     "knob:label": {
      "none": [
-      1,
-      0.95,
-      0.95
+      3,
+      2.88,
+      0.617
      ],
      "rec": [
       2,
-      1.91,
-      0.275
+      1.88,
+      0.318
      ]
     },
     "knob:main": {
      "track": [
-      1,
-      0.95,
-      0.95
+      2,
+      1.91,
+      0.663
      ],
      "slit": [
       1,
-      0.95,
-      0.325
+      0.94,
+      0.4
      ],
      "points": [
       1,
-      0.96,
-      0.225
+      0.95,
+      0.237
+     ],
+     "mosh": [
+      1,
+      0.97,
+      0.525
      ]
     },
     "knob:pace": {
      "2": [
-      2,
-      1.9,
-      0.637
+      4,
+      3.82,
+      0.564
      ],
      "1": [
       1,
-      0.96,
-      0.225
+      0.95,
+      0.237
      ]
     },
     "knob:source": {
      "mixed": [
       2,
-      1.9,
-      0.637
+      1.88,
+      0.675
      ],
      "space": [
+      2,
+      1.91,
+      0.383
+     ],
+     "city": [
       1,
-      0.96,
-      0.225
+      0.97,
+      0.387
      ]
     },
     "knob:tone": {
      "night": [
       1,
-      0.95,
+      0.94,
       0.95
      ],
      "mono": [
       1,
-      0.95,
-      0.325
+      0.94,
+      0.4
      ],
      "xray": [
+      2,
+      1.91,
+      0.383
+     ],
+     "thermal": [
       1,
-      0.96,
-      0.225
+      0.97,
+      0.387
      ]
     }
    },
    "retired": {}
   },
   "rocket_league": {
-   "posts": 2,
-   "waiting": 3,
-   "typical_views": 267.5,
+   "posts": 4,
+   "waiting": 1,
+   "typical_views": 268.5,
    "weights": {
     "style": {
      "rocket": 1.0
@@ -3108,160 +3669,214 @@
      "without": 1.0
     },
     "song": {
-     "prologue": 1.12,
-     "hair_of_the_dog": 0.89
+     "prologue": 1.09,
+     "myth_of_sisyphus": 0.98,
+     "suspended": 1.01,
+     "hair_of_the_dog": 0.93
     },
     "section": {
-     "prologue/s07": 1.12,
-     "hair_of_the_dog/s01": 0.89
+     "prologue/s07": 1.09,
+     "myth_of_sisyphus/s03": 0.98,
+     "suspended/s03": 1.01,
+     "hair_of_the_dog/s01": 0.93
     },
     "length": {
-     "under 10s": 1.0
+     "under 10s": 1.02,
+     "20-35s": 0.98
     },
     "hour posted": {
-     "17:00": 1.12,
-     "19:00": 0.89
+     "17:00": 1.09,
+     "12:00": 0.98,
+     "15:00": 1.01,
+     "19:00": 0.93
     },
     "caption": {
-     "replay worthy": 1.12,
-     "ceiling shot, but make it Hair of the Dog": 0.89
+     "replay worthy": 1.09,
+     "nobody saw this coming": 0.98,
+     "ceiling shot, but make it Hair of the Dog": 0.93
     },
     "knob:cut": {
-     "short": 1.0
+     "short": 1.02,
+     "full": 0.98
     },
     "knob:format": {
-     "asis": 1.12,
-     "montage": 0.89
+     "asis": 1.06,
+     "montage": 0.93
     },
     "knob:frame": {
-     "crop": 1.12,
-     "blur": 0.89
+     "crop": 1.06,
+     "blur": 0.95
     },
     "knob:ramp": {
-     "slowmo": 1.12,
-     "none": 0.89
+     "slowmo": 1.06,
+     "none": 0.93
     }
    },
    "stats": {
     "style": {
      "rocket": [
-      2,
-      1.92,
+      4,
+      3.83,
       0.499
      ]
     },
     "opening line": {
      "without": [
-      2,
-      1.92,
+      4,
+      3.83,
       0.499
      ]
     },
     "song": {
      "prologue": [
       1,
-      0.96,
-      1.0
+      0.94,
+      0.9
+     ],
+     "myth_of_sisyphus": [
+      1,
+      0.97,
+      0.392
+     ],
+     "suspended": [
+      1,
+      0.97,
+      0.55
      ],
      "hair_of_the_dog": [
       1,
-      0.96,
-      0.0
+      0.95,
+      0.158
      ]
     },
     "section": {
      "prologue/s07": [
       1,
-      0.96,
-      1.0
+      0.94,
+      0.9
+     ],
+     "myth_of_sisyphus/s03": [
+      1,
+      0.97,
+      0.392
+     ],
+     "suspended/s03": [
+      1,
+      0.97,
+      0.55
      ],
      "hair_of_the_dog/s01": [
       1,
-      0.96,
-      0.0
+      0.95,
+      0.158
      ]
     },
     "length": {
      "under 10s": [
-      2,
-      1.92,
-      0.499
+      3,
+      2.86,
+      0.536
+     ],
+     "20-35s": [
+      1,
+      0.97,
+      0.392
      ]
     },
     "hour posted": {
      "17:00": [
       1,
-      0.96,
-      1.0
+      0.94,
+      0.9
+     ],
+     "12:00": [
+      1,
+      0.97,
+      0.392
+     ],
+     "15:00": [
+      1,
+      0.97,
+      0.55
      ],
      "19:00": [
       1,
-      0.96,
-      0.0
+      0.95,
+      0.158
      ]
     },
     "caption": {
      "replay worthy": [
+      2,
+      1.91,
+      0.722
+     ],
+     "nobody saw this coming": [
       1,
-      0.96,
-      1.0
+      0.97,
+      0.392
      ],
      "ceiling shot, but make it Hair of the Dog": [
       1,
-      0.96,
-      0.0
+      0.95,
+      0.158
      ]
     },
     "knob:cut": {
      "short": [
-      2,
-      1.92,
-      0.499
+      3,
+      2.86,
+      0.536
+     ],
+     "full": [
+      1,
+      0.97,
+      0.392
      ]
     },
     "knob:format": {
      "asis": [
-      1,
-      0.96,
-      1.0
+      3,
+      2.88,
+      0.611
      ],
      "montage": [
       1,
-      0.96,
-      0.0
+      0.95,
+      0.158
      ]
     },
     "knob:frame": {
      "crop": [
-      1,
-      0.96,
-      1.0
+      2,
+      1.91,
+      0.643
      ],
      "blur": [
-      1,
-      0.96,
-      0.0
+      2,
+      1.92,
+      0.357
      ]
     },
     "knob:ramp": {
      "slowmo": [
-      1,
-      0.96,
-      1.0
+      3,
+      2.88,
+      0.611
      ],
      "none": [
       1,
-      0.96,
-      0.0
+      0.95,
+      0.158
      ]
     }
    },
    "retired": {}
   },
   "physics_sims": {
-   "posts": 3,
+   "posts": 4,
    "waiting": 3,
-   "typical_views": 179.0,
+   "typical_views": 180.5,
    "weights": {
     "style": {
      "physics": 1.0
@@ -3271,233 +3886,251 @@
     },
     "song": {
      "fixation": 1.04,
-     "prologue": 1.05,
-     "talk": 0.91
+     "prologue": 1.07,
+     "talk": 0.93,
+     "suspended": 0.97
     },
     "section": {
      "fixation/s03": 1.04,
-     "prologue/s04": 1.05,
-     "talk/s02": 0.91
+     "prologue/s04": 1.07,
+     "talk/s02": 0.93,
+     "suspended/s01": 0.97
     },
     "length": {
-     "under 10s": 1.08,
-     "20-35s": 0.91
+     "under 10s": 1.06,
+     "20-35s": 0.93
     },
     "hour posted": {
-     "13:00": 1.04,
-     "15:00": 1.05,
-     "20:00": 0.91
+     "13:00": 1.01,
+     "15:00": 1.07,
+     "20:00": 0.93
     },
     "caption": {
-     "this is weirdly satisfying with sound": 0.96,
-     "count the bounces": 1.05
+     "this is weirdly satisfying with sound": 0.95,
+     "count the bounces": 1.07
     },
     "knob:cut": {
      "tight": 1.04,
-     "short": 1.05,
-     "full": 0.91
+     "short": 1.03,
+     "full": 0.93
     },
     "knob:hits": {
      "drums": 1.04,
-     "melody": 1.05,
+     "melody": 1.07,
      "kick": 0.91
     },
     "knob:hook": {
-     "none": 1.04,
-     "hits": 0.97
+     "none": 1.01,
+     "hits": 0.99
     },
     "knob:palette": {
      "ice": 1.04,
-     "rainbow": 1.05,
+     "rainbow": 1.07,
      "mono": 0.91
     },
     "knob:scene": {
-     "circle": 1.0
+     "circle": 1.02,
+     "rings": 0.97
     },
     "knob:trail": {
-     "ribbon": 1.08,
-     "long": 0.91
+     "ribbon": 1.06,
+     "long": 0.93
     }
    },
    "stats": {
     "style": {
      "physics": [
-      3,
-      2.86,
-      0.499
+      4,
+      3.79,
+      0.498
      ]
     },
     "opening line": {
      "without": [
-      3,
-      2.86,
-      0.499
+      4,
+      3.79,
+      0.498
      ]
     },
     "song": {
      "fixation": [
       1,
-      0.95,
-      0.675
+      0.94,
+      0.667
      ],
      "prologue": [
       1,
-      0.95,
-      0.725
+      0.94,
+      0.817
      ],
      "talk": [
       1,
-      0.96,
-      0.1
+      0.95,
+      0.15
+     ],
+     "suspended": [
+      1,
+      0.97,
+      0.367
      ]
     },
     "section": {
      "fixation/s03": [
       1,
-      0.95,
-      0.675
+      0.94,
+      0.667
      ],
      "prologue/s04": [
       1,
-      0.95,
-      0.725
+      0.94,
+      0.817
      ],
      "talk/s02": [
       1,
-      0.96,
-      0.1
+      0.95,
+      0.15
+     ],
+     "suspended/s01": [
+      1,
+      0.97,
+      0.367
      ]
     },
     "length": {
      "under 10s": [
-      2,
-      1.9,
-      0.7
+      3,
+      2.84,
+      0.614
      ],
      "20-35s": [
       1,
-      0.96,
-      0.1
+      0.95,
+      0.15
      ]
     },
     "hour posted": {
      "13:00": [
-      1,
-      0.95,
-      0.675
+      2,
+      1.91,
+      0.514
      ],
      "15:00": [
       1,
-      0.95,
-      0.725
+      0.94,
+      0.817
      ],
      "20:00": [
       1,
-      0.96,
-      0.1
+      0.95,
+      0.15
      ]
     },
     "caption": {
      "this is weirdly satisfying with sound": [
-      2,
-      1.91,
-      0.386
+      3,
+      2.85,
+      0.393
      ],
      "count the bounces": [
       1,
-      0.95,
-      0.725
+      0.94,
+      0.817
      ]
     },
     "knob:cut": {
      "tight": [
       1,
-      0.95,
-      0.675
+      0.94,
+      0.667
      ],
      "short": [
-      1,
-      0.95,
-      0.725
+      2,
+      1.91,
+      0.588
      ],
      "full": [
       1,
-      0.96,
-      0.1
+      0.95,
+      0.15
      ]
     },
     "knob:hits": {
      "drums": [
       1,
-      0.95,
-      0.675
+      0.94,
+      0.667
      ],
      "melody": [
       1,
-      0.95,
-      0.725
+      0.94,
+      0.817
      ],
      "kick": [
-      1,
-      0.96,
-      0.1
+      2,
+      1.91,
+      0.26
      ]
     },
     "knob:hook": {
      "none": [
-      1,
-      0.95,
-      0.675
+      2,
+      1.91,
+      0.514
      ],
      "hits": [
       2,
-      1.91,
-      0.411
+      1.89,
+      0.482
      ]
     },
     "knob:palette": {
      "ice": [
       1,
-      0.95,
-      0.675
+      0.94,
+      0.667
      ],
      "rainbow": [
       1,
-      0.95,
-      0.725
+      0.94,
+      0.817
      ],
      "mono": [
-      1,
-      0.96,
-      0.1
+      2,
+      1.91,
+      0.26
      ]
     },
     "knob:scene": {
      "circle": [
       3,
-      2.86,
-      0.499
+      2.82,
+      0.543
+     ],
+     "rings": [
+      1,
+      0.97,
+      0.367
      ]
     },
     "knob:trail": {
      "ribbon": [
-      2,
-      1.9,
-      0.7
+      3,
+      2.84,
+      0.614
      ],
      "long": [
       1,
-      0.96,
-      0.1
+      0.95,
+      0.15
      ]
     }
    },
    "retired": {}
   },
   "ascii_art": {
-   "posts": 6,
-   "waiting": 3,
-   "typical_views": 758.5,
+   "posts": 8,
+   "waiting": 2,
+   "typical_views": 199.5,
    "weights": {
     "style": {
      "ascii": 1.0
@@ -3506,344 +4139,398 @@
      "without": 1.0
     },
     "song": {
-     "suspended": 0.97,
-     "myth_of_sisyphus": 0.94,
-     "talk": 0.94,
-     "prologue": 1.08,
-     "fixation": 1.06
+     "suspended": 1.0,
+     "myth_of_sisyphus": 0.96,
+     "talk": 0.95,
+     "prologue": 1.04,
+     "fixation": 1.07,
+     "full_ride": 0.97
     },
     "section": {
-     "suspended/s04": 0.97,
-     "myth_of_sisyphus/s08": 0.94,
-     "talk/s07": 0.94,
-     "prologue/s08": 1.08,
-     "fixation/s03": 1.06
+     "suspended/s04": 1.0,
+     "myth_of_sisyphus/s08": 0.96,
+     "talk/s07": 0.95,
+     "prologue/s08": 1.09,
+     "fixation/s03": 1.07,
+     "prologue/s09": 0.95,
+     "full_ride/s04": 0.97
     },
     "length": {
-     "20-35s": 0.93,
-     "under 10s": 0.94,
-     "under 20s": 1.12
+     "20-35s": 0.94,
+     "under 10s": 0.96,
+     "under 20s": 1.08
     },
     "hour posted": {
-     "13:00": 0.97,
+     "13:00": 1.0,
      "15:00": 0.94,
-     "20:00": 1.01,
-     "21:00": 1.06,
-     "22:00": 1.02
+     "20:00": 1.02,
+     "21:00": 1.07,
+     "22:00": 1.04,
+     "11:00": 0.95
     },
     "caption": {
-     "send this to someone who writes code": 0.89,
+     "send this to someone who writes code": 0.93,
      "a clay tennis court built from voxels, all of it code. every shot lands on the beat. sound on.": 1.07,
-     "an old bridge over a river, built from code. no sprites, no images. sound on.": 1.06,
-     "a galaxy drawn in letters, every one placed by code. sound on.": 1.02
+     "an old bridge over a river, built from code. no sprites, no images. sound on.": 1.07,
+     "a galaxy drawn in letters, every one placed by code. sound on.": 1.04,
+     "the code is underneath. pause it.": 0.95,
+     "every letter here is placed by code. sound on.": 0.97
     },
     "knob:cut": {
-     "full": 0.98,
-     "short": 0.94,
-     "tight": 1.08
+     "full": 0.96,
+     "short": 0.96,
+     "tight": 1.09
     },
     "knob:layout": {
-     "clean": 0.92,
-     "code": 1.02
+     "clean": 0.96,
+     "code": 0.98
     },
     "knob:palette": {
-     "ice": 0.97,
-     "reef": 0.94,
-     "scene": 0.94,
-     "ember": 1.08
+     "ice": 0.95,
+     "reef": 0.96,
+     "scene": 0.95,
+     "ember": 1.09,
+     "mono": 0.97
     },
     "knob:pixel_bg": {
-     "ink": 1.06
+     "ink": 1.07
     },
     "knob:pixel_cuts": {
-     "bars": 1.06
+     "bars": 1.07
     },
     "knob:ramp": {
      "classic": 0.97,
-     "dense": 0.94,
-     "blocks": 1.02
+     "dense": 0.96,
+     "blocks": 1.0
     },
     "knob:scene": {
-     "jelly": 0.97,
-     "planet": 0.94,
-     "boulder": 0.94,
+     "jelly": 1.0,
+     "planet": 0.96,
+     "boulder": 0.95,
      "court": 1.07,
-     "bridge": 1.06,
-     "galaxy": 1.02
+     "bridge": 1.07,
+     "galaxy": 1.0,
+     "fireworks": 0.95
     },
     "knob:sparks": {
-     "1.6": 0.97,
-     "1.0": 0.98
+     "1.6": 1.0,
+     "1.0": 0.98,
+     "0.5": 0.97
     }
    },
    "stats": {
     "style": {
      "ascii": [
-      6,
-      5.75,
-      0.501
+      8,
+      7.6,
+      0.499
      ]
     },
     "opening line": {
      "without": [
-      6,
-      5.75,
-      0.501
+      8,
+      7.6,
+      0.499
      ]
     },
     "song": {
      "suspended": [
       1,
-      0.95,
-      0.38
+      0.94,
+      0.479
      ],
      "myth_of_sisyphus": [
       1,
-      0.95,
-      0.21
+      0.94,
+      0.329
      ],
      "talk": [
       1,
-      0.96,
-      0.22
+      0.95,
+      0.289
      ],
      "prologue": [
-      2,
-      1.92,
-      0.705
+      3,
+      2.86,
+      0.578
      ],
      "fixation": [
       1,
-      0.96,
-      0.78
+      0.95,
+      0.807
+     ],
+     "full_ride": [
+      1,
+      0.97,
+      0.357
      ]
     },
     "section": {
      "suspended/s04": [
       1,
-      0.95,
-      0.38
+      0.94,
+      0.479
      ],
      "myth_of_sisyphus/s08": [
       1,
-      0.95,
-      0.21
+      0.94,
+      0.329
      ],
      "talk/s07": [
       1,
-      0.96,
-      0.22
+      0.95,
+      0.289
      ],
      "prologue/s08": [
       2,
-      1.92,
-      0.705
+      1.9,
+      0.732
      ],
      "fixation/s03": [
       1,
-      0.96,
-      0.78
+      0.95,
+      0.807
+     ],
+     "prologue/s09": [
+      1,
+      0.97,
+      0.275
+     ],
+     "full_ride/s04": [
+      1,
+      0.97,
+      0.357
      ]
     },
     "length": {
      "20-35s": [
-      2,
-      1.91,
-      0.3
+      3,
+      2.85,
+      0.375
      ],
      "under 10s": [
       1,
-      0.95,
-      0.21
+      0.94,
+      0.329
      ],
      "under 20s": [
-      3,
-      2.89,
-      0.73
+      4,
+      3.81,
+      0.635
      ]
     },
     "hour posted": {
      "13:00": [
       1,
-      0.95,
-      0.38
+      0.94,
+      0.479
      ],
      "15:00": [
-      1,
-      0.95,
-      0.21
+      2,
+      1.91,
+      0.343
      ],
      "20:00": [
       2,
-      1.92,
-      0.52
+      1.89,
+      0.541
      ],
      "21:00": [
       1,
-      0.96,
-      0.78
+      0.95,
+      0.807
      ],
      "22:00": [
       1,
-      0.96,
-      0.59
+      0.95,
+      0.671
+     ],
+     "11:00": [
+      1,
+      0.97,
+      0.275
      ]
     },
     "caption": {
      "send this to someone who writes code": [
       3,
-      2.86,
-      0.27
+      2.82,
+      0.365
      ],
      "a clay tennis court built from voxels, all of it code. every shot lands on the beat. sound on.": [
       1,
-      0.96,
-      0.82
+      0.95,
+      0.793
      ],
      "an old bridge over a river, built from code. no sprites, no images. sound on.": [
       1,
-      0.96,
-      0.78
+      0.95,
+      0.807
      ],
      "a galaxy drawn in letters, every one placed by code. sound on.": [
       1,
-      0.96,
-      0.59
+      0.95,
+      0.671
+     ],
+     "the code is underneath. pause it.": [
+      1,
+      0.97,
+      0.275
+     ],
+     "every letter here is placed by code. sound on.": [
+      1,
+      0.97,
+      0.357
      ]
     },
     "knob:cut": {
      "full": [
-      3,
-      2.87,
-      0.461
+      5,
+      4.77,
+      0.44
      ],
      "short": [
       1,
-      0.95,
-      0.21
+      0.94,
+      0.329
      ],
      "tight": [
       2,
-      1.92,
-      0.705
+      1.9,
+      0.732
      ]
     },
     "knob:layout": {
      "clean": [
       2,
-      1.9,
-      0.295
+      1.88,
+      0.403
      ],
      "code": [
-      3,
-      2.88,
-      0.543
+      5,
+      4.78,
+      0.476
      ]
     },
     "knob:palette": {
      "ice": [
-      1,
-      0.95,
-      0.38
+      2,
+      1.9,
+      0.375
      ],
      "reef": [
       1,
-      0.95,
-      0.21
+      0.94,
+      0.329
      ],
      "scene": [
       1,
-      0.96,
-      0.22
+      0.95,
+      0.289
      ],
      "ember": [
       2,
-      1.92,
-      0.705
+      1.9,
+      0.732
+     ],
+     "mono": [
+      1,
+      0.97,
+      0.357
      ]
     },
     "knob:pixel_bg": {
      "ink": [
       1,
-      0.96,
-      0.78
+      0.95,
+      0.807
      ]
     },
     "knob:pixel_cuts": {
      "bars": [
       1,
-      0.96,
-      0.78
+      0.95,
+      0.807
      ]
     },
     "knob:ramp": {
      "classic": [
-      1,
-      0.95,
-      0.38
+      2,
+      1.91,
+      0.417
      ],
      "dense": [
       1,
-      0.95,
-      0.21
+      0.94,
+      0.329
      ],
      "blocks": [
-      3,
-      2.88,
-      0.543
+      4,
+      3.81,
+      0.506
      ]
     },
     "knob:scene": {
      "jelly": [
       1,
-      0.95,
-      0.38
+      0.94,
+      0.479
      ],
      "planet": [
       1,
-      0.95,
-      0.21
+      0.94,
+      0.329
      ],
      "boulder": [
       1,
-      0.96,
-      0.22
+      0.95,
+      0.289
      ],
      "court": [
       1,
-      0.96,
-      0.82
+      0.95,
+      0.793
      ],
      "bridge": [
       1,
-      0.96,
-      0.78
+      0.95,
+      0.807
      ],
      "galaxy": [
+      2,
+      1.92,
+      0.512
+     ],
+     "fireworks": [
       1,
-      0.96,
-      0.59
+      0.97,
+      0.275
      ]
     },
     "knob:sparks": {
      "1.6": [
       1,
-      0.95,
-      0.38
+      0.94,
+      0.479
      ],
      "1.0": [
-      4,
-      3.84,
-      0.461
+      5,
+      4.75,
+      0.471
+     ],
+     "0.5": [
+      1,
+      0.97,
+      0.357
      ]
     }
    },
    "retired": {}
   },
   "earth_data": {
-   "posts": 3,
-   "waiting": 4,
-   "typical_views": 163.0,
+   "posts": 5,
+   "waiting": 3,
+   "typical_views": 141.0,
    "weights": {
     "style": {
      "earth": 1.0
@@ -3852,45 +4539,51 @@
      "without": 1.0
     },
     "song": {
-     "prologue": 1.0,
-     "myth_of_sisyphus": 0.94,
-     "talk": 1.06
+     "prologue": 1.05,
+     "myth_of_sisyphus": 0.96,
+     "wont_be_the_same_again": 0.93,
+     "talk": 1.07
     },
     "section": {
-     "prologue/s02": 1.0,
-     "myth_of_sisyphus/s05": 0.94,
-     "talk/s02": 1.06
+     "prologue/s02": 1.05,
+     "myth_of_sisyphus/s05": 0.96,
+     "wont_be_the_same_again/s01": 0.93,
+     "talk/s02": 1.07
     },
     "length": {
-     "under 20s": 1.0,
-     "20-35s": 0.94,
-     "under 10s": 1.06
+     "under 20s": 1.05,
+     "20-35s": 0.91,
+     "under 10s": 1.07
     },
     "hour posted": {
-     "14:00": 0.95,
-     "20:00": 1.06
+     "14:00": 1.04,
+     "13:00": 0.9,
+     "20:00": 1.07
     },
     "caption": {
-     "the planet, on the beat": 1.0
+     "the planet, on the beat": 1.09,
+     "how many did you guess?": 0.93,
+     "every dot is real. sound on.": 0.95
     },
     "knob:cut": {
-     "tight": 1.0,
-     "full": 0.94,
-     "short": 1.06
+     "tight": 1.05,
+     "full": 0.91,
+     "short": 1.07
     },
     "knob:hook": {
-     "question": 0.95,
-     "fact": 1.06
+     "question": 1.0,
+     "fact": 1.0
     },
     "knob:palette": {
-     "paper": 1.0,
-     "blueprint": 0.94,
-     "ember": 1.06
+     "paper": 1.05,
+     "blueprint": 0.96,
+     "night": 0.93,
+     "ember": 1.07
     },
     "knob:scene": {
-     "satellites": 1.0,
-     "quakes": 0.94,
-     "flights": 1.06
+     "satellites": 0.98,
+     "quakes": 0.96,
+     "flights": 1.07
     },
     "knob:spin": {
      "fast": 1.0
@@ -3899,165 +4592,195 @@
    "stats": {
     "style": {
      "earth": [
-      3,
-      2.86,
-      0.501
+      5,
+      4.76,
+      0.497
      ]
     },
     "opening line": {
      "without": [
-      3,
-      2.86,
-      0.501
+      5,
+      4.76,
+      0.497
      ]
     },
     "song": {
      "prologue": [
       1,
-      0.95,
-      0.5
+      0.94,
+      0.713
      ],
      "myth_of_sisyphus": [
+      2,
+      1.91,
+      0.386
+     ],
+     "wont_be_the_same_again": [
       1,
-      0.95,
-      0.238
+      0.97,
+      0.188
      ],
      "talk": [
       1,
-      0.96,
-      0.763
+      0.95,
+      0.825
      ]
     },
     "section": {
      "prologue/s02": [
       1,
-      0.95,
-      0.5
+      0.94,
+      0.713
      ],
      "myth_of_sisyphus/s05": [
+      2,
+      1.91,
+      0.386
+     ],
+     "wont_be_the_same_again/s01": [
       1,
-      0.95,
-      0.238
+      0.97,
+      0.188
      ],
      "talk/s02": [
       1,
-      0.96,
-      0.763
+      0.95,
+      0.825
      ]
     },
     "length": {
      "under 20s": [
       1,
-      0.95,
-      0.5
+      0.94,
+      0.713
      ],
      "20-35s": [
-      1,
-      0.95,
-      0.238
+      3,
+      2.88,
+      0.319
      ],
      "under 10s": [
       1,
-      0.96,
-      0.763
+      0.95,
+      0.825
      ]
     },
     "hour posted": {
      "14:00": [
       2,
-      1.9,
-      0.369
+      1.88,
+      0.6
+     ],
+     "13:00": [
+      2,
+      1.94,
+      0.237
      ],
      "20:00": [
       1,
-      0.96,
-      0.763
+      0.95,
+      0.825
      ]
     },
     "caption": {
      "the planet, on the beat": [
       3,
-      2.86,
-      0.501
+      2.82,
+      0.675
+     ],
+     "how many did you guess?": [
+      1,
+      0.97,
+      0.188
+     ],
+     "every dot is real. sound on.": [
+      1,
+      0.97,
+      0.287
      ]
     },
     "knob:cut": {
      "tight": [
       1,
-      0.95,
-      0.5
+      0.94,
+      0.713
      ],
      "full": [
-      1,
-      0.95,
-      0.238
+      3,
+      2.88,
+      0.319
      ],
      "short": [
       1,
-      0.96,
-      0.763
+      0.95,
+      0.825
      ]
     },
     "knob:hook": {
      "question": [
-      2,
-      1.9,
-      0.369
+      3,
+      2.85,
+      0.494
      ],
      "fact": [
-      1,
-      0.96,
-      0.763
+      2,
+      1.92,
+      0.502
      ]
     },
     "knob:palette": {
      "paper": [
       1,
-      0.95,
-      0.5
+      0.94,
+      0.713
      ],
      "blueprint": [
+      2,
+      1.91,
+      0.386
+     ],
+     "night": [
       1,
-      0.95,
-      0.238
+      0.97,
+      0.188
      ],
      "ember": [
       1,
-      0.96,
-      0.763
+      0.95,
+      0.825
      ]
     },
     "knob:scene": {
      "satellites": [
-      1,
-      0.95,
-      0.5
+      2,
+      1.91,
+      0.446
      ],
      "quakes": [
-      1,
-      0.95,
-      0.238
+      2,
+      1.91,
+      0.386
      ],
      "flights": [
       1,
-      0.96,
-      0.763
+      0.95,
+      0.825
      ]
     },
     "knob:spin": {
      "fast": [
-      3,
-      2.86,
-      0.501
+      5,
+      4.76,
+      0.497
      ]
     }
    },
    "retired": {}
   },
   "retro_arcade": {
-   "posts": 1,
-   "waiting": 3,
-   "typical_views": 112.0,
+   "posts": 3,
+   "waiting": 1,
+   "typical_views": 74.0,
    "weights": {
     "style": {
      "retro": 1.0
@@ -4066,152 +4789,746 @@
      "without": 1.0
     },
     "song": {
-     "fixation": 1.0
+     "fixation": 0.97,
+     "hair_of_the_dog": 0.98,
+     "silver_and_gold": 1.05
     },
     "section": {
-     "fixation/s02": 1.0
+     "fixation/s02": 0.97,
+     "hair_of_the_dog/s01": 0.98,
+     "silver_and_gold/s03": 1.05
     },
     "length": {
-     "20-35s": 1.0
+     "20-35s": 0.97,
+     "under 10s": 1.03
     },
     "hour posted": {
-     "19:00": 1.0
+     "19:00": 0.97,
+     "12:00": 0.98,
+     "16:00": 1.05
     },
     "caption": {
-     "every level you never got to finish": 1.0
+     "every level you never got to finish": 0.96,
+     "Silver and Gold \u2013 Close Quarters": 1.05
     },
     "knob:cut": {
-     "full": 1.0
+     "full": 0.97,
+     "short": 1.03
     },
     "knob:frame": {
      "none": 1.0
     },
     "knob:pace": {
-     "2": 1.0
+     "2": 0.96,
+     "1": 1.05
     },
     "knob:screen": {
-     "ps2": 1.0
+     "ps2": 0.97,
+     "crt": 1.03
     },
     "knob:theme": {
-     "space": 1.0
+     "space": 0.97,
+     "water": 0.98,
+     "skate": 1.05
     }
    },
    "stats": {
     "style": {
      "retro": [
-      1,
-      0.96,
-      0.5
+      3,
+      2.89,
+      0.502
      ]
     },
     "opening line": {
      "without": [
-      1,
-      0.96,
-      0.5
+      3,
+      2.89,
+      0.502
      ]
     },
     "song": {
      "fixation": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.35
+     ],
+     "hair_of_the_dog": [
+      1,
+      0.97,
+      0.425
+     ],
+     "silver_and_gold": [
+      1,
+      0.97,
+      0.725
      ]
     },
     "section": {
      "fixation/s02": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.35
+     ],
+     "hair_of_the_dog/s01": [
+      1,
+      0.97,
+      0.425
+     ],
+     "silver_and_gold/s03": [
+      1,
+      0.97,
+      0.725
      ]
     },
     "length": {
      "20-35s": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.35
+     ],
+     "under 10s": [
+      2,
+      1.94,
+      0.575
      ]
     },
     "hour posted": {
      "19:00": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.35
+     ],
+     "12:00": [
+      1,
+      0.97,
+      0.425
+     ],
+     "16:00": [
+      1,
+      0.97,
+      0.725
      ]
     },
     "caption": {
      "every level you never got to finish": [
+      2,
+      1.91,
+      0.388
+     ],
+     "Silver and Gold \u2013 Close Quarters": [
       1,
-      0.96,
-      0.5
+      0.97,
+      0.725
      ]
     },
     "knob:cut": {
      "full": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.35
+     ],
+     "short": [
+      2,
+      1.94,
+      0.575
      ]
     },
     "knob:frame": {
      "none": [
-      1,
-      0.96,
-      0.5
+      3,
+      2.89,
+      0.502
      ]
     },
     "knob:pace": {
      "2": [
+      2,
+      1.91,
+      0.388
+     ],
+     "1": [
       1,
-      0.96,
-      0.5
+      0.97,
+      0.725
      ]
     },
     "knob:screen": {
      "ps2": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.35
+     ],
+     "crt": [
+      2,
+      1.94,
+      0.575
      ]
     },
     "knob:theme": {
      "space": [
       1,
-      0.96,
-      0.5
+      0.95,
+      0.35
+     ],
+     "water": [
+      1,
+      0.97,
+      0.425
+     ],
+     "skate": [
+      1,
+      0.97,
+      0.725
      ]
     }
    },
    "retired": {}
   },
   "vintage_archive": {
-   "posts": 0,
-   "waiting": 3,
-   "weights": {}
+   "posts": 2,
+   "waiting": 2,
+   "typical_views": 112.0,
+   "weights": {
+    "style": {
+     "vintage": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "prologue": 0.96,
+     "talk": 1.05
+    },
+    "section": {
+     "prologue/s06": 0.96,
+     "talk/s07": 1.05
+    },
+    "length": {
+     "20-35s": 0.96,
+     "under 10s": 1.05
+    },
+    "hour posted": {
+     "11:00": 0.96,
+     "15:00": 1.05
+    },
+    "caption": {
+     "Prologue: Before \u2013 Close Quarters": 0.96,
+     "Talk \u2013 Close Quarters": 1.05
+    },
+    "knob:cards": {
+     "none": 0.96,
+     "lower": 1.05
+    },
+    "knob:crank": {
+     "2": 1.0
+    },
+    "knob:cut": {
+     "full": 0.96,
+     "short": 1.05
+    },
+    "knob:gate": {
+     "iris": 1.0
+    },
+    "knob:pace": {
+     "1": 1.0
+    },
+    "knob:source": {
+     "silent": 1.0
+    },
+    "knob:tint": {
+     "bw": 1.0
+    },
+    "knob:trip": {
+     "double": 1.0
+    }
+   },
+   "stats": {
+    "style": {
+     "vintage": [
+      2,
+      1.94,
+      0.501
+     ]
+    },
+    "opening line": {
+     "without": [
+      2,
+      1.94,
+      0.501
+     ]
+    },
+    "song": {
+     "prologue": [
+      1,
+      0.97,
+      0.3
+     ],
+     "talk": [
+      1,
+      0.97,
+      0.7
+     ]
+    },
+    "section": {
+     "prologue/s06": [
+      1,
+      0.97,
+      0.3
+     ],
+     "talk/s07": [
+      1,
+      0.97,
+      0.7
+     ]
+    },
+    "length": {
+     "20-35s": [
+      1,
+      0.97,
+      0.3
+     ],
+     "under 10s": [
+      1,
+      0.97,
+      0.7
+     ]
+    },
+    "hour posted": {
+     "11:00": [
+      1,
+      0.97,
+      0.3
+     ],
+     "15:00": [
+      1,
+      0.97,
+      0.7
+     ]
+    },
+    "caption": {
+     "Prologue: Before \u2013 Close Quarters": [
+      1,
+      0.97,
+      0.3
+     ],
+     "Talk \u2013 Close Quarters": [
+      1,
+      0.97,
+      0.7
+     ]
+    },
+    "knob:cards": {
+     "none": [
+      1,
+      0.97,
+      0.3
+     ],
+     "lower": [
+      1,
+      0.97,
+      0.7
+     ]
+    },
+    "knob:crank": {
+     "2": [
+      2,
+      1.94,
+      0.501
+     ]
+    },
+    "knob:cut": {
+     "full": [
+      1,
+      0.97,
+      0.3
+     ],
+     "short": [
+      1,
+      0.97,
+      0.7
+     ]
+    },
+    "knob:gate": {
+     "iris": [
+      2,
+      1.94,
+      0.501
+     ]
+    },
+    "knob:pace": {
+     "1": [
+      2,
+      1.94,
+      0.501
+     ]
+    },
+    "knob:source": {
+     "silent": [
+      2,
+      1.94,
+      0.501
+     ]
+    },
+    "knob:tint": {
+     "bw": [
+      2,
+      1.94,
+      0.501
+     ]
+    },
+    "knob:trip": {
+     "double": [
+      2,
+      1.94,
+      0.501
+     ]
+    }
+   },
+   "retired": {}
   },
   "nyc_daily": {
-   "posts": 0,
-   "waiting": 3,
-   "weights": {}
+   "posts": 2,
+   "waiting": 2,
+   "typical_views": 170.0,
+   "weights": {
+    "style": {
+     "nyc": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "prologue": 1.03,
+     "talk": 0.97
+    },
+    "section": {
+     "prologue/s09": 1.03,
+     "talk/s05": 0.97
+    },
+    "length": {
+     "under 10s": 1.03,
+     "under 20s": 0.97
+    },
+    "hour posted": {
+     "10:00": 1.03,
+     "15:00": 0.97
+    },
+    "caption": {
+     "Prologue: Before \u2013 Close Quarters": 1.03,
+     "Talk \u2013 Close Quarters": 0.97
+    },
+    "knob:cut": {
+     "short": 1.03,
+     "tight": 0.97
+    },
+    "knob:kind": {
+     "meme": 1.0
+    },
+    "knob:line": {
+     "23": 1.03,
+     "10": 0.97
+    },
+    "knob:look": {
+     "night": 1.03,
+     "film": 0.97
+    },
+    "knob:pace": {
+     "1": 1.03,
+     "2": 0.97
+    },
+    "knob:source": {
+     "nyc": 1.0
+    }
+   },
+   "stats": {
+    "style": {
+     "nyc": [
+      2,
+      1.94,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      2,
+      1.94,
+      0.5
+     ]
+    },
+    "song": {
+     "prologue": [
+      1,
+      0.97,
+      0.65
+     ],
+     "talk": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "section": {
+     "prologue/s09": [
+      1,
+      0.97,
+      0.65
+     ],
+     "talk/s05": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "length": {
+     "under 10s": [
+      1,
+      0.97,
+      0.65
+     ],
+     "under 20s": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "hour posted": {
+     "10:00": [
+      1,
+      0.97,
+      0.65
+     ],
+     "15:00": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "caption": {
+     "Prologue: Before \u2013 Close Quarters": [
+      1,
+      0.97,
+      0.65
+     ],
+     "Talk \u2013 Close Quarters": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:cut": {
+     "short": [
+      1,
+      0.97,
+      0.65
+     ],
+     "tight": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:kind": {
+     "meme": [
+      2,
+      1.94,
+      0.5
+     ]
+    },
+    "knob:line": {
+     "23": [
+      1,
+      0.97,
+      0.65
+     ],
+     "10": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:look": {
+     "night": [
+      1,
+      0.97,
+      0.65
+     ],
+     "film": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:pace": {
+     "1": [
+      1,
+      0.97,
+      0.65
+     ],
+     "2": [
+      1,
+      0.97,
+      0.35
+     ]
+    },
+    "knob:source": {
+     "nyc": [
+      2,
+      1.94,
+      0.5
+     ]
+    }
+   },
+   "retired": {}
   },
   "tiny_code": {
-   "posts": 0,
+   "posts": 1,
    "waiting": 2,
-   "weights": {}
+   "typical_views": 201.0,
+   "weights": {
+    "style": {
+     "tinycode": 1.0
+    },
+    "opening line": {
+     "without": 1.0
+    },
+    "song": {
+     "silver_and_gold": 1.0
+    },
+    "section": {
+     "silver_and_gold/s01": 1.0
+    },
+    "length": {
+     "under 20s": 1.0
+    },
+    "hour posted": {
+     "15:00": 1.0
+    },
+    "caption": {
+     "this is what sin and cos look like when they dance": 1.0
+    },
+    "knob:cut": {
+     "tight": 1.0
+    },
+    "knob:glow": {
+     "1.0": 1.0
+    },
+    "knob:palette": {
+     "neon": 1.0
+    },
+    "knob:program": {
+     "tunnel": 1.0
+    },
+    "knob:trail": {
+     "0.55": 1.0
+    }
+   },
+   "stats": {
+    "style": {
+     "tinycode": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "opening line": {
+     "without": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "song": {
+     "silver_and_gold": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "section": {
+     "silver_and_gold/s01": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "length": {
+     "under 20s": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "hour posted": {
+     "15:00": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "caption": {
+     "this is what sin and cos look like when they dance": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:cut": {
+     "tight": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:glow": {
+     "1.0": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:palette": {
+     "neon": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:program": {
+     "tunnel": [
+      1,
+      0.97,
+      0.5
+     ]
+    },
+    "knob:trail": {
+     "0.55": [
+      1,
+      0.97,
+      0.5
+     ]
+    }
+   },
+   "retired": {}
   },
   "ascii_cinema": {
    "posts": 0,
-   "waiting": 3,
+   "waiting": 4,
    "weights": {}
   },
   "petri_dish": {
    "posts": 0,
-   "waiting": 3,
+   "waiting": 4,
    "weights": {}
   },
   "illusions": {
    "posts": 0,
-   "waiting": 3,
+   "waiting": 4,
+   "weights": {}
+  },
+  "algo_races": {
+   "posts": 0,
+   "waiting": 0,
    "weights": {}
   }
  }

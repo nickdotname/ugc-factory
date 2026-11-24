@@ -1,0 +1,277 @@
+{
+ "clips": {},
+ "menu": {
+  "race": {
+   "topic": [
+    "sorts",
+    "paths"
+   ],
+   "theme": [
+    "chalk",
+    "midnight",
+    "mono",
+    "paper",
+    "synth"
+   ],
+   "font": [
+    "inter",
+    "montserrat",
+    "poppins"
+   ],
+   "grid": [
+    "grid",
+    "dots",
+    "none"
+   ],
+   "shake": [
+    "0.6",
+    "1.0",
+    "1.3"
+   ],
+   "glow": [
+    "0.6",
+    "1.0"
+   ],
+   "chip": [
+    "pill",
+    "tag"
+   ],
+   "lineup": [
+    "classic",
+    "fast",
+    "slow",
+    "mixed",
+    "bogo"
+   ],
+   "bars": [
+    "32",
+    "48",
+    "64"
+   ],
+   "bars_look": [
+    "bars",
+    "dots",
+    "rainbow"
+   ],
+   "maze": [
+    "bfs-dfs-astar",
+    "dijkstra-greedy-astar",
+    "dfs-greedy-astar"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-24",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s05_race_588981.mp4",
+   "song": "passage-waiting",
+   "section": "s05",
+   "style": "race",
+   "seed": 588981,
+   "window": [
+    76.42,
+    94.33
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sorts",
+    "theme": "mono",
+    "font": "poppins",
+    "grid": "none",
+    "shake": "1.0",
+    "glow": "1.0",
+    "chip": "tag",
+    "lineup": "fast",
+    "bars": "48",
+    "bars_look": "dots",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.36,
+    "bass": 0.43,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "prologue",
+   "file": "prologue_s04_race_539965.mp4",
+   "song": "prologue",
+   "section": "s04",
+   "style": "race",
+   "seed": 539965,
+   "window": [
+    86.86,
+    104.49
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sorts",
+    "theme": "synth",
+    "font": "inter",
+    "grid": "none",
+    "shake": "1.3",
+    "glow": "1.0",
+    "chip": "tag",
+    "lineup": "slow",
+    "bars": "48",
+    "bars_look": "dots",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.64,
+    "bass": 0.65,
+    "other": 0.23
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "suspended",
+   "file": "suspended_s01_race_635451.mp4",
+   "song": "suspended",
+   "section": "s01",
+   "style": "race",
+   "seed": 635451,
+   "window": [
+    7.04,
+    29.53
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "paths",
+    "theme": "midnight",
+    "font": "inter",
+    "grid": "dots",
+    "shake": "1.0",
+    "glow": "0.6",
+    "chip": "tag",
+    "maze": "bfs-dfs-astar",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.58,
+    "drums": 0.76,
+    "bass": 0.32,
+    "other": 0.36
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "notta_problem",
+   "file": "notta-problem_s01_race_488945.mp4",
+   "song": "notta-problem",
+   "section": "s01",
+   "style": "race",
+   "seed": 488945,
+   "window": [
+    27.21,
+    45.78
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sorts",
+    "theme": "mono",
+    "font": "inter",
+    "grid": "none",
+    "shake": "1.0",
+    "glow": "1.0",
+    "chip": "tag",
+    "lineup": "mixed",
+    "bars": "48",
+    "bars_look": "dots",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.33,
+    "bass": 0.16,
+    "other": 0.49
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s03_race_752744.mp4",
+   "song": "silver-and-gold",
+   "section": "s03",
+   "style": "race",
+   "seed": 752744,
+   "window": [
+    75.82,
+    91.21
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "paths",
+    "theme": "mono",
+    "font": "inter",
+    "grid": "dots",
+    "shake": "1.0",
+    "glow": "1.0",
+    "chip": "pill",
+    "maze": "dfs-greedy-astar",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.69,
+    "drums": 0.78,
+    "bass": 0.77,
+    "other": 0.71
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-24",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s02_race_816938.mp4",
+   "song": "evil-close-quarters",
+   "section": "s02",
+   "style": "race",
+   "seed": 816938,
+   "window": [
+    33.81,
+    55.32
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sorts",
+    "theme": "paper",
+    "font": "poppins",
+    "grid": "dots",
+    "shake": "1.3",
+    "glow": "0.6",
+    "chip": "pill",
+    "lineup": "fast",
+    "bars": "48",
+    "bars_look": "dots",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.6,
+    "bass": 0.74,
+    "other": 0.68
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
