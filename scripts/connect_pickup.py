@@ -15,7 +15,7 @@ import base64, json, os, re, subprocess, sys, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = os.environ.get('CONNECT_URL', 'https://closequarters.vip/connect')
+BASE = os.environ.get('CONNECT_URL', 'https://connect.closequarters.vip/connect')
 REPO = os.environ.get('GITHUB_REPOSITORY', 'nickdotname/ugc-factory')
 UA = {'User-Agent': 'cq-connect-pickup'}
 
@@ -50,10 +50,12 @@ def main() -> int:
             print('item %s: cannot decrypt (%s)' % (it.get('id'), type(exc).__name__)); continue
         mask(p['token']); mask(p['proof'])
         name = secret_for(str(p['ig_id']), p['username'])
-        if name and re.fullmatch(r'IG_TOKEN(_\d+)?', name):
+        if name and re.fullmatch(r'IG_TOKEN_\d+', name):
             subprocess.run(['gh', 'secret', 'set', name, '--repo', REPO], input=p['token'].encode(), check=True,
                            env=dict(os.environ, GH_TOKEN=os.environ['SECRETS_PAT']), stdout=subprocess.DEVNULL)
             print('@%s -> %s saved (%s host)' % (p['username'], name, p.get('host')))
+        elif name == 'IG_TOKEN':
+            print('@%s shares IG_TOKEN with 16 other pages; a one-account login would cut them off: dropped' % p['username'])
         else:
             print('@%s is not one of our accounts: dropped' % p['username'])
         req = urllib.request.Request(BASE + '/pickup/%s?proof=%s' % (it['id'], urllib.parse.quote(p['proof'])), method='DELETE', headers=UA)

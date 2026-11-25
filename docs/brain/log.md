@@ -179,3 +179,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: new page styles toon (1930 cartoons), zoom (museum zoom), notes_date, notes_college, lowpoly (Blender story page; CC0 kits via lowpoly.yml). Accounts still to be created.
 - 2026-11-25: publisher waits until an account's last post is an hour old (MIN_GAP); back-to-back posts did ~20% worse.
 - 2026-11-25: Connect Instagram (cqconnect/, connect.yml); token slots to 16; studio.yml parse fix.
+- 2026-11-25: connect link moved to connect.closequarters.vip; pickup never overwrites the shared IG_TOKEN.
