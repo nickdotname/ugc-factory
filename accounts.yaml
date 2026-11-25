@@ -395,7 +395,7 @@ accounts:
     network: instagram
     provider: instagram
     login: facebook
-    api_key_secret: IG_TOKEN_5
+    api_key_secret: IG_TOKEN_6
     channel_id: "17841467209821848"
     post_type: reel
     trial_reels: false
@@ -408,7 +408,7 @@ accounts:
     network: instagram
     provider: instagram
     login: facebook
-    api_key_secret: IG_TOKEN_6
+    api_key_secret: IG_TOKEN_5
     channel_id: "17841410524775171"
     post_type: reel
     trial_reels: false

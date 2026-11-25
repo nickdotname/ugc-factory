@@ -48,7 +48,7 @@ ACCOUNTS = {
     'her_ig': ('17841467209821848', 'crying.in.trader.joes'),
     'him_ig': ('17841410524775171', 'grip.tape.thoughts'),
 }
-TOKENS = {'races_ig': 'IG_TOKEN_2', 'tests8_ig': 'IG_TOKEN_3', 'notes_ig': 'IG_TOKEN_4', 'her_ig': 'IG_TOKEN_5', 'him_ig': 'IG_TOKEN_6'}     # accounts with no Facebook Page have a token of their own; the rest share IG_TOKEN
+TOKENS = {'races_ig': 'IG_TOKEN_2', 'tests8_ig': 'IG_TOKEN_3', 'notes_ig': 'IG_TOKEN_4', 'her_ig': 'IG_TOKEN_6', 'him_ig': 'IG_TOKEN_5'}     # accounts with no Facebook Page have a token of their own; the rest share IG_TOKEN
 OURS = {u for _, u in ACCOUNTS.values()} | {'the.loose.change'}
 BAND = {'close_quarters_ig'}            # the band's own account doesn't tag itself
 

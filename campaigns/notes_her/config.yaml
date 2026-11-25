@@ -2,7 +2,7 @@
 # (studio/text_her_video.py; the thoughts are in studio/notes/her.txt, all written here). The card carries no song
 # label: the song is the sound, and the caption and first comment credit it.
 # No Facebook Page: connected through Meta's Unified login as an Instagram tester of the app,
-# with its own token (IG_TOKEN_5).
+# with its own token (IG_TOKEN_6).
 #
 # Finished videos with their own sound. One creative per SONG. New videos are
 # added every night by the studio job (studio/nightly.yaml).
@@ -74,7 +74,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true                 # until its token (IG_TOKEN_5/6) is checked with ig-check
+  paused: true                 # until its token (IG_TOKEN_6/6) is checked with ig-check
   dry_run: false
 
 video:

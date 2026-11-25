@@ -25,8 +25,8 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @algorithm.races ("Algorithm Races", no Page: Unified login, token `IG_TOKEN_2`) | races_ig | algo_races | race (sorting algorithms on the same shuffled numbers; search algorithms through one maze) | 5 | 8–23 |
 | @8bit.tests ("8-Bit Tests", no Page, token `IG_TOKEN_3`) | tests8_ig | pixel_tests | tests8 (play-along pixel tests: pause when it fits, follow the gem, watch the order, count the fireworks, early or late) | 5 | 8–23 |
 | @moth.ate.my.notes (no Page, token `IG_TOKEN_4`) | notes_ig | notes_app | notes (one thought on a gradient, like an Instagram text post; no song label on the card) | 5 | 8–23 |
-| @crying.in.trader.joes (no Page, token `IG_TOKEN_5`) | her_ig | notes_her | notes_her (one thought on a gradient in a girl's voice; bank studio/notes/her.txt) | 5 | 8–23 |
-| @grip.tape.thoughts (no Page, token `IG_TOKEN_6`) | him_ig | notes_him | notes_him (one thought on a gradient in a skater guy's voice; bank studio/notes/him.txt) | 5 | 8–23 |
+| @crying.in.trader.joes (no Page, token `IG_TOKEN_6`) | her_ig | notes_her | notes_her (one thought on a gradient in a girl's voice; bank studio/notes/her.txt) | 5 | 8–23 |
+| @grip.tape.thoughts (no Page, token `IG_TOKEN_5`) | him_ig | notes_him | notes_him (one thought on a gradient in a skater guy's voice; bank studio/notes/him.txt) | 5 | 8–23 |
 
 **closequarters memes** (when un-paused): the six songs share one clip pool, so a clip's 21-day cooldown is kept across every song and every account version (`Selector.select_batch_multi(visual_pools=...)`); Instagram and TikTok each get their own clip (`variation.per_account`), and with `repeats: false` an empty slot beats a repeat.
 
