@@ -1,0 +1,38 @@
+# Refresh the Instagram tokens before they run out (scripts/refresh_tokens.py) and write them back into the
+# secrets, so nobody has to press Generate token and paste again. Needs SECRETS_PAT (a fine-grained token for
+# this repository with only "Secrets: read and write"); META_APP_ID / META_APP_SECRET add the Facebook token.
+name: tokens
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 8 1,15 * *"     # twice a month: tokens last 60 days
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tokens
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Refresh and store
+        env:
+          SECRETS_PAT: ${{ secrets.SECRETS_PAT }}
+          META_APP_ID: ${{ secrets.META_APP_ID }}
+          META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
+          IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
+          IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
+          IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
+          IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
+        run: python scripts/refresh_tokens.py

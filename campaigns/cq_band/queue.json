@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-25T08:32:06.418240Z",
+  "generated_at": "2026-11-25T14:37:58.823197Z",
   "items": [
     {
-      "id": "c6403916-eecf-4210-8aab-fbcf04305a51",
+      "id": "a2b58aec-2e0a-4920-b50d-272b46c859ca",
       "scheduled_for": "2026-11-25T09:50:00-05:00",
-      "rendered_at": "2026-11-25T08:32:06.418240Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/c6403916-eecf-4210-8aab-fbcf04305a51.mp4",
-      "caption": "the line at the end is the point\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "rendered_at": "2026-11-25T14:37:58.823197Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/a2b58aec-2e0a-4920-b50d-272b46c859ca.mp4",
+      "caption": "loud on the bus, quiet in your head\nSubway Maintenance – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,62 +16,95 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.546,
-        "anchor_y": 0.513,
+        "anchor_x": 0.613,
+        "anchor_y": 0.736,
         "rotate_deg": 0.0,
-        "brightness": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "notta_problem",
+      "creative": "subway_maintenance",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "Notta Problem, from EDUCATION. the whole album is linked in our bio",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-727e9cb8-9a50-4c46-bc2e-764a936446fe",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T18:35:00-05:00"
-        }
-      ],
+      "first_comment": "Subway Maintenance is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
+      "posts": [],
       "captions": {
-        "instagram": "the line at the end is the point\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Notta Problem: link in bio"
+        "instagram": "loud on the bus, quiet in your head\nSubway Maintenance – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Subway Maintenance"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "ffb24089-fbc1-4e4e-8321-6000cf6154bd",
+      "id": "17a33fc3-2a96-4583-b4b4-31ccdcb9d46a",
       "scheduled_for": "2026-11-25T11:35:00-05:00",
-      "rendered_at": "2026-11-25T08:32:06.418240Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/ffb24089-fbc1-4e4e-8321-6000cf6154bd.mp4",
-      "caption": "a song for the walk home\nHair of the Dog – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "rendered_at": "2026-11-25T14:37:58.823197Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/17a33fc3-2a96-4583-b4b4-31ccdcb9d46a.mp4",
+      "caption": "the whole album is a school day\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_07.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.491,
-        "anchor_y": 0.707,
+        "anchor_x": 0.497,
+        "anchor_y": 0.738,
         "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "fixation",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Fixation, from EDUCATION. the whole album is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "the whole album is a school day\nFixation – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Fixation: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "3f4c7e20-1701-418e-9fcd-f53b2ad2b09c",
+      "scheduled_for": "2026-11-25T13:20:00-05:00",
+      "rendered_at": "2026-11-25T14:37:58.823197Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/3f4c7e20-1701-418e-9fcd-f53b2ad2b09c.mp4",
+      "caption": "lesson 10 of 15. class is in session.\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "parts": {
+        "hook": "hook_07.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.715,
+        "anchor_y": 0.432,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -79,83 +112,20 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "hair_of_the_dog",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "EDUCATION is out now. Hair of the Dog is just one of them, link in bio",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-375b143b-f9ac-4ed1-a85c-423e73e05adc",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T09:50:00-05:00"
-        }
-      ],
+      "first_comment": "EDUCATION is out now. Suspended is just one of them, link in bio",
+      "posts": [],
       "captions": {
-        "instagram": "a song for the walk home\nHair of the Dog – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nHair of the Dog is out now. link in bio to stream it"
+        "instagram": "lesson 10 of 15. class is in session.\nSuspended – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "4cb3e32d-8153-4f08-997e-1a549b3da0b4",
-      "scheduled_for": "2026-11-25T13:20:00-05:00",
-      "rendered_at": "2026-11-25T08:32:06.418240Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/4cb3e32d-8153-4f08-997e-1a549b3da0b4.mp4",
-      "caption": "lesson 3 of 15. class is in session.\nMyth of Sisyphus – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.513,
-        "anchor_y": 0.46,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "myth_of_sisyphus",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "Myth of Sisyphus is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-6712244b-c285-4b39-9890-23b4232fde49",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T11:35:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "lesson 3 of 15. class is in session.\nMyth of Sisyphus – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Myth of Sisyphus"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
