@@ -113,3 +113,6 @@ every studio run failed with zero jobs until it became a block scalar.
   `me/accounts` with IG_TOKEN and stores never-expiring Page tokens as `IG_PAGE_TOKENS` (JSON, IG id -> token).
   The publisher prefers them. A Page token from a long-lived user token does not expire, and needs no app secret.
   So any account linked to a Facebook Page is covered with no login; Instagram-login (Unified) accounts are not.
+- **Connect link "App not active":** `display=page&prompt=login` sends Meta's dialog to business.facebook.com, which shows
+  "App not active" for an unpublished app. `display=popup` on www.facebook.com works. New Instagram accounts are not in
+  the asset picker until linked: use its "connect a pro account" link and sign in as that account.
