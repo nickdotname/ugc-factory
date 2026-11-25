@@ -457,3 +457,16 @@ def test_a_sent_post_survives_a_failed_record(tmp_path):
     publisher.checkpoint = checkpoint
     changed = publisher.publish_due()
     assert [i["status"] for i in changed] == [PUBLISHED]
+
+
+def test_an_account_that_just_posted_waits_an_hour(tmp_path):
+    session = happy(FakeSession())
+    publisher, clock = make(tmp_path, session)
+    publisher.create_post(request(scheduled_for=NOW - timedelta(minutes=30)))
+    publisher.create_post(request(scheduled_for=NOW - timedelta(minutes=5)))
+    assert len(publisher.publish_due()) == 1
+    clock["now"] = NOW + timedelta(minutes=40)
+    assert publisher.publish_due() == [], "posted 40 minutes ago: the next one waits"
+    assert publisher.queue_state(CHANNEL).depth == 1
+    clock["now"] = NOW + timedelta(minutes=61)
+    assert [i["status"] for i in publisher.publish_due()] == [PUBLISHED]

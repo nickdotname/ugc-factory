@@ -78,6 +78,10 @@ POLL_ATTEMPTS = 20
 #: A post this far past its slot is not sent. Publishing a backlog the moment
 #: a broken token is replaced would put a day of videos out in one minute.
 DEFAULT_MAX_LATE = timedelta(hours=6)
+#: Two posts on one account less than this apart: the second does worse (2026-11-25: 77 such posts since Nov 17,
+#: median 72 views against 89). Reels, carousels and fact reels are queued by separate jobs, so the publisher keeps
+#: them apart: a post whose account published less than this ago waits for a later run.
+MIN_GAP = timedelta(minutes=60)
 
 QUEUED = "queued"
 PUBLISHING = "publishing"
@@ -578,6 +582,7 @@ class InstagramPublisher(Publisher):
         max_late: timedelta = DEFAULT_MAX_LATE,
         max_attempts: int = 3,
         send_next: bool = False,
+        min_gap: timedelta = MIN_GAP,
     ) -> list[dict[str, Any]]:
         """Send every held post whose slot has arrived. Returns what changed.
 
@@ -587,7 +592,8 @@ class InstagramPublisher(Publisher):
         At most ``max_per_channel`` per account per run, oldest first, so an
         account that fell behind catches up one slot at a time rather than
         all at once. A token or allowance failure stops that account for this
-        run — everything behind it would fail the same way.
+        run — everything behind it would fail the same way. A post whose
+        account published less than ``min_gap`` ago waits (``send_next`` aside).
         """
         now = self._now()
         changed: list[dict[str, Any]] = []
@@ -600,6 +606,11 @@ class InstagramPublisher(Publisher):
             and (channel_ids is None or i.get("channel_id") in channel_ids)
         ]
         waiting.sort(key=lambda i: str(i.get("scheduled_for") or ""))
+        last: dict[str, datetime] = {}
+        for i in self.outbox.items():
+            at = _parse_dt(i.get("published_at")) if i.get("status") == PUBLISHED else None
+            ch = str(i.get("channel_id"))
+            if at is not None and (ch not in last or at > last[ch]): last[ch] = at
 
         for item in waiting:
             channel = str(item.get("channel_id"))
@@ -610,6 +621,9 @@ class InstagramPublisher(Publisher):
                 due = now
             if due is None or due > now or channel in blocked:
                 continue
+            if (not send_next and item.get("status") == QUEUED and channel in last
+                    and now - last[channel] < min_gap and now - due < max_late - min_gap):
+                continue                                  # the account posted under an hour ago: a later run sends it
             if item.get("status") == QUEUED and now - due > max_late:
                 item["status"] = FAILED
                 item["error"] = (
@@ -640,6 +654,7 @@ class InstagramPublisher(Publisher):
                 self._log.exception("instagram_publish_failed", exc, post_id=item["id"])
                 continue
             sent[channel] = sent.get(channel, 0) + 1
+            last[channel] = now
             changed.append(item)
             self._log.info(
                 "instagram_post_published",
