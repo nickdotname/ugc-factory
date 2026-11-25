@@ -250,18 +250,18 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T14:15:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the pool smells like chlorine and summer\n🎧 Silver and Gold – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
