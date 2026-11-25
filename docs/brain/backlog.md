@@ -62,3 +62,13 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
 ## Account ideas (from the 2026-11 research)
 More faceless niches, one format per account: gaming (other games we record), more visualisers, historical events
 animated in a distinct style. Don't merge formats into existing accounts; make a new one ([[add-account]]).
+
+## physics.bounce.lab: "ring breaker" with a polar EQ (Dylan, 2026-11-24, "this format with the EQing is great for physics")
+Reference (a TikTok Dylan sent; not ours, never reposted): about 1,100 thin concentric rings in a slowly cycling
+rainbow fill the frame around a small dark arena. A glowing ball with a short trail bounces inside the arena; every
+hit on the innermost ring shatters it into particles, the ring flashes, and a big centred counter ticks down
+(1100, 1088, 1073, ...). Laid over everything is a black polar spectrum: the song's EQ drawn as jagged bars radiating
+from the centre, rotating, so the black shape "eats" the rings on the loud bands. Build it in `studio/physics_video.py`
+(or a new scene): ball hits land on the song's real drum hits (project hits where a song has one), the counter is the
+true number of rings left, the polar spectrum is computed from the master per frame (bands, smoothed, rotated by the
+beat), a loop or a clear payoff (count reaches a round number / the last ring breaks) before the end.
