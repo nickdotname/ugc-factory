@@ -18,7 +18,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-IG_LOGIN = ['IG_TOKEN_2', 'IG_TOKEN_3', 'IG_TOKEN_4', 'IG_TOKEN_5', 'IG_TOKEN_6']
+IG_LOGIN = ['IG_TOKEN_%d' % n for n in range(2, 17)]   # a slot that is not set is skipped
 REPO = os.environ.get('GITHUB_REPOSITORY', 'nickdotname/ugc-factory')
 APP_ID = os.environ.get('META_APP_ID') or '1880800686386898'      # "Close Quarters Clip Engine" (an app id is public; its secret is not)
 

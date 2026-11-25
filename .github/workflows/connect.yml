@@ -1,0 +1,61 @@
+# "Connect Instagram" (cqconnect/worker.js): tokens reach GitHub without anyone copying them.
+#   keys:   once. Makes the RSA key pair: the private half goes straight into the CONNECT_PRIVATE_KEY secret
+#           (never printed), the public half is committed as cqconnect/public.pem for the worker to encrypt with.
+#   pickup: every 15 minutes and on demand. Decrypts what the worker holds and saves each token as its secret.
+name: connect
+
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "pickup, or keys (only once: new keys make waiting tokens unreadable)"
+        default: "pickup"
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: connect
+  cancel-in-progress: false
+
+jobs:
+  keys:
+    if: github.event.inputs.job == 'keys'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make the key pair
+        env:
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+        run: |
+          umask 077
+          openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out /tmp/connect.pem 2>/dev/null
+          gh secret set CONNECT_PRIVATE_KEY --repo "$GITHUB_REPOSITORY" < /tmp/connect.pem
+          openssl pkey -in /tmp/connect.pem -pubout -out cqconnect/public.pem
+          shred -u /tmp/connect.pem
+      - name: Keep the public half
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add cqconnect/public.pem
+          git diff --cached --quiet && exit 0
+          git commit -q -m "connect: public key [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done
+
+  pickup:
+    if: github.event_name == 'schedule' || github.event.inputs.job == 'pickup'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q cryptography PyYAML
+      - name: Save new tokens
+        env:
+          CONNECT_PRIVATE_KEY: ${{ secrets.CONNECT_PRIVATE_KEY }}
+          SECRETS_PAT: ${{ secrets.SECRETS_PAT }}
+        run: python scripts/connect_pickup.py

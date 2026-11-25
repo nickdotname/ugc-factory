@@ -68,5 +68,13 @@ jobs:
           IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
           IG_TOKEN_7: ${{ secrets.IG_TOKEN_7 }}
           IG_TOKEN_8: ${{ secrets.IG_TOKEN_8 }}
+          IG_TOKEN_9: ${{ secrets.IG_TOKEN_9 }}
+          IG_TOKEN_10: ${{ secrets.IG_TOKEN_10 }}
+          IG_TOKEN_11: ${{ secrets.IG_TOKEN_11 }}
+          IG_TOKEN_12: ${{ secrets.IG_TOKEN_12 }}
+          IG_TOKEN_13: ${{ secrets.IG_TOKEN_13 }}
+          IG_TOKEN_14: ${{ secrets.IG_TOKEN_14 }}
+          IG_TOKEN_15: ${{ secrets.IG_TOKEN_15 }}
+          IG_TOKEN_16: ${{ secrets.IG_TOKEN_16 }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: python -m src.cli diagnose --campaign "${{ matrix.campaign }}"
