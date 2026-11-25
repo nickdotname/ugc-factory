@@ -4,7 +4,7 @@
     python studio/art.py pull                (download the library into studio/art/cache)
 
 Only works their museum releases as public domain / CC0, at full size:
-  met        The Metropolitan Museum of Art Open Access (isPublicDomain, primaryImage is the full-size file)
+  nga        The National Gallery of Art, Washington (open data on GitHub; open-access images over IIIF)
   cleveland  The Cleveland Museum of Art Open Access (share_license_status CC0, the "print" image, ~3400 px)
   aic        The Art Institute of Chicago (is_public_domain, IIIF at up to 3000 px)
 Each image is kept at up to 6000 px on its long side, uploaded to the GitHub release "art-library" and recorded in
@@ -19,7 +19,8 @@ import json, os, re, subprocess, sys, time, urllib.error, urllib.parse, urllib.r
 HERE = os.path.dirname(os.path.abspath(__file__)); DIR = os.path.join(HERE, 'art')
 INDEX = os.path.join(DIR, 'index.json'); QUERIES = os.path.join(DIR, 'queries.json'); CACHE = os.path.join(DIR, 'cache')
 REPO = os.environ.get('GITHUB_REPOSITORY', 'nickdotname/ugc-factory'); RELEASE = 'art-library'
-UA = {'User-Agent': 'CloseQuartersArt/1.0 (https://closequarters.vip) python-urllib/3'}
+UA = {'User-Agent': 'CloseQuartersArt/1.0 (https://closequarters.vip) python-urllib/3',
+      'AIC-User-Agent': 'CloseQuartersArt (https://closequarters.vip)'}   # the Art Institute asks callers to name themselves
 MIN_SIDE, MAX_SIDE, PER_QUERY = 2400, 6000, 4
 
 BLOCK = re.compile(r'nud|naked|venus|bath|susanna|leda\b|dana[eë]|bathsheba|nymph|odalisque|toilet|bacchan|satyr|cupid|'
@@ -101,7 +102,47 @@ def aic(q, n=PER_QUERY):
                    url='https://www.artic.edu/iiif/2/%s/full/3000,/0/default.jpg' % o['image_id'], alt='https://www.artic.edu/iiif/2/%s/full/1686,/0/default.jpg' % o['image_id'])
 
 
-SOURCES = {'met': met, 'cleveland': cleveland, 'aic': aic}
+_NGA = {}
+
+
+def _nga_tables():
+    """The National Gallery of Art's open data (CC0, on GitHub): objects and their published images, read once."""
+    import csv
+    if not _NGA:
+        base = 'https://raw.githubusercontent.com/NationalGalleryOfArt/opendata/main/data/'
+        for name in ('objects', 'published_images'):
+            path = os.path.join(DIR, 'nga_%s.csv' % name)
+            if not os.path.exists(path):
+                with open(path, 'wb') as f: f.write(_open(base + name + '.csv', raw=True))
+            csv.field_size_limit(10 ** 8)
+            with open(path, newline='', encoding='utf-8') as f: _NGA[name] = list(csv.DictReader(f))
+        _NGA['img'] = {}
+        for r in _NGA['published_images']:
+            if r.get('viewtype') == 'primary' and r.get('openaccess') == '1': _NGA['img'][r['depictstmsobjectid']] = r
+    return _NGA
+
+
+def nga(q, n=PER_QUERY):
+    """The National Gallery of Art, Washington: open-access images (public domain works, CC0) with the gallery's own
+    description of each picture, which is checked against the block list too."""
+    t = _nga_tables(); words = [w.lower() for w in q.split()]; got = 0
+    for o in t['objects']:
+        if got >= n: return
+        hay = ('%s %s' % (o.get('title'), o.get('attribution'))).lower()
+        if not all(w in hay for w in words): continue
+        if (o.get('classification') or '').lower() not in ('painting', 'print', 'drawing'): continue
+        img = t['img'].get(o['objectid']); key = 'nga:%s' % o['objectid']
+        if not img or key in SEEN or int(img.get('width') or 0) < MIN_SIDE and int(img.get('height') or 0) < MIN_SIDE: continue
+        if blocked('%s %s %s' % (o.get('title'), o.get('medium'), img.get('assistivetext'))): continue
+        got += 1
+        yield dict(key=key, title=o.get('title') or '', artist=o.get('attribution') or '', date=o.get('displaydate') or '',
+                   kind=(o.get('classification') or '').lower(), museum='National Gallery of Art', licence='CC0 (National Gallery of Art open access)',
+                   page='https://www.nga.gov/collection/art-object-page.%s.html' % o['objectid'], url=img['iiifurl'] + '/full/!5000,5000/0/default.jpg',
+                   alt=img['iiifurl'] + '/full/!3000,3000/0/default.jpg')
+
+
+# The Met's collection API answered 410 Gone from GitHub's runners in November 2026; it stays here for when it is back.
+SOURCES = {'nga': nga, 'cleveland': cleveland, 'aic': aic}
 SEEN = set()
 
 

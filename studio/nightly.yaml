@@ -36,12 +36,12 @@ targets:
     join: 40
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
-    per_night: 8
+    per_night: 4               # 8 until 2026-11-25: posts_per_day is 4 now
     join: 40
   # psy_station collage (studio/collage_video.py) dropped 2026-11-24: median 13 views over 3 posts, flat and samey.
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
-    per_night: 7
+    per_night: 4               # 7 until 2026-11-25: posts_per_day is 4 now
     join: 40
   - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
     style: type
