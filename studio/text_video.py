@@ -22,19 +22,33 @@ import knobs as K
 W, H, FPS = 1080, 1920, 30
 MAX_SEC = 11.0                          # a text post is read in a few seconds: the video is short so it loops
 BANK = os.path.join(HERE, 'notes', 'lines.txt'); RECIPES = os.path.join(REPO, 'campaigns', 'notes_app', 'recipes.json')
-FACES = {'round': ('Figtree.ttf', 800, 82, 1.20), 'tall': ('BarlowCondensed-Medium.ttf', None, 104, 1.12)}   # file, weight, size, line pitch
+PREFIX = 'n'            # line ids: n001, n002, ... (each voice's bank has its own letter)
+# Which looks, inks and faces a page uses, with weights. The voice wrappers (text_her_video.py, text_him_video.py) set
+# their own before running.
+LOOK_W = {'dusk': 3, 'lagoon': 2, 'orchid': 3, 'sunset': 3}
+INK_W = {'white': 3, 'black': 1}
+FACE_W = {'round': 3, 'tall': 1}
+FACES = {'round': ('Figtree.ttf', 800, 82, 1.20), 'tall': ('BarlowCondensed-Medium.ttf', None, 104, 1.12),
+         'strong': ('Montserrat-ExtraBold.ttf', None, 90, 1.18)}   # file, weight, size, line pitch
 # Gradients as a few soft blobs of colour: (x, y, colour), x and y in 0..1 of the frame.
 LOOKS = {'dusk': [(0.0, -0.05, (48, 132, 250)), (0.9, 0.25, (112, 70, 245)), (0.15, 0.6, (128, 60, 240)), (1.0, 0.8, (214, 44, 220)), (0.4, 1.1, (190, 60, 235))],
          'sunset': [(0.5, -0.1, (176, 30, 62)), (0.0, 0.3, (232, 62, 52)), (1.05, 0.5, (246, 206, 80)), (0.4, 0.62, (238, 122, 40)), (0.0, 1.0, (214, 60, 48)), (0.9, 1.05, (232, 110, 40))],
          'orchid': [(0.5, -0.1, (196, 110, 248)), (1.0, 0.15, (150, 44, 232)), (0.0, 0.42, (240, 142, 244)), (0.85, 0.75, (232, 54, 190)), (0.25, 1.1, (232, 50, 140))],
          'lagoon': [(0.1, -0.1, (40, 200, 190)), (1.0, 0.2, (60, 120, 240)), (0.0, 0.55, (70, 210, 160)), (0.9, 0.8, (90, 90, 235)), (0.3, 1.1, (40, 150, 220))]}
-BLACK_OK = {'sunset', 'lagoon'}         # black text only where the gradient is light enough to carry it
+LOOKS.update({
+    # the light rainbow wash text pages use: yellow top left, teal top right, orange through red, violet bottom right
+    'rainbow': [(0.0, -0.05, (240, 222, 80)), (1.05, 0.0, (70, 160, 210)), (0.55, 0.12, (150, 200, 110)), (0.1, 0.5, (240, 150, 50)),
+                (0.95, 0.55, (180, 120, 170)), (0.2, 0.95, (232, 60, 70)), (0.95, 1.05, (160, 70, 200))],
+    'citrus': [(0.3, -0.1, (232, 64, 72)), (0.0, 0.35, (236, 110, 52)), (1.05, 0.55, (246, 214, 92)), (0.45, 0.7, (238, 140, 56)), (0.2, 1.1, (232, 96, 48))],
+    'meadow': [(0.6, -0.1, (80, 160, 230)), (1.05, 0.3, (110, 180, 240)), (0.0, 0.45, (70, 190, 170)), (0.8, 0.8, (90, 200, 110)), (0.2, 1.1, (200, 200, 60))],
+})
+BLACK_OK = {'sunset', 'lagoon', 'rainbow', 'citrus', 'meadow'}         # black text only where the gradient is light enough to carry it
 
 
 def bank():
     """[(id, text)] in file order; ids are n001, n002, ... so they stay put as long as new lines go at the end."""
     blocks = open(BANK, encoding='utf-8').read().split('\n---\n')[1:]
-    return [('n%03d' % (k + 1), b.strip('\n')) for k, b in enumerate(blocks) if b.strip()]
+    return [('%s%03d' % (PREFIX, k + 1), b.strip('\n')) for k, b in enumerate(blocks) if b.strip()]
 
 
 def unused(lines):
@@ -75,10 +89,10 @@ class Video:
         r = random.Random(seed * 9973 + 5)
         lines = bank(); text = dict(lines)
         self.line = K.pick('line', unused(lines), r)
-        self.look = K.pick('look', sorted(LOOKS), r, weights=[3, 2, 3, 3])          # dusk, lagoon, orchid, sunset
-        self.ink = K.pick('ink', ['white', 'black'], r, weights=[3, 1])
+        looks = sorted(LOOK_W); self.look = K.pick('look', looks, r, weights=[LOOK_W[k] for k in looks])
+        inks = sorted(INK_W); self.ink = K.pick('ink', inks, r, weights=[INK_W[k] for k in inks])
         if self.ink == 'black' and self.look not in BLACK_OK: self.ink = 'white'; K.CHOSEN['ink'] = 'white'
-        self.face = K.pick('face', ['round', 'tall'], r, weights=[3, 1])
+        faces = sorted(FACE_W); self.face = K.pick('face', faces, r, weights=[FACE_W[k] for k in faces])
         self.text = text.get(self.line) or lines[0][1]
         a = audio.load(self.slug, t0, t1); self.n = a['n']
         self.kick = audio.hits(a['kicks'], self.n, 4.0); self.bass = np.convolve(a['bass'], np.ones(9) / 9, 'same')
@@ -150,8 +164,12 @@ class Video:
         json.dump(K.record(), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
 
-if __name__ == '__main__':
+def run():
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
     w = os.environ.get('CQ_WINDOW')
     t0, t1 = (float(x) for x in w.split(',')) if w else (30.0, 41.0)
     Video(song_dir, seed, t0, t1).render(out)
+
+
+if __name__ == '__main__':
+    run()
