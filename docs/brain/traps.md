@@ -116,3 +116,13 @@ every studio run failed with zero jobs until it became a block scalar.
 - **Connect link "App not active":** `display=page&prompt=login` sends Meta's dialog to business.facebook.com, which shows
   "App not active" for an unpublished app. `display=popup` on www.facebook.com works. New Instagram accounts are not in
   the asset picker until linked: use its "connect a pro account" link and sign in as that account.
+
+## A new campaign's queue.json must carry generated_at (2026-11-25)
+The five pages wired on 2026-11-25 were given `{"items": []}` as queue.json. `load_queue` refuses a queue without
+`generated_at` (on purpose: it never "recovers" a queue), so render and topup failed for them and nothing posted for
+a day. Start a new campaign with `{"generated_at": "1970-01-01T00:00:00Z", "items": []}`, or with no queue.json at all.
+
+## bpy segfaults on the runner without EGL/Mesa (2026-11-25)
+The low-poly page's Workbench renderer needs an OpenGL context. GitHub's runner has no libEGL/Mesa, so bpy crashed on
+the first frame ("Extension modules: ..." and exit 1). `studio.yml` installs libegl1, libgl1 and libgl1-mesa-dri
+before bpy.
