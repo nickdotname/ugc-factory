@@ -36,11 +36,13 @@ targets:
     join: 40
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
+    retire: {field: [marble, spiral, warp, oil]}     # 15-29 views vs tunnel 109, moire 79 (2026-11-25)
     per_night: 4               # 8 until 2026-11-25: posts_per_day is 4 now
     join: 40
   # psy_station collage (studio/collage_video.py) dropped 2026-11-24: median 13 views over 3 posts, flat and samey.
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
+    retire: {place: [school, pool]}                  # 2-3 views vs backrooms 138, mall 121 (2026-11-25)
     per_night: 4               # 7 until 2026-11-25: posts_per_day is 4 now
     join: 40
   - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
@@ -54,6 +56,7 @@ targets:
     join: 40
   - campaign: glitch_archive  # glitch.archive: public-domain footage, moshed / tracked / sorted on the beat (studio/footage.py for the clips)
     style: glitch
+    retire: {source: [water, nature]}                # 26-50 views vs space 83, mixed 78 (2026-11-25)
     per_night: 5
     join: 30
   - campaign: rocket_league  # rocket.league.lit: our Rocket League clips to the songs, straight or as montages (studio/rocket_lib.py for the clips)
@@ -86,6 +89,7 @@ targets:
     join: 30
   - campaign: nyc_daily     # nyc.daily.aesthetic: New York clips as memes and animated facts (studio/nyc_video.py)
     style: nyc
+    retire: {kind: [fact]}                           # fact 16 views vs meme 116 (2026-11-25)
     per_night: 5
     join: 30
   - campaign: tiny_code     # tiny.code.loops: a few lines of numpy shown in an editor, and what they draw (studio/tinycode_video.py)

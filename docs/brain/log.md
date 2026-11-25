@@ -186,3 +186,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: nightly never repeats an account's subject within 3 nights (repeats did median 61 views vs 119 fresh); with nothing fresh, the account posts fewer that night.
 - 2026-11-25: wired rubberhose.radio, zoom.into.art, situationship.notes, what.if.town (own tokens IG_TOKEN_7/8/9/11).
 - 2026-11-25: wired dining.hall.philosopher (notes_college, IG_TOKEN_10).
+- 2026-11-25: retire weak subjects by hand (nightly.yaml `retire:`): liminal school/pool, psy marble/spiral/warp/oil, glitch water/nature, nyc fact. Each did a fifth or less of the account's best subject.
