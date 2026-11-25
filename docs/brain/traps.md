@@ -107,3 +107,7 @@ it as the account's secret (accounts.yaml channel_id, else `cqconnect/slots.json
 are IG_TOKEN..IG_TOKEN_16, all passed by every workflow, so a new account never needs a workflow edit.
 Also: a YAML plain scalar may not contain ": " — `run: grep -q "style: lowpoly" ...` made studio.yml unreadable and
 every studio run failed with zero jobs until it became a block scalar.
+- **Tokens without anyone pasting:** `scripts/page_tokens.py` (in tokens.yml, weekly and twice a month) reads
+  `me/accounts` with IG_TOKEN and stores never-expiring Page tokens as `IG_PAGE_TOKENS` (JSON, IG id -> token).
+  The publisher prefers them. A Page token from a long-lived user token does not expire, and needs no app secret.
+  So any account linked to a Facebook Page is covered with no login; Instagram-login (Unified) accounts are not.
