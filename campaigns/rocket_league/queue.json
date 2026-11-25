@@ -197,18 +197,18 @@
         {
           "account": "rocket_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-25T11:15:00-05:00"
         }
       ],
       "captions": {
         "instagram": "flip reset, beat drop\n🎧 Talk – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
