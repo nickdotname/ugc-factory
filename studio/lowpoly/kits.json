@@ -1,0 +1,83 @@
+{
+ "blocky": {
+  "asset": "kit_blocky.zip",
+  "page": "https://opengameart.org/content/blocky-characters",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 109,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_blocky-characters_2.0.zip"
+  ]
+ },
+ "suburban": {
+  "asset": "kit_suburban.zip",
+  "page": "https://opengameart.org/content/city-kit-suburban",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 131,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_city-kit-suburban_2.0.zip"
+  ]
+ },
+ "commercial": {
+  "asset": "kit_commercial.zip",
+  "page": "https://opengameart.org/content/city-kit-commercial",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 132,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_city-kit-commercial_2.1.zip"
+  ]
+ },
+ "roads": {
+  "asset": "kit_roads.zip",
+  "page": "https://opengameart.org/content/city-kit-roads",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 292,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_city-kit-roads_2.2.zip"
+  ]
+ },
+ "furniture": {
+  "asset": "kit_furniture.zip",
+  "page": "https://opengameart.org/content/furniture-kit",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 724,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_furniturePack.zip"
+  ]
+ },
+ "cars": {
+  "asset": "kit_cars.zip",
+  "page": "https://opengameart.org/content/car-kit",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 154,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_car-kit_3.1.zip"
+  ]
+ },
+ "animated1": {
+  "asset": "kit_animated1.zip",
+  "page": "https://opengameart.org/content/animated-characters-1",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 10,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_animated-characters-1.zip"
+  ]
+ },
+ "animated2": {
+  "asset": "kit_animated2.zip",
+  "page": "https://opengameart.org/content/animated-characters-2",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 9,
+  "zips": [
+   "https://opengameart.org/sites/default/files/kenney_animated-characters-2.zip"
+  ]
+ },
+ "human": {
+  "asset": "kit_human.zip",
+  "page": "https://opengameart.org/content/animated-human-low-poly",
+  "licence": "CC0 1.0 (OpenGameArt page)",
+  "files": 10,
+  "zips": [
+   "https://opengameart.org/sites/default/files/Animated%20Human%20by%20%40Quaternius_0.zip"
+  ]
+ }
+}
