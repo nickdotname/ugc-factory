@@ -126,3 +126,8 @@ a day. Start a new campaign with `{"generated_at": "1970-01-01T00:00:00Z", "item
 The low-poly page's Workbench renderer needs an OpenGL context. GitHub's runner has no libEGL/Mesa, so bpy crashed on
 the first frame ("Extension modules: ..." and exit 1). `studio.yml` installs libegl1, libgl1 and libgl1-mesa-dri
 before bpy.
+
+## The clock's dispatch can get a 500 (2026-11-25)
+At 06:45 UTC GitHub answered the studio dispatch with HTTP 500, so no new videos were made that night and the
+accounts with small libraries (illusions, petri, cinema, races, notes) ran dry the next day. `publish.yml` now retries
+`gh workflow run` up to five times.
