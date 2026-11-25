@@ -58,7 +58,8 @@ jobs:
 
       # Blender as a Python module, only on nights that render the low-poly story page (it is a large download).
       - name: Install Blender (bpy)
-        run: grep -q "style: lowpoly" studio/nightly.yaml && pip install -q "bpy>=4.2,<5" || echo "no low-poly page tonight"
+        run: |
+          if grep -q "style: lowpoly" studio/nightly.yaml; then pip install -q "bpy>=4.2,<5"; else echo "no low-poly page tonight"; fi
 
       # Never allowed to stop the videos being made: it reports what it could not read and carries on.
       - name: Read the numbers
