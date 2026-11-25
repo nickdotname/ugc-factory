@@ -7,12 +7,26 @@
    ],
    "test": [
     "flashes",
-    "read"
+    "read",
+    "pause",
+    "cups",
+    "memory",
+    "count",
+    "beat"
    ],
    "sky": [
     "night",
     "dusk",
     "deep"
+   ],
+   "world": [
+    "city",
+    "forest",
+    "cave"
+   ],
+   "crt": [
+    "true",
+    "false"
    ]
   }
  },
@@ -189,6 +203,186 @@
     "other": 0.56
    },
    "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "full_ride",
+   "file": "full-ride_s02_tests8_974010.mp4",
+   "song": "full-ride",
+   "section": "s02",
+   "style": "tests8",
+   "seed": 974010,
+   "window": [
+    28.72,
+    51.91
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "tests8",
+    "test": "pause",
+    "world": "city",
+    "crt": "true",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.67,
+    "bass": 0.66,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s06_tests8_499300.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "tests8",
+   "seed": 499300,
+   "window": [
+    126.2,
+    148.99
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "tests8",
+    "test": "memory",
+    "world": "cave",
+    "crt": "true",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.65,
+    "bass": 0.6,
+    "other": 0.24
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s09_tests8_420665.mp4",
+   "song": "recess-rewind",
+   "section": "s09",
+   "style": "tests8",
+   "seed": 420665,
+   "window": [
+    138.54,
+    156.06
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "tests8",
+    "test": "count",
+    "world": "city",
+    "crt": "true",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.7,
+    "bass": 0.64,
+    "other": 0.78
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s09_tests8_951644.mp4",
+   "song": "evil-close-quarters",
+   "section": "s09",
+   "style": "tests8",
+   "seed": 951644,
+   "window": [
+    184.5,
+    206.47
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "tests8",
+    "test": "count",
+    "world": "city",
+    "crt": "true",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.66,
+    "bass": 0.8,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s01_tests8_199794.mp4",
+   "song": "passage-waiting",
+   "section": "s01",
+   "style": "tests8",
+   "seed": 199794,
+   "window": [
+    2.06,
+    21.18
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "tests8",
+    "test": "cups",
+    "world": "city",
+    "crt": "false",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.74,
+    "bass": 0.73,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s05_tests8_522613.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s05",
+   "style": "tests8",
+   "seed": 522613,
+   "window": [
+    130.4,
+    149.97
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "tests8",
+    "test": "memory",
+    "world": "cave",
+    "crt": "true",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.63,
+    "drums": 0.7,
+    "bass": 0.66,
+    "other": 0.38
+   },
+   "lyrics_proven": true,
    "clip": "hook_01.mp4"
   }
  ]
