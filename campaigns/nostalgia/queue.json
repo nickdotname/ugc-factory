@@ -303,18 +303,18 @@
         {
           "account": "nostalgia_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-26T11:55:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the hotel hallway on the family road trip\n🎧 Won't Be the Same Again – @close__quarters #liminalspaces #backrooms #nostalgia #vhs #2000s\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
