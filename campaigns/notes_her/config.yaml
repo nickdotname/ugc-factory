@@ -74,7 +74,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true                 # until its token (IG_TOKEN_6/6) is checked with ig-check
+  paused: false                # tokens checked with ig-check 2026-11-24
   dry_run: false
 
 video:
