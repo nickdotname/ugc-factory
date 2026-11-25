@@ -182,3 +182,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: connect link moved to connect.closequarters.vip; pickup never overwrites the shared IG_TOKEN.
 - 2026-11-25: IG_PAGE_TOKENS: never-expiring Page tokens minted from IG_TOKEN, preferred by the publisher.
 - 2026-11-25: top-up keeps an account's slots an hour apart across campaigns (no more 'overdue' from MIN_GAP holds).
+- 2026-11-25: connect: Business-login tokens never expire but cannot name their account; worker trusts the link's handle when the token can publish; scripts/ig_lookup.py finds the id.
