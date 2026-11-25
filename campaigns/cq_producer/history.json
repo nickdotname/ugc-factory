@@ -2037,6 +2037,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-25T22:18:41.332738Z",
+      "item_id": "e6ae5919-0541-41d3-a3fc-9583b740fb35",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "same bars, fewer parts\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "creative": "notta_problem",
+      "captions": {
+        "instagram": "same bars, fewer parts\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Notta Problem"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.272,
+        "anchor_y": 0.703,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

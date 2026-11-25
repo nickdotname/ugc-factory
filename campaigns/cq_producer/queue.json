@@ -1,55 +1,45 @@
 {
-  "generated_at": "2026-11-25T22:10:35.850064Z",
+  "generated_at": "2026-11-25T22:18:41.332738Z",
   "items": [
     {
-      "id": "d7e98f13-a177-4c71-8a66-22cabbe72f85",
+      "id": "e6ae5919-0541-41d3-a3fc-9583b740fb35",
       "scheduled_for": "2026-11-25T18:15:00-05:00",
-      "rendered_at": "2026-11-25T22:10:35.850064Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/d7e98f13-a177-4c71-8a66-22cabbe72f85.mp4",
-      "caption": "muting my own song to show what's in it\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "rendered_at": "2026-11-25T22:18:41.332738Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/e6ae5919-0541-41d3-a3fc-9583b740fb35.mp4",
+      "caption": "same bars, fewer parts\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_03.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.474,
-        "anchor_y": 0.423,
+        "anchor_x": 0.272,
+        "anchor_y": 0.703,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "prologue",
+      "creative": "notta_problem",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "this is Prologue: Before from EDUCATION (@close__quarters)",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-af70b24d-1277-4aca-a917-32412171eb69",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T18:15:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Notta Problem by @close__quarters, off our album EDUCATION. full album in bio",
+      "posts": [],
       "captions": {
-        "instagram": "muting my own song to show what's in it\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Prologue: Before: link in bio"
+        "instagram": "same bars, fewer parts\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
