@@ -1,6 +1,6 @@
 # Refresh the Instagram tokens before they run out (scripts/refresh_tokens.py) and write them back into the
 # secrets, so nobody has to press Generate token and paste again. Needs SECRETS_PAT (a fine-grained token for
-# this repository with only "Secrets: read and write"); META_APP_ID / META_APP_SECRET add the Facebook token.
+# this repository with only "Secrets: read and write"); META_APP_SECRET (the app's secret) lets it renew the Facebook-format ones.
 name: tokens
 
 on:
