@@ -49,6 +49,11 @@ HARD = re.compile(r'strip|burlesque|nud|naked|sex|venereal|nazi|hitler|racis|min
                   r'indian|native|schleiertanz|veil.?dance|florida enchantment', re.I)   # A Florida Enchantment (1914) has blackface scenes
 
 
+# Cartoons from before 1931 are public domain, but some of their characters are still live trademarks that their
+# owners defend (Disney's, Felix, Betty Boop, Popeye). The 'toons' theme leaves every film with one of them alone.
+TRADEMARK = re.compile(r'mickey|minnie|disney|oswald|felix|betty.?boop|popeye|silly.?symphon|pluto|goofy|donald|woody|bugs bunny|looney|merrie', re.I)
+
+
 def blocked(text, rule=None):
     """Whether the text holds a word the library never takes (rule: BLOCK, or HARD for a description)."""
     return bool((rule or BLOCK).search(SAFE.sub(' ', text or '')))
@@ -316,7 +321,7 @@ LOGO = re.compile(r'i heart|i love ny|\blogo|billboard|times square ad', re.I)  
 NOW = {'nyc_now'}        # themes of a place as it looks today: upright 720x1280 pieces in our own grade, short clips kept whole
 SOURCES = {'commons': commons, 'prelinger': prelinger, 'nasa': nasa, 'silent': silent, 'loc': loc, 'svs': svs, 'pexels': pexels}
 BY_THEME = {'space': ['nasa', 'svs', 'commons'], 'archive': ['prelinger'], 'city': ['commons', 'prelinger'], 'water': ['commons', 'prelinger'], 'nature': ['commons', 'nasa'],
-            'silent': ['silent', 'loc'], 'nyc': ['commons', 'prelinger', 'silent', 'loc'],
+            'silent': ['silent', 'loc'], 'toons': ['silent'], 'nyc': ['commons', 'prelinger', 'silent', 'loc'],
             'nyc_now': ['pexels']}       # Commons' no-credit files of today's New York are news clips (a 2026 protest, a street fair), not places
 # A clip of theme nyc must name a New York place in its title, and must not be news: "New York" queries on Commons
 # also return a Florida rail opening, steam engines, Russian films of 1909-1913 and a 2026 political protest.
@@ -457,6 +462,7 @@ def fetch(maximum):
                 if key in seen: continue
                 took += 1
                 if theme == 'nyc' and not fits(dict(theme=theme, title=title)): seen.add(key); SEEN.add(key); continue   # not New York, or news
+                if theme == 'toons' and TRADEMARK.search(title + ' ' + key): continue                                     # someone's live character
                 try: pieces = cut(url, dur, work, key, **({'now': True} if theme in NOW else {}))
                 except Later as exc: print('  later %s: %s' % (key, exc)); continue
                 except Exception as exc: print('  cut failed %s: %s' % (key, exc)); pieces = []
