@@ -51,7 +51,7 @@ accounts:
   names: [nickdotname_ig]
 
 posting:
-  posts_per_day: 3              # three studio lyric videos a day next to the meme clips (closequarters)
+  posts_per_day: 1              # type videos median ~20 since Nov 20; one a day while the account is checked (3 before)
   start_hour: 11
   end_hour: 23
   max_buffer_queue: 10

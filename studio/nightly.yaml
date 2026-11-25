@@ -12,7 +12,7 @@ first_fill_cap: 16
 targets:
   - campaign: cq_producer   # dylancantor23: stems + playhead + lyrics
     style: producer
-    per_night: 8
+    per_night: 3               # 8 until 2026-11-25: 8 a day from 3 visuals, median ~40; extra posts split the same audience
     join: 45                # glue neighbouring sections into videos up to this many seconds
   # close__quarters, 2026-11-24: the band's own dance footage is what has worked (two hand-posted dance videos: 169 and
   # 346 views, 5-6 s watched, 21 shares on one) and the desktop lyric videos have not (median 76 views, 2.9 s, n=27).
@@ -37,17 +37,17 @@ targets:
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
     retire: {field: [marble, spiral, warp, oil]}     # 15-29 views vs tunnel 109, moire 79 (2026-11-25)
-    per_night: 4               # 8 until 2026-11-25: posts_per_day is 4 now
+    per_night: 2               # 4 until 2026-11-25 (8 before): its fact reels beat the visualisers 3-4x; they carry the account now
     join: 40
   # psy_station collage (studio/collage_video.py) dropped 2026-11-24: median 13 views over 3 posts, flat and samey.
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
     retire: {place: [school, pool]}                  # 2-3 views vs backrooms 138, mall 121 (2026-11-25)
-    per_night: 4               # 7 until 2026-11-25: posts_per_day is 4 now
+    per_night: 2               # 4 until 2026-11-25 (7 before): fact reels (median 224) carry the account; tapes median ~40
     join: 40
   - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
     style: type
-    per_night: 4
+    per_night: 1               # 4 until 2026-11-25: type videos median ~20; one a day while the account is checked
     join: 40
     first_fill: 8
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
