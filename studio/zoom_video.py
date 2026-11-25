@@ -28,9 +28,11 @@ import knobs as K
 import art
 
 W, H, FPS = 1080, 1920, 30
+# Works seen on review and left out: sketch sheets with little to find, a closed book, a bathing scene.
+SKIP = {'cleveland:675346', 'cleveland:675347', 'cleveland:675348', 'cleveland:95343', 'cleveland:140492'}
 SAFE_TOP, SAFE_BOTTOM = 250, H - 420
 CY = 930                                      # where the picture's centre sits on screen at the start
-BOX_W, BOX_H = 940, 1180                      # the picture fits inside this at the start
+BOX_W, BOX_H = 1030, 1180                      # the picture fits inside this at the start
 
 
 def font(name, size):
@@ -86,7 +88,7 @@ class Video:
         r = random.Random(seed); self.r = r
         works = art.pull()
         if not works: sys.exit('the art library is empty: run the art workflow first')
-        by = {w['key']: w for w in works}                                         # the work is a knob: nightly.py's FRESH rule keeps it from repeating
+        by = {w['key']: w for w in works if w['key'] not in SKIP}                                         # the work is a knob: nightly.py's FRESH rule keeps it from repeating
         self.work = e = by.get(K.pick('work', sorted(by), r)) or r.choice(works)
         img = cv2.imread(os.path.join(art.CACHE, e['asset']), cv2.IMREAD_COLOR)
         self.ih, self.iw = img.shape[:2]
