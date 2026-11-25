@@ -100,7 +100,7 @@ export default {
       const u = (url.searchParams.get('u') || '').replace(/^@/, '').trim();
       const state = b64(new TextEncoder().encode(JSON.stringify({ u, n: crypto.randomUUID() })));
       const login = `https://www.facebook.com/v21.0/dialog/oauth?client_id=${APP_ID}&config_id=${CONFIG_ID}`
-        + `&redirect_uri=${encodeURIComponent(redirect)}&response_type=code&override_default_response_type=true`
+        + `&redirect_uri=${encodeURIComponent(redirect)}&response_type=code&override_default_response_type=true&display=page&prompt=login`
         + `&state=${encodeURIComponent(state)}`;
       if (url.searchParams.get('go') === '1') return Response.redirect(login, 302);
       return page(u ? `Connect @${esc(u)}` : 'Connect an Instagram account',
