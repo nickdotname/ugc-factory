@@ -166,6 +166,8 @@ def freshen(style, menu, kn, recent, learned, r, first=True):
     of a fresh one (median 61 vs 119, 2026-11-25). When every subject has been shown, the first video of the night
     takes the one shown longest ago; any further video that night is skipped (None): posting less beats repeating."""
     name = SUBJECT.get(style); opts = list(menu.get(name) or [])
+    gone = set((learned.get('retired') or {}).get('knob:' + (name or ''), ()))
+    opts = [o for o in opts if o not in gone] or opts      # a retired subject is not fresh either
     if not name or len(opts) < 2: return kn
     used = [v for v in recent if v in opts]
     fresh = [o for o in opts if o not in used]
@@ -312,7 +314,12 @@ for t in cfg['targets']:
             if past or suits(style, playing(lv, win)): cands.append((slug, cr, sid, win, sid in sure or sid in proven))
             else: print('   skip %s %s for %s: %s' % (slug, sid, style, playing(lv, win)))
         LV[slug] = lv
-    L = LEARNED.get(camp) or {}; W = L.get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
+    L = LEARNED.get(camp) or {}
+    if t.get('retire'):                                       # options ruled out by hand in nightly.yaml (retire: {knob: [options]})
+        ret = {k: list(v) for k, v in (L.get('retired') or {}).items()}
+        for knob, opts in t['retire'].items(): ret.setdefault('knob:' + knob, []).extend(opts)
+        L = dict(L, retired=ret)
+    W = L.get('weights', {}); wsong = W.get('song', {}); wsec = W.get('section', {})
     menu = (rec.get('menu') or {}).get(style) or {}            # every knob this style's renderer has offered so far
     # fewest videos first, but a song or section that gets watched counts as having fewer (so it gets more), and vice versa
     # ... and in the footage styles, where only a few songs have footage and every stretch is new, the song with the

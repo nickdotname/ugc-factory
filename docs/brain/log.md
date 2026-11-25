@@ -187,3 +187,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: wired rubberhose.radio, zoom.into.art, situationship.notes, what.if.town (own tokens IG_TOKEN_7/8/9/11).
 - 2026-11-25: wired dining.hall.philosopher (notes_college, IG_TOKEN_10).
 - 2026-11-25: volume fitted to the data: dylancantor23 8->3, psych 4->2 and nostalgia 4->2 (fact reels carry them), Loose Change type 3->1. Daily totals did not grow with posts.
+- 2026-11-25: retire weak subjects by hand (nightly.yaml `retire:`): liminal school/pool, psy marble/spiral/warp/oil, glitch water/nature, nyc fact. Each did a fifth or less of the account's best subject.
