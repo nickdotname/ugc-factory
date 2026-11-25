@@ -67,6 +67,16 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
 - **A song's stems can be shorter than its master** (four songs stop at 100 s). Anything reading stems past
   their end gets silence: use `beat.stretch`, which falls back to the master.
 
+- **Lyrics late at every line change (fixed 2026-11-24).** lyric_video, type and psy picked the line on screen as
+  the *first* line still within 0.25 s of its end (cursor: 0.5 s). Lines are mostly back to back, so the old line
+  held the screen and the new line's first word came up ~0.28 s late on 449 of 676 line changes. The latest line
+  that has started now wins.
+- **Stems cut at 100 s.** Four songs' stems stopped at 1:40 while the master ran on, so their lines.json after that
+  was evenly spaced guesses (end 99.99) on silence. Re-separated from the master with the same model (2_HP-UVR;
+  the first 100 s match the old stems at correlation 0.97–1.0, lag 0) and re-aligned.
+- **audio-separator and Whisper medium each want ~3 GB.** Run them one after another in a cloud session, never
+  together, or the memory cgroup kills one silently.
+
 ## apt hangs on the hosted runners
 
 `sudo apt-get install ffmpeg` sometimes sits for an hour with no output (seen on four jobs on 2026-11-24). The job

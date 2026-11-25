@@ -52,3 +52,14 @@ every fact sourced in the spec's `sources`; no dose amounts or sourcing informat
 - A `.json` beside each video records its knobs (and footage keys); nightly copies it into `recipes.json`.
 - A credit line `♪ title — close quarters` near the bottom, above Instagram's UI.
 - No engagement bait in on-screen text. Lyric styles show lyrics only where timing was verified.
+- **Lyric sync (2026-11-24, `studio/sync_check.py`).** Every renderer that shows lyrics reads them through
+  `sync_check.load_lines(song_dir[, own lines file])`, never `json.load('lines.json')`: a line whose sync is not
+  proven (line_conf < 0.5, its own words off their vocal onsets, or its section failing the gate) comes back with every
+  word at its first word's time, so it appears whole and never word by word; words past the end of the vocal stem are
+  dropped. nightly gives a lyric style only sections that pass both `min_confidence` and the sync gate, and sets
+  `CQ_LYRICS=none` for a picture style on any other stretch (vintage, lofi and cursor honour it too, own lines
+  included). When picking the line on screen, **the latest line that has started wins**: taking the first match let a
+  line lingering 0.25 s (cursor: 0.5 s) past its end hold back the next line, whose first word then showed ~0.28 s
+  late on two line changes in three. Words ink `LEAD` (40 ms, in lines.json) plus up to 30 ms (the renderer's
+  look-ahead) before they are sung; checked end to end on a muxed producer mp4 (ink within one frame of lines.json,
+  audio starting 4 ms from the window start, ink a median 59 ms before the vocal onset).
