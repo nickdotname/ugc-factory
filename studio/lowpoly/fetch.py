@@ -67,5 +67,24 @@ def main():
     old.update(kits); json.dump(old, open(os.path.join(HERE, 'kits.json'), 'w'), indent=1); print(len(old), 'kits')
 
 
+
+def pull():
+    """Unzip the kits from the release into studio/lowpoly/cache (once per runner). Without them the scenes use box houses."""
+    cache = os.path.join(HERE, 'cache'); os.makedirs(cache, exist_ok=True)
+    try: kits = json.load(open(os.path.join(HERE, 'kits.json')))
+    except (OSError, ValueError): return 0
+    n = 0
+    for name, k in kits.items():
+        dest = os.path.join(cache, name)
+        if os.path.isdir(dest): n += 1; continue
+        try:
+            rel = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, RELEASE)], capture_output=True, text=True, check=True).stdout)
+            aid = {a['name']: a['id'] for a in rel.get('assets', [])}[k['asset']]
+            data = subprocess.run(['gh', 'api', '-H', 'Accept: application/octet-stream', 'repos/%s/releases/assets/%d' % (REPO, aid)], capture_output=True, check=True).stdout
+            zipfile.ZipFile(io.BytesIO(data)).extractall(dest); n += 1
+        except Exception as exc: print('kit %s not pulled: %s' % (name, exc))
+    return n
+
+
 if __name__ == '__main__':
-    main()
+    pull() if sys.argv[1:] == ['pull'] else main()

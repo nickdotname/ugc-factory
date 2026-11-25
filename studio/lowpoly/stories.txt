@@ -1,0 +1,131 @@
+# Stories for the low-poly story page (studio/lowpoly_video.py). Ours, written here: short "what if" premises told in
+# big words, one or two at a time, on the beat, over a low-poly town (CC0 kits, studio/lowpoly/fetch.py).
+#
+# A story starts with "=== title". Each shot after it is one line: "@ SHOT [EFFECT] | words | words | ...".
+# Each "| words" chunk is one caption, shown on a beat; a shot lasts as many beats as it has chunks (2 at least).
+# SHOT is one of:
+#   walk   a character walks toward the camera down a street          face   close on a character's face
+#   town   high over the town                                          house  a house from the street
+#   room   inside a room (kitchen, bathroom or bedroom: say which)     crowd  a street full of people
+#   run    a character running away from the camera                    car    a car going by on a street
+# EFFECT (optional) is one of: grow, shrink, float, shake, spin, blast, many, night, old
+#   grow/shrink: the character changes size over the shot; float: rises off the ground; shake: the camera shakes
+#   on every beat; spin: the camera circles; blast: things fly away from the character; many: the shot fills with
+#   copies of the character; night: the sky goes dark.
+# Cheeky is fine, nothing explicit, no real people, no jokes about religion, race or bodies, no asks.
+
+=== burps
+@ walk | what if | every burp | was twice | as strong | as the last
+@ face | the first one | was nothing
+@ room kitchen shake | the fifth one | broke a plate
+@ town blast | by burp twenty | the neighbors | moved out
+@ town night blast | burp fifty | was heard | from space
+
+=== giant
+@ walk | what if | you grew | a foot taller | every time | you lied
+@ face grow | "i'm fine"
+@ house grow | "i'm almost there"
+@ town grow | "i'll start | monday"
+
+=== town in town
+@ house | in this town | everyone has | a town | in their house
+@ room bedroom many | and in that town | everyone has | a smaller town
+@ town spin | nobody knows | where it ends
+
+=== double
+@ walk | what if | every time | you said "bro" | a copy | of you appeared
+@ crowd many | by noon | there were | forty of you
+@ town many | by midnight | the city | was just you
+
+=== gravity
+@ walk | what if | gravity | turned off | every time | the beat dropped
+@ face float | wait for it
+@ town float | everybody | up
+@ crowd float | rent is due | on the moon
+
+=== snooze
+@ room bedroom | what if | every snooze | aged you | one year
+@ face | 7:00 | snooze
+@ face grow | 7:09 | snooze
+@ room bedroom old | 7:45 | grandpa
+
+=== group chat
+@ walk | what if | everyone could | read your | group chat
+@ crowd | the cashier | knows
+@ face shake | your ex | knows
+@ town blast | your mom | knows
+
+=== left on read
+@ walk | what if | every unread | text | slowed you down
+@ run shrink | 3 unread | still moving
+@ face | 40 unread | frozen
+@ town night | 900 unread | a statue
+
+=== volume
+@ room kitchen | what if | your thoughts | played out loud | at full volume
+@ crowd shake | at the store
+@ face | on a date
+@ town blast | at the | job interview
+
+=== no sleep
+@ walk | what if | you got | one superpower | for every hour | you didn't sleep
+@ face float | 1am | floating
+@ run | 4am | super speed
+@ town night spin | 6am | you can | see sounds
+
+=== landlord
+@ house | what if | your rent | went up | every time | you sneezed
+@ face shake | achoo
+@ house shake | achoo | achoo
+@ town night | you now owe | the bank | a kidney
+
+=== car
+@ car | what if | your car | got faster | the louder | the song
+@ car shake | turn it up
+@ town blast | turn it | all the way up
+
+=== crush
+@ walk | what if | you shrunk | every time | your crush | looked at you
+@ face shrink | hi
+@ crowd shrink | they waved
+@ town shrink | they said | your name
+
+=== gym
+@ walk | what if | every rep | at the gym | made you | twice as tall
+@ face grow | rep one
+@ house grow | rep five
+@ town grow | rep ten | the gym | is your shoe
+
+=== thermostat
+@ room kitchen | what if | every time | someone touched | the thermostat | it snowed
+@ face shake | dad
+@ town night | everybody | touched it
+
+=== npc
+@ crowd | what if | you found out | everyone else | was an npc
+@ face | they all | say the same | three lines
+@ crowd many | "nice weather | today"
+@ town spin | you were | the main | character
+
+=== wifi
+@ house | what if | you could only | use wifi | while dancing
+@ room bedroom shake | homework
+@ crowd shake | the whole | street dancing
+@ town night spin | nobody | has slept | in weeks
+
+=== ex
+@ walk | what if | your ex | appeared | every time | you said their name
+@ face | you said it | once
+@ crowd many | you said it | in your sleep
+@ town many | the city | is full
+
+=== monday
+@ town | what if | monday | only came | if you | believed in it
+@ face | everyone | stopped believing
+@ town night spin | it has been | sunday | for three years
+
+=== tiny
+@ room kitchen | what if | every snack | made you | an inch | smaller
+@ face shrink | one chip
+@ room kitchen shrink | the whole bag
+@ house shrink | you live | in the bag | now
