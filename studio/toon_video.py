@@ -19,7 +19,7 @@ What makes it an edit rather than an old print (each a knob, studio/knobs.py):
            of our own at the top, or none
 The film's title and year sit small at the bottom as a credit; the song credit under it.
 """
-import json, os, random, subprocess, sys
+import json, os, random, re, subprocess, sys
 import numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
 
@@ -34,6 +34,8 @@ W, H, FPS = 1080, 1920, 30
 SAFE_TOP, SAFE_BOTTOM = 250, H - 420
 POP = [(255, 92, 170), (70, 170, 255), (255, 214, 40), (120, 230, 150), (255, 130, 60), (180, 120, 255)]
 WASHES = ['bw', 'cream', 'pop', 'ink']
+SKIP = re.compile(r'accordion.?joe|fiddlesticks', re.I)   # seen on review: a channel watermark burned in; a Mickey look-alike at the piano
+EDGE = 0.06                                       # trimmed off every side: a corner watermark or a frame line goes with it
 HOOKS = [line.strip() for line in open(os.path.join(HERE, 'toons', 'hooks.txt')) if line.strip() and not line.startswith('#')]
 
 
@@ -61,9 +63,9 @@ class Video:
         self.punch = K.pick('punch', ['kick', 'cut'], r, weights=[3, 2])
         self.stutter = K.pick('stutter', ['on', 'off'], r)
         self.wash = K.pick('wash', WASHES, r, weights=[2, 3, 3, 2])
-        self.frame_k = K.pick('frame', ['full', 'tv'], r, weights=[3, 2])
+        self.frame_k = K.pick('frame', ['fit', 'tv', 'full'], r, weights=[4, 2, 1])
         lib = [e for e in footage.pull(('toons',)) if not footage.BLOCK.search('%s %s' % (e.get('title', ''), e.get('key', '')))
-               and not footage.TRADEMARK.search('%s %s' % (e.get('title', ''), e.get('key', '')))]
+               and footage.fits(e) and not SKIP.search(e.get('key', ''))]
         if len(lib) < 3: sys.exit('the toons library has fewer than 3 clips: run the footage workflow first')
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 7.0)
@@ -113,8 +115,10 @@ class Video:
             elif i in self.snares and i - self.cuts[self.cut_index(i)] > 3: self.held = i - 2; self.hold_left = 2; src = self.held
         k = self.cut_index(i); since = i - self.cuts[k]
         if self.frame_k == 'tv': pw, ph = W - 140, H - 800
+        elif self.frame_k == 'fit': pw, ph = W, int(W * 3 / 4) + 120
         else: pw, ph = W, H
-        g, *_x = self.plan.picture(src, pw, ph)
+        g, *_x = self.plan.picture(src, int(pw * (1 + 2 * EDGE)), int(ph * (1 + 2 * EDGE)))
+        ey, ex = int(ph * EDGE), int(pw * EDGE); g = g[ey:ey + ph, ex:ex + pw]
         lo, hi = np.percentile(g[::5, ::5], 2), np.percentile(g[::5, ::5], 98)
         g = np.clip((g - lo) / max(0.2, hi - lo), 0, 1)
         z = 1.0
@@ -124,9 +128,14 @@ class Video:
         self.shake = self.shake * 0.5 + (rng.normal(0, 9, 2).astype(np.float32) * float(self.kick[i]) if self.kick[i] > 0.5 else 0)
         M = cv2.getRotationMatrix2D((pw / 2, ph / 2), float(self.shake[0]) * 0.08, z); M[:, 2] += self.shake
         g = cv2.warpAffine(g, M, (pw, ph), borderMode=cv2.BORDER_REFLECT)
-        g = np.clip(g + self.grain[i % 6] * 0.035, 0, 1)
+        g = np.clip(g + self.grain[i % 6][:ph, :pw] * 0.035, 0, 1)
         img = self.colour(g, k)
         if since == 0 and k: img = img * 0.55 + 115                                 # a flash on the cut
+        if self.frame_k == 'fit':                                                 # the whole frame across, the same frame blurred behind
+            bg = cv2.GaussianBlur(cv2.resize(img, (W // 6, H // 6)), (0, 0), 4)
+            canvas = cv2.resize(bg, (W, H)) * 0.42
+            y0 = 960 - ph // 2; canvas[y0:y0 + ph] = img
+            img = canvas
         if self.frame_k == 'tv':
             c = np.array(POP[k % len(POP)] if self.wash == 'pop' else (40, 32, 26), np.float32)
             canvas = np.zeros((H, W, 3), np.float32) + c * 0.25

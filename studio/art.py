@@ -26,7 +26,7 @@ BLOCK = re.compile(r'nud|naked|venus|bath|susanna|leda\b|dana[eë]|bathsheba|nym
                    r'eros\b|psyche|lucretia|cleopatra|judith|holofernes|salome|martyr|crucifi|flagellat|lament|pieta|pietà|'
                    r'entomb|deposition|massacre|execution|behead|torture|murder|rape|abduct|battle|war\b|siege|slaughter|'
                    r'corpse|death|dead|dying|wound|hunt|harem|slave|blackamoor|caricature|erotic|shunga|lovers|seduc|'
-                   r'kiss|embrace|breast|courtesan|brothel|bordello|toilette|abuse', re.I)
+                   r'kiss|embrace|breast|courtesan|brothel|bordello|toilette|abuse|tender|romance|dirty|yoshiwara|fight|sacrific|prisoner|smok', re.I)
 
 
 def _open(url, raw=False, tries=4):
