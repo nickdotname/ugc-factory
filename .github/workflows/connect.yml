@@ -59,3 +59,8 @@ jobs:
           CONNECT_PRIVATE_KEY: ${{ secrets.CONNECT_PRIVATE_KEY }}
           SECRETS_PAT: ${{ secrets.SECRETS_PAT }}
         run: python scripts/connect_pickup.py
+      - name: Instagram ids of the accounts waiting to be wired
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python scripts/ig_lookup.py
