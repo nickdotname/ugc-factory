@@ -2260,8 +2260,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-761440f6-a1b6-455f-8891-53494a3f98ae",
+      "post_ids": {
+        "psychedelic_station_ig": "igo-761440f6-a1b6-455f-8891-53494a3f98ae"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
