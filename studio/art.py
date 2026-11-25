@@ -68,7 +68,7 @@ def met(q, n=PER_QUERY):
         if blocked('%s %s %s %s' % (o.get('title'), tags, o.get('objectName'), o.get('classification'))): continue
         got += 1
         yield dict(key=key, title=o.get('title') or '', artist=o.get('artistDisplayName') or '', date=o.get('objectDate') or '',
-                   museum='The Met', licence='Public Domain (The Met Open Access, CC0)', page=o.get('objectURL') or '', url=o['primaryImage'])
+                   kind=(o.get('classification') or o.get('objectName') or '').lower(), museum='The Met', licence='Public Domain (The Met Open Access, CC0)', page=o.get('objectURL') or '', url=o['primaryImage'])
 
 
 def cleveland(q, n=PER_QUERY):
@@ -83,7 +83,7 @@ def cleveland(q, n=PER_QUERY):
         got += 1
         who = ((o.get('creators') or [{}])[0] or {}).get('description') or ''
         yield dict(key=key, title=o.get('title') or '', artist=re.sub(r'\s*\(.*$', '', who), date=o.get('creation_date') or '',
-                   museum='The Cleveland Museum of Art', licence='CC0 (Cleveland Museum of Art Open Access)', page=o.get('url') or '', url=img)
+                   kind=(o.get('type') or '').lower(), museum='The Cleveland Museum of Art', licence='CC0 (Cleveland Museum of Art Open Access)', page=o.get('url') or '', url=img)
 
 
 def aic(q, n=PER_QUERY):
@@ -97,7 +97,7 @@ def aic(q, n=PER_QUERY):
         if blocked('%s %s %s %s' % (o.get('title'), o.get('classification_title'), ' '.join(o.get('subject_titles') or []), ' '.join(o.get('term_titles') or []))): continue
         got += 1
         yield dict(key=key, title=o.get('title') or '', artist=o.get('artist_title') or '', date=o.get('date_display') or '',
-                   museum='The Art Institute of Chicago', licence='CC0 (Art Institute of Chicago)', page='https://www.artic.edu/artworks/%s' % o['id'],
+                   kind=(o.get('classification_title') or '').lower(), museum='The Art Institute of Chicago', licence='CC0 (Art Institute of Chicago)', page='https://www.artic.edu/artworks/%s' % o['id'],
                    url='https://www.artic.edu/iiif/2/%s/full/3000,/0/default.jpg' % o['image_id'], alt='https://www.artic.edu/iiif/2/%s/full/1686,/0/default.jpg' % o['image_id'])
 
 
