@@ -250,9 +250,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-4f77fd02-80a8-4a6c-8739-8334e1d60f1d",
           "last_error": null,
           "scheduled_for": "2026-11-25T20:33:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "built from the song's own hits, so the answer is exact\n🎧 Evil Close Quarters – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
