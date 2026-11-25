@@ -6,7 +6,7 @@
       "sent_at": "2026-11-24T18:08:03.581737Z",
       "metrics": [],
       "account": "tests8_ig",
-      "fetched_at": "2026-11-25T18:52:01.815651Z"
+      "fetched_at": "2026-11-25T21:59:19.854915Z"
     },
     "igo-47bbe9c3-df66-4bba-ad4a-6f8ed99883de": {
       "post_id": "igo-47bbe9c3-df66-4bba-ad4a-6f8ed99883de",
@@ -14,7 +14,7 @@
       "sent_at": "2026-11-25T13:37:34.679380Z",
       "metrics": [],
       "account": "tests8_ig",
-      "fetched_at": "2026-11-25T18:52:01.815651Z"
+      "fetched_at": "2026-11-25T21:59:19.854915Z"
     },
     "igo-a1f66ede-5caf-46f3-bf23-e01594e472b4": {
       "post_id": "igo-a1f66ede-5caf-46f3-bf23-e01594e472b4",
@@ -22,7 +22,15 @@
       "sent_at": "2026-11-25T16:38:00.177245Z",
       "metrics": [],
       "account": "tests8_ig",
-      "fetched_at": "2026-11-25T18:52:01.815651Z"
+      "fetched_at": "2026-11-25T21:59:19.854915Z"
+    },
+    "igo-f5bfbc1b-6898-47f1-8e70-775858edf6d8": {
+      "post_id": "igo-f5bfbc1b-6898-47f1-8e70-775858edf6d8",
+      "service": "instagram",
+      "sent_at": "2026-11-25T19:36:39.310041Z",
+      "metrics": [],
+      "account": "tests8_ig",
+      "fetched_at": "2026-11-25T21:59:19.854915Z"
     }
   }
 }
