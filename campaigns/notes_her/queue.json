@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-25T03:25:59.221882Z",
+  "generated_at": "2026-11-25T08:31:59.749990Z",
   "items": [
     {
-      "id": "2475b8cf-934f-4b83-90e4-e38844419cff",
+      "id": "c831934f-fe47-4689-bc50-39f4ce3a5e9c",
       "scheduled_for": "2026-11-25T08:44:00-05:00",
-      "rendered_at": "2026-11-25T03:25:59.221882Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-25/2475b8cf-934f-4b83-90e4-e38844419cff.mp4",
-      "caption": "say less\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode",
+      "rendered_at": "2026-11-25T08:31:59.749990Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-25/c831934f-fe47-4689-bc50-39f4ce3a5e9c.mp4",
+      "caption": "it's giving\n🎧 Fixation – @close__quarters #relatable #girlhumor #createmode",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,252 +16,30 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.472,
-        "anchor_y": 0.701,
+        "anchor_x": 0.356,
+        "anchor_y": 0.272,
         "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "epilogue_dismissal",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Epilogue: Dismissal by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-cd99d1e7-d3b3-4849-91e9-a573476eab68",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T08:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "say less\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Epilogue: Dismissal"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "c0646884-87ad-4c0a-8b46-33ca05805bcb",
-      "scheduled_for": "2026-11-25T11:44:00-05:00",
-      "rendered_at": "2026-11-25T03:25:59.221882Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-25/c0646884-87ad-4c0a-8b46-33ca05805bcb.mp4",
-      "caption": "she's not wrong\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.556,
-        "anchor_y": 0.409,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "prologue",
+      "creative": "fixation",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-9eb0c91d-894a-4ffd-88fb-9936f82e5956",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T11:44:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Fixation – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "she's not wrong\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode\n\nstream Prologue: Before: link in bio"
+        "instagram": "it's giving\n🎧 Fixation – @close__quarters #relatable #girlhumor #createmode\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "4fa54a40-495d-4dd2-99f1-b8e8481c09d7",
-      "scheduled_for": "2026-11-25T14:44:00-05:00",
-      "rendered_at": "2026-11-25T03:25:59.221882Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-25/4fa54a40-495d-4dd2-99f1-b8e8481c09d7.mp4",
-      "caption": "literally me\n🎧 Evil Close Quarters – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.336,
-        "anchor_y": 0.587,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "evil_close_quarters",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-6801b4d2-9e66-47cf-a078-32ed1a6de7b0",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T14:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "literally me\n🎧 Evil Close Quarters – @close__quarters #relatable #girlhumor #createmode\n\nEvil Close Quarters is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "efd67c9a-e9b7-430c-8d09-37ba5a086f90",
-      "scheduled_for": "2026-11-25T17:44:00-05:00",
-      "rendered_at": "2026-11-25T03:25:59.221882Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-25/efd67c9a-e9b7-430c-8d09-37ba5a086f90.mp4",
-      "caption": "not me\n🎧 Notta Problem – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.474,
-        "anchor_y": 0.638,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "notta_problem",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Notta Problem by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-064f41fc-d9f6-43ab-aa4e-99982b4d71aa",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T17:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "not me\n🎧 Notta Problem – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Notta Problem"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "88991830-2d01-4d11-a5f9-ff8b873c9bcd",
-      "scheduled_for": "2026-11-25T20:44:00-05:00",
-      "rendered_at": "2026-11-25T03:25:59.221882Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-25/88991830-2d01-4d11-a5f9-ff8b873c9bcd.mp4",
-      "caption": "we've all been there\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.517,
-        "anchor_y": 0.548,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "subway_maintenance",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-e5d8bcb5-d77e-4c79-88c4-8195a81dcc5d",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T20:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "we've all been there\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode\n\nstream Subway Maintenance: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
