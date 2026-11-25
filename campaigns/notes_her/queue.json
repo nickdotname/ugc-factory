@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Epilogue: Dismissal by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-25T08:44:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "say less\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Epilogue: Dismissal"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "she's not wrong\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode\n\nstream Prologue: Before: link in bio"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "literally me\n🎧 Evil Close Quarters – @close__quarters #relatable #girlhumor #createmode\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
@@ -163,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Notta Problem by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "not me\n🎧 Notta Problem – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Notta Problem"
       },
@@ -206,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "we've all been there\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode\n\nstream Subway Maintenance: link in bio"
       },
