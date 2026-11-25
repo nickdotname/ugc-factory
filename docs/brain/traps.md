@@ -98,3 +98,12 @@ features). Added; their tokens had to be generated again to carry it. Those toke
 Reels, carousels and fact reels are queued by separate jobs, so one account sometimes posted twice within minutes.
 77 posts went out under 45 minutes after the account's previous one; their median was 72 views against 89 for the
 rest. `publish_due` now holds a post while its account's last publish is under `MIN_GAP` (60 min) old.
+
+## Tokens without pasting: "Connect Instagram" (2026-11-25)
+`closequarters.vip/connect?u=<handle>` (Cloudflare Worker `cq-connect`, code in `cqconnect/worker.js`) runs the app's
+Unified login. The token it gets back is made long-lived, checked against the handle, encrypted to
+`cqconnect/public.pem` and held in KV; `connect.yml` (every 15 min) decrypts it with `CONNECT_PRIVATE_KEY` and saves
+it as the account's secret (accounts.yaml channel_id, else `cqconnect/slots.json`). Nobody sees a token. Token slots
+are IG_TOKEN..IG_TOKEN_16, all passed by every workflow, so a new account never needs a workflow edit.
+Also: a YAML plain scalar may not contain ": " — `run: grep -q "style: lowpoly" ...` made studio.yml unreadable and
+every studio run failed with zero jobs until it became a block scalar.

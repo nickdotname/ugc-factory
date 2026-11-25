@@ -663,7 +663,7 @@ BUFFER_KEY_SLOTS: tuple[str, ...] = (
 #: token slots the workflows pass through.
 INSTAGRAM_TOKEN_SLOTS: tuple[str, ...] = (
     "IG_TOKEN",
-    *(f"IG_TOKEN_{n}" for n in range(2, 9)),
+    *(f"IG_TOKEN_{n}" for n in range(2, 17)),
 )
 
 
