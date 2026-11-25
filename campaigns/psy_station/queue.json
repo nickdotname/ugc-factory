@@ -462,9 +462,9 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-0b16d6e3-4942-4315-9cd8-3e008bb30a46",
           "last_error": null,
           "scheduled_for": "2026-11-25T12:50:00-05:00"
         }
@@ -473,7 +473,7 @@
         "instagram": "every pulse is a kick drum\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

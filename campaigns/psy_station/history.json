@@ -1972,8 +1972,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-0b16d6e3-4942-4315-9cd8-3e008bb30a46",
+      "post_ids": {
+        "psychedelic_station_ig": "igo-0b16d6e3-4942-4315-9cd8-3e008bb30a46"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
