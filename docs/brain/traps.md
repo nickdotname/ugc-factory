@@ -83,3 +83,6 @@ Back to [[README]]. The older Clubs-era traps are in `CONTEXT.md` §7 and `HANDO
 shows "Install ffmpeg: in progress" and nothing else. Cancelling and re-running always worked. Workflows now call
 `bash scripts/apt_install.sh <packages>`, which gives each try a few minutes and retries three times. If a job is
 stuck on any other step for more than ten minutes, cancel it and dispatch it again; the jobs are safe to re-run.
+
+## The same text-page line twice (2026-11-24)
+Videos of one night render in parallel before recipes.json is written, so a renderer that avoids reuse by reading recipes cannot see the other videos of the same night. Choose no-repeat subjects in `nightly.py` (see `fresh_line`), not in the renderer.

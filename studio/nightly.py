@@ -134,6 +134,25 @@ SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field'
            'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line'}
 FRESH = 0.6
 
+# Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that
+# (videos of one night render side by side, before any of them is in recipes.json; 2026-11-24 moth.ate.my.notes
+# posted the same line twice), so the line is chosen here, off everything already posted AND everything picked tonight.
+BANKED = {'notes': ('lines.txt', 'n'), 'notes_her': ('her.txt', 'h'), 'notes_him': ('him.txt', 'm')}   # bank file, id letter
+
+
+def fresh_line(style, recent, r):
+    name, pre = BANKED[style]
+    blocks = open(os.path.join(HERE, 'notes', name), encoding='utf-8').read().split('\n---\n')[1:]
+    ids = ['%s%03d' % (pre, k + 1) for k, b in enumerate(blocks) if b.strip()]   # the same ids text_video.bank() gives
+    used = [x for x in recent if x]
+    left = [i for i in ids if i not in used]
+    if not left:                                                # every line out once: the longest-unused half again
+        last = {i: k for k, i in enumerate(used)}
+        left = sorted(ids, key=lambda i: last.get(i, -1))[:max(1, len(ids) // 2)]
+        left = [i for i in left if i not in recent[-len(ids) // 2:]] or left
+    return r.choice(left)
+
+
 def freshen(style, menu, kn, recent, learned, r):
     """kn with its subject knob moved off anything the account showed in its last few videos (recent, oldest first)."""
     name = SUBJECT.get(style); opts = list(menu.get(name) or [])
@@ -307,6 +326,7 @@ for t in cfg['targets']:
         sub = SUBJECT.get(style)
         recent = [(e.get('knobs') or {}).get(sub) for e in rec.get('nightly', []) if e.get('style') == style] + tonight
         kn = freshen(style, menu, kn, recent, L, random.Random(seed + 2))
+        if style in BANKED: kn = dict(kn, **{sub: fresh_line(style, recent, random.Random(seed + 3))})
         if sub in kn: tonight.append(kn[sub])
         if SET: kn, how = dict(kn, **SET), 'set'                  # a run asked for a particular look (a new format to see now)
         cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
