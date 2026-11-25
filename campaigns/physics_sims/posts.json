@@ -67,7 +67,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-89824dde-6666-487a-9fba-dda61666742d": {
       "post_id": "igo-89824dde-6666-487a-9fba-dda61666742d",
@@ -136,7 +136,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-ca0423fa-41af-4cc0-9091-972ebae00b96": {
       "post_id": "igo-ca0423fa-41af-4cc0-9091-972ebae00b96",
@@ -205,7 +205,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-4c1de3a1-88ba-47a7-9be9-839cabeaf78d": {
       "post_id": "igo-4c1de3a1-88ba-47a7-9be9-839cabeaf78d",
@@ -274,7 +274,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-94b32ef7-b296-430f-823f-c51de760b2c9": {
       "post_id": "igo-94b32ef7-b296-430f-823f-c51de760b2c9",
@@ -343,7 +343,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-cbb42a83-23d7-4be8-828e-ff78adcf72bd": {
       "post_id": "igo-cbb42a83-23d7-4be8-828e-ff78adcf72bd",
@@ -412,7 +412,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-d7d7f5cb-5327-4946-beb0-3be93b8ba2d4": {
       "post_id": "igo-d7d7f5cb-5327-4946-beb0-3be93b8ba2d4",
@@ -422,13 +422,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 955.0,
+          "value": 1045.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 763.0,
+          "value": 834.0,
           "unit": "count"
         },
         {
@@ -458,19 +458,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.689,
+          "value": 5.671,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 71.68776666666668,
+          "value": 77.88455,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 48.2,
+          "value": 48.4,
           "unit": "count"
         },
         {
@@ -481,7 +481,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-55bf2834-d67a-4831-8170-d31febeed36a": {
       "post_id": "igo-55bf2834-d67a-4831-8170-d31febeed36a",
@@ -550,7 +550,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-411f583d-0808-4a7d-bc66-04ca827699bc": {
       "post_id": "igo-411f583d-0808-4a7d-bc66-04ca827699bc",
@@ -560,7 +560,76 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 217.0,
+          "value": 220.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 130.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.84,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 12.460733333333334,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 32.8,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "physics_ig",
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
+    },
+    "igo-b2d6c3a3-66d4-42ec-a4c4-fb3a950b5848": {
+      "post_id": "igo-b2d6c3a3-66d4-42ec-a4c4-fb3a950b5848",
+      "service": "instagram",
+      "sent_at": "2026-11-24T19:26:32.864735Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 203.0,
           "unit": "count"
         },
         {
@@ -596,19 +665,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.783,
+          "value": 5.868,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 12.241750000000001,
+          "value": 12.716033333333334,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 33.1,
+          "value": 33.8,
           "unit": "count"
         },
         {
@@ -619,76 +688,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
-    },
-    "igo-b2d6c3a3-66d4-42ec-a4c4-fb3a950b5848": {
-      "post_id": "igo-b2d6c3a3-66d4-42ec-a4c4-fb3a950b5848",
-      "service": "instagram",
-      "sent_at": "2026-11-24T19:26:32.864735Z",
-      "metrics": [
-        {
-          "type": "views",
-          "name": "Views",
-          "value": 200.0,
-          "unit": "count"
-        },
-        {
-          "type": "reach",
-          "name": "Reach",
-          "value": 128.0,
-          "unit": "count"
-        },
-        {
-          "type": "reactions",
-          "name": "Reactions",
-          "value": 1.0,
-          "unit": "count"
-        },
-        {
-          "type": "comments",
-          "name": "Comments",
-          "value": 1.0,
-          "unit": "count"
-        },
-        {
-          "type": "shares",
-          "name": "Shares",
-          "value": 0.0,
-          "unit": "count"
-        },
-        {
-          "type": "saves",
-          "name": "Saves",
-          "value": 0.0,
-          "unit": "count"
-        },
-        {
-          "type": "averageTimeWatched",
-          "name": "Avg. Watch Time (sec)",
-          "value": 5.888,
-          "unit": "count"
-        },
-        {
-          "type": "totalTimeWatched",
-          "name": "Watch Time (min)",
-          "value": 12.561150000000001,
-          "unit": "count"
-        },
-        {
-          "type": "skipRate",
-          "name": "Skip Rate (%)",
-          "value": 34.4,
-          "unit": "count"
-        },
-        {
-          "type": "reposts",
-          "name": "Reposts",
-          "value": 0.0,
-          "unit": "count"
-        }
-      ],
-      "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-9559fb10-d6b8-476d-bf91-97b86cd898fb": {
       "post_id": "igo-9559fb10-d6b8-476d-bf91-97b86cd898fb",
@@ -698,13 +698,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 352.0,
+          "value": 385.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 252.0,
+          "value": 287.0,
           "unit": "count"
         },
         {
@@ -734,19 +734,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.261,
+          "value": 4.265,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 17.75505,
+          "value": 20.121000000000002,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 61.6,
+          "value": 62.2,
           "unit": "count"
         },
         {
@@ -757,7 +757,7 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     },
     "igo-9a674230-d46c-43c1-b5ea-cbeffae33930": {
       "post_id": "igo-9a674230-d46c-43c1-b5ea-cbeffae33930",
@@ -767,13 +767,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 121.0,
+          "value": 122.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 111.0,
+          "value": 112.0,
           "unit": "count"
         },
         {
@@ -803,19 +803,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.735,
+          "value": 5.708,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 10.514916666666668,
+          "value": 10.6553,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 44.1,
+          "value": 44.6,
           "unit": "count"
         },
         {
@@ -826,7 +826,145 @@
         }
       ],
       "account": "physics_ig",
-      "fetched_at": "2026-11-25T00:48:48.897897Z"
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
+    },
+    "igo-44ef3417-6b8c-488f-b767-a252fd6a5714": {
+      "post_id": "igo-44ef3417-6b8c-488f-b767-a252fd6a5714",
+      "service": "instagram",
+      "sent_at": "2026-11-25T01:26:27.138456Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 123.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 109.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 10.120000000000001,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 18.0486,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 17.8,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "physics_ig",
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
+    },
+    "igo-2c1a1c80-ac50-4f47-9cd7-2fe9c22ed4d9": {
+      "post_id": "igo-2c1a1c80-ac50-4f47-9cd7-2fe9c22ed4d9",
+      "service": "instagram",
+      "sent_at": "2026-11-25T01:06:27.313227Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 113.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 105.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 5.279,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 9.151916666666667,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 61.5,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "physics_ig",
+      "fetched_at": "2026-11-25T03:49:33.440255Z"
     }
   }
 }
