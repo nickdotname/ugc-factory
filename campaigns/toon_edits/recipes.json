@@ -1,1 +1,100 @@
-{}
+{
+ "menu": {
+  "toon": {
+   "pace": [
+    "beat",
+    "beat2"
+   ],
+   "punch": [
+    "kick",
+    "cut"
+   ],
+   "stutter": [
+    "on",
+    "off"
+   ],
+   "wash": [
+    "bw",
+    "cream",
+    "pop",
+    "ink"
+   ],
+   "frame": [
+    "fit",
+    "tv",
+    "full"
+   ],
+   "caption": [
+    "words",
+    "hook",
+    "none"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-25",
+   "creative": "notta_problem",
+   "file": "notta-problem_s02_toon_151949.mp4",
+   "song": "notta-problem",
+   "section": "s02",
+   "style": "toon",
+   "seed": 151949,
+   "window": [
+    47.66,
+    67.67
+   ],
+   "plan": null,
+   "knobs": {
+    "pace": "beat",
+    "punch": "cut",
+    "stutter": "off",
+    "wash": "cream",
+    "frame": "tv",
+    "caption": "none",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.71,
+    "bass": 0.28,
+    "other": 0.38
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s05_toon_441524.mp4",
+   "song": "evil-close-quarters",
+   "section": "s05",
+   "style": "toon",
+   "seed": 441524,
+   "window": [
+    103.41,
+    118.22
+   ],
+   "plan": null,
+   "knobs": {
+    "pace": "beat2",
+    "punch": "kick",
+    "stutter": "on",
+    "wash": "pop",
+    "frame": "full",
+    "caption": "hook",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.63,
+    "bass": 0.78,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
