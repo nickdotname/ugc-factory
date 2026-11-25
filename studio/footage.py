@@ -332,9 +332,21 @@ NYC_NOT = re.compile(r'protest|rally|demonstrat|march\b|riot|visit|parade|fair\b
                      r'football|baseball|nfl|nba|concert|festival|sunrail|locomotive', re.I)
 
 
+# A toons clip must be one cartoon from 1930 or before: compilations and "collections" run past 1930 (Krazy Kat
+# 1929-1938) or gather later, still-copyrighted films; remixes and memes ("Sigmaboat willy") are someone's new work;
+# subtitled copies carry a modern translation; instructional films are not cartoons.
+TOON_NOT = re.compile(r'collection|compil|\b(19[0-9]{2})\s*[-–]\s*(19[0-9]{2})\b|\b\d+\s+\S*.?themed|golden.?age|sigma|meme|\bedit\b|remix|'
+                      r'subtit|how to use|dial phone|best of|top \d+|\d{2,} cartoons', re.I)
+
+
 def fits(e):
-    """Whether an index entry belongs in its theme (only nyc has a rule: a New York place, not news). Our own clips always do."""
-    if e.get('source') == 'own' or e.get('theme') != 'nyc': return True
+    """Whether an index entry belongs in its theme (nyc: a New York place, not news; toons: one cartoon, nobody's live
+    trademark, no compilation or remix). Our own clips always do."""
+    if e.get('source') == 'own': return True
+    if e.get('theme') == 'toons':
+        t = '%s %s' % (e.get('title', ''), e.get('key', ''))
+        return not TRADEMARK.search(t) and not TOON_NOT.search(t)
+    if e.get('theme') != 'nyc': return True
     t = e.get('title', '')
     return bool(NYC_WORDS.search(t)) and not NYC_NOT.search(t)
 
@@ -462,7 +474,7 @@ def fetch(maximum):
                 if key in seen: continue
                 took += 1
                 if theme == 'nyc' and not fits(dict(theme=theme, title=title)): seen.add(key); SEEN.add(key); continue   # not New York, or news
-                if theme == 'toons' and TRADEMARK.search(title + ' ' + key): continue                                     # someone's live character
+                if theme == 'toons' and not fits(dict(theme=theme, title=title, key=key)): continue                       # a live character, a compilation, a remix
                 try: pieces = cut(url, dur, work, key, **({'now': True} if theme in NOW else {}))
                 except Later as exc: print('  later %s: %s' % (key, exc)); continue
                 except Exception as exc: print('  cut failed %s: %s' % (key, exc)); pieces = []

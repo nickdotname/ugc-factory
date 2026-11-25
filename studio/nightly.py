@@ -92,6 +92,10 @@ VISUAL['tests8'] = 'tests8_video.py'   # 8bit.tests: pixel-art tests you take al
 VISUAL['notes'] = 'text_video.py'      # moth.ate.my.notes: one thought on a gradient, like a text post
 VISUAL['notes_her'] = 'text_her_video.py'   # crying.in.trader.joes: the same card in a girl's voice
 VISUAL['notes_him'] = 'text_him_video.py'   # grip.tape.thoughts: the same card in a skater guy's voice
+VISUAL['notes_date'] = 'text_date_video.py'       # situationship page: the same card, talking stages and mixed signals
+VISUAL['notes_college'] = 'text_college_video.py' # broke-college-kid page: the same card, dorms, deadlines and the dining hall
+VISUAL['toon'] = 'toon_video.py'       # rubber-hose page: cartoons from before 1931 cut as a modern edit (footage theme toons)
+VISUAL['zoom'] = 'zoom_video.py'       # museum-zoom page: a public-domain painting, then a dive into one detail on the drop (studio/art.py)
 
 def lofi_cover(slug, win):
     """How much of a stretch the band's dance footage covers (0..1)."""
@@ -133,13 +137,13 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line'}
 FRESH = 0.6
 
 # Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that
 # (videos of one night render side by side, before any of them is in recipes.json; 2026-11-24 moth.ate.my.notes
 # posted the same line twice), so the line is chosen here, off everything already posted AND everything picked tonight.
-BANKED = {'notes': ('lines.txt', 'n'), 'notes_her': ('her.txt', 'h'), 'notes_him': ('him.txt', 'm')}   # bank file, id letter
+BANKED = {'notes': ('lines.txt', 'n'), 'notes_her': ('her.txt', 'h'), 'notes_him': ('him.txt', 'm'), 'notes_date': ('date.txt', 'd'), 'notes_college': ('college.txt', 'c')}   # bank file, id letter
 
 
 def fresh_line(style, recent, r):
