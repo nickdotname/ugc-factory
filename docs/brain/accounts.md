@@ -55,5 +55,5 @@ Each campaign's `brand/profile.jpg` is the account picture; the dashboard shows 
 - @zoom.into.art: museum_zoom (zoom), IG_TOKEN_8
 - @situationship.notes: notes_date (notes_date), IG_TOKEN_9
 - @what.if.town: lowpoly_stories (lowpoly), IG_TOKEN_11
-- @dining.hall.philosopher: notes_college (IG_TOKEN_10), wired once its token is in
+- @dining.hall.philosopher: notes_college (notes_college), IG_TOKEN_10
 New accounts post 2 a day for their first week.

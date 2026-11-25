@@ -136,6 +136,10 @@ targets:
     style: lowpoly
     per_night: 2
     join: 12
+  - campaign: notes_college     # @dining.hall.philosopher
+    style: notes_college
+    per_night: 2
+    join: 12
   - campaign: notes_him     # grip.tape.thoughts: skater guy's-voice text page (studio/text_him_video.py)
     style: notes_him
     per_night: 5

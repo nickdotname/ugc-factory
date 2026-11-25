@@ -185,3 +185,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: connect: Business-login tokens never expire but cannot name their account; worker trusts the link's handle when the token can publish; scripts/ig_lookup.py finds the id.
 - 2026-11-25: nightly never repeats an account's subject within 3 nights (repeats did median 61 views vs 119 fresh); with nothing fresh, the account posts fewer that night.
 - 2026-11-25: wired rubberhose.radio, zoom.into.art, situationship.notes, what.if.town (own tokens IG_TOKEN_7/8/9/11).
+- 2026-11-25: wired dining.hall.philosopher (notes_college, IG_TOKEN_10).
