@@ -74,7 +74,7 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 
 **hour posted**
 - 21:00: weight 1.07 — 4 posts, 103 views, 5.3s watched, 0 shares+saves per 1,000 views
-- 18:00: weight 1.07 — 2 posts, 227 views, 4.3s watched, 4 shares+saves per 1,000 views
+- 18:00: weight 1.06 — 2 posts, 227 views, 4.3s watched, 4 shares+saves per 1,000 views
 - 13:00: weight 1.05 — 2 posts, 71 views, 5.5s watched, 0 shares+saves per 1,000 views
 - 17:00: weight 1.03 — 1 post, 118 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 10:00: weight 0.99 — 2 posts, 78 views, 4.1s watched, 0 shares+saves per 1,000 views
@@ -264,7 +264,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:punch**
 - 0.05: weight 1.05 — 7 posts, 105 views, 3.2s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.01 — 3 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
+- 0.035: weight 0.98 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **knob:scan**
 - false: weight 1.03 — 5 posts, 74 views, 2.9s watched, 3 shares+saves per 1,000 views
@@ -417,7 +417,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:punch**
 - 0.05: weight 1.05 — 7 posts, 105 views, 3.2s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.01 — 3 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
+- 0.035: weight 0.98 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **knob:scan**
 - false: weight 1.03 — 5 posts, 74 views, 2.9s watched, 3 shares+saves per 1,000 views
@@ -570,7 +570,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:punch**
 - 0.05: weight 1.05 — 7 posts, 105 views, 3.2s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.01 — 3 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
+- 0.035: weight 0.98 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **knob:scan**
 - false: weight 1.03 — 5 posts, 74 views, 2.9s watched, 3 shares+saves per 1,000 views
@@ -723,7 +723,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:punch**
 - 0.05: weight 1.05 — 7 posts, 105 views, 3.2s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.01 — 3 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
+- 0.035: weight 0.98 — 3 posts, 90 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **knob:scan**
 - false: weight 1.03 — 5 posts, 74 views, 2.9s watched, 3 shares+saves per 1,000 views
@@ -1489,7 +1489,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **knob:palette**
 - ember: weight 1.08 — 2 posts, 153 views, 5.7s watched, 10 shares+saves per 1,000 views
-- paper: weight 1.07 — 2 posts, 176 views, 7.1s watched, 8 shares+saves per 1,000 views
+- paper: weight 1.06 — 2 posts, 176 views, 7.1s watched, 8 shares+saves per 1,000 views
 - blueprint: weight 0.94 — 2 posts, 133 views, 5.9s watched, 7 shares+saves per 1,000 views
 - night: weight 0.91 — 1 post, 127 views, 5.2s watched, 0 shares+saves per 1,000 views
 
@@ -1859,6 +1859,14 @@ No posts with numbers yet.
 No posts with numbers yet.
 
 ## notes_app
+
+No posts with numbers yet.
+
+## notes_her
+
+No posts with numbers yet.
+
+## notes_him
 
 No posts with numbers yet.
 
