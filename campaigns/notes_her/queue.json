@@ -197,9 +197,9 @@
         {
           "account": "her_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-064f41fc-d9f6-43ab-aa4e-99982b4d71aa",
           "last_error": null,
           "scheduled_for": "2026-11-25T17:44:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "not me\n🎧 Notta Problem – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
