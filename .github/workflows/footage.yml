@@ -41,6 +41,7 @@ jobs:
       - name: Fetch and cut
         env:
           GH_TOKEN: ${{ github.token }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}     # free key from pexels.com/api; without it nyc_now finds nothing
         run: python studio/footage.py fetch --max "${{ github.event.inputs.max || '40' }}"
       - name: Keep the index
         run: |

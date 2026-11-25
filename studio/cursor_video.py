@@ -48,8 +48,9 @@ SONG = json.load(open(os.path.join(SONG_DIR, 'song.json'))) if SONG_DIR else {}
 BEATS = np.array(SONG.get('beat_times') or [0.0])
 MASTER = next((os.path.join(SONG_DIR, 'master' + e) for e in ('.ogg', '.flac', '.wav') if os.path.exists(os.path.join(SONG_DIR, 'master' + e))), '')
 _OWN = os.path.join(HERE, 'lofi', 'lines', SLUG + '.json'); _LP = _OWN if os.path.exists(_OWN) else os.path.join(SONG_DIR, 'lines.json')
-LINES = json.load(open(_LP)) if SONG_DIR and os.path.exists(_LP) else []
-SHOW_LYRICS = (os.environ.get('CQ_LYRICS') != 'none' or _LP == _OWN) and bool(LINES)
+import sync_check                                   # lines whose sync is not proven come whole, never word by word
+LINES = [[e, [list(x) for x in ws]] for e, ws in sync_check.load_lines(SONG_DIR, _OWN if _LP == _OWN else None)] if SONG_DIR and os.path.exists(_LP) else []
+SHOW_LYRICS = os.environ.get('CQ_LYRICS') != 'none' and bool(LINES)     # nightly says none where the words do not measure as in sync (own lines too)
 TITLE = SONG.get('title', SLUG)
 
 def kick(T):
@@ -187,7 +188,7 @@ def world_stairs(T, t, st):
     speed = 0.35 * st['drift']; step_h, step_d, wid = 0.32, 0.7, 3.2
     climb = t * speed; cam = Cam((0, 1.1 + climb * step_h / step_d, -5.5 + climb), pitch=-0.3)
     first = int(climb) - 2
-    line = next((' '.join(w for w, _ in ws) for e, ws in LINES if ws[0][1] <= T < e + 0.5), TITLE) if SHOW_LYRICS else TITLE
+    line = ([' '.join(w for w, _ in ws) for e, ws in LINES if ws[0][1] <= T < e + 0.5] or [TITLE])[-1] if SHOW_LYRICS else TITLE   # the latest line wins
     wall = tex(('wall', line), lambda: text_strip(line))
     strip = np.rot90(wall).copy()
     for side in (-1, 1):                                      # the song's lines run up the walls

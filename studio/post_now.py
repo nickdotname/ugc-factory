@@ -13,6 +13,7 @@ import argparse, datetime, glob, json, os, random, subprocess, sys, tempfile, uu
 import yaml
 
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
+sys.path.insert(0, HERE); import sync_check as _sync   # lyrics only on sections whose words measure as in sync
 STYLE = {'cq_band': 'band', 'cq_producer': 'producer'}
 ap = argparse.ArgumentParser(); ap.add_argument('--campaign', required=True); ap.add_argument('--faces', default='1')
 ap.add_argument('--song', default=''); ap.add_argument('--seed', type=int, default=0); ap.add_argument('--no-post', action='store_true'); a = ap.parse_args()
@@ -29,9 +30,9 @@ cands = []
 for sd in sorted(glob.glob(os.path.join(HERE, 'songs', '*'))):
     slug = os.path.basename(sd); cr = slug.replace('-', '_')
     if cr not in creatives or (a.song and a.song not in (slug, cr)) or not os.path.exists(os.path.join(sd, 'song.json')): continue
-    song = json.load(open(os.path.join(sd, 'song.json')))
+    song = json.load(open(os.path.join(sd, 'song.json'))); sync = _sync.sections_ok(sd)
     for sec in song.get('sections', []):
-        if sec.get('confidence', 0) >= 0.8 and sec['end'] - sec['start'] >= 10: cands.append((sd, slug, cr, song, sec))
+        if sec.get('confidence', 0) >= 0.8 and sync.get(sec['id']) and sec['end'] - sec['start'] >= 10: cands.append((sd, slug, cr, song, sec))
 if not cands: sys.exit('no proven stretch to use')
 sd, slug, cr, song, sec = rng.choice(cands)
 t0 = sec['start']; t1 = round(min(sec['end'], t0 + rng.uniform(12, 18)), 2)

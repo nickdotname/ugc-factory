@@ -97,7 +97,7 @@ class Video:
             self.lut = np.zeros(0x3000, np.int32)
             for c, k in self.idx.items(): self.lut[ord(c)] = k
         self.label = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
-        lines = json.load(open(os.path.join(song_dir, 'lines.json'))) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
+        lines = __import__('sync_check').load_lines(song_dir) if lyrics and os.path.exists(os.path.join(song_dir, 'lines.json')) else []
         self.lines = [l for l in lines if l[1][0][1] < t1 and l[0] > t0]
         self.fs = ImageFont.truetype(MONO, 20); self.fh = ImageFont.truetype(MONO, 21); self.fc = ImageFont.truetype(MONO, 22); self.fl = ImageFont.truetype(MONO, 34)
         code = self.SC.CODE.split('\n'); self.code_n = len(code); self.lh = 33
