@@ -1,5 +1,312 @@
 {
-  "clips": {},
-  "menu": {},
-  "nightly": []
+ "clips": {},
+ "menu": {
+  "notes_him": {
+   "line": [
+    "m001",
+    "m002",
+    "m003",
+    "m004",
+    "m005",
+    "m006",
+    "m007",
+    "m008",
+    "m009",
+    "m010",
+    "m011",
+    "m012",
+    "m013",
+    "m014",
+    "m015",
+    "m016",
+    "m017",
+    "m018",
+    "m019",
+    "m020",
+    "m021",
+    "m022",
+    "m023",
+    "m024",
+    "m025",
+    "m026",
+    "m027",
+    "m028",
+    "m029",
+    "m030",
+    "m031",
+    "m032",
+    "m033",
+    "m034",
+    "m035",
+    "m036",
+    "m037",
+    "m038",
+    "m039",
+    "m040",
+    "m041",
+    "m042",
+    "m043",
+    "m044",
+    "m045",
+    "m046",
+    "m047",
+    "m048",
+    "m049",
+    "m050",
+    "m051",
+    "m052",
+    "m053",
+    "m054",
+    "m055",
+    "m056",
+    "m057",
+    "m058",
+    "m059",
+    "m060",
+    "m061",
+    "m062",
+    "m063",
+    "m064",
+    "m065",
+    "m066",
+    "m067",
+    "m068",
+    "m069",
+    "m070",
+    "m071",
+    "m072",
+    "m073",
+    "m074",
+    "m075",
+    "m076",
+    "m077",
+    "m078",
+    "m079",
+    "m080",
+    "m081",
+    "m082",
+    "m083",
+    "m084",
+    "m085",
+    "m086",
+    "m087",
+    "m088",
+    "m089",
+    "m090",
+    "m091",
+    "m092",
+    "m093",
+    "m094",
+    "m095",
+    "m096",
+    "m097",
+    "m098",
+    "m099",
+    "m100",
+    "m101",
+    "m102",
+    "m103",
+    "m104",
+    "m105",
+    "m106"
+   ],
+   "look": [
+    "citrus",
+    "dusk",
+    "meadow",
+    "rainbow",
+    "sunset"
+   ],
+   "ink": [
+    "black",
+    "white"
+   ],
+   "face": [
+    "round",
+    "strong"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-25",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s03_notes_him_487890.mp4",
+   "song": "silver-and-gold",
+   "section": "s03",
+   "style": "notes_him",
+   "seed": 487890,
+   "window": [
+    80.65,
+    91.21
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m020",
+    "look": "sunset",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.79,
+    "bass": 0.75,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s06_notes_him_713778.mp4",
+   "song": "suspended",
+   "section": "s06",
+   "style": "notes_him",
+   "seed": 713778,
+   "window": [
+    108.16,
+    159.25
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m076",
+    "look": "citrus",
+    "ink": "white",
+    "face": "strong",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.1,
+    "drums": 0.46,
+    "bass": 0.38,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s02_notes_him_72221.mp4",
+   "song": "recess-rewind",
+   "section": "s02",
+   "style": "notes_him",
+   "seed": 72221,
+   "window": [
+    17.83,
+    35.57
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m054",
+    "look": "meadow",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.53,
+    "bass": 0.65,
+    "other": 0.66
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "talk",
+   "file": "talk_s02_notes_him_532344.mp4",
+   "song": "talk",
+   "section": "s02",
+   "style": "notes_him",
+   "seed": 532344,
+   "window": [
+    53.05,
+    58.95
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m066",
+    "look": "meadow",
+    "ink": "black",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.89,
+    "drums": 0.87,
+    "bass": 0.81,
+    "other": 0.38
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s03_notes_him_750768.mp4",
+   "song": "subway-maintenance",
+   "section": "s03",
+   "style": "notes_him",
+   "seed": 750768,
+   "window": [
+    65.62,
+    85.59
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m027",
+    "look": "citrus",
+    "ink": "white",
+    "face": "strong",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.75,
+    "bass": 0.32,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s07_notes_him_163634.mp4",
+   "song": "evil-close-quarters",
+   "section": "s07",
+   "style": "notes_him",
+   "seed": 163634,
+   "window": [
+    152.95,
+    161.84
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m035",
+    "look": "meadow",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.92,
+    "drums": 0.72,
+    "bass": 0.65,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
 }
