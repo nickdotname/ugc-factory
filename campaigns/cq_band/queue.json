@@ -38,18 +38,18 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-26T18:35:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the album is called EDUCATION for a reason\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -193,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Notta Problem is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "first listen? wait for the chorus\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Notta Problem"
       },
@@ -236,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Hair of the Dog, from EDUCATION. the whole album is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "read it like a note passed in class\nHair of the Dog – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Hair of the Dog: link in bio"
       },
@@ -279,7 +299,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "EDUCATION is out now. Won't Be the Same Again is just one of them, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "lyrics first, questions later\nWon't Be the Same Again – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
@@ -322,7 +352,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Silver and Gold is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the line at the end is the one\nSilver and Gold – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Silver and Gold"
       },
@@ -365,7 +405,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Prologue: Before, from EDUCATION. the whole album is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "this one's better at night\nPrologue: Before – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Prologue: Before: link in bio"
       },
