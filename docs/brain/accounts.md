@@ -49,3 +49,11 @@ same token. Full steps: [[add-account]].
 
 Each campaign's `brand/profile.jpg` is the account picture; the dashboard shows each account's live picture
 (fetched daily with business_discovery). Bios link to the band.
+
+## Added 2026-11-25 (own tokens from connect.closequarters.vip, Business login; never expire)
+- @rubberhose.radio: toon_edits (toon), IG_TOKEN_7
+- @zoom.into.art: museum_zoom (zoom), IG_TOKEN_8
+- @situationship.notes: notes_date (notes_date), IG_TOKEN_9
+- @what.if.town: lowpoly_stories (lowpoly), IG_TOKEN_11
+- @dining.hall.philosopher: notes_college (IG_TOKEN_10), wired once its token is in
+New accounts post 2 a day for their first week.

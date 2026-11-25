@@ -414,3 +414,43 @@ accounts:
     trial_reels: false
     trial_graduation: SS_PERFORMANCE
     title_strategy: derive
+
+  # @rubberhose.radio: 1930 cartoons cut on the beat (studio/toon_video.py; footage theme toons). Its own token (IG_TOKEN_7, from connect.closequarters.vip; never expires).
+  - name: toon_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN_7
+    channel_id: "17841465424467444"
+    post_type: reel
+    title_strategy: derive
+
+  # @zoom.into.art: a public-domain painting, then a dive into one detail on the drop (studio/zoom_video.py; studio/art.py). Its own token (IG_TOKEN_8, from connect.closequarters.vip; never expires).
+  - name: zoom_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN_8
+    channel_id: "17841412150686933"
+    post_type: reel
+    title_strategy: derive
+
+  # @situationship.notes: situationship text page (studio/text_date_video.py; studio/notes/date.txt). Its own token (IG_TOKEN_9, from connect.closequarters.vip; never expires).
+  - name: date_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN_9
+    channel_id: "17841480776357296"
+    post_type: reel
+    title_strategy: derive
+
+  # @what.if.town: "what if" stories in big words over a blocky low-poly town (studio/lowpoly_video.py; Blender). Its own token (IG_TOKEN_11, from connect.closequarters.vip; never expires).
+  - name: lowpoly_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN_11
+    channel_id: "17841466172284190"
+    post_type: reel
+    title_strategy: derive

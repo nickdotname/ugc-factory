@@ -47,6 +47,10 @@ ACCOUNTS = {
     'notes_ig': ('17841472459232759', 'moth.ate.my.notes'),
     'her_ig': ('17841467209821848', 'crying.in.trader.joes'),
     'him_ig': ('17841410524775171', 'grip.tape.thoughts'),
+    'lowpoly_ig': ('17841466172284190', 'what.if.town'),
+    'date_ig': ('17841480776357296', 'situationship.notes'),
+    'zoom_ig': ('17841412150686933', 'zoom.into.art'),
+    'toon_ig': ('17841465424467444', 'rubberhose.radio'),
 }
 TOKENS = {'races_ig': 'IG_TOKEN_2', 'tests8_ig': 'IG_TOKEN_3', 'notes_ig': 'IG_TOKEN_4', 'her_ig': 'IG_TOKEN_6', 'him_ig': 'IG_TOKEN_5'}     # accounts with no Facebook Page have a token of their own; the rest share IG_TOKEN
 OURS = {u for _, u in ACCOUNTS.values()} | {'the.loose.change'}

@@ -120,6 +120,22 @@ targets:
     style: notes_her
     per_night: 5
     join: 12
+  - campaign: toon_edits     # @rubberhose.radio
+    style: toon
+    per_night: 2
+    join: 12
+  - campaign: museum_zoom     # @zoom.into.art
+    style: zoom
+    per_night: 2
+    join: 12
+  - campaign: notes_date     # @situationship.notes
+    style: notes_date
+    per_night: 2
+    join: 12
+  - campaign: lowpoly_stories     # @what.if.town
+    style: lowpoly
+    per_night: 2
+    join: 12
   - campaign: notes_him     # grip.tape.thoughts: skater guy's-voice text page (studio/text_him_video.py)
     style: notes_him
     per_night: 5
