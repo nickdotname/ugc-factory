@@ -62,7 +62,7 @@ accounts:
   names: [psychedelic_station_ig]
 
 posting:
-  posts_per_day: 8               # visualiser reels; 1 carousel and 4 fact reels a day are posted on top (2026-11-24)
+  posts_per_day: 4               # visualiser reels; 1 carousel and up to 4 fact reels a day on top. Was 8 until 2026-11-25: the three accounts posting most (psych ~14/day, nostalgia ~10, loose change ~7) had the lowest medians, and the fact reels beat the visualisers (83 vs ~45)
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10
