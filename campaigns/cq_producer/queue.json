@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "this is Prologue: Before from EDUCATION (@close__quarters)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T18:15:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "muting my own song to show what's in it\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -236,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Full Ride – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "what one stem of Full Ride sounds like by itself\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nFull Ride is out now. link in bio to stream it"
       },
@@ -279,7 +299,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Won't Be the Same Again by @close__quarters, off our album EDUCATION. full album in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "Won't Be the Same Again, one part at a time\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Won't Be the Same Again"
       },
@@ -322,7 +352,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "this is Notta Problem from EDUCATION (@close__quarters)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the moment it all plays together\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Notta Problem: link in bio"
       },
@@ -365,7 +405,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Won't Be the Same Again – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "solo one track. then everything plays\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
