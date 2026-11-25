@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       job:
-        description: "pickup, or keys (only once: new keys make waiting tokens unreadable)"
+        description: "pickup, profiles (every account: picture, bio, link), or keys (only once: new keys make waiting tokens unreadable)"
         default: "pickup"
   schedule:
     - cron: "7,22,37,52 * * * *"
@@ -64,3 +64,18 @@ jobs:
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
         run: python scripts/ig_lookup.py
+
+  profiles:
+    if: github.event.inputs.job == 'profiles'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q PyYAML
+      - name: Every account's public profile
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python scripts/ig_lookup.py --profiles
