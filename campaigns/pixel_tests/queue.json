@@ -197,9 +197,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-670738a8-66b2-4f77-b0fe-a56d5499dd7e",
           "last_error": null,
           "scheduled_for": "2026-11-25T17:33:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "try it before you read the comments\n🎧 Passage (Waiting) – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nPassage (Waiting) is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
