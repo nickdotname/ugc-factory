@@ -34,7 +34,8 @@ OFF = SONG['offset_sec']            # master_time = beat * SPB + OFF
 PROJECT = SONG.get('project', SONG['slug'])
 MUSIC_ROWS = SONG.get('arrangement_rows', [])
 STEMS_START = SONG.get('stems_start_sec', 0.0)
-LINES = [(e, [(w, t) for w, t in ws]) for e, ws in json.load(open(os.path.join(SONG_DIR, 'lines.json')))]
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sync_check
+LINES = sync_check.load_lines(SONG_DIR)          # lines whose sync is not proven come whole, never word by word
 stem_path = lambda name: next((os.path.join(SONG_DIR, 'stems', name + e) for e in ('.flac', '.ogg') if os.path.exists(os.path.join(SONG_DIR, 'stems', name + e))), os.path.join(SONG_DIR, 'stems', name + '.flac'))
 
 
@@ -160,9 +161,12 @@ def button(d, x0, y0, x1, y1, text):
 
 
 def line_at(T):
+    # The latest line that has started wins. Taking the first match let a line lingering 0.25 s past its end hold back
+    # the next one, whose first word then came up ~0.28 s late on two lines in three (they start where the last ends).
+    hit = None
     for k, (e, ws) in enumerate(LINES):
-        if ws[0][1] - 0.05 <= T < e + 0.25: return k
-    return None
+        if ws[0][1] - 0.05 <= T < e + 0.25: hit = k
+    return hit
 def shown(k, T): return [w for w, s in LINES[k][1] if s <= T + 0.03]
 
 def wrap(d, words, font, maxw):

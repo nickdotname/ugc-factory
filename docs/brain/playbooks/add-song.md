@@ -11,6 +11,11 @@ Back to [[README]] · see [[songs]].
    the master.wav symlink.
 5. `python studio/beatmap.py <slug>` (needs `stems/Drums.ogg`): writes the real tempo and `beat_times`.
 6. Don't commit `report.txt`, `emissions.npz`, `heard.json`.
+7. `python studio/sync_check.py <slug> --lines`: every section a lyric style should use must say PASS, the song's
+   `lag` must be 0 (±30 ms) and `stem_ms` 0. Check the stems are the whole song (Subway Maintenance, Silver and Gold,
+   Evil Close Quarters and Notta Problem once came with stems cut at 100 s, so nothing after 1:40 could be timed).
+   If Whisper stops hearing the vocal partway (force_align.py: "the transcription and the lyrics disagree too
+   much"), transcribe the rest from where it stopped and add it to heard.json before re-running.
 
 ## Instrumental
 `python studio/prep_instrumental.py --master song.wav --out studio/songs/<slug> --title "Title" --track N`

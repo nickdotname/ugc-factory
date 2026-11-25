@@ -34,6 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
+import sync_check
 
 W, H, FPS = 1080, 1920, 30
 # Instagram's interface covers the top 250 px, the bottom 420 px and the right 150 px: every word stays inside.
@@ -74,19 +75,14 @@ def clean(w, caps):
 
 def read_lines(song_dir, song, t0, t1):
     """The lines to set: [[start, end, [(word, start, end), ...]]], only what the aligner stands behind."""
-    raw = json.load(open(os.path.join(song_dir, 'lines.json')))
-    conf = song.get('line_conf') or []
-    try:
-        info = sf.info(os.path.join(song_dir, 'stems', 'Vocals.ogg'))
-        vox_end = info.frames / info.samplerate + float(song.get('stems_start_sec') or 0) - 0.3
-    except Exception: vox_end = 1e9
+    # one rule for every lyric renderer (studio/sync_check.py): lines the timing check does not trust come with every
+    # word at the line's start (they ink whole, never word by word); words past the vocal stem are already dropped
     pieces = []
-    for k, (e, ws) in enumerate(raw):
-        ws = [(w, t) for w, t in ws if t < vox_end and w.strip()]
+    for e, ws in sync_check.load_lines(song_dir):
+        ws = [(w, t) for w, t in ws if w.strip()]
         if not ws: continue
-        if k < len(conf) and conf[k] is not None and conf[k] < LINE_CONF:
-            # the words are right but their times are not sure: the whole line inks at once, as it starts
-            pieces.append([(w, ws[0][1]) for w, _ in ws]); continue
+        if len({t for _, t in ws}) == 1 and len(ws) > 1:
+            pieces.append(ws); continue
         piece = [ws[0]]
         for w, t in ws[1:]:
             if t - piece[-1][1] > SPLIT_GAP: pieces.append(piece); piece = []

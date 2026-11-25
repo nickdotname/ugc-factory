@@ -7,7 +7,8 @@ One video per section x style x seed, named <slug>_<section>_<style>_<seed>.mp4,
 its recipe .json beside it. Already-rendered files are skipped, so it can be re-run after
 adding seeds or fixing lyrics (delete the files you want redone). --join 50 makes longer
 videos by gluing neighbouring sections together (up to 50 seconds each). Sections whose word
-timing the prep step was unsure about (confidence below --min-conf) are left out.
+timing the prep step was unsure about (confidence below --min-conf), or whose words do not measure as in sync
+with the vocal (studio/sync_check.py), are left out.
 """
 import argparse, json, os, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor
@@ -18,8 +19,11 @@ ap.add_argument('--join', type=float, default=0, help='merge neighbouring sectio
 a = ap.parse_args(); song = json.load(open(os.path.join(a.song, 'song.json'))); os.makedirs(a.out, exist_ok=True)
 here = os.path.dirname(os.path.abspath(__file__)); jobs = []
 secs = []
+sys.path.insert(0, here); import sync_check
+SYNC = sync_check.sections_ok(a.song)
 for sec in song['sections']:
     if sec.get('confidence', 1) < a.min_conf: print('skip', sec['id'], 'confidence', sec['confidence']); continue
+    if not SYNC.get(sec['id']): print('skip', sec['id'], 'words not in sync with the vocal (studio/sync_check.py)'); continue
     last = secs[-1] if secs else None
     # --join: glue a section onto the one before it when they touch and the result stays short enough
     if a.join and last and sec['start'] - last['end'] < 4 and sec['end'] - last['start'] <= a.join:

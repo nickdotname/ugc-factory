@@ -34,6 +34,14 @@ appear there.
 - Instrumental: `studio/prep_instrumental.py` does all of it: sections are whole bars laid over the loud part,
   confidence 0, so lyric styles never use them.
 
+**Sync is measured, not assumed.** `python studio/sync_check.py [slug ...] [--lines] [--own file]` compares every word
+with the vocal stem itself (no model): distance to the nearest vocal onset (the onset picker is tuned to 4.5 attacks
+per second of singing, about one per syllable), whether the word starts on singing or silence, the chance level (the
+same words shifted 150–400 ms) and the best whole-song shift (a song early or late as a whole), plus the stem/master
+offset. A section passes when its median |offset| ≤ 45 ms, it is ≥ 1.4× better than chance, ≤ 10 % of words start on
+silence, and it has ≥ 8 words: force-aligned sections measure 13–47 ms at 1.45–3.6×, Whisper-only timing 39–80 ms at
+1.0–1.37×. `tests/test_lyric_sync.py` keeps every song free of a whole-song offset and of words past its vocal stem.
+
 Sections are 14–24 s stretches; nightly glues neighbours up to a style's `join` seconds, and may tighten a stretch
 to its strongest line (10–20 s) or a 6–9 s loop for picture styles.
 
