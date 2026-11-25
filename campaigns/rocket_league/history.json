@@ -640,8 +640,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-cd957f18-ece1-464e-8d32-b742d6d43cfb",
+      "post_ids": {
+        "rocket_ig": "igo-cd957f18-ece1-464e-8d32-b742d6d43cfb"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
