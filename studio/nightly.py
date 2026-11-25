@@ -135,11 +135,11 @@ def thompson(options, stats, r, retired=()):
 
 # The knob that says what a video is about, for each style. The learner would happily show a winning subject night
 # after night (math posted Fourier four times running), so whatever the knobs come out as, a video's subject is never
-# one of the FRESH share of options its account used most recently.
+# one the account showed in its last REPEAT_NIGHTS nights (see freshen).
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
            'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line', 'lowpoly': 'story'}
-FRESH = 0.6
+REPEAT_NIGHTS = 3                                     # a subject is not shown again on an account for this many nights
 
 # Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that
 # (videos of one night render side by side, before any of them is in recipes.json; 2026-11-24 moth.ate.my.notes
@@ -160,15 +160,19 @@ def fresh_line(style, recent, r):
     return r.choice(left)
 
 
-def freshen(style, menu, kn, recent, learned, r):
-    """kn with its subject knob moved off anything the account showed in its last few videos (recent, oldest first)."""
+def freshen(style, menu, kn, recent, learned, r, first=True):
+    """kn with its subject knob moved off everything the account showed in its recent videos (recent, oldest first:
+    the last REPEAT_NIGHTS nights plus tonight). A subject the account showed in the last few days did half the views
+    of a fresh one (median 61 vs 119, 2026-11-25). When every subject has been shown, the first video of the night
+    takes the one shown longest ago; any further video that night is skipped (None): posting less beats repeating."""
     name = SUBJECT.get(style); opts = list(menu.get(name) or [])
     if not name or len(opts) < 2: return kn
-    avoid = []
-    for v in reversed(recent):
-        if v in opts and v not in avoid: avoid.append(v)
-        if len(avoid) >= max(1, int(len(opts) * FRESH)): break
-    fresh = [o for o in opts if o not in avoid] or opts
+    used = [v for v in recent if v in opts]
+    fresh = [o for o in opts if o not in used]
+    if not fresh:
+        if not first: return None
+        last = {v: k for k, v in enumerate(used)}
+        fresh = [min(opts, key=lambda o: last.get(o, -1))]
     if kn.get(name) in fresh: return kn
     st, ret = learned.get('stats') or {}, learned.get('retired') or {}
     return dict(kn, **{name: thompson(fresh, st.get('knob:' + name) or {}, r, ret.get('knob:' + name) or ())})
@@ -331,8 +335,10 @@ for t in cfg['targets']:
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
         kn, extra, how = choose(style, menu, L, seed)
         sub = SUBJECT.get(style)
-        recent = [(e.get('knobs') or {}).get(sub) for e in rec.get('nightly', []) if e.get('style') == style] + tonight
-        kn = freshen(style, menu, kn, recent, L, random.Random(seed + 2))
+        past = [(e.get('knobs') or {}).get(sub) for e in rec.get('nightly', []) if e.get('style') == style]
+        recent = past[-max(1, t['per_night']) * REPEAT_NIGHTS:] + tonight
+        kn = freshen(style, menu, kn, recent, L, random.Random(seed + 2), first=not tonight)
+        if kn is None: continue                                 # nothing fresh left tonight: one video fewer, not a repeat
         if style in BANKED: kn = dict(kn, **{sub: fresh_line(style, recent, random.Random(seed + 3))})
         if sub in kn: tonight.append(kn[sub])
         if SET: kn, how = dict(kn, **SET), 'set'                  # a run asked for a particular look (a new format to see now)
