@@ -1676,6 +1676,14 @@ def _push_to_account(
     def full(when: datetime) -> bool:
         return cap is not None and per_day[when.astimezone(config.zone).date()] >= cap
 
+    # Two campaigns on one account each keep their own grid, so their slots could land minutes apart; the
+    # publisher then holds the second for an hour (MIN_GAP) and it shows as overdue. Keep every slot an hour
+    # clear of the account's others instead.
+    gap = timedelta(minutes=60)
+
+    def near(when: datetime) -> bool:
+        return any(abs(when - t) < gap for t in taken)
+
     fresh = [
         slot
         for slot in upcoming_slots(
@@ -1706,8 +1714,8 @@ def _push_to_account(
         # no check at all, and both went out on the same minute.
         # A hand-timed post keeps the time it was given, however full its day is.
         pinned = item.lineup_id is not None
-        if due <= now + lead or due in taken or (full(due) and not pinned):
-            while fresh and full(fresh[0]):
+        if due <= now + lead or due in taken or (not pinned and (full(due) or near(due))):
+            while fresh and (full(fresh[0]) or near(fresh[0])):
                 fresh.pop(0)
             if not fresh:
                 log.warning("reslot_exhausted", item_id=item.id)
