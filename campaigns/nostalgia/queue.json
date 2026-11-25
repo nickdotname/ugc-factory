@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Myth of Sisyphus by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nostalgia_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-25T18:55:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the places that raised us when the grown-ups were busy\n🎧 Myth of Sisyphus – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -289,7 +299,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nostalgia_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "it's 1999 and nobody has a phone in their pocket\n🎧 Talk – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nstream Talk: link in bio"
       },
