@@ -100,10 +100,12 @@ Reels, carousels and fact reels are queued by separate jobs, so one account some
 rest. `publish_due` now holds a post while its account's last publish is under `MIN_GAP` (60 min) old.
 
 ## Tokens without pasting: "Connect Instagram" (2026-11-25)
-`closequarters.vip/connect?u=<handle>` (Cloudflare Worker `cq-connect`, code in `cqconnect/worker.js`) runs the app's
+`connect.closequarters.vip/connect?u=<handle>` (its own subdomain: the apex is served by Vercel, so a route there never reaches the worker) (Cloudflare Worker `cq-connect`, code in `cqconnect/worker.js`) runs the app's
 Unified login. The token it gets back is made long-lived, checked against the handle, encrypted to
 `cqconnect/public.pem` and held in KV; `connect.yml` (every 15 min) decrypts it with `CONNECT_PRIVATE_KEY` and saves
 it as the account's secret (accounts.yaml channel_id, else `cqconnect/slots.json`). Nobody sees a token. Token slots
 are IG_TOKEN..IG_TOKEN_16, all passed by every workflow, so a new account never needs a workflow edit.
 Also: a YAML plain scalar may not contain ": " — `run: grep -q "style: lowpoly" ...` made studio.yml unreadable and
 every studio run failed with zero jobs until it became a block scalar.
+
+- The connect link only fills IG_TOKEN_2 and up. IG_TOKEN is one Facebook token shared by 17 pages; the pickup refuses to overwrite it, and tokens.yml keeps it fresh instead.
