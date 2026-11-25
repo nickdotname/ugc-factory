@@ -1,12 +1,55 @@
 {
-  "generated_at": "2026-11-24T08:32:00.236232Z",
+  "generated_at": "2026-11-25T08:32:03.783973Z",
   "items": [
     {
-      "id": "7237be0a-cd58-47e1-b64e-b564f49f5ac1",
-      "scheduled_for": "2026-11-24T09:30:00-05:00",
-      "rendered_at": "2026-11-24T05:24:35.384329Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/7237be0a-cd58-47e1-b64e-b564f49f5ac1.mp4",
-      "caption": "what would you change in this mix? be honest\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "f50268af-a874-441c-84a0-f4ddd3bfaf11",
+      "scheduled_for": "2026-11-25T09:30:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/f50268af-a874-441c-84a0-f4ddd3bfaf11.mp4",
+      "caption": "four stems. one song\nSilver and Gold – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.564,
+        "anchor_y": 0.391,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "silver_and_gold",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Silver and Gold by @close__quarters, off our album EDUCATION. full album in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "four stems. one song\nSilver and Gold – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Silver and Gold"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "588d1c6a-b091-4655-86cc-96acfa83308e",
+      "scheduled_for": "2026-11-25T11:15:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/588d1c6a-b091-4655-86cc-96acfa83308e.mp4",
+      "caption": "my own song with the faders pulled down\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,9 +59,95 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.63,
-        "anchor_y": 0.403,
+        "anchor_x": 0.728,
+        "anchor_y": 0.421,
         "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "this is Full Ride from EDUCATION (@close__quarters)",
+      "posts": [],
+      "captions": {
+        "instagram": "my own song with the faders pulled down\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Full Ride: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "2e550632-8280-4204-8828-4040b65b3d61",
+      "scheduled_for": "2026-11-25T13:00:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/2e550632-8280-4204-8828-4040b65b3d61.mp4",
+      "caption": "i produced this. here's one part of it on its own\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_05.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.579,
+        "anchor_y": 0.628,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Won't Be the Same Again – @close__quarters. EDUCATION is out now, link in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "i produced this. here's one part of it on its own\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nWon't Be the Same Again is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "2aaca592-d3e6-49c6-b0c6-b0cf35da0461",
+      "scheduled_for": "2026-11-25T14:45:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/2aaca592-d3e6-49c6-b0c6-b0cf35da0461.mp4",
+      "caption": "a song is four tracks agreeing with each other\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.462,
+        "anchor_y": 0.628,
+        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -28,53 +157,86 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "this is Won't Be the Same Again from EDUCATION (@close__quarters)",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-342999d5-3757-477c-8a51-62417ae0ec34",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T11:15:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Talk by @close__quarters, off our album EDUCATION. full album in bio",
+      "posts": [],
       "captions": {
-        "instagram": "what would you change in this mix? be honest\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Won't Be the Same Again: link in bio"
+        "instagram": "a song is four tracks agreeing with each other\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "3cd3ad21-db92-4077-959c-c6fee86334bb",
-      "scheduled_for": "2026-11-24T11:15:00-05:00",
-      "rendered_at": "2026-11-24T05:24:35.384329Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/3cd3ad21-db92-4077-959c-c6fee86334bb.mp4",
-      "caption": "musicians will understand this one\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "f3ac96cd-9721-41b5-be51-d6cf954952e6",
+      "scheduled_for": "2026-11-25T16:30:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/f3ac96cd-9721-41b5-be51-d6cf954952e6.mp4",
+      "caption": "the parts you only notice when everything else is muted\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_08.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.375,
-        "anchor_y": 0.707,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.277,
+        "anchor_y": 0.728,
+        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "hair_of_the_dog",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "this is Hair of the Dog from EDUCATION (@close__quarters)",
+      "posts": [],
+      "captions": {
+        "instagram": "the parts you only notice when everything else is muted\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Hair of the Dog: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "83fe08db-9c6d-47b6-ba72-6fe6e45e7d09",
+      "scheduled_for": "2026-11-25T18:15:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/83fe08db-9c6d-47b6-ba72-6fe6e45e7d09.mp4",
+      "caption": "Notta Problem with parts muted, then all of it\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_09.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.354,
+        "anchor_y": 0.726,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -87,191 +249,65 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Notta Problem – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-080b1eb4-549a-470c-b1e0-d85ba17ab369",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T18:15:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "musicians will understand this one\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nNotta Problem is out now. link in bio to stream it"
+        "instagram": "Notta Problem with parts muted, then all of it\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "10e00763-fa32-46b4-9ebd-29009218451d",
-      "scheduled_for": "2026-11-24T13:00:00-05:00",
-      "rendered_at": "2026-11-24T05:24:35.384329Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/10e00763-fa32-46b4-9ebd-29009218451d.mp4",
-      "caption": "every layer of the song on one screen\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "eb64d7b0-01e0-4c97-8def-3d5f1e9e7f65",
+      "scheduled_for": "2026-11-25T20:00:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/eb64d7b0-01e0-4c97-8def-3d5f1e9e7f65.mp4",
+      "caption": "Hair of the Dog with parts muted, then all of it\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_07.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.281,
-        "anchor_y": 0.552,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "notta_problem",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Notta Problem by @close__quarters, off our album EDUCATION. full album in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-593a82a5-ac22-4078-95b6-dde1da3ec62b",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T20:00:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "every layer of the song on one screen\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Notta Problem"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "a0f02096-9391-41bb-889a-087c721fc7fe",
-      "scheduled_for": "2026-11-24T14:45:00-05:00",
-      "rendered_at": "2026-11-24T08:32:00.236232Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/a0f02096-9391-41bb-889a-087c721fc7fe.mp4",
-      "caption": "every part of the beat, one lane each\nSubway Maintenance – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.401,
-        "anchor_y": 0.389,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "subway_maintenance",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "this is Subway Maintenance from EDUCATION (@close__quarters)",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-2a93566e-f2f8-4a16-b540-133e2b5e56ca",
-          "last_error": null,
-          "scheduled_for": "2026-11-24T21:45:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "every part of the beat, one lane each\nSubway Maintenance – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Subway Maintenance: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "0c829f5f-f57f-4f5f-a7c9-afe36b8d3d11",
-      "scheduled_for": "2026-11-24T16:30:00-05:00",
-      "rendered_at": "2026-11-24T08:32:00.236232Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/0c829f5f-f57f-4f5f-a7c9-afe36b8d3d11.mp4",
-      "caption": "if you make music you'll get this\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_04.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.746,
-        "anchor_y": 0.419,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.728,
+        "anchor_y": 0.391,
+        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "prologue",
+      "creative": "hair_of_the_dog",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "Prologue: Before – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4a386b67-2fab-4b3b-9b35-c744776e2e6a",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T11:15:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Hair of the Dog by @close__quarters, off our album EDUCATION. full album in bio",
+      "posts": [],
       "captions": {
-        "instagram": "if you make music you'll get this\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nPrologue: Before is out now. link in bio to stream it"
+        "instagram": "Hair of the Dog with parts muted, then all of it\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Hair of the Dog"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "db67460d-9b47-4643-9d64-203f2bee9625",
-      "scheduled_for": "2026-11-24T18:15:00-05:00",
-      "rendered_at": "2026-11-24T08:32:00.236232Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/db67460d-9b47-4643-9d64-203f2bee9625.mp4",
-      "caption": "watch the vocal lane. that's the whole song\nMyth of Sisyphus – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
+      "id": "23fffe5d-415b-47fb-af54-336b97b94683",
+      "scheduled_for": "2026-11-25T21:45:00-05:00",
+      "rendered_at": "2026-11-25T08:32:03.783973Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/23fffe5d-415b-47fb-af54-336b97b94683.mp4",
+      "caption": "hear one part alone, then the whole song\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -281,114 +317,8 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.497,
-        "anchor_y": 0.597,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "myth_of_sisyphus",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Myth of Sisyphus by @close__quarters, off our album EDUCATION. full album in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-7301b24e-1863-4635-bb1a-55809023a7b8",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T13:00:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "watch the vocal lane. that's the whole song\nMyth of Sisyphus – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nlink in bio to stream Myth of Sisyphus"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "a1fad246-2185-4f0d-a183-5afe47759251",
-      "scheduled_for": "2026-11-24T20:00:00-05:00",
-      "rendered_at": "2026-11-24T08:32:00.236232Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/a1fad246-2185-4f0d-a183-5afe47759251.mp4",
-      "caption": "where the song actually lives\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_05.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.717,
-        "anchor_y": 0.328,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "fixation",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "this is Fixation from EDUCATION (@close__quarters)",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-dcb0570f-dcb6-40f3-be4b-35ddc88eccdd",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T14:45:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "where the song actually lives\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nstream Fixation: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "c4f69fd7-7e99-4572-ae10-5272dbad8afa",
-      "scheduled_for": "2026-11-24T21:45:00-05:00",
-      "rendered_at": "2026-11-24T08:32:00.236232Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-24/c4f69fd7-7e99-4572-ae10-5272dbad8afa.mp4",
-      "caption": "the mix, opened up\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.464,
-        "anchor_y": 0.37,
+        "anchor_x": 0.289,
+        "anchor_y": 0.503,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
@@ -404,23 +334,13 @@
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "Talk – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-1129a800-6455-48b7-8389-881a9c061698",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T18:15:00-05:00"
-        }
-      ],
+      "first_comment": "this is Talk from EDUCATION (@close__quarters)",
+      "posts": [],
       "captions": {
-        "instagram": "the mix, opened up\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #ableton #newmusic\n\nTalk is out now. link in bio to stream it"
+        "instagram": "hear one part alone, then the whole song\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
