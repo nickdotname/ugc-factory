@@ -250,9 +250,9 @@
         {
           "account": "her_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-e5d8bcb5-d77e-4c79-88c4-8195a81dcc5d",
           "last_error": null,
           "scheduled_for": "2026-11-25T20:44:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "we've all been there\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode\n\nstream Subway Maintenance: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
