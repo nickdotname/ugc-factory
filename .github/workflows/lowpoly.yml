@@ -1,0 +1,30 @@
+# Fetch the CC0 low-poly kits (studio/lowpoly/fetch.py) into the "lowpoly-kit" release.
+name: lowpoly
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Fetch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python studio/lowpoly/fetch.py
+      - name: Keep the list
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add studio/lowpoly/kits.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "lowpoly kits fetched [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin "${GITHUB_REF_NAME}" && git push -q origin "HEAD:${GITHUB_REF_NAME}" && break; sleep 5; done

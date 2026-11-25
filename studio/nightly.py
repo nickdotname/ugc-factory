@@ -94,6 +94,7 @@ VISUAL['notes_her'] = 'text_her_video.py'   # crying.in.trader.joes: the same ca
 VISUAL['notes_him'] = 'text_him_video.py'   # grip.tape.thoughts: the same card in a skater guy's voice
 VISUAL['notes_date'] = 'text_date_video.py'       # situationship page: the same card, talking stages and mixed signals
 VISUAL['notes_college'] = 'text_college_video.py' # broke-college-kid page: the same card, dorms, deadlines and the dining hall
+VISUAL['lowpoly'] = 'lowpoly_video.py'  # low-poly story page: a "what if" story in big words over a blocky town (Blender, studio/lowpoly/)
 VISUAL['toon'] = 'toon_video.py'       # rubber-hose page: cartoons from before 1931 cut as a modern edit (footage theme toons)
 VISUAL['zoom'] = 'zoom_video.py'       # museum-zoom page: a public-domain painting, then a dive into one detail on the drop (studio/art.py)
 
@@ -137,7 +138,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line', 'lowpoly': 'story'}
 FRESH = 0.6
 
 # Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that
