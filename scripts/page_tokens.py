@@ -43,6 +43,8 @@ def main() -> int:
             print('me/accounts failed: %s' % exc.read().decode()[:300]); return 1
         for page in body.get('data', []):
             iba = page.get('instagram_business_account') or {}
+            if not iba.get('id'):
+                print('page %s: no Instagram account linked' % page.get('name'))
             if iba.get('id') and page.get('access_token'):
                 mask(page['access_token'])
                 tokens[str(iba['id'])] = page['access_token']
