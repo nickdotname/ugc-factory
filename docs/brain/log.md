@@ -186,3 +186,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: nightly never repeats an account's subject within 3 nights (repeats did median 61 views vs 119 fresh); with nothing fresh, the account posts fewer that night.
 - 2026-11-25: wired rubberhose.radio, zoom.into.art, situationship.notes, what.if.town (own tokens IG_TOKEN_7/8/9/11).
 - 2026-11-25: wired dining.hall.philosopher (notes_college, IG_TOKEN_10).
+- 2026-11-25: volume fitted to the data: dylancantor23 8->3, psych 4->2 and nostalgia 4->2 (fact reels carry them), Loose Change type 3->1. Daily totals did not grow with posts.
