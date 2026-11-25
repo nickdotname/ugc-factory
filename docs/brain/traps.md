@@ -109,3 +109,7 @@ Also: a YAML plain scalar may not contain ": " — `run: grep -q "style: lowpoly
 every studio run failed with zero jobs until it became a block scalar.
 
 - The connect link only fills IG_TOKEN_2 and up. IG_TOKEN is one Facebook token shared by 17 pages; the pickup refuses to overwrite it, and tokens.yml keeps it fresh instead.
+- **Tokens without anyone pasting:** `scripts/page_tokens.py` (in tokens.yml, weekly and twice a month) reads
+  `me/accounts` with IG_TOKEN and stores never-expiring Page tokens as `IG_PAGE_TOKENS` (JSON, IG id -> token).
+  The publisher prefers them. A Page token from a long-lived user token does not expire, and needs no app secret.
+  So any account linked to a Facebook Page is covered with no login; Instagram-login (Unified) accounts are not.

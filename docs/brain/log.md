@@ -180,3 +180,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: publisher waits until an account's last post is an hour old (MIN_GAP); back-to-back posts did ~20% worse.
 - 2026-11-25: Connect Instagram (cqconnect/, connect.yml); token slots to 16; studio.yml parse fix.
 - 2026-11-25: connect link moved to connect.closequarters.vip; pickup never overwrites the shared IG_TOKEN.
+- 2026-11-25: IG_PAGE_TOKENS: never-expiring Page tokens minted from IG_TOKEN, preferred by the publisher.

@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "17 8 1,15 * *"     # twice a month: tokens last 60 days
+    - cron: "41 9 * * 1"        # weekly: picks up Pages linked since
 
 permissions:
   contents: read
@@ -30,6 +31,7 @@ jobs:
           META_APP_ID: ${{ secrets.META_APP_ID }}
           META_APP_SECRET: ${{ secrets.META_APP_SECRET }}
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_PAGE_TOKENS: ${{ secrets.IG_PAGE_TOKENS }}
           IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
           IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
           IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
@@ -46,3 +48,9 @@ jobs:
           IG_TOKEN_15: ${{ secrets.IG_TOKEN_15 }}
           IG_TOKEN_16: ${{ secrets.IG_TOKEN_16 }}
         run: python scripts/refresh_tokens.py
+      - name: Never-expiring Page tokens for every account on a Facebook Page
+        if: always()
+        env:
+          SECRETS_PAT: ${{ secrets.SECRETS_PAT }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python scripts/page_tokens.py

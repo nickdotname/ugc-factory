@@ -36,6 +36,7 @@ jobs:
       - name: Search
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_PAGE_TOKENS: ${{ secrets.IG_PAGE_TOKENS }}
           IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
           ACCOUNT: ${{ inputs.account }}
           QUERY: ${{ inputs.query }}
