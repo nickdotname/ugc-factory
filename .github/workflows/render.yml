@@ -94,6 +94,8 @@ jobs:
           IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
           IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
           IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
+          IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
+          IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
           IG_TOKEN_7: ${{ secrets.IG_TOKEN_7 }}
           IG_TOKEN_8: ${{ secrets.IG_TOKEN_8 }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
