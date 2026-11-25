@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-11-25T14:38:16.684259Z",
+  "generated_at": "2026-11-25T22:10:35.850064Z",
   "items": [
     {
-      "id": "2ed26edd-b75c-4c6d-89d9-c0e669773db8",
-      "scheduled_for": "2026-11-25T11:15:00-05:00",
-      "rendered_at": "2026-11-25T14:38:16.684259Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/2ed26edd-b75c-4c6d-89d9-c0e669773db8.mp4",
-      "caption": "what one stem of Prologue: Before sounds like by itself\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "id": "d7e98f13-a177-4c71-8a66-22cabbe72f85",
+      "scheduled_for": "2026-11-25T18:15:00-05:00",
+      "rendered_at": "2026-11-25T22:10:35.850064Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/d7e98f13-a177-4c71-8a66-22cabbe72f85.mp4",
+      "caption": "muting my own song to show what's in it\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.315,
-        "anchor_y": 0.446,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.474,
+        "anchor_y": 0.423,
+        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -26,242 +26,20 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
       "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "Prologue: Before – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-a2b56702-4303-4bed-89fe-e84bf0e3e917",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T20:00:00-05:00"
-        }
-      ],
+      "first_comment": "this is Prologue: Before from EDUCATION (@close__quarters)",
+      "posts": [],
       "captions": {
-        "instagram": "what one stem of Prologue: Before sounds like by itself\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nPrologue: Before is out now. link in bio to stream it"
+        "instagram": "muting my own song to show what's in it\nPrologue: Before – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "2e550632-8280-4204-8828-4040b65b3d61",
-      "scheduled_for": "2026-11-25T13:00:00-05:00",
-      "rendered_at": "2026-11-25T08:32:03.783973Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/2e550632-8280-4204-8828-4040b65b3d61.mp4",
-      "caption": "i produced this. here's one part of it on its own\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_05.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.579,
-        "anchor_y": 0.628,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "wont_be_the_same_again",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "Won't Be the Same Again – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-84f38efd-c038-45b0-8bb3-dacac47f700c",
-          "last_error": null,
-          "scheduled_for": "2026-11-25T21:45:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "i produced this. here's one part of it on its own\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nWon't Be the Same Again is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "2aaca592-d3e6-49c6-b0c6-b0cf35da0461",
-      "scheduled_for": "2026-11-25T14:45:00-05:00",
-      "rendered_at": "2026-11-25T08:32:03.783973Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/2aaca592-d3e6-49c6-b0c6-b0cf35da0461.mp4",
-      "caption": "a song is four tracks agreeing with each other\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.462,
-        "anchor_y": 0.628,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "talk",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Talk by @close__quarters, off our album EDUCATION. full album in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-bc54602b-522c-4506-9197-18a255b8c7af",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T13:00:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "a song is four tracks agreeing with each other\nTalk – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Talk"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "f3ac96cd-9721-41b5-be51-d6cf954952e6",
-      "scheduled_for": "2026-11-25T16:30:00-05:00",
-      "rendered_at": "2026-11-25T08:32:03.783973Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/f3ac96cd-9721-41b5-be51-d6cf954952e6.mp4",
-      "caption": "the parts you only notice when everything else is muted\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.277,
-        "anchor_y": 0.728,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "hair_of_the_dog",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "this is Hair of the Dog from EDUCATION (@close__quarters)",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-e1874374-1493-47d7-ba5c-8caf5f7f2e64",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T14:45:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the parts you only notice when everything else is muted\nHair of the Dog – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Hair of the Dog: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "83fe08db-9c6d-47b6-ba72-6fe6e45e7d09",
-      "scheduled_for": "2026-11-25T18:15:00-05:00",
-      "rendered_at": "2026-11-25T08:32:03.783973Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/83fe08db-9c6d-47b6-ba72-6fe6e45e7d09.mp4",
-      "caption": "Notta Problem with parts muted, then all of it\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
-      "title": null,
-      "parts": {
-        "hook": "hook_09.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.354,
-        "anchor_y": 0.726,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "notta_problem",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "Notta Problem – @close__quarters. EDUCATION is out now, link in bio",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b11db834-ff3d-4d1b-b43c-8e5cddd21eb0",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T16:30:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "Notta Problem with parts muted, then all of it\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nNotta Problem is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -418,6 +196,178 @@
       ],
       "captions": {
         "instagram": "what one stem of Fixation sounds like by itself\nFixation – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Fixation"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "68e4aa92-cd38-4474-98de-59faf28b3925",
+      "scheduled_for": "2026-11-26T11:15:00-05:00",
+      "rendered_at": "2026-11-25T22:10:35.850064Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/68e4aa92-cd38-4474-98de-59faf28b3925.mp4",
+      "caption": "what one stem of Full Ride sounds like by itself\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.37,
+        "anchor_y": 0.372,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Full Ride – @close__quarters. EDUCATION is out now, link in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "what one stem of Full Ride sounds like by itself\nFull Ride – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nFull Ride is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "07583a96-982b-4e27-806b-5cf36f4c5f37",
+      "scheduled_for": "2026-11-26T13:00:00-05:00",
+      "rendered_at": "2026-11-25T22:10:35.850064Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/07583a96-982b-4e27-806b-5cf36f4c5f37.mp4",
+      "caption": "Won't Be the Same Again, one part at a time\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.634,
+        "anchor_y": 0.477,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Won't Be the Same Again by @close__quarters, off our album EDUCATION. full album in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Won't Be the Same Again, one part at a time\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "801741d6-e98e-4804-9896-6c91633a0769",
+      "scheduled_for": "2026-11-26T14:45:00-05:00",
+      "rendered_at": "2026-11-25T22:10:35.850064Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/801741d6-e98e-4804-9896-6c91633a0769.mp4",
+      "caption": "the moment it all plays together\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.505,
+        "anchor_y": 0.575,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "notta_problem",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "this is Notta Problem from EDUCATION (@close__quarters)",
+      "posts": [],
+      "captions": {
+        "instagram": "the moment it all plays together\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Notta Problem: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "15bd1556-e2de-4d9a-a1ea-69455ca10371",
+      "scheduled_for": "2026-11-26T16:30:00-05:00",
+      "rendered_at": "2026-11-25T22:10:35.850064Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-25/15bd1556-e2de-4d9a-a1ea-69455ca10371.mp4",
+      "caption": "solo one track. then everything plays\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.287,
+        "anchor_y": 0.707,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "Won't Be the Same Again – @close__quarters. EDUCATION is out now, link in bio",
+      "posts": [],
+      "captions": {
+        "instagram": "solo one track. then everything plays\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
       "status": "pending",
