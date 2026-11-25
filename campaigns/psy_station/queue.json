@@ -250,18 +250,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-26T11:05:00-05:00"
         }
       ],
       "captions": {
         "instagram": "no camera. no AI. just code, one song and a lot of colour\n🎧 Notta Problem – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
