@@ -93,3 +93,8 @@ crying.in.trader.joes) posted fine but every insights call said "(#10) Applicati
 The app had never been given `instagram_business_manage_insights` (Use cases > Instagram API > Permissions and
 features). Added; their tokens had to be generated again to carry it. Those tokens last 60 days:
 `.github/workflows/tokens.yml` refreshes them on the 1st and 15th and writes them back (needs `SECRETS_PAT`).
+
+## Back-to-back posts on one account (2026-11-25)
+Reels, carousels and fact reels are queued by separate jobs, so one account sometimes posted twice within minutes.
+77 posts went out under 45 minutes after the account's previous one; their median was 72 views against 89 for the
+rest. `publish_due` now holds a post while its account's last publish is under `MIN_GAP` (60 min) old.

@@ -3,6 +3,9 @@ name: lowpoly
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/lowpoly.yml", "studio/lowpoly/fetch.py"]
 
 permissions:
   contents: write

@@ -177,3 +177,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: insights permission added for the Unified-login accounts; tokens.yml refreshes IG tokens twice a month.
 - 2026-11-25: psychedelic.station 8→4 and nostalgia.hub.vhs 6→4 reels a day (heaviest posters had the lowest medians; their fact reels beat the main format). Cancelled one queued dylancantor23 post asking for saves.
 - 2026-11-25: new page styles toon (1930 cartoons), zoom (museum zoom), notes_date, notes_college, lowpoly (Blender story page; CC0 kits via lowpoly.yml). Accounts still to be created.
+- 2026-11-25: publisher waits until an account's last post is an hour old (MIN_GAP); back-to-back posts did ~20% worse.
