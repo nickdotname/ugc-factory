@@ -86,3 +86,10 @@ stuck on any other step for more than ten minutes, cancel it and dispatch it aga
 
 ## The same text-page line twice (2026-11-24)
 Videos of one night render in parallel before recipes.json is written, so a renderer that avoids reuse by reading recipes cannot see the other videos of the same night. Choose no-repeat subjects in `nightly.py` (see `fresh_line`), not in the renderer.
+
+## Unified-login accounts had no numbers (2026-11-25)
+The five accounts with no Facebook Page (algorithm.races, 8bit.tests, moth.ate.my.notes, grip.tape.thoughts,
+crying.in.trader.joes) posted fine but every insights call said "(#10) Application does not have permission".
+The app had never been given `instagram_business_manage_insights` (Use cases > Instagram API > Permissions and
+features). Added; their tokens had to be generated again to carry it. Those tokens last 60 days:
+`.github/workflows/tokens.yml` refreshes them on the 1st and 15th and writes them back (needs `SECRETS_PAT`).
