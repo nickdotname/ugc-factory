@@ -1,1 +1,139 @@
-{}
+{
+ "menu": {
+  "notes_date": {
+   "line": [
+    "d001",
+    "d002",
+    "d003",
+    "d004",
+    "d005",
+    "d006",
+    "d007",
+    "d008",
+    "d009",
+    "d010",
+    "d011",
+    "d012",
+    "d013",
+    "d014",
+    "d015",
+    "d016",
+    "d017",
+    "d018",
+    "d019",
+    "d020",
+    "d021",
+    "d022",
+    "d023",
+    "d024",
+    "d025",
+    "d026",
+    "d027",
+    "d028",
+    "d029",
+    "d030",
+    "d031",
+    "d032",
+    "d033",
+    "d034",
+    "d035",
+    "d036",
+    "d037",
+    "d038",
+    "d039",
+    "d040",
+    "d041",
+    "d042",
+    "d043",
+    "d044",
+    "d045",
+    "d046",
+    "d047",
+    "d048",
+    "d049",
+    "d050",
+    "d051",
+    "d052",
+    "d053",
+    "d054",
+    "d055"
+   ],
+   "look": [
+    "dusk",
+    "orchid",
+    "rainbow",
+    "sunset"
+   ],
+   "ink": [
+    "black",
+    "white"
+   ],
+   "face": [
+    "round",
+    "strong"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-25",
+   "creative": "talk",
+   "file": "talk_s04_notes_date_649923.mp4",
+   "song": "talk",
+   "section": "s04",
+   "style": "notes_date",
+   "seed": 649923,
+   "window": [
+    77.99,
+    87.83
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d045",
+    "look": "sunset",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.36,
+    "drums": 0.8,
+    "bass": 0.63,
+    "other": 0.79
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s08_notes_date_76245.mp4",
+   "song": "prologue",
+   "section": "s08",
+   "style": "notes_date",
+   "seed": 76245,
+   "window": [
+    177.75,
+    184.3
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d007",
+    "look": "sunset",
+    "ink": "black",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.67,
+    "bass": 0.56,
+    "other": 0.34
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}

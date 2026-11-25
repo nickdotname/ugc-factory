@@ -692,7 +692,7 @@
     "knob:chroma": {
      "0": [
       7,
-      6.62,
+      6.61,
       0.537
      ],
      "2": [
@@ -767,7 +767,7 @@
      ],
      "0.03": [
       7,
-      6.65,
+      6.64,
       0.469
      ]
     },
@@ -1060,7 +1060,7 @@
     "opening line": {
      "without": [
       17,
-      15.4,
+      15.39,
       0.472
      ],
      "with": [
@@ -1195,7 +1195,7 @@
     "song": {
      "prologue": [
       5,
-      4.4,
+      4.39,
       0.361
      ],
      "wont_be_the_same_again": [
@@ -1483,7 +1483,7 @@
      ],
      "19:00": [
       6,
-      5.49,
+      5.48,
       0.444
      ],
      "22:00": [
@@ -1720,7 +1720,7 @@
      ],
      "full": [
       10,
-      9.46,
+      9.45,
       0.528
      ]
     },
@@ -1782,7 +1782,7 @@
     "knob:punch": {
      "0.05": [
       10,
-      9.32,
+      9.31,
       0.53
      ],
      "0.02": [
@@ -1799,7 +1799,7 @@
     "knob:scan": {
      "true": [
       11,
-      10.23,
+      10.22,
       0.51
      ],
      "false": [
@@ -1921,7 +1921,7 @@
   },
   "psy_station": {
    "posts": 43,
-   "waiting": 6,
+   "waiting": 7,
    "typical_views": 53.0,
    "weights": {
     "style": {
@@ -1929,25 +1929,25 @@
      "collage": 0.96
     },
     "opening line": {
-     "without": 0.99,
+     "without": 1.0,
      "with": 1.01
     },
     "hook": {
-     "what do you see?": 1.03,
+     "what do you see?": 1.02,
      "don't blink": 0.99,
-     "sound on": 1.0
+     "sound on": 1.01
     },
     "song": {
      "prologue": 1.02,
      "wont_be_the_same_again": 0.97,
      "hair_of_the_dog": 1.05,
      "fixation": 1.03,
-     "myth_of_sisyphus": 0.99,
+     "myth_of_sisyphus": 1.0,
      "full_ride": 1.07,
      "talk": 0.96,
      "suspended": 1.01,
      "silver_and_gold": 0.99,
-     "evil_close_quarters": 1.04,
+     "evil_close_quarters": 1.05,
      "subway_maintenance": 1.01,
      "notta_problem": 0.93,
      "recess_rewind": 0.98,
@@ -1969,9 +1969,9 @@
      "full_ride/s02": 1.07,
      "talk/s06": 0.96,
      "prologue/s03-s04": 1.02,
-     "myth_of_sisyphus/s03": 1.03,
+     "myth_of_sisyphus/s03": 1.04,
      "suspended/s04": 1.01,
-     "fixation/s01": 1.06,
+     "fixation/s01": 1.07,
      "wont_be_the_same_again/s07": 0.98,
      "suspended/s06": 1.0,
      "talk/s05-s06": 1.0,
@@ -1980,7 +1980,7 @@
      "evil_close_quarters/s03": 1.01,
      "subway_maintenance/s01": 1.05,
      "myth_of_sisyphus/s01-s02": 0.97,
-     "suspended/s04-s05": 1.0,
+     "suspended/s04-s05": 1.01,
      "notta_problem/s03-s04": 0.97,
      "notta_problem/s03": 0.95,
      "fixation/s02-s03": 1.03,
@@ -1989,7 +1989,7 @@
      "passage_waiting/s02": 0.97,
      "subway_maintenance/s02": 0.96,
      "prologue/s07": 1.01,
-     "wont_be_the_same_again/s03": 1.0,
+     "wont_be_the_same_again/s03": 0.98,
      "evil_close_quarters/s02": 1.04,
      "silver_and_gold/s02": 0.97
     },
@@ -2001,8 +2001,8 @@
      "bryce": 1.05,
      "tunnel": 0.98,
      "moire": 1.03,
-     "julia": 1.03,
-     "oil": 1.0,
+     "julia": 1.04,
+     "oil": 0.99,
      "spiral": 1.01,
      "warp": 0.95,
      "voronoi": 1.03
@@ -2014,9 +2014,9 @@
     "palette": {
      "ocean": 0.95,
      "candy": 1.02,
-     "lava": 1.04,
+     "lava": 1.05,
      "acid": 1.03,
-     "ice": 1.03,
+     "ice": 1.02,
      "neon": 1.01,
      "mono": 0.98,
      "vapor": 1.0,
@@ -2039,7 +2039,7 @@
      "10:00": 1.04,
      "12:00": 0.95,
      "13:00": 1.04,
-     "20:00": 0.97,
+     "20:00": 0.96,
      "17:00": 0.97,
      "19:00": 1.04,
      "22:00": 0.97,
@@ -2055,9 +2055,9 @@
      "how far did you make it before you looked away?": 0.98,
      "tag someone who needs 20 seconds of this": 1.03,
      "loop it. it gets deeper every time.": 1.0,
-     "send this to the friend who would stare at it for an hour": 1.03,
+     "send this to the friend who would stare at it for an hour": 1.04,
      "pov: the song starts looking back at you": 1.04,
-     "what do you see in this? wrong answers only": 1.05,
+     "what do you see in this? wrong answers only": 1.06,
      "this is your sign to put your headphones on": 0.95,
      "Silver and Gold \u2013 Close Quarters": 1.02,
      "full screen, sound on. let it loop twice.": 1.01,
@@ -2068,18 +2068,18 @@
      "let your eyes go soft": 0.97,
      "watch the edges, not the middle": 0.96,
      "made out of math and one song": 1.01,
-     "the colours follow the bass": 1.0,
+     "the colours follow the bass": 0.98,
      "this one breathes if you stare long enough": 1.04,
      "turn the lights off first": 0.97
     },
     "knob:contour": {
-     "true": 1.05,
-     "false": 1.0
+     "true": 1.04,
+     "false": 1.01
     },
     "knob:cut": {
      "short": 1.02,
      "full": 0.94,
-     "tight": 1.03
+     "tight": 1.02
     },
     "knob:density": {
      "0.75": 0.94,
@@ -2092,10 +2092,10 @@
     },
     "knob:field": {
      "moire": 1.03,
-     "julia": 1.03,
+     "julia": 1.04,
      "bryce": 1.01,
      "kaleido": 1.03,
-     "oil": 1.0,
+     "oil": 0.99,
      "spiral": 1.01,
      "warp": 0.95,
      "voronoi": 1.03,
@@ -2103,12 +2103,12 @@
      "rings": 1.0
     },
     "knob:font": {
-     "Poppins-Black.ttf": 0.98,
+     "Poppins-Black.ttf": 0.99,
      "Poppins-Bold.ttf": 1.02,
      "DejaVuSerif-Bold.ttf": 1.04
     },
     "knob:grain": {
-     "true": 1.01,
+     "true": 1.0,
      "false": 1.04
     },
     "knob:ground": {
@@ -2116,7 +2116,7 @@
      "void": 0.95
     },
     "knob:lyrics": {
-     "word": 1.02,
+     "word": 1.01,
      "line": 1.03,
      "none": 1.0
     },
@@ -2128,12 +2128,12 @@
      "eye": 1.07,
      "none": 1.03,
      "star": 0.99,
-     "cube": 0.98,
+     "cube": 0.97,
      "poly": 0.98
     },
     "knob:pal": {
      "lava": 1.07,
-     "ice": 1.03,
+     "ice": 1.02,
      "neon": 1.01,
      "mono": 0.98,
      "vapor": 1.0,
@@ -2150,38 +2150,38 @@
     },
     "knob:poster": {
      "false": 1.04,
-     "true": 1.01
+     "true": 1.0
     },
     "knob:ring": {
      "false": 1.06,
-     "true": 0.97
+     "true": 0.98
     },
     "knob:second": {
      "warp": 1.02,
-     "marble": 1.05,
+     "marble": 1.04,
      "none": 1.01,
      "spiral": 0.97,
      "rings": 1.02
     },
     "knob:speed": {
      "0.6": 1.07,
-     "1.6": 1.03,
+     "1.6": 1.04,
      "1.0": 0.96
     },
     "knob:strobe": {
      "false": 1.05,
-     "true": 0.98
+     "true": 0.97
     },
     "knob:sym": {
      "6": 1.03,
      "5": 0.96,
      "8": 1.05,
-     "4": 1.0,
+     "4": 0.99,
      "12": 1.04
     },
     "knob:word_y": {
      "0.72": 1.04,
-     "0.5": 1.0
+     "0.5": 0.99
     }
    },
    "stats": {
@@ -2189,41 +2189,41 @@
      "psy": [
       36,
       32.62,
-      0.511
+      0.51
      ],
      "collage": [
       7,
       6.72,
-      0.443
+      0.444
      ]
     },
     "opening line": {
      "without": [
       35,
       31.77,
-      0.495
+      0.496
      ],
      "with": [
       8,
       7.57,
-      0.515
+      0.51
      ]
     },
     "hook": {
      "what do you see?": [
       4,
       3.76,
-      0.544
+      0.532
      ],
      "don't blink": [
       3,
       2.84,
-      0.476
+      0.477
      ],
      "sound on": [
       1,
       0.97,
-      0.514
+      0.525
      ]
     },
     "song": {
@@ -2235,22 +2235,22 @@
      "wont_be_the_same_again": [
       9,
       8.04,
-      0.468
+      0.462
      ],
      "hair_of_the_dog": [
       3,
       2.63,
-      0.594
+      0.595
      ],
      "fixation": [
       4,
       3.63,
-      0.552
+      0.553
      ],
      "myth_of_sisyphus": [
       3,
       2.75,
-      0.49
+      0.493
      ],
      "full_ride": [
       1,
@@ -2265,17 +2265,17 @@
      "suspended": [
       3,
       2.8,
-      0.521
+      0.528
      ],
      "silver_and_gold": [
       2,
       1.9,
-      0.465
+      0.466
      ],
      "evil_close_quarters": [
       3,
       2.87,
-      0.585
+      0.587
      ],
      "subway_maintenance": [
       2,
@@ -2290,7 +2290,7 @@
      "recess_rewind": [
       1,
       0.96,
-      0.389
+      0.391
      ],
      "passage_waiting": [
       1,
@@ -2327,17 +2327,17 @@
      "prologue/s09": [
       1,
       0.87,
-      0.793
+      0.796
      ],
      "wont_be_the_same_again/s01": [
       2,
       1.74,
-      0.546
+      0.547
      ],
      "hair_of_the_dog/s01": [
       1,
       0.87,
-      0.457
+      0.461
      ],
      "prologue/s05": [
       1,
@@ -2357,7 +2357,7 @@
      "wont_be_the_same_again/s06": [
       1,
       0.88,
-      0.511
+      0.514
      ],
      "full_ride/s02": [
       1,
@@ -2377,17 +2377,17 @@
      "myth_of_sisyphus/s03": [
       1,
       0.9,
-      0.661
+      0.664
      ],
      "suspended/s04": [
       1,
       0.91,
-      0.536
+      0.546
      ],
      "fixation/s01": [
       1,
       0.91,
-      0.795
+      0.799
      ],
      "wont_be_the_same_again/s07": [
       2,
@@ -2407,7 +2407,7 @@
      "silver_and_gold/s03": [
       1,
       0.94,
-      0.577
+      0.579
      ],
      "talk/s04": [
       1,
@@ -2417,7 +2417,7 @@
      "evil_close_quarters/s03": [
       1,
       0.94,
-      0.564
+      0.568
      ],
      "subway_maintenance/s01": [
       1,
@@ -2427,12 +2427,12 @@
      "myth_of_sisyphus/s01-s02": [
       1,
       0.97,
-      0.361
+      0.366
      ],
      "suspended/s04-s05": [
       1,
       0.97,
-      0.514
+      0.525
      ],
      "notta_problem/s03-s04": [
       1,
@@ -2452,7 +2452,7 @@
      "recess_rewind/s04": [
       1,
       0.96,
-      0.389
+      0.391
      ],
      "evil_close_quarters/s01": [
       1,
@@ -2477,12 +2477,12 @@
      "wont_be_the_same_again/s03": [
       1,
       0.97,
-      0.484
+      0.427
      ],
      "evil_close_quarters/s02": [
       1,
       0.96,
-      0.681
+      0.685
      ],
      "silver_and_gold/s02": [
       1,
@@ -2494,7 +2494,7 @@
      "kaleido": [
       11,
       9.87,
-      0.54
+      0.542
      ],
      "cells": [
       2,
@@ -2509,17 +2509,17 @@
      "rings": [
       4,
       3.59,
-      0.441
+      0.442
      ],
      "bryce": [
       4,
       3.53,
-      0.58
+      0.583
      ],
      "tunnel": [
       3,
       2.72,
-      0.45
+      0.452
      ],
      "moire": [
       3,
@@ -2529,22 +2529,22 @@
      "julia": [
       1,
       0.9,
-      0.661
+      0.664
      ],
      "oil": [
       2,
       1.9,
-      0.499
+      0.469
      ],
      "spiral": [
       1,
       0.94,
-      0.564
+      0.568
      ],
      "warp": [
       2,
       1.94,
-      0.359
+      0.362
      ],
      "voronoi": [
       1,
@@ -2556,44 +2556,44 @@
      "word": [
       11,
       9.76,
-      0.457
+      0.452
      ],
      "line": [
       10,
       8.96,
-      0.564
+      0.565
      ]
     },
     "palette": {
      "ocean": [
       7,
       6.33,
-      0.438
+      0.44
      ],
      "candy": [
       9,
       7.97,
-      0.52
+      0.521
      ],
      "lava": [
       6,
       5.31,
-      0.562
+      0.563
      ],
      "acid": [
       3,
       2.69,
-      0.552
+      0.553
      ],
      "ice": [
       3,
       2.8,
-      0.551
+      0.532
      ],
      "neon": [
       2,
       1.87,
-      0.525
+      0.535
      ],
      "mono": [
       2,
@@ -2629,13 +2629,13 @@
      ],
      "under 20s": [
       18,
-      16.89,
-      0.497
+      16.88,
+      0.496
      ],
      "under 10s": [
       6,
       5.7,
-      0.552
+      0.554
      ]
     },
     "hour posted": {
@@ -2652,17 +2652,17 @@
      "14:00": [
       4,
       3.61,
-      0.545
+      0.546
      ],
      "16:00": [
       4,
       3.68,
-      0.495
+      0.5
      ],
      "18:00": [
       5,
       4.57,
-      0.465
+      0.468
      ],
      "21:00": [
       5,
@@ -2672,27 +2672,27 @@
      "10:00": [
       3,
       2.7,
-      0.588
+      0.59
      ],
      "12:00": [
       3,
       2.79,
-      0.39
+      0.391
      ],
      "13:00": [
       3,
       2.74,
-      0.576
+      0.577
      ],
      "20:00": [
       3,
       2.76,
-      0.442
+      0.422
      ],
      "17:00": [
       2,
       1.85,
-      0.43
+      0.432
      ],
      "19:00": [
       4,
@@ -2734,12 +2734,12 @@
      "sound all the way up. don't blink.": [
       3,
       2.62,
-      0.513
+      0.514
      ],
      "stare at the centre for 15 seconds. then look at your hand.": [
       3,
       2.62,
-      0.458
+      0.459
      ],
      "how far did you make it before you looked away?": [
       1,
@@ -2754,32 +2754,32 @@
      "loop it. it gets deeper every time.": [
       1,
       0.88,
-      0.511
+      0.514
      ],
      "send this to the friend who would stare at it for an hour": [
       4,
       3.6,
-      0.558
+      0.561
      ],
      "pov: the song starts looking back at you": [
       3,
       2.73,
-      0.585
+      0.586
      ],
      "what do you see in this? wrong answers only": [
       3,
       2.79,
-      0.606
+      0.61
      ],
      "this is your sign to put your headphones on": [
       2,
       1.88,
-      0.372
+      0.375
      ],
      "Silver and Gold \u2013 Close Quarters": [
       1,
       0.94,
-      0.577
+      0.579
      ],
      "full screen, sound on. let it loop twice.": [
       2,
@@ -2789,7 +2789,7 @@
      "Evil Close Quarters \u2013 Close Quarters": [
       2,
       1.9,
-      0.536
+      0.538
      ],
      "Subway Maintenance \u2013 Close Quarters": [
       1,
@@ -2804,7 +2804,7 @@
      "Recess (Rewind) \u2013 Close Quarters": [
       1,
       0.96,
-      0.389
+      0.391
      ],
      "let your eyes go soft": [
       1,
@@ -2824,12 +2824,12 @@
      "the colours follow the bass": [
       1,
       0.97,
-      0.484
+      0.427
      ],
      "this one breathes if you stare long enough": [
       1,
       0.96,
-      0.681
+      0.685
      ],
      "turn the lights off first": [
       1,
@@ -2841,36 +2841,36 @@
      "true": [
       6,
       5.58,
-      0.561
+      0.553
      ],
      "false": [
       12,
       11.29,
-      0.503
+      0.506
      ]
     },
     "knob:cut": {
      "short": [
       7,
       6.66,
-      0.524
+      0.526
      ],
      "full": [
       5,
       4.75,
-      0.402
+      0.403
      ],
      "tight": [
       13,
       12.18,
-      0.526
+      0.523
      ]
     },
     "knob:density": {
      "0.75": [
       4,
       3.82,
-      0.39
+      0.391
      ],
      "0.6": [
       1,
@@ -2880,19 +2880,19 @@
      "0.45": [
       2,
       1.93,
-      0.605
+      0.607
      ]
     },
     "knob:feedback": {
      "true": [
       11,
       10.34,
-      0.509
+      0.506
      ],
      "false": [
       7,
       6.53,
-      0.544
+      0.547
      ]
     },
     "knob:field": {
@@ -2904,32 +2904,32 @@
      "julia": [
       1,
       0.9,
-      0.661
+      0.664
      ],
      "bryce": [
       1,
       0.91,
-      0.536
+      0.546
      ],
      "kaleido": [
       5,
       4.63,
-      0.543
+      0.546
      ],
      "oil": [
       2,
       1.9,
-      0.499
+      0.469
      ],
      "spiral": [
       1,
       0.94,
-      0.564
+      0.568
      ],
      "warp": [
       2,
       1.94,
-      0.359
+      0.362
      ],
      "voronoi": [
       1,
@@ -2939,7 +2939,7 @@
      "tunnel": [
       1,
       0.96,
-      0.389
+      0.391
      ],
      "rings": [
       1,
@@ -2951,36 +2951,36 @@
      "Poppins-Black.ttf": [
       5,
       4.64,
-      0.476
+      0.479
      ],
      "Poppins-Bold.ttf": [
       6,
       5.69,
-      0.533
+      0.526
      ],
      "DejaVuSerif-Bold.ttf": [
       7,
       6.54,
-      0.547
+      0.549
      ]
     },
     "knob:grain": {
      "true": [
       12,
       11.34,
-      0.506
+      0.503
      ],
      "false": [
       6,
       5.53,
-      0.558
+      0.559
      ]
     },
     "knob:ground": {
      "field": [
       4,
       3.81,
-      0.475
+      0.477
      ],
      "void": [
       3,
@@ -2992,41 +2992,41 @@
      "word": [
       6,
       5.57,
-      0.526
+      0.518
      ],
      "line": [
       5,
       4.64,
-      0.55
+      0.551
      ],
      "none": [
       7,
-      6.67,
-      0.501
+      6.66,
+      0.504
      ]
     },
     "knob:mirror": {
      "true": [
       11,
-      10.28,
-      0.509
+      10.27,
+      0.506
      ],
      "false": [
       7,
       6.6,
-      0.545
+      0.546
      ]
     },
     "knob:motif": {
      "eye": [
       4,
       3.77,
-      0.611
+      0.614
      ],
      "none": [
       7,
       6.55,
-      0.537
+      0.541
      ],
      "star": [
       3,
@@ -3036,7 +3036,7 @@
      "cube": [
       3,
       2.86,
-      0.462
+      0.443
      ],
      "poly": [
       1,
@@ -3048,17 +3048,17 @@
      "lava": [
       2,
       1.81,
-      0.689
+      0.691
      ],
      "ice": [
       3,
       2.8,
-      0.551
+      0.532
      ],
      "neon": [
       2,
       1.87,
-      0.525
+      0.535
      ],
      "mono": [
       2,
@@ -3073,7 +3073,7 @@
      "ocean": [
       3,
       2.84,
-      0.453
+      0.455
      ],
      "acid": [
       1,
@@ -3083,7 +3083,7 @@
      "candy": [
       1,
       0.97,
-      0.361
+      0.366
      ],
      "toxic": [
       2,
@@ -3100,12 +3100,12 @@
      "ice": [
       4,
       3.83,
-      0.4
+      0.401
      ],
      "temple": [
       2,
       1.92,
-      0.485
+      0.487
      ],
      "circuit": [
       1,
@@ -3117,36 +3117,36 @@
      "false": [
       8,
       7.53,
-      0.542
+      0.544
      ],
      "true": [
       10,
       9.35,
-      0.507
+      0.503
      ]
     },
     "knob:ring": {
      "false": [
       10,
       9.45,
-      0.565
+      0.562
      ],
      "true": [
       8,
       7.42,
-      0.468
+      0.47
      ]
     },
     "knob:second": {
      "warp": [
       5,
       4.66,
-      0.523
+      0.525
      ],
      "marble": [
       3,
       2.78,
-      0.602
+      0.587
      ],
      "none": [
       5,
@@ -3156,80 +3156,80 @@
      "spiral": [
       3,
       2.83,
-      0.435
+      0.436
      ],
      "rings": [
       2,
       1.91,
-      0.539
+      0.546
      ]
     },
     "knob:speed": {
      "0.6": [
       7,
       6.51,
-      0.589
+      0.591
      ],
      "1.6": [
       2,
       1.87,
-      0.585
+      0.592
      ],
      "1.0": [
       9,
       8.49,
-      0.458
+      0.453
      ]
     },
     "knob:strobe": {
      "false": [
       12,
       11.13,
-      0.548
+      0.551
      ],
      "true": [
       6,
       5.74,
-      0.474
+      0.465
      ]
     },
     "knob:sym": {
      "6": [
       4,
       3.75,
-      0.553
+      0.555
      ],
      "5": [
       6,
       5.62,
-      0.442
+      0.444
      ],
      "8": [
       4,
-      3.71,
-      0.586
+      3.7,
+      0.59
      ],
      "4": [
       2,
       1.9,
-      0.499
+      0.469
      ],
      "12": [
       2,
       1.9,
-      0.603
+      0.605
      ]
     },
     "knob:word_y": {
      "0.72": [
       10,
       9.27,
-      0.546
+      0.549
      ],
      "0.5": [
       8,
       7.6,
-      0.494
+      0.489
      ]
     }
    },
@@ -3364,7 +3364,7 @@
     "opening line": {
      "with": [
       12,
-      11.14,
+      11.13,
       0.516
      ],
      "without": [
@@ -3408,7 +3408,7 @@
     "song": {
      "prologue": [
       3,
-      2.75,
+      2.74,
       0.548
      ],
      "suspended": [
@@ -3673,7 +3673,7 @@
      ],
      "tight": [
       3,
-      2.87,
+      2.86,
       0.505
      ],
      "short": [
@@ -4485,7 +4485,7 @@
      ],
      "0.6": [
       11,
-      10.29,
+      10.28,
       0.444
      ]
     },
@@ -4596,7 +4596,7 @@
      ],
      "fourier": [
       5,
-      4.67,
+      4.66,
       0.485
      ],
      "fold": [
@@ -5093,15 +5093,15 @@
   },
   "rocket_league": {
    "posts": 10,
-   "waiting": 3,
-   "typical_views": 179.5,
+   "waiting": 5,
+   "typical_views": 181.5,
    "weights": {
     "style": {
      "rocket": 1.0
     },
     "opening line": {
      "without": 1.01,
-     "with": 0.97
+     "with": 0.98
     },
     "hook": {
      "rocket league peaked in 2016. agree?": 1.05,
@@ -5113,7 +5113,7 @@
      "share": 0.93
     },
     "hook style": {
-     "flash": 0.97
+     "flash": 0.98
     },
     "song": {
      "prologue": 1.09,
@@ -5139,12 +5139,12 @@
     "length": {
      "under 10s": 1.12,
      "20-35s": 0.91,
-     "under 20s": 0.96
+     "under 20s": 0.97
     },
     "hour posted": {
-     "17:00": 1.12,
-     "12:00": 0.95,
-     "15:00": 1.02,
+     "17:00": 1.13,
+     "12:00": 0.96,
+     "15:00": 1.01,
      "19:00": 0.98,
      "20:00": 0.93
     },
@@ -5169,11 +5169,11 @@
     },
     "knob:frame": {
      "crop": 1.03,
-     "blur": 0.97
+     "blur": 0.96
     },
     "knob:ramp": {
      "slowmo": 1.05,
-     "none": 0.94
+     "none": 0.93
     }
    },
    "stats": {
@@ -5188,19 +5188,19 @@
      "without": [
       8,
       7.52,
-      0.514
+      0.512
      ],
      "with": [
       2,
       1.94,
-      0.431
+      0.44
      ]
     },
     "hook": {
      "rocket league peaked in 2016. agree?": [
       1,
       0.97,
-      0.708
+      0.725
      ],
      "tag your duo": [
       1,
@@ -5212,12 +5212,12 @@
      "none": [
       2,
       1.91,
-      0.479
+      0.47
      ],
      "debate": [
       1,
       0.97,
-      0.708
+      0.725
      ],
      "share": [
       1,
@@ -5229,7 +5229,7 @@
      "flash": [
       2,
       1.94,
-      0.431
+      0.44
      ]
     },
     "song": {
@@ -5246,7 +5246,7 @@
      "suspended": [
       2,
       1.9,
-      0.721
+      0.729
      ],
      "hair_of_the_dog": [
       2,
@@ -5256,17 +5256,17 @@
      "talk": [
       1,
       0.96,
-      0.322
+      0.331
      ],
      "full_ride": [
       1,
       0.97,
-      0.353
+      0.344
      ],
      "wont_be_the_same_again": [
       1,
       0.97,
-      0.467
+      0.45
      ]
     },
     "section": {
@@ -5293,12 +5293,12 @@
      "talk/s04": [
       1,
       0.96,
-      0.322
+      0.331
      ],
      "full_ride/s03": [
       1,
       0.97,
-      0.353
+      0.344
      ],
      "hair_of_the_dog/s03": [
       1,
@@ -5308,12 +5308,12 @@
      "wont_be_the_same_again/s03": [
       1,
       0.97,
-      0.467
+      0.45
      ],
      "suspended/s05": [
       1,
       0.97,
-      0.708
+      0.725
      ],
      "myth_of_sisyphus/s05": [
       1,
@@ -5325,39 +5325,39 @@
      "under 10s": [
       4,
       3.72,
-      0.695
+      0.699
      ],
      "20-35s": [
       4,
       3.84,
-      0.351
+      0.345
      ],
      "under 20s": [
       2,
       1.9,
-      0.406
+      0.41
      ]
     },
     "hour posted": {
      "17:00": [
       2,
       1.87,
-      0.809
+      0.818
      ],
      "12:00": [
       2,
       1.89,
-      0.377
+      0.381
      ],
      "15:00": [
       2,
       1.9,
-      0.54
+      0.536
      ],
      "19:00": [
       3,
       2.82,
-      0.46
+      0.454
      ],
      "20:00": [
       1,
@@ -5384,12 +5384,12 @@
      "the timing on this one": [
       1,
       0.96,
-      0.322
+      0.331
      ],
      "ceiling shot, but make it Full Ride": [
       1,
       0.97,
-      0.353
+      0.344
      ],
      "this is why we queue at 2am": [
       1,
@@ -5399,12 +5399,12 @@
      "wait for it": [
       1,
       0.97,
-      0.467
+      0.45
      ],
      "ceiling shot, but make it Suspended": [
       1,
       0.97,
-      0.708
+      0.725
      ],
      "the bounce read on this": [
       1,
@@ -5416,12 +5416,12 @@
      "short": [
       4,
       3.72,
-      0.695
+      0.699
      ],
      "full": [
       6,
       5.74,
-      0.369
+      0.366
      ]
     },
     "knob:format": {
@@ -5440,24 +5440,24 @@
      "crop": [
       6,
       5.67,
-      0.535
+      0.537
      ],
      "blur": [
       4,
       3.79,
-      0.441
+      0.437
      ]
     },
     "knob:ramp": {
      "slowmo": [
       6,
       5.65,
-      0.57
+      0.572
      ],
      "none": [
       4,
       3.81,
-      0.39
+      0.386
      ]
     }
    },
@@ -5720,7 +5720,7 @@
     "hour posted": {
      "13:00": [
       3,
-      2.8,
+      2.79,
       0.604
      ],
      "15:00": [
@@ -6511,7 +6511,7 @@
      ],
      "1.0": [
       9,
-      8.43,
+      8.42,
       0.51
      ],
      "0.5": [
@@ -6919,7 +6919,7 @@
   },
   "retro_arcade": {
    "posts": 8,
-   "waiting": 2,
+   "waiting": 3,
    "typical_views": 52.5,
    "weights": {
     "style": {
@@ -6930,47 +6930,47 @@
     },
     "song": {
      "fixation": 0.98,
-     "hair_of_the_dog": 0.98,
+     "hair_of_the_dog": 1.0,
      "silver_and_gold": 1.03,
      "myth_of_sisyphus": 0.97,
-     "subway_maintenance": 1.02,
-     "evil_close_quarters": 1.02
+     "subway_maintenance": 1.03,
+     "evil_close_quarters": 1.0
     },
     "section": {
      "fixation/s02": 0.98,
      "hair_of_the_dog/s01": 1.0,
      "silver_and_gold/s03": 1.03,
      "myth_of_sisyphus/s08": 0.97,
-     "subway_maintenance/s02": 1.02,
-     "evil_close_quarters/s04": 1.01,
+     "subway_maintenance/s02": 1.03,
+     "evil_close_quarters/s04": 0.99,
      "hair_of_the_dog/s02": 0.99,
      "evil_close_quarters/s01": 1.0
     },
     "length": {
-     "20-35s": 0.99,
-     "under 10s": 1.02,
+     "20-35s": 0.97,
+     "under 10s": 1.03,
      "over 35s": 0.97,
-     "under 20s": 1.01
+     "under 20s": 1.02
     },
     "hour posted": {
      "19:00": 0.98,
-     "12:00": 1.02,
-     "16:00": 1.04,
-     "20:00": 0.96,
+     "12:00": 1.03,
+     "16:00": 1.02,
+     "20:00": 0.97,
      "13:00": 1.0
     },
     "caption": {
      "every level you never got to finish": 0.98,
      "Silver and Gold \u2013 Close Quarters": 1.03,
-     "2am, console still on, this was playing": 0.96,
-     "Subway Maintenance \u2013 Close Quarters": 1.02,
-     "Evil Close Quarters \u2013 Close Quarters": 1.01,
+     "2am, console still on, this was playing": 0.97,
+     "Subway Maintenance \u2013 Close Quarters": 1.03,
+     "Evil Close Quarters \u2013 Close Quarters": 0.99,
      "the demo disc had one more level": 1.0
     },
     "knob:cut": {
-     "full": 0.97,
-     "short": 1.02,
-     "tight": 1.01
+     "full": 0.95,
+     "short": 1.03,
+     "tight": 1.02
     },
     "knob:frame": {
      "none": 1.01,
@@ -6980,22 +6980,22 @@
      "memory": 1.0
     },
     "knob:pace": {
-     "2": 0.98,
-     "1": 1.02
+     "2": 0.99,
+     "1": 1.01
     },
     "knob:screen": {
      "ps2": 0.98,
-     "crt": 1.01,
-     "vhs": 0.99,
-     "clean": 1.02
+     "crt": 1.02,
+     "vhs": 0.98,
+     "clean": 1.03
     },
     "knob:theme": {
      "space": 0.98,
      "water": 1.0,
      "skate": 1.03,
      "mall": 0.97,
-     "pool": 1.02,
-     "snow": 1.01,
+     "pool": 1.03,
+     "snow": 0.99,
      "town": 0.99,
      "racing": 1.0
     }
@@ -7005,14 +7005,14 @@
      "retro": [
       8,
       7.58,
-      0.501
+      0.5
      ]
     },
     "opening line": {
      "without": [
       8,
       7.58,
-      0.501
+      0.5
      ]
     },
     "song": {
@@ -7024,7 +7024,7 @@
      "hair_of_the_dog": [
       2,
       1.9,
-      0.457
+      0.489
      ],
      "silver_and_gold": [
       1,
@@ -7034,17 +7034,17 @@
      "myth_of_sisyphus": [
       1,
       0.94,
-      0.35
+      0.371
      ],
      "subway_maintenance": [
       1,
       0.96,
-      0.607
+      0.629
      ],
      "evil_close_quarters": [
       2,
       1.93,
-      0.543
+      0.489
      ]
     },
     "section": {
@@ -7056,7 +7056,7 @@
      "hair_of_the_dog/s01": [
       1,
       0.93,
-      0.479
+      0.521
      ],
      "silver_and_gold/s03": [
       1,
@@ -7066,22 +7066,22 @@
      "myth_of_sisyphus/s08": [
       1,
       0.94,
-      0.35
+      0.371
      ],
      "subway_maintenance/s02": [
       1,
       0.96,
-      0.607
+      0.629
      ],
      "evil_close_quarters/s04": [
       1,
       0.97,
-      0.564
+      0.457
      ],
      "hair_of_the_dog/s02": [
       1,
       0.97,
-      0.436
+      0.457
      ],
      "evil_close_quarters/s01": [
       1,
@@ -7093,22 +7093,22 @@
      "20-35s": [
       2,
       1.88,
-      0.481
+      0.426
      ],
      "under 10s": [
       2,
       1.87,
-      0.565
+      0.586
      ],
      "over 35s": [
       1,
       0.94,
-      0.35
+      0.371
      ],
      "under 20s": [
       3,
       2.9,
-      0.521
+      0.535
      ]
     },
     "hour posted": {
@@ -7120,17 +7120,17 @@
      "12:00": [
       2,
       1.89,
-      0.544
+      0.576
      ],
      "16:00": [
       2,
       1.9,
-      0.606
+      0.552
      ],
      "20:00": [
       2,
       1.91,
-      0.394
+      0.415
      ],
      "13:00": [
       1,
@@ -7142,7 +7142,7 @@
      "every level you never got to finish": [
       2,
       1.84,
-      0.436
+      0.458
      ],
      "Silver and Gold \u2013 Close Quarters": [
       1,
@@ -7152,17 +7152,17 @@
      "2am, console still on, this was playing": [
       2,
       1.91,
-      0.394
+      0.415
      ],
      "Subway Maintenance \u2013 Close Quarters": [
       1,
       0.96,
-      0.607
+      0.629
      ],
      "Evil Close Quarters \u2013 Close Quarters": [
       1,
       0.97,
-      0.564
+      0.457
      ],
      "the demo disc had one more level": [
       1,
@@ -7174,29 +7174,29 @@
      "full": [
       3,
       2.82,
-      0.437
+      0.408
      ],
      "short": [
       2,
       1.87,
-      0.565
+      0.586
      ],
      "tight": [
       3,
       2.9,
-      0.521
+      0.535
      ]
     },
     "knob:frame": {
      "none": [
       4,
       3.74,
-      0.512
+      0.522
      ],
      "osd": [
       4,
       3.84,
-      0.49
+      0.479
      ]
     },
     "knob:hook": {
@@ -7210,12 +7210,12 @@
      "2": [
       5,
       4.7,
-      0.471
+      0.489
      ],
      "1": [
       3,
       2.87,
-      0.549
+      0.52
      ]
     },
     "knob:screen": {
@@ -7227,17 +7227,17 @@
      "crt": [
       3,
       2.84,
-      0.52
+      0.542
      ],
      "vhs": [
       3,
       2.87,
-      0.48
+      0.451
      ],
      "clean": [
       1,
       0.96,
-      0.607
+      0.629
      ]
     },
     "knob:theme": {
@@ -7249,7 +7249,7 @@
      "water": [
       1,
       0.93,
-      0.479
+      0.521
      ],
      "skate": [
       1,
@@ -7259,22 +7259,22 @@
      "mall": [
       1,
       0.94,
-      0.35
+      0.371
      ],
      "pool": [
       1,
       0.96,
-      0.607
+      0.629
      ],
      "snow": [
       1,
       0.97,
-      0.564
+      0.457
      ],
      "town": [
       1,
       0.97,
-      0.436
+      0.457
      ],
      "racing": [
       1,
@@ -7665,7 +7665,7 @@
      ],
      "2": [
       4,
-      3.86,
+      3.85,
       0.494
      ]
     },
@@ -7896,7 +7896,7 @@
      ],
      "talk/s03-s04": [
       1,
-      0.97,
+      0.96,
       0.219
      ],
      "epilogue_dismissal/s05": [
@@ -8039,7 +8039,7 @@
      ],
      "full": [
       6,
-      5.77,
+      5.76,
       0.437
      ]
     },
@@ -8056,7 +8056,7 @@
      ],
      "12": [
       1,
-      0.97,
+      0.96,
       0.219
      ],
      "9": [
@@ -8674,7 +8674,7 @@
      ],
      "under 10s": [
       2,
-      1.91,
+      1.9,
       0.67
      ]
     },
@@ -9309,14 +9309,14 @@
     "style": {
      "illusion": [
       8,
-      7.65,
+      7.64,
       0.498
      ]
     },
     "opening line": {
      "without": [
       8,
-      7.65,
+      7.64,
       0.498
      ]
     },
