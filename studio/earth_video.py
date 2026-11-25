@@ -25,7 +25,11 @@ import knobs as K
 import earthdata
 
 W, H, FPS = 1080, 1920, 30
-CX, CY = W / 2, H * 0.47
+CX, CY = W / 2, 862.0                     # the globe sits between the opening line and the numbers
+R0 = 455.0                                # its radius: 910 px across of a 1080 px frame
+# Instagram covers the top 250 px, the bottom 420 px and the right 150 px: every word stays between these lines
+SAFE_TOP, SAFE_BOTTOM = 280, H - 420
+TX = 495                                  # text is centred a little left of the middle, clear of the buttons on the right
 DATA = earthdata.DIR
 TW, TH = 4096, 2048
 # ocean, land, coast, grid, atmosphere, then the colours of the things drawn (five)
@@ -36,6 +40,8 @@ PALETTES = {
                       ink=[(255, 255, 255), (255, 220, 120), (140, 240, 255), (255, 160, 160), (200, 255, 200)], text=(240, 246, 255)),
     'ember': dict(ocean=(8, 5, 4), land=(40, 22, 14), coast=(200, 110, 50), grid=(24, 14, 10), atmo=(255, 120, 40), bg=(4, 2, 2),
                   ink=[(255, 170, 60), (255, 240, 170), (255, 90, 50), (255, 210, 110), (255, 255, 230)], text=(255, 236, 214)),
+    'marble': dict(ocean=(6, 12, 28), land=(28, 40, 56), coast=(90, 150, 190), grid=(16, 26, 46), atmo=(90, 160, 255), bg=(1, 2, 6),
+                   ink=[(120, 235, 255), (255, 214, 110), (255, 96, 150), (150, 255, 160), (240, 240, 255)], text=(240, 244, 255)),
     'paper': dict(ocean=(236, 230, 216), land=(206, 196, 176), coast=(80, 70, 60), grid=(222, 214, 198), atmo=(200, 180, 150), bg=(244, 239, 228),
                   ink=[(20, 20, 30), (200, 50, 40), (30, 90, 200), (20, 130, 90), (120, 60, 160)], text=(28, 26, 24)),
 }
@@ -92,6 +98,17 @@ def texture(pal, TW=TW, TH=TH):
     return tex
 
 
+def nasa_map(path, tw, th, night=False):
+    """One of NASA's equirectangular maps (180 W at the left edge, 90 N at the top, as ours), at the size wanted."""
+    im = cv2.imread(path, cv2.IMREAD_REDUCED_COLOR_2 if os.path.getsize(path) > 12e6 else cv2.IMREAD_COLOR)
+    if im is None or abs(im.shape[1] / im.shape[0] - 2) > 0.02: return None
+    im = cv2.cvtColor(cv2.resize(im, (tw, th), interpolation=cv2.INTER_AREA), cv2.COLOR_BGR2RGB)
+    if night:                                                                 # lights brighter and warmer, the dark parts darker
+        f = im.astype(np.float32) / 255; f = np.clip((f - 0.03) / 0.97, 0, 1) ** 1.25
+        im = (np.clip(f * np.array([1.25, 1.05, 0.8], np.float32) * 1.15, 0, 1) * 255).astype(np.uint8)
+    return im
+
+
 def usable(path):
     """Is this day's file there and in the shape this script reads (an older flights file was another source's)?"""
     if not path or not os.path.exists(path) or os.path.getsize(path) < 1000: return False
@@ -109,7 +126,10 @@ class Video:
         scenes = [s for s, f in (('satellites', 'tle.txt'), ('flights', 'flights.json'), ('quakes', 'quakes.json')) if usable(self.files.get(f))]
         if not scenes: sys.exit('no earth data (run: python studio/earthdata.py pull)')
         self.scene = K.pick('scene', scenes, r)
-        self.pname = K.pick('palette', sorted(PALETTES), r); self.pal = PALETTES[self.pname]
+        marble = all(usable(self.files.get(n)) for n in ('map_day.jpg', 'map_night.jpg'))
+        # paper has had the most watched posts (4 of 10, small sample); marble only once NASA's maps are in the release
+        looks = ['paper', 'paper', 'night', 'blueprint', 'ember'] + (['marble', 'marble'] if marble else [])
+        self.pname = K.pick('palette', looks, r); self.pal = PALETTES[self.pname]
         self.spin = K.pick('spin', ['slow', 'fast'], r)
         self.hook = K.pick('hook', ['fact', 'question'], r)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
@@ -122,12 +142,21 @@ class Video:
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
         self.credit = '♪ %s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
         self.f_hook, self.f_big, self.f_lab, self.f_mono, self.f_small = font(66), font(46), font(34), font(30, True), font(28)
+        self.f_tiny = font(24); self._fits = {}
         sans = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
-        if os.path.exists(sans): self.f_small = ImageFont.truetype(sans, 28)
-        self.tex = texture(self.pal, *((8192, 4096) if self.scene == 'flights' else (TW, TH)))   # sharper coasts for the close-up
+        if os.path.exists(sans): self.f_small = ImageFont.truetype(sans, 28); self.f_tiny = ImageFont.truetype(sans, 23)
+        size = (8192, 4096) if self.scene == 'flights' else (TW, TH)              # sharper coasts for the close-up
+        self.tex_night = None
+        if self.pname == 'marble':
+            self.tex = nasa_map(self.files['map_day.jpg'], *size); self.tex_night = nasa_map(self.files['map_night.jpg'], *size, night=True)
+            if self.tex is None or self.tex_night is None: self.tex = texture(PALETTES['night'], *size); self.tex_night = None
+        else: self.tex = texture(self.pal, *size)
         self.trail = np.zeros((H, W, 3), np.float32); self.keep = {'satellites': 0.22, 'flights': 0.15, 'quakes': 0.2}[self.scene]
         yy = np.arange(H, dtype=np.float32)[:, None, None]
-        self.band = 0.75 * np.clip((yy - H * 0.70) / (H * 0.08), 0, 1)
+        ss = lambda v: v * v * (3 - 2 * v)                                          # smooth edges: no hard bars on the close-ups
+        ramp = lambda a, b: ss(np.clip((yy - a) / (b - a), 0, 1))
+        self.band = 0.78 * ramp(1240, 1300) * (1 - ramp(1500, 1640))              # behind the numbers
+        self.band = self.band + 0.5 * ramp(150, 270) * (1 - ramp(400, 540))       # and, lightly, behind the opening line
         rs = np.random.default_rng(7); self.stars = (rs.uniform(0, W, 260), rs.uniform(0, H, 260), rs.uniform(0.2, 1, 260))
         self.taken = dt.datetime.now(dt.timezone.utc)
         try:
@@ -224,7 +253,10 @@ class Video:
         self.big = {ks[j]: big[j] for j in range(len(big))}
         self.qframe = np.interp(self.qt, self.clock, np.arange(n))                  # the frame each quake appears in
         self.total = len(q)
-        self.lat0, self.lon0 = self.r.choice([(10, 160), (0, -150), (5, 120), (-10, -80)])   # the Pacific's Ring of Fire
+        places = [(10, 140), (38, -125), (-12, -78), (-15, 175), (30, 70), (52, -165)]   # the Ring of Fire, the Himalaya, Alaska
+        busy = [int((self.qU @ unit(np.array(la), np.array(lo)) > math.cos(math.radians(45))).sum()) for la, lo in places]
+        top = sorted(range(len(places)), key=lambda k: -busy[k])[:2]
+        self.lat0, self.lon0 = places[top[0] if self.r.random() < 0.6 else top[1]]   # open on the busiest side of the planet
         self.highlight = {}
         # the globe turns to face the strongest quakes as they strike: a few of them, at least two seconds apart
         way = []
@@ -254,8 +286,8 @@ class Video:
         return e, nn, c
 
     def radius(self, i):
-        R = 380.0
-        if self.scene == 'flights': R = 380 + 820 * (0.5 - 0.5 * math.cos(math.pi * min(1, i / (self.n * 0.7))))   # in close to the busy sky
+        R = R0
+        if self.scene == 'flights': R = R0 + 735 * (0.5 - 0.5 * math.cos(math.pi * min(1, i / (self.n * 0.7))))   # in close to the busy sky
         return R * (1 + 0.035 * self.snare[i])
 
     def globe(self, img, i, view, R, sun):
@@ -270,12 +302,20 @@ class Video:
         tw, th = self.tex.shape[1], self.tex.shape[0]
         mx = ((lon / (2 * np.pi) + 0.5) * tw).astype(np.float32); my = ((0.5 - lat / np.pi) * th).astype(np.float32)
         col = cv2.remap(self.tex, mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_WRAP).astype(np.float32)
-        light = np.clip((wx * sun[0] + wy * sun[1] + wz * sun[2]) * 3 + 0.6, 0.4 if self.pname != 'paper' else 0.72, 1.0)
-        col *= light[..., None] * (1 - 0.25 * rr[..., None] ** 2)
+        day = 0.5 + 0.5 * np.tanh((wx * sun[0] + wy * sun[1] + wz * sun[2]) * 6)   # a soft terminator, where the sun really is
+        if self.tex_night is not None:                                          # NASA's day, NASA's city lights on the night side
+            lights = cv2.remap(self.tex_night, mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_WRAP).astype(np.float32)
+            col = col * (0.06 + 0.94 * day[..., None]) + lights * (1 - day[..., None]) * 1.1
+        else:
+            lo = 0.82 if self.pname == 'paper' else 0.42
+            col *= (lo + (1 - lo) * day)[..., None]
+        col *= (1 - 0.25 * rr[..., None] ** 2)
         a = np.clip((1 - np.sqrt(rr)) * R + 0.5, 0, 1)[..., None]
         rim = np.exp(-np.maximum(np.sqrt(rr) - 1, 0) * R / 22.0)[..., None] * (np.sqrt(rr) > 1)[..., None]
         sub = img[y0:y1, x0:x1]
-        img[y0:y1, x0:x1] = sub * (1 - a) + col * a + rim * np.array(self.pal['atmo'], np.float32) * (0.55 + 0.4 * self.kick[i])
+        glow = rim * np.array(self.pal['atmo'], np.float32) * (0.55 + 0.4 * self.kick[i])
+        if self.pname == 'paper': glow = -rim * np.array([46, 50, 58], np.float32) * (0.6 + 0.3 * self.kick[i])   # a soft shadow, not a white ring
+        img[y0:y1, x0:x1] = sub * (1 - a) + col * a + glow
 
     def project(self, U, rad, view, R):
         e, nn, c = view
@@ -290,6 +330,21 @@ class Video:
         ix, iy = np.floor(sx).astype(int), np.floor(sy).astype(int); fx, fy = sx - ix, sy - iy
         for dx, dy, w in ((0, 0, (1 - fx) * (1 - fy)), (1, 0, fx * (1 - fy)), (0, 1, (1 - fx) * fy), (1, 1, fx * fy)):
             for ch in range(3): np.add.at(layer[..., ch], (iy + dy, ix + dx), cols[:, ch] * w * size)
+
+    def planes(self, layer, sx, sy, tx, ty, ok, cols, size):
+        """Each plane as a small arrowhead pointing the way it flies (its own heading, projected), as a flight map draws them."""
+        ok = ok & (sx > -10) & (sx < W + 10) & (sy > -10) & (sy < H + 10)
+        dx, dy = (sx - tx)[ok], (sy - ty)[ok]; L = np.hypot(dx, dy); L[L == 0] = 1; dx, dy = dx / L, dy / L
+        x, y, c = sx[ok], sy[ok], cols[ok]
+        nose = np.stack([x + dx * size * 1.3, y + dy * size * 1.3], -1)
+        left = np.stack([x - dx * size * 0.8 - dy * size * 0.75, y - dy * size * 0.8 + dx * size * 0.75], -1)
+        tail = np.stack([x - dx * size * 0.35, y - dy * size * 0.35], -1)
+        right = np.stack([x - dx * size * 0.8 + dy * size * 0.75, y - dy * size * 0.8 - dx * size * 0.75], -1)
+        poly = np.round(np.stack([nose, left, tail, right], 1) * 4).astype(np.int32)
+        key = np.round(c / 24).astype(int); key = key[:, 0] * 10000 + key[:, 1] * 100 + key[:, 2]    # one fill per colour
+        for k in np.unique(key):
+            m = key == k
+            cv2.fillPoly(layer, list(poly[m]), tuple(float(v) for v in c[m][0]), cv2.LINE_AA, 2)
 
     def frame(self, i):
         pal = self.pal; paper = self.pname == 'paper'
@@ -306,24 +361,27 @@ class Video:
             last = [f for f in self.highlight if f <= i]; hl = self.highlight[max(last)] if last else None
             fl = self.snare[i]
             cols = ink[self.grp] * (0.85 + 0.6 * self.kick[i])
-            if hl is not None: cols *= 0.5; cols[self.grp == hl] = ink[hl] * (1.3 + 1.2 * fl) + 70 * fl
+            if hl is not None: cols *= 0.3; cols[self.grp == hl] = ink[2] * (1.4 + 1.2 * fl) + 70 * fl   # in the label's colour
             self.splat(layer, sx[vis], sy[vis], cols[vis], 2.6)
             if self.iss >= 0 and vis[self.iss]:
                 labels.append((sx[self.iss], sy[self.iss], 'ISS'))
-            info = ('%s SATELLITES' % format(self.total, ','), when)
+            info = ('%s ACTIVE SATELLITES' % format(self.total, ','), when)
             if hl is not None: labels.append((None, None, '%s · %s' % (dict(GROUPS)[GROUPS[hl][0]], format(self.counts[hl], ','))))
         elif self.scene == 'flights':
             tau = float(self.sim[i]); when = self.taken + dt.timedelta(seconds=tau); sun = sun_dir(when)
             U = self.flight_positions(tau); sx, sy, vis = self.project(U, np.full(len(U), 1.004), view, R)
             last = [f for f in self.highlight if f <= i]; hl = self.highlight[max(last)] if last else None
             h = np.clip((self.alt - 2000) / 10000, 0, 1)
-            cols = (ink[0][None] * h[:, None] + ink[1][None] * (1 - h[:, None])) * (0.6 + 0.5 * self.kick[i])
-            if hl is not None: cols *= 0.5; cols[self.family == hl] = ink[2] * (1.6 + 1.5 * self.snare[i]) + 60 * self.snare[i]
+            cols = (ink[0][None] * h[:, None] + ink[1][None] * (1 - h[:, None])) * (0.85 + 0.4 * self.kick[i])
+            if hl is not None: cols *= 0.65; cols[self.family == hl] = ink[2] * (1.6 + 1.5 * self.snare[i]) + 60 * self.snare[i]
             tail = self.flight_positions(tau - 300); tx, ty, tv = self.project(tail, np.full(len(U), 1.004), view, R)
             for k in np.linspace(0.15, 0.85, 4):                                    # the five minutes behind it, as a fading tail
                 self.splat(layer, (sx + (tx - sx) * k)[vis & tv], (sy + (ty - sy) * k)[vis & tv], cols[vis & tv] * (1 - k) * 0.6, 1.0)
-            self.splat(layer, sx[vis], sy[vis], cols[vis], 3.2 * (R / 380) ** 0.5)
-            info = ('%s AIRLINERS IN THE AIR' % format(self.total, ','), when)
+            near = float(np.clip((R - 500) / 300, 0, 1))                          # close in, each plane is drawn as a plane
+            self.splat(layer, sx[vis], sy[vis], cols[vis], (5.4 if paper else 3.2) * (R / 380) ** 0.5 * (1 - 0.7 * near))   # ink on paper needs more weight than light on black
+            if near > 0:                                                            # drawn on their own sheet and added: a fill would wipe the dots under it
+                glyph = np.zeros_like(layer); self.planes(glyph, sx, sy, tx, ty, vis & tv, cols, 3.0 + 4.0 * near); layer += glyph * near
+            info = ('%s AIRLINERS TRACKED' % format(self.total, ','), when)
             if hl is not None: labels.append((None, None, '%s · %s' % (hl, format(int((self.family == hl).sum()), ','))))
         else:
             when = dt.datetime.fromtimestamp(float(self.clock[i]), dt.timezone.utc); sun = sun_dir(when)
@@ -334,50 +392,67 @@ class Video:
                 m, a = self.qm[k], age[k]
                 deep = min(1.0, self.qd[k] / 300)
                 col = ink[1] * (1 - deep) + ink[0] * deep
-                dot = (1.2 + (m - 2.5) * 1.1) * R / 380
+                dot = (1.6 + (m - 2.5) * 1.4) * R / 380
                 cv2.circle(layer, (int(sx[k] * 4), int(sy[k] * 4)), int(dot * 4), tuple(float(v) * (0.5 + 0.5 * math.exp(-a)) for v in col), -1, cv2.LINE_AA, 2)
                 life = 1.6 if m >= 5 else 0.6
                 if 0 <= a < life and m >= 4.3:                                      # the ripple: wide for the big ones, a blip for the rest
                     rr = ((4 + 30 * a) * (10 ** (0.3 * (m - 5))) if m >= 5 else 3 + 14 * a) * R / 380
                     cv2.circle(layer, (int(sx[k] * 4), int(sy[k] * 4)), int(rr * 4), tuple(float(v) * (1 - a / life) * (1.3 if m >= 5 else 0.6) for v in col), 2 + int(m >= 6), cv2.LINE_AA, 2)
-            info = ('%s EARTHQUAKES' % format(int(shown.sum()), ','), when)
+            info = ('%s QUAKES OF M2.5+' % format(int(shown.sum()), ','), when)
             near = [f for f in self.big if 0 <= i - f < FPS * 1.4]
             if near:
                 k = self.big[max(near)]
                 if vis[k]:                                                          # named only when it is on our side of the globe
                     labels.append((sx[k], sy[k], 'M%.1f' % self.qm[k])); labels.append((None, None, 'M%.1f · %s' % (self.qm[k], self.qplace[k][:46])))
         self.globe(img, i, view, R, sun)
-        self.trail *= 0.8; self.trail += layer * self.keep                      # crisp points now, a fainter streak behind them
+        moving = self.scene == 'flights' and i < self.n * 0.7                  # no streaks smeared across the screen while the camera dives in
+        self.trail *= 0.35 if moving else 0.8; self.trail += layer * self.keep                      # crisp points now, a fainter streak behind them
         lit = layer + self.trail; glow = cv2.GaussianBlur(lit, (0, 0), 5)
         img = (img - (lit + glow * 0.6)) if paper else (img + lit + glow * (0.6 + 0.5 * self.kick[i]))
         img = img * (1 - self.band) + np.array(pal['bg'], np.float32) * self.band          # a quiet band behind the numbers
         im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
         txt = pal['text']; dim = tuple(int(v * 0.72 + (255 if paper else 0) * 0.28) for v in txt)
         stroke = dict(stroke_width=3, stroke_fill=pal['bg'])
-        t = i / FPS
-        if t < 3.4:
-            d.multiline_text((W / 2, 250), self.hook_text(), font=self.f_hook, fill=txt, anchor='mm', align='center', spacing=14, **stroke)
+        # every word between SAFE_TOP and SAFE_BOTTOM and left of the right-hand 150 px (Instagram's buttons)
+        hk = self.hook_text(); f = self.fit(hk, 64, 840)
+        d.multiline_text((TX, SAFE_TOP + 66), hk, font=f, fill=txt, anchor='mm', align='center', spacing=12, **stroke)
         if info:
-            d.text((W / 2, H * 0.80), info[0], font=self.f_big, fill=txt, anchor='mm', **stroke)
-            d.text((W / 2, H * 0.80 + 56), info[1].strftime('%d %b %Y  %H:%M:%S UTC').upper() if self.scene != 'quakes' else info[1].strftime('%d %b %Y  %H:%M UTC').upper(),
-                   font=self.f_mono, fill=dim, anchor='mm', **stroke)
+            when = info[1].strftime('%d %b %Y  %H:%M:%S UTC') if self.scene != 'quakes' else info[1].strftime('%d %b %Y  %H:%M UTC')
+            d.text((TX, 1325), info[0], font=self.fit(info[0], 58, 840), fill=txt, anchor='mm', **stroke)
+            d.text((TX, 1375), when.upper(), font=self.f_mono, fill=dim, anchor='mm', **stroke)
         for x, y, s in labels:
-            if x is None: d.text((W / 2, H * 0.80 + 112), s, font=self.f_lab, fill=tuple(pal['ink'][2] if not paper else pal['ink'][1]), anchor='mm', **stroke)
+            if x is None: d.text((TX, 1418), s, font=self.fit(s, 36, 840), fill=tuple(pal['ink'][2]), anchor='mm', **stroke)
             else:
-                d.line([(x + 8, y - 8), (x + 40, y - 40)], fill=txt, width=2); d.text((x + 46, y - 44), s, font=self.f_lab, fill=txt, anchor='ls', **stroke)
-        d.text((W / 2, H - 112), self.credit, font=self.f_small, fill=dim, anchor='mm')
-        d.text((W / 2, H - 72), {'satellites': 'orbits: CelesTrak', 'flights': 'positions: ADSB.lol (ODbL), flown on by heading', 'quakes': 'data: USGS'}[self.scene] + ' · map: Natural Earth',
-               font=self.f_small, fill=dim, anchor='mm')
+                f = self.f_lab; tw = d.textlength(s, font=f); left = x + 46 + tw > W - 160      # flip to the left near the buttons
+                if y - 44 < SAFE_TOP + 150 or y > SAFE_BOTTOM - 140: continue                   # never over the words
+                if left: d.line([(x - 8, y - 8), (x - 40, y - 40)], fill=txt, width=2); d.text((x - 46, y - 44), s, font=f, fill=txt, anchor='rs', **stroke)
+                else: d.line([(x + 8, y - 8), (x + 40, y - 40)], fill=txt, width=2); d.text((x + 46, y - 44), s, font=f, fill=txt, anchor='ls', **stroke)
+        src = {'satellites': 'orbits: CelesTrak', 'flights': 'ADSB.lol (ODbL) at %s UTC, flown on by heading' % self.taken.strftime('%H:%M'),
+               'quakes': 'data: USGS'}[self.scene] + (' · map: NASA' if self.tex_night is not None else ' · map: Natural Earth')
+        d.text((TX, 1455), self.credit, font=self.f_small, fill=dim, anchor='mm', **stroke)
+        d.text((TX, 1486), src, font=self.f_tiny, fill=dim, anchor='mm', **stroke)
         return np.asarray(im)
 
+    def fit(self, text, size, maxw):
+        """The bold face at the largest size up to `size` whose widest line fits in maxw."""
+        key = (text, size, maxw)
+        if key not in self._fits:
+            probe = ImageDraw.Draw(Image.new('L', (1, 1)))
+            while size > 26 and max(probe.textlength(l, font=font(size)) for l in text.split('\n')) > maxw: size -= 2
+            self._fits[key] = font(size)
+        return self._fits[key]
+
     def hook_text(self):
-        when = self.taken.strftime('%H:%M UTC')
-        return {('satellites', 'fact'): 'every active satellite,\nright now',
-                ('satellites', 'question'): 'how many satellites\nare above you?',
-                ('flights', 'fact'): 'every airliner in the sky\nat %s' % when,
-                ('flights', 'question'): 'how many airliners are\nin the air right now?',
-                ('quakes', 'fact'): 'every earthquake\non Earth this month',
-                ('quakes', 'question'): 'how often does\nthe Earth shake?'}[(self.scene, self.hook)]
+        """The opening line: on screen from frame 0 to the end, and true of this video's own data."""
+        at = '%s, %s UTC' % (self.taken.strftime('%-d %b'), self.taken.strftime('%H:%M'))
+        if self.scene == 'satellites':
+            return {'fact': 'every active satellite\n%s' % at, 'question': 'how crowded is\nlow Earth orbit?'}[self.hook]
+        if self.scene == 'flights':
+            return {'fact': 'what the sky looked like\nat %s' % at,
+                    'question': 'who is flying at %s UTC\non a %s?' % (self.taken.strftime('%H:%M'), self.taken.strftime('%A'))}[self.hook]
+        days = max(1, round((self.qt.max() - self.qt.min()) / 86400))
+        return {'fact': '%d days of earthquakes\nin %d seconds' % (days, max(1, round(self.n / FPS))),
+                'question': 'how often does\nthe Earth shake?'}[self.hook]
 
     def render(self, out):
         if '--frames' in sys.argv:
