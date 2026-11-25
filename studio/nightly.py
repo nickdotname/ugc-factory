@@ -90,6 +90,8 @@ VISUAL['illusion'] = 'illusion_video.py' # rotation.illusions: dot shapes whose 
 VISUAL['race'] = 'race_video.py'       # algorithm.races: sorting and pathfinding algorithms racing on the same problem
 VISUAL['tests8'] = 'tests8_video.py'   # 8bit.tests: pixel-art tests you take along with the song
 VISUAL['notes'] = 'text_video.py'      # moth.ate.my.notes: one thought on a gradient, like a text post
+VISUAL['notes_her'] = 'text_her_video.py'   # crying.in.trader.joes: the same card in a girl's voice
+VISUAL['notes_him'] = 'text_him_video.py'   # grip.tape.thoughts: the same card in a skater guy's voice
 
 def lofi_cover(slug, win):
     """How much of a stretch the band's dance footage covers (0..1)."""
@@ -131,7 +133,7 @@ def thompson(options, stats, r, retired=()):
 # one of the FRESH share of options its account used most recently.
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line'}
 FRESH = 0.6
 
 # Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that

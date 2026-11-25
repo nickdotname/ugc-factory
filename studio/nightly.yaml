@@ -116,3 +116,11 @@ targets:
     style: notes
     per_night: 5
     join: 12
+  - campaign: notes_her     # crying.in.trader.joes: girl's-voice text page (studio/text_her_video.py)
+    style: notes_her
+    per_night: 5
+    join: 12
+  - campaign: notes_him     # grip.tape.thoughts: skater guy's-voice text page (studio/text_him_video.py)
+    style: notes_him
+    per_night: 5
+    join: 12

@@ -81,6 +81,8 @@ jobs:
           IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
           IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
           IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
+          IG_TOKEN_5: ${{ secrets.IG_TOKEN_5 }}
+          IG_TOKEN_6: ${{ secrets.IG_TOKEN_6 }}
         run: |
           python studio/collabs.py accept
           git add outbox
