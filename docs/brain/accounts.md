@@ -19,7 +19,7 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 5 | 8–23 |
 | @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (city walk, memes, then/now, facts) | 5 | 9–23 |
 | @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 5 | 9–23 |
-| @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (a public-domain film clip played back as coloured ASCII in a terminal) | 5 | 8–23 |
+| @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (public-domain films set in type in a terminal, cut on the bar: comedy, dream or launch reels) | 5 | 8–23 |
 | @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 5 | 9–23 |
 | @rotation.illusions ("Rotation Illusions") | illusions_ig | illusions | illusion (dot shapes whose turning direction is up to your eyes; a disc that reads as a cone; a wheel that runs backwards) | 5 | 8–23 |
 | @algorithm.races ("Algorithm Races", no Page: Unified login, token `IG_TOKEN_2`) | races_ig | algo_races | race (sorting algorithms on the same shuffled numbers; search algorithms through one maze) | 5 | 8–23 |
