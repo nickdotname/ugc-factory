@@ -219,6 +219,17 @@ class Outbox:
         ]
 
 
+def _page_tokens() -> dict[str, str]:
+    """IG_PAGE_TOKENS: a JSON object of Instagram account id -> Page token, or nothing."""
+    import json
+    import os
+    try:
+        data = json.loads(os.environ.get("IG_PAGE_TOKENS") or "{}")
+    except ValueError:
+        return {}
+    return {str(k): str(v) for k, v in data.items() if v} if isinstance(data, dict) else {}
+
+
 class InstagramPublisher(Publisher):
     """Publishes Reels through the Instagram Graph API."""
 
@@ -240,6 +251,11 @@ class InstagramPublisher(Publisher):
         if login not in HOSTS:
             raise ValueError(f"login must be one of {sorted(HOSTS)}, got {login!r}")
         self._token = access_token
+        #: Never-expiring Page tokens by Instagram account id (scripts/page_tokens.py
+        #: mints them from IG_TOKEN into the IG_PAGE_TOKENS secret). When one covers the
+        #: account being worked on, it is used instead of the shared login token.
+        self._page_tokens: dict[str, str] = _page_tokens() if login == "facebook" else {}
+        self._acting: str | None = None
         self._log = log
         self._login = login
         self._base = f"{HOSTS[login]}/{api_version}"
@@ -276,7 +292,7 @@ class InstagramPublisher(Publisher):
                     data=dict(params) if method != "GET" else None,
                     # A header, never a query parameter: a token in a URL ends
                     # up in logs and error messages.
-                    headers={"Authorization": f"Bearer {self._token}"},
+                    headers={"Authorization": f"Bearer {self._page_tokens.get(self._acting or '', self._token)}"},
                     timeout=REQUEST_TIMEOUT_SEC,
                 )
             except requests.RequestException as exc:
@@ -463,6 +479,7 @@ class InstagramPublisher(Publisher):
     def _publish_one(self, item: dict[str, Any]) -> None:
         """Send one held post. Saves after every step that cannot be redone."""
         channel = str(item["channel_id"])
+        self._acting = channel
         item["attempts"] = int(item.get("attempts") or 0) + 1
 
         if item.get("image_urls") and not item.get("container_id"):
@@ -667,6 +684,7 @@ class InstagramPublisher(Publisher):
 
     def publishing_allowance(self, channel_id: str) -> tuple[int, int] | None:
         """(used, total) of the rolling 24-hour publishing allowance."""
+        self._acting = channel_id
         body = self._call(
             "GET", f"{channel_id}/content_publishing_limit",
             {"fields": "quota_usage,config"},
@@ -731,6 +749,7 @@ class InstagramPublisher(Publisher):
 
     def fetch_post_metrics(self, channel_id: str, limit: int = 200) -> list[PostMetrics]:
         """Per-post figures for what this account published through here."""
+        self._acting = channel_id
         done = [
             i for i in self.outbox.for_channel(channel_id, PUBLISHED)
             if i.get("media_id")

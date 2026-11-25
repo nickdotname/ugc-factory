@@ -86,6 +86,7 @@ jobs:
         if: always()
         env:
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_PAGE_TOKENS: ${{ secrets.IG_PAGE_TOKENS }}
           IG_TOKEN_2: ${{ secrets.IG_TOKEN_2 }}
           IG_TOKEN_3: ${{ secrets.IG_TOKEN_3 }}
           IG_TOKEN_4: ${{ secrets.IG_TOKEN_4 }}
