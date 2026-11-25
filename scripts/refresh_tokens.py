@@ -47,6 +47,14 @@ def refresh_ig(token: str) -> tuple[str, int]:
     return body['access_token'], int(body.get('expires_in') or 0)
 
 
+def expiry_days(token: str) -> float | None:
+    """Days until a Facebook-format token runs out (None: never, or unknown), from debug_token."""
+    import time
+    d = (get('https://graph.facebook.com/v21.0/debug_token', {'input_token': token, 'access_token': token}).get('data') or {})
+    exp = int(d.get('data_access_expires_at') if not d.get('expires_at') else d['expires_at'])
+    return None if not exp else (exp - time.time()) / 86400
+
+
 def refresh_fb(token: str) -> tuple[str, int]:
     body = get('https://graph.facebook.com/v21.0/oauth/access_token', {
         'grant_type': 'fb_exchange_token', 'client_id': os.environ['META_APP_ID'],
@@ -67,6 +75,15 @@ def main() -> int:
         if not old:
             print(f'{name}: not set, skipped'); continue
         mask(old)
+        if fn is refresh_ig and not old.startswith('IG'):
+            # The Unified-login dashboard hands out Facebook-format tokens: they renew by exchange, with the app's secret.
+            try: days = expiry_days(old)
+            except RuntimeError as exc: days = -1; print(f'{name}: could not read its expiry ({exc})')
+            if days is None or (days is not None and days > 21):
+                print(f'{name}: Facebook-format, ' + ('never expires' if days is None else f'{days:.0f} days left') + ', nothing to do'); continue
+            if not (os.environ.get('META_APP_ID') and os.environ.get('META_APP_SECRET')):
+                failed += 1; print(f'{name}: Facebook-format, {days:.0f} days left, and META_APP_ID / META_APP_SECRET are not set'); continue
+            fn = refresh_fb
         try:
             new, life = fn(old)
         except (RuntimeError, KeyError) as exc:
