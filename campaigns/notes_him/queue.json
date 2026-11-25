@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Talk – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "him_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T08:47:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "skate or die (mostly die)\n🎧 Talk – @close__quarters #skateboarding #relatable #humor\n\nTalk is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
