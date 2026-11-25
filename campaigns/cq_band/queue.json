@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-11-25T22:11:08.617791Z",
+  "generated_at": "2026-11-25T22:19:07.260739Z",
   "items": [
     {
-      "id": "54a578e4-3d87-427b-80c1-18f8efc2f5b2",
+      "id": "17a62b23-0ee7-4885-9c76-acb0ca8f2dfa",
       "scheduled_for": "2026-11-25T18:35:00-05:00",
-      "rendered_at": "2026-11-25T08:32:06.418240Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/54a578e4-3d87-427b-80c1-18f8efc2f5b2.mp4",
-      "caption": "the album is called EDUCATION for a reason\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "rendered_at": "2026-11-25T22:19:07.260739Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_band-2026-11-25/17a62b23-0ee7-4885-9c76-acb0ca8f2dfa.mp4",
+      "caption": "the start menu of your feelings\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
       "title": null,
       "parts": {
-        "hook": "hook_05.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.605,
-        "anchor_y": 0.538,
+        "anchor_x": 0.748,
+        "anchor_y": 0.711,
         "rotate_deg": -0.0,
-        "brightness": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
@@ -28,28 +28,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "talk",
+      "creative": "notta_problem",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "Talk is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [
-        {
-          "account": "close_quarters_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-73eeb08e-15ef-47d4-9e7e-9c43b1ccf99f",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T18:35:00-05:00"
-        }
-      ],
+      "first_comment": "EDUCATION is out now. Notta Problem is just one of them, link in bio",
+      "posts": [],
       "captions": {
-        "instagram": "the album is called EDUCATION for a reason\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Talk"
+        "instagram": "the start menu of your feelings\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
