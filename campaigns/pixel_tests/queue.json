@@ -91,9 +91,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-1ce0a206-fe7d-49bb-a9b5-e1c196de2232",
           "last_error": null,
           "scheduled_for": "2026-11-26T11:33:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "headphones help more than you'd think\n🎧 Full Ride – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nFull Ride is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
