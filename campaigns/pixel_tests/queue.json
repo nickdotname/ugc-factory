@@ -38,9 +38,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-a543adc0-b156-4442-aa2a-85db7e911dea",
           "last_error": null,
           "scheduled_for": "2026-11-26T14:33:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "one try, then the answer\n🎧 Suspended – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
