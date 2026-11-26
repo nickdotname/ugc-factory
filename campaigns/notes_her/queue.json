@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T11:44:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "this one's personal\n🎧 Suspended – @close__quarters #relatable #girlhumor #createmode\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "main character behavior\n🎧 Hair of the Dog – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Hair of the Dog"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "bestie\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode\n\nstream Subway Maintenance: link in bio"
       },
@@ -163,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "diary entry #47\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
@@ -206,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "her_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "it's giving\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Prologue: Before"
       },
