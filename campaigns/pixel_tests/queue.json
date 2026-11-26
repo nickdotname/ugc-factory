@@ -91,9 +91,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-096db7a0-b767-43df-99e8-677820e916f0",
           "last_error": null,
           "scheduled_for": "2026-11-26T17:33:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "the music is counting with you\n🎧 Prologue: Before – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
