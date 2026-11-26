@@ -32,7 +32,7 @@ creatives:
 # @stare.lab (planned) only, posted to Instagram directly as regular reels.
 accounts:
   mode: allow
-  names: [stare_ig]
+  names: [eyetrick_ig]          # @eye.trick.lab (Adrianne's), from 2026-11-26
 
 posting:
   posts_per_day: 1             # first week; then 5
@@ -46,8 +46,8 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true
-  dry_run: true
+  paused: false                # live 2026-11-26 on @eye.trick.lab
+  dry_run: false
 
 video:
   width: 1080

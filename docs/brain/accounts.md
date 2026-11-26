@@ -64,3 +64,8 @@ New accounts post 2 a day for their first week.
 Both post through their Page tokens (IG_PAGE_TOKENS, from IG_TOKEN's grant; Dylan manages the Pages by invite), 2 a day.
 satisfying.sims.physics, creature.sim and code.makes.art have no Page yet (creation errored); they can come in
 through connect.closequarters.vip (tester invite + "Continue with Instagram"), IG_TOKEN_13/14/16 reserved.
+- 2026-11-26: eye.trick.lab and fourier.reveal were rendering rotation.illusions' and math_time's style with the same
+  subjects (fourier.reveal even posted the same science explainer as math_time the same night). They now run their own
+  formats: **eye.trick.lab → campaign stare_lab** (stare-at-the-dot illusions, studio/stare_video.py) and
+  **fourier.reveal → campaign circle_atlas** (countries drawn by Fourier circles, studio/reveal_video.py). eye_tricks
+  and fourier_reveal are paused.

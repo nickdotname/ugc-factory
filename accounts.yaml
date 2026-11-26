@@ -465,7 +465,7 @@ accounts:
     post_type: reel
     title_strategy: derive
 
-  # @eye.trick.lab: same style as illusions (illusion), its own videos. Posts through its Page token (IG_PAGE_TOKENS, from IG_TOKEN's grant).
+  # @eye.trick.lab: stare-at-the-dot illusions (campaign stare_lab, from 2026-11-26). Posts through its Page token (IG_PAGE_TOKENS, from IG_TOKEN's grant).
   - name: eyetrick_ig
     network: instagram
     provider: instagram
@@ -475,7 +475,7 @@ accounts:
     post_type: reel
     title_strategy: derive
 
-  # @fourier.reveal: same style as math_time (math), its own videos. Posts through its Page token (IG_PAGE_TOKENS, from IG_TOKEN's grant).
+  # @fourier.reveal: countries drawn by Fourier circles (campaign circle_atlas, from 2026-11-26). Posts through its Page token (IG_PAGE_TOKENS, from IG_TOKEN's grant).
   - name: fourier_ig
     network: instagram
     provider: instagram

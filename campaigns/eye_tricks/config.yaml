@@ -68,7 +68,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # live 2026-11-25; 2 a day for its first week
+  paused: true                 # 2026-11-26: it rendered the same style and subjects as its sibling (near copies); the account now runs stare_lab
   dry_run: false
 
 video:
