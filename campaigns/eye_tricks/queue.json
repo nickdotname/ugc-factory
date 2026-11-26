@@ -91,18 +91,18 @@
         {
           "account": "eyetrick_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-26T16:01:00-05:00"
         }
       ],
       "captions": {
         "instagram": "it is doing exactly one thing. count how many you see\n🎧 Recess (Rewind) – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nstream Recess (Rewind): link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
