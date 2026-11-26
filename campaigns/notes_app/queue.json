@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-defde43a-511f-4c2e-9aba-c2fbfac90db0",
+          "buffer_post_id": "igo-5d50db57-d390-4162-aa41-1d51995e804f",
           "last_error": null,
           "scheduled_for": "2026-11-26T20:41:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-1a3f4160-9374-40f1-b1e3-04cd91284137",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T08:41:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "the notes app remembers\n🎧 Talk – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -144,18 +144,18 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-b9cc6cbd-0232-469a-994c-7aa4d41a8f47",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T11:41:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "somebody had to say it\n🎧 Suspended – @close__quarters #relatable #humor #createmode\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -197,18 +197,18 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-0afdfb91-29a4-4c8e-96e9-0c1df57dd04c",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T14:41:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "posting this and logging off\n🎧 Fixation – @close__quarters #relatable #humor #createmode\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -250,18 +250,18 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-5f5c7957-2e83-4fe3-8db5-51661ffdc43c",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T17:41:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "we don't have to talk about it\n🎧 Evil Close Quarters – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
