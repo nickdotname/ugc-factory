@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "eyetrick_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T08:31:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "nothing here changes. you do\n🎧 Evil Close Quarters – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Recess (Rewind) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "eyetrick_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "it is doing exactly one thing. count how many you see\n🎧 Recess (Rewind) – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nstream Recess (Rewind): link in bio"
       },
