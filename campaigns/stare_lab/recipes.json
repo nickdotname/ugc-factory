@@ -1,0 +1,151 @@
+{
+ "clips": {},
+ "menu": {
+  "stare": {
+   "kind": [
+    "colour",
+    "spiral",
+    "chaser"
+   ],
+   "scene": [
+    "aurora",
+    "autumn",
+    "balloons",
+    "beach",
+    "desert",
+    "sunset",
+    "tulips"
+   ],
+   "spin": [
+    "in",
+    "out"
+   ],
+   "hold": [
+    "short",
+    "long"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-26",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s05_stare_68175.mp4",
+   "song": "passage-waiting",
+   "section": "s05",
+   "style": "stare",
+   "seed": 68175,
+   "window": [
+    76.42,
+    94.33
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "colour",
+    "scene": "autumn",
+    "spin": "in",
+    "hold": "long",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.36,
+    "bass": 0.43,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s10_stare_795747.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "stare",
+   "seed": 795747,
+   "window": [
+    226.24,
+    243.87
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "colour",
+    "scene": "beach",
+    "spin": "out",
+    "hold": "long",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.49,
+    "drums": 0.64,
+    "bass": 0.56,
+    "other": 0.89
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s03_stare_883621.mp4",
+   "song": "silver-and-gold",
+   "section": "s03",
+   "style": "stare",
+   "seed": 883621,
+   "window": [
+    75.82,
+    91.21
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "colour",
+    "scene": "beach",
+    "spin": "in",
+    "hold": "long",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.74,
+    "bass": 0.8,
+    "other": 0.65
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s01_stare_848498.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s01",
+   "style": "stare",
+   "seed": 848498,
+   "window": [
+    0.36,
+    17.88
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "colour",
+    "scene": "desert",
+    "spin": "out",
+    "hold": "short",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.22,
+    "bass": 0.71,
+    "other": 0.18
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
