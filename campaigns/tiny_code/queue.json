@@ -38,9 +38,9 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-d4846f4d-3d65-4e09-9d48-26f087f6f12b",
           "last_error": null,
           "scheduled_for": "2026-11-26T18:19:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "made of trigonometry and a kick drum\n🎧 Silver and Gold – @close__quarters #creativecoding #generativeart #mathart #python\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
