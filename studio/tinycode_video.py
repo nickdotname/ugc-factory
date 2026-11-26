@@ -49,7 +49,7 @@ r = .2 + .11 * m
 r += .04 * sin(3 * m * a) * (1 + 3 * k)
 x, y = r * cos(a), r * sin(a) * .8
 c = m / 7 + .03 * t""",
-    'interference': """u, v = meshgrid(*[linspace(-1, 1, 540)] * 2)
+    'interference': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
 a = hypot(u - .4 * sin(t), v - .3)
 b = hypot(u + .4 * cos(t * .7), v + .3)
 F = sin(30 * a - 5 * t) + sin(30 * b - 5 * t)
@@ -79,19 +79,19 @@ for _ in range(24):
     x, y = (sin(a * y) + cos(a * x),
             sin(b * x) + .7 * cos(b * y))
 x, y, c = x / 2.2, y / 2, .3 * x + .05 * t""",
-    'plasma': """u, v = meshgrid(*[linspace(-1, 1, 540)] * 2)
+    'plasma': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
 F = sin(9 * u + t) + sin(8 * v - t)
 F += sin(7 * (u + v) + 2 * t)
 F += sin(11 * hypot(u, v) - 3 * t)
 C = F / 8 + .1 * t
 F = .4 + .4 * (F / 4) ** 2 + .5 * k""",
-    'tunnel': """u, v = meshgrid(*[linspace(-1, 1, 540)] * 2)
+    'tunnel': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
 r, a = hypot(u, v) + .01, arctan2(v, u)
 z = 1 / r + 2 * t
 F = (sin(6 * a + 4 * z) > .3 - .4 * k) * r
 F = F * 1.4
 C = z / 6 + a / 2 / pi""",
-    'metaballs': """u, v = meshgrid(*[linspace(-1, 1, 540)] * 2)
+    'metaballs': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
 F = 0 * u
 for j in range(6):
     p = .6 * sin(t * (.5 + j / 7) + j)
@@ -166,11 +166,15 @@ class Video:
             img = cv2.resize(img.astype(np.float32), (S, S), interpolation=cv2.INTER_CUBIC)
         else:
             x, y, c = (np.asarray(ns[k], np.float32).ravel() for k in ('x', 'y', 'c'))
-            px = ((x * 0.47 + 0.5) * S).astype(np.int32); py = ((-y * 0.47 + 0.5) * S).astype(np.int32)
-            ok = (px >= 0) & (px < S) & (py >= 0) & (py < S)
-            img = np.zeros((S, S, 3), np.float32); col = self.colour(c[ok]) * 0.55
-            for ch in range(3): np.add.at(img[..., ch], (py[ok], px[ok]), col[:, ch])
-            img = cv2.GaussianBlur(img, (0, 0), 1.1) * 2.2
+            fx = (x * 0.47 + 0.5) * S - .5; fy = (-y * 0.47 + 0.5) * S - .5          # each point shared over its four pixels: smooth, not stair-stepped
+            px = np.floor(fx).astype(np.int32); py = np.floor(fy).astype(np.int32); ax = fx - px; ay = fy - py
+            ok = (px >= 0) & (px < S - 1) & (py >= 0) & (py < S - 1)
+            px, py, ax, ay = px[ok], py[ok], ax[ok], ay[ok]; col = self.colour(c[ok]) * (0.55 * 60000 / max(len(x), 1))
+            img = np.zeros((S, S, 3), np.float32)
+            for dx, dy, wgt in ((0, 0, (1 - ax) * (1 - ay)), (1, 0, ax * (1 - ay)), (0, 1, (1 - ax) * ay), (1, 1, ax * ay)):
+                idx = (py + dy) * S + px + dx
+                for ch in range(3): img[..., ch] += np.bincount(idx, col[:, ch] * wgt, S * S).reshape(S, S)
+            img = cv2.GaussianBlur(img, (0, 0), .8) * 2.2
         small = cv2.resize(img, (S // 4, S // 4), interpolation=cv2.INTER_AREA)
         img = img + cv2.resize(cv2.GaussianBlur(small, (0, 0), 6), (S, S)) * self.glow * (0.8 + 0.8 * self.kick[i])
         img = np.maximum(img, self.prev * self.trail); self.prev = img
