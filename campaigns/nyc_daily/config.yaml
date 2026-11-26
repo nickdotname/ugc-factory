@@ -62,7 +62,7 @@ accounts:
   names: [nyc_ig]
 
 posting:
-  posts_per_day: 5
+  posts_per_day: 4            # 5 until docs/brain/reviews/2026-11-26: meme + walk 2:2
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10

@@ -63,7 +63,7 @@ accounts:
   names: [petri_ig]
 
 posting:
-  posts_per_day: 5
+  posts_per_day: 2            # 5 until docs/brain/reviews/2026-11-26: rethinking the arc (warm-up off, frame-0 line) before volume
   start_hour: 9                # earlier than the other niche pages: mornings were empty across the network
   end_hour: 23
   max_buffer_queue: 10

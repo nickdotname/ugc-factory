@@ -63,7 +63,7 @@ accounts:
   names: [her_ig]
 
 posting:
-  posts_per_day: 5
+  posts_per_day: 2            # 5 until docs/brain/reviews/2026-11-26: every notes page at 2 while its numbers are still blind
   start_hour: 8                # early: mornings were empty across the network
   end_hour: 23
   max_buffer_queue: 10

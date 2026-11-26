@@ -64,7 +64,7 @@ accounts:
   names: [glitch_ig]
 
 posting:
-  posts_per_day: 5
+  posts_per_day: 2            # 5 until docs/brain/reviews/2026-11-26: NASA/space + own footage only while the format is reworked
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10

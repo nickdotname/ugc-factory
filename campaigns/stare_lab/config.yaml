@@ -35,7 +35,7 @@ accounts:
   names: [eyetrick_ig]          # @eye.trick.lab (Adrianne's), from 2026-11-26
 
 posting:
-  posts_per_day: 1             # first week; then 5
+  posts_per_day: 3            # stare 2 + hue/measure 1 a night planned (docs/brain/reviews/2026-11-26); 1 until then
   start_hour: 8                # early: mornings were empty across the network
   end_hour: 23
   max_buffer_queue: 10

@@ -71,7 +71,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # live 2026-11-25; new account: 2 a day for its first week
+  paused: true                 # PAUSED docs/brain/reviews/2026-11-26: merge into crying.in.trader.joes or make it the clean mixed-signals page first
   dry_run: false
 
 video:
