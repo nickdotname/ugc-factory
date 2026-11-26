@@ -1,55 +1,45 @@
 {
-  "generated_at": "2026-11-26T00:48:06.987860Z",
+  "generated_at": "2026-11-26T08:38:45.098805Z",
   "items": [
     {
-      "id": "5b116469-18ee-488c-8081-6f7f69eea1a2",
-      "scheduled_for": "2026-11-25T20:35:00-05:00",
-      "rendered_at": "2026-11-26T00:48:06.987860Z",
-      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-26/5b116469-18ee-488c-8081-6f7f69eea1a2.mp4",
-      "caption": "public data, set to a song\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps",
+      "id": "f7371b6b-70ed-4af1-87a4-c1e1480b5c31",
+      "scheduled_for": "2026-11-26T08:35:00-05:00",
+      "rendered_at": "2026-11-26T08:38:45.098805Z",
+      "video_url": "https://factory.nickbenak.com/v/render-earth_data-2026-11-26/f7371b6b-70ed-4af1-87a4-c1e1480b5c31.mp4",
+      "caption": "the dots are real flights\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps",
       "title": null,
       "parts": {
-        "hook": "hook_04.mp4",
+        "hook": "hook_05.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.623,
-        "anchor_y": 0.364,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
+        "anchor_x": 0.375,
+        "anchor_y": 0.428,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
       "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "earth_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-069b295e-35f1-492f-af51-6d6cd9f1dc1a",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T08:35:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "public data, set to a song\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Prologue: Before: link in bio"
+        "instagram": "the dots are real flights\n🎧 Prologue: Before – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
