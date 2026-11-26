@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T20:41:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "moving on\n🎧 Myth of Sisyphus – @close__quarters #relatable #humor #createmode\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the notes app remembers\n🎧 Talk – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Talk"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Suspended by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "somebody had to say it\n🎧 Suspended – @close__quarters #relatable #humor #createmode\n\nstream Suspended: link in bio"
       },
@@ -163,7 +193,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Fixation – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "posting this and logging off\n🎧 Fixation – @close__quarters #relatable #humor #createmode\n\nFixation is out now. link in bio to stream it"
       },
@@ -206,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "we don't have to talk about it\n🎧 Evil Close Quarters – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Evil Close Quarters"
       },
