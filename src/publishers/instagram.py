@@ -363,6 +363,13 @@ class InstagramPublisher(Publisher):
                 "attaching a track from Instagram's music catalogue needs an "
                 "account connected through Facebook Login (login: facebook)"
             )
+        # A video goes to an account once. Two top-ups running together (2026-11-26: the cron and the clock's
+        # dispatch) booked the same videos twice, and eye.trick.lab and fourier.reveal posted them twice.
+        for held in self.outbox.for_channel(request.channel_id, QUEUED, PUBLISHING, PUBLISHED):
+            if held.get("video_url") == request.video_url:
+                self._log.warning("instagram_duplicate_not_held", post_id=held.get("id"))
+                when = _parse_dt(held.get("scheduled_for")) or request.scheduled_for
+                return PublishedPost(post_id=str(held.get("id")), scheduled_for=when, will_publish_automatically=True)
         post_id = f"{ID_PREFIX}{uuid.uuid4()}"
         item: dict[str, Any] = {
             "id": post_id,
@@ -629,9 +636,17 @@ class InstagramPublisher(Publisher):
             ch = str(i.get("channel_id"))
             if at is not None and (ch not in last or at > last[ch]): last[ch] = at
 
+        posted = {(str(i.get("channel_id")), i.get("video_url")) for i in self.outbox.items()
+                  if i.get("status") == PUBLISHED and i.get("video_url")}
         for item in waiting:
             channel = str(item.get("channel_id"))
             due = _parse_dt(item.get("scheduled_for"))
+            if item.get("status") == QUEUED and (channel, item.get("video_url")) in posted:
+                item["status"] = FAILED                       # this account already posted this exact video
+                item["error"] = "this video was already posted on this account; not sent again"
+                self.touched.append(self.outbox.save(item)); changed.append(item)
+                self._log.warning("instagram_duplicate_skipped", post_id=item["id"])
+                continue
             if sent.get(channel, 0) >= max_per_channel:
                 continue
             if send_next and due is not None and due > now and item.get("status") == QUEUED:

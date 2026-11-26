@@ -1,78 +1,68 @@
 {
-  "generated_at": "2026-11-26T08:32:37.439252Z",
+  "generated_at": "2026-11-26T14:02:23.550479Z",
   "items": [
     {
-      "id": "44b33d35-f20c-4cc0-b71a-1f8413539b03",
-      "scheduled_for": "2026-11-25T21:15:00-05:00",
-      "rendered_at": "2026-11-25T08:31:57.110401Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-25/44b33d35-f20c-4cc0-b71a-1f8413539b03.mp4",
-      "caption": "the tracking is off and nobody is getting up to fix it\n🎧 Full Ride – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
+      "id": "61ab9e08-ab19-430e-a54c-e3d0956f61f6",
+      "scheduled_for": "2026-11-26T09:35:00-05:00",
+      "rendered_at": "2026-11-26T14:02:23.550479Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-26/61ab9e08-ab19-430e-a54c-e3d0956f61f6.mp4",
+      "caption": "somewhere you went every week and never once took a picture of\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
       "title": null,
       "parts": {
-        "hook": "hook_03.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.409,
-        "anchor_y": 0.395,
+        "anchor_x": 0.389,
+        "anchor_y": 0.67,
         "rotate_deg": 0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "full_ride",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Full Ride – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-ee01b94e-1360-458d-b571-5445abdf1db8",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T09:35:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "the tracking is off and nobody is getting up to fix it\n🎧 Full Ride – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nFull Ride is out now. link in bio to stream it"
+        "instagram": "somewhere you went every week and never once took a picture of\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "4d67504c-da8c-4ebb-bdfe-edcbc1c68371",
-      "scheduled_for": "2026-11-26T09:35:00-05:00",
-      "rendered_at": "2026-11-25T14:37:48.968496Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-25/4d67504c-da8c-4ebb-bdfe-edcbc1c68371.mp4",
-      "caption": "it's 1999 and nobody has a phone in their pocket\n🎧 Talk – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
+      "id": "3e4ed6f5-4267-49f5-a163-c7e4f81fb8fa",
+      "scheduled_for": "2026-11-26T16:35:00-05:00",
+      "rendered_at": "2026-11-26T14:02:23.550479Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-26/3e4ed6f5-4267-49f5-a163-c7e4f81fb8fa.mp4",
+      "caption": "the last day before everybody grew up\n🎧 Won't Be the Same Again – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
       "title": null,
       "parts": {
-        "hook": "hook_04.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.528,
-        "anchor_y": 0.67,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "anchor_x": 0.315,
+        "anchor_y": 0.605,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
@@ -81,28 +71,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "talk",
+      "creative": "wont_be_the_same_again",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-bd734a4c-c14c-431d-96b9-baea4d36a751",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T16:35:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "it's 1999 and nobody has a phone in their pocket\n🎧 Talk – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nstream Talk: link in bio"
+        "instagram": "the last day before everybody grew up\n🎧 Won't Be the Same Again – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

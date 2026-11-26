@@ -196,4 +196,7 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: vintage.media.archive back, every frame redrawn as ink line art (look=ink, warm papers), 2 a day.
 - 2026-11-25: new format stopit ("can you stop this?") on physics.bounce.lab, 2 a night; physics 4->3.
 - 2026-11-26: ready page stare_lab (style `stare`, studio/stare_video.py): afterimage, motion-aftereffect and lilac-chaser illusions on landscapes drawn in code; six steadier songs. Paused until its Instagram account exists ([[ready-pages]]).
+- 2026-11-26: duplicate bookings from two concurrent top-ups cancelled (52); topup cron removed; one booking per video per account.
+- 2026-11-26: eye.trick.lab -> stare_lab, fourier.reveal -> circle_atlas (own formats; were near copies of siblings).
 - 2026-11-26: ready page ink_marbling (style `ebru`, studio/ebru_video.py): paper marbling by the exact drop/comb/wave/stir maps, drops on the beat; six patterns. Paused until its Instagram account exists ([[ready-pages]]).
+- 2026-11-26: ready-pages.md: circle_atlas and stare_lab taken off (they went live on @fourier.reveal and @eye.trick.lab).

@@ -1,17 +1,17 @@
 {
  "tle.txt": {
   "source": "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle",
-  "taken": "2026-11-25T00:35:08Z",
-  "records": 15830
+  "taken": "2026-11-26T15:50:46Z",
+  "records": 15826
  },
  "quakes.json": {
   "source": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson",
-  "taken": "2026-11-25T00:35:09Z",
-  "records": 1834
+  "taken": "2026-11-26T15:50:47Z",
+  "records": 1810
  },
  "flights.json": {
   "source": "adsb.lol",
-  "taken": "2026-11-25T00:41:27Z",
-  "records": 4650
+  "taken": "2026-11-26T15:57:01Z",
+  "records": 5377
  }
 }

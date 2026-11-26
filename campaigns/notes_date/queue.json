@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-26T08:32:45.947079Z",
+  "generated_at": "2026-11-26T14:02:39.411166Z",
   "items": [
     {
-      "id": "a3804ad6-fc0c-4617-a58c-a690e40b1760",
-      "scheduled_for": "2026-11-26T08:18:00-05:00",
-      "rendered_at": "2026-11-26T08:32:45.947079Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_date-2026-11-26/a3804ad6-fc0c-4617-a58c-a690e40b1760.mp4",
-      "caption": "this is a call out\n🎧 Prologue: Before – @close__quarters #situationship #relatable #datinghumor #talkingstage",
+      "id": "6bd9d571-ea73-4742-b004-5b85b182e91c",
+      "scheduled_for": "2026-11-26T15:48:00-05:00",
+      "rendered_at": "2026-11-26T14:02:39.411166Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_date-2026-11-26/6bd9d571-ea73-4742-b004-5b85b182e91c.mp4",
+      "caption": "no because why is this me\n🎧 Subway Maintenance – @close__quarters #situationship #relatable #datinghumor #talkingstage",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,37 +16,37 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.464,
-        "anchor_y": 0.254,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
+        "anchor_x": 0.344,
+        "anchor_y": 0.628,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "prologue",
+      "creative": "subway_maintenance",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
       "posts": [
         {
           "account": "date_ig",
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-d9496a43-5814-4c71-8709-0c7bff005d42",
+          "buffer_post_id": "igo-059ac206-7231-4a5a-8f36-1d83efe57230",
           "last_error": null,
-          "scheduled_for": "2026-11-27T08:18:00-05:00"
+          "scheduled_for": "2026-11-28T08:18:00-05:00"
         }
       ],
       "captions": {
-        "instagram": "this is a call out\n🎧 Prologue: Before – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nPrologue: Before is out now. link in bio to stream it"
+        "instagram": "no because why is this me\n🎧 Subway Maintenance – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nstream Subway Maintenance: link in bio"
       },
       "titles": {},
       "status": "pushed",
@@ -55,11 +55,11 @@
       "last_error": null
     },
     {
-      "id": "02afecc6-6811-448c-99aa-7bd9bcfc80c2",
-      "scheduled_for": "2026-11-26T15:48:00-05:00",
-      "rendered_at": "2026-11-26T08:32:45.947079Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_date-2026-11-26/02afecc6-6811-448c-99aa-7bd9bcfc80c2.mp4",
-      "caption": "not me in the comments of my own life\n🎧 Full Ride – @close__quarters #situationship #relatable #datinghumor #talkingstage",
+      "id": "1a5671da-3d4a-43d7-9792-c8c3bf38149b",
+      "scheduled_for": "2026-11-27T08:18:00-05:00",
+      "rendered_at": "2026-11-26T14:02:39.411166Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_date-2026-11-26/1a5671da-3d4a-43d7-9792-c8c3bf38149b.mp4",
+      "caption": "literally me\n🎧 Notta Problem – @close__quarters #situationship #relatable #datinghumor #talkingstage",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -69,9 +69,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.723,
-        "anchor_y": 0.419,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.379,
+        "anchor_y": 0.625,
+        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -81,25 +81,25 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "full_ride",
+      "creative": "notta_problem",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
+      "first_comment": "🎧 Notta Problem – @close__quarters (EDUCATION, out now)",
       "posts": [
         {
           "account": "date_ig",
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-bfbc1a89-d011-47c1-b00f-f00ff582cec5",
+          "buffer_post_id": "igo-a932d0d7-7113-4cfb-8e9a-4b96e19f25a3",
           "last_error": null,
-          "scheduled_for": "2026-11-27T15:48:00-05:00"
+          "scheduled_for": "2026-11-28T15:48:00-05:00"
         }
       ],
       "captions": {
-        "instagram": "not me in the comments of my own life\n🎧 Full Ride – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nlink in bio to stream Full Ride"
+        "instagram": "literally me\n🎧 Notta Problem – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
       "status": "pushed",

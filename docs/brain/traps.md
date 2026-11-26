@@ -139,3 +139,11 @@ everywhere, and a tint and a gate do not stop a match: public domain is not "ori
 true, per_night 0). Loose Change's drop on Nov 17 looked the same. glitch.archive.exe and ascii.cinema.tty use the same
 library but change every pixel (datamosh, ASCII), so they are less exposed; watch them.
 Fixed the same day: vintage now redraws every frame as ink line art (studio/vintage_video.py, look=ink), into new libraries (assets-vintage_ink-<song>) so no old print-look clip can be posted.
+
+## Two top-ups at once double-booked every video (2026-11-26)
+topup.yml had its own cron (47 */4) as well as the clock's 09:00 dispatch: at 08:56 and 09:01 UTC two top-ups ran and
+both booked the same rendered videos, 52 duplicate bookings across the network; eye.trick.lab and fourier.reveal
+each posted the same video twice an hour apart before it was caught. Fixed three ways: the cron is gone (the clock
+alone starts top-ups), the Instagram publisher holds a video only once per account (create_post returns the
+existing booking), and publish-due never sends a video the account has already posted. The 52 duplicates were set
+to failed, not deleted.

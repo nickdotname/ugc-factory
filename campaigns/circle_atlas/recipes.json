@@ -1,0 +1,175 @@
+{
+ "clips": {},
+ "menu": {
+  "reveal": {
+   "country": [
+    "Argentina",
+    "Australia",
+    "Bolivia",
+    "Brazil",
+    "Canada",
+    "Chile",
+    "Colombia",
+    "Cuba",
+    "Finland",
+    "France",
+    "Germany",
+    "Great Britain",
+    "Greenland",
+    "Iran",
+    "Italy",
+    "Japan",
+    "Kenya",
+    "Libya",
+    "Madagascar",
+    "Mexico",
+    "Mongolia",
+    "New Zealand (South Island)",
+    "Nigeria",
+    "Norway",
+    "Peru",
+    "Poland",
+    "Portugal",
+    "Saudi Arabia",
+    "Somalia",
+    "South Africa",
+    "Spain",
+    "Sweden",
+    "Thailand",
+    "Turkey",
+    "Venezuela",
+    "Vietnam",
+    "the USA"
+   ],
+   "palette": [
+    "blueprint",
+    "chalk",
+    "night",
+    "paper"
+   ],
+   "ask": [
+    "early",
+    "name",
+    "when"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-26",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s09_reveal_959360.mp4",
+   "song": "recess-rewind",
+   "section": "s09",
+   "style": "reveal",
+   "seed": 959360,
+   "window": [
+    138.54,
+    156.06
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Mexico",
+    "palette": "night",
+    "ask": "when",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.7,
+    "bass": 0.64,
+    "other": 0.78
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "notta_problem",
+   "file": "notta-problem_s07_reveal_488965.mp4",
+   "song": "notta-problem",
+   "section": "s07",
+   "style": "reveal",
+   "seed": 488965,
+   "window": [
+    138.69,
+    150.15
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Norway",
+    "palette": "chalk",
+    "ask": "early",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.69,
+    "drums": 0.63,
+    "bass": 0.95,
+    "other": 0.29
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s04_reveal_713096.mp4",
+   "song": "evil-close-quarters",
+   "section": "s04",
+   "style": "reveal",
+   "seed": 713096,
+   "window": [
+    77.14,
+    100.13
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Great Britain",
+    "palette": "blueprint",
+    "ask": "early",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.82,
+    "bass": 0.57,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s03_reveal_961029.mp4",
+   "song": "subway-maintenance",
+   "section": "s03",
+   "style": "reveal",
+   "seed": 961029,
+   "window": [
+    70.09,
+    84.17
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Germany",
+    "palette": "night",
+    "ask": "when",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.78,
+    "bass": 0.28,
+    "other": 0.52
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
