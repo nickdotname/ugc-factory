@@ -91,9 +91,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-bd1efe9b-cdf5-4f5f-81ec-9efa89c69da2",
           "last_error": null,
           "scheduled_for": "2026-11-26T21:02:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "a terminal with a little too much imagination\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nlink in bio to stream Passage (Waiting)"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
