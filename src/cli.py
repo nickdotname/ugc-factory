@@ -35,6 +35,7 @@ from src.accounts import (
     ACCOUNTS_FILE,
     AccountConfig,
     AccountsConfig,
+    InstagramLogin,
     Provider,
     accounts_for,
     load_accounts,
@@ -1410,6 +1411,41 @@ def _real_publisher(
     return BufferPublisher(secret, log, organization_id=account.organization_id)
 
 
+#: Volumes a Reel is posted with when its song's catalogue track is attached. The video keeps its own sound at
+#: full volume: that sound IS the song, cut to the window the lyrics and beats on screen were made for, and
+#: ``audio_configuration`` has no start offset, so letting the catalogue track play would start the song over
+#: from 0:00 under every lyric video. The track rides along at the lowest volume Instagram takes, which is all it
+#: needs to file the Reel under the song's audio page and credit the band instead of the niche account.
+AUDIO_TAG_VOLUME = 1
+AUDIO_TAG_VIDEO_VOLUME = 100
+SONGS_DIR = Path("studio") / "songs"
+
+
+def _song_audio(config: CampaignConfig, creative_name: str) -> dict[str, Any] | None:
+    """``audio_id`` and volumes for a creative's song, or None while the song has no catalogue id.
+
+    The creative's own ``ig_audio_id`` wins; otherwise ``studio/songs/<slug>/song.json`` (the slug is the creative
+    name with hyphens), where ``ig_audio_id``, ``ig_audio_volume`` and ``ig_video_volume`` sit beside the song's
+    other facts, so one file per song serves every campaign that posts it.
+    """
+    creative = next((c for c in config.creatives if c.name == creative_name), None)
+    audio_id = creative.ig_audio_id if creative else None
+    volume, video_volume = AUDIO_TAG_VOLUME, AUDIO_TAG_VIDEO_VOLUME
+    try:
+        song = json.loads(
+            (REPO_ROOT / SONGS_DIR / creative_name.replace("_", "-") / "song.json").read_text(encoding="utf-8")
+        )
+    except (OSError, ValueError):
+        song = {}
+    if isinstance(song, dict):
+        audio_id = audio_id or (str(song.get("ig_audio_id") or "").strip() or None)
+        volume = int(song.get("ig_audio_volume") or volume)
+        video_volume = int(song.get("ig_video_volume") or video_volume)
+    if not audio_id:
+        return None
+    return {"audio_id": audio_id, "audio_volume": volume, "video_volume": video_volume}
+
+
 def _held_post_paths(publisher: Publisher) -> list[Path]:
     """Files a publisher wrote that must be committed with the queue.
 
@@ -1786,6 +1822,16 @@ def _push_to_account(
                 audio_name = (
                     config.funnel.audio_name.replace("{name}", song).strip() or None
                 )
+        # The song's own page: with its catalogue id attached the Reel is filed
+        # under the song and credited to the band, instead of being one more
+        # "Original audio" under the niche account. Only an account connected
+        # through Facebook Login may attach one (accounts.yaml `login`); the
+        # publisher posts the Reel with its named sound if Instagram refuses.
+        audio = (
+            _song_audio(config, item.creative)
+            if account.provider is Provider.INSTAGRAM
+            and account.login is InstagramLogin.FACEBOOK else None
+        ) or {}
 
         try:
             request = PublishRequest(
@@ -1796,6 +1842,9 @@ def _push_to_account(
                 video_url=video_url,
                 scheduled_for=due,
                 audio_name=audio_name,
+                audio_id=audio.get("audio_id"),
+                audio_volume=audio.get("audio_volume"),
+                video_volume=audio.get("video_volume"),
                 first_comment=account.first_comment or item.first_comment or None,
                 notify_subscribers=account.notify_subscribers,
                 post_type=account.post_type,

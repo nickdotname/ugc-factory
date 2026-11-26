@@ -934,6 +934,11 @@ class CreativeConfig(StrictModel):
     #: lives. Fill ``{name}`` and ``{link}`` in the campaign's funnel text.
     title: str = ""
     link: str = ""
+    #: The song's id in Instagram's music catalogue (``scripts/ig_audio_search.py``), attached to every Reel of
+    #: this creative posted directly to a Facebook-login account so it is filed under the song's audio page.
+    #: Normally left empty here and read from ``studio/songs/<slug>/song.json`` (``ig_audio_id``), where the
+    #: song's other facts live; set here only to override that for one campaign.
+    ig_audio_id: str | None = None
 
     @field_validator("music_cues")
     @classmethod

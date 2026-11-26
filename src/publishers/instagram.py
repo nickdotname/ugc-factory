@@ -541,7 +541,18 @@ class InstagramPublisher(Publisher):
                     )
                     item["collaborators_refused"] = item.get("collaborators")
                     item["collaborators"] = None
-                elif item.get("audio_name") and not item.get("audio_id"):
+                elif item.get("audio_id"):
+                    # The catalogue track did not take (an account not linked
+                    # through a Page, a track not cleared for the API): the
+                    # Reel goes out as named original audio, as before, and
+                    # the id stays on the record so the refusal can be counted.
+                    self._log.warning(
+                        "instagram_audio_refused",
+                        post_id=item["id"], audio_id=item["audio_id"], error=str(exc)[:200],
+                    )
+                    item["audio_refused"] = item.get("audio_id")
+                    item["audio_id"] = None
+                elif item.get("audio_name"):
                     self._log.warning(
                         "instagram_audio_name_refused",
                         post_id=item["id"], error=str(exc)[:200],
