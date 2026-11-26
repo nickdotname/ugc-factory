@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-26T00:49:02.784476Z",
+  "generated_at": "2026-11-26T08:33:16.004110Z",
   "items": [
     {
-      "id": "b77a1157-b832-4f41-b287-4977e243593d",
-      "scheduled_for": "2026-11-25T20:44:00-05:00",
-      "rendered_at": "2026-11-26T00:49:02.784476Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/b77a1157-b832-4f41-b287-4977e243593d.mp4",
-      "caption": "girl math\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode",
+      "id": "b2d5767c-c4f9-4bea-96e1-a52c21c78107",
+      "scheduled_for": "2026-11-26T08:44:00-05:00",
+      "rendered_at": "2026-11-26T08:33:16.004110Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/b2d5767c-c4f9-4bea-96e1-a52c21c78107.mp4",
+      "caption": "this one's personal\n🎧 Suspended – @close__quarters #relatable #girlhumor #createmode",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,10 +16,10 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.344,
-        "anchor_y": 0.381,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
+        "anchor_x": 0.27,
+        "anchor_y": 0.681,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
         "grain": 0.0,
@@ -28,38 +28,71 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-57e8b050-68e2-4c08-acb6-43a493c719b4",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T11:44:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "girl math\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Won't Be the Same Again"
+        "instagram": "this one's personal\n🎧 Suspended – @close__quarters #relatable #girlhumor #createmode\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "eeb0d246-45b0-48cf-802e-9340cb804194",
-      "scheduled_for": "2026-11-26T08:44:00-05:00",
-      "rendered_at": "2026-11-26T00:49:02.784476Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/eeb0d246-45b0-48cf-802e-9340cb804194.mp4",
-      "caption": "be so for real\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode",
+      "id": "f22f7271-f534-4990-9b70-29eece65f551",
+      "scheduled_for": "2026-11-26T11:44:00-05:00",
+      "rendered_at": "2026-11-26T08:33:16.004110Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/f22f7271-f534-4990-9b70-29eece65f551.mp4",
+      "caption": "main character behavior\n🎧 Hair of the Dog – @close__quarters #relatable #girlhumor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.664,
+        "anchor_y": 0.558,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "hair_of_the_dog",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "main character behavior\n🎧 Hair of the Dog – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Hair of the Dog"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "d33e844f-f089-4d06-afa8-e9f6d7c94021",
+      "scheduled_for": "2026-11-26T14:44:00-05:00",
+      "rendered_at": "2026-11-26T08:33:16.004110Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/d33e844f-f089-4d06-afa8-e9f6d7c94021.mp4",
+      "caption": "bestie\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -69,8 +102,94 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.601,
-        "anchor_y": 0.617,
+        "anchor_x": 0.307,
+        "anchor_y": 0.525,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "subway_maintenance",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "bestie\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode\n\nstream Subway Maintenance: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "da2a5c41-ff4f-4b6b-ac12-22afffe04404",
+      "scheduled_for": "2026-11-26T17:44:00-05:00",
+      "rendered_at": "2026-11-26T08:33:16.004110Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/da2a5c41-ff4f-4b6b-ac12-22afffe04404.mp4",
+      "caption": "diary entry #47\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.597,
+        "anchor_y": 0.525,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "diary entry #47\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode\n\nWon't Be the Same Again is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "57e69a77-3157-40a2-b7f9-edbbaa988fdb",
+      "scheduled_for": "2026-11-26T20:44:00-05:00",
+      "rendered_at": "2026-11-26T08:33:16.004110Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/57e69a77-3157-40a2-b7f9-edbbaa988fdb.mp4",
+      "caption": "it's giving\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.456,
+        "anchor_y": 0.625,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
@@ -86,182 +205,13 @@
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b61a4170-5eac-427f-8df5-31908ddca7d9",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T14:44:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "be so for real\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode\n\nstream Prologue: Before: link in bio"
+        "instagram": "it's giving\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "618e558b-c7b5-471a-a8db-e965350abfdc",
-      "scheduled_for": "2026-11-26T11:44:00-05:00",
-      "rendered_at": "2026-11-26T00:49:02.784476Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/618e558b-c7b5-471a-a8db-e965350abfdc.mp4",
-      "caption": "the delusion is strong today\n🎧 Notta Problem – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.728,
-        "anchor_y": 0.264,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "notta_problem",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Notta Problem – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-2999ef67-d7f8-4e41-a4af-5ddc297b1bd5",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T17:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the delusion is strong today\n🎧 Notta Problem – @close__quarters #relatable #girlhumor #createmode\n\nNotta Problem is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "3fdb896b-a2da-49b4-a840-56b34b1b75f3",
-      "scheduled_for": "2026-11-26T14:44:00-05:00",
-      "rendered_at": "2026-11-26T00:49:02.784476Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/3fdb896b-a2da-49b4-a840-56b34b1b75f3.mp4",
-      "caption": "i'm fine. this is fine\n🎧 Evil Close Quarters – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.47,
-        "anchor_y": 0.385,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "evil_close_quarters",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-224e35b2-790d-4a46-9652-3a3f35107c85",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T20:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "i'm fine. this is fine\n🎧 Evil Close Quarters – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Evil Close Quarters"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "41a89fbd-74ec-4d78-8203-781ba1f47a78",
-      "scheduled_for": "2026-11-26T17:44:00-05:00",
-      "rendered_at": "2026-11-26T00:49:02.784476Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-26/41a89fbd-74ec-4d78-8203-781ba1f47a78.mp4",
-      "caption": "no thoughts just this\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.26,
-        "anchor_y": 0.428,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "epilogue_dismissal",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Epilogue: Dismissal by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-dc9a75c5-58ea-488e-b02c-469375f43723",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T08:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "no thoughts just this\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode\n\nstream Epilogue: Dismissal: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
