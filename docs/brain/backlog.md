@@ -22,6 +22,7 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   - *Choose a world* ("choose a planet, you must survive one year"): four numbered worlds, a countdown, then a
     walk through each with a pixel caption. Fits retro.vibes.arcade today, from clips already in `retro-library`.
   - *Stare illusions* (afterimage, motion aftereffect, lilac chaser): **built 2026-11-26** as stare_lab ([[ready-pages]]). Still open: a Troxler-fading page, an Ames window.
+  - *Marbling* (ink drops, combs, stirs by exact equations): **built 2026-11-26** as ink_marbling ([[ready-pages]]). Still open: a slow 'make the pattern' series (one stroke per beat for 40 s), drops placed by the melody's pitch.
   - *Harder levels* for rotation.illusions ("level: hard ++++": more dots, two shells turning against each other).
   - *Same prompt, four models* (a drawing made by code from each of several AI models, side by side): only if each
     panel is really that model's output. Not from our renderers with model names on them.

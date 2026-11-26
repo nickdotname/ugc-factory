@@ -36,7 +36,7 @@ METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments':
 WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene', 'rule'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
         'psy': ['field'], 'collage': ['palette'], 'liminal': ['place'], 'earth': ['scene'], 'glitch': ['source'],
         'retro': ['theme', 'hook'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
-        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage', 'bg'], 'tinycode': ['program'], 'cinema': ['look', 'cell'], 'alife': ['start', 'palette'], 'scene': ['scene', 'place'], 'illusion': ['kind', 'shape'], 'reveal': ['country'], 'stare': ['kind', 'scene'], 'stopit': ['thing', 'ask']}
+        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage', 'bg'], 'tinycode': ['program'], 'cinema': ['look', 'cell'], 'alife': ['start', 'palette'], 'scene': ['scene', 'place'], 'illusion': ['kind', 'shape'], 'reveal': ['country'], 'stare': ['kind', 'scene'], 'ebru': ['pattern', 'palette'], 'stopit': ['thing', 'ask']}
 
 
 def read_yaml(path):

@@ -170,3 +170,8 @@ targets:
     paused: true
     per_night: 2
     join: 24
+  - campaign: ink_marbling     # marbled.by.math (planned): paper marbling by exact equations (studio/ebru_video.py). Ready page:
+    style: ebru                # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=ink_marbling still renders it
+    paused: true
+    per_night: 2
+    join: 24

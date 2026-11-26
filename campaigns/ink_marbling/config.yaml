@@ -1,0 +1,161 @@
+# marbled.by.math (planned handle; account not created yet): paper marbling (ebru) done with the exact equations of
+# mathematical marbling (studio/ebru_video.py): drops of ink land on the beat and push each other into rings, then a
+# comb, a wavy comb or a stir pulls them into a pattern. Everything drawn in code; no footage, no band.
+# Six songs that none of the other ready pages use (Talk, Full Ride, Fixation, Subway Maintenance, Recess (Rewind),
+# Won't Be the Same Again).
+#
+# Finished videos with their own sound. One creative per SONG. New videos are
+# added every night by the studio job (studio/nightly.yaml) once the target there is unpaused.
+
+slug: ink_marbling
+timezone: America/New_York
+
+creatives:
+  - name: talk
+    title: "Talk"
+    assets_release: assets-ink_marbling-talk
+  - name: full_ride
+    title: "Full Ride"
+    assets_release: assets-ink_marbling-full_ride
+  - name: fixation
+    title: "Fixation"
+    assets_release: assets-ink_marbling-fixation
+  - name: subway_maintenance
+    title: "Subway Maintenance"
+    assets_release: assets-ink_marbling-subway_maintenance
+  - name: recess_rewind
+    title: "Recess (Rewind)"
+    assets_release: assets-ink_marbling-recess_rewind
+  - name: wont_be_the_same_again
+    title: "Won't Be the Same Again"
+    assets_release: assets-ink_marbling-wont_be_the_same_again
+
+# @marbled.by.math (planned) only, posted to Instagram directly as regular reels.
+accounts:
+  mode: allow
+  names: [ebru_ig]
+
+posting:
+  posts_per_day: 1             # first week; then 5
+  start_hour: 8                # early: mornings were empty across the network
+  end_hour: 23
+  max_buffer_queue: 10
+  max_backlog_days: 1
+  # Keeps these posts off the minute another campaign uses on the same
+  # accounts.
+  slot_offset_min: 43
+  fan_out: true
+  # Both switches are ON so nothing can post until you have looked at a
+  # sample. To go live: paused -> false, then dry_run -> false.
+  paused: true
+  dry_run: true
+
+video:
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 21
+  preset: veryfast
+  min_duration_sec: 5
+  max_duration_sec: 60
+  max_file_mb: 100
+
+composition:
+  bodies_per_video: 0          # one clip per video
+  loop_to_min: false           # the renders are already the right length
+  music_volume: 0.0            # nothing laid over: the song is in the video
+  clip_volume: 1.0             # the video's own sound IS the song
+  music_cleared: true          # it is your music
+  music_fade_in_sec: 0.05      # a cue should hit, not swell
+  music_fade_out_sec: 0.4
+  music_random_start: true     # only for tracks with no music_cues
+  music_segment_sec: 15
+  music_skip_intro_sec: 0
+
+variation:
+  enabled: true
+  # Every account gets its OWN version of each post. What differs between
+  # them is real: a different clip, a different on-screen line and caption,
+  # a different moment of the song — as far as the song's library has spares.
+  # This is what keeps accounts from posting the same video; the cosmetic
+  # knobs below do not do that on their own (see PLAYBOOK §8).
+  per_account: false          # one account per network now, so each post is
+                              # one render sent to all three. Turn back on if a
+                              # second account on the same network is added.
+  per_account_vary: [clip, caption, cue]
+
+  # Cosmetic differences on top. Set any of them to 0 to switch it off.
+  zoom_max: 0              # punch-in, up to 5%
+  rotate_max_deg: 0
+  brightness_max: 0
+  saturation_max: 0
+  hue_max_deg: 0
+  grain_max: 0
+  trim_start_max_sec: 0     # shave the head of the clip
+  overlay_shift_max: 0     # a small nudge only: the line sits just above the clips' own text
+  allow_mirror: false         # would flip any text in the footage
+
+  # Never touched: it is the song, and the platforms recognising it as the
+  # song is the point.
+  speed_max: 0.0
+  music_tempo_max: 0.0
+  music_tilt_db: 0.0
+
+overlay:
+  enabled: false              # the lyrics are already on screen
+  size: 0.05
+  # High on the frame on purpose: several of the clips already have their own
+  # text burned in around a quarter of the way down, and this sits above it.
+  y: 0.085
+  max_chars: 24
+
+# Where every post sends people. {name} and {link} come from the song's own
+# `title:` and `link:` under creatives, or from here when a song has none.
+funnel:
+  name: Education by Close Quarters
+  link: ""                    # your smart link — fill this in before going live
+  cta:
+    - "link in bio to stream {name}"
+    - "stream {name}: link in bio"
+    - "{name} is out now. link in bio to stream it"
+  cta_by_network:
+    youtube:                  # YouTube descriptions carry a real link
+      - "Full song — {name}: {link}"
+      - "Listen to {name}: {link}"
+  cta_every: 1
+  # Posted by the account itself under each reel right after it goes out (Instagram only;
+  # Buffer's free plan refuses posts that carry one). Rotates; no asks for likes or tags.
+  first_comment:
+    - "🎧 the song is {name} by @close__quarters, from their album EDUCATION"
+    - "song: {name} by @close__quarters. the full album EDUCATION is linked in our bio"
+    - "🎧 {name} – @close__quarters (EDUCATION, out now)"
+  # What each reel's sound is called on Instagram instead of "Original audio".
+  audio_name: "{name} – Close Quarters"
+  end_card: ""               # the render loops cleanly; a card would break the loop
+  end_card_sec: 2.0
+
+selection:
+  dedupe_on: [hook]          # each video once: a new caption does not make it a new post
+  repeats: false             # and never again later, even when the library runs short (the slot stays empty)
+  caption_cooldown_days: 0
+  hook_cooldown_days: 10     # a video is not reposted for ten days
+  min_runway_days: 7
+  performance_weight: 0.5
+  performance_statistic: mean
+  # false = post ONLY what lineup.yaml spells out.
+  auto_fill: true
+
+# Legacy single-channel binding. Fan-out posts through accounts.yaml; this
+# only decides which network's limits captions are checked against first.
+buffer:
+  api_key_secret: BUFFER_API_KEY
+  channel_id: 6a7d1f03b2d9d57743694aa7
+  post_type: reel
+  service: instagram
+  organization_id: 6a1dc863e8cbb15ba8fdb4ab
+  title_strategy: derive
+
+notify:
+  webhook_secret: DISCORD_WEBHOOK
+  on: [failure, queue_empty, quota_high, license_missing, dedupe_relaxed,
+       queue_stale, distribution_lost, schedule_gap, digest]
