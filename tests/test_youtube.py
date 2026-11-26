@@ -437,6 +437,30 @@ def test_a_forbidden_answer_from_the_api_is_a_reauth_too(tmp_path):
     assert "youtube_channel_blocked" in {e["event"] for e in events(stream)}
 
 
+def test_a_dropped_connection_is_retried_with_the_same_headers(tmp_path):
+    import requests
+
+    session = happy(FakeSession())
+    inner = session._routes[:]            # the PUT handler registered by happy()
+    dropped = {"done": False}
+
+    def flaky(call):
+        if not dropped["done"]:
+            dropped["done"] = True
+            raise requests.ConnectionError("reset")
+        for m, fragment, handler in inner:
+            if m == "PUT" and fragment in call.url:
+                return handler(call)
+        raise AssertionError("unrouted")
+
+    session.route("PUT", SESSION_URL, flaky)
+    publisher, _, _ = make(tmp_path, session)
+    publisher.create_post(request())
+    assert publisher.publish_due()[0]["status"] == PUBLISHED
+    puts = session.calls_to(SESSION_URL)
+    assert puts[0].kwargs["headers"]["Content-Range"] == puts[1].kwargs["headers"]["Content-Range"] == "bytes */2500"
+
+
 def test_a_server_error_is_retried_then_given_up(tmp_path):
     session = happy(FakeSession())
     session.route("POST", UPLOAD_URL, FakeResponse(503, {"error": {"message": "backend"}}))

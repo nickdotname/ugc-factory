@@ -69,7 +69,6 @@ from src.publishers.base import (
 from src.publishers.instagram import (
     CANCELLED,
     FAILED,
-    OUTBOX_DIR,
     PUBLISHED,
     PUBLISHING,
     QUEUED,
@@ -356,14 +355,15 @@ class YouTubePublisher(Publisher):
     def _send(self, method: str, url: str, **kwargs: Any) -> requests.Response:
         """One HTTP call with the access token, retrying network failures."""
         last: Exception | None = None
+        extra = dict(kwargs.pop("headers", None) or {})
+        timeout = kwargs.pop("timeout", REQUEST_TIMEOUT_SEC)
         for attempt in range(1, self._max_attempts + 1):
             token = self._access_token()
-            headers = {"Authorization": f"Bearer {token}", **(kwargs.pop("headers", None) or {})}
             self.request_count += 1
             try:
                 return self._session.request(
-                    method, url, headers=headers,
-                    timeout=kwargs.pop("timeout", REQUEST_TIMEOUT_SEC), **kwargs,
+                    method, url, headers={"Authorization": f"Bearer {token}", **extra},
+                    timeout=timeout, **kwargs,
                 )
             except requests.RequestException as exc:
                 last = RateLimitError(f"YouTube request failed: {exc}")
