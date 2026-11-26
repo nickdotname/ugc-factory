@@ -1299,6 +1299,49 @@
    },
    "lyrics_proven": false,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s06_liminal_217473.mp4",
+   "song": "suspended",
+   "section": "s06",
+   "style": "liminal",
+   "seed": 217473,
+   "window": [
+    108.45,
+    116.14
+   ],
+   "plan": {
+    "place": "hotel",
+    "laps": 1,
+    "year": 2002,
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "hook": "the hotel hallway on the family road trip",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "hotel",
+    "pace": "slow",
+    "tint": "neutral",
+    "tape": "clean",
+    "label": "PLAY \u25b6",
+    "stamp": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.36,
+    "drums": 0.74,
+    "bass": 0.47,
+    "other": 0.83
+   },
+   "lyrics_proven": false,
+   "clip": "hook_05.mp4"
   }
  ],
  "menu": {
@@ -1310,7 +1353,10 @@
     "hotel",
     "office",
     "parking",
-    "school"
+    "school",
+    "playplace",
+    "rink",
+    "lab"
    ],
    "pace": [
     "slow",

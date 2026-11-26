@@ -14,7 +14,8 @@
     "bridge",
     "court",
     "hoops",
-    "subway"
+    "subway",
+    "wild"
    ],
    "ramp": [
     "blocks",
@@ -48,6 +49,16 @@
    "pixel_cuts": [
     "bars",
     "none"
+   ],
+   "pixel_sky": [
+    "dawn",
+    "dusk",
+    "night"
+   ],
+   "pixel_weather": [
+    "clear",
+    "rain",
+    "snow"
    ]
   }
  },
@@ -695,6 +706,96 @@
     "drums": 0.72,
     "bass": 0.6,
     "other": 0.36
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s03_ascii_45880.mp4",
+   "song": "subway-maintenance",
+   "section": "s03",
+   "style": "ascii",
+   "seed": 45880,
+   "window": [
+    70.09,
+    84.17
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "court",
+    "pixel_cuts": "bars",
+    "pixel_sky": "night",
+    "pixel_weather": "clear",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.78,
+    "bass": 0.28,
+    "other": 0.52
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s02_ascii_821143.mp4",
+   "song": "passage-waiting",
+   "section": "s02",
+   "style": "ascii",
+   "seed": 821143,
+   "window": [
+    21.18,
+    39.81
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "hoops",
+    "pixel_cuts": "none",
+    "pixel_sky": "dawn",
+    "pixel_weather": "clear",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.81,
+    "bass": 0.73,
+    "other": 0.75
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s03_ascii_975354.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "ascii",
+   "seed": 975354,
+   "window": [
+    61.41,
+    72.18
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "subway",
+    "pixel_cuts": "none",
+    "pixel_sky": "night",
+    "pixel_weather": "clear",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.63,
+    "bass": 0.26,
+    "other": 0.56
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"

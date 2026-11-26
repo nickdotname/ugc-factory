@@ -271,6 +271,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s07_notes_her_522425.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s07",
+   "style": "notes_her",
+   "seed": 522425,
+   "window": [
+    105.89,
+    123.35
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h069",
+    "look": "orchid",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.59,
+    "bass": 0.68,
+    "other": 0.88
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s10_notes_her_812823.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "notes_her",
+   "seed": 812823,
+   "window": [
+    230.11,
+    236.66
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h011",
+    "look": "meadow",
+    "ink": "white",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.44,
+    "drums": 0.64,
+    "bass": 0.48,
+    "other": 1.07
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s06_notes_her_319958.mp4",
+   "song": "evil-close-quarters",
+   "section": "s06",
+   "style": "notes_her",
+   "seed": 319958,
+   "window": [
+    119.57,
+    128.46
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h053",
+    "look": "orchid",
+    "ink": "white",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.47,
+    "drums": 0.72,
+    "bass": 0.83,
+    "other": 0.72
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "notta_problem",
+   "file": "notta-problem_s02_notes_her_716145.mp4",
+   "song": "notta-problem",
+   "section": "s02",
+   "style": "notes_her",
+   "seed": 716145,
+   "window": [
+    47.66,
+    67.67
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h057",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.71,
+    "bass": 0.28,
+    "other": 0.38
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_notes_her_623373.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "notes_her",
+   "seed": 623373,
+   "window": [
+    165.37,
+    179.08
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h005",
+    "look": "dusk",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.63,
+    "drums": 0.7,
+    "bass": 0.62,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

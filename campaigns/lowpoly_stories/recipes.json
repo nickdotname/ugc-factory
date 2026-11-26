@@ -1,1 +1,96 @@
-{}
+{
+ "menu": {
+  "lowpoly": {
+   "story": [
+    "burps",
+    "car",
+    "crush",
+    "double",
+    "ex",
+    "giant",
+    "gravity",
+    "group chat",
+    "gym",
+    "landlord",
+    "left on read",
+    "monday",
+    "no sleep",
+    "npc",
+    "snooze",
+    "thermostat",
+    "tiny",
+    "town in town",
+    "volume",
+    "wifi"
+   ],
+   "caption": [
+    "pop",
+    "yellow"
+   ],
+   "pace": [
+    "beat",
+    "half"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s03_lowpoly_344861.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "lowpoly",
+   "seed": 344861,
+   "window": [
+    76.79,
+    83.34
+   ],
+   "plan": null,
+   "knobs": {
+    "story": "tiny",
+    "caption": "yellow",
+    "pace": "beat",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.66,
+    "drums": 0.64,
+    "bass": 0.7,
+    "other": 0.17
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s03_lowpoly_610566.mp4",
+   "song": "recess-rewind",
+   "section": "s03",
+   "style": "lowpoly",
+   "seed": 610566,
+   "window": [
+    35.57,
+    53.01
+   ],
+   "plan": null,
+   "knobs": {
+    "story": "ex",
+    "caption": "yellow",
+    "pace": "beat",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.54,
+    "bass": 0.68,
+    "other": 0.76
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}
