@@ -250,9 +250,9 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-d80b3ce7-2eaf-4bb9-bb27-1084d6f598ed",
           "last_error": null,
           "scheduled_for": "2026-11-26T17:41:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "it is what it is\n🎧 Passage (Waiting) – @close__quarters #relatable #humor #createmode\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
