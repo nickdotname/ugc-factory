@@ -193,3 +193,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: openings: glitch opens on a clean readable shot (knob opener, clean 3:1; frame 0 was mid-melt, skip 85%); vintage favours the filled frame over the three-frame strip (layout 2:3); retro 4->2 a day (median 16 views).
 - 2026-11-25: wired Adrianne's eye.trick.lab (illusion) and fourier.reveal (math); 2 a day, Page tokens.
 - 2026-11-25: vintage.media.archive paused after an Instagram originality notice.
+- 2026-11-25: vintage.media.archive back, every frame redrawn as ink line art (look=ink, warm papers), 2 a day.
