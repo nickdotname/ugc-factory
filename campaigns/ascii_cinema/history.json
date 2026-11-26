@@ -496,8 +496,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-d5abd914-60c7-41ce-b563-b60768be3145",
+      "post_ids": {
+        "cinema_ig": "igo-d5abd914-60c7-41ce-b563-b60768be3145"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
