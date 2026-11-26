@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "cinema_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T08:05:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "pause anywhere: it's all @ # % and dots\n🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #film\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
