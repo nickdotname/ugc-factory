@@ -49,11 +49,15 @@ def make(tmp_path: Path, session: FakeSession, *, now=NOW, login="instagram"):
     return publisher, clock
 
 
+import itertools
+_N = itertools.count()
+
+
 def request(**kw) -> PublishRequest:
     base = dict(
         channel_id=CHANNEL,
         text="Notta Problem – Close Quarters",
-        video_url="https://example.test/v/render-x/v.mp4",
+        video_url=f"https://example.test/v/render-x/{next(_N)}.mp4",   # each request its own video
         scheduled_for=NOW - timedelta(minutes=1),
         post_type=PostType.REEL,
         service=Service.INSTAGRAM,
@@ -470,3 +474,12 @@ def test_an_account_that_just_posted_waits_an_hour(tmp_path):
     assert publisher.queue_state(CHANNEL).depth == 1
     clock["now"] = NOW + timedelta(minutes=61)
     assert [i["status"] for i in publisher.publish_due()] == [PUBLISHED]
+
+
+def test_a_video_is_held_once_per_account(tmp_path):
+    """Two top-ups at once (2026-11-26) booked the same video twice; the second booking returns the first."""
+    publisher, _ = make(tmp_path, happy(FakeSession()))
+    a = publisher.create_post(request(video_url="https://example.test/v/same.mp4", scheduled_for=NOW + timedelta(hours=2)))
+    b = publisher.create_post(request(video_url="https://example.test/v/same.mp4", scheduled_for=NOW + timedelta(hours=5)))
+    assert a.post_id == b.post_id
+    assert publisher.queue_state(CHANNEL).depth == 1
