@@ -197,9 +197,9 @@
         {
           "account": "her_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-b80eb813-dad9-407b-9646-25d347b712bb",
           "last_error": null,
           "scheduled_for": "2026-11-27T20:44:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "diary entry #47\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
