@@ -25,6 +25,7 @@ SKIP = 3          # exit code for "this stretch makes no video": studio/nightly.
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
+import polish as _polish
 
 W, H = 1080, 1920
 # 60 fps: half the timing error of 30 (a collision lands within 8 ms of its hit) and smoother flight; Reels keep 60
@@ -314,6 +315,8 @@ class Video:
         if r.returncode: sys.exit('mux failed')
         json.dump(K.record(), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
+
+Video.frame = _polish.wrap(Video.frame, 'physics')      # bloom, grain, grade, vignette: studio/polish.py
 
 def song_end(song_dir):
     """Where the song ends, in master seconds (its stems' length past where they start), or None."""

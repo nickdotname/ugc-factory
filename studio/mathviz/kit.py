@@ -245,6 +245,9 @@ def overlay_fixed(f, st, k, beats, credit):
     return np.clip(f, 0, 255).astype(np.uint8)
 
 def render(frame, clock, out, style=None):
+    import polish                                                    # bloom, grain, vignette (studio/polish.py); races get their own look
+    _look = 'race' if 'race' in os.path.basename(sys.argv[0]) else 'math'; _raw = frame
+    frame = lambda i: polish.look(_raw(i), _look, i)
     if '--frames' in sys.argv:
         fs = [min(int(x), clock.n - 1) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]   # past the end: the last frame
         ims = [Image.fromarray(frame(f)).resize((360, 640)) for f in fs]

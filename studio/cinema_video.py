@@ -387,6 +387,9 @@ class Video:
         json.dump(dict(K.record(), footage=keys), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
 
+import polish as _polish
+Video.frame = _polish.wrap(Video.frame, 'ascii')      # phosphor glow, grain, vignette: studio/polish.py
+
 if __name__ == '__main__':
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
     w = os.environ.get('CQ_WINDOW'); t0, t1 = (float(x) for x in w.split(',')) if w else (30.0, 45.0)

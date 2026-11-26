@@ -201,3 +201,6 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-26: ready page ink_marbling (style `ebru`, studio/ebru_video.py): paper marbling by the exact drop/comb/wave/stir maps, drops on the beat; six patterns. Paused until its Instagram account exists ([[ready-pages]]).
 - 2026-11-26: ready-pages.md: circle_atlas and stare_lab taken off (they went live on @fourier.reveal and @eye.trick.lab).
 - 2026-11-26: ready page ruler_says_no (style `measure`, studio/measure_video.py): seven classic size/straightness/grey illusions asked, then measured on the beat (numbers read off the drawing). Paused until its Instagram account exists ([[ready-pages]]).
+- 2026-11-26: studio/gl.py (headless GLSL on CPU) + psy fields as full-size shaders (shaders/psy.glsl, new `relief` knob); studio/polish.py finishing pass on 15 renderers; psy CRF 27->20.
+- 2026-11-26: alife (digital.petri.dish): physarum at full resolution, 1.2M agents (numba), new `species` knob (three colonies). tinycode fields drawn at 1000 px, points splatted bilinearly.
+- 2026-11-26: retro: FastWan 2.2 (Wan 2.2 5B, 3 DMD steps, 704x1280) added as a test option (`model: fastwan` on retro.yml); default unchanged until the test clips are reviewed.

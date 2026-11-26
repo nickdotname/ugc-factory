@@ -19,6 +19,10 @@ CFG = {}    # written by studio/retro_gen.py: {"batch", "hours", "steps", "frame
 OUT = '/kaggle/working'; CLIPS = os.path.join(OUT, 'clips'); EMB = '/kaggle/tmp/emb'
 T0 = time.time()
 SMALL = 'Wan-AI/Wan2.1-T2V-1.3B-Diffusers'; BIG = 'Wan-AI/Wan2.2-TI2V-5B-Diffusers'
+# FastWan 2.2 (FastVideo, Apache 2.0): Wan 2.2 TI2V 5B distilled (DMD) to 3 steps with no guidance, trained at 704x1280 x 121
+# frames. Three passes of a 5B model fit a T4 in fp16 and take a couple of minutes a clip: sharp 720p instead of 480p mush.
+FAST = 'FastVideo/FastWan2.2-TI2V-5B-FullAttn-Diffusers'
+DMD_STEPS = [1000, 757, 522]
 
 
 def log(*a):
@@ -34,6 +38,29 @@ def gpus():
         name, mib = [x.strip() for x in line.rsplit(',', 1)]; out.append((name, int(float(mib))))
     return out
 
+
+def dmd_scheduler(base_cfg, warp):
+    """FastWan's sampler, which diffusers does not ship: at each of its three timesteps predict the clean video, then
+    noise it afresh to the next timestep (DMD), never an ODE step. `warp` reads the timesteps through the model's
+    shifted schedule (FastVideo's warp_denoising_step); which is right for this checkpoint is what the test decides."""
+    import torch
+    from diffusers import FlowMatchEulerDiscreteScheduler
+    class DMD(FlowMatchEulerDiscreteScheduler):
+        def set_timesteps(self, num_inference_steps=None, device=None, **kw):
+            sig = torch.tensor(DMD_STEPS, dtype=torch.float32) / 1000
+            if warp:
+                sh = float(CFG.get('shift', 5.0)); sig = sh * sig / (1 + (sh - 1) * sig)
+            self.sig = torch.cat([sig, torch.zeros(1)]).to(device); self.timesteps = (sig * 1000).to(device)
+            self.sigmas = self.sig; self.num_inference_steps = len(sig); self._step_index = None; self._begin_index = None
+        def step(self, model_output, timestep, sample, return_dict=True, **kw):
+            k = int(torch.argmin(torch.abs(self.timesteps - timestep.flatten()[0].to(self.timesteps.device))))
+            s = self.sig[k].to(sample.dtype); x0 = sample.float() - s.float() * model_output.float()
+            s2 = float(self.sig[k + 1])
+            out = x0 if s2 <= 0 else (1 - s2) * x0 + s2 * torch.randn(x0.shape, generator=GEN[0], device=x0.device, dtype=x0.dtype)
+            out = out.to(sample.dtype)
+            return (out,) if not return_dict else type('O', (), {'prev_sample': out})()
+    return DMD.from_config(base_cfg)
+GEN = [None]
 
 def encode(mid, prompts, negative, q):
     try:
@@ -65,12 +92,18 @@ def worker(gpu, mid, jobs, prompt_index, q):
         import numpy as np, torch, imageio
         from diffusers import AutoencoderKLWan, WanPipeline, WanTransformer3DModel
         from diffusers.schedulers.scheduling_unipc_multistep import UniPCMultistepScheduler
-        big = mid == BIG
-        dt = torch.bfloat16 if big else torch.float16          # T4s have no fast bf16; the 1.3B model is fine in fp16
+        big = mid == BIG; fast = mid == FAST
+        dt = torch.bfloat16 if big else torch.float16          # T4s have no fast bf16; the 1.3B model and FastWan run in fp16
         vae = AutoencoderKLWan.from_pretrained(mid, subfolder='vae', torch_dtype=torch.float32)
         tr = WanTransformer3DModel.from_pretrained(mid, subfolder='transformer', torch_dtype=dt)
-        pipe = WanPipeline.from_pretrained(mid, vae=vae, transformer=tr, text_encoder=None, tokenizer=None, torch_dtype=dt)
-        pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config, flow_shift=3.0 if not big else 5.0)
+        if fast:
+            from diffusers import FlowMatchEulerDiscreteScheduler
+            try: base = FlowMatchEulerDiscreteScheduler.load_config(mid, subfolder='scheduler')
+            except Exception: base = dict(shift=float(CFG.get('shift', 5.0)), num_train_timesteps=1000)
+            pipe = WanPipeline(tokenizer=None, text_encoder=None, transformer=tr, vae=vae, scheduler=dmd_scheduler(base, CFG.get('warp', False)), expand_timesteps=True)
+        else:
+            pipe = WanPipeline.from_pretrained(mid, vae=vae, transformer=tr, text_encoder=None, tokenizer=None, torch_dtype=dt)
+            pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config, flow_shift=3.0 if not big else 5.0)
         pipe.to('cuda'); pipe.vae.enable_tiling()
         neg = torch.load(os.path.join(EMB, 'negative.pt')).to('cuda', dt)
         took = []
@@ -81,11 +114,12 @@ def worker(gpu, mid, jobs, prompt_index, q):
             t = time.time()
             try:
                 pe = torch.load(os.path.join(EMB, '%d.pt' % prompt_index[j['prompt']])).to('cuda', dt)
-                g = torch.Generator('cuda').manual_seed(int(j['seed']))
-                fr = pipe(prompt_embeds=pe, negative_prompt_embeds=neg, height=CFG['height'], width=CFG['width'],
+                g = torch.Generator('cuda').manual_seed(int(j['seed'])); GEN[0] = torch.Generator('cuda').manual_seed(int(j['seed']) + 1)
+                if j.get('warp') is not None and fast: pipe.scheduler = dmd_scheduler(pipe.scheduler.config, j['warp'])
+                fr = pipe(prompt_embeds=pe, negative_prompt_embeds=None if CFG['guidance'] <= 1 else neg, height=CFG['height'], width=CFG['width'],
                           num_frames=CFG['frames'], num_inference_steps=CFG['steps'], guidance_scale=CFG['guidance'],
                           generator=g, output_type='np').frames[0]
-                fr = np.nan_to_num(np.asarray(fr, np.float32))
+                fr = np.asarray(fr, np.float32); nan = not np.isfinite(fr).all(); fr = np.nan_to_num(fr)
                 mean = float(fr.mean()); move = float(np.abs(np.diff(fr[::4], axis=0)).mean()) if len(fr) > 4 else 0.0
                 ok = mean > 0.03 and move > 0.004
                 path = os.path.join(CLIPS, j['id'] + '.mp4')
@@ -95,7 +129,7 @@ def worker(gpu, mid, jobs, prompt_index, q):
                     for f in fr: w.append_data((np.clip(f, 0, 1) * 255).round().astype(np.uint8))
                     w.close()
                 sec = time.time() - t; took.append(sec)
-                q.put(('clip', dict(j, file=os.path.basename(path) if ok else None, ok=ok, mean=round(mean, 4), motion=round(move, 5),
+                q.put(('clip', dict(j, file=os.path.basename(path) if ok else None, ok=ok, mean=round(mean, 4), motion=round(move, 5), nan=bool(nan),
                                     seconds=round(sec), gpu=gpu, model=mid, steps=CFG['steps'])))
                 log('gpu %d: %s %s in %.0fs (mean %.3f, motion %.4f)' % (gpu, j['id'], 'ok' if ok else 'REJECTED', sec, mean, move))
             except torch.cuda.OutOfMemoryError:
@@ -110,7 +144,9 @@ def main():
     cards = gpus(); log('gpus:', cards)
     if not cards: sys.exit('no GPU: Kaggle gave this run none (the account must be phone-verified, and have GPU hours left)')
     mid = BIG if min(m for _, m in cards) >= 40000 else SMALL
-    if mid == BIG:                                              # TI2V-5B is trained at 704x1280: keep the vertical frame, scale it up
+    if CFG.get('model') == 'fastwan':                           # 704x1280 is what it was trained at; 5 s at 24 fps
+        mid = FAST; CFG.update(width=704, height=1280, frames=CFG.get('frames_fast', 121), fps=24, steps=len(DMD_STEPS), guidance=1.0)
+    elif mid == BIG:                                              # TI2V-5B is trained at 704x1280: keep the vertical frame, scale it up
         CFG.update(width=704, height=1280, frames=min(CFG.get('frames', 81), 121), fps=24)
     subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', '-U', 'diffusers==0.43.0', 'accelerate', 'ftfy', 'imageio', 'imageio-ffmpeg', 'sentencepiece'], check=True)
     from huggingface_hub import snapshot_download

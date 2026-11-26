@@ -54,14 +54,15 @@ jobs:
           bash scripts/apt_install.sh ffmpeg fonts-liberation fonts-dejavu-core fonts-inter libsndfile1
 
       - name: Install dependencies
-        run: pip install -q -r requirements.txt -r studio/requirements.txt
+        run: |
+          # EGL + Mesa: studio/gl.py draws real shaders off-screen (llvmpipe, no GPU) and bpy's Workbench needs them too.
+          sudo apt-get install -y -qq libegl1 libgl1 libgl1-mesa-dri >/dev/null
+          pip install -q -r requirements.txt -r studio/requirements.txt
 
       # Blender as a Python module, only on nights that render the low-poly story page (it is a large download).
       - name: Install Blender (bpy)
         run: |
           if grep -q "style: lowpoly" studio/nightly.yaml; then
-            # Workbench draws through OpenGL: with no EGL/Mesa on the runner bpy segfaults on the first frame
-            sudo apt-get install -y -qq libegl1 libgl1 libgl1-mesa-dri >/dev/null
             pip install -q "bpy>=4.2,<5"
           else echo "no low-poly page tonight"; fi
 

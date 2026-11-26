@@ -321,3 +321,6 @@ class Video:
         os.remove(tmp); os.remove(aud)
         if r.returncode: sys.exit('mux failed')
         json.dump(K.record(), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
+
+import polish as _polish
+Video.frame = _polish.wrap(Video.frame, 'ascii')      # phosphor glow, grain, vignette: studio/polish.py
