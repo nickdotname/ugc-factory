@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-628f9a22-50fb-43f2-bf46-f4750fbef68f",
+          "buffer_post_id": "igo-e391517e-bead-4436-9ee8-12c7182b8eac",
           "last_error": null,
           "scheduled_for": "2026-11-26T20:57:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-7df0a785-3a61-43a4-8a47-3bddef994fe4",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T09:45:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "new york, cut to the beat\n🎧 Evil Close Quarters – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
