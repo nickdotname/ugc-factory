@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Epilogue: Dismissal by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "toon_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T08:08:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "old cartoon, new song\n🎧 Epilogue: Dismissal – @close__quarters #rubberhose #oldcartoons #1930s #animation #vintagecartoon\n\nstream Epilogue: Dismissal: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
