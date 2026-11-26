@@ -38,9 +38,9 @@
         {
           "account": "zoom_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-7782e32d-a6f5-40e2-aa04-4658f1e1423c",
           "last_error": null,
           "scheduled_for": "2026-11-26T08:12:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "someone painted this by hand\n🎧 Subway Maintenance – @close__quarters #arthistory #museum #painting #details #zoomin\n\nlink in bio to stream Subway Maintenance"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
