@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "petri_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-25T20:42:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the snare drops new ones in\n🎧 Suspended – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
