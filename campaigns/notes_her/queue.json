@@ -91,18 +91,18 @@
         {
           "account": "her_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-27T14:44:00-05:00"
         }
       ],
       "captions": {
         "instagram": "main character behavior\n🎧 Hair of the Dog – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Hair of the Dog"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
