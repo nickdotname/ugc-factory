@@ -14,7 +14,7 @@ Choosing what each video looks like is where it improves itself. Every choice a 
 new video, each knob is set by Thompson sampling: every option draws a plausible score from what its posts
 have shown so far (a wide guess when it has few, a narrow one when it has many) and the highest draw wins.
 So what has worked is used most, what has hardly been tried still gets tried, and what keeps losing
-(learn.py "retires" it) stops being chosen. One video in five (EXPLORE) is left entirely to the renderer's
+(learn.py "retires" it) stops being chosen. One video in ten (EXPLORE) is left entirely to the renderer's
 own dice, which keeps the comparison honest and lets new looks in.
 """
 import argparse, datetime, json, os, random, subprocess, sys, tempfile
@@ -72,7 +72,7 @@ LYRIC['cutout'] = 'cutout_video.py'  # the same dance footage, full screen and t
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math', 'race', 'tests8', 'stare', 'ebru', 'measure', 'hue'}      # styles choreographed to a fixed number of beats: never cut shorter
-EXPLORE = 0.2         # share of videos whose look is left entirely to chance
+EXPLORE = 0.1         # share of videos whose look is left entirely to chance (0.2 until 2026-11-26: with retirement now automatic, less re-testing of known losers)
 # Cosmetic knobs held at one value so the posts go to what can be learned at 2-5 posts a night: subject x cut x hook.
 # Set 2026-11-26 for two weeks (the review found 1,565 option weights all within 0.87-1.13: a dozen knobs varying at once
 # is not learnable at this volume); after FREEZE_UNTIL the learner gets them back. Values are the option that led, or the

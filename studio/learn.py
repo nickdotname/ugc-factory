@@ -30,8 +30,10 @@ and is pulled towards 1.0 until the option has several posts behind it. Recent p
 Every knob a renderer turned (studio/knobs.py: the pattern, the palette, the window style, the place...)
 is a dimension of its own, "knob:<name>", with no list to keep up to date here. For each option the stats
 (posts, recency-weighted posts, mean score) go to weights.json for nightly.py's Thompson sampling, and an
-option that has had its chances (MIN_RETIRE posts) and is still clearly below typical is "retired": nightly
-stops choosing it, though a free draw can still bring it back. Weights go to studio/weights.json,
+option is "retired" (nightly stops choosing it, though a free draw can still bring it back) either when it has had
+its chances (MIN_RETIRE posts) and is still clearly below typical, or, sooner, when after MIN_RETIRE_LOW posts its
+mean score, pulled a little towards typical, is still under the campaign's 25th percentile post: at 2-5 posts a
+night the first rule alone never fired (0 retirements across 1,565 options, 2026-11-26). Weights go to studio/weights.json,
 which nightly.py uses to make more of what works while still trying everything; the same thing in words,
 with the real numbers beside it, goes to studio/LEARNED.md.
 
@@ -47,7 +49,11 @@ REPO = os.path.dirname(HERE)
 MIN_AGE_H = float(os.environ.get('LEARN_MIN_AGE_H', 20))   # a post younger than this has not had its day yet
 PRIOR = 5.0             # posts an option needs before its weight is taken at about half strength
 HALF_LIFE = 21.0        # days for a post's say in the stats to halve
-MIN_RETIRE = 8          # posts an option needs before it can be retired
+MIN_RETIRE = 8          # posts an option needs before it can be retired on its spread alone
+MIN_RETIRE_LOW = 4      # posts after which an option under the campaign's 25th-percentile post is retired
+# Dimensions written down and shown but not learned from: nightly never chooses the hour (the publisher's slots do), so a
+# weight on it would only hand a slot's effect to whatever topic the post carried. They get a table in LEARNED.md, nothing in weights.
+DISPLAY_ONLY = ('hour posted',)
 MIX = (('done', 0.3), ('sends', 0.3), ('views', 0.15), ('saved', 0.1), ('held', 0.15))
 # A mix for campaigns that want people talking (comments per reach). Nobody uses it today: cq_band and rocket_league did
 # until 2026-11-26, when the debate hook angles they were added for had been gone two days and every post carried exactly
@@ -194,6 +200,7 @@ def learn(camp, zone, now):
         len(rows), ' (%d more are too new)' % young if young else '',
         med([r[0]['views'] for r in rows]), med([r[0]['watch'] for r in rows if r[0].get('watch') is not None])), '']
     weights, stats, retired = {}, {}, {}
+    q25 = statistics.quantiles(score, n=4)[0] if len(score) > 1 else 0.0   # a campaign's own bar for "clearly below typical"
     named = ('style', 'opening line', 'hook', 'hook angle', 'hook style', 'faces', 'song', 'section', 'look', 'lyrics', 'palette', 'length', 'hour posted', 'caption')
     for dim in named + tuple(sorted({d for _, o in rows for d in o if d.startswith('knob:')})):
         groups = {}
@@ -202,31 +209,33 @@ def learn(camp, zone, now):
                 groups.setdefault(opts[dim], []).append((s, n))
         if not groups:
             continue
-        weights[dim] = {}; stats[dim] = {}
+        shown = dim in DISPLAY_ONLY
+        if not shown: weights[dim] = {}; stats[dim] = {}
         table = []
         for opt, items in groups.items():
             k = len(items)
             wt = [0.5 ** (n['age'] / HALF_LIFE) for _, n in items]; keff = sum(wt)
             mean = sum(w_ * s for w_, (s, _) in zip(wt, items)) / keff
-            stats[dim][opt] = [k, round(keff, 2), round(mean, 3)]
             lean = (mean - 0.5) * 2 * keff / (keff + PRIOR)     # -1..1, shrunk while there are few (recent) posts
             w = round(2 ** lean, 2)
-            weights[dim][opt] = w
-            sd = (max(mean * (1 - mean), 0.02) / (keff + 2)) ** 0.5
-            if k >= MIN_RETIRE and mean + 2 * sd < 0.45 and len(groups) > 1:
-                retired.setdefault(dim, []).append(opt)
+            if not shown:
+                stats[dim][opt] = [k, round(keff, 2), round(mean, 3)]; weights[dim][opt] = w
+                sd = (max(mean * (1 - mean), 0.02) / (keff + 2)) ** 0.5
+                post = (mean * keff + 0.5) / (keff + 1)          # the mean with one typical post's worth of doubt in it
+                if len(groups) > 1 and ((k >= MIN_RETIRE and mean + 2 * sd < 0.45) or (k >= MIN_RETIRE_LOW and post < q25)):
+                    retired.setdefault(dim, []).append(opt)
             views = med([n['views'] for _, n in items])
             watch = med([n['watch'] for _, n in items if n.get('watch') is not None])
             kept = 1000 * sum(n['shares'] + n['saves'] for _, n in items) / max(1.0, sum(n['views'] for _, n in items))
             table.append((w, opt, k, views, watch, kept))
         if len(table) > 1:
-            text.append('**%s**' % dim)
+            text.append('**%s**%s' % (dim, ' (shown, not learned: the publisher sets this)' if shown else ''))
             for w, opt, k, views, watch, kept in sorted(table, reverse=True)[:10]:
                 text.append('- %s: weight %.2f — %d post%s, %d views, %.1fs watched, %.0f shares+saves per 1,000 views' % (
                     opt[:70], w, k, '' if k == 1 else 's', views, watch, kept))
             text.append('')
     if retired:
-        text.append('**retired** (no longer chosen, after at least %d posts clearly below typical)' % MIN_RETIRE)
+        text.append('**retired** (no longer chosen: %d posts clearly below typical, or %d posts under the campaign\'s 25th percentile, %.2f)' % (MIN_RETIRE, MIN_RETIRE_LOW, q25))
         text += ['- %s: %s' % (d, ', '.join(o)) for d, o in sorted(retired.items())] + ['']
     return dict(posts=len(rows), waiting=young, typical_views=med([r[0]['views'] for r in rows]), weights=weights, stats=stats, retired=retired), text
 
