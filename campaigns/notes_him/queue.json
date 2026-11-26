@@ -91,18 +91,18 @@
         {
           "account": "him_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-26T14:47:00-05:00"
         }
       ],
       "captions": {
         "instagram": "can't relate (i can)\n🎧 Hair of the Dog – @close__quarters #skateboarding #relatable #humor\n\nstream Hair of the Dog: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
