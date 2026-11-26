@@ -233,7 +233,6 @@ def suits(style, lv):
     return 'vocals' in on
 
 TIGHT = 0.75          # share of lyric videos cut short, hook first; the rest keep the whole stretch so the two can be compared
-SHORT = 0.35          # (kept for the lyric styles' free draws; the picture styles use CUT_PRIOR)
 # Where a picture style's cut starts from before its own posts say otherwise, as pseudo-posts in learn.py's [_, posts, mean]
 # shape (like PRIOR): short 3 : tight 2 : full 1. Network-wide, completion was 0.46 under 10 s against 0.17 at 20-35 s
 # (2026-11-26 review), so a 6-9 s loop is the default; real results on `knob:cut` replace these, so data can still say otherwise.
