@@ -91,18 +91,18 @@
         {
           "account": "nickdotname_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-28T17:30:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the words print the moment they're sung.\nTalk by Close Quarters, from the album EDUCATION (out now). kinetic type lyric video.\n\nstream Talk: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
