@@ -197,3 +197,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: new format stopit ("can you stop this?") on physics.bounce.lab, 2 a night; physics 4->3.
 - 2026-11-26: ready page stare_lab (style `stare`, studio/stare_video.py): afterimage, motion-aftereffect and lilac-chaser illusions on landscapes drawn in code; six steadier songs. Paused until its Instagram account exists ([[ready-pages]]).
 - 2026-11-26: duplicate bookings from two concurrent top-ups cancelled (52); topup cron removed; one booking per video per account.
+- 2026-11-26: eye.trick.lab -> stare_lab, fourier.reveal -> circle_atlas (own formats; were near copies of siblings).

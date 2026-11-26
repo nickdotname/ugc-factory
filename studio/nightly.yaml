@@ -50,9 +50,9 @@ targets:
     per_night: 1               # 4 until 2026-11-25: type videos median ~20; one a day while the account is checked
     join: 40
     first_fill: 8
-  - campaign: fourier_reveal     # @fourier.reveal
+  - campaign: fourier_reveal     # @fourier.reveal: replaced 2026-11-26 by circle_atlas (its own format, not math_time's)
     style: math
-    per_night: 2
+    per_night: 0
     join: 30
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
     style: math
@@ -112,9 +112,9 @@ targets:
     style: alife
     per_night: 5
     join: 30
-  - campaign: eye_tricks     # @eye.trick.lab
+  - campaign: eye_tricks     # @eye.trick.lab: replaced 2026-11-26 by stare_lab (its own format, not rotation.illusions')
     style: illusion
-    per_night: 2
+    per_night: 0
     join: 30
   - campaign: illusions     # rotation.illusions: turning shapes your eyes cannot pin down (studio/illusion_video.py)
     style: illusion
@@ -160,13 +160,11 @@ targets:
     style: notes_him
     per_night: 5
     join: 12
-  - campaign: circle_atlas     # circle.atlas (planned): countries drawn by Fourier circles (studio/reveal_video.py). Ready page:
-    style: reveal              # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=circle_atlas still renders it
-    paused: true
+  - campaign: circle_atlas     # @fourier.reveal (from 2026-11-26): countries drawn by Fourier circles (studio/reveal_video.py)
+    style: reveal
     per_night: 2
     join: 24
-  - campaign: stare_lab        # stare.lab (planned): stare-at-the-dot illusions (studio/stare_video.py). Ready page:
-    style: stare               # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=stare_lab still renders it
-    paused: true
+  - campaign: stare_lab        # @eye.trick.lab (from 2026-11-26): stare-at-the-dot illusions (studio/stare_video.py)
+    style: stare
     per_night: 2
     join: 24

@@ -58,10 +58,10 @@ creatives:
 # @circle.atlas (planned) only, posted to Instagram directly as regular reels.
 accounts:
   mode: allow
-  names: [atlas_ig]
+  names: [fourier_ig]          # @fourier.reveal (Adrianne's), from 2026-11-26
 
 posting:
-  posts_per_day: 1             # first week; then 5
+  posts_per_day: 2             # first week
   start_hour: 8                # early: mornings were empty across the network
   end_hour: 23
   max_buffer_queue: 10
@@ -72,8 +72,8 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true
-  dry_run: true
+  paused: false                # live 2026-11-26 on @fourier.reveal
+  dry_run: false
 
 video:
   width: 1080
