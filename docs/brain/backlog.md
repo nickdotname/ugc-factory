@@ -24,6 +24,7 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
   - *Stare illusions* (afterimage, motion aftereffect, lilac chaser): **built 2026-11-26** as stare_lab ([[ready-pages]]). Still open: a Troxler-fading page, an Ames window.
   - *Marbling* (ink drops, combs, stirs by exact equations): **built 2026-11-26** as ink_marbling ([[ready-pages]]). Still open: a slow 'make the pattern' series (one stroke per beat for 40 s), drops placed by the melody's pitch.
   - *Measured illusions* (size, straightness, grey; asked then measured): **built 2026-11-26** as ruler_says_no ([[ready-pages]]). Still open: Zollner, Delboeuf, Adelson's checker shadow, a 'level 2' with two illusions stacked.
+  - *Colour illusions* (one colour that looks like two, proven with hex codes read off the frame): **built 2026-11-26** as colour_lies ([[ready-pages]]). Still open: the `cast` kind in studio/hue_video.py (shaded balls behind a cyan or blue filter, the middle ball R = G = B) is drawn but the ball just reads grey; needs a busier scene (fruit, many objects) and a milder filter before it fools anyone. Also: Kitaoka-style same-colour spirals, the watercolour effect, neon colour spreading.
   - *Harder levels* for rotation.illusions ("level: hard ++++": more dots, two shells turning against each other).
   - *Same prompt, four models* (a drawing made by code from each of several AI models, side by side): only if each
     panel is really that model's output. Not from our renderers with model names on them.

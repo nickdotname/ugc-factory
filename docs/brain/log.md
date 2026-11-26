@@ -204,3 +204,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-26: studio/gl.py (headless GLSL on CPU) + psy fields as full-size shaders (shaders/psy.glsl, new `relief` knob); studio/polish.py finishing pass on 15 renderers; psy CRF 27->20.
 - 2026-11-26: alife (digital.petri.dish): physarum at full resolution, 1.2M agents (numba), new `species` knob (three colonies). tinycode fields drawn at 1000 px, points splatted bilinearly.
 - 2026-11-26: retro: FastWan 2.2 (Wan 2.2 5B, 3 DMD steps, 704x1280) added as a test option (`model: fastwan` on retro.yml); default unchanged until the test clips are reviewed.
+- 2026-11-26: ready page colour_lies (style `hue`, studio/hue_video.py): Munker, confetti, Bezold and contrast colour illusions asked, then proven by an eyedropper (two swatches slide together, hex codes read off the frame). No polish pass. Paused until its Instagram account exists ([[ready-pages]]).

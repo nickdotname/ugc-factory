@@ -178,3 +178,8 @@ targets:
     paused: true
     per_night: 2
     join: 24
+  - campaign: colour_lies      # colour.lies (planned): colour illusions asked, then proven with hex codes read off the frame (studio/hue_video.py). Ready page:
+    style: hue                 # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=colour_lies still renders it
+    paused: true
+    per_night: 2
+    join: 24
