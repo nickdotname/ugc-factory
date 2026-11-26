@@ -23,6 +23,7 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
     walk through each with a pixel caption. Fits retro.vibes.arcade today, from clips already in `retro-library`.
   - *Stare illusions* (afterimage, motion aftereffect, lilac chaser): **built 2026-11-26** as stare_lab ([[ready-pages]]). Still open: a Troxler-fading page, an Ames window.
   - *Marbling* (ink drops, combs, stirs by exact equations): **built 2026-11-26** as ink_marbling ([[ready-pages]]). Still open: a slow 'make the pattern' series (one stroke per beat for 40 s), drops placed by the melody's pitch.
+  - *Measured illusions* (size, straightness, grey; asked then measured): **built 2026-11-26** as ruler_says_no ([[ready-pages]]). Still open: Zollner, Delboeuf, Adelson's checker shadow, a 'level 2' with two illusions stacked.
   - *Harder levels* for rotation.illusions ("level: hard ++++": more dots, two shells turning against each other).
   - *Same prompt, four models* (a drawing made by code from each of several AI models, side by side): only if each
     panel is really that model's output. Not from our renderers with model names on them.

@@ -71,7 +71,7 @@ LYRIC['cursor'] = 'cursor_video.py'  # the band rebuilt out of mouse cursors in 
 LYRIC['cutout'] = 'cutout_video.py'  # the same dance footage, full screen and thrown around on the beat (dev_lemons-style), now and then trippy
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 VISUAL['collage'] = 'collage_video.py'
-WHOLE = {'math', 'race', 'tests8', 'stare', 'ebru'}      # styles choreographed to a fixed number of beats: never cut shorter
+WHOLE = {'math', 'race', 'tests8', 'stare', 'ebru', 'measure'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
 VISUAL['rocket'] = 'rocket_video.py'
 # What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
@@ -98,6 +98,7 @@ VISUAL['notes_college'] = 'text_college_video.py' # broke-college-kid page: the 
 VISUAL['lowpoly'] = 'lowpoly_video.py'  # low-poly story page: a "what if" story in big words over a blocky town (Blender, studio/lowpoly/)
 VISUAL['toon'] = 'toon_video.py'       # rubber-hose page: cartoons from before 1931 cut as a modern edit (footage theme toons)
 VISUAL['stare'] = 'stare_video.py'    # stare.lab (planned): afterimages, a spiral's aftereffect, the lilac chaser
+VISUAL['measure'] = 'measure_video.py'  # ruler.says.no (planned): classic size/straightness/grey illusions, asked, then measured on the beat
 VISUAL['ebru'] = 'ebru_video.py'      # marbled.by.math (planned): paper marbling by exact equations, drops on the beat, then a comb
 VISUAL['reveal'] = 'reveal_video.py'  # circle.atlas (planned): a country's outline drawn by Fourier circles, the name at the end
 VISUAL['zoom'] = 'zoom_video.py'       # museum-zoom page: a public-domain painting, then a dive into one detail on the drop (studio/art.py)
@@ -142,7 +143,7 @@ def thompson(options, stats, r, retired=()):
 # one the account showed in its last REPEAT_NIGHTS nights (see freshen).
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line', 'lowpoly': 'story', 'reveal': 'country', 'stopit': 'thing', 'stare': 'scene', 'ebru': 'pattern'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line', 'lowpoly': 'story', 'reveal': 'country', 'stopit': 'thing', 'stare': 'scene', 'ebru': 'pattern', 'measure': 'kind'}
 REPEAT_NIGHTS = 3                                     # a subject is not shown again on an account for this many nights
 
 # Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that
