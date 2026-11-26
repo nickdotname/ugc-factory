@@ -148,3 +148,8 @@ targets:
     style: notes_him
     per_night: 5
     join: 12
+  - campaign: circle_atlas     # circle.atlas (planned): countries drawn by Fourier circles (studio/reveal_video.py). Ready page:
+    style: reveal              # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=circle_atlas still renders it
+    paused: true
+    per_night: 2
+    join: 24
