@@ -14,6 +14,7 @@ An Obsidian vault (open `docs/brain/` as a vault, or just read it on GitHub). Ev
 - [[ready-pages]]: pages built and paused, waiting for their Instagram account (with handle ideas)
 - [[backlog]]: ideas and half-built things, with enough detail to pick up
 - [[log]]: dated changes
+- `reviews/`: dated whole-network reviews; start with `reviews/2026-11-26/README.md` (every account's verdict and the ranked plan)
 
 Playbooks (step by step):
 - [[add-account]]: a new Instagram account, from signup to its first post
