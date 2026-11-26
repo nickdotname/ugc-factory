@@ -144,9 +144,9 @@
         {
           "account": "her_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-2999ef67-d7f8-4e41-a4af-5ddc297b1bd5",
           "last_error": null,
           "scheduled_for": "2026-11-26T17:44:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "the delusion is strong today\n🎧 Notta Problem – @close__quarters #relatable #girlhumor #createmode\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
