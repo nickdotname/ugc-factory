@@ -38,9 +38,9 @@
         {
           "account": "date_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-904f22cd-c97c-49dd-9c74-9ac7a8fd34b1",
           "last_error": null,
           "scheduled_for": "2026-11-27T08:18:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "this is a call out\n🎧 Prologue: Before – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
