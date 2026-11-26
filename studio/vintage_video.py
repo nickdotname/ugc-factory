@@ -224,6 +224,15 @@ class Video:
         self.trip = K.pick('trip', TRIPS, r, weights=[6, 2, 2, 1])
         self.pace = K.pick('pace', ['beat2', 'bar'], r)
         self.slate = K.pick('slate', ['on', 'off'], r, weights=[3, 1])
+        # 2026-11-25: Instagram flagged the account for originality: a tint and a gate on a famous film still match the
+        # copies already uploaded. Every frame is now redrawn as ink line art (lines, hatching, paper), so no frame
+        # is the film's own picture any more. 'print' (the old look) stays in the code but is not chosen.
+        self.look = K.pick('look', ['ink'], r)
+        if self.look == 'ink':
+            self.layout = 'fill'; K.CHOSEN['layout'] = 'fill'
+            self.trip = 'none' if self.trip in ('burn', 'double') else self.trip; K.CHOSEN['trip'] = self.trip
+            self.ink_pen = K.pick('pen', ['fine', 'brush'], r)
+            if self.gate == 'iris': self.gate = 'rounded'; K.CHOSEN['gate'] = 'rounded'
         lib = [e for e in footage.pull(('silent',)) if not footage.BLOCK.search('%s %s' % (e.get('title', ''), e.get('key', '')))]
         self.source = 'silent'
         if len(lib) < 3: lib = footage.pull(('archive',)); self.source = 'archive'     # until the silent films are fetched
@@ -258,6 +267,10 @@ class Video:
         sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', '/Library/Fonts/Arial Unicode.ttf') if os.path.exists(p)), None)
         self.f_credit = ImageFont.truetype(sans, 30) if sans else serif(30)       # the serif has no note sign
         lo, hi = TINTS[self.tint]; self.lo = np.array(lo, np.float32); self.hi = np.array(hi, np.float32)   # RGB
+        if self.look == 'ink':                          # ink on paper: the tint picks the paper and the ink
+            paper = {'sepia': (240, 228, 205), 'amber': (246, 232, 200), 'night': (226, 232, 240), 'green': (232, 238, 222),
+                     'rose': (244, 228, 226)}.get(self.tint, (242, 236, 222))
+            self.lo = np.array({'night': (20, 30, 60), 'rose': (70, 20, 30)}.get(self.tint, (24, 20, 18)), np.float32); self.hi = np.array(paper, np.float32)
         self.ink = tuple(int(c) for c in hi)
         # the picture's own size, and its vignette / grain at that size
         self.pw, self.ph = (PW, PH) if self.layout == 'strip' else (W, H)
@@ -334,6 +347,9 @@ class Video:
     def picture(self, i, src):
         """The print at picture size, as density 0..1, with the defects a projected print has."""
         g, k, e = self.clips.picture(src, self.pw, self.ph)
+        if self.look == 'ink':
+            lo, hi = np.percentile(g[::6, ::6], 3), np.percentile(g[::6, ::6], 97)
+            return self.inked(np.clip((g - lo) / max(0.15, hi - lo), 0, 1), src), k, e
         g = self.grade(g)
         if self.ghost is not None:
             gg, *_ = self.ghost.picture(src, self.pw, self.ph); g = np.clip(g * 0.72 + self.grade(gg) * 0.4, 0, 1)
@@ -367,6 +383,33 @@ class Video:
             g = np.where(edge < 0, 1.0, np.where(rim, g * 0.15, g)).astype(np.float32)
             self.burn_rim = rim
         return g, k, e
+
+    def inked(self, g, src):
+        """The picture redrawn in ink, as density 0..1 (1 = bare paper): outlines from a difference of Gaussians, the
+        darks filled with hatching (one direction, then cross-hatched, then solid), all of it re-drawn a little
+        differently every other frame ('boiling' lines, as hand-drawn animation does)."""
+        h, w = g.shape; j = src // 2
+        rng = np.random.default_rng(j * 104729 + 7)
+        nx = cv2.resize(rng.normal(0, 1, (h // 40 + 2, w // 40 + 2)).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC)
+        ny = cv2.resize(rng.normal(0, 1, (h // 40 + 2, w // 40 + 2)).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC)
+        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+        g = cv2.remap(g, xx + nx * 2.2, yy + ny * 2.2, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+        s1 = 1.2 if self.ink_pen == 'fine' else 2.0
+        a, b = cv2.GaussianBlur(g, (0, 0), s1), cv2.GaussianBlur(g, (0, 0), s1 * 1.6)
+        dog = a - 0.985 * b
+        line = 1 - np.clip(-dog * (140 if self.ink_pen == 'fine' else 95) - 0.15, 0, 1)                 # 0 where there is a line
+        tone = cv2.GaussianBlur(g, (0, 0), 3)
+        def hatch(angle, gap, width):
+            u = xx * math.cos(angle) + yy * math.sin(angle) + nx * 1.5
+            return (np.abs(((u / gap) % 1) - 0.5) * gap > width / 2).astype(np.float32)
+        th = rng.uniform(-0.05, 0.05)
+        h1, h2 = hatch(0.78 + th, 11, 2.2), hatch(-0.78 + th, 11, 2.2)
+        fill = np.where(tone < 0.1, 0.0, np.where(tone < 0.28, h1 * h2, np.where(tone < 0.48, h1, 1.0)))
+        line = cv2.erode(line, np.ones((2, 2), np.uint8)) if self.ink_pen == 'brush' else line
+        d = np.minimum(line, fill)
+        d = cv2.GaussianBlur(d, (0, 0), 0.6)
+        paper = cv2.resize(np.random.default_rng(11).normal(0, 1, (h // 3, w // 3)).astype(np.float32), (w, h)) * 0.025
+        return np.clip(d + paper, 0, 1) * self.round + (1 - self.round)
 
     def frame(self, i):
         src = i - (i % self.hold)
