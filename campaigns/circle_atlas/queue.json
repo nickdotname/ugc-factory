@@ -38,9 +38,9 @@
         {
           "account": "fourier_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-a383ee60-2dce-45ca-8b3a-81d96cf228c5",
           "last_error": null,
           "scheduled_for": "2026-11-26T16:22:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "the same math that compresses your music, drawing a map\n🎧 Evil Close Quarters – @close__quarters #geography #maps #fourier #mathart #countries\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
