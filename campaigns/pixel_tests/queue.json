@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-a543adc0-b156-4442-aa2a-85db7e911dea",
+          "buffer_post_id": "igo-854d500e-b6de-4884-af37-9ee2167256c2",
           "last_error": null,
           "scheduled_for": "2026-11-26T14:33:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-096db7a0-b767-43df-99e8-677820e916f0",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-26T17:33:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "the music is counting with you\n🎧 Prologue: Before – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
