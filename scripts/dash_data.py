@@ -10,11 +10,12 @@ Run by the publish job every 15 minutes. Reads only what the repository already 
   campaigns/*/history.json     which song and clip each post was, and which lineup entry if any
   campaigns/*/posts.json       each post's numbers (views, reach, likes, comments, shares, saves, watch time)
   campaigns/*/recipes.json     what each studio video is (its style and the knobs that say what it is about)
-and, once a day, each account's profile picture from Instagram (with the IG_TOKEN* secrets in the environment).
+and, once a day, each account's profile picture and follower count from Instagram (with the IG_TOKEN* secrets in the
+environment; the counts are kept for 90 days in cqdash/followers.json), and the bio-link taps from link/worker.js.
 """
 from pathlib import Path
 import base64, glob, io, json, os, sys, urllib.parse, urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import yaml
 
@@ -26,6 +27,13 @@ HANDLES = {'close_quarters_ig': 'close__quarters', 'dylancantor23_ig': 'dylancan
            'vintage_ig': 'vintage.media.archive', 'nyc_ig': 'nyc.daily.aesthetic', 'tinycode_ig': 'tiny.code.loops',
            'cinema_ig': 'ascii.cinema.tty', 'petri_ig': 'digital.petri.dish',
            'illusions_ig': 'rotation.illusions', 'races_ig': 'algorithm.races', 'tests8_ig': '8bit.tests', 'notes_ig': 'moth.ate.my.notes', 'toon_ig': 'rubberhose.radio', 'zoom_ig': 'zoom.into.art', 'date_ig': 'situationship.notes', 'lowpoly_ig': 'what.if.town', 'college_ig': 'dining.hall.philosopher', 'eyetrick_ig': 'eye.trick.lab', 'fourier_ig': 'fourier.reveal', 'her_ig': 'crying.in.trader.joes', 'him_ig': 'grip.tape.thoughts'}
+# Each account's bio link: its path on link/worker.js (the table in link/README.md; studio/learn.py's LINK_NAMES is the same)
+LINKS = {'cq': 'close_quarters_ig', 'dc': 'dylancantor23_ig', 'psy': 'psychedelic_station_ig', 'nostalgia': 'nostalgia_ig',
+         'math': 'math_ig', 'glitch': 'glitch_ig', 'ascii': 'ascii_ig', 'physics': 'physics_ig', 'earth': 'earth_ig',
+         'retro': 'retro_ig', 'rocket': 'rocket_ig', 'loose': 'nickdotname_ig', 'vintage': 'vintage_ig', 'nyc': 'nyc_ig',
+         'tinycode': 'tinycode_ig', 'cinema': 'cinema_ig', 'petri': 'petri_ig', 'illusions': 'illusions_ig', 'races': 'races_ig',
+         '8bit': 'tests8_ig', 'notes': 'notes_ig', 'toon': 'toon_ig', 'zoom': 'zoom_ig', 'date': 'date_ig', 'lowpoly': 'lowpoly_ig',
+         'college': 'college_ig', 'eyetrick': 'eyetrick_ig', 'fourier': 'fourier_ig', 'her': 'her_ig', 'him': 'him_ig'}
 NOT_CQ = {'clubs'}                   # campaigns that are not Close Quarters (the Clubs app's own posts)
 # Accounts that posted other things before they were Close Quarters accounts: only the posts one of our campaigns made
 # are shown (the.loose.change was nickdotname, the Clubs account, until mid-November).
@@ -73,41 +81,98 @@ def _small(raw):
     return 'data:image/jpeg;base64,' + base64.b64encode(raw).decode()
 
 
-def pfps(accounts, old, campaign_of_account):
-    """{account: (picture, when fetched)}: each Instagram account's profile picture, fetched again once a day. Accounts
-    posted to directly ask for their own; one that is only on Buffer (the.loose.change) is looked up by its handle
-    through one of ours (business discovery). A failed fetch keeps yesterday's picture, or the campaign's
-    brand/profile.jpg if there has never been one."""
+PROFILE_FIELDS = 'profile_picture_url,followers_count,follows_count,media_count'
+COUNTS = {'followers': 'followers_count', 'follows': 'follows_count', 'media': 'media_count'}
+KEEP_DAYS = 90                                    # days of follower counts kept in cqdash/followers.json
+
+
+def profiles(accounts, old, campaign_of_account, hist, now=None):
+    """{account: {pfp, pfp_at}}: each Instagram account's profile picture, fetched again once a day together with its
+    follower, following and post counts. Accounts posted to directly ask for their own; one that is only on Buffer
+    (the.loose.change), or whose token cannot read it, is looked up by its handle through one of ours (business
+    discovery). A failed fetch keeps yesterday's picture, or the campaign's brand/profile.jpg if there has never been
+    one. Each fetch adds the day's row to hist ({account: {day: {followers, follows, media}}}, the follower log),
+    trimmed to KEEP_DAYS."""
     prev = {a.get('name'): a for a in old.get('accounts') or []}
-    now = datetime.now(timezone.utc)
+    now = now or datetime.now(timezone.utc)
     direct = {a['name']: a for a in accounts if a.get('provider') == 'instagram' and a.get('channel_id')
               and os.environ.get(a.get('api_key_secret') or '')}
     asker = next(iter(direct.values()), None)
     out = {}
     for name, handle in HANDLES.items():
         p = prev.get(name) or {}
+        keep = {'pfp': p.get('pfp'), 'pfp_at': p.get('pfp_at')}
         at = p.get('pfp_at')
         if p.get('pfp') and at and (now - datetime.fromisoformat(at.replace('Z', '+00:00'))).total_seconds() < PFP_EVERY:
-            out[name] = (p['pfp'], at); continue
+            out[name] = keep; continue
         a = direct.get(name)
         if a or asker:
             stamp = now.isoformat().replace('+00:00', 'Z')
+            prof = {}
             try:
                 if a:
-                    url = json.loads(_get(GRAPH + str(a['channel_id']) + '?fields=profile_picture_url', os.environ[a['api_key_secret']])).get('profile_picture_url')
-                else:
-                    f = urllib.parse.quote('business_discovery.username(%s){profile_picture_url}' % handle)
-                    url = (json.loads(_get(GRAPH + str(asker['channel_id']) + '?fields=' + f, os.environ[asker['api_key_secret']]))
-                           .get('business_discovery') or {}).get('profile_picture_url')
+                    try:
+                        prof = json.loads(_get(GRAPH + str(a['channel_id']) + '?fields=' + PROFILE_FIELDS, os.environ[a['api_key_secret']]))
+                    except Exception as e:           # the shared token cannot read every account it posts to: ask by handle
+                        print('profile of %s by its own token: %s' % (handle, str(e)[:160])); prof = {}
+                if not prof.get('profile_picture_url') and asker:
+                    f = urllib.parse.quote('business_discovery.username(%s){%s}' % (handle, PROFILE_FIELDS))
+                    prof = json.loads(_get(GRAPH + str(asker['channel_id']) + '?fields=' + f, os.environ[asker['api_key_secret']])).get('business_discovery') or {}
+                url = prof.get('profile_picture_url')
                 if url:
-                    out[name] = (_small(_get(url)), stamp); continue
+                    keep.update(pfp=_small(_get(url)), pfp_at=stamp)
+                    counts = {k: int(prof[fld]) for k, fld in COUNTS.items() if prof.get(fld) is not None}
+                    if counts: hist.setdefault(name, {})[now.date().isoformat()] = counts
+                    out[name] = keep; continue
             except Exception as e:                   # never the token: only what Instagram answered
                 print('profile picture for %s: %s' % (handle, str(e)[:160]))
             if p.get('pfp'):
-                out[name] = (p['pfp'], stamp); continue      # keep the old one; try again tomorrow
+                keep['pfp_at'] = stamp; out[name] = keep; continue      # keep the old one; try again tomorrow
         brand = os.path.join(ROOT, 'campaigns', campaign_of_account.get(name) or '-', 'brand', 'profile.jpg')
-        if p.get('pfp'): out[name] = (p['pfp'], at)
-        elif os.path.exists(brand): out[name] = (_small(Path(brand).read_bytes()), None)
+        if p.get('pfp'): out[name] = keep
+        elif os.path.exists(brand): keep['pfp'] = _small(Path(brand).read_bytes()); out[name] = keep
+    first = (now.date() - timedelta(days=KEEP_DAYS)).isoformat()
+    for name in list(hist):
+        hist[name] = {d: r for d, r in sorted(hist[name].items()) if d >= first}
+    return out
+
+
+def followers(hist, name, today):
+    """What an account's card shows of its follower log: the latest count, the change over 7 days (from the row 7 days
+    back, else the oldest row within the week, with its day), and the last 14 days for a line."""
+    rows = hist.get(name) or {}
+    if not rows: return {}
+    days = sorted(rows)
+    cur_day = days[-1]; cur = rows[cur_day].get('followers')
+    week = (today - timedelta(days=7)).isoformat()
+    base = week if week in rows else next((d for d in days if week < d < cur_day), None)
+    out = dict(followers=cur, follows=rows[cur_day].get('follows'), media=rows[cur_day].get('media'), followers_at=cur_day,
+               followers_log={d: rows[d].get('followers') for d in days[-14:]})
+    if base and cur is not None and rows[base].get('followers') is not None:
+        out.update(followers_7d=cur - rows[base]['followers'], followers_since=base)
+    return out
+
+
+def taps(old):
+    """{account: {link, taps7, taps, tap_last}}: each account's bio-link path and its last 7 days of taps, from
+    link/worker.js's /stats (no secret needed). When the worker cannot be read, each account keeps what the last
+    data.json said."""
+    prev = {a.get('name'): a for a in old.get('accounts') or []}
+    out = {name: {f: (prev.get(name) or {}).get(f) for f in ('taps7', 'taps', 'tap_last')} | {'link': '/' + k} for k, name in LINKS.items()}
+    site = os.path.join(ROOT, 'site.yaml')
+    if not os.path.exists(site): return out
+    try:
+        base = (read_yaml(site) or {}).get('link_base') or ''
+        stats = json.loads(_get(base.rstrip('/') + '/stats')) if base else None
+    except Exception as e:
+        print('bio link taps: %s' % str(e)[:160]); return out
+    if not isinstance(stats, dict): return out
+    days = sorted(d for d in stats if d[:2] == '20' and isinstance(stats[d], dict))[-7:]
+    last = stats.get('last') if isinstance(stats.get('last'), dict) else {}
+    for k, name in LINKS.items():
+        row = [int((stats[d] or {}).get(k, 0)) for d in days]
+        at = last.get(k) if isinstance(last.get(k), dict) else {}
+        out[name].update(taps=row, taps7=sum(row), tap_last=at.get('at'))
     return out
 
 
@@ -227,14 +292,28 @@ def main(out):
     rows.sort(key=lambda r: r['posted'] or r['due'] or '', reverse=True)
     accs = list(HANDLES)
     old = load(out, {})
-    pics = pfps(accounts, old, campaign_of_account)
+    # The follower log, one row per account per day. If the file was lost (not committed yet), the last 14 days are
+    # rebuilt from what the accounts in the old data.json carried, so a delta is never lost with it.
+    log_path = os.path.join(os.path.dirname(os.path.abspath(out)), 'followers.json')
+    hist = (load(log_path, {}).get('accounts') or {})
+    for a in old.get('accounts') or []:
+        for d, n in (a.get('followers_log') or {}).items():
+            if n is not None: hist.setdefault(a['name'], {}).setdefault(d, {'followers': n})
+    before = json.dumps(hist, sort_keys=True)
+    prof = profiles(accounts, old, campaign_of_account, hist)
+    today = datetime.now(timezone.utc).date()
+    tapped = taps(old)
     data = dict(generated=datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
                 accounts=[dict(name=a, handle=HANDLES.get(a, a), campaign=campaign_of_account.get(a),
-                               pfp=(pics.get(a) or (None, None))[0], pfp_at=(pics.get(a) or (None, None))[1],
-                               numbers_at=max((r['mt'] for r in rows if r['account'] == a and r['mt']), default=None))
+                               pfp=(prof.get(a) or {}).get('pfp'), pfp_at=(prof.get(a) or {}).get('pfp_at'),
+                               numbers_at=max((r['mt'] for r in rows if r['account'] == a and r['mt']), default=None),
+                               **followers(hist, a, today), **(tapped.get(a) or {}))
                           for a in accs],
                 posts=rows)
-    if old.get('posts') == json.loads(json.dumps(rows)) and old.get('accounts') == data['accounts']:
+    if json.dumps(hist, sort_keys=True) != before:
+        with open(log_path + '.tmp', 'w') as f: json.dump(dict(updated=data['generated'], accounts=hist), f, indent=0, sort_keys=True)
+        os.replace(log_path + '.tmp', log_path)
+    if old.get('posts') == json.loads(json.dumps(rows)) and old.get('accounts') == json.loads(json.dumps(data['accounts'])):
         print('no change since %s' % old.get('generated')); return      # nothing new: leave the file (and the repo) alone
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     tmp = out + '.tmp'
