@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "rocket_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T08:15:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the musty went in\n🎧 Prologue: Before – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
