@@ -1,4 +1,164 @@
 {
-  "generated_at": "2026-11-25T22:19:33.501379Z",
-  "items": []
+  "generated_at": "2026-11-26T00:48:10.252796Z",
+  "items": [
+    {
+      "id": "229f0d7a-5893-4102-8ee9-ea416afcd85f",
+      "scheduled_for": "2026-11-25T21:02:00-05:00",
+      "rendered_at": "2026-11-26T00:48:10.252796Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-26/229f0d7a-5893-4102-8ee9-ea416afcd85f.mp4",
+      "caption": "it moves with the kick. sound on.\n🎧 Subway Maintenance – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.613,
+        "anchor_y": 0.426,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "subway_maintenance",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-d5aca399-ecc3-4204-aa41-ed77d2bc7367",
+          "last_error": null,
+          "scheduled_for": "2026-11-25T21:02:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "it moves with the kick. sound on.\n🎧 Subway Maintenance – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nSubway Maintenance is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "6ebe3d7f-d98b-4a9e-85ad-43a41815274e",
+      "scheduled_for": "2026-11-26T09:50:00-05:00",
+      "rendered_at": "2026-11-26T00:48:10.252796Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-26/6ebe3d7f-d98b-4a9e-85ad-43a41815274e.mp4",
+      "caption": "every frame is a wall of text\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.536,
+        "anchor_y": 0.66,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-990fba29-3a80-41b6-9f7c-aad65f6f8929",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T09:50:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "every frame is a wall of text\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Suspended"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "96067707-28d6-44c1-82e7-3cc7c2bbfece",
+      "scheduled_for": "2026-11-26T12:38:00-05:00",
+      "rendered_at": "2026-11-26T00:48:10.252796Z",
+      "video_url": "https://factory.nickbenak.com/v/render-ascii_art-2026-11-26/96067707-28d6-44c1-82e7-3cc7c2bbfece.mp4",
+      "caption": "pause anywhere. it's all still code.\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.336,
+        "anchor_y": 0.634,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "passage_waiting",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-1971078f-f769-44bc-bf08-02eca20e853e",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T15:26:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "pause anywhere. it's all still code.\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nstream Passage (Waiting): link in bio"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    }
+  ]
 }

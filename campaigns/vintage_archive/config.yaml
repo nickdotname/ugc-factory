@@ -13,49 +13,49 @@ timezone: America/New_York
 creatives:
   - name: full_ride
     title: "Full Ride"
-    assets_release: assets-vintage_archive-full_ride
+    assets_release: assets-vintage_ink-full_ride
   - name: hair_of_the_dog
     title: "Hair of the Dog"
-    assets_release: assets-vintage_archive-hair_of_the_dog
+    assets_release: assets-vintage_ink-hair_of_the_dog
   - name: talk
     title: "Talk"
-    assets_release: assets-vintage_archive-talk
+    assets_release: assets-vintage_ink-talk
   - name: fixation
     title: "Fixation"
-    assets_release: assets-vintage_archive-fixation
+    assets_release: assets-vintage_ink-fixation
   - name: wont_be_the_same_again
     title: "Won't Be the Same Again"
-    assets_release: assets-vintage_archive-wont_be_the_same_again
+    assets_release: assets-vintage_ink-wont_be_the_same_again
   - name: myth_of_sisyphus
     title: "Myth of Sisyphus"
-    assets_release: assets-vintage_archive-myth_of_sisyphus
+    assets_release: assets-vintage_ink-myth_of_sisyphus
   - name: suspended
     title: "Suspended"
-    assets_release: assets-vintage_archive-suspended
+    assets_release: assets-vintage_ink-suspended
   - name: prologue
     title: "Prologue: Before"
-    assets_release: assets-vintage_archive-prologue
+    assets_release: assets-vintage_ink-prologue
   - name: subway_maintenance
     title: "Subway Maintenance"
-    assets_release: assets-vintage_archive-subway_maintenance
+    assets_release: assets-vintage_ink-subway_maintenance
   - name: silver_and_gold
     title: "Silver and Gold"
-    assets_release: assets-vintage_archive-silver_and_gold
+    assets_release: assets-vintage_ink-silver_and_gold
   - name: evil_close_quarters
     title: "Evil Close Quarters"
-    assets_release: assets-vintage_archive-evil_close_quarters
+    assets_release: assets-vintage_ink-evil_close_quarters
   - name: notta_problem
     title: "Notta Problem"
-    assets_release: assets-vintage_archive-notta_problem
+    assets_release: assets-vintage_ink-notta_problem
   - name: recess_rewind
     title: "Recess (Rewind)"
-    assets_release: assets-vintage_archive-recess_rewind
+    assets_release: assets-vintage_ink-recess_rewind
   - name: passage_waiting
     title: "Passage (Waiting)"
-    assets_release: assets-vintage_archive-passage_waiting
+    assets_release: assets-vintage_ink-passage_waiting
   - name: epilogue_dismissal
     title: "Epilogue: Dismissal"
-    assets_release: assets-vintage_archive-epilogue_dismissal
+    assets_release: assets-vintage_ink-epilogue_dismissal
 
 # @vintage.media.archive only, posted to Instagram directly as regular reels.
 accounts:
@@ -63,7 +63,7 @@ accounts:
   names: [vintage_ig]
 
 posting:
-  posts_per_day: 5
+  posts_per_day: 2
   start_hour: 8
   end_hour: 23
   max_buffer_queue: 10
@@ -74,7 +74,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # live: linked to its Page, with its own renderer
+  paused: false                # back 2026-11-25 as ink line art, after the originality notice
   dry_run: false
 
 video:

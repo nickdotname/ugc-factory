@@ -398,6 +398,96 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s03_illusion_850222.mp4",
+   "song": "recess-rewind",
+   "section": "s03",
+   "style": "illusion",
+   "seed": 850222,
+   "window": [
+    35.57,
+    53.01
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "group",
+    "shape": "rocket",
+    "palette": "candy",
+    "ask": "which",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.54,
+    "bass": 0.68,
+    "other": 0.76
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s05_illusion_567174.mp4",
+   "song": "suspended",
+   "section": "s05",
+   "style": "illusion",
+   "seed": 567174,
+   "window": [
+    97.03,
+    103.18
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "group",
+    "shape": "donut",
+    "palette": "bone",
+    "ask": "which",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.55,
+    "bass": 0.24,
+    "other": 0.64
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "notta_problem",
+   "file": "notta-problem_s06_illusion_596435.mp4",
+   "song": "notta-problem",
+   "section": "s06",
+   "style": "illusion",
+   "seed": 596435,
+   "window": [
+    123.3,
+    137.59
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "cloud",
+    "shape": "cube",
+    "palette": "candy",
+    "ask": "which",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.81,
+    "bass": 0.31,
+    "other": 0.29
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

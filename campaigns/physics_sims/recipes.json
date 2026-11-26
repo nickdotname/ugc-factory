@@ -691,6 +691,98 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s06_physics_37267.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "physics",
+   "seed": 37267,
+   "window": [
+    126.49,
+    135.22
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "pendulum",
+    "hits": "drums",
+    "palette": "sunset",
+    "trail": "ribbon",
+    "hook": "hits",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.93,
+    "drums": 0.62,
+    "bass": 0.67,
+    "other": 0.19
+   },
+   "lyrics_proven": false,
+   "clip": "hook_07.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s03_fluid_701965.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "fluid",
+   "seed": 701965,
+   "window": [
+    76.79,
+    83.34
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "title",
+    "view": "vorticity",
+    "palette": "plasma",
+    "gust": "kick",
+    "hook": "gust",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.66,
+    "drums": 0.64,
+    "bass": 0.7,
+    "other": 0.17
+   },
+   "lyrics_proven": false,
+   "clip": "hook_08.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s04_fluid_76055.mp4",
+   "song": "suspended",
+   "section": "s04",
+   "style": "fluid",
+   "seed": 76055,
+   "window": [
+    81.19,
+    88.88
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "cylinder",
+    "view": "vorticity",
+    "palette": "inferno",
+    "gust": "drums",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.72,
+    "bass": 0.72,
+    "other": 0.65
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
   }
  ]
 }

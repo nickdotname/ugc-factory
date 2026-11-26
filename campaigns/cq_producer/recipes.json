@@ -16461,6 +16461,342 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "notta_problem",
+   "file": "notta-problem_s05_producer_962534.mp4",
+   "song": "notta-problem",
+   "section": "s05",
+   "style": "producer",
+   "seed": 962534,
+   "window": [
+    110.27,
+    121.73
+   ],
+   "plan": {
+    "story": "strip",
+    "first": "Drums",
+    "steps": [
+     [
+      110.27,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ],
+     [
+      114.854,
+      [
+       "Drums"
+      ],
+      "DRUMS ONLY"
+     ],
+     [
+      119.437,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "ALL BACK IN"
+     ]
+    ],
+    "drop": 119.437,
+    "line": "the drum track on its own, then back in",
+    "pal": [
+     [
+      150,
+      255,
+      180
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      120,
+      190,
+      255
+     ],
+     [
+      240,
+      230,
+      120
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.03,
+    "caption": "inter",
+    "segs": [
+     [
+      110.27,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "the drum track on its own, then back in",
+    "hook_angle": "story",
+    "hook_mode": "story",
+    "faces": false
+   },
+   "knobs": {
+    "story": "strip",
+    "colours": "2",
+    "first": "Drums",
+    "punch": "0.03",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.66,
+    "bass": 0.77,
+    "other": 0.38
+   },
+   "lyrics_proven": true,
+   "clip": "hook_10.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s05-s06_producer_555354.mp4",
+   "song": "evil-close-quarters",
+   "section": "s05-s06",
+   "style": "producer",
+   "seed": 555354,
+   "window": [
+    104.55,
+    119.36
+   ],
+   "plan": {
+    "story": "build",
+    "first": "Drums",
+    "steps": [
+     [
+      104.55,
+      [
+       "Drums"
+      ],
+      "DRUMS ONLY"
+     ],
+     [
+      107.513,
+      [
+       "Bass",
+       "Drums"
+      ],
+      "+ BASS"
+     ],
+     [
+      108.994,
+      [
+       "Bass",
+       "Drums",
+       "Other"
+      ],
+      "+ INSTRUMENTS"
+     ],
+     [
+      110.476,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ]
+    ],
+    "drop": 110.476,
+    "line": "drums first. then the rest of the song",
+    "pal": [
+     [
+      150,
+      255,
+      180
+     ],
+     [
+      255,
+      150,
+      80
+     ],
+     [
+      120,
+      190,
+      255
+     ],
+     [
+      240,
+      230,
+      120
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.015,
+    "caption": "montserrat",
+    "segs": [
+     [
+      104.55,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "story",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "story": "build",
+    "colours": "2",
+    "first": "Drums",
+    "punch": "0.015",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.63,
+    "bass": 0.76,
+    "other": 0.63
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s07_producer_283886.mp4",
+   "song": "prologue",
+   "section": "s07",
+   "style": "producer",
+   "seed": 283886,
+   "window": [
+    148.79,
+    159.7
+   ],
+   "plan": {
+    "story": "strip",
+    "first": "Vocals",
+    "steps": [
+     [
+      148.79,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ],
+     [
+      153.154,
+      [
+       "Vocals"
+      ],
+      "VOCAL ONLY"
+     ],
+     [
+      157.517,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "ALL BACK IN"
+     ]
+    ],
+    "drop": 157.517,
+    "line": "the song, then the vocal alone",
+    "pal": [
+     [
+      255,
+      196,
+      92
+     ],
+     [
+      255,
+      92,
+      120
+     ],
+     [
+      110,
+      170,
+      255
+     ],
+     [
+      90,
+      225,
+      170
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.015,
+    "caption": "inter",
+    "segs": [
+     [
+      148.79,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "the song, then the vocal alone",
+    "hook_angle": "story",
+    "hook_mode": "story",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "story": "strip",
+    "colours": "0",
+    "first": "Drums",
+    "punch": "0.015",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.62,
+    "bass": 0.63,
+    "other": 0.24
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
   }
  ],
  "since": "2026-11-22T06:46:46.461118+00:00",
@@ -16504,6 +16840,14 @@
     "inter",
     "anton",
     "montserrat"
+   ],
+   "story": [
+    "build",
+    "strip"
+   ],
+   "first": [
+    "Vocals",
+    "Drums"
    ]
   }
  }

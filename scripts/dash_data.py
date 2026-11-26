@@ -25,7 +25,7 @@ HANDLES = {'close_quarters_ig': 'close__quarters', 'dylancantor23_ig': 'dylancan
            'retro_ig': 'retro.vibes.arcade', 'rocket_ig': 'rocket.league.lit', 'nickdotname_ig': 'the.loose.change',
            'vintage_ig': 'vintage.media.archive', 'nyc_ig': 'nyc.daily.aesthetic', 'tinycode_ig': 'tiny.code.loops',
            'cinema_ig': 'ascii.cinema.tty', 'petri_ig': 'digital.petri.dish',
-           'illusions_ig': 'rotation.illusions', 'races_ig': 'algorithm.races', 'tests8_ig': '8bit.tests', 'notes_ig': 'moth.ate.my.notes', 'toon_ig': 'rubberhose.radio', 'zoom_ig': 'zoom.into.art', 'date_ig': 'situationship.notes', 'lowpoly_ig': 'what.if.town', 'college_ig': 'dining.hall.philosopher', 'her_ig': 'crying.in.trader.joes', 'him_ig': 'grip.tape.thoughts'}
+           'illusions_ig': 'rotation.illusions', 'races_ig': 'algorithm.races', 'tests8_ig': '8bit.tests', 'notes_ig': 'moth.ate.my.notes', 'toon_ig': 'rubberhose.radio', 'zoom_ig': 'zoom.into.art', 'date_ig': 'situationship.notes', 'lowpoly_ig': 'what.if.town', 'college_ig': 'dining.hall.philosopher', 'eyetrick_ig': 'eye.trick.lab', 'fourier_ig': 'fourier.reveal', 'her_ig': 'crying.in.trader.joes', 'him_ig': 'grip.tape.thoughts'}
 NOT_CQ = {'clubs'}                   # campaigns that are not Close Quarters (the Clubs app's own posts)
 # Accounts that posted other things before they were Close Quarters accounts: only the posts one of our campaigns made
 # are shown (the.loose.change was nickdotname, the Clubs account, until mid-November).
@@ -36,7 +36,7 @@ METRICS = {'views': 'views', 'reach': 'reach', 'reactions': 'likes', 'comments':
 WHAT = {'math': ['topic', 'subject', 'lineup', 'maze'], 'physics': ['scene', 'rule'], 'fluid': ['obstacle', 'view'], 'ascii': ['scene'],
         'psy': ['field'], 'collage': ['palette'], 'liminal': ['place'], 'earth': ['scene'], 'glitch': ['source'],
         'retro': ['theme', 'hook'], 'rocket': ['format'], 'type': ['layout'], 'band': ['wall'], 'producer': ['layout'],
-        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage', 'bg'], 'tinycode': ['program'], 'cinema': ['look', 'cell'], 'alife': ['start', 'palette'], 'scene': ['scene', 'place'], 'illusion': ['kind', 'shape'], 'stopit': ['thing', 'ask']}
+        'lofi': ['theme', 'pop'], 'cursor': ['world'], 'growth': ['look'], 'vintage': ['tint', 'trip'], 'nyc': ['kind'], 'cutout': ['stage', 'bg'], 'tinycode': ['program'], 'cinema': ['look', 'cell'], 'alife': ['start', 'palette'], 'scene': ['scene', 'place'], 'illusion': ['kind', 'shape'], 'reveal': ['country'], 'stopit': ['thing', 'ask']}
 
 
 def read_yaml(path):

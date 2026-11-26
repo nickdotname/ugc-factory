@@ -1,4 +1,270 @@
 {
-  "generated_at": "2026-11-25T22:19:04.376608Z",
-  "items": []
+  "generated_at": "2026-11-26T00:49:12.229028Z",
+  "items": [
+    {
+      "id": "5e1e28fd-101f-4614-8131-7ff9b9867161",
+      "scheduled_for": "2026-11-25T20:57:00-05:00",
+      "rendered_at": "2026-11-26T00:49:12.229028Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-26/5e1e28fd-101f-4614-8131-7ff9b9867161.mp4",
+      "caption": "the skyline never gets old\n🎧 Evil Close Quarters – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.466,
+        "anchor_y": 0.599,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
+      "posts": [
+        {
+          "account": "nyc_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-4f777bcf-cf89-4254-9714-7d71f3a79d56",
+          "last_error": null,
+          "scheduled_for": "2026-11-25T20:57:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "the skyline never gets old\n🎧 Evil Close Quarters – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nlink in bio to stream Evil Close Quarters"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "23697ef9-da1b-491f-ad37-6d4c1534bfab",
+      "scheduled_for": "2026-11-26T09:45:00-05:00",
+      "rendered_at": "2026-11-26T00:49:12.229028Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-26/23697ef9-da1b-491f-ad37-6d4c1534bfab.mp4",
+      "caption": "every block here has its own soundtrack\n🎧 Full Ride – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.64,
+        "anchor_y": 0.628,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Full Ride by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [
+        {
+          "account": "nyc_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-6fdc4d36-8fee-4bff-adb3-b0510c63a282",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T09:45:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "every block here has its own soundtrack\n🎧 Full Ride – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nstream Full Ride: link in bio"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "c3baf811-8428-47d9-9e54-ff1cfeb80614",
+      "scheduled_for": "2026-11-26T12:33:00-05:00",
+      "rendered_at": "2026-11-26T00:49:12.229028Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-26/c3baf811-8428-47d9-9e54-ff1cfeb80614.mp4",
+      "caption": "bridges, trains, fire escapes, light\n🎧 Recess (Rewind) – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.607,
+        "anchor_y": 0.358,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "recess_rewind",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Recess (Rewind) – @close__quarters (EDUCATION, out now)",
+      "posts": [
+        {
+          "account": "nyc_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-f4bfb16a-4402-4977-9266-0d1207b6a8fb",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T12:33:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "bridges, trains, fire escapes, light\n🎧 Recess (Rewind) – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nRecess (Rewind) is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "11f2d70b-cba3-4f44-8fd4-f41a5d31a558",
+      "scheduled_for": "2026-11-26T15:21:00-05:00",
+      "rendered_at": "2026-11-26T00:49:12.229028Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-26/11f2d70b-cba3-4f44-8fd4-f41a5d31a558.mp4",
+      "caption": "look up next time you're in midtown\n🎧 Prologue: Before – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.358,
+        "anchor_y": 0.254,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
+      "posts": [
+        {
+          "account": "nyc_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-51768a3f-0a9f-4f53-b71a-93694db8af65",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T15:21:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "look up next time you're in midtown\n🎧 Prologue: Before – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nlink in bio to stream Prologue: Before"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "e4e4f336-765c-400b-96e9-815f279b27b3",
+      "scheduled_for": "2026-11-26T18:09:00-05:00",
+      "rendered_at": "2026-11-26T00:49:12.229028Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nyc_daily-2026-11-26/e4e4f336-765c-400b-96e9-815f279b27b3.mp4",
+      "caption": "the city never fully switches off\n🎧 Epilogue: Dismissal – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.654,
+        "anchor_y": 0.385,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "epilogue_dismissal",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Epilogue: Dismissal by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [
+        {
+          "account": "nyc_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-36cae1e9-1150-46c9-9617-d2bf099b9dbc",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T18:09:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "the city never fully switches off\n🎧 Epilogue: Dismissal – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nstream Epilogue: Dismissal: link in bio"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    }
+  ]
 }

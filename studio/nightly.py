@@ -97,6 +97,7 @@ VISUAL['notes_date'] = 'text_date_video.py'       # situationship page: the same
 VISUAL['notes_college'] = 'text_college_video.py' # broke-college-kid page: the same card, dorms, deadlines and the dining hall
 VISUAL['lowpoly'] = 'lowpoly_video.py'  # low-poly story page: a "what if" story in big words over a blocky town (Blender, studio/lowpoly/)
 VISUAL['toon'] = 'toon_video.py'       # rubber-hose page: cartoons from before 1931 cut as a modern edit (footage theme toons)
+VISUAL['reveal'] = 'reveal_video.py'  # circle.atlas (planned): a country's outline drawn by Fourier circles, the name at the end
 VISUAL['zoom'] = 'zoom_video.py'       # museum-zoom page: a public-domain painting, then a dive into one detail on the drop (studio/art.py)
 
 def lofi_cover(slug, win):
@@ -139,7 +140,7 @@ def thompson(options, stats, r, retired=()):
 # one the account showed in its last REPEAT_NIGHTS nights (see freshen).
 SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
-           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line', 'lowpoly': 'story', 'stopit': 'thing'}
+           'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line', 'lowpoly': 'story', 'reveal': 'country', 'stopit': 'thing'}
 REPEAT_NIGHTS = 3                                     # a subject is not shown again on an account for this many nights
 
 # Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that
@@ -281,6 +282,7 @@ if r.returncode: print('warm-up failed (%s): %s' % (r.returncode, r.stderr.strip
 for t in cfg['targets']:
     camp, style = t['campaign'], t['style']
     if a.only and a.only != camp: continue
+    if t.get('paused') and a.only != camp: print('skip', camp, '(paused: a ready page waiting for its account)'); continue
     cdir = os.path.join(REPO, 'campaigns', camp)
     if not os.path.exists(os.path.join(cdir, 'config.yaml')): print('skip', camp, '(no such campaign)'); continue
     ccfg = yaml.safe_load(open(os.path.join(cdir, 'config.yaml'))).get('creatives') or []

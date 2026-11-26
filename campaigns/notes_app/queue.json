@@ -1,4 +1,270 @@
 {
-  "generated_at": "2026-11-25T22:11:25.570013Z",
-  "items": []
+  "generated_at": "2026-11-26T00:47:55.552618Z",
+  "items": [
+    {
+      "id": "12b25bce-259e-4ed7-8e9a-c5a4c6d3aa97",
+      "scheduled_for": "2026-11-25T20:41:00-05:00",
+      "rendered_at": "2026-11-26T00:47:55.552618Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_app-2026-11-26/12b25bce-259e-4ed7-8e9a-c5a4c6d3aa97.mp4",
+      "caption": "said what i said\n🎧 Evil Close Quarters – @close__quarters #relatable #humor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.603,
+        "anchor_y": 0.401,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "evil_close_quarters",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-c76d0b81-0fab-41b8-ad4b-67770efc478b",
+          "last_error": null,
+          "scheduled_for": "2026-11-25T20:41:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "said what i said\n🎧 Evil Close Quarters – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Evil Close Quarters"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "7934cf0f-4a13-4327-acc3-eac93c43ae67",
+      "scheduled_for": "2026-11-26T08:41:00-05:00",
+      "rendered_at": "2026-11-26T00:47:55.552618Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_app-2026-11-26/7934cf0f-4a13-4327-acc3-eac93c43ae67.mp4",
+      "caption": "not a cry for help. a little bit\n🎧 Talk – @close__quarters #relatable #humor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.366,
+        "anchor_y": 0.736,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "talk",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Talk by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-f76937ea-c4c8-420b-8c5c-d758259ab5a9",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T08:41:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "not a cry for help. a little bit\n🎧 Talk – @close__quarters #relatable #humor #createmode\n\nstream Talk: link in bio"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "8dbe9fdf-aae6-47f9-a8f5-b53abf7e8dbd",
+      "scheduled_for": "2026-11-26T11:41:00-05:00",
+      "rendered_at": "2026-11-26T00:47:55.552618Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_app-2026-11-26/8dbe9fdf-aae6-47f9-a8f5-b53abf7e8dbd.mp4",
+      "caption": "typed this instead of sleeping\n🎧 Epilogue: Dismissal – @close__quarters #relatable #humor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.346,
+        "anchor_y": 0.332,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "epilogue_dismissal",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-b6a14c78-fe45-4d05-9552-ee988891b44d",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T11:41:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "typed this instead of sleeping\n🎧 Epilogue: Dismissal – @close__quarters #relatable #humor #createmode\n\nEpilogue: Dismissal is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "eb991910-b915-463b-95ca-818c0af84861",
+      "scheduled_for": "2026-11-26T14:41:00-05:00",
+      "rendered_at": "2026-11-26T00:47:55.552618Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_app-2026-11-26/eb991910-b915-463b-95ca-818c0af84861.mp4",
+      "caption": "and what about it\n🎧 Prologue: Before – @close__quarters #relatable #humor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.326,
+        "anchor_y": 0.413,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-f79696f9-ba8b-4ca6-9bd3-27fc6fab8f63",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T14:41:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "and what about it\n🎧 Prologue: Before – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Prologue: Before"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "100d05a2-58a0-48b0-94c5-3b64b6df13a8",
+      "scheduled_for": "2026-11-26T17:41:00-05:00",
+      "rendered_at": "2026-11-26T00:47:55.552618Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_app-2026-11-26/100d05a2-58a0-48b0-94c5-3b64b6df13a8.mp4",
+      "caption": "it is what it is\n🎧 Passage (Waiting) – @close__quarters #relatable #humor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.309,
+        "anchor_y": 0.644,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "passage_waiting",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [
+        {
+          "account": "notes_ig",
+          "network": "instagram",
+          "status": "pushed",
+          "attempts": 0,
+          "buffer_post_id": "igo-d80b3ce7-2eaf-4bb9-bb27-1084d6f598ed",
+          "last_error": null,
+          "scheduled_for": "2026-11-26T17:41:00-05:00"
+        }
+      ],
+      "captions": {
+        "instagram": "it is what it is\n🎧 Passage (Waiting) – @close__quarters #relatable #humor #createmode\n\nstream Passage (Waiting): link in bio"
+      },
+      "titles": {},
+      "status": "pushed",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    }
+  ]
 }

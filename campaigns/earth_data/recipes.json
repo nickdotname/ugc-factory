@@ -11,7 +11,8 @@
     "blueprint",
     "ember",
     "night",
-    "paper"
+    "paper",
+    "marble"
    ],
    "spin": [
     "slow",
@@ -533,6 +534,36 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s05_earth_754880.mp4",
+   "song": "prologue",
+   "section": "s05",
+   "style": "earth",
+   "seed": 754880,
+   "window": [
+    104.64,
+    126.27
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "satellites",
+    "palette": "ember",
+    "spin": "fast",
+    "hook": "fact",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.77,
+    "bass": 0.61,
+    "other": 0.22
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ]
 }
