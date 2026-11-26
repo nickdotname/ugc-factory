@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "retro_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T16:50:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "you can almost hear the disc spinning\n🎧 Subway Maintenance – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nSubway Maintenance is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Silver and Gold by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "retro_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the hub world after everyone logged off\n🎧 Silver and Gold – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nlink in bio to stream Silver and Gold"
       },
