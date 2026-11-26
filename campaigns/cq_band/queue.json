@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "EDUCATION is out now. Notta Problem is just one of them, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T20:20:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the start menu of your feelings\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
