@@ -14,7 +14,7 @@ Choosing what each video looks like is where it improves itself. Every choice a 
 new video, each knob is set by Thompson sampling: every option draws a plausible score from what its posts
 have shown so far (a wide guess when it has few, a narrow one when it has many) and the highest draw wins.
 So what has worked is used most, what has hardly been tried still gets tried, and what keeps losing
-(learn.py "retires" it) stops being chosen. One video in five (EXPLORE) is left entirely to the renderer's
+(learn.py "retires" it) stops being chosen. One video in ten (EXPLORE) is left entirely to the renderer's
 own dice, which keeps the comparison honest and lets new looks in.
 """
 import argparse, datetime, json, os, random, subprocess, sys, tempfile
@@ -72,7 +72,26 @@ LYRIC['cutout'] = 'cutout_video.py'  # the same dance footage, full screen and t
 NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's Ableton project (project_hits.json)
 VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math', 'race', 'tests8', 'stare', 'ebru', 'measure', 'hue'}      # styles choreographed to a fixed number of beats: never cut shorter
-EXPLORE = 0.2         # share of videos whose look is left entirely to chance
+EXPLORE = 0.1         # share of videos whose look is left entirely to chance (0.2 until 2026-11-26: with retirement now automatic, less re-testing of known losers)
+# Cosmetic knobs held at one value so the posts go to what can be learned at 2-5 posts a night: subject x cut x hook.
+# Set 2026-11-26 for two weeks (the review found 1,565 option weights all within 0.87-1.13: a dozen knobs varying at once
+# is not learnable at this volume); after FREEZE_UNTIL the learner gets them back. Values are the option that led, or the
+# renderer's default, that day. A target's own `freeze: {knob: value}` in nightly.yaml adds to or overrides these.
+FREEZE_UNTIL = '2026-12-10'
+FROZEN = {'math': {'theme': 'chalk', 'font': 'montserrat', 'grid': 'none', 'shake': '0.6', 'glow': '1.0'},
+          'tinycode': {'palette': 'neon', 'glow': '1.0'},
+          'psy': {'pal': 'ice', 'sym': '8', 'feedback': 'false', 'mirror': 'true'},
+          'physics': {'palette': 'neon', 'trail': 'ribbon'},
+          'earth': {'palette': 'paper'},
+          'glitch': {'tone': 'natural', 'label': 'none'},
+          'vintage': {'tint': 'bw', 'crank': '1'},
+          'cinema': {'look': 'phosphor', 'crt': 'on'}}
+
+def frozen_for(style, target, today=None):
+    """The knobs nightly holds fixed for one target tonight: FROZEN[style] plus the target's own `freeze:`, none after FREEZE_UNTIL."""
+    today = today or datetime.date.today().isoformat()
+    if today > FREEZE_UNTIL: return {}
+    return {str(k): str(v) for k, v in dict(FROZEN.get(style) or {}, **(target.get('freeze') or {})).items()}
 VISUAL['rocket'] = 'rocket_video.py'
 # What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
 # an option with real results uses those instead. The ASCII account is about the code, so most videos show it.
@@ -185,13 +204,14 @@ def freshen(style, menu, kn, recent, learned, r, first=True):
     st, ret = learned.get('stats') or {}, learned.get('retired') or {}
     return dict(kn, **{name: thompson(fresh, st.get('knob:' + name) or {}, r, ret.get('knob:' + name) or ())})
 
-def choose(style, menu, learned, seed):
-    """The knobs and settings nightly fixes for one video, and whether it was left to chance."""
+def choose(style, menu, learned, seed, frozen=None):
+    """The knobs and settings nightly fixes for one video, and whether it was left to chance. Frozen knobs are fixed either way."""
     r = random.Random(seed * 2654435761 % 2 ** 32)
-    if r.random() < EXPLORE: return {}, {}, 'free'
+    if r.random() < EXPLORE: return dict(frozen or {}), {}, 'free'
     st, ret = learned.get('stats') or {}, learned.get('retired') or {}
     kn = {name: thompson(opts, dict(PRIOR.get(style, {}).get(name, {}), **(st.get('knob:' + name) or {})), r, ret.get('knob:' + name) or ())
           for name, opts in sorted(menu.items()) if len(opts) > 1}
+    kn.update(frozen or {})
     env = {}
     if style in _hook.ANGLES:                                   # the opening line: which angle (or none), and flashed or held
         ang = _hook.lead(style, seed) or thompson(sorted(_hook.ANGLES[style]) + ['none'], st.get('hook angle') or {}, r, ret.get('hook angle') or ())
@@ -212,8 +232,11 @@ def suits(style, lv):
     if style == 'producer': return len(on) >= 3
     return 'vocals' in on
 
-TIGHT = 0.75          # share of videos cut short, hook first; the rest keep the whole stretch so the two can be compared
-SHORT = 0.35          # of those, for the picture styles: a 6-9 second loop, which people watch through and replay (completion is Instagram's first signal)
+TIGHT = 0.75          # share of lyric videos cut short, hook first; the rest keep the whole stretch so the two can be compared
+# Where a picture style's cut starts from before its own posts say otherwise, as pseudo-posts in learn.py's [_, posts, mean]
+# shape (like PRIOR): short 3 : tight 2 : full 1. Network-wide, completion was 0.46 under 10 s against 0.17 at 20-35 s
+# (2026-11-26 review), so a 6-9 s loop is the default; real results on `knob:cut` replace these, so data can still say otherwise.
+CUT_PRIOR = {'short': [0, 3, 0.7], 'tight': [0, 2, 0.5], 'full': [0, 1, 0.3]}
 
 def tighten(song_dir, win, rng, short=False):
     """A 10-20 second (short: 6-9 second) piece of `win` that starts on its strongest line and lasts a whole number of bars, so it
@@ -347,7 +370,7 @@ for t in cfg['targets']:
     for slug, cr, sid, win, lyr in picked:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
-        kn, extra, how = choose(style, menu, L, seed)
+        kn, extra, how = choose(style, menu, L, seed, frozen_for(style, t, today))
         sub = SUBJECT.get(style)
         past = [(e.get('knobs') or {}).get(sub) for e in rec.get('nightly', []) if e.get('style') == style]
         recent = past[-max(1, t['per_night']) * REPEAT_NIGHTS:] + tonight
@@ -357,8 +380,9 @@ for t in cfg['targets']:
         if sub in kn: tonight.append(kn[sub])
         if SET: kn, how = dict(kn, **SET), 'set'                  # a run asked for a particular look (a new format to see now)
         cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
-        if how == 'free': cut = 'full' if rng.random() >= TIGHT else ('short' if style in VISUAL and rng.random() < SHORT else 'tight')
-        else: cut = thompson(cuts, (L.get('stats') or {}).get('knob:cut') or {}, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
+        cut_stats = dict(CUT_PRIOR if style in VISUAL else {}, **((L.get('stats') or {}).get('knob:cut') or {}))
+        if how == 'free': cut = rng.choices(cuts, weights=[CUT_PRIOR[c][1] for c in cuts])[0] if style in VISUAL else ('full' if rng.random() >= TIGHT else 'tight')
+        else: cut = thompson(cuts, cut_stats, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
         if style in WHOLE: cut = 'full'
         if cut != 'full': win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=cut == 'short')
         seeds.add(seed); inbox = os.path.join(REPO, 'inbox', folder.get(cr, '%s-%s' % (camp, cr)), 'hooks'); os.makedirs(inbox, exist_ok=True)
