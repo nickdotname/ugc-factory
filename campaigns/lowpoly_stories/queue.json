@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-a2c3b965-6481-4319-9e9c-db46073958d8",
+          "buffer_post_id": "igo-fbdf9ba4-e4d1-4087-a693-b62806842789",
           "last_error": null,
           "scheduled_for": "2026-11-27T08:26:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "lowpoly_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-d2bc2e4e-378e-4c29-9a8f-78e7f15e8aaa",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T15:56:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "it starts small\n🎧 Prologue: Before – @close__quarters #whatif #story #lowpoly #3danimation #blender\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
