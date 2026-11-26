@@ -38,9 +38,9 @@
         {
           "account": "cinema_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-19f2ebb8-5956-42d5-afc4-7bc72490ed28",
           "last_error": null,
           "scheduled_for": "2026-11-25T20:05:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "a projector made of letters\n🎧 Recess (Rewind) – @close__quarters #asciiart #textmode #terminal #publicdomain #film\n\nlink in bio to stream Recess (Rewind)"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
