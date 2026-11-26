@@ -53,6 +53,14 @@ every fact sourced in the spec's `sources`; no dose amounts or sourcing informat
 - Output 1080×1920, 30 fps, H.264, the song's audio clip muxed in (`beat.audio_clip`).
 - `beat.load(slug, t0, t1)` gives per-frame stem levels, kick/snare/hat frames and the beat grid; renderers move
   on those, not on guesses.
+- **Finishing pass (2026-11-26, `studio/polish.py`).** Most drawn renderers wrap `Video.frame` with
+  `polish.wrap(Video.frame, '<look>')` (math/race through `mathviz/kit.render`): bloom on coloured light (white type
+  barely glows, `white=`), fine per-frame grain weighted to the mid-tones, a grade, a vignette, a slight red/blue
+  split at the edges on some. One recipe per look in `LOOKS`; `CQ_POLISH=0` turns it off. Never on the illusion pages.
+- **Real shaders (2026-11-26, `studio/gl.py`).** GLSL fragment shaders drawn off-screen through EGL + Mesa llvmpipe
+  on the CPU runners (`moderngl`; studio.yml installs libegl1/libgl1-mesa-dri every night). ~30 fps at 1080×1920 for a
+  light shader; `ss` supersamples. psy's fields are `studio/shaders/psy.glsl` at full size (was numpy at 432×768,
+  still the fallback with `CQ_GL=0`).
 - A `.json` beside each video records its knobs (and footage keys); nightly copies it into `recipes.json`.
 - A credit line `♪ title — close quarters` near the bottom, above Instagram's UI.
 - No engagement bait in on-screen text. Lyric styles show lyrics only where timing was verified.
