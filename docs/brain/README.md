@@ -11,6 +11,7 @@ An Obsidian vault (open `docs/brain/` as a vault, or just read it on GitHub). Ev
 - [[learning]]: how the posts' numbers steer the next night's videos
 - [[dashboard]]: dashboard.closequarters.vip
 - [[traps]]: what broke, why, and the fix: read before touching Meta accounts or the queue
+- [[ready-pages]]: pages built and paused, waiting for their Instagram account (with handle ideas)
 - [[backlog]]: ideas and half-built things, with enough detail to pick up
 - [[log]]: dated changes
 
