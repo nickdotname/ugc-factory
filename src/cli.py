@@ -3129,6 +3129,11 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                     (account.name, publishers[slot], _account_channel(account, env))
                 )
 
+        # Accounts whose every post came back without numbers because the
+        # token may not read them. Logged, printed as a job error and the
+        # command exits 1 for this campaign, so the job goes red: the matrix
+        # runs fail-fast: false, so the other campaigns still get their turn.
+        denied_accounts: list[str] = []
         try:
             fresh: list[Any] = []
             for account_name, source, source_channel in sources:
@@ -3141,6 +3146,19 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                         account=account_name, error=str(exc)[:200],
                     )
                     continue
+                denied = getattr(source, "insights_denied", {}).get(source_channel)
+                if denied:
+                    log.warning(
+                        "insights_denied", account=account_name, campaign=config.slug, **denied,
+                    )
+                    print(
+                        f"::error::{config.slug}: no insights permission on {account_name} "
+                        f"({denied['posts']} published posts, {denied['error_class']}, Graph code "
+                        f"{denied['graph_code']}). The token in its slot lacks "
+                        f"instagram_business_manage_insights / instagram_manage_insights, or the Page "
+                        f"role lacks Insights: see docs/brain/traps.md and scripts/ig_check.py."
+                    )
+                    denied_accounts.append(str(account_name))
                 # Stamped with when they were read, so the dashboard can say how
                 # old a post's numbers are.
                 fresh += [
@@ -3270,7 +3288,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                      posts_only=True, accounts=len(sources))
             print(f"\n  {config.slug} · per-post figures from {len(sources)} "
                   f"Instagram account(s) · {local_date}")
-            return 0
+            return 1 if denied_accounts else 0
         log.info(
             "metrics_saved", campaign=config.slug, date=local_date,
             metrics=len(snapshot.metrics), snapshots=len(history.snapshots),
@@ -3290,7 +3308,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         for metric in snapshot.metrics:
             suffix = "%" if metric.unit == "percentage" else ""
             print(f"    {metric.name:<22} {metric.value:>10,.1f}{suffix}")
-        return 0
+        return 1 if denied_accounts else 0
     except UgcError as exc:
         log.exception("metrics_failed", exc)
         notifier.failure("metrics", exc, campaign=config.slug)

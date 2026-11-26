@@ -127,6 +127,17 @@ _EXTRA_INSIGHTS: tuple[tuple[str, str, str, float], ...] = (
     ("reposts", "reposts", "Reposts", 1.0),
 )
 
+#: What Instagram says when a token may not read a post's insights: code 10
+#: ("Application does not have permission for this action", the token lacks
+#: instagram_business_manage_insights / instagram_manage_insights), code 200
+#: (a permissions error), or code 100 "Object ... does not exist, cannot be
+#: loaded due to missing permissions" (a Page token whose Page role lacks the
+#: Insights task). None of these is about the post; all are about the token.
+_DENIED = re.compile(r"permission|does not exist", re.I)
+#: The code-100 form alone: the one a Page token gets, and the one retrying
+#: as the login token can fix.
+_MISSING = re.compile(r"does not exist|missing permissions", re.I)
+
 #: Instagram allows five hashtags on a post or Reel (since December 2025).
 MAX_HASHTAGS = 5
 _HASHTAG = re.compile(r"(?<![\w#])#\w+")
@@ -274,14 +285,25 @@ class InstagramPublisher(Publisher):
         #: (commit and push it) instead of once at the end of the run. A
         #: "claim" that raises stops the post from being sent.
         self.checkpoint: Callable[[Path, str], None] | None = None
+        #: Accounts whose every published post answered its insights request
+        #: with a permission refusal on this run, by channel id: how many posts
+        #: and what Instagram said. ``fetch_post_metrics`` fills it; the metrics
+        #: command reads it to turn a silent "no numbers" into a red job.
+        self.insights_denied: dict[str, dict[str, Any]] = {}
+        self._last_denial: str | None = None
 
     # ----------------------------------------------------------------- plumbing
 
     def _call(
-        self, method: str, path: str, params: Mapping[str, Any]
+        self, method: str, path: str, params: Mapping[str, Any], *, token: str | None = None
     ) -> dict[str, Any]:
-        """One Graph API call, retrying only what a retry can fix."""
+        """One Graph API call, retrying only what a retry can fix.
+
+        ``token`` overrides the usual choice (the Page token of the account
+        being worked on when there is one, the login token otherwise).
+        """
         last: Exception | None = None
+        bearer = token or self._page_tokens.get(self._acting or "", self._token)
         for attempt in range(1, self._max_attempts + 1):
             self.request_count += 1
             try:
@@ -292,7 +314,7 @@ class InstagramPublisher(Publisher):
                     data=dict(params) if method != "GET" else None,
                     # A header, never a query parameter: a token in a URL ends
                     # up in logs and error messages.
-                    headers={"Authorization": f"Bearer {self._page_tokens.get(self._acting or '', self._token)}"},
+                    headers={"Authorization": f"Bearer {bearer}"},
                     timeout=REQUEST_TIMEOUT_SEC,
                 )
             except requests.RequestException as exc:
@@ -722,29 +744,42 @@ class InstagramPublisher(Publisher):
         total = int(((row.get("config") or {}).get("quota_total")) or 0)
         return int(row.get("quota_usage") or 0), total
 
+    def _insights(self, media_id: str, metrics: str) -> dict[str, Any]:
+        """One insights request. A Page token that cannot see the post ("does
+        not exist / missing permissions": the Page role lacks the Insights task)
+        is tried once more as the login token, which may hold the permission
+        the Page role does not."""
+        try:
+            return self._call("GET", f"{media_id}/insights", {"metric": metrics})
+        except InvalidPostError as exc:
+            if not (self._acting in self._page_tokens and _MISSING.search(str(exc))):
+                raise
+            self._log.warning(
+                "instagram_page_token_fallback", media_id=media_id, error=str(exc)[:160],
+            )
+            return self._call("GET", f"{media_id}/insights", {"metric": metrics}, token=self._token)
+
     def _media_metrics(self, media_id: str) -> tuple[MetricRow, ...]:
+        self._last_denial = None
         try:
             try:
-                body = self._call(
-                    "GET", f"{media_id}/insights",
-                    {"metric": ",".join(name for name, *_ in _INSIGHTS)},
-                )
+                body = self._insights(media_id, ",".join(name for name, *_ in _INSIGHTS))
             except InvalidPostError as exc:
                 if "ig_reels" not in str(exc):
                     raise
                 # A carousel is not a Reel, and asking for a Reel-only figure
                 # makes Instagram refuse the whole request. Ask again for the
                 # figures every kind of post has.
-                body = self._call(
-                    "GET", f"{media_id}/insights",
-                    {"metric": ",".join(
-                        name for name, *_ in _INSIGHTS
-                        if not name.startswith("ig_reels")
-                    )},
-                )
+                body = self._insights(media_id, ",".join(
+                    name for name, *_ in _INSIGHTS if not name.startswith("ig_reels")
+                ))
         except InvalidPostError as exc:
             # A trial reel, or one too new to have figures, is refused rather
             # than returned empty. That is not worth losing the others for.
+            # A permission refusal is remembered: the token cannot read this
+            # account's numbers at all, and that must not stay a warning.
+            if _DENIED.search(str(exc)):
+                self._last_denial = str(exc)[:200]
             self._log.warning(
                 "instagram_insights_unavailable",
                 media_id=media_id, error=str(exc)[:200],
@@ -781,15 +816,33 @@ class InstagramPublisher(Publisher):
             if i.get("media_id")
         ]
         done.sort(key=lambda i: str(i.get("published_at") or ""), reverse=True)
-        collected = [
-            PostMetrics(
+        collected: list[PostMetrics] = []
+        denials: list[str] = []
+        for item in done[:limit]:
+            collected.append(PostMetrics(
                 post_id=str(item["id"]),
                 service=Service.INSTAGRAM.value,
                 sent_at=_parse_dt(item.get("published_at")),
                 metrics=self._media_metrics(str(item["media_id"])),
+            ))
+            if self._last_denial:
+                denials.append(self._last_denial)
+        self.insights_denied.pop(channel_id, None)
+        if collected and len(denials) == len(collected):
+            # Not one post could be read, and every refusal was about
+            # permission: the token lacks the insights scope (or the Page role
+            # the Insights task). Ten accounts ran blind for a week on a warning.
+            code = re.search(r"code (\d+)", denials[0])
+            self.insights_denied[channel_id] = {
+                "posts": len(collected),
+                "error_class": InvalidPostError.__name__,
+                "graph_code": int(code.group(1)) if code else None,
+                "error": denials[0],
+            }
+            self._log.warning(
+                "instagram_insights_denied", channel_id_suffix=channel_id[-4:],
+                **self.insights_denied[channel_id],
             )
-            for item in done[:limit]
-        ]
         self._log.info(
             "instagram_post_metrics_fetched",
             channel_id_suffix=channel_id[-4:], posts=len(collected),
