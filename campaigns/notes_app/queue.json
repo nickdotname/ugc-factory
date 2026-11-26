@@ -91,18 +91,18 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-27T08:41:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the notes app remembers\n🎧 Talk – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
