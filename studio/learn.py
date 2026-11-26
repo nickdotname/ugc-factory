@@ -49,10 +49,13 @@ PRIOR = 5.0             # posts an option needs before its weight is taken at ab
 HALF_LIFE = 21.0        # days for a post's say in the stats to halve
 MIN_RETIRE = 8          # posts an option needs before it can be retired
 MIX = (('done', 0.3), ('sends', 0.3), ('views', 0.15), ('saved', 0.1), ('held', 0.15))
-# Campaigns that are after something the default mix does not weigh. close__quarters opens most videos on a hot
-# take to get people arguing about the song, and rocket.league.lit tries hot takes too, so comments per reach count there.
+# A mix for campaigns that want people talking (comments per reach). Nobody uses it today: cq_band and rocket_league did
+# until 2026-11-26, when the debate hook angles they were added for had been gone two days and every post carried exactly
+# one comment, our own song credit, so `talk` was 1/reach and rewarded the least-reached posts. numbers() now takes that
+# own comment off the count, so TALK is usable again when a campaign earns a second comment; put it back here then.
 TALK = (('done', 0.25), ('sends', 0.25), ('talk', 0.15), ('views', 0.15), ('saved', 0.05), ('held', 0.15))
-MIX_FOR = {'cq_band': TALK, 'rocket_league': TALK}
+MIX_FOR = {}
+OWN_COMMENTS = 1        # comments on every post that are ours (the first comment credits the song): not people talking
 NAMES = {'done': 'completion', 'sends': 'sends per reach', 'talk': 'comments per reach', 'views': 'views',
          'saved': 'saves per reach', 'held': 'not being skipped'}
 
@@ -76,7 +79,7 @@ def numbers(post):
     skip = m.get('skipRate')
     return dict(views=views, watch=m.get('averageTimeWatched'), keep=keep,
                 sends=float(m.get('shares') or 0) / reach, saved=float(m.get('saves') or 0) / reach,
-                talk=None if m.get('comments') is None else float(m['comments'] or 0) / reach,
+                talk=None if m.get('comments') is None else max(float(m['comments'] or 0) - OWN_COMMENTS, 0.0) / reach,
                 held=None if skip is None else 1 - float(skip) / (100.0 if float(skip) > 1 else 1.0),
                 shares=float(m.get('shares') or 0), saves=float(m.get('saves') or 0))
 
