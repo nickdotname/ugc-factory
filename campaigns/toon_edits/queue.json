@@ -91,18 +91,18 @@
         {
           "account": "toon_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-26T15:38:00-05:00"
         }
       ],
       "captions": {
         "instagram": "they drew every frame of this by hand\n🎧 Myth of Sisyphus – @close__quarters #rubberhose #oldcartoons #1930s #animation #vintagecartoon\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
