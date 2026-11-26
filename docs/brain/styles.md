@@ -64,3 +64,12 @@ every fact sourced in the spec's `sources`; no dose amounts or sourcing informat
   late on two line changes in three. Words ink `LEAD` (40 ms, in lines.json) plus up to 30 ms (the renderer's
   look-ahead) before they are sung; checked end to end on a muxed producer mp4 (ink within one frame of lines.json,
   audio starting 4 ms from the window start, ink a median 59 ms before the vocal onset).
+
+## stopit
+`studio/stopit_video.py`, on physics.bounce.lab (2 a night, from 2026-11-25). "Can you stop this?": one thing, one loop.
+The camera drives down a low-poly street (numpy/OpenCV, no game footage, no Blender); a car, bollard, crate or cone
+stands on the road; we hit it on a beat, it flips up ahead of us, crosses its own traced silhouette (the red line)
+exactly once on a later beat, then passes over us and the loop restarts on an empty street. Two bars a loop; the
+clip is whole loops. The aim is solved so the line sits clear of the title and the thing has left the picture
+before the loop ends. Approved by Dylan from a sample. No "guess the plate" or comment asks.
+Knobs: thing (car/bollard/crate/cone), sky, ask (the line under the title).

@@ -69,10 +69,14 @@ targets:
     join: 30
   - campaign: physics_sims  # satisfying physics sims: every collision lands on a hit from the song
     style: physics
-    per_night: 4
+    per_night: 3               # 4 until 2026-11-25: room for stopit
     join: 30
   - campaign: physics_sims  # wind-tunnel fluid sims (studio/fluid_video.py): the song title, a guitar or a wing in real Navier-Stokes flow
     style: fluid
+    per_night: 2
+    join: 30
+  - campaign: physics_sims  # "can you stop this?" (studio/stopit_video.py): our own low-poly street, a thing thrown through a red line on a beat
+    style: stopit
     per_night: 2
     join: 30
   - campaign: ascii_art     # the ASCII account: 3D scenes drawn in letters, with their code (scene and look are knobs)

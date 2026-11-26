@@ -194,3 +194,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: wired Adrianne's eye.trick.lab (illusion) and fourier.reveal (math); 2 a day, Page tokens.
 - 2026-11-25: vintage.media.archive paused after an Instagram originality notice.
 - 2026-11-25: vintage.media.archive back, every frame redrawn as ink line art (look=ink, warm papers), 2 a day.
+- 2026-11-25: new format stopit ("can you stop this?") on physics.bounce.lab, 2 a night; physics 4->3.
