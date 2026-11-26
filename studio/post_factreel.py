@@ -37,6 +37,22 @@ def reel_line(spec):
 count = {}
 for r in reeled: count[r['slug']] = count.get(r['slug'], 0) + 1
 
+def clear_slot(channel_id, now, gap_min=60):
+    """The first minute from now at least gap_min from every post the account holds or has sent (outbox/). topup keeps
+    its own slots an hour apart and the publisher holds a post that follows another within MIN_GAP, but a post due
+    'now' from this job landed beside whatever topup had already booked for the next hour: psychedelic.station had 62
+    of 88 posts within 45 minutes of another (docs/brain/reviews/2026-11-26). The same helper is in post_carousel.py."""
+    times = []
+    for f in glob.glob(os.path.join(REPO, 'outbox', '*.json')):
+        it = json.load(open(f))
+        if str(it.get('channel_id')) != str(channel_id) or it.get('status') not in ('queued', 'publishing', 'published'): continue
+        try: t = datetime.datetime.fromisoformat(it.get('published_at') if it.get('status') == 'published' else it.get('scheduled_for'))
+        except (TypeError, ValueError): continue
+        times.append(t if t.tzinfo else t.replace(tzinfo=datetime.timezone.utc))
+    gap, when = datetime.timedelta(minutes=gap_min), now
+    while when < now + datetime.timedelta(hours=24) and any(abs(when - t) < gap for t in times): when += datetime.timedelta(minutes=5)
+    return when
+
 def reel(slug, name):
     """Each posted carousel gets two reels: part 1 tells slides 1-3, part 2 picks up at slide 4 for people who
     saw part 1 (and its own hook for people who didn't)."""
@@ -85,17 +101,17 @@ def reel(slug, name):
     base = yaml.safe_load(open(os.path.join(REPO, 'site.yaml')))['media_base_url'].rstrip('/')
     first = reel_line(spec) if part == 1 else 'part 2 of ' + spec['headline'].rstrip('.').lower()
     caption = '%s\nthe full story, with sources, is the carousel on our page\n🎧 %s – @close__quarters %s' % (first, title, tags)
-    pid = 'igo-' + str(uuid.uuid4())
+    pid = 'igo-' + str(uuid.uuid4()); due = clear_slot(acct['channel_id'], now)
     import collabs                                   # one collab post a day brings the band account in
     collab = collabs.invite(name, sum(1 for r in reeled if r.get('account') == name and r.get('date') == now.strftime('%Y-%m-%d') and r.get('collab')))
     item = dict(id=pid, channel_id=str(acct['channel_id']), status='queued', video_url='%s/%s/%s' % (base, tag, nm), caption=caption, first_comment=None,
                 collaborators=collab or None,
                 share_to_feed=True, trial=False, trial_graduation=None, audio_id=None, audio_volume=None, video_volume=None,
-                audio_name='%s – Close Quarters' % title, scheduled_for=now.isoformat(), created_at=now.isoformat(), attempts=0)
+                audio_name='%s – Close Quarters' % title, scheduled_for=due.isoformat(), created_at=now.isoformat(), attempts=0)
     json.dump(item, open(os.path.join(REPO, 'outbox', pid + '.json'), 'w'), indent=2, sort_keys=True)
     reeled.append(dict(slug=slug, part=part, date=now.strftime('%Y-%m-%d'), post=pid, account=name, song=os.path.basename(sd), window=[t0, round(t0 + dur, 2)], seed=seed, collab=collab))
     count[slug] = part; json.dump(reeled, open(RP, 'w'), indent=1)
-    print('held', pid, 'for', name); return name
+    print('held', pid, 'for', name, 'due', due.strftime('%H:%M UTC')); return name
 
 if a.spec:
     made = [reel(a.spec, a.account or json.load(open(specs[a.spec])).get('account', ''))]

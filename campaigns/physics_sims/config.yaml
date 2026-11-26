@@ -54,7 +54,7 @@ accounts:
 
 posting:
   posts_per_day: 5
-  start_hour: 8
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1

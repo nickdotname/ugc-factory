@@ -67,13 +67,13 @@ accounts:
 
 posting:
   posts_per_day: 3            # tapes; fact reels (2 a day, factreel.yml) carry the account (2 until docs/brain/reviews/2026-11-26, 4 before, 6 before that)
-  start_hour: 9
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
   # accounts.
-  slot_offset_min: 35
+  slot_offset_min: 32          # moved 2026-11-26 off earth_data's minute (all niche windows start at noon now)
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.

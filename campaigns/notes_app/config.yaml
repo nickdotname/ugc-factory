@@ -65,7 +65,7 @@ accounts:
 
 posting:
   posts_per_day: 2            # 5 until docs/brain/reviews/2026-11-26: every notes page at 2 while its numbers are still blind
-  start_hour: 8                # early: mornings were empty across the network
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
