@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-25T21:02:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "it moves with the kick. sound on.\n🎧 Subway Maintenance – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nSubway Maintenance is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "every frame is a wall of text\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Suspended"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "pause anywhere. it's all still code.\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nstream Passage (Waiting): link in bio"
       },
