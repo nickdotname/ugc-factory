@@ -73,6 +73,25 @@ NEEDS_PROJECT = {'physics'}             # styles whose hits come from the song's
 VISUAL['collage'] = 'collage_video.py'
 WHOLE = {'math', 'race', 'tests8', 'stare', 'ebru', 'measure', 'hue'}      # styles choreographed to a fixed number of beats: never cut shorter
 EXPLORE = 0.2         # share of videos whose look is left entirely to chance
+# Cosmetic knobs held at one value so the posts go to what can be learned at 2-5 posts a night: subject x cut x hook.
+# Set 2026-11-26 for two weeks (the review found 1,565 option weights all within 0.87-1.13: a dozen knobs varying at once
+# is not learnable at this volume); after FREEZE_UNTIL the learner gets them back. Values are the option that led, or the
+# renderer's default, that day. A target's own `freeze: {knob: value}` in nightly.yaml adds to or overrides these.
+FREEZE_UNTIL = '2026-12-10'
+FROZEN = {'math': {'theme': 'chalk', 'font': 'montserrat', 'grid': 'none', 'shake': '0.6', 'glow': '1.0'},
+          'tinycode': {'palette': 'neon', 'glow': '1.0'},
+          'psy': {'pal': 'ice', 'sym': '8', 'feedback': 'false', 'mirror': 'true'},
+          'physics': {'palette': 'neon', 'trail': 'ribbon'},
+          'earth': {'palette': 'paper'},
+          'glitch': {'tone': 'natural', 'label': 'none'},
+          'vintage': {'tint': 'bw', 'crank': '1'},
+          'cinema': {'look': 'phosphor', 'crt': 'on'}}
+
+def frozen_for(style, target, today=None):
+    """The knobs nightly holds fixed for one target tonight: FROZEN[style] plus the target's own `freeze:`, none after FREEZE_UNTIL."""
+    today = today or datetime.date.today().isoformat()
+    if today > FREEZE_UNTIL: return {}
+    return {str(k): str(v) for k, v in dict(FROZEN.get(style) or {}, **(target.get('freeze') or {})).items()}
 VISUAL['rocket'] = 'rocket_video.py'
 # What we want an option to start from before any post has scored it ([_, posts, mean score], as learn.py writes):
 # an option with real results uses those instead. The ASCII account is about the code, so most videos show it.
@@ -185,13 +204,14 @@ def freshen(style, menu, kn, recent, learned, r, first=True):
     st, ret = learned.get('stats') or {}, learned.get('retired') or {}
     return dict(kn, **{name: thompson(fresh, st.get('knob:' + name) or {}, r, ret.get('knob:' + name) or ())})
 
-def choose(style, menu, learned, seed):
-    """The knobs and settings nightly fixes for one video, and whether it was left to chance."""
+def choose(style, menu, learned, seed, frozen=None):
+    """The knobs and settings nightly fixes for one video, and whether it was left to chance. Frozen knobs are fixed either way."""
     r = random.Random(seed * 2654435761 % 2 ** 32)
-    if r.random() < EXPLORE: return {}, {}, 'free'
+    if r.random() < EXPLORE: return dict(frozen or {}), {}, 'free'
     st, ret = learned.get('stats') or {}, learned.get('retired') or {}
     kn = {name: thompson(opts, dict(PRIOR.get(style, {}).get(name, {}), **(st.get('knob:' + name) or {})), r, ret.get('knob:' + name) or ())
           for name, opts in sorted(menu.items()) if len(opts) > 1}
+    kn.update(frozen or {})
     env = {}
     if style in _hook.ANGLES:                                   # the opening line: which angle (or none), and flashed or held
         ang = _hook.lead(style, seed) or thompson(sorted(_hook.ANGLES[style]) + ['none'], st.get('hook angle') or {}, r, ret.get('hook angle') or ())
@@ -351,7 +371,7 @@ for t in cfg['targets']:
     for slug, cr, sid, win, lyr in picked:
         seed = rng.randrange(1000, 10 ** 6)
         while seed in seeds: seed = rng.randrange(1000, 10 ** 6)
-        kn, extra, how = choose(style, menu, L, seed)
+        kn, extra, how = choose(style, menu, L, seed, frozen_for(style, t, today))
         sub = SUBJECT.get(style)
         past = [(e.get('knobs') or {}).get(sub) for e in rec.get('nightly', []) if e.get('style') == style]
         recent = past[-max(1, t['per_night']) * REPEAT_NIGHTS:] + tonight
