@@ -197,9 +197,9 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-0afdfb91-29a4-4c8e-96e9-0c1df57dd04c",
           "last_error": null,
           "scheduled_for": "2026-11-27T14:41:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "posting this and logging off\n🎧 Fixation – @close__quarters #relatable #humor #createmode\n\nFixation is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
