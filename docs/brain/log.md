@@ -191,3 +191,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: new pages were not posting: their queue.json lacked generated_at (render/topup failed), and bpy crashed on the runner with no EGL. Both fixed; see traps.md.
 - 2026-11-26: ready page circle_atlas (style `reveal`, studio/reveal_video.py): countries drawn by Fourier circles, the name at the end; outlines from Natural Earth (public domain). Paused until its Instagram account exists. New `docs/brain/ready-pages.md` lists pages waiting for accounts; nightly.yaml targets can be `paused: true` (skipped unless run with campaign=<c>).
 - 2026-11-25: openings: glitch opens on a clean readable shot (knob opener, clean 3:1; frame 0 was mid-melt, skip 85%); vintage favours the filled frame over the three-frame strip (layout 2:3); retro 4->2 a day (median 16 views).
+- 2026-11-25: wired Adrianne's eye.trick.lab (illusion) and fourier.reveal (math); 2 a day, Page tokens.

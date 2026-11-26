@@ -464,3 +464,23 @@ accounts:
     channel_id: "17841436062088232"
     post_type: reel
     title_strategy: derive
+
+  # @eye.trick.lab: same style as illusions (illusion), its own videos. Posts through its Page token (IG_PAGE_TOKENS, from IG_TOKEN's grant).
+  - name: eyetrick_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN
+    channel_id: "17841480852316614"
+    post_type: reel
+    title_strategy: derive
+
+  # @fourier.reveal: same style as math_time (math), its own videos. Posts through its Page token (IG_PAGE_TOKENS, from IG_TOKEN's grant).
+  - name: fourier_ig
+    network: instagram
+    provider: instagram
+    login: facebook
+    api_key_secret: IG_TOKEN
+    channel_id: "17841441390199531"
+    post_type: reel
+    title_strategy: derive

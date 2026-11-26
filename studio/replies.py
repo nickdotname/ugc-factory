@@ -47,6 +47,8 @@ ACCOUNTS = {
     'notes_ig': ('17841472459232759', 'moth.ate.my.notes'),
     'her_ig': ('17841467209821848', 'crying.in.trader.joes'),
     'him_ig': ('17841410524775171', 'grip.tape.thoughts'),
+    'fourier_ig': ('17841441390199531', 'fourier.reveal'),
+    'eyetrick_ig': ('17841480852316614', 'eye.trick.lab'),
     'college_ig': ('17841436062088232', 'dining.hall.philosopher'),
     'lowpoly_ig': ('17841466172284190', 'what.if.town'),
     'date_ig': ('17841480776357296', 'situationship.notes'),

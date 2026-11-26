@@ -57,3 +57,10 @@ Each campaign's `brand/profile.jpg` is the account picture; the dashboard shows 
 - @what.if.town: lowpoly_stories (lowpoly), IG_TOKEN_11
 - @dining.hall.philosopher: notes_college (notes_college), IG_TOKEN_10
 New accounts post 2 a day for their first week.
+
+### Adrianne's pages (2026-11-25)
+- **@eye.trick.lab** (`eyetrick_ig`, campaign `eye_tricks`): the illusion style, its own renders. Page "Eye Tricks".
+- **@fourier.reveal** (`fourier_ig`, campaign `fourier_reveal`): the math style. Page "Fournir".
+Both post through their Page tokens (IG_PAGE_TOKENS, from IG_TOKEN's grant; Dylan manages the Pages by invite), 2 a day.
+satisfying.sims.physics, creature.sim and code.makes.art have no Page yet (creation errored); they can come in
+through connect.closequarters.vip (tester invite + "Continue with Instagram"), IG_TOKEN_13/14/16 reserved.
