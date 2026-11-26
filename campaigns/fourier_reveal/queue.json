@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-cbe193a3-db66-4e30-9d92-52085e329c5f",
+          "buffer_post_id": "igo-e1d75622-4f25-4f28-b726-d93c191dff79",
           "last_error": null,
           "scheduled_for": "2026-11-26T08:41:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "fourier_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-52cce82c-8925-412a-9266-3702cc0a2cf1",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-26T16:11:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "the idea first, the symbols after\n🎧 Prologue: Before – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
