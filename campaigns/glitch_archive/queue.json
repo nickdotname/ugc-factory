@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-220f893c-1407-423d-aa93-4a2658e6e9c5",
+          "buffer_post_id": "igo-a241b905-79ac-45b3-a34c-a6d8bc5cf375",
           "last_error": null,
           "scheduled_for": "2026-11-26T09:35:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "glitch_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-9f455d23-9683-4ae2-a535-526edf411d4f",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-26T12:23:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "the frames are real. the damage is new.\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
