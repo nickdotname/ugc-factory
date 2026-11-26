@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Notta Problem by @close__quarters, off our album EDUCATION. full album in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T09:30:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "same bars, fewer parts\nNotta Problem – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
