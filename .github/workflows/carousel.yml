@@ -2,8 +2,10 @@ name: carousel
 
 # Posts one information carousel: draws the slides from a spec in
 # studio/carousels/, uploads them where Instagram can fetch them, and sends the
-# post. Four times a day it takes the next spec that has not been posted yet;
-# when none is waiting it does nothing.
+# post. By hand only since 2026-11-26 (the publish job no longer starts it):
+# 33 carousels reached 3-18 people each (docs/brain/reviews/2026-11-26). Without
+# a spec it takes the next one waiting for nostalgia; psychedelic.station's cap
+# is 0 (studio/post_carousel.py DAILY_CAP), the band's own page too.
 on:
   workflow_dispatch:
     inputs:

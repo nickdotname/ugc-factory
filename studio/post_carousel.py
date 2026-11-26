@@ -21,7 +21,9 @@ posted = json.load(open(POSTED)) if os.path.exists(POSTED) else []
 done = {p['slug'] for p in posted}
 ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.yaml')))['accounts']}
 SKIP = ('posted.json', 'reeled.json')
-DAILY_CAP = {'close_quarters_ig': 0}            # no carousels on the band's own page
+# No carousels on the band's own page, and none on psychedelic.station since 2026-11-26: its 18 reached 3-18 people
+# each (docs/brain/reviews/2026-11-26). --spec still posts one by hand. The publish job no longer starts this script.
+DAILY_CAP = {'close_quarters_ig': 0, 'psychedelic_station_ig': 0}
 
 def clear_slot(channel_id, now, gap_min=60):
     """The first minute from now at least gap_min from every post the account holds or has sent (outbox/). topup keeps

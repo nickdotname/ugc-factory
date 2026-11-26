@@ -167,8 +167,9 @@ jobs:
             06:45) gh workflow run studio.yml --ref main ;;                      # 1:45am New York: tonight's new videos
             08:30) gh workflow run render.yml --ref main -f dry_run=false ;;     # 3:30am: turn tonight's videos into posts (render is demand-driven, so a second run adds nothing)
             09:00|15:00|21:00) gh workflow run topup.yml --ref main -f dry_run=false ;;  # 4am, 10am, 4pm: book them into the day's slots
-            17:15) gh workflow run carousel.yml --ref main ;;  # 12:15pm New York: one a day (2026-11-24: carousels reach few people; they exist so fact reels have something to point to)
-            15:45|18:45|22:45|01:45) gh workflow run factreel.yml --ref main ;;  # 10:45am, 1:45pm, 5:45pm, 8:45pm New York
+            # carousel.yml is no longer started here (2026-11-26, docs/brain/reviews/2026-11-26): 33 carousels reached 3-18 people each.
+            # Fact reels carry on from the carousels already posted; by hand: gh workflow run carousel.yml -f spec=<name>.
+            22:45|01:45) gh workflow run factreel.yml --ref main ;;  # 5:45pm, 8:45pm New York, the account's best hours; 4 a day until 2026-11-26
             06:30) gh workflow run metrics.yml --ref main ;;                     # 1:30am: every account's numbers, Buffer's too
             00:30|03:30|09:30|12:30|15:30|18:30|21:30) gh workflow run metrics.yml --ref main -f instagram_only=true ;;  # every 3 hours: the Instagram accounts' numbers (no Buffer requests)
           esac
