@@ -22,7 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import os
 import sys
 import uuid
@@ -831,13 +831,21 @@ def _render(
                 posted = {e.hook for e in resources[name].history.entries}
                 if any(clip not in posted for clip in clips):
                     weights[name] *= max(clips.values())
-        picks = selector.select_batch_multi(
-            pools, weights, count, config.composition.bodies_per_video,
-            config.composition.bodies_per_video_max,
-            performance=performance,
-            boost=boost,
-            visual_pools=_visual_pools(config, resources),
-        )
+        # The quota's slots first (selection.style_quota), then the ordinary
+        # selector fills what is left against pools that already hold them.
+        if config.selection.style_quota:
+            picks, pools = _quota_picks(
+                config, selector, pools, weights, count, _clip_styles(config), today, log,
+                performance=performance, visual_pools=_visual_pools(config, resources),
+            )
+        if len(picks) < count:
+            picks += selector.select_batch_multi(
+                pools, weights, count - len(picks), config.composition.bodies_per_video,
+                config.composition.bodies_per_video_max,
+                performance=performance,
+                boost=boost,
+                visual_pools=_visual_pools(config, resources),
+            )
     relaxed = [(name, o) for name, o in picks if o.relaxation is not Relaxation.NONE]
     if relaxed and not config.selection.repeats:
         # No repeats on this account: a relaxed pick would put up a video it
@@ -2423,23 +2431,101 @@ def _visual_pools(config: CampaignConfig, resources: Mapping[str, Any]) -> dict[
     }
 
 
-def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:
-    """creative -> clip -> factor, for clips whose studio style the campaign favours (selection.favour_styles).
-
-    The style of each clip is in the campaign's recipes.json, which the studio job writes as it ingests them."""
-    favour = config.selection.favour_styles
-    if not favour:
-        return None
+def _clip_styles(config: CampaignConfig) -> dict[str, dict[str, str]]:
+    """creative -> clip -> studio style, from the campaign's recipes.json (the studio job writes an entry as it
+    ingests each video). Empty when there is no such file: a campaign that is not studio-made has no styles."""
     try:
         rec = json.loads((_campaign_dir(config.slug) / "recipes.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
+        return {}
+    out: dict[str, dict[str, str]] = {}
+    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
+        if entry.get("style") and entry.get("creative") and entry.get("clip"):
+            out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = str(entry["style"])
+    return out
+
+
+def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:
+    """creative -> clip -> factor, for clips whose studio style the campaign favours (selection.favour_styles)."""
+    favour = config.selection.favour_styles
+    if not favour:
         return None
     out: dict[str, dict[str, float]] = {}
-    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
-        factor = favour.get(str(entry.get("style")))
-        if factor and entry.get("creative") and entry.get("clip"):
-            out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = float(factor)
+    for name, clips in _clip_styles(config).items():
+        for clip, style in clips.items():
+            if favour.get(style):
+                out.setdefault(name, {})[clip] = float(favour[style])
     return out or None
+
+
+def _quota_picks(
+    config: CampaignConfig,
+    selector: Selector,
+    pools: dict[str, tuple[AssetLibrary, History]],
+    weights: Mapping[str, float],
+    count: int,
+    styles: Mapping[str, Mapping[str, str]],
+    now: datetime,
+    log: StructuredLogger,
+    *,
+    performance: Mapping[str, Mapping[str, Mapping[str, float]]] | None = None,
+    visual_pools: Mapping[str, str] | None = None,
+) -> tuple[list[tuple[str, Any]], dict[str, tuple[AssetLibrary, History]]]:
+    """The style quota's share of tonight's picks (selection.style_quota), and the pools with those picks already
+    written into their histories, so the ordinary selector that fills the remaining slots cannot pick them again.
+
+    Styles are filled in the order the config lists them, each from the clips recipes.json says are that style
+    across every song: the song's clips that have never posted first, then the rest of that style's clips. The
+    selector does the picking either way, so song spread, cooldowns and dedupe hold inside the quota too. A style
+    the libraries cannot fill is logged and its slots go to the ordinary selector.
+    """
+    picks: list[tuple[str, Any]] = []
+    pools = dict(pools)
+    bodies_per_video = config.composition.bodies_per_video
+    bodies_max = config.composition.bodies_per_video_max
+    for style, wanted in (config.selection.style_quota or {}).items():
+        wanted = min(wanted, count - len(picks))
+        if wanted <= 0:
+            break
+        got: list[tuple[str, Any]] = []
+        for unused_only in (True, False):
+            need = wanted - len(got)
+            if need <= 0:
+                break
+            sub: dict[str, tuple[AssetLibrary, History]] = {}
+            for name, (library, history) in pools.items():
+                posted = {h for e in history.entries for h in entry_hooks(e)}
+                hooks = tuple(
+                    h for h in library.hooks
+                    if styles.get(name, {}).get(h) == style and (not unused_only or h not in posted)
+                )
+                if hooks:
+                    sub[name] = (replace(library, hooks=hooks), history)
+            if not sub:
+                continue
+            batch = selector.select_batch_multi(
+                sub, weights, need, bodies_per_video, bodies_max,
+                performance=performance, visual_pools=visual_pools,
+            )
+            for name, outcome in batch:
+                sel = outcome.selection
+                library, history = pools[name]
+                pools[name] = (library, History(entries=[
+                    *history.entries,
+                    HistoryEntry(
+                        tuple_hash=tuple_hash(sel, config.selection.dedupe_on),
+                        timestamp=now + timedelta(microseconds=len(picks) + len(got) + 1),
+                        item_id="", hook=sel.hook, bodies=sel.bodies, music=sel.music,
+                        music_offset_sec=sel.music_offset_sec, caption=sel.caption, creative=name,
+                    ),
+                ]))
+            got += batch
+        picks += got
+        if len(got) < wanted:
+            log.warning("style_quota_short", style=style, wanted=wanted, picked=len(got))
+        else:
+            log.info("style_quota_filled", style=style, picked=len(got))
+    return picks, pools
 
 
 def _performance_medians(
