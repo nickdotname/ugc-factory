@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-22438984-efb7-475a-acb2-bc9b1a2dfbb2",
+          "buffer_post_id": "igo-7d597c26-eb9c-487c-a7c9-d16193bdb0fc",
           "last_error": null,
           "scheduled_for": "2026-11-27T08:08:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "toon_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-066366dd-c7b7-4f68-b440-c0a3aab5ce54",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T15:38:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "rubber hose era\n🎧 Silver and Gold – @close__quarters #rubberhose #oldcartoons #1930s #animation #vintagecartoon\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
