@@ -1,25 +1,68 @@
 {
-  "generated_at": "2026-11-26T08:41:50.930410Z",
+  "generated_at": "2026-11-26T14:03:04.210735Z",
   "items": [
     {
-      "id": "15307c1f-4659-4a59-8ee4-5d526f270257",
-      "scheduled_for": "2026-11-25T19:50:00-05:00",
-      "rendered_at": "2026-11-25T08:32:11.130546Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-25/15307c1f-4659-4a59-8ee4-5d526f270257.mp4",
-      "caption": "drawn by the song's own drum track\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "id": "3ecd6228-b791-4091-b5da-ef922f028ec5",
+      "scheduled_for": "2026-11-26T09:20:00-05:00",
+      "rendered_at": "2026-11-26T14:03:04.210735Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-26/3ecd6228-b791-4091-b5da-ef922f028ec5.mp4",
+      "caption": "one song, a few thousand shapes\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
       "title": null,
       "parts": {
-        "hook": "hook_05.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.364,
-        "anchor_y": 0.544,
+        "anchor_x": 0.626,
+        "anchor_y": 0.385,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "myth_of_sisyphus",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "one song, a few thousand shapes\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "11fb0d74-e470-4639-bba6-cc1cbf95ad8f",
+      "scheduled_for": "2026-11-26T16:20:00-05:00",
+      "rendered_at": "2026-11-26T14:03:04.210735Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-26/11fb0d74-e470-4639-bba6-cc1cbf95ad8f.mp4",
+      "caption": "breathe in on the drop\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.675,
+        "anchor_y": 0.328,
         "rotate_deg": 0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
@@ -33,129 +76,13 @@
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Full Ride by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4baa8d13-0e5a-4aea-bb7a-449c6e3997fa",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T09:20:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "drawn by the song's own drum track\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Full Ride: link in bio"
+        "instagram": "breathe in on the drop\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "ea3e3407-c5b4-4c73-8417-524edad7218e",
-      "scheduled_for": "2026-11-25T21:35:00-05:00",
-      "rendered_at": "2026-11-25T08:32:11.130546Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-25/ea3e3407-c5b4-4c73-8417-524edad7218e.mp4",
-      "caption": "headphones. then full screen.\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
-      "title": null,
-      "parts": {
-        "hook": "hook_06.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.332,
-        "anchor_y": 0.44,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-35818cce-59c4-4517-a05c-9f32c8f1cd6d",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T16:20:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "headphones. then full screen.\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nSuspended is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "28e3ef55-e7d3-43c6-8492-a337bc40d334",
-      "scheduled_for": "2026-11-26T09:20:00-05:00",
-      "rendered_at": "2026-11-25T14:38:38.299001Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-25/28e3ef55-e7d3-43c6-8492-a337bc40d334.mp4",
-      "caption": "screensavers wish they moved like this\n🎧 Evil Close Quarters – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive",
-      "title": null,
-      "parts": {
-        "hook": "hook_04.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.442,
-        "anchor_y": 0.581,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "evil_close_quarters",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Evil Close Quarters by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-c7832921-a3a0-4b36-96ec-f015d5238111",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T09:20:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "screensavers wish they moved like this\n🎧 Evil Close Quarters – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nstream Evil Close Quarters: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

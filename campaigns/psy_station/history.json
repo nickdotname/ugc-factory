@@ -2555,6 +2555,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-26T14:03:04.210735Z",
+      "item_id": "3ecd6228-b791-4091-b5da-ef922f028ec5",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "one song, a few thousand shapes\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "creative": "myth_of_sisyphus",
+      "captions": {
+        "instagram": "one song, a few thousand shapes\n🎧 Myth of Sisyphus – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.626,
+        "anchor_y": 0.385,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-26T14:03:04.210735Z",
+      "item_id": "11fb0d74-e470-4639-bba6-cc1cbf95ad8f",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "breathe in on the drop\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "creative": "full_ride",
+      "captions": {
+        "instagram": "breathe in on the drop\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Full Ride"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.675,
+        "anchor_y": 0.328,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
