@@ -200,3 +200,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-26: eye.trick.lab -> stare_lab, fourier.reveal -> circle_atlas (own formats; were near copies of siblings).
 - 2026-11-26: ready page ink_marbling (style `ebru`, studio/ebru_video.py): paper marbling by the exact drop/comb/wave/stir maps, drops on the beat; six patterns. Paused until its Instagram account exists ([[ready-pages]]).
 - 2026-11-26: ready-pages.md: circle_atlas and stare_lab taken off (they went live on @fourier.reveal and @eye.trick.lab).
+- 2026-11-26: ready page ruler_says_no (style `measure`, studio/measure_video.py): seven classic size/straightness/grey illusions asked, then measured on the beat (numbers read off the drawing). Paused until its Instagram account exists ([[ready-pages]]).

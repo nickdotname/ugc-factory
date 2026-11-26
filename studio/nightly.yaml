@@ -173,3 +173,8 @@ targets:
     paused: true
     per_night: 2
     join: 24
+  - campaign: ruler_says_no    # ruler.says.no (planned): illusions asked, then measured on the beat (studio/measure_video.py). Ready page:
+    style: measure             # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=ruler_says_no still renders it
+    paused: true
+    per_night: 2
+    join: 24
