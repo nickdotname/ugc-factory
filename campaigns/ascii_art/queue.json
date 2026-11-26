@@ -38,9 +38,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-d5aca399-ecc3-4204-aa41-ed77d2bc7367",
           "last_error": null,
           "scheduled_for": "2026-11-25T21:02:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "it moves with the kick. sound on.\n🎧 Subway Maintenance – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nSubway Maintenance is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
