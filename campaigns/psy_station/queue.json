@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-7933ee75-d0cb-4beb-bac3-cc714ab2b181",
+          "buffer_post_id": "igo-4baa8d13-0e5a-4aea-bb7a-449c6e3997fa",
           "last_error": null,
           "scheduled_for": "2026-11-28T09:20:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-edb51b15-7817-43d0-a021-948b44faf6c5",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-28T16:20:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "headphones. then full screen.\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -144,18 +144,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-a0c324c8-2940-48f1-a0b1-44036d54e91c",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-29T09:20:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "screensavers wish they moved like this\n🎧 Evil Close Quarters – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nstream Evil Close Quarters: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
