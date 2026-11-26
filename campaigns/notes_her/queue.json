@@ -144,9 +144,9 @@
         {
           "account": "her_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-45a42ee5-45b5-4453-a878-966000852cf4",
           "last_error": null,
           "scheduled_for": "2026-11-27T17:44:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "bestie\n🎧 Subway Maintenance – @close__quarters #relatable #girlhumor #createmode\n\nstream Subway Maintenance: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
