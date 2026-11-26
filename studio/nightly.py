@@ -212,8 +212,12 @@ def suits(style, lv):
     if style == 'producer': return len(on) >= 3
     return 'vocals' in on
 
-TIGHT = 0.75          # share of videos cut short, hook first; the rest keep the whole stretch so the two can be compared
-SHORT = 0.35          # of those, for the picture styles: a 6-9 second loop, which people watch through and replay (completion is Instagram's first signal)
+TIGHT = 0.75          # share of lyric videos cut short, hook first; the rest keep the whole stretch so the two can be compared
+SHORT = 0.35          # (kept for the lyric styles' free draws; the picture styles use CUT_PRIOR)
+# Where a picture style's cut starts from before its own posts say otherwise, as pseudo-posts in learn.py's [_, posts, mean]
+# shape (like PRIOR): short 3 : tight 2 : full 1. Network-wide, completion was 0.46 under 10 s against 0.17 at 20-35 s
+# (2026-11-26 review), so a 6-9 s loop is the default; real results on `knob:cut` replace these, so data can still say otherwise.
+CUT_PRIOR = {'short': [0, 3, 0.7], 'tight': [0, 2, 0.5], 'full': [0, 1, 0.3]}
 
 def tighten(song_dir, win, rng, short=False):
     """A 10-20 second (short: 6-9 second) piece of `win` that starts on its strongest line and lasts a whole number of bars, so it
@@ -357,8 +361,9 @@ for t in cfg['targets']:
         if sub in kn: tonight.append(kn[sub])
         if SET: kn, how = dict(kn, **SET), 'set'                  # a run asked for a particular look (a new format to see now)
         cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
-        if how == 'free': cut = 'full' if rng.random() >= TIGHT else ('short' if style in VISUAL and rng.random() < SHORT else 'tight')
-        else: cut = thompson(cuts, (L.get('stats') or {}).get('knob:cut') or {}, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
+        cut_stats = dict(CUT_PRIOR if style in VISUAL else {}, **((L.get('stats') or {}).get('knob:cut') or {}))
+        if how == 'free': cut = rng.choices(cuts, weights=[CUT_PRIOR[c][1] for c in cuts])[0] if style in VISUAL else ('full' if rng.random() >= TIGHT else 'tight')
+        else: cut = thompson(cuts, cut_stats, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
         if style in WHOLE: cut = 'full'
         if cut != 'full': win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=cut == 'short')
         seeds.add(seed); inbox = os.path.join(REPO, 'inbox', folder.get(cr, '%s-%s' % (camp, cr)), 'hooks'); os.makedirs(inbox, exist_ok=True)
