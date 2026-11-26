@@ -63,7 +63,8 @@ laps = max(1, round((T1 - T0) * P['pace'] * (.55 if pace == 'slow' else 1) / PER
 SPEED = laps * PER / (N / FPS)
 STEPS = max(1, round(N / FPS * (1.0 if pace == 'slow' else 1.6)))                        # footfalls per clip, whole, so the bob loops
 year = rng.randint(1994, 2004); month = rng.randint(1, 12); day = rng.randint(1, 28)
-hour, minute = rng.choice([2, 3, 3, 4, 11, 1]) if place in ('backrooms', 'hotel', 'mall') else rng.choice([10, 11, 1, 2, 3, 4]), rng.randint(0, 59)
+# the night places at small hours, the rest in the daytime (13-16 is the afternoon: it was 1-4, which the stamp printed as AM)
+hour, minute = rng.choice([2, 3, 3, 4, 23, 1]) if place in ('backrooms', 'hotel', 'mall') else rng.choice([10, 11, 13, 14, 15, 16]), rng.randint(0, 59)
 side_bias = rng.uniform(-.25, .25) * (WID / 3.2)   # camera a little off centre
 look = rng.uniform(-.07, .07)                       # and turned a little, so the vanishing point is never dead centre
 warm = rng.uniform(-.04, .04)
@@ -370,7 +371,33 @@ def _font(name, size):
         return ImageFont.load_default()
 FMONO = _font('DejaVuSansMono-Bold.ttf', 54)
 FLINE = _font('Poppins-Bold.ttf', 70)
-plan = dict(place=place, laps=laps, year=year, pace=pace, tint=tint, tape=tape_wear, label=label, stamp=stamp, hook='' if _cards.CARDS else _line(), lyrics=None)
+def _agree(line):
+    """The tape's date stamp never contradicts the line: 'in 2001' is stamped 2001, 'friday night' is a Friday evening,
+    'in january' is January, 'at 10pm' reads PM 10. (A line said 2001 over a 1995 stamp; 'at 10pm' over AM 2:48.)"""
+    global year, month, day, hour
+    import re, datetime
+    r = random.Random(seed * 31 + 3); low = line.lower()
+    m = re.search(r'\b(19[89]\d|200\d)\b', low)
+    if m: year = int(m.group(1))
+    for k, name in enumerate(['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']):
+        if re.search(r'\b%s\b' % name, low) and name != 'may': month = k + 1
+    if 'summer' in low: month = 6
+    m = re.search(r'\b(\d{1,2})\s*(am|pm)\b', low)
+    if m: hour = int(m.group(1)) % 12 + (12 if m.group(2) == 'pm' else 0)
+    elif 'midnight' in low: hour = 0
+    elif 'morning' in low: hour = r.choice([9, 10, 11])
+    elif 'night' in low or 'before close' in low: hour = r.choice([20, 21, 22])
+    elif 'last bell' in low or 'after everyone went home' in low: hour = r.choice([15, 16])
+    want = {'monday': 0, 'tuesday': 1, 'wednesday': 2, 'thursday': 3, 'friday': 4, 'saturday': 5, 'sunday': 6}
+    wd = next((v for k, v in want.items() if k in low), None)
+    if wd is None and 'weekday' in low: wd = r.choice([0, 1, 2, 3])
+    if wd is None and place in ('school', 'lab'):                # school is a weekday in term time
+        wd = r.choice([0, 1, 2, 3, 4])
+        if month in (7, 8): month = r.choice([9, 10, 11, 2, 3, 4])
+    if wd is not None: day = r.choice([d for d in range(1, 29) if datetime.date(year, month, d).weekday() == wd])
+    return line
+plan = dict(place=place, laps=laps, year=year, pace=pace, tint=tint, tape=tape_wear, label=label, stamp=stamp, hook='' if _cards.CARDS else _agree(_line()), lyrics=None)
+plan['year'] = year
 
 # Instagram covers the top ~250 px, the bottom ~420 px and the right ~150 px with its own buttons and caption:
 # every word drawn here stays inside x 60..930, y 250..1500.
