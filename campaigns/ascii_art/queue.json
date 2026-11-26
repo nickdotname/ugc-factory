@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T18:14:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "drawn by the code you can see scrolling\n🎧 Subway Maintenance – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nSubway Maintenance is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Passage (Waiting) by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "ascii_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "a terminal with a little too much imagination\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nlink in bio to stream Passage (Waiting)"
       },
