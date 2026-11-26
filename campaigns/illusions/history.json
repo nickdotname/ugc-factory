@@ -431,6 +431,108 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-26T00:47:50.588523Z",
+      "item_id": "b97560b2-4992-4701-8750-83f605c7a3a6",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "every dot is where it should be. the rest is you\n🎧 Notta Problem – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser",
+      "title": null,
+      "creative": "notta_problem",
+      "captions": {
+        "instagram": "every dot is where it should be. the rest is you\n🎧 Notta Problem – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nlink in bio to stream Notta Problem"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.73,
+        "anchor_y": 0.668,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-26T00:47:50.588523Z",
+      "item_id": "ac6877a4-f553-4ef8-9706-c4d0c0f80d10",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "sound on. your eyes will argue with you\n🎧 Suspended – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "sound on. your eyes will argue with you\n🎧 Suspended – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nstream Suspended: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.57,
+        "anchor_y": 0.532,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-26T00:47:50.588523Z",
+      "item_id": "ab68cc8f-31c4-4349-a940-6f5bcf0a05c7",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "nothing here changes. you do\n🎧 Recess (Rewind) – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser",
+      "title": null,
+      "creative": "recess_rewind",
+      "captions": {
+        "instagram": "nothing here changes. you do\n🎧 Recess (Rewind) – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nRecess (Rewind) is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.438,
+        "anchor_y": 0.587,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
