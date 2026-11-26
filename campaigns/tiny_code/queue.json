@@ -197,9 +197,9 @@
         {
           "account": "tinycode_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-a1f198ec-7474-4f14-ae32-efc973041b05",
           "last_error": null,
           "scheduled_for": "2026-11-26T15:31:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "same code every frame. only t changes.\n🎧 Notta Problem – @close__quarters #creativecoding #generativeart #python #numpy #codeart\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
