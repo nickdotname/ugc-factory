@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-fbd33871-3381-400f-bf1d-de14f70393b0",
+          "buffer_post_id": "igo-b5a486d3-54a5-45e8-b6f1-ef901ed87bff",
           "last_error": null,
           "scheduled_for": "2026-11-27T09:50:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "retro_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-26c398fe-8770-4218-ac05-24d2c5f030b0",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T16:50:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "a memory card with one save left\n🎧 Silver and Gold – @close__quarters #ps2 #ps2aesthetic #y2k #retrogaming #liminalspaces #early2000s #nostalgia\n\nSilver and Gold is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
