@@ -23,6 +23,7 @@ def harmonics(k):
     if k < 24: return 1 + int(k - 7)                       # one more on every beat
     if k < 36: return 17 + int(min(1, (k - 24) / 1.0) * 24)
     return max(1, int(41 * (1 - float(ease_in_out((k - 36) / 6)))))   # and back down to one, so it loops
+NMAX = harmonics(35.9)                                     # the most circles on screen: what built the square
 
 def rings(c, centres, radii, color, width, alpha):
     """All the epicycle circles in one pass (one mask, one blend)."""
@@ -79,7 +80,7 @@ def frame(i):
     if 36 <= k:
         e = float(ease_back((k - 36) / 0.45)); paste(c, text('every sound', F(FONT, 84), ST.fg), W / 2, 1290, e, min(1, e))
         e = float(ease_back((k - 37) / 0.45)); paste(c, text('= sine waves.', F(FONT, 110), ST.d), W / 2, 1410, e * (1 + 0.05 * kick), min(1, e))
-        paste(c, text('follow for the next one', F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 40) / 0.6)))
+        paste(c, text('%d circles. one square wave.' % NMAX, F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 40) / 0.6)))
     amp, ph = shake_at(k, HITS, ST)
     zoom = 1 + 0.045 * float(ease_in_out((k - 8) / 16)) * (1 - float(ease_in_out((k - 24) / 2))) + 0.010 * kick
     o = finish(c, k, amp, ph, zoom, W / 2, CY0, ST)

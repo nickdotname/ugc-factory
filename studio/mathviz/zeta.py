@@ -101,7 +101,7 @@ def frame(i):
         e = float(ease_back((k - 36) / 0.45)); paste(c, text('prove it for every zero:', F(FONT, 72), ST.fg), W / 2, 1400, e, min(1, e))
         e = float(ease_back((k - 37) / 0.45)); paste(c, text('$1,000,000.', F(FONT, 140), ST.a), W / 2, 1540, e * (1 + 0.05 * kick), min(1, e))
         paste(c, text('2026: an AI proved at least 67% of them are on it', F(INTER, 36), ST.muted), W / 2, 1680, 1, float(ease_out((k - 39) / 0.6)))
-        paste(c, text('follow for the next one', F(INTER, 40), ST.muted), W / 2, 1750, 1, float(ease_out((k - 41) / 0.6)))
+        paste(c, text('%d zeros so far. every one on the line.' % n, F(INTER, 40), ST.muted), W / 2, 1750, 1, float(ease_out((k - 41) / 0.6)))
     amp, ph = shake_at(k, HITS, ST)
     zoom = 1 + 0.03 * float(ease_in_out((k - 8) / 26)) + 0.010 * kick
     o = finish(c, k, amp, ph, zoom, ZX, ZY, ST)
