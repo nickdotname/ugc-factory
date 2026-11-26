@@ -174,6 +174,7 @@ def learn(camp, zone, now):
                 first = opts['palette'][0] if opts['palette'] else None
                 opts['palette'] = '#%02x%02x%02x' % tuple(first[:3]) if isinstance(first, (list, tuple)) and len(first) >= 3 else None
             for name, val in (a.get('knobs') or {}).items():
+                if val in (None, ''): continue                   # a knob the renderer dropped or never set says nothing
                 opts['knob:' + name] = val
             n['age'] = (now - when).total_seconds() / 86400
             rows.append((n, {k: str(v) for k, v in opts.items() if v not in (None, '')}))
