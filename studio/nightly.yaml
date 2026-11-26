@@ -165,3 +165,8 @@ targets:
     paused: true
     per_night: 2
     join: 24
+  - campaign: stare_lab        # stare.lab (planned): stare-at-the-dot illusions (studio/stare_video.py). Ready page:
+    style: stare               # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=stare_lab still renders it
+    paused: true
+    per_night: 2
+    join: 24

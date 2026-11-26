@@ -21,6 +21,7 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
     real people (the reference used a pop-star figure).
   - *Choose a world* ("choose a planet, you must survive one year"): four numbered worlds, a countdown, then a
     walk through each with a pixel caption. Fits retro.vibes.arcade today, from clips already in `retro-library`.
+  - *Stare illusions* (afterimage, motion aftereffect, lilac chaser): **built 2026-11-26** as stare_lab ([[ready-pages]]). Still open: a Troxler-fading page, an Ames window.
   - *Harder levels* for rotation.illusions ("level: hard ++++": more dots, two shells turning against each other).
   - *Same prompt, four models* (a drawing made by code from each of several AI models, side by side): only if each
     panel is really that model's output. Not from our renderers with model names on them.
