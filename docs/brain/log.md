@@ -189,3 +189,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: volume fitted to the data: dylancantor23 8->3, psych 4->2 and nostalgia 4->2 (fact reels carry them), Loose Change type 3->1. Daily totals did not grow with posts.
 - 2026-11-25: retire weak subjects by hand (nightly.yaml `retire:`): liminal school/pool, psy marble/spiral/warp/oil, glitch water/nature, nyc fact. Each did a fifth or less of the account's best subject.
 - 2026-11-25: new pages were not posting: their queue.json lacked generated_at (render/topup failed), and bpy crashed on the runner with no EGL. Both fixed; see traps.md.
+- 2026-11-25: wired Adrianne's eye.trick.lab (illusion) and fourier.reveal (math); 2 a day, Page tokens.

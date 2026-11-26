@@ -50,6 +50,10 @@ targets:
     per_night: 1               # 4 until 2026-11-25: type videos median ~20; one a day while the account is checked
     join: 40
     first_fill: 8
+  - campaign: fourier_reveal     # @fourier.reveal
+    style: math
+    per_night: 2
+    join: 30
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
     style: math
     per_night: 5
@@ -103,6 +107,10 @@ targets:
   - campaign: petri_dish    # digital.petri.dish: a slime-mould simulation moving to the song (studio/alife_video.py)
     style: alife
     per_night: 5
+    join: 30
+  - campaign: eye_tricks     # @eye.trick.lab
+    style: illusion
+    per_night: 2
     join: 30
   - campaign: illusions     # rotation.illusions: turning shapes your eyes cannot pin down (studio/illusion_video.py)
     style: illusion

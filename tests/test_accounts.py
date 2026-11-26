@@ -217,8 +217,8 @@ class TestShippedRegistry:
         # Six Buffer channels, plus the accounts that post to Instagram
         # directly (including the nostalgia, Math In Time, glitch, ASCII, physics, earth, retro, Rocket League,
         # vintage, NYC and tiny code accounts), then ASCII cinema, the petri dish, the rotation illusions the algorithm races, the 8-bit tests, the notes account and the girl's and guy's text pages.
-        assert len(cfg.accounts) == 33
-        assert len(cfg.live) == 33
+        assert len(cfg.accounts) == 35
+        assert len(cfg.live) == 35
 
     def test_it_covers_both_logins_on_all_three_networks(self) -> None:
         cfg = load_accounts(REPO_ROOT / "accounts.yaml")
