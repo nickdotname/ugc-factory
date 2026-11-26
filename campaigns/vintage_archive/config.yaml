@@ -74,7 +74,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # live: linked to its Page, with its own renderer
+  paused: true                 # 2026-11-25: Instagram "may go against our originality guidelines" notice; paused while we change the format
   dry_run: false
 
 video:
