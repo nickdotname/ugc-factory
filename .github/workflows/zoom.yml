@@ -1,0 +1,69 @@
+name: zoom
+
+# The zoom account's library of infinite-zoom chains: GitHub only orchestrates. The pictures are made on Kaggle's
+# free GPUs (two T4s, about 30 GPU hours a week, shared with retro.yml) by SDXL (OpenRAIL++); see studio/zoom_gen.py.
+# Twice a week it spends up to 2 GPU hours.
+on:
+  workflow_dispatch:
+    inputs:
+      clips:
+        description: how many zoom chains to ask for (six pictures each)
+        required: false
+        default: "12"
+      hours:
+        description: GPU hours to spend at most (Kaggle gives about 30 a week)
+        required: false
+        default: "2"
+      steps:
+        description: denoising steps per picture (more is slower and cleaner)
+        required: false
+        default: "28"
+  schedule:
+    - cron: '53 4 * * 2,5'
+  push:
+    branches: [infinite-zoom]
+    paths: [studio/zoom/kernel.py, studio/zoom_gen.py, .github/workflows/zoom.yml]
+
+concurrency:
+  group: zoom
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    # A push to the work branch runs only when the commit asks: [zoom-test] makes 2 clips, [zoom-run] a full batch.
+    if: ${{ github.event_name != 'push' || contains(github.event.head_commit.message, '[zoom-test]') || contains(github.event.head_commit.message, '[zoom-run]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+      KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          bash scripts/apt_install.sh ffmpeg
+          pip install -q kaggle six opencv-python-headless numpy
+      - name: GPU hours left this week
+        run: python studio/zoom_gen.py quota || true
+      - name: Make clips on Kaggle and add them to the library
+        run: |
+          python studio/zoom_gen.py run \
+            --chains "${{ contains(github.event.head_commit.message, '[zoom-test]') && '2' || inputs.clips || '12' }}" \
+            --hours "${{ contains(github.event.head_commit.message, '[zoom-test]') && '1.25' || inputs.hours || '2' }}" \
+            --steps "${{ inputs.steps || '28' }}"
+      - name: Record the library
+        if: ${{ always() }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add studio/zoom/index.json 2>/dev/null || exit 0
+          git diff --cached --quiet && exit 0
+          git commit -q -m "zoom library: new chains [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs origin "${{ github.ref_name }}" && git push -q origin "HEAD:${{ github.ref_name }}" && break; git rebase --abort 2>/dev/null; sleep 5; done
