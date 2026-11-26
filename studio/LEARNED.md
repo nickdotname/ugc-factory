@@ -5,48 +5,48 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 
 ## cq_producer
 
-33 posts counted (7 more are too new). Typical post: 62 views, 3.7 seconds watched.
+34 posts counted (6 more are too new). Typical post: 59 views, 3.6 seconds watched.
 
 **opening line**
-- with: weight 1.04 — 12 posts, 74 views, 3.6s watched, 2 shares+saves per 1,000 views
+- with: weight 1.03 — 13 posts, 73 views, 3.6s watched, 2 shares+saves per 1,000 views
 - without: weight 0.97 — 18 posts, 45 views, 3.7s watched, 2 shares+saves per 1,000 views
 
 **hook**
 - which stem is carrying?: weight 1.06 — 1 post, 124 views, 4.8s watched, 0 shares+saves per 1,000 views
 - producers: what would you change?: weight 1.05 — 2 posts, 118 views, 3.5s watched, 0 shares+saves per 1,000 views
 - show this to someone who makes beats: weight 1.03 — 3 posts, 73 views, 4.3s watched, 4 shares+saves per 1,000 views
+- every layer. one screen.: weight 1.02 — 2 posts, 45 views, 3.0s watched, 11 shares+saves per 1,000 views
 - which part would you solo?: weight 1.01 — 1 post, 126 views, 4.5s watched, 0 shares+saves per 1,000 views
 - when the mix finally sits right: weight 1.01 — 1 post, 42 views, 4.4s watched, 0 shares+saves per 1,000 views
-- every layer. one screen.: weight 1.01 — 2 posts, 45 views, 3.0s watched, 11 shares+saves per 1,000 views
-- pov: 3am in the studio: weight 0.98 — 1 post, 23 views, 3.2s watched, 0 shares+saves per 1,000 views
+- pov: 3am in the studio: weight 0.95 — 2 posts, 17 views, 2.7s watched, 0 shares+saves per 1,000 views
 - watch the vocals: weight 0.94 — 1 post, 9 views, 1.5s watched, 0 shares+saves per 1,000 views
 
 **hook angle**
 - comment: weight 1.09 — 4 posts, 122 views, 4.0s watched, 0 shares+saves per 1,000 views
 - share: weight 1.03 — 3 posts, 73 views, 4.3s watched, 4 shares+saves per 1,000 views
-- relatable: weight 1.00 — 4 posts, 32 views, 3.4s watched, 6 shares+saves per 1,000 views
+- relatable: weight 0.98 — 5 posts, 23 views, 3.2s watched, 6 shares+saves per 1,000 views
 - none: weight 0.98 — 4 posts, 63 views, 2.8s watched, 0 shares+saves per 1,000 views
 - curious: weight 0.94 — 1 post, 9 views, 1.5s watched, 0 shares+saves per 1,000 views
 
 **hook style**
-- flash: weight 1.06 — 6 posts, 97 views, 4.0s watched, 3 shares+saves per 1,000 views
+- flash: weight 1.04 — 7 posts, 75 views, 3.7s watched, 3 shares+saves per 1,000 views
 - hold: weight 1.00 — 6 posts, 32 views, 3.3s watched, 0 shares+saves per 1,000 views
 
 **faces**
-- with: weight 1.05 — 8 posts, 118 views, 3.9s watched, 0 shares+saves per 1,000 views
-- without: weight 0.98 — 8 posts, 65 views, 3.4s watched, 4 shares+saves per 1,000 views
+- with: weight 1.03 — 9 posts, 117 views, 3.5s watched, 0 shares+saves per 1,000 views
+- without: weight 0.99 — 8 posts, 65 views, 3.4s watched, 4 shares+saves per 1,000 views
 
 **song**
 - notta_problem: weight 1.13 — 8 posts, 125 views, 4.7s watched, 2 shares+saves per 1,000 views
 - fixation: weight 1.05 — 3 posts, 117 views, 3.5s watched, 0 shares+saves per 1,000 views
+- prologue: weight 1.01 — 3 posts, 75 views, 3.6s watched, 4 shares+saves per 1,000 views
 - evil_close_quarters: weight 1.01 — 1 post, 126 views, 4.5s watched, 0 shares+saves per 1,000 views
-- prologue: weight 1.00 — 3 posts, 75 views, 3.6s watched, 4 shares+saves per 1,000 views
 - myth_of_sisyphus: weight 1.00 — 1 post, 108 views, 3.3s watched, 0 shares+saves per 1,000 views
-- hair_of_the_dog: weight 0.99 — 3 posts, 46 views, 3.7s watched, 7 shares+saves per 1,000 views
+- hair_of_the_dog: weight 1.00 — 3 posts, 46 views, 3.7s watched, 7 shares+saves per 1,000 views
 - suspended: weight 0.98 — 3 posts, 57 views, 4.3s watched, 0 shares+saves per 1,000 views
-- subway_maintenance: weight 0.98 — 1 post, 15 views, 2.3s watched, 0 shares+saves per 1,000 views
 - silver_and_gold: weight 0.98 — 1 post, 23 views, 3.2s watched, 0 shares+saves per 1,000 views
 - talk: weight 0.96 — 2 posts, 46 views, 3.7s watched, 0 shares+saves per 1,000 views
+- wont_be_the_same_again: weight 0.95 — 5 posts, 18 views, 2.9s watched, 0 shares+saves per 1,000 views
 
 **section**
 - notta_problem/verse 1, first half: weight 1.09 — 3 posts, 121 views, 4.7s watched, 3 shares+saves per 1,000 views
@@ -61,33 +61,33 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 - evil_close_quarters/s04: weight 1.01 — 1 post, 126 views, 4.5s watched, 0 shares+saves per 1,000 views
 
 **look**
-- grad: weight 1.04 — 5 posts, 120 views, 3.4s watched, 3 shares+saves per 1,000 views
+- grad: weight 1.05 — 5 posts, 120 views, 3.4s watched, 3 shares+saves per 1,000 views
 - stars: weight 1.02 — 5 posts, 118 views, 4.3s watched, 0 shares+saves per 1,000 views
-- rings: weight 1.01 — 6 posts, 59 views, 3.5s watched, 3 shares+saves per 1,000 views
+- rings: weight 1.02 — 6 posts, 59 views, 3.5s watched, 3 shares+saves per 1,000 views
 - tiles: weight 0.99 — 5 posts, 73 views, 3.3s watched, 3 shares+saves per 1,000 views
-- plasma: weight 0.95 — 9 posts, 46 views, 3.9s watched, 0 shares+saves per 1,000 views
+- plasma: weight 0.94 — 10 posts, 44 views, 3.7s watched, 0 shares+saves per 1,000 views
 
 **palette**
-- #78ffaa: weight 1.04 — 7 posts, 121 views, 4.5s watched, 0 shares+saves per 1,000 views
-- #ffffff: weight 1.02 — 10 posts, 54 views, 3.5s watched, 4 shares+saves per 1,000 views
-- #ffbe6e: weight 0.95 — 13 posts, 57 views, 3.5s watched, 1 shares+saves per 1,000 views
+- #ffffff: weight 1.03 — 10 posts, 54 views, 3.5s watched, 4 shares+saves per 1,000 views
+- #78ffaa: weight 1.02 — 8 posts, 71 views, 4.4s watched, 0 shares+saves per 1,000 views
+- #ffbe6e: weight 0.96 — 13 posts, 57 views, 3.5s watched, 1 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.07 — 15 posts, 75 views, 4.2s watched, 2 shares+saves per 1,000 views
+- under 20s: weight 1.06 — 16 posts, 59 views, 3.9s watched, 2 shares+saves per 1,000 views
 - under 10s: weight 1.04 — 1 post, 117 views, 3.5s watched, 0 shares+saves per 1,000 views
 - over 35s: weight 0.98 — 1 post, 57 views, 4.3s watched, 0 shares+saves per 1,000 views
 - 20-35s: weight 0.92 — 13 posts, 46 views, 3.5s watched, 1 shares+saves per 1,000 views
 
 **hour posted**
-- 21:00: weight 1.07 — 5 posts, 117 views, 4.9s watched, 0 shares+saves per 1,000 views
-- 18:00: weight 1.06 — 4 posts, 138 views, 4.2s watched, 3 shares+saves per 1,000 views
+- 18:00: weight 1.07 — 4 posts, 138 views, 4.2s watched, 3 shares+saves per 1,000 views
 - 20:00: weight 1.05 — 1 post, 132 views, 5.1s watched, 0 shares+saves per 1,000 views
+- 21:00: weight 1.04 — 6 posts, 102 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 13:00: weight 1.04 — 2 posts, 71 views, 5.5s watched, 0 shares+saves per 1,000 views
 - 17:00: weight 1.02 — 1 post, 118 views, 4.2s watched, 0 shares+saves per 1,000 views
-- 16:00: weight 0.98 — 5 posts, 23 views, 2.9s watched, 0 shares+saves per 1,000 views
-- 11:00: weight 0.97 — 3 posts, 42 views, 3.7s watched, 8 shares+saves per 1,000 views
+- 16:00: weight 0.99 — 5 posts, 23 views, 2.9s watched, 0 shares+saves per 1,000 views
+- 11:00: weight 0.98 — 3 posts, 42 views, 3.7s watched, 8 shares+saves per 1,000 views
+- 14:00: weight 0.97 — 5 posts, 15 views, 3.5s watched, 4 shares+saves per 1,000 views
 - 10:00: weight 0.97 — 2 posts, 79 views, 4.1s watched, 0 shares+saves per 1,000 views
-- 14:00: weight 0.96 — 5 posts, 15 views, 3.5s watched, 4 shares+saves per 1,000 views
 - 09:00: weight 0.96 — 2 posts, 20 views, 2.8s watched, 0 shares+saves per 1,000 views
 
 **caption**
@@ -95,69 +95,69 @@ Each post is ranked on completion (30%), sends per reach (30%), views (15%), sav
 - every layer of the song on one screen: weight 1.05 — 1 post, 132 views, 5.1s watched, 0 shares+saves per 1,000 views
 - Notta Problem – Close Quarters: weight 1.05 — 6 posts, 119 views, 4.3s watched, 3 shares+saves per 1,000 views
 - would you have mixed the vocal louder? be honest: weight 1.04 — 4 posts, 122 views, 4.1s watched, 0 shares+saves per 1,000 views
+- sound on. this is the song pulled apart: weight 1.04 — 2 posts, 91 views, 3.4s watched, 5 shares+saves per 1,000 views
 - producers: which stem would you solo first?: weight 1.04 — 1 post, 117 views, 3.5s watched, 0 shares+saves per 1,000 views
-- sound on. this is the song pulled apart: weight 1.03 — 2 posts, 91 views, 3.4s watched, 5 shares+saves per 1,000 views
 - what would you change in this mix? be honest: weight 1.01 — 1 post, 42 views, 4.4s watched, 0 shares+saves per 1,000 views
 - i produced this. here it is pulled apart.: weight 1.01 — 1 post, 116 views, 3.8s watched, 0 shares+saves per 1,000 views
 - tag a producer who needs to hear this: weight 0.99 — 1 post, 44 views, 3.5s watched, 0 shares+saves per 1,000 views
 - Hair of the Dog – Close Quarters: weight 0.99 — 2 posts, 30 views, 3.7s watched, 0 shares+saves per 1,000 views
 
 **knob:caption**
-- anton: weight 1.11 — 5 posts, 120 views, 3.5s watched, 0 shares+saves per 1,000 views
+- anton: weight 1.08 — 6 posts, 118 views, 3.5s watched, 0 shares+saves per 1,000 views
 - montserrat: weight 0.99 — 5 posts, 57 views, 4.3s watched, 3 shares+saves per 1,000 views
 - inter: weight 0.96 — 6 posts, 20 views, 2.8s watched, 4 shares+saves per 1,000 views
 
 **knob:chroma**
 - 0: weight 1.03 — 7 posts, 75 views, 4.3s watched, 2 shares+saves per 1,000 views
-- 2: weight 1.01 — 9 posts, 73 views, 3.4s watched, 1 shares+saves per 1,000 views
+- 2: weight 1.00 — 10 posts, 57 views, 3.4s watched, 1 shares+saves per 1,000 views
 
 **knob:colours**
 - 1: weight 1.06 — 2 posts, 97 views, 3.5s watched, 5 shares+saves per 1,000 views
-- 2: weight 1.02 — 5 posts, 126 views, 4.5s watched, 0 shares+saves per 1,000 views
-- 0: weight 0.99 — 9 posts, 57 views, 3.5s watched, 2 shares+saves per 1,000 views
+- 2: weight 1.00 — 6 posts, 70 views, 3.4s watched, 0 shares+saves per 1,000 views
+- 0: weight 1.00 — 9 posts, 57 views, 3.5s watched, 2 shares+saves per 1,000 views
 
 **knob:cut**
-- tight: weight 1.12 — 8 posts, 118 views, 4.0s watched, 1 shares+saves per 1,000 views
-- full: weight 0.92 — 8 posts, 40 views, 3.3s watched, 2 shares+saves per 1,000 views
+- tight: weight 1.10 — 9 posts, 117 views, 3.6s watched, 1 shares+saves per 1,000 views
+- full: weight 0.93 — 8 posts, 40 views, 3.3s watched, 2 shares+saves per 1,000 views
 
 **knob:layout**
-- mixer: weight 1.04 — 8 posts, 88 views, 4.4s watched, 0 shares+saves per 1,000 views
-- lanes: weight 1.00 — 8 posts, 74 views, 3.4s watched, 4 shares+saves per 1,000 views
+- mixer: weight 1.05 — 8 posts, 88 views, 4.4s watched, 0 shares+saves per 1,000 views
+- lanes: weight 0.98 — 9 posts, 73 views, 3.3s watched, 4 shares+saves per 1,000 views
 
 **knob:pictures**
-- 0.0: weight 1.04 — 7 posts, 117 views, 3.4s watched, 0 shares+saves per 1,000 views
-- 0.6: weight 1.00 — 7 posts, 73 views, 3.6s watched, 4 shares+saves per 1,000 views
-- 0.35: weight 0.99 — 2 posts, 49 views, 4.4s watched, 0 shares+saves per 1,000 views
+- 0.0: weight 1.05 — 7 posts, 117 views, 3.4s watched, 0 shares+saves per 1,000 views
+- 0.6: weight 1.01 — 7 posts, 73 views, 3.6s watched, 4 shares+saves per 1,000 views
+- 0.35: weight 0.96 — 3 posts, 42 views, 4.3s watched, 0 shares+saves per 1,000 views
 
 **knob:punch**
 - 0.015: weight 1.06 — 9 posts, 108 views, 3.6s watched, 1 shares+saves per 1,000 views
-- 0.03: weight 0.97 — 7 posts, 23 views, 3.2s watched, 3 shares+saves per 1,000 views
+- 0.03: weight 0.96 — 8 posts, 20 views, 2.8s watched, 3 shares+saves per 1,000 views
 
 **knob:scan**
 - false: weight 1.04 — 7 posts, 117 views, 3.5s watched, 0 shares+saves per 1,000 views
-- true: weight 1.00 — 9 posts, 57 views, 3.6s watched, 4 shares+saves per 1,000 views
+- true: weight 0.99 — 10 posts, 49 views, 3.5s watched, 4 shares+saves per 1,000 views
 
 **knob:wall**
 - grad: weight 1.07 — 2 posts, 122 views, 4.1s watched, 0 shares+saves per 1,000 views
 - stars: weight 1.06 — 2 posts, 129 views, 4.8s watched, 0 shares+saves per 1,000 views
 - rings: weight 1.02 — 2 posts, 49 views, 3.4s watched, 10 shares+saves per 1,000 views
 - tiles: weight 0.99 — 5 posts, 73 views, 3.3s watched, 3 shares+saves per 1,000 views
-- plasma: weight 0.96 — 5 posts, 42 views, 3.5s watched, 0 shares+saves per 1,000 views
+- plasma: weight 0.95 — 6 posts, 28 views, 2.9s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
 Ranked on completion (25%), sends per reach (25%), comments per reach (15%), views (15%), saves per reach (5%), not being skipped (15%).
 
-36 posts counted (8 more are too new). Typical post: 102 views, 2.9 seconds watched.
+38 posts counted (6 more are too new). Typical post: 102 views, 2.9 seconds watched.
 
 **style**
 - lofi: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- band: weight 1.02 — 18 posts, 85 views, 3.0s watched, 3 shares+saves per 1,000 views
-- cursor: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
+- cursor: weight 1.01 — 2 posts, 122 views, 3.0s watched, 0 shares+saves per 1,000 views
+- band: weight 1.01 — 19 posts, 81 views, 2.9s watched, 2 shares+saves per 1,000 views
 
 **opening line**
 - with: weight 1.02 — 15 posts, 81 views, 3.0s watched, 2 shares+saves per 1,000 views
-- without: weight 0.97 — 17 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
+- without: weight 0.97 — 19 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
 
 **hook**
 - send this to the friend who'd get it: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
@@ -167,32 +167,32 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - pov: you found your new favourite band: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - songs that sound like 2am: weight 1.01 — 1 post, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - is this rock or rap? wrong answers only: weight 1.00 — 1 post, 61 views, 3.6s watched, 0 shares+saves per 1,000 views
-- rock and rap should never mix. right?: weight 0.98 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
+- rock and rap should never mix. right?: weight 0.99 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
 - be honest: skip or replay?: weight 0.98 — 2 posts, 74 views, 2.6s watched, 0 shares+saves per 1,000 views
 - your pc in 2001:: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
 
 **hook angle**
-- share: weight 1.08 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- share: weight 1.09 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- debate: weight 1.03 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
 - relatable: weight 1.02 — 2 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- debate: weight 1.02 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
-- none: weight 1.00 — 3 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 - plain: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
+- none: weight 0.97 — 4 posts, 91 views, 2.4s watched, 3 shares+saves per 1,000 views
 - comment: weight 0.97 — 1 post, 52 views, 2.8s watched, 0 shares+saves per 1,000 views
 - curious: weight 0.96 — 1 post, 54 views, 1.8s watched, 0 shares+saves per 1,000 views
 
 **hook style**
-- hold: weight 1.05 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
+- hold: weight 1.06 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
 - flash: weight 0.99 — 9 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **faces**
 - with: weight 1.02 — 8 posts, 97 views, 3.2s watched, 1 shares+saves per 1,000 views
-- without: weight 1.01 — 10 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- without: weight 1.00 — 11 posts, 81 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **song**
 - evil_close_quarters: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - fixation: weight 1.05 — 7 posts, 129 views, 3.6s watched, 8 shares+saves per 1,000 views
+- notta_problem: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride: weight 1.04 — 2 posts, 91 views, 2.9s watched, 11 shares+saves per 1,000 views
-- notta_problem: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 1.02 — 7 posts, 110 views, 2.8s watched, 26 shares+saves per 1,000 views
 - talk: weight 1.01 — 3 posts, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - subway_maintenance: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
@@ -204,8 +204,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - evil_close_quarters/s04: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - wont_be_the_same_again/s01-s02: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
 - fixation/fixation_a1-2: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
+- notta_problem/notta_a1-1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride/s01: weight 1.04 — 1 post, 81 views, 2.9s watched, 12 shares+saves per 1,000 views
-- notta_problem/notta_a1-1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - talk/s05-s06: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - fixation/s06: weight 1.02 — 1 post, 129 views, 3.8s watched, 8 shares+saves per 1,000 views
 - fixation/s03-s04: weight 1.02 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
@@ -215,29 +215,29 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **look**
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.04 — 3 posts, 119 views, 3.8s watched, 8 shares+saves per 1,000 views
-- plasma: weight 1.01 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
-- grad: weight 0.99 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- plasma: weight 1.02 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
+- grad: weight 1.00 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.91 — 7 posts, 81 views, 2.7s watched, 7 shares+saves per 1,000 views
+- stars: weight 0.90 — 8 posts, 78 views, 2.6s watched, 7 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.05 — 17 posts, 105 views, 2.9s watched, 1 shares+saves per 1,000 views
-- 20-35s: weight 1.00 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
-- over 35s: weight 0.88 — 6 posts, 75 views, 2.8s watched, 8 shares+saves per 1,000 views
+- under 20s: weight 1.06 — 18 posts, 107 views, 2.9s watched, 1 shares+saves per 1,000 views
+- 20-35s: weight 1.01 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
+- over 35s: weight 0.87 — 7 posts, 75 views, 2.7s watched, 8 shares+saves per 1,000 views
 
 **hour posted**
-- 22:00: weight 1.06 — 2 posts, 251 views, 4.9s watched, 56 shares+saves per 1,000 views
-- 21:00: weight 1.06 — 4 posts, 124 views, 4.0s watched, 8 shares+saves per 1,000 views
+- 22:00: weight 1.06 — 3 posts, 155 views, 4.5s watched, 44 shares+saves per 1,000 views
+- 15:00: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 12:00: weight 1.04 — 3 posts, 105 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 20:00: weight 1.03 — 2 posts, 114 views, 3.3s watched, 0 shares+saves per 1,000 views
-- 15:00: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 11:00: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
+- 21:00: weight 1.02 — 5 posts, 119 views, 3.8s watched, 7 shares+saves per 1,000 views
 - 16:00: weight 1.02 — 2 posts, 93 views, 2.7s watched, 0 shares+saves per 1,000 views
 - 09:00: weight 1.02 — 2 posts, 107 views, 3.2s watched, 0 shares+saves per 1,000 views
 - 18:00: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
-- 17:00: weight 0.98 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
+- 17:00: weight 0.99 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
 
 **caption**
 - send this to someone who still misses windows 95: weight 1.07 — 3 posts, 124 views, 3.5s watched, 3 shares+saves per 1,000 views
@@ -245,7 +245,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - nobody's talking about this album yet. be early.: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
 - chin up. who's got the better moves? 👇: weight 1.05 — 1 post, 347 views, 5.4s watched, 72 shares+saves per 1,000 views
 - Evil Close Quarters – Close Quarters: weight 1.05 — 1 post, 119 views, 3.8s watched, 0 shares+saves per 1,000 views
-- the song you didn't know you needed today: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- the song you didn't know you needed today: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - pov: you found this on limewire in 2003: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
 - pov: it's 2am and this comes on shuffle: weight 1.03 — 1 post, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - lesson 7 of 15. class is in session.: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
@@ -254,83 +254,87 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:caption**
 - inter: weight 1.02 — 10 posts, 76 views, 2.9s watched, 1 shares+saves per 1,000 views
 - montserrat: weight 1.01 — 3 posts, 105 views, 2.6s watched, 7 shares+saves per 1,000 views
-- anton: weight 1.00 — 5 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
+- anton: weight 0.98 — 6 posts, 87 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:chroma**
-- 0: weight 1.06 — 6 posts, 112 views, 3.7s watched, 3 shares+saves per 1,000 views
+- 0: weight 1.03 — 7 posts, 105 views, 3.5s watched, 3 shares+saves per 1,000 views
 - 4: weight 1.01 — 5 posts, 81 views, 2.9s watched, 5 shares+saves per 1,000 views
 - 2: weight 0.98 — 7 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **knob:chrome**
-- xp: weight 1.07 — 6 posts, 104 views, 3.4s watched, 2 shares+saves per 1,000 views
+- xp: weight 1.03 — 7 posts, 90 views, 2.9s watched, 2 shares+saves per 1,000 views
 - mac: weight 1.02 — 8 posts, 92 views, 3.4s watched, 1 shares+saves per 1,000 views
 - win95: weight 1.00 — 7 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:cut**
-- tight: weight 1.04 — 12 posts, 93 views, 2.9s watched, 2 shares+saves per 1,000 views
-- full: weight 1.03 — 10 posts, 102 views, 3.4s watched, 2 shares+saves per 1,000 views
+- tight: weight 1.04 — 13 posts, 105 views, 2.9s watched, 2 shares+saves per 1,000 views
+- full: weight 1.01 — 11 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
 
 **knob:pace**
 - 2: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:pictures**
 - 0.6: weight 1.02 — 6 posts, 97 views, 3.2s watched, 2 shares+saves per 1,000 views
-- 0.35: weight 1.02 — 7 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.85: weight 1.00 — 5 posts, 71 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.35: weight 1.00 — 8 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 
 **knob:pop**
 - 0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 3: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 3: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:punch**
 - 0.05: weight 1.03 — 10 posts, 104 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.03 — 4 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 4 posts, 75 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.035: weight 0.94 — 5 posts, 61 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:scan**
-- false: weight 1.02 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
-- true: weight 1.01 — 11 posts, 104 views, 3.2s watched, 2 shares+saves per 1,000 views
+- false: weight 1.03 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- true: weight 0.99 — 12 posts, 102 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:theme**
 - wine: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- green: weight 1.06 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
-- black: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
-- teal: weight 1.00 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- green: weight 1.07 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
+- teal: weight 1.01 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- black: weight 1.01 — 3 posts, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - silver: weight 1.00 — 3 posts, 104 views, 3.0s watched, 4 shares+saves per 1,000 views
 - purple: weight 1.00 — 1 post, 101 views, 2.9s watched, 10 shares+saves per 1,000 views
+- blue: weight 0.99 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 - pink: weight 0.98 — 2 posts, 89 views, 2.7s watched, 0 shares+saves per 1,000 views
 - orange: weight 0.98 — 2 posts, 63 views, 2.9s watched, 0 shares+saves per 1,000 views
-- blue: weight 0.98 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 
 **knob:tint**
 - 0.0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.4: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 0.4: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:wall**
 - plasma: weight 1.09 — 4 posts, 118 views, 4.2s watched, 2 shares+saves per 1,000 views
 - grad: weight 1.05 — 3 posts, 101 views, 3.0s watched, 3 shares+saves per 1,000 views
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.03 — 3 posts, 115 views, 3.2s watched, 0 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.96 — 3 posts, 81 views, 1.9s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
+- stars: weight 0.93 — 4 posts, 67 views, 1.9s watched, 0 shares+saves per 1,000 views
+
+**knob:world**
+- corridor: weight 1.01 — 1 post, 135 views, 2.5s watched, 0 shares+saves per 1,000 views
+- cube: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
 Ranked on completion (25%), sends per reach (25%), comments per reach (15%), views (15%), saves per reach (5%), not being skipped (15%).
 
-36 posts counted (8 more are too new). Typical post: 102 views, 2.9 seconds watched.
+38 posts counted (6 more are too new). Typical post: 102 views, 2.9 seconds watched.
 
 **style**
 - lofi: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- band: weight 1.02 — 18 posts, 85 views, 3.0s watched, 3 shares+saves per 1,000 views
-- cursor: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
+- cursor: weight 1.01 — 2 posts, 122 views, 3.0s watched, 0 shares+saves per 1,000 views
+- band: weight 1.01 — 19 posts, 81 views, 2.9s watched, 2 shares+saves per 1,000 views
 
 **opening line**
 - with: weight 1.02 — 15 posts, 81 views, 3.0s watched, 2 shares+saves per 1,000 views
-- without: weight 0.97 — 17 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
+- without: weight 0.97 — 19 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
 
 **hook**
 - send this to the friend who'd get it: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
@@ -340,32 +344,32 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - pov: you found your new favourite band: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - songs that sound like 2am: weight 1.01 — 1 post, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - is this rock or rap? wrong answers only: weight 1.00 — 1 post, 61 views, 3.6s watched, 0 shares+saves per 1,000 views
-- rock and rap should never mix. right?: weight 0.98 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
+- rock and rap should never mix. right?: weight 0.99 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
 - be honest: skip or replay?: weight 0.98 — 2 posts, 74 views, 2.6s watched, 0 shares+saves per 1,000 views
 - your pc in 2001:: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
 
 **hook angle**
-- share: weight 1.08 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- share: weight 1.09 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- debate: weight 1.03 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
 - relatable: weight 1.02 — 2 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- debate: weight 1.02 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
-- none: weight 1.00 — 3 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 - plain: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
+- none: weight 0.97 — 4 posts, 91 views, 2.4s watched, 3 shares+saves per 1,000 views
 - comment: weight 0.97 — 1 post, 52 views, 2.8s watched, 0 shares+saves per 1,000 views
 - curious: weight 0.96 — 1 post, 54 views, 1.8s watched, 0 shares+saves per 1,000 views
 
 **hook style**
-- hold: weight 1.05 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
+- hold: weight 1.06 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
 - flash: weight 0.99 — 9 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **faces**
 - with: weight 1.02 — 8 posts, 97 views, 3.2s watched, 1 shares+saves per 1,000 views
-- without: weight 1.01 — 10 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- without: weight 1.00 — 11 posts, 81 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **song**
 - evil_close_quarters: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - fixation: weight 1.05 — 7 posts, 129 views, 3.6s watched, 8 shares+saves per 1,000 views
+- notta_problem: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride: weight 1.04 — 2 posts, 91 views, 2.9s watched, 11 shares+saves per 1,000 views
-- notta_problem: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 1.02 — 7 posts, 110 views, 2.8s watched, 26 shares+saves per 1,000 views
 - talk: weight 1.01 — 3 posts, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - subway_maintenance: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
@@ -377,8 +381,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - evil_close_quarters/s04: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - wont_be_the_same_again/s01-s02: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
 - fixation/fixation_a1-2: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
+- notta_problem/notta_a1-1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride/s01: weight 1.04 — 1 post, 81 views, 2.9s watched, 12 shares+saves per 1,000 views
-- notta_problem/notta_a1-1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - talk/s05-s06: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - fixation/s06: weight 1.02 — 1 post, 129 views, 3.8s watched, 8 shares+saves per 1,000 views
 - fixation/s03-s04: weight 1.02 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
@@ -388,29 +392,29 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **look**
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.04 — 3 posts, 119 views, 3.8s watched, 8 shares+saves per 1,000 views
-- plasma: weight 1.01 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
-- grad: weight 0.99 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- plasma: weight 1.02 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
+- grad: weight 1.00 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.91 — 7 posts, 81 views, 2.7s watched, 7 shares+saves per 1,000 views
+- stars: weight 0.90 — 8 posts, 78 views, 2.6s watched, 7 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.05 — 17 posts, 105 views, 2.9s watched, 1 shares+saves per 1,000 views
-- 20-35s: weight 1.00 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
-- over 35s: weight 0.88 — 6 posts, 75 views, 2.8s watched, 8 shares+saves per 1,000 views
+- under 20s: weight 1.06 — 18 posts, 107 views, 2.9s watched, 1 shares+saves per 1,000 views
+- 20-35s: weight 1.01 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
+- over 35s: weight 0.87 — 7 posts, 75 views, 2.7s watched, 8 shares+saves per 1,000 views
 
 **hour posted**
-- 22:00: weight 1.06 — 2 posts, 251 views, 4.9s watched, 56 shares+saves per 1,000 views
-- 21:00: weight 1.06 — 4 posts, 124 views, 4.0s watched, 8 shares+saves per 1,000 views
+- 22:00: weight 1.06 — 3 posts, 155 views, 4.5s watched, 44 shares+saves per 1,000 views
+- 15:00: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 12:00: weight 1.04 — 3 posts, 105 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 20:00: weight 1.03 — 2 posts, 114 views, 3.3s watched, 0 shares+saves per 1,000 views
-- 15:00: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 11:00: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
+- 21:00: weight 1.02 — 5 posts, 119 views, 3.8s watched, 7 shares+saves per 1,000 views
 - 16:00: weight 1.02 — 2 posts, 93 views, 2.7s watched, 0 shares+saves per 1,000 views
 - 09:00: weight 1.02 — 2 posts, 107 views, 3.2s watched, 0 shares+saves per 1,000 views
 - 18:00: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
-- 17:00: weight 0.98 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
+- 17:00: weight 0.99 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
 
 **caption**
 - send this to someone who still misses windows 95: weight 1.07 — 3 posts, 124 views, 3.5s watched, 3 shares+saves per 1,000 views
@@ -418,7 +422,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - nobody's talking about this album yet. be early.: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
 - chin up. who's got the better moves? 👇: weight 1.05 — 1 post, 347 views, 5.4s watched, 72 shares+saves per 1,000 views
 - Evil Close Quarters – Close Quarters: weight 1.05 — 1 post, 119 views, 3.8s watched, 0 shares+saves per 1,000 views
-- the song you didn't know you needed today: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- the song you didn't know you needed today: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - pov: you found this on limewire in 2003: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
 - pov: it's 2am and this comes on shuffle: weight 1.03 — 1 post, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - lesson 7 of 15. class is in session.: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
@@ -427,83 +431,87 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:caption**
 - inter: weight 1.02 — 10 posts, 76 views, 2.9s watched, 1 shares+saves per 1,000 views
 - montserrat: weight 1.01 — 3 posts, 105 views, 2.6s watched, 7 shares+saves per 1,000 views
-- anton: weight 1.00 — 5 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
+- anton: weight 0.98 — 6 posts, 87 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:chroma**
-- 0: weight 1.06 — 6 posts, 112 views, 3.7s watched, 3 shares+saves per 1,000 views
+- 0: weight 1.03 — 7 posts, 105 views, 3.5s watched, 3 shares+saves per 1,000 views
 - 4: weight 1.01 — 5 posts, 81 views, 2.9s watched, 5 shares+saves per 1,000 views
 - 2: weight 0.98 — 7 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **knob:chrome**
-- xp: weight 1.07 — 6 posts, 104 views, 3.4s watched, 2 shares+saves per 1,000 views
+- xp: weight 1.03 — 7 posts, 90 views, 2.9s watched, 2 shares+saves per 1,000 views
 - mac: weight 1.02 — 8 posts, 92 views, 3.4s watched, 1 shares+saves per 1,000 views
 - win95: weight 1.00 — 7 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:cut**
-- tight: weight 1.04 — 12 posts, 93 views, 2.9s watched, 2 shares+saves per 1,000 views
-- full: weight 1.03 — 10 posts, 102 views, 3.4s watched, 2 shares+saves per 1,000 views
+- tight: weight 1.04 — 13 posts, 105 views, 2.9s watched, 2 shares+saves per 1,000 views
+- full: weight 1.01 — 11 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
 
 **knob:pace**
 - 2: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:pictures**
 - 0.6: weight 1.02 — 6 posts, 97 views, 3.2s watched, 2 shares+saves per 1,000 views
-- 0.35: weight 1.02 — 7 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.85: weight 1.00 — 5 posts, 71 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.35: weight 1.00 — 8 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 
 **knob:pop**
 - 0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 3: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 3: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:punch**
 - 0.05: weight 1.03 — 10 posts, 104 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.03 — 4 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 4 posts, 75 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.035: weight 0.94 — 5 posts, 61 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:scan**
-- false: weight 1.02 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
-- true: weight 1.01 — 11 posts, 104 views, 3.2s watched, 2 shares+saves per 1,000 views
+- false: weight 1.03 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- true: weight 0.99 — 12 posts, 102 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:theme**
 - wine: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- green: weight 1.06 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
-- black: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
-- teal: weight 1.00 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- green: weight 1.07 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
+- teal: weight 1.01 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- black: weight 1.01 — 3 posts, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - silver: weight 1.00 — 3 posts, 104 views, 3.0s watched, 4 shares+saves per 1,000 views
 - purple: weight 1.00 — 1 post, 101 views, 2.9s watched, 10 shares+saves per 1,000 views
+- blue: weight 0.99 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 - pink: weight 0.98 — 2 posts, 89 views, 2.7s watched, 0 shares+saves per 1,000 views
 - orange: weight 0.98 — 2 posts, 63 views, 2.9s watched, 0 shares+saves per 1,000 views
-- blue: weight 0.98 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 
 **knob:tint**
 - 0.0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.4: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 0.4: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:wall**
 - plasma: weight 1.09 — 4 posts, 118 views, 4.2s watched, 2 shares+saves per 1,000 views
 - grad: weight 1.05 — 3 posts, 101 views, 3.0s watched, 3 shares+saves per 1,000 views
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.03 — 3 posts, 115 views, 3.2s watched, 0 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.96 — 3 posts, 81 views, 1.9s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
+- stars: weight 0.93 — 4 posts, 67 views, 1.9s watched, 0 shares+saves per 1,000 views
+
+**knob:world**
+- corridor: weight 1.01 — 1 post, 135 views, 2.5s watched, 0 shares+saves per 1,000 views
+- cube: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
 Ranked on completion (25%), sends per reach (25%), comments per reach (15%), views (15%), saves per reach (5%), not being skipped (15%).
 
-36 posts counted (8 more are too new). Typical post: 102 views, 2.9 seconds watched.
+38 posts counted (6 more are too new). Typical post: 102 views, 2.9 seconds watched.
 
 **style**
 - lofi: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- band: weight 1.02 — 18 posts, 85 views, 3.0s watched, 3 shares+saves per 1,000 views
-- cursor: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
+- cursor: weight 1.01 — 2 posts, 122 views, 3.0s watched, 0 shares+saves per 1,000 views
+- band: weight 1.01 — 19 posts, 81 views, 2.9s watched, 2 shares+saves per 1,000 views
 
 **opening line**
 - with: weight 1.02 — 15 posts, 81 views, 3.0s watched, 2 shares+saves per 1,000 views
-- without: weight 0.97 — 17 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
+- without: weight 0.97 — 19 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
 
 **hook**
 - send this to the friend who'd get it: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
@@ -513,32 +521,32 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - pov: you found your new favourite band: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - songs that sound like 2am: weight 1.01 — 1 post, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - is this rock or rap? wrong answers only: weight 1.00 — 1 post, 61 views, 3.6s watched, 0 shares+saves per 1,000 views
-- rock and rap should never mix. right?: weight 0.98 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
+- rock and rap should never mix. right?: weight 0.99 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
 - be honest: skip or replay?: weight 0.98 — 2 posts, 74 views, 2.6s watched, 0 shares+saves per 1,000 views
 - your pc in 2001:: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
 
 **hook angle**
-- share: weight 1.08 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- share: weight 1.09 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- debate: weight 1.03 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
 - relatable: weight 1.02 — 2 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- debate: weight 1.02 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
-- none: weight 1.00 — 3 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 - plain: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
+- none: weight 0.97 — 4 posts, 91 views, 2.4s watched, 3 shares+saves per 1,000 views
 - comment: weight 0.97 — 1 post, 52 views, 2.8s watched, 0 shares+saves per 1,000 views
 - curious: weight 0.96 — 1 post, 54 views, 1.8s watched, 0 shares+saves per 1,000 views
 
 **hook style**
-- hold: weight 1.05 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
+- hold: weight 1.06 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
 - flash: weight 0.99 — 9 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **faces**
 - with: weight 1.02 — 8 posts, 97 views, 3.2s watched, 1 shares+saves per 1,000 views
-- without: weight 1.01 — 10 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- without: weight 1.00 — 11 posts, 81 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **song**
 - evil_close_quarters: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - fixation: weight 1.05 — 7 posts, 129 views, 3.6s watched, 8 shares+saves per 1,000 views
+- notta_problem: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride: weight 1.04 — 2 posts, 91 views, 2.9s watched, 11 shares+saves per 1,000 views
-- notta_problem: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 1.02 — 7 posts, 110 views, 2.8s watched, 26 shares+saves per 1,000 views
 - talk: weight 1.01 — 3 posts, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - subway_maintenance: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
@@ -550,8 +558,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - evil_close_quarters/s04: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - wont_be_the_same_again/s01-s02: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
 - fixation/fixation_a1-2: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
+- notta_problem/notta_a1-1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride/s01: weight 1.04 — 1 post, 81 views, 2.9s watched, 12 shares+saves per 1,000 views
-- notta_problem/notta_a1-1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - talk/s05-s06: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - fixation/s06: weight 1.02 — 1 post, 129 views, 3.8s watched, 8 shares+saves per 1,000 views
 - fixation/s03-s04: weight 1.02 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
@@ -561,29 +569,29 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **look**
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.04 — 3 posts, 119 views, 3.8s watched, 8 shares+saves per 1,000 views
-- plasma: weight 1.01 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
-- grad: weight 0.99 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- plasma: weight 1.02 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
+- grad: weight 1.00 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.91 — 7 posts, 81 views, 2.7s watched, 7 shares+saves per 1,000 views
+- stars: weight 0.90 — 8 posts, 78 views, 2.6s watched, 7 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.05 — 17 posts, 105 views, 2.9s watched, 1 shares+saves per 1,000 views
-- 20-35s: weight 1.00 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
-- over 35s: weight 0.88 — 6 posts, 75 views, 2.8s watched, 8 shares+saves per 1,000 views
+- under 20s: weight 1.06 — 18 posts, 107 views, 2.9s watched, 1 shares+saves per 1,000 views
+- 20-35s: weight 1.01 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
+- over 35s: weight 0.87 — 7 posts, 75 views, 2.7s watched, 8 shares+saves per 1,000 views
 
 **hour posted**
-- 22:00: weight 1.06 — 2 posts, 251 views, 4.9s watched, 56 shares+saves per 1,000 views
-- 21:00: weight 1.06 — 4 posts, 124 views, 4.0s watched, 8 shares+saves per 1,000 views
+- 22:00: weight 1.06 — 3 posts, 155 views, 4.5s watched, 44 shares+saves per 1,000 views
+- 15:00: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 12:00: weight 1.04 — 3 posts, 105 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 20:00: weight 1.03 — 2 posts, 114 views, 3.3s watched, 0 shares+saves per 1,000 views
-- 15:00: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 11:00: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
+- 21:00: weight 1.02 — 5 posts, 119 views, 3.8s watched, 7 shares+saves per 1,000 views
 - 16:00: weight 1.02 — 2 posts, 93 views, 2.7s watched, 0 shares+saves per 1,000 views
 - 09:00: weight 1.02 — 2 posts, 107 views, 3.2s watched, 0 shares+saves per 1,000 views
 - 18:00: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
-- 17:00: weight 0.98 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
+- 17:00: weight 0.99 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
 
 **caption**
 - send this to someone who still misses windows 95: weight 1.07 — 3 posts, 124 views, 3.5s watched, 3 shares+saves per 1,000 views
@@ -591,7 +599,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - nobody's talking about this album yet. be early.: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
 - chin up. who's got the better moves? 👇: weight 1.05 — 1 post, 347 views, 5.4s watched, 72 shares+saves per 1,000 views
 - Evil Close Quarters – Close Quarters: weight 1.05 — 1 post, 119 views, 3.8s watched, 0 shares+saves per 1,000 views
-- the song you didn't know you needed today: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- the song you didn't know you needed today: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - pov: you found this on limewire in 2003: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
 - pov: it's 2am and this comes on shuffle: weight 1.03 — 1 post, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - lesson 7 of 15. class is in session.: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
@@ -600,83 +608,87 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:caption**
 - inter: weight 1.02 — 10 posts, 76 views, 2.9s watched, 1 shares+saves per 1,000 views
 - montserrat: weight 1.01 — 3 posts, 105 views, 2.6s watched, 7 shares+saves per 1,000 views
-- anton: weight 1.00 — 5 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
+- anton: weight 0.98 — 6 posts, 87 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:chroma**
-- 0: weight 1.06 — 6 posts, 112 views, 3.7s watched, 3 shares+saves per 1,000 views
+- 0: weight 1.03 — 7 posts, 105 views, 3.5s watched, 3 shares+saves per 1,000 views
 - 4: weight 1.01 — 5 posts, 81 views, 2.9s watched, 5 shares+saves per 1,000 views
 - 2: weight 0.98 — 7 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **knob:chrome**
-- xp: weight 1.07 — 6 posts, 104 views, 3.4s watched, 2 shares+saves per 1,000 views
+- xp: weight 1.03 — 7 posts, 90 views, 2.9s watched, 2 shares+saves per 1,000 views
 - mac: weight 1.02 — 8 posts, 92 views, 3.4s watched, 1 shares+saves per 1,000 views
 - win95: weight 1.00 — 7 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:cut**
-- tight: weight 1.04 — 12 posts, 93 views, 2.9s watched, 2 shares+saves per 1,000 views
-- full: weight 1.03 — 10 posts, 102 views, 3.4s watched, 2 shares+saves per 1,000 views
+- tight: weight 1.04 — 13 posts, 105 views, 2.9s watched, 2 shares+saves per 1,000 views
+- full: weight 1.01 — 11 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
 
 **knob:pace**
 - 2: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:pictures**
 - 0.6: weight 1.02 — 6 posts, 97 views, 3.2s watched, 2 shares+saves per 1,000 views
-- 0.35: weight 1.02 — 7 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.85: weight 1.00 — 5 posts, 71 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.35: weight 1.00 — 8 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 
 **knob:pop**
 - 0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 3: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 3: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:punch**
 - 0.05: weight 1.03 — 10 posts, 104 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.03 — 4 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 4 posts, 75 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.035: weight 0.94 — 5 posts, 61 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:scan**
-- false: weight 1.02 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
-- true: weight 1.01 — 11 posts, 104 views, 3.2s watched, 2 shares+saves per 1,000 views
+- false: weight 1.03 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- true: weight 0.99 — 12 posts, 102 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:theme**
 - wine: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- green: weight 1.06 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
-- black: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
-- teal: weight 1.00 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- green: weight 1.07 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
+- teal: weight 1.01 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- black: weight 1.01 — 3 posts, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - silver: weight 1.00 — 3 posts, 104 views, 3.0s watched, 4 shares+saves per 1,000 views
 - purple: weight 1.00 — 1 post, 101 views, 2.9s watched, 10 shares+saves per 1,000 views
+- blue: weight 0.99 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 - pink: weight 0.98 — 2 posts, 89 views, 2.7s watched, 0 shares+saves per 1,000 views
 - orange: weight 0.98 — 2 posts, 63 views, 2.9s watched, 0 shares+saves per 1,000 views
-- blue: weight 0.98 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 
 **knob:tint**
 - 0.0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.4: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 0.4: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:wall**
 - plasma: weight 1.09 — 4 posts, 118 views, 4.2s watched, 2 shares+saves per 1,000 views
 - grad: weight 1.05 — 3 posts, 101 views, 3.0s watched, 3 shares+saves per 1,000 views
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.03 — 3 posts, 115 views, 3.2s watched, 0 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.96 — 3 posts, 81 views, 1.9s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
+- stars: weight 0.93 — 4 posts, 67 views, 1.9s watched, 0 shares+saves per 1,000 views
+
+**knob:world**
+- corridor: weight 1.01 — 1 post, 135 views, 2.5s watched, 0 shares+saves per 1,000 views
+- cube: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
 
 ## cq_band
 
 Ranked on completion (25%), sends per reach (25%), comments per reach (15%), views (15%), saves per reach (5%), not being skipped (15%).
 
-36 posts counted (8 more are too new). Typical post: 102 views, 2.9 seconds watched.
+38 posts counted (6 more are too new). Typical post: 102 views, 2.9 seconds watched.
 
 **style**
 - lofi: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- band: weight 1.02 — 18 posts, 85 views, 3.0s watched, 3 shares+saves per 1,000 views
-- cursor: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
+- cursor: weight 1.01 — 2 posts, 122 views, 3.0s watched, 0 shares+saves per 1,000 views
+- band: weight 1.01 — 19 posts, 81 views, 2.9s watched, 2 shares+saves per 1,000 views
 
 **opening line**
 - with: weight 1.02 — 15 posts, 81 views, 3.0s watched, 2 shares+saves per 1,000 views
-- without: weight 0.97 — 17 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
+- without: weight 0.97 — 19 posts, 110 views, 2.8s watched, 5 shares+saves per 1,000 views
 
 **hook**
 - send this to the friend who'd get it: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
@@ -686,32 +698,32 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - pov: you found your new favourite band: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - songs that sound like 2am: weight 1.01 — 1 post, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - is this rock or rap? wrong answers only: weight 1.00 — 1 post, 61 views, 3.6s watched, 0 shares+saves per 1,000 views
-- rock and rap should never mix. right?: weight 0.98 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
+- rock and rap should never mix. right?: weight 0.99 — 1 post, 104 views, 3.2s watched, 0 shares+saves per 1,000 views
 - be honest: skip or replay?: weight 0.98 — 2 posts, 74 views, 2.6s watched, 0 shares+saves per 1,000 views
 - your pc in 2001:: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
 
 **hook angle**
-- share: weight 1.08 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- share: weight 1.09 — 3 posts, 119 views, 4.2s watched, 3 shares+saves per 1,000 views
+- debate: weight 1.03 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
 - relatable: weight 1.02 — 2 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- debate: weight 1.02 — 6 posts, 97 views, 3.4s watched, 2 shares+saves per 1,000 views
-- none: weight 1.00 — 3 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 - plain: weight 0.97 — 2 posts, 78 views, 2.7s watched, 6 shares+saves per 1,000 views
+- none: weight 0.97 — 4 posts, 91 views, 2.4s watched, 3 shares+saves per 1,000 views
 - comment: weight 0.97 — 1 post, 52 views, 2.8s watched, 0 shares+saves per 1,000 views
 - curious: weight 0.96 — 1 post, 54 views, 1.8s watched, 0 shares+saves per 1,000 views
 
 **hook style**
-- hold: weight 1.05 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
+- hold: weight 1.06 — 6 posts, 96 views, 3.7s watched, 0 shares+saves per 1,000 views
 - flash: weight 0.99 — 9 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
 
 **faces**
 - with: weight 1.02 — 8 posts, 97 views, 3.2s watched, 1 shares+saves per 1,000 views
-- without: weight 1.01 — 10 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- without: weight 1.00 — 11 posts, 81 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **song**
 - evil_close_quarters: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - fixation: weight 1.05 — 7 posts, 129 views, 3.6s watched, 8 shares+saves per 1,000 views
+- notta_problem: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride: weight 1.04 — 2 posts, 91 views, 2.9s watched, 11 shares+saves per 1,000 views
-- notta_problem: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 1.02 — 7 posts, 110 views, 2.8s watched, 26 shares+saves per 1,000 views
 - talk: weight 1.01 — 3 posts, 74 views, 3.0s watched, 0 shares+saves per 1,000 views
 - subway_maintenance: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
@@ -723,8 +735,8 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - evil_close_quarters/s04: weight 1.07 — 2 posts, 112 views, 3.7s watched, 4 shares+saves per 1,000 views
 - wont_be_the_same_again/s01-s02: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
 - fixation/fixation_a1-2: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
+- notta_problem/notta_a1-1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - full_ride/s01: weight 1.04 — 1 post, 81 views, 2.9s watched, 12 shares+saves per 1,000 views
-- notta_problem/notta_a1-1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - talk/s05-s06: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 - fixation/s06: weight 1.02 — 1 post, 129 views, 3.8s watched, 8 shares+saves per 1,000 views
 - fixation/s03-s04: weight 1.02 — 1 post, 155 views, 4.5s watched, 19 shares+saves per 1,000 views
@@ -734,29 +746,29 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **look**
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.04 — 3 posts, 119 views, 3.8s watched, 8 shares+saves per 1,000 views
-- plasma: weight 1.01 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
-- grad: weight 0.99 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- plasma: weight 1.02 — 5 posts, 110 views, 3.5s watched, 2 shares+saves per 1,000 views
+- grad: weight 1.00 — 5 posts, 100 views, 2.9s watched, 4 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.91 — 7 posts, 81 views, 2.7s watched, 7 shares+saves per 1,000 views
+- stars: weight 0.90 — 8 posts, 78 views, 2.6s watched, 7 shares+saves per 1,000 views
 
 **length**
-- under 20s: weight 1.05 — 17 posts, 105 views, 2.9s watched, 1 shares+saves per 1,000 views
-- 20-35s: weight 1.00 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
-- over 35s: weight 0.88 — 6 posts, 75 views, 2.8s watched, 8 shares+saves per 1,000 views
+- under 20s: weight 1.06 — 18 posts, 107 views, 2.9s watched, 1 shares+saves per 1,000 views
+- 20-35s: weight 1.01 — 9 posts, 104 views, 3.5s watched, 7 shares+saves per 1,000 views
+- over 35s: weight 0.87 — 7 posts, 75 views, 2.7s watched, 8 shares+saves per 1,000 views
 
 **hour posted**
-- 22:00: weight 1.06 — 2 posts, 251 views, 4.9s watched, 56 shares+saves per 1,000 views
-- 21:00: weight 1.06 — 4 posts, 124 views, 4.0s watched, 8 shares+saves per 1,000 views
+- 22:00: weight 1.06 — 3 posts, 155 views, 4.5s watched, 44 shares+saves per 1,000 views
+- 15:00: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 12:00: weight 1.04 — 3 posts, 105 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 20:00: weight 1.03 — 2 posts, 114 views, 3.3s watched, 0 shares+saves per 1,000 views
-- 15:00: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - 11:00: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
+- 21:00: weight 1.02 — 5 posts, 119 views, 3.8s watched, 7 shares+saves per 1,000 views
 - 16:00: weight 1.02 — 2 posts, 93 views, 2.7s watched, 0 shares+saves per 1,000 views
 - 09:00: weight 1.02 — 2 posts, 107 views, 3.2s watched, 0 shares+saves per 1,000 views
 - 18:00: weight 0.99 — 1 post, 58 views, 2.3s watched, 0 shares+saves per 1,000 views
-- 17:00: weight 0.98 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
+- 17:00: weight 0.99 — 3 posts, 100 views, 2.7s watched, 0 shares+saves per 1,000 views
 
 **caption**
 - send this to someone who still misses windows 95: weight 1.07 — 3 posts, 124 views, 3.5s watched, 3 shares+saves per 1,000 views
@@ -764,7 +776,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - nobody's talking about this album yet. be early.: weight 1.05 — 1 post, 138 views, 3.6s watched, 0 shares+saves per 1,000 views
 - chin up. who's got the better moves? 👇: weight 1.05 — 1 post, 347 views, 5.4s watched, 72 shares+saves per 1,000 views
 - Evil Close Quarters – Close Quarters: weight 1.05 — 1 post, 119 views, 3.8s watched, 0 shares+saves per 1,000 views
-- the song you didn't know you needed today: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- the song you didn't know you needed today: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 - pov: you found this on limewire in 2003: weight 1.03 — 1 post, 105 views, 3.5s watched, 10 shares+saves per 1,000 views
 - pov: it's 2am and this comes on shuffle: weight 1.03 — 1 post, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - lesson 7 of 15. class is in session.: weight 1.02 — 1 post, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
@@ -773,80 +785,84 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:caption**
 - inter: weight 1.02 — 10 posts, 76 views, 2.9s watched, 1 shares+saves per 1,000 views
 - montserrat: weight 1.01 — 3 posts, 105 views, 2.6s watched, 7 shares+saves per 1,000 views
-- anton: weight 1.00 — 5 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
+- anton: weight 0.98 — 6 posts, 87 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:chroma**
-- 0: weight 1.06 — 6 posts, 112 views, 3.7s watched, 3 shares+saves per 1,000 views
+- 0: weight 1.03 — 7 posts, 105 views, 3.5s watched, 3 shares+saves per 1,000 views
 - 4: weight 1.01 — 5 posts, 81 views, 2.9s watched, 5 shares+saves per 1,000 views
 - 2: weight 0.98 — 7 posts, 71 views, 3.0s watched, 0 shares+saves per 1,000 views
 
 **knob:chrome**
-- xp: weight 1.07 — 6 posts, 104 views, 3.4s watched, 2 shares+saves per 1,000 views
+- xp: weight 1.03 — 7 posts, 90 views, 2.9s watched, 2 shares+saves per 1,000 views
 - mac: weight 1.02 — 8 posts, 92 views, 3.4s watched, 1 shares+saves per 1,000 views
 - win95: weight 1.00 — 7 posts, 101 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:cut**
-- tight: weight 1.04 — 12 posts, 93 views, 2.9s watched, 2 shares+saves per 1,000 views
-- full: weight 1.03 — 10 posts, 102 views, 3.4s watched, 2 shares+saves per 1,000 views
+- tight: weight 1.04 — 13 posts, 105 views, 2.9s watched, 2 shares+saves per 1,000 views
+- full: weight 1.01 — 11 posts, 101 views, 3.2s watched, 2 shares+saves per 1,000 views
 
 **knob:pace**
 - 2: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 1: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 1: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:pictures**
 - 0.6: weight 1.02 — 6 posts, 97 views, 3.2s watched, 2 shares+saves per 1,000 views
-- 0.35: weight 1.02 — 7 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.85: weight 1.00 — 5 posts, 71 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.35: weight 1.00 — 8 posts, 81 views, 3.0s watched, 3 shares+saves per 1,000 views
 
 **knob:pop**
 - 0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 3: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 3: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:punch**
 - 0.05: weight 1.03 — 10 posts, 104 views, 3.0s watched, 3 shares+saves per 1,000 views
 - 0.02: weight 1.03 — 4 posts, 72 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.035: weight 0.97 — 4 posts, 75 views, 2.9s watched, 3 shares+saves per 1,000 views
+- 0.035: weight 0.94 — 5 posts, 61 views, 2.9s watched, 3 shares+saves per 1,000 views
 
 **knob:scan**
-- false: weight 1.02 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
-- true: weight 1.01 — 11 posts, 104 views, 3.2s watched, 2 shares+saves per 1,000 views
+- false: weight 1.03 — 7 posts, 81 views, 2.9s watched, 4 shares+saves per 1,000 views
+- true: weight 0.99 — 12 posts, 102 views, 3.1s watched, 2 shares+saves per 1,000 views
 
 **knob:theme**
 - wine: weight 1.07 — 3 posts, 117 views, 3.6s watched, 0 shares+saves per 1,000 views
-- green: weight 1.06 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
-- black: weight 1.06 — 2 posts, 126 views, 4.3s watched, 0 shares+saves per 1,000 views
-- teal: weight 1.00 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- green: weight 1.07 — 2 posts, 93 views, 3.2s watched, 11 shares+saves per 1,000 views
+- teal: weight 1.01 — 3 posts, 58 views, 2.8s watched, 0 shares+saves per 1,000 views
+- black: weight 1.01 — 3 posts, 119 views, 4.2s watched, 0 shares+saves per 1,000 views
 - silver: weight 1.00 — 3 posts, 104 views, 3.0s watched, 4 shares+saves per 1,000 views
 - purple: weight 1.00 — 1 post, 101 views, 2.9s watched, 10 shares+saves per 1,000 views
+- blue: weight 0.99 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 - pink: weight 0.98 — 2 posts, 89 views, 2.7s watched, 0 shares+saves per 1,000 views
 - orange: weight 0.98 — 2 posts, 63 views, 2.9s watched, 0 shares+saves per 1,000 views
-- blue: weight 0.98 — 3 posts, 81 views, 2.9s watched, 0 shares+saves per 1,000 views
 
 **knob:tint**
 - 0.0: weight 1.05 — 2 posts, 126 views, 3.0s watched, 0 shares+saves per 1,000 views
-- 0.4: weight 1.03 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
+- 0.4: weight 1.04 — 1 post, 117 views, 4.2s watched, 0 shares+saves per 1,000 views
 
 **knob:wall**
 - plasma: weight 1.09 — 4 posts, 118 views, 4.2s watched, 2 shares+saves per 1,000 views
 - grad: weight 1.05 — 3 posts, 101 views, 3.0s watched, 3 shares+saves per 1,000 views
 - tiles: weight 1.04 — 3 posts, 74 views, 3.0s watched, 5 shares+saves per 1,000 views
 - rings: weight 1.03 — 3 posts, 115 views, 3.2s watched, 0 shares+saves per 1,000 views
-- clouds: weight 0.99 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
+- clouds: weight 1.00 — 1 post, 105 views, 2.6s watched, 10 shares+saves per 1,000 views
 - bars: weight 0.98 — 2 posts, 88 views, 3.2s watched, 0 shares+saves per 1,000 views
-- stars: weight 0.96 — 3 posts, 81 views, 1.9s watched, 0 shares+saves per 1,000 views
 - hills: weight 0.96 — 2 posts, 55 views, 2.6s watched, 0 shares+saves per 1,000 views
+- stars: weight 0.93 — 4 posts, 67 views, 1.9s watched, 0 shares+saves per 1,000 views
+
+**knob:world**
+- corridor: weight 1.01 — 1 post, 135 views, 2.5s watched, 0 shares+saves per 1,000 views
+- cube: weight 1.00 — 1 post, 110 views, 3.6s watched, 0 shares+saves per 1,000 views
 
 ## psy_station
 
-43 posts counted (7 more are too new). Typical post: 53 views, 3.4 seconds watched.
+45 posts counted (5 more are too new). Typical post: 48 views, 3.3 seconds watched.
 
 **style**
-- psy: weight 1.01 — 36 posts, 46 views, 3.6s watched, 24 shares+saves per 1,000 views
-- collage: weight 0.96 — 7 posts, 91 views, 2.5s watched, 4 shares+saves per 1,000 views
+- psy: weight 1.01 — 37 posts, 45 views, 3.6s watched, 23 shares+saves per 1,000 views
+- collage: weight 0.96 — 8 posts, 82 views, 2.4s watched, 3 shares+saves per 1,000 views
 
 **opening line**
-- with: weight 1.01 — 8 posts, 33 views, 3.6s watched, 0 shares+saves per 1,000 views
-- without: weight 1.00 — 35 posts, 57 views, 3.2s watched, 22 shares+saves per 1,000 views
+- with: weight 1.02 — 8 posts, 33 views, 3.6s watched, 0 shares+saves per 1,000 views
+- without: weight 0.99 — 37 posts, 57 views, 3.0s watched, 22 shares+saves per 1,000 views
 
 **hook**
 - what do you see?: weight 1.02 — 4 posts, 33 views, 3.6s watched, 0 shares+saves per 1,000 views
@@ -854,13 +870,13 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - don't blink: weight 0.99 — 3 posts, 26 views, 3.8s watched, 0 shares+saves per 1,000 views
 
 **song**
-- full_ride: weight 1.07 — 1 post, 41 views, 6.7s watched, 195 shares+saves per 1,000 views
 - hair_of_the_dog: weight 1.05 — 3 posts, 66 views, 4.3s watched, 9 shares+saves per 1,000 views
-- evil_close_quarters: weight 1.05 — 3 posts, 53 views, 3.8s watched, 5 shares+saves per 1,000 views
-- fixation: weight 1.03 — 4 posts, 39 views, 4.1s watched, 59 shares+saves per 1,000 views
+- fixation: weight 1.04 — 4 posts, 39 views, 4.1s watched, 59 shares+saves per 1,000 views
+- evil_close_quarters: weight 1.04 — 4 posts, 39 views, 2.8s watched, 5 shares+saves per 1,000 views
+- suspended: weight 1.02 — 3 posts, 48 views, 3.4s watched, 0 shares+saves per 1,000 views
 - prologue: weight 1.02 — 6 posts, 62 views, 3.3s watched, 28 shares+saves per 1,000 views
-- suspended: weight 1.01 — 3 posts, 48 views, 3.4s watched, 0 shares+saves per 1,000 views
 - subway_maintenance: weight 1.01 — 2 posts, 59 views, 3.6s watched, 0 shares+saves per 1,000 views
+- full_ride: weight 1.01 — 2 posts, 28 views, 4.4s watched, 143 shares+saves per 1,000 views
 - myth_of_sisyphus: weight 1.00 — 3 posts, 69 views, 2.6s watched, 51 shares+saves per 1,000 views
 - silver_and_gold: weight 0.99 — 2 posts, 68 views, 3.3s watched, 0 shares+saves per 1,000 views
 - recess_rewind: weight 0.98 — 1 post, 45 views, 2.4s watched, 0 shares+saves per 1,000 views
@@ -879,56 +895,56 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **look**
 - bryce: weight 1.05 — 4 posts, 64 views, 4.3s watched, 14 shares+saves per 1,000 views
+- moire: weight 1.04 — 3 posts, 107 views, 2.6s watched, 0 shares+saves per 1,000 views
 - kaleido: weight 1.04 — 11 posts, 57 views, 3.6s watched, 42 shares+saves per 1,000 views
 - julia: weight 1.04 — 1 post, 69 views, 3.2s watched, 101 shares+saves per 1,000 views
 - voronoi: weight 1.03 — 1 post, 38 views, 4.0s watched, 0 shares+saves per 1,000 views
-- moire: weight 1.03 — 3 posts, 107 views, 2.6s watched, 0 shares+saves per 1,000 views
-- spiral: weight 1.01 — 1 post, 26 views, 3.8s watched, 0 shares+saves per 1,000 views
-- marble: weight 1.00 — 2 posts, 15 views, 5.8s watched, 33 shares+saves per 1,000 views
+- spiral: weight 1.02 — 1 post, 26 views, 3.8s watched, 0 shares+saves per 1,000 views
 - oil: weight 0.99 — 2 posts, 18 views, 3.6s watched, 0 shares+saves per 1,000 views
 - tunnel: weight 0.98 — 3 posts, 45 views, 2.6s watched, 7 shares+saves per 1,000 views
 - rings: weight 0.97 — 4 posts, 59 views, 3.0s watched, 11 shares+saves per 1,000 views
+- cells: weight 0.96 — 2 posts, 43 views, 3.6s watched, 12 shares+saves per 1,000 views
 
 **lyrics**
-- line: weight 1.06 — 10 posts, 41 views, 4.5s watched, 33 shares+saves per 1,000 views
+- line: weight 1.07 — 10 posts, 41 views, 4.5s watched, 33 shares+saves per 1,000 views
 - word: weight 0.96 — 11 posts, 41 views, 3.9s watched, 18 shares+saves per 1,000 views
 
 **palette**
 - lava: weight 1.05 — 6 posts, 118 views, 3.2s watched, 30 shares+saves per 1,000 views
 - acid: weight 1.03 — 3 posts, 66 views, 4.7s watched, 0 shares+saves per 1,000 views
+- neon: weight 1.02 — 2 posts, 59 views, 2.9s watched, 0 shares+saves per 1,000 views
 - ice: weight 1.02 — 3 posts, 29 views, 3.5s watched, 66 shares+saves per 1,000 views
 - candy: weight 1.02 — 9 posts, 41 views, 4.3s watched, 32 shares+saves per 1,000 views
-- neon: weight 1.01 — 2 posts, 59 views, 2.9s watched, 0 shares+saves per 1,000 views
 - vapor: weight 1.00 — 1 post, 123 views, 3.2s watched, 0 shares+saves per 1,000 views
 - toxic: weight 1.00 — 2 posts, 30 views, 3.9s watched, 0 shares+saves per 1,000 views
-- sunset: weight 1.00 — 1 post, 53 views, 1.7s watched, 0 shares+saves per 1,000 views
 - mono: weight 0.98 — 2 posts, 48 views, 2.8s watched, 21 shares+saves per 1,000 views
-- ocean: weight 0.95 — 7 posts, 26 views, 3.8s watched, 23 shares+saves per 1,000 views
+- ocean: weight 0.96 — 7 posts, 26 views, 3.8s watched, 23 shares+saves per 1,000 views
+- sunset: weight 0.95 — 2 posts, 34 views, 1.9s watched, 0 shares+saves per 1,000 views
 
 **length**
-- under 10s: weight 1.04 — 6 posts, 50 views, 2.5s watched, 0 shares+saves per 1,000 views
+- under 10s: weight 1.04 — 7 posts, 48 views, 2.4s watched, 0 shares+saves per 1,000 views
 - under 20s: weight 1.00 — 18 posts, 72 views, 2.9s watched, 15 shares+saves per 1,000 views
-- 20-35s: weight 1.00 — 17 posts, 45 views, 3.9s watched, 33 shares+saves per 1,000 views
+- 20-35s: weight 0.99 — 18 posts, 43 views, 3.9s watched, 33 shares+saves per 1,000 views
 - over 35s: weight 0.95 — 2 posts, 27 views, 4.6s watched, 0 shares+saves per 1,000 views
 
 **hour posted**
+- 10:00: weight 1.05 — 3 posts, 103 views, 4.3s watched, 19 shares+saves per 1,000 views
 - 19:00: weight 1.04 — 4 posts, 35 views, 3.2s watched, 48 shares+saves per 1,000 views
 - 13:00: weight 1.04 — 3 posts, 117 views, 4.1s watched, 4 shares+saves per 1,000 views
-- 10:00: weight 1.04 — 3 posts, 103 views, 4.3s watched, 19 shares+saves per 1,000 views
-- 21:00: weight 1.03 — 5 posts, 89 views, 4.3s watched, 7 shares+saves per 1,000 views
 - 14:00: weight 1.03 — 4 posts, 49 views, 3.1s watched, 49 shares+saves per 1,000 views
-- 23:00: weight 1.00 — 1 post, 79 views, 4.2s watched, 89 shares+saves per 1,000 views
+- 21:00: weight 1.02 — 6 posts, 73 views, 3.6s watched, 7 shares+saves per 1,000 views
+- 23:00: weight 1.01 — 1 post, 79 views, 4.2s watched, 89 shares+saves per 1,000 views
+- 11:00: weight 1.01 — 3 posts, 41 views, 4.0s watched, 0 shares+saves per 1,000 views
 - 16:00: weight 1.00 — 4 posts, 92 views, 3.0s watched, 9 shares+saves per 1,000 views
-- 11:00: weight 1.00 — 3 posts, 41 views, 4.0s watched, 0 shares+saves per 1,000 views
 - 18:00: weight 0.98 — 5 posts, 48 views, 2.8s watched, 40 shares+saves per 1,000 views
-- 22:00: weight 0.97 — 1 post, 13 views, 5.0s watched, 0 shares+saves per 1,000 views
+- 17:00: weight 0.98 — 2 posts, 22 views, 4.8s watched, 0 shares+saves per 1,000 views
 
 **caption**
 - what do you see in this? wrong answers only: weight 1.06 — 3 posts, 57 views, 3.0s watched, 64 shares+saves per 1,000 views
+- pov: the song starts looking back at you: weight 1.05 — 3 posts, 69 views, 3.2s watched, 33 shares+saves per 1,000 views
 - Subway Maintenance – Close Quarters: weight 1.05 — 1 post, 89 views, 4.7s watched, 0 shares+saves per 1,000 views
 - this one breathes if you stare long enough: weight 1.04 — 1 post, 119 views, 4.1s watched, 8 shares+saves per 1,000 views
 - send this to the friend who would stare at it for an hour: weight 1.04 — 4 posts, 56 views, 4.2s watched, 32 shares+saves per 1,000 views
-- pov: the song starts looking back at you: weight 1.04 — 3 posts, 69 views, 3.2s watched, 33 shares+saves per 1,000 views
 - tag someone who needs 20 seconds of this: weight 1.03 — 2 posts, 109 views, 3.4s watched, 9 shares+saves per 1,000 views
 - Silver and Gold – Close Quarters: weight 1.02 — 1 post, 114 views, 2.7s watched, 0 shares+saves per 1,000 views
 - sound all the way up. don't blink.: weight 1.01 — 3 posts, 109 views, 4.7s watched, 8 shares+saves per 1,000 views
@@ -937,28 +953,28 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **knob:contour**
 - true: weight 1.04 — 6 posts, 93 views, 3.4s watched, 43 shares+saves per 1,000 views
-- false: weight 1.01 — 12 posts, 46 views, 2.8s watched, 3 shares+saves per 1,000 views
+- false: weight 0.99 — 13 posts, 45 views, 2.7s watched, 3 shares+saves per 1,000 views
 
 **knob:cut**
-- tight: weight 1.02 — 13 posts, 71 views, 3.2s watched, 19 shares+saves per 1,000 views
-- short: weight 1.02 — 7 posts, 53 views, 2.4s watched, 0 shares+saves per 1,000 views
-- full: weight 0.94 — 5 posts, 45 views, 2.5s watched, 29 shares+saves per 1,000 views
+- tight: weight 1.03 — 13 posts, 71 views, 3.2s watched, 19 shares+saves per 1,000 views
+- short: weight 1.02 — 8 posts, 50 views, 2.3s watched, 0 shares+saves per 1,000 views
+- full: weight 0.92 — 6 posts, 37 views, 2.5s watched, 27 shares+saves per 1,000 views
 
 **knob:density**
-- 0.45: weight 1.04 — 2 posts, 74 views, 3.3s watched, 14 shares+saves per 1,000 views
-- 0.6: weight 0.96 — 1 post, 29 views, 2.5s watched, 0 shares+saves per 1,000 views
+- 0.45: weight 1.05 — 2 posts, 74 views, 3.3s watched, 14 shares+saves per 1,000 views
+- 0.6: weight 0.96 — 2 posts, 25 views, 2.1s watched, 0 shares+saves per 1,000 views
 - 0.75: weight 0.94 — 4 posts, 97 views, 2.0s watched, 0 shares+saves per 1,000 views
 
 **knob:feedback**
 - false: weight 1.04 — 7 posts, 57 views, 3.0s watched, 29 shares+saves per 1,000 views
-- true: weight 1.01 — 11 posts, 38 views, 3.4s watched, 13 shares+saves per 1,000 views
+- true: weight 0.99 — 12 posts, 33 views, 3.3s watched, 12 shares+saves per 1,000 views
 
 **knob:field**
+- moire: weight 1.04 — 3 posts, 107 views, 2.6s watched, 0 shares+saves per 1,000 views
 - julia: weight 1.04 — 1 post, 69 views, 3.2s watched, 101 shares+saves per 1,000 views
 - voronoi: weight 1.03 — 1 post, 38 views, 4.0s watched, 0 shares+saves per 1,000 views
-- moire: weight 1.03 — 3 posts, 107 views, 2.6s watched, 0 shares+saves per 1,000 views
 - kaleido: weight 1.03 — 5 posts, 57 views, 3.0s watched, 39 shares+saves per 1,000 views
-- spiral: weight 1.01 — 1 post, 26 views, 3.8s watched, 0 shares+saves per 1,000 views
+- spiral: weight 1.02 — 1 post, 26 views, 3.8s watched, 0 shares+saves per 1,000 views
 - bryce: weight 1.01 — 1 post, 71 views, 3.4s watched, 0 shares+saves per 1,000 views
 - rings: weight 1.00 — 1 post, 53 views, 1.7s watched, 0 shares+saves per 1,000 views
 - oil: weight 0.99 — 2 posts, 18 views, 3.6s watched, 0 shares+saves per 1,000 views
@@ -967,108 +983,108 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 
 **knob:font**
 - DejaVuSerif-Bold.ttf: weight 1.04 — 7 posts, 53 views, 3.0s watched, 38 shares+saves per 1,000 views
-- Poppins-Bold.ttf: weight 1.02 — 6 posts, 41 views, 3.3s watched, 30 shares+saves per 1,000 views
+- Poppins-Bold.ttf: weight 0.99 — 7 posts, 38 views, 3.2s watched, 28 shares+saves per 1,000 views
 - Poppins-Black.ttf: weight 0.99 — 5 posts, 107 views, 3.2s watched, 0 shares+saves per 1,000 views
 
 **knob:grain**
-- false: weight 1.04 — 6 posts, 63 views, 3.2s watched, 22 shares+saves per 1,000 views
-- true: weight 1.00 — 12 posts, 46 views, 3.0s watched, 20 shares+saves per 1,000 views
+- true: weight 1.01 — 12 posts, 46 views, 3.0s watched, 20 shares+saves per 1,000 views
+- false: weight 1.01 — 7 posts, 57 views, 3.2s watched, 22 shares+saves per 1,000 views
 
 **knob:ground**
 - field: weight 0.99 — 4 posts, 108 views, 2.5s watched, 2 shares+saves per 1,000 views
-- void: weight 0.95 — 3 posts, 29 views, 2.5s watched, 7 shares+saves per 1,000 views
+- void: weight 0.96 — 4 posts, 29 views, 2.1s watched, 6 shares+saves per 1,000 views
 
 **knob:lyrics**
-- line: weight 1.03 — 5 posts, 57 views, 3.9s watched, 45 shares+saves per 1,000 views
-- word: weight 1.01 — 6 posts, 57 views, 3.3s watched, 21 shares+saves per 1,000 views
-- none: weight 1.00 — 7 posts, 48 views, 2.4s watched, 0 shares+saves per 1,000 views
+- line: weight 1.04 — 5 posts, 57 views, 3.9s watched, 45 shares+saves per 1,000 views
+- word: weight 1.02 — 6 posts, 57 views, 3.3s watched, 21 shares+saves per 1,000 views
+- none: weight 0.98 — 8 posts, 43 views, 2.2s watched, 0 shares+saves per 1,000 views
 
 **knob:mirror**
-- false: weight 1.04 — 7 posts, 53 views, 3.2s watched, 46 shares+saves per 1,000 views
 - true: weight 1.01 — 11 posts, 48 views, 3.0s watched, 3 shares+saves per 1,000 views
+- false: weight 1.01 — 8 posts, 45 views, 3.2s watched, 44 shares+saves per 1,000 views
 
 **knob:motif**
-- eye: weight 1.07 — 4 posts, 68 views, 3.3s watched, 0 shares+saves per 1,000 views
-- none: weight 1.03 — 7 posts, 53 views, 3.4s watched, 53 shares+saves per 1,000 views
+- none: weight 1.04 — 7 posts, 53 views, 3.4s watched, 53 shares+saves per 1,000 views
+- eye: weight 1.03 — 5 posts, 48 views, 2.6s watched, 0 shares+saves per 1,000 views
 - star: weight 0.99 — 3 posts, 57 views, 3.0s watched, 9 shares+saves per 1,000 views
 - poly: weight 0.98 — 1 post, 107 views, 2.1s watched, 0 shares+saves per 1,000 views
-- cube: weight 0.97 — 3 posts, 29 views, 3.5s watched, 0 shares+saves per 1,000 views
+- cube: weight 0.98 — 3 posts, 29 views, 3.5s watched, 0 shares+saves per 1,000 views
 
 **knob:pal**
 - lava: weight 1.07 — 2 posts, 130 views, 3.4s watched, 54 shares+saves per 1,000 views
 - acid: weight 1.05 — 1 post, 89 views, 4.7s watched, 0 shares+saves per 1,000 views
+- neon: weight 1.02 — 2 posts, 59 views, 2.9s watched, 0 shares+saves per 1,000 views
 - ice: weight 1.02 — 3 posts, 29 views, 3.5s watched, 66 shares+saves per 1,000 views
-- neon: weight 1.01 — 2 posts, 59 views, 2.9s watched, 0 shares+saves per 1,000 views
 - vapor: weight 1.00 — 1 post, 123 views, 3.2s watched, 0 shares+saves per 1,000 views
 - toxic: weight 1.00 — 2 posts, 30 views, 3.9s watched, 0 shares+saves per 1,000 views
-- sunset: weight 1.00 — 1 post, 53 views, 1.7s watched, 0 shares+saves per 1,000 views
 - ocean: weight 0.98 — 3 posts, 45 views, 2.4s watched, 0 shares+saves per 1,000 views
 - mono: weight 0.98 — 2 posts, 48 views, 2.8s watched, 21 shares+saves per 1,000 views
 - candy: weight 0.97 — 1 post, 8 views, 2.1s watched, 0 shares+saves per 1,000 views
+- sunset: weight 0.95 — 2 posts, 34 views, 1.9s watched, 0 shares+saves per 1,000 views
 
 **knob:palette**
 - circuit: weight 1.01 — 1 post, 29 views, 2.5s watched, 34 shares+saves per 1,000 views
-- temple: weight 0.99 — 2 posts, 96 views, 2.9s watched, 5 shares+saves per 1,000 views
-- ice: weight 0.94 — 4 posts, 97 views, 2.4s watched, 0 shares+saves per 1,000 views
+- temple: weight 1.00 — 2 posts, 96 views, 2.9s watched, 5 shares+saves per 1,000 views
+- ice: weight 0.95 — 5 posts, 91 views, 2.2s watched, 0 shares+saves per 1,000 views
 
 **knob:poster**
 - false: weight 1.04 — 8 posts, 41 views, 3.1s watched, 30 shares+saves per 1,000 views
-- true: weight 1.00 — 10 posts, 63 views, 3.2s watched, 14 shares+saves per 1,000 views
+- true: weight 0.98 — 11 posts, 57 views, 3.2s watched, 14 shares+saves per 1,000 views
 
 **knob:ring**
 - false: weight 1.06 — 10 posts, 50 views, 3.4s watched, 21 shares+saves per 1,000 views
-- true: weight 0.98 — 8 posts, 51 views, 3.1s watched, 20 shares+saves per 1,000 views
+- true: weight 0.96 — 9 posts, 45 views, 3.0s watched, 20 shares+saves per 1,000 views
 
 **knob:second**
-- marble: weight 1.04 — 3 posts, 71 views, 3.5s watched, 63 shares+saves per 1,000 views
+- marble: weight 1.05 — 3 posts, 71 views, 3.5s watched, 63 shares+saves per 1,000 views
 - warp: weight 1.02 — 5 posts, 53 views, 2.6s watched, 25 shares+saves per 1,000 views
-- rings: weight 1.02 — 2 posts, 37 views, 3.1s watched, 0 shares+saves per 1,000 views
-- none: weight 1.01 — 5 posts, 39 views, 3.9s watched, 8 shares+saves per 1,000 views
+- none: weight 1.02 — 5 posts, 39 views, 3.9s watched, 8 shares+saves per 1,000 views
 - spiral: weight 0.97 — 3 posts, 107 views, 2.4s watched, 0 shares+saves per 1,000 views
+- rings: weight 0.97 — 3 posts, 26 views, 2.4s watched, 0 shares+saves per 1,000 views
 
 **knob:speed**
-- 0.6: weight 1.07 — 7 posts, 71 views, 3.9s watched, 27 shares+saves per 1,000 views
 - 1.6: weight 1.04 — 2 posts, 58 views, 2.8s watched, 60 shares+saves per 1,000 views
+- 0.6: weight 1.04 — 8 posts, 54 views, 3.8s watched, 27 shares+saves per 1,000 views
 - 1.0: weight 0.96 — 9 posts, 45 views, 2.7s watched, 4 shares+saves per 1,000 views
 
 **knob:strobe**
 - false: weight 1.05 — 12 posts, 63 views, 3.1s watched, 27 shares+saves per 1,000 views
-- true: weight 0.97 — 6 posts, 32 views, 3.7s watched, 0 shares+saves per 1,000 views
+- true: weight 0.95 — 7 posts, 26 views, 3.5s watched, 0 shares+saves per 1,000 views
 
 **knob:sym**
-- 8: weight 1.05 — 4 posts, 97 views, 3.3s watched, 36 shares+saves per 1,000 views
+- 8: weight 1.06 — 4 posts, 97 views, 3.3s watched, 36 shares+saves per 1,000 views
 - 12: weight 1.04 — 2 posts, 32 views, 3.9s watched, 0 shares+saves per 1,000 views
-- 6: weight 1.03 — 4 posts, 98 views, 2.5s watched, 0 shares+saves per 1,000 views
+- 6: weight 1.00 — 5 posts, 89 views, 2.4s watched, 0 shares+saves per 1,000 views
 - 4: weight 0.99 — 2 posts, 18 views, 3.6s watched, 0 shares+saves per 1,000 views
 - 5: weight 0.96 — 6 posts, 42 views, 2.8s watched, 37 shares+saves per 1,000 views
 
 **knob:word_y**
-- 0.72: weight 1.04 — 10 posts, 64 views, 2.8s watched, 21 shares+saves per 1,000 views
-- 0.5: weight 0.99 — 8 posts, 32 views, 3.4s watched, 21 shares+saves per 1,000 views
+- 0.72: weight 1.02 — 11 posts, 57 views, 2.7s watched, 21 shares+saves per 1,000 views
+- 0.5: weight 1.00 — 8 posts, 32 views, 3.4s watched, 21 shares+saves per 1,000 views
 
 ## nostalgia
 
-18 posts counted (5 more are too new). Typical post: 55 views, 2.7 seconds watched.
+19 posts counted (4 more are too new). Typical post: 54 views, 2.7 seconds watched.
 
 **opening line**
-- with: weight 1.02 — 12 posts, 64 views, 2.9s watched, 3 shares+saves per 1,000 views
+- with: weight 1.02 — 13 posts, 57 views, 2.9s watched, 3 shares+saves per 1,000 views
 - without: weight 0.98 — 6 posts, 50 views, 2.0s watched, 6 shares+saves per 1,000 views
 
 **hook**
 - have you seen this place?: weight 1.06 — 2 posts, 157 views, 3.2s watched, 0 shares+saves per 1,000 views
 - don't turn around: weight 1.05 — 2 posts, 121 views, 3.0s watched, 4 shares+saves per 1,000 views
-- 3am. the music is still on: weight 1.02 — 4 posts, 52 views, 3.2s watched, 5 shares+saves per 1,000 views
+- 3am. the music is still on: weight 1.02 — 5 posts, 48 views, 3.3s watched, 5 shares+saves per 1,000 views
 - sound on: weight 0.99 — 1 post, 6 views, 2.9s watched, 0 shares+saves per 1,000 views
-- no one else is here: weight 0.96 — 2 posts, 189 views, 2.2s watched, 3 shares+saves per 1,000 views
+- no one else is here: weight 0.97 — 2 posts, 189 views, 2.2s watched, 3 shares+saves per 1,000 views
 - you've been here before: weight 0.94 — 1 post, 3 views, 2.1s watched, 0 shares+saves per 1,000 views
 
 **song**
 - suspended: weight 1.04 — 5 posts, 57 views, 3.3s watched, 4 shares+saves per 1,000 views
 - epilogue_dismissal: weight 1.03 — 1 post, 233 views, 2.8s watched, 4 shares+saves per 1,000 views
 - prologue: weight 1.02 — 3 posts, 230 views, 3.2s watched, 2 shares+saves per 1,000 views
-- evil_close_quarters: weight 1.02 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
+- talk: weight 1.01 — 2 posts, 117 views, 3.1s watched, 4 shares+saves per 1,000 views
 - silver_and_gold: weight 1.01 — 1 post, 207 views, 2.0s watched, 0 shares+saves per 1,000 views
-- talk: weight 1.00 — 1 post, 225 views, 2.3s watched, 4 shares+saves per 1,000 views
+- evil_close_quarters: weight 1.01 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
 - myth_of_sisyphus: weight 0.99 — 1 post, 6 views, 2.9s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 0.94 — 3 posts, 47 views, 2.1s watched, 10 shares+saves per 1,000 views
 - full_ride: weight 0.94 — 2 posts, 28 views, 2.1s watched, 0 shares+saves per 1,000 views
@@ -1079,14 +1095,14 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - prologue/s03-s04: weight 1.03 — 1 post, 9 views, 3.2s watched, 0 shares+saves per 1,000 views
 - epilogue_dismissal/s02: weight 1.03 — 1 post, 233 views, 2.8s watched, 4 shares+saves per 1,000 views
 - suspended/s04: weight 1.02 — 2 posts, 52 views, 3.7s watched, 10 shares+saves per 1,000 views
-- evil_close_quarters/s02-s03: weight 1.02 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
 - silver_and_gold/s01: weight 1.01 — 1 post, 207 views, 2.0s watched, 0 shares+saves per 1,000 views
+- evil_close_quarters/s02-s03: weight 1.01 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s01: weight 1.00 — 1 post, 3 views, 4.6s watched, 0 shares+saves per 1,000 views
+- talk/s04: weight 1.00 — 1 post, 9 views, 4.0s watched, 0 shares+saves per 1,000 views
 - talk/s02: weight 1.00 — 1 post, 225 views, 2.3s watched, 4 shares+saves per 1,000 views
-- myth_of_sisyphus/s05: weight 0.99 — 1 post, 6 views, 2.9s watched, 0 shares+saves per 1,000 views
 
 **length**
-- under 10s: weight 1.07 — 6 posts, 63 views, 2.7s watched, 0 shares+saves per 1,000 views
+- under 10s: weight 1.06 — 7 posts, 54 views, 2.7s watched, 0 shares+saves per 1,000 views
 - under 20s: weight 1.02 — 8 posts, 52 views, 3.0s watched, 5 shares+saves per 1,000 views
 - 20-35s: weight 0.90 — 4 posts, 100 views, 2.1s watched, 7 shares+saves per 1,000 views
 
@@ -1095,6 +1111,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - 17:00: weight 1.03 — 1 post, 72 views, 3.7s watched, 0 shares+saves per 1,000 views
 - 14:00: weight 1.03 — 1 post, 233 views, 2.8s watched, 4 shares+saves per 1,000 views
 - 11:00: weight 1.03 — 1 post, 9 views, 3.2s watched, 0 shares+saves per 1,000 views
+- 21:00: weight 1.00 — 1 post, 9 views, 4.0s watched, 0 shares+saves per 1,000 views
 - 18:00: weight 1.00 — 1 post, 3 views, 4.6s watched, 0 shares+saves per 1,000 views
 - 13:00: weight 1.00 — 4 posts, 218 views, 2.1s watched, 3 shares+saves per 1,000 views
 - 09:00: weight 0.98 — 2 posts, 136 views, 2.2s watched, 11 shares+saves per 1,000 views
@@ -1102,16 +1119,16 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - 16:00: weight 0.96 — 3 posts, 48 views, 2.1s watched, 10 shares+saves per 1,000 views
 
 **caption**
-- no one else is here. turn it up.: weight 1.06 — 2 posts, 259 views, 2.9s watched, 0 shares+saves per 1,000 views
+- no one else is here. turn it up.: weight 1.05 — 2 posts, 259 views, 2.9s watched, 0 shares+saves per 1,000 views
 - you woke up here. what do you do first?: weight 1.03 — 1 post, 9 views, 3.2s watched, 0 shares+saves per 1,000 views
 - recorded over a birthday tape: weight 1.03 — 1 post, 233 views, 2.8s watched, 4 shares+saves per 1,000 views
 - if you remember this hallway you had a good childhood: weight 1.03 — 2 posts, 148 views, 3.0s watched, 3 shares+saves per 1,000 views
 - pause it and look behind you: weight 1.02 — 1 post, 48 views, 4.1s watched, 21 shares+saves per 1,000 views
-- Evil Close Quarters – Close Quarters: weight 1.02 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
 - Silver and Gold – Close Quarters: weight 1.01 — 1 post, 207 views, 2.0s watched, 0 shares+saves per 1,000 views
+- Evil Close Quarters – Close Quarters: weight 1.01 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
 - the mall after the lights go off: weight 1.00 — 1 post, 3 views, 4.6s watched, 0 shares+saves per 1,000 views
+- a hallway you walked once in 2004: weight 1.00 — 1 post, 9 views, 4.0s watched, 0 shares+saves per 1,000 views
 - you've been here before. sound on.: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
-- the pool after everyone went home: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 
 **knob:cut**
 - short: weight 1.03 — 4 posts, 31 views, 2.4s watched, 0 shares+saves per 1,000 views
@@ -1124,19 +1141,19 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - PLAY ▶: weight 0.95 — 5 posts, 47 views, 2.0s watched, 11 shares+saves per 1,000 views
 
 **knob:pace**
-- slow: weight 1.05 — 3 posts, 9 views, 2.7s watched, 0 shares+saves per 1,000 views
-- walk: weight 0.96 — 6 posts, 50 views, 2.1s watched, 8 shares+saves per 1,000 views
+- slow: weight 1.04 — 3 posts, 9 views, 2.7s watched, 0 shares+saves per 1,000 views
+- walk: weight 0.97 — 6 posts, 50 views, 2.1s watched, 8 shares+saves per 1,000 views
 
 **knob:place**
 - mall: weight 1.05 — 2 posts, 121 views, 3.0s watched, 4 shares+saves per 1,000 views
-- pool: weight 1.02 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
+- pool: weight 1.01 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
 - parking: weight 1.01 — 2 posts, 105 views, 3.3s watched, 0 shares+saves per 1,000 views
 - hotel: weight 0.99 — 1 post, 54 views, 2.0s watched, 0 shares+saves per 1,000 views
 - school: weight 0.98 — 1 post, 35 views, 2.2s watched, 29 shares+saves per 1,000 views
 - backrooms: weight 0.95 — 2 posts, 138 views, 1.7s watched, 11 shares+saves per 1,000 views
 
 **knob:stamp**
-- none: weight 1.03 — 5 posts, 47 views, 2.8s watched, 6 shares+saves per 1,000 views
+- none: weight 1.02 — 5 posts, 47 views, 2.8s watched, 6 shares+saves per 1,000 views
 - date: weight 0.97 — 4 posts, 44 views, 2.1s watched, 6 shares+saves per 1,000 views
 
 **knob:tape**
@@ -1145,9 +1162,9 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - worn: weight 0.97 — 4 posts, 127 views, 2.0s watched, 6 shares+saves per 1,000 views
 
 **knob:tint**
-- warm: weight 1.02 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
 - neutral: weight 1.02 — 4 posts, 31 views, 2.6s watched, 0 shares+saves per 1,000 views
-- cold: weight 1.00 — 2 posts, 134 views, 2.5s watched, 7 shares+saves per 1,000 views
+- warm: weight 1.01 — 1 post, 2 views, 2.7s watched, 0 shares+saves per 1,000 views
+- cold: weight 1.01 — 2 posts, 134 views, 2.5s watched, 7 shares+saves per 1,000 views
 - green: weight 0.95 — 2 posts, 138 views, 1.7s watched, 11 shares+saves per 1,000 views
 
 ## nick_studio
@@ -1210,9 +1227,9 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 - prologue: weight 1.03 — 4 posts, 271 views, 5.3s watched, 8 shares+saves per 1,000 views
 - suspended: weight 1.01 — 3 posts, 215 views, 6.8s watched, 26 shares+saves per 1,000 views
 - fixation: weight 1.01 — 1 post, 169 views, 7.4s watched, 12 shares+saves per 1,000 views
+- wont_be_the_same_again: weight 0.97 — 3 posts, 154 views, 5.4s watched, 4 shares+saves per 1,000 views
 - talk: weight 0.97 — 1 post, 158 views, 6.0s watched, 0 shares+saves per 1,000 views
 - myth_of_sisyphus: weight 0.97 — 2 posts, 293 views, 6.4s watched, 0 shares+saves per 1,000 views
-- wont_be_the_same_again: weight 0.96 — 3 posts, 154 views, 5.4s watched, 4 shares+saves per 1,000 views
 - notta_problem: weight 0.96 — 1 post, 144 views, 5.2s watched, 0 shares+saves per 1,000 views
 
 **section**
@@ -1887,7 +1904,7 @@ Ranked on completion (25%), sends per reach (25%), comments per reach (15%), vie
 **knob:cut**
 - short: weight 1.03 — 2 posts, 68 views, 2.7s watched, 0 shares+saves per 1,000 views
 - tight: weight 1.02 — 3 posts, 16 views, 2.6s watched, 0 shares+saves per 1,000 views
-- full: weight 0.95 — 3 posts, 43 views, 4.5s watched, 0 shares+saves per 1,000 views
+- full: weight 0.96 — 3 posts, 43 views, 4.5s watched, 0 shares+saves per 1,000 views
 
 **knob:frame**
 - none: weight 1.01 — 4 posts, 93 views, 2.8s watched, 0 shares+saves per 1,000 views
@@ -2406,6 +2423,10 @@ No posts with numbers yet.
 No posts with numbers yet.
 
 ## lowpoly_stories
+
+No posts with numbers yet.
+
+## notes_college
 
 No posts with numbers yet.
 

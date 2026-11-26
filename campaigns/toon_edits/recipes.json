@@ -95,6 +95,70 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06_toon_857949.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06",
+   "style": "toon",
+   "seed": 857949,
+   "window": [
+    162.07,
+    172.11
+   ],
+   "plan": null,
+   "knobs": {
+    "pace": "beat",
+    "punch": "cut",
+    "stutter": "off",
+    "wash": "bw",
+    "frame": "tv",
+    "caption": "words",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.75,
+    "bass": 0.26,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s06_toon_173074.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s06",
+   "style": "toon",
+   "seed": 173074,
+   "window": [
+    88.56,
+    105.89
+   ],
+   "plan": null,
+   "knobs": {
+    "pace": "beat2",
+    "punch": "kick",
+    "stutter": "off",
+    "wash": "ink",
+    "frame": "full",
+    "caption": "hook",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.53,
+    "bass": 0.63,
+    "other": 0.41
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

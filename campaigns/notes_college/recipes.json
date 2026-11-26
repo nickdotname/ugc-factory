@@ -1,1 +1,137 @@
-{}
+{
+ "menu": {
+  "notes_college": {
+   "line": [
+    "c001",
+    "c002",
+    "c003",
+    "c004",
+    "c005",
+    "c006",
+    "c007",
+    "c008",
+    "c009",
+    "c010",
+    "c011",
+    "c012",
+    "c013",
+    "c014",
+    "c015",
+    "c016",
+    "c017",
+    "c018",
+    "c019",
+    "c020",
+    "c021",
+    "c022",
+    "c023",
+    "c024",
+    "c025",
+    "c026",
+    "c027",
+    "c028",
+    "c029",
+    "c030",
+    "c031",
+    "c032",
+    "c033",
+    "c034",
+    "c035",
+    "c036",
+    "c037",
+    "c038",
+    "c039",
+    "c040",
+    "c041",
+    "c042",
+    "c043",
+    "c044",
+    "c045",
+    "c046",
+    "c047",
+    "c048",
+    "c049",
+    "c050",
+    "c051",
+    "c052"
+   ],
+   "look": [
+    "citrus",
+    "lagoon",
+    "meadow",
+    "rainbow"
+   ],
+   "ink": [
+    "black",
+    "white"
+   ],
+   "face": [
+    "round",
+    "strong",
+    "tall"
+   ]
+  }
+ },
+ "nightly": [
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s03_notes_college_858929.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "notes_college",
+   "seed": 858929,
+   "window": [
+    60.07,
+    66.22
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "c033",
+    "look": "citrus",
+    "ink": "black",
+    "face": "tall",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.57,
+    "bass": 0.48,
+    "other": 0.6
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s08_notes_college_693547.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s08",
+   "style": "notes_college",
+   "seed": 693547,
+   "window": [
+    123.35,
+    140.89
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "c035",
+    "look": "meadow",
+    "ink": "white",
+    "face": "tall",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.73,
+    "bass": 0.65,
+    "other": 0.58
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  }
+ ]
+}

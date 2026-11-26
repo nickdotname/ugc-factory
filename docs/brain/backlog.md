@@ -10,7 +10,8 @@ Back to [[README]]. Ideas and half-built work, with enough detail to pick up. Ne
 ## Next
 - **Account ideas from the same day** (each needs an Instagram account made on the phone and a tester invite; four
   token slots are free, `IG_TOKEN_5`…`8`):
-  - *Reveal* ("can you guess it?"): a closed outline drawn by Fourier epicycles with N = 3, 5, 8, 20… circles, the
+  - *Reveal* ("can you guess it?"): **built 2026-11-26 for countries** as circle_atlas ([[ready-pages]]). Still open: animals, instruments, everyday objects (need our own outlines).
+    Original note:: a closed outline drawn by Fourier epicycles with N = 3, 5, 8, 20… circles, the
     error falling as N grows, the answer at the end. Our subjects only: animals, instruments, countries, everyday
     objects (the reference used Pokémon, which we cannot draw). `studio/mathviz/fourier.py` already draws
     epicycles. Difficulty tags are fine; "only true fans" / "you're a genius" lines are not.
