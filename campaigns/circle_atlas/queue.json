@@ -91,18 +91,18 @@
         {
           "account": "fourier_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-27T08:52:00-05:00"
         }
       ],
       "captions": {
         "instagram": "two circles make a blob. a hundred and fifty make a country\n🎧 Subway Maintenance – @close__quarters #geography #maps #fourier #mathart #countries\n\nstream Subway Maintenance: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
