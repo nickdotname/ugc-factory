@@ -14,8 +14,8 @@ on:
         description: plan the pushes without contacting Buffer
         type: boolean
         default: true
-  schedule:
-    - cron: "47 */4 * * *"
+  # No cron: publish.yml's clock dispatches this at 4am, 10am and 4pm New York. A cron here as well ran two top-ups
+  # at once (2026-11-26 08:56 and 09:01 UTC), and both booked the same videos.
 
 permissions:
   contents: write   # the `claimed` commit is the crash-resume guarantee
