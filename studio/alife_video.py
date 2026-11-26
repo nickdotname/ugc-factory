@@ -17,6 +17,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
+import polish as _polish
 
 W, H, FPS = 1080, 1920, 30
 GW, GH = 540, 820                                 # the simulation grid (half the picture's size)
@@ -123,6 +124,8 @@ class Video:
         if r.returncode: sys.exit('mux failed')
         json.dump(K.record(), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
+
+Video.frame = _polish.wrap(Video.frame, 'alife')      # bloom, grain, grade, vignette: studio/polish.py
 
 if __name__ == '__main__':
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]

@@ -23,6 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
+import polish as _polish
 import rocket_lib as lib
 import hook as _hook
 
@@ -149,6 +150,8 @@ class Video:
         json.dump(dict(K.record(), clips=sorted({s[2]['asset'] for s in self.plan}),
                        plan=dict(hook=self.hook, hook_angle=_hook.angle('rocket', self.hook), hook_mode='flash')), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
+
+Video.frame = _polish.wrap(Video.frame, 'rocket')      # bloom, grain, grade, vignette: studio/polish.py
 
 if __name__ == '__main__':
     song_dir, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]

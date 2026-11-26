@@ -8,3 +8,4 @@ matplotlib
 PyYAML
 sgp4
 numba            # studio/fluid_video.py: the lattice Boltzmann solver
+moderngl         # studio/gl.py: real GLSL shaders drawn off-screen (EGL/llvmpipe)

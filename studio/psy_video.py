@@ -67,6 +67,14 @@ if plan['field'] == 'bryce': plan['trip'] = K.flag('trip', .65, rng)      # the 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hook as _hook
 plan['hook'] = _hook.pick('psy', seed)                       # the line shown for the first two seconds ('' = none)
 if os.environ.get('CQ_CARDS'): plan.update(motif=None, ring=False, strobe=False)      # fact reels: nothing drawn through the text cards
+# The fields are drawn as real shaders at full size when the machine can (studio/gl.py); numpy at 432x768 is the fallback.
+GLSH = None
+if plan['field'] != 'bryce' and os.environ.get('CQ_GL', '1') != '0':
+    import gl as _gl
+    if _gl.available():
+        _r2 = random.Random(seed * 7 + 77)                       # its own dice, so every older seed keeps the rest of its plan
+        plan['relief'] = K.flag('relief', .45, _r2); plan['gl'] = True
+        GLSH = _gl.Shader(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'shaders', 'psy.glsl')).read(), (W, H), ss=float(os.environ.get('CQ_SS', '1.5')))
 ys, xs = np.mgrid[0:h, 0:w].astype(np.float32); X = (xs - w / 2) / (w / 2); Y = (ys - h / 2) / (w / 2)
 R = np.sqrt(X * X + Y * Y) + 1e-6; A = np.arctan2(Y, X)
 
@@ -218,8 +226,25 @@ def bryce(i):
     img = np.floor(img * 23 + np.tile(bay, (BH // 4, BW // 4))[..., None] + .5) / 23
     return cv2.resize(np.clip(img, 0, 1).astype(np.float32), (w, h), interpolation=cv2.INTER_NEAREST)
 
+_FI = ['kaleido', 'tunnel', 'marble', 'rings', 'oil', 'julia', 'spiral', 'moire', 'warp', 'voronoi', 'cells']
+if GLSH is not None:
+    _a, _b, _c, _d = PALS[plan['pal']]
+    GLSH.set(uField=_FI.index(plan['field']) if plan['field'] in _FI else 10, uSecond=_FI.index(plan['second']) if plan['second'] in _FI else -1,
+             uSym=int(plan['sym']), uPoster=int(plan['poster']), uContour=int(plan['contour']), uStrobe=int(plan['strobe']), uMirror=int(plan['mirror']),
+             uRelief=int(plan['relief']), uScale=plan['scale'], uSpin=plan['spin'], uWarp=plan['warp'], pa=_a, pb=_b, pc=_c, pd=_d)
+    for _k in range(7): GLSH.set(**{'uBlobs[%d]' % _k: tuple(BLOBS[_k])})
+    for _k in range(14): GLSH.set(**{'uSites[%d]' % _k: tuple(SITES[_k])})
+
 def frame(i, prev):
     if plan['field'] == 'bryce': return bryce(i - i % 2)          # 15 pictures a second, like the real thing never managed
+    if GLSH is not None:
+        T = i / FPS; m = min(1.0, (i / N - plan['flip_at']) * 6) if plan['second'] and i / N > plan['flip_at'] else 0.0
+        img = GLSH.render(uT=T * plan['speed'], uBass=BASS[i], uDrum=DRUM[i], uVox=VOX[i], uOth=OTH[i], uHue=hue_kick[i], uOnset=onset[i], uMix=m)
+        if plan['feedback'] and prev is not None:
+            z = 1.02 + .05 * BASS[i]; M = cv2.getRotationMatrix2D((W / 2, H / 2), plan['spin'] * 20, z)
+            back = cv2.warpAffine(prev, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+            k = .55 - .35 * DRUM[i]; img = img * (1 - k) + back * k
+        return img
     T = i / FPS; f = field(plan['field'], T, i)
     if plan['second'] and i / N > plan['flip_at']:           # a second pattern folds in partway through
         m = min(1.0, (i / N - plan['flip_at']) * 6); f = f * (1 - m * .6) + field(plan['second'], T * 1.1, i) * m * .6
@@ -355,7 +380,8 @@ def cards(a, t):
     im.paste(lay, (0, 0), lay); return np.asarray(im)
 
 def finish(img, i):
-    a = cv2.resize((np.clip(img, 0, 1) * 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST if plan['field'] == 'bryce' else cv2.INTER_CUBIC)
+    a = (np.clip(img, 0, 1) * 255 + .5).astype(np.uint8)
+    if a.shape[:2] != (H, W): a = cv2.resize(a, (W, H), interpolation=cv2.INTER_NEAREST if plan['field'] == 'bryce' else cv2.INTER_CUBIC)
     if plan['grain']:
         g = np.random.default_rng(seed * 100003 + i).integers(-9, 10, (H // 2, W // 2, 1), dtype=np.int16)
         a = np.clip(a.astype(np.int16) + cv2.resize(g.astype(np.float32), (W, H), interpolation=cv2.INTER_NEAREST)[..., None].astype(np.int16), 0, 255).astype(np.uint8)
@@ -387,8 +413,8 @@ if len(_pre) == _n:                                    # the end fades into the 
     _r = np.linspace(0, 1, _n)[:, None]; _x[-_n:] = _x[-_n:] * (1 - _r) + _pre * _r
 _sf.write(wav, _x * min(1.0, 0.98 / (np.abs(_x).max() + 1e-9)), _sr)
 p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', wav,
-                      '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '27'),
-                      '-maxrate', os.environ.get('CQ_MAXRATE', '2500k'), '-bufsize', os.environ.get('CQ_BUFSIZE', '5M'), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k',
+                      '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '20'),
+                      '-maxrate', os.environ.get('CQ_MAXRATE', '10M'), '-bufsize', os.environ.get('CQ_BUFSIZE', '20M'), '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k',
                       '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
 prev = None
 for i in range(N):
