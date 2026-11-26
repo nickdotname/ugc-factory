@@ -91,9 +91,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-e6e1e8c4-ab1f-40be-9352-938a1b1d79cd",
           "last_error": null,
           "scheduled_for": "2026-11-27T09:45:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "new york, cut to the beat\n🎧 Evil Close Quarters – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
