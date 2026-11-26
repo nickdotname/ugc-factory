@@ -719,6 +719,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-26T08:32:17.218644Z",
+      "item_id": "f7d0a041-7a78-4623-982d-7891b58ea7b6",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "some days this city looks like a film set\n🎧 Prologue: Before – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "some days this city looks like a film set\n🎧 Prologue: Before – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.552,
+        "anchor_y": 0.648,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-26T08:32:17.218644Z",
+      "item_id": "c022638f-457b-447d-b48f-96c0d2c3f006",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "new york, cut to the beat\n🎧 Evil Close Quarters – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife",
+      "title": null,
+      "creative": "evil_close_quarters",
+      "captions": {
+        "instagram": "new york, cut to the beat\n🎧 Evil Close Quarters – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nlink in bio to stream Evil Close Quarters"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.632,
+        "anchor_y": 0.619,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
