@@ -713,6 +713,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-26T08:39:17.007176Z",
+      "item_id": "006a7939-712a-4386-b339-736887e6c445",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "a tape that remembers the wrong frames\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "a tape that remembers the wrong frames\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nSuspended is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.532,
+        "anchor_y": 0.464,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "c2beffffc884921a061efd7492193746f070ac5dba46671500c27b77bbb67181",
+      "timestamp": "2026-11-26T08:39:17.007176Z",
+      "item_id": "cef2804a-03ba-4fed-a2c3-6a445927e5d1",
+      "hook": "hook_05.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the frames are real. the damage is new.\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "the frames are real. the damage is new.\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nlink in bio to stream Suspended"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.589,
+        "anchor_y": 0.258,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
