@@ -34,6 +34,8 @@ LOOKS = {
     'zoom':     dict(bloom=.1, thr=.85, grain=.012, vig=.18, ca=0, sat=1.02),
     'infinite': dict(bloom=.2, thr=.75, grain=.018, vig=.2, ca=0, sat=1.04),
     'tinycode': dict(bloom=.55, thr=.45, grain=.02, vig=.25, ca=.8, sat=1.05, white=.15),
+    'ascii':    dict(bloom=.45, thr=.35, grain=.015, vig=.3, ca=.8, sat=1.05),      # a terminal's phosphor glow
+    'pixel':    dict(bloom=.5, thr=.55, grain=.012, vig=.25, ca=0, sat=1.06, white=.2),      # lamps and moons glow, the code stays sharp
     'psy':      dict(bloom=.3, thr=.65, grain=.0, vig=0, ca=0, sat=1.0),
 }
 

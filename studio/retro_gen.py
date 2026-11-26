@@ -84,6 +84,10 @@ def push(api, jobs, negative, hours, steps):
     batch = time.strftime('%Y%m%d-%H%M%S')
     # 49 frames (3 s at 16 fps) is enough for a cut that lasts a bar or two, and costs about a third of 81 frames on a T4
     cfg = dict(batch=batch, hours=hours, steps=steps, frames=49, width=480, height=832, fps=16, guidance=5.0, negative=negative)
+    model = os.environ.get('RETRO_MODEL', '')                  # 'fastwan': Wan 2.2 5B in 3 steps at 704x1280 (see kernel.py)
+    if model: cfg['model'] = model
+    if model == 'fastwan' and os.environ.get('RETRO_AB'):       # a test: every prompt twice, the two ways of reading DMD's timesteps
+        jobs[:] = [dict(j, id=j['id'] + ('-w' if w else '-p'), warp=w) for j in jobs for w in (False, True)]
     src = open(KERNEL).read()
     src = src.replace('JOBS = []', 'JOBS = ' + json.dumps(jobs), 1).replace('CFG = {}', 'CFG = ' + json.dumps(cfg), 1)
     d = tempfile.mkdtemp(); open(os.path.join(d, 'kernel.py'), 'w').write(src)

@@ -18,6 +18,14 @@ on:
         description: denoising steps per clip (more is slower and cleaner)
         required: false
         default: "25"
+      model:
+        description: "'' = Wan 2.1 1.3B at 480x832; 'fastwan' = Wan 2.2 5B distilled to 3 steps at 704x1280"
+        required: false
+        default: ""
+      ab:
+        description: "fastwan test: make every prompt both ways of reading its timesteps (1 = yes)"
+        required: false
+        default: ""
   schedule:
     - cron: '23 4 * * 1,4'
   push:
@@ -53,6 +61,9 @@ jobs:
       - name: GPU hours left this week
         run: python studio/retro_gen.py quota || true
       - name: Make clips on Kaggle and add them to the library
+        env:
+          RETRO_MODEL: ${{ inputs.model || '' }}
+          RETRO_AB: ${{ inputs.ab || '' }}
         run: |
           python studio/retro_gen.py run \
             --clips "${{ contains(github.event.head_commit.message, '[retro-test]') && '2' || inputs.clips || '26' }}" \
