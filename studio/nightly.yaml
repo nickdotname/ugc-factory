@@ -89,7 +89,7 @@ targets:
     join: 30
   - campaign: vintage_archive  # vintage.media.archive: films and cartoons from before 1931, cut on the beat as old prints (studio/vintage_video.py)
     style: vintage
-    per_night: 0               # 5 until 2026-11-25: paused after an originality notice (famous public-domain films match other uploads)
+    per_night: 2               # back 2026-11-25 as ink line art (look=ink); was paused after an originality notice
     join: 30
   - campaign: nyc_daily     # nyc.daily.aesthetic: New York clips as memes and animated facts (studio/nyc_video.py)
     style: nyc

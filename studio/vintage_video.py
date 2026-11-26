@@ -230,6 +230,8 @@ class Video:
         self.look = K.pick('look', ['ink'], r)
         if self.look == 'ink':
             self.layout = 'fill'; K.CHOSEN['layout'] = 'fill'
+            if self.tint in ('green', 'night'):         # dark scenes go blotchy on the cold papers: warm paper only
+                self.tint = r.choice(['sepia', 'amber', 'bw', 'rose']); K.CHOSEN['tint'] = self.tint
             self.trip = 'none' if self.trip in ('burn', 'double') else self.trip; K.CHOSEN['trip'] = self.trip
             self.ink_pen = K.pick('pen', ['fine', 'brush'], r)
             if self.gate == 'iris': self.gate = 'rounded'; K.CHOSEN['gate'] = 'rounded'

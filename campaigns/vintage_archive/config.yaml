@@ -63,7 +63,7 @@ accounts:
   names: [vintage_ig]
 
 posting:
-  posts_per_day: 5
+  posts_per_day: 2
   start_hour: 8
   end_hour: 23
   max_buffer_queue: 10
@@ -74,7 +74,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: true                 # 2026-11-25: Instagram "may go against our originality guidelines" notice; paused while we change the format
+  paused: false                # back 2026-11-25 as ink line art, after the originality notice
   dry_run: false
 
 video:
