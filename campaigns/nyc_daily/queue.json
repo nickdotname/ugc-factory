@@ -197,9 +197,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-51768a3f-0a9f-4f53-b71a-93694db8af65",
           "last_error": null,
           "scheduled_for": "2026-11-26T15:21:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "look up next time you're in midtown\n🎧 Prologue: Before – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nlink in bio to stream Prologue: Before"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
