@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Silver and Gold by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tinycode_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T18:19:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "made of trigonometry and a kick drum\n🎧 Silver and Gold – @close__quarters #creativecoding #generativeart #mathart #python\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
