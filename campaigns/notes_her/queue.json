@@ -197,9 +197,9 @@
         {
           "account": "her_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-224e35b2-790d-4a46-9652-3a3f35107c85",
           "last_error": null,
           "scheduled_for": "2026-11-26T20:44:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "i'm fine. this is fine\n🎧 Evil Close Quarters – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
