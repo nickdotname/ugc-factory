@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "fourier_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T16:22:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the same math that compresses your music, drawing a map\n🎧 Evil Close Quarters – @close__quarters #geography #maps #fourier #mathart #countries\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "fourier_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "two circles make a blob. a hundred and fifty make a country\n🎧 Subway Maintenance – @close__quarters #geography #maps #fourier #mathart #countries\n\nstream Subway Maintenance: link in bio"
       },
