@@ -216,7 +216,7 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed); self.r = r
-        self.layout = K.pick('layout', ['strip', 'fill'], r, weights=[4, 1])
+        self.layout = K.pick('layout', ['strip', 'fill'], r, weights=[2, 3])   # 4:1 until 2026-11-25: the strip opens on three small frames; skip was 82%
         self.tint = K.pick('tint', list(TINTS), r, weights=[3, 2, 2, 1, 1, 3])
         self.hold = int(K.pick('crank', [1, 2], r))
         self.gate = K.pick('gate', ['rounded', 'iris', 'full'], r)

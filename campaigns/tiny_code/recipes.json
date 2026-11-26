@@ -365,6 +365,126 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s03_tinycode_286959.mp4",
+   "song": "silver-and-gold",
+   "section": "s03",
+   "style": "tinycode",
+   "seed": 286959,
+   "window": [
+    80.65,
+    91.21
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "knot",
+    "palette": "neon",
+    "glow": "1.5",
+    "trail": "0.55",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.79,
+    "bass": 0.75,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s10_tinycode_979189.mp4",
+   "song": "evil-close-quarters",
+   "section": "s10",
+   "style": "tinycode",
+   "seed": 979189,
+   "window": [
+    213.49,
+    225.34
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "rose",
+    "palette": "sunset",
+    "glow": "1.5",
+    "trail": "0.8",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.63,
+    "bass": 0.78,
+    "other": 0.57
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "notta_problem",
+   "file": "notta-problem_s04_tinycode_391005.mp4",
+   "song": "notta-problem",
+   "section": "s04",
+   "style": "tinycode",
+   "seed": 391005,
+   "window": [
+    82.82,
+    97.95
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "plasma",
+    "palette": "acid",
+    "glow": "1.5",
+    "trail": "0.0",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.27,
+    "bass": 0.3,
+    "other": 0.9
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s03_tinycode_950580.mp4",
+   "song": "recess-rewind",
+   "section": "s03",
+   "style": "tinycode",
+   "seed": 950580,
+   "window": [
+    35.57,
+    53.01
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "orbits",
+    "palette": "sunset",
+    "glow": "1.5",
+    "trail": "0.0",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.54,
+    "bass": 0.68,
+    "other": 0.76
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

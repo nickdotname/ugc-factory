@@ -431,6 +431,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-26T00:48:24.427377Z",
+      "item_id": "7bee4a3b-ab03-445b-a4e7-5a5236b20653",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the snare drops new ones in\n🎧 Suspended – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "the snare drops new ones in\n🎧 Suspended – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Suspended"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.37,
+        "anchor_y": 0.387,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

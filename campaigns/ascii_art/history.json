@@ -823,6 +823,114 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-26T00:48:10.252796Z",
+      "item_id": "229f0d7a-5893-4102-8ee9-ea416afcd85f",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "it moves with the kick. sound on.\n🎧 Subway Maintenance – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python",
+      "title": null,
+      "creative": "subway_maintenance",
+      "captions": {
+        "instagram": "it moves with the kick. sound on.\n🎧 Subway Maintenance – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nSubway Maintenance is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.613,
+        "anchor_y": 0.426,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": "igo-d5aca399-ecc3-4204-aa41-ed77d2bc7367",
+      "post_ids": {
+        "ascii_ig": "igo-d5aca399-ecc3-4204-aa41-ed77d2bc7367"
+      },
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-26T00:48:10.252796Z",
+      "item_id": "6ebe3d7f-d98b-4a9e-85ad-43a41815274e",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "every frame is a wall of text\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "every frame is a wall of text\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nlink in bio to stream Suspended"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.536,
+        "anchor_y": 0.66,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": "igo-990fba29-3a80-41b6-9f7c-aad65f6f8929",
+      "post_ids": {
+        "ascii_ig": "igo-990fba29-3a80-41b6-9f7c-aad65f6f8929"
+      },
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-26T00:48:10.252796Z",
+      "item_id": "96067707-28d6-44c1-82e7-3cc7c2bbfece",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "pause anywhere. it's all still code.\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python",
+      "title": null,
+      "creative": "passage_waiting",
+      "captions": {
+        "instagram": "pause anywhere. it's all still code.\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nstream Passage (Waiting): link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.336,
+        "anchor_y": 0.634,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": "igo-1971078f-f769-44bc-bf08-02eca20e853e",
+      "post_ids": {
+        "ascii_ig": "igo-1971078f-f769-44bc-bf08-02eca20e853e"
+      },
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

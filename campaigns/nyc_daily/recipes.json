@@ -4,17 +4,23 @@
   "nyc": {
    "kind": [
     "meme",
-    "fact"
+    "fact",
+    "walk",
+    "thennow"
    ],
    "look": [
     "natural",
     "warm",
     "night",
-    "film"
+    "film",
+    "cine",
+    "clean"
    ],
    "pace": [
     "1",
-    "2"
+    "2",
+    "beat2",
+    "bar"
    ],
    "source": [
     "nyc",
@@ -68,6 +74,12 @@
     "27",
     "28",
     "29"
+   ],
+   "mood": [
+    "night",
+    "sunset",
+    "snow",
+    "day"
    ]
   }
  },
@@ -536,6 +548,161 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "prologue",
+   "file": "prologue_s06_nyc_548589.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "nyc",
+   "seed": 548589,
+   "window": [
+    126.49,
+    133.04
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "mood": "night",
+    "look": "film",
+    "pace": "bar",
+    "line": "27",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.89,
+    "drums": 0.66,
+    "bass": 0.69,
+    "other": 0.18
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s06_nyc_456744.mp4",
+   "song": "evil-close-quarters",
+   "section": "s06",
+   "style": "nyc",
+   "seed": 456744,
+   "window": [
+    129.87,
+    141.72
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "mood": "day",
+    "look": "film",
+    "pace": "beat2",
+    "line": "10",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.78,
+    "bass": 0.69,
+    "other": 0.76
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s08_nyc_861247.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s08",
+   "style": "nyc",
+   "seed": 861247,
+   "window": [
+    123.35,
+    140.89
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "mood": "snow",
+    "look": "film",
+    "pace": "beat2",
+    "line": "26",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.73,
+    "bass": 0.65,
+    "other": 0.58
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s05_nyc_210475.mp4",
+   "song": "recess-rewind",
+   "section": "s05",
+   "style": "nyc",
+   "seed": 210475,
+   "window": [
+    70.16,
+    87.33
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "mood": "night",
+    "look": "night",
+    "pace": "bar",
+    "line": "14",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.58,
+    "bass": 0.7,
+    "other": 0.73
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "full_ride",
+   "file": "full-ride_s03_nyc_513846.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "nyc",
+   "seed": 513846,
+   "window": [
+    51.55,
+    66.84
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "meme",
+    "mood": "night",
+    "look": "night",
+    "pace": "bar",
+    "line": "4",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.69,
+    "drums": 0.68,
+    "bass": 0.74,
+    "other": 0.66
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

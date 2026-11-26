@@ -812,6 +812,39 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "full_ride",
+   "file": "full-ride_s04_math_923884.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "math",
+   "seed": 923884,
+   "window": [
+    73.1,
+    95.63
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "zeta",
+    "theme": "midnight",
+    "font": "montserrat",
+    "grid": "dots",
+    "shake": "1.0",
+    "glow": "0.6",
+    "chip": "pill",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.74,
+    "bass": 0.68,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
   }
  ]
 }

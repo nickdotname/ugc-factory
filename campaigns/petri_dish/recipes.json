@@ -384,6 +384,36 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s01_alife_3710.mp4",
+   "song": "suspended",
+   "section": "s01",
+   "style": "alife",
+   "seed": 3710,
+   "window": [
+    18.63,
+    29.4
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "seeds",
+    "palette": "ember",
+    "sense": "9",
+    "steps": "2",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.81,
+    "bass": 0.43,
+    "other": 0.35
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

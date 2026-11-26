@@ -751,6 +751,39 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "suspended",
+   "file": "suspended_s02_rocket_246756.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "rocket",
+   "seed": 246756,
+   "window": [
+    32.99,
+    49.91
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "asis",
+    "frame": "blur",
+    "ramp": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.69,
+    "bass": 0.35,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
   }
  ]
 }

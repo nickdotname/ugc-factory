@@ -1,4 +1,48 @@
 {
-  "generated_at": "2026-11-25T22:18:31.849522Z",
-  "items": []
+  "generated_at": "2026-11-26T00:48:13.546967Z",
+  "items": [
+    {
+      "id": "bdd81204-f96e-414a-a45e-4df0624b2302",
+      "scheduled_for": "2026-11-25T20:40:00-05:00",
+      "rendered_at": "2026-11-26T00:48:13.546967Z",
+      "video_url": "https://factory.nickbenak.com/v/render-math_time-2026-11-26/bdd81204-f96e-414a-a45e-4df0624b2302.mp4",
+      "caption": "a whole lecture in one loop\n🎧 Full Ride – @close__quarters #math #calculus #mathematics #learnmath #mathisfun",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.63,
+        "anchor_y": 0.399,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "a whole lecture in one loop\n🎧 Full Ride – @close__quarters #math #calculus #mathematics #learnmath #mathisfun\n\nlink in bio to stream Full Ride"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    }
+  ]
 }

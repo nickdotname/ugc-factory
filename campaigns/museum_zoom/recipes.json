@@ -198,6 +198,70 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s03_zoom_183919.mp4",
+   "song": "passage-waiting",
+   "section": "s03",
+   "style": "zoom",
+   "seed": 183919,
+   "window": [
+    39.81,
+    58.14
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:127251",
+    "dive": "glide",
+    "mark": "none",
+    "wall": "gallery",
+    "tour": "two",
+    "hook": "who",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.74,
+    "bass": 0.84,
+    "other": 0.82
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_zoom_940309.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "zoom",
+   "seed": 940309,
+   "window": [
+    42.02,
+    65.37
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:161941",
+    "dive": "glide",
+    "mark": "none",
+    "wall": "gallery",
+    "tour": "one",
+    "hook": "where",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.4,
+    "bass": 0.83,
+    "other": 0.64
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

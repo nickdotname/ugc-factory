@@ -134,6 +134,66 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "notta_problem",
+   "file": "notta-problem_s03_notes_date_714290.mp4",
+   "song": "notta-problem",
+   "section": "s03",
+   "style": "notes_date",
+   "seed": 714290,
+   "window": [
+    74.45,
+    81.33
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d037",
+    "look": "dusk",
+    "ink": "white",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.61,
+    "drums": 0.39,
+    "bass": 0.5,
+    "other": 0.79
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_notes_date_106615.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "notes_date",
+   "seed": 106615,
+   "window": [
+    42.31,
+    59.45
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d013",
+    "look": "rainbow",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.4,
+    "bass": 0.84,
+    "other": 0.65
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

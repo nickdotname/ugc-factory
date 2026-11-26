@@ -307,6 +307,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s07_notes_him_345850.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s07",
+   "style": "notes_him",
+   "seed": 345850,
+   "window": [
+    105.89,
+    123.35
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m096",
+    "look": "meadow",
+    "ink": "white",
+    "face": "strong",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.59,
+    "bass": 0.68,
+    "other": 0.88
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s05_notes_him_498076.mp4",
+   "song": "recess-rewind",
+   "section": "s05",
+   "style": "notes_him",
+   "seed": 498076,
+   "window": [
+    70.16,
+    87.33
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m064",
+    "look": "citrus",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.58,
+    "bass": 0.7,
+    "other": 0.73
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s09_notes_him_365398.mp4",
+   "song": "evil-close-quarters",
+   "section": "s09",
+   "style": "notes_him",
+   "seed": 365398,
+   "window": [
+    184.79,
+    199.6
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m028",
+    "look": "citrus",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.67,
+    "bass": 0.8,
+    "other": 0.65
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s01_notes_him_331946.mp4",
+   "song": "subway-maintenance",
+   "section": "s01",
+   "style": "notes_him",
+   "seed": 331946,
+   "window": [
+    22.92,
+    36.03
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m080",
+    "look": "dusk",
+    "ink": "white",
+    "face": "strong",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.74,
+    "bass": 0.34,
+    "other": 0.59
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-25",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s03_notes_him_315796.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s03",
+   "style": "notes_him",
+   "seed": 315796,
+   "window": [
+    59.25,
+    66.01
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m056",
+    "look": "meadow",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.99,
+    "drums": 0.89,
+    "bass": 0.88,
+    "other": 0.17
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

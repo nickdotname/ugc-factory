@@ -85,7 +85,7 @@ targets:
     join: 30
   - campaign: retro_arcade  # retro.vibes.arcade: PS2-era game levels made on Kaggle (studio/retro_gen.py), cut on the bar
     style: retro
-    per_night: 4
+    per_night: 2               # 4 until 2026-11-25: median 16 views, the weakest style; fewer, better-spaced posts
     join: 30
   - campaign: vintage_archive  # vintage.media.archive: films and cartoons from before 1931, cut on the beat as old prints (studio/vintage_video.py)
     style: vintage
@@ -156,3 +156,8 @@ targets:
     style: notes_him
     per_night: 5
     join: 12
+  - campaign: circle_atlas     # circle.atlas (planned): countries drawn by Fourier circles (studio/reveal_video.py). Ready page:
+    style: reveal              # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=circle_atlas still renders it
+    paused: true
+    per_night: 2
+    join: 24
