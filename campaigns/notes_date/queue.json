@@ -40,7 +40,7 @@
           "network": "instagram",
           "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": "igo-904f22cd-c97c-49dd-9c74-9ac7a8fd34b1",
+          "buffer_post_id": "igo-d9496a43-5814-4c71-8709-0c7bff005d42",
           "last_error": null,
           "scheduled_for": "2026-11-27T08:18:00-05:00"
         }
@@ -91,18 +91,18 @@
         {
           "account": "date_ig",
           "network": "instagram",
-          "status": "pushed",
+          "status": "pending",
           "attempts": 0,
-          "buffer_post_id": "igo-7cc51c0e-c79f-450a-815b-c1dbbbf2fcfa",
+          "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": "2026-11-27T15:48:00-05:00"
+          "scheduled_for": null
         }
       ],
       "captions": {
         "instagram": "not me in the comments of my own life\n🎧 Full Ride – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
