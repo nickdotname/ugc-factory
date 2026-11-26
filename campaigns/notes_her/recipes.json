@@ -421,6 +421,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s02_notes_her_312282.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "notes_her",
+   "seed": 312282,
+   "window": [
+    27.33,
+    40.42
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h023",
+    "look": "orchid",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.03,
+    "drums": 0.06,
+    "bass": 0.21,
+    "other": 0.26
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s01_notes_her_935689.mp4",
+   "song": "subway-maintenance",
+   "section": "s01",
+   "style": "notes_her",
+   "seed": 935689,
+   "window": [
+    23.21,
+    35.28
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h068",
+    "look": "dusk",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.73,
+    "bass": 0.34,
+    "other": 0.58
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_notes_her_200287.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "notes_her",
+   "seed": 200287,
+   "window": [
+    25.8,
+    48.27
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h051",
+    "look": "rainbow",
+    "ink": "white",
+    "face": "round",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.91,
+    "bass": 0.9,
+    "other": 0.16
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "suspended",
+   "file": "suspended_s03_notes_her_970927.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "notes_her",
+   "seed": 970927,
+   "window": [
+    60.07,
+    72.38
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h004",
+    "look": "orchid",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.86,
+    "drums": 0.63,
+    "bass": 0.36,
+    "other": 0.54
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_notes_her_520464.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "notes_her",
+   "seed": 520464,
+   "window": [
+    46.35,
+    58.35
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h022",
+    "look": "orchid",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.39,
+    "bass": 0.84,
+    "other": 0.66
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

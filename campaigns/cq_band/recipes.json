@@ -15487,6 +15487,653 @@
    },
    "lyrics_proven": true,
    "clip": "hook_22.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s05_band_130299.mp4",
+   "song": "evil-close-quarters",
+   "section": "s05",
+   "style": "band",
+   "seed": 130299,
+   "window": [
+    101.85,
+    116.66
+   ],
+   "plan": {
+    "wall": "plasma",
+    "acc": [
+     145,
+     130,
+     147
+    ],
+    "theme": "orange",
+    "bg": [
+     200,
+     110,
+     40
+    ],
+    "segs": [
+     [
+      100.55,
+      "face+paint",
+      0,
+      [
+       "trail",
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      101.91,
+      "face+notepad",
+      1,
+      [
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      103.47,
+      "face+arr",
+      2,
+      [
+       "trail",
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      104.61,
+      "paint",
+      3,
+      [
+       "pip",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      106.99,
+      "face+cmd",
+      4,
+      [
+       "trail",
+       "stamp"
+      ]
+     ],
+     [
+      108.09,
+      "wave",
+      5,
+      [
+       "track",
+       "stamp"
+      ]
+     ],
+     [
+      109.21,
+      "player",
+      6,
+      [
+       "invert",
+       "pipwave",
+       "stamp"
+      ]
+     ],
+     [
+      110.01,
+      "face+paint",
+      7,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      111.15,
+      "face+player",
+      8,
+      [
+       "invert",
+       "pip"
+      ]
+     ],
+     [
+      112.27,
+      "paint",
+      9,
+      [
+       "trail",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      113.01,
+      "face+notepad",
+      10,
+      [
+       "invert",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      113.71,
+      "paint",
+      11,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      114.83,
+      "face+arr",
+      12,
+      [
+       "trail",
+       "track",
+       "invert",
+       "pipwave"
+      ]
+     ],
+     [
+      115.97,
+      "face+notepad",
+      13,
+      [
+       "invert",
+       "pipwave"
+      ]
+     ]
+    ],
+    "punch": 0.05,
+    "scan": false,
+    "chroma": 0,
+    "chrome": "mac",
+    "caption": "montserrat",
+    "hook": "too weird for the radio",
+    "hook_angle": "statement",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 5
+   },
+   "knobs": {
+    "theme": "orange",
+    "pictures": "0.85",
+    "wall": "plasma",
+    "punch": "0.05",
+    "scan": "false",
+    "chroma": "0",
+    "chrome": "mac",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.62,
+    "bass": 0.78,
+    "other": 0.6
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "notta_problem",
+   "file": "notta-problem_s05_lofi_809796.mp4",
+   "song": "notta-problem",
+   "section": "s05",
+   "style": "lofi",
+   "seed": 809796,
+   "window": [
+    101.28,
+    123.57
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     101.28,
+     123.57
+    ],
+    "scenes": [
+     "pop"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "chrome": "mac",
+    "wall": "stars",
+    "theme": "teal",
+    "pop": "3",
+    "tint": "0.4",
+    "pace": "2",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.75,
+    "bass": 0.55,
+    "other": 0.36
+   },
+   "lyrics_proven": true,
+   "clip": "hook_14.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s09_cursor_62519.mp4",
+   "song": "evil-close-quarters",
+   "section": "s09",
+   "style": "cursor",
+   "seed": 62519,
+   "window": [
+    184.79,
+    199.6
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "cube"
+    ]
+   },
+   "knobs": {
+    "world": "cube",
+    "glow": "purple",
+    "cursor": "mixed",
+    "drift": "1.6",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.67,
+    "bass": 0.8,
+    "other": 0.65
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "notta_problem",
+   "file": "notta-problem_notta_a1-2_cutout_774243.mp4",
+   "song": "notta-problem",
+   "section": "notta_a1-2",
+   "style": "cutout",
+   "seed": 774243,
+   "window": [
+    115.79,
+    129.54
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     115.79,
+     129.54
+    ],
+    "scenes": [
+     "big",
+     "big",
+     "big",
+     "big",
+     "big",
+     "big",
+     "big"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "big",
+    "palette": "acid",
+    "trip": "glitch",
+    "outline": "0",
+    "words": "none",
+    "bg": "water",
+    "tone": "duo",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.69,
+    "drums": 0.65,
+    "bass": 0.8,
+    "other": 0.29
+   },
+   "lyrics_proven": true,
+   "clip": "hook_15.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "fixation",
+   "file": "fixation_fixation_b1-1_cutout_424116.mp4",
+   "song": "fixation",
+   "section": "fixation_b1-1",
+   "style": "cutout",
+   "seed": 424116,
+   "window": [
+    102.19,
+    114.15
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     102.19,
+     114.15
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "big",
+     "echo",
+     "echo",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "echo",
+    "palette": "acid",
+    "trip": "melt",
+    "outline": "0",
+    "words": "big",
+    "bg": "archive",
+    "tone": "duo",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.82,
+    "bass": 0.76,
+    "other": 0.57
+   },
+   "lyrics_proven": true,
+   "clip": "hook_17.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-4_cutout_538427.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-4",
+   "style": "cutout",
+   "seed": 538427,
+   "window": [
+    40.77,
+    51.47
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     40.77,
+     51.47
+    ],
+    "scenes": [
+     "big",
+     "grid",
+     "big",
+     "big",
+     "echo",
+     "big",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "big",
+    "palette": "edu",
+    "trip": "melt",
+    "outline": "0",
+    "words": "none",
+    "bg": "water",
+    "tone": "duo",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.7,
+    "bass": 0.67,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_15.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_wbtsa_a2-2_cutout_300936.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "wbtsa_a2-2",
+   "style": "cutout",
+   "seed": 300936,
+   "window": [
+    152.38,
+    164.78
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     152.38,
+     164.78
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "grid",
+     "grid",
+     "echo"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "echo",
+    "palette": "mono",
+    "trip": "melt",
+    "outline": "8",
+    "words": "none",
+    "bg": "city",
+    "tone": "duo",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.76,
+    "drums": 0.8,
+    "bass": 0.49,
+    "other": 0.27
+   },
+   "lyrics_proven": true,
+   "clip": "hook_23.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "notta_problem",
+   "file": "notta-problem_notta_a1-3_cutout_50854.mp4",
+   "song": "notta-problem",
+   "section": "notta_a1-3",
+   "style": "cutout",
+   "seed": 50854,
+   "window": [
+    123.69,
+    139.69
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     123.69,
+     139.69
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "duo",
+    "palette": "acid",
+    "trip": "glitch",
+    "outline": "0",
+    "words": "none",
+    "bg": "space",
+    "tone": "soft",
+    "hook": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.8,
+    "bass": 0.37,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_16.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "fixation",
+   "file": "fixation_fixation_a1-0_cutout_940683.mp4",
+   "song": "fixation",
+   "section": "fixation_a1-0",
+   "style": "cutout",
+   "seed": 940683,
+   "window": [
+    70.54,
+    86.54
+   ],
+   "plan": {
+    "hook": "the band, dancing to the band",
+    "window": [
+     70.54,
+     86.54
+    ],
+    "scenes": [
+     "grid",
+     "echo",
+     "grid",
+     "big",
+     "echo",
+     "big",
+     "echo",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "mix",
+    "palette": "candy",
+    "trip": "none",
+    "outline": "14",
+    "bg": "city",
+    "tone": "duo",
+    "hook": "the band, dancing to the band",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.89,
+    "bass": 0.64,
+    "other": 0.43
+   },
+   "lyrics_proven": false,
+   "clip": "hook_16.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-5_cutout_831653.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-5",
+   "style": "cutout",
+   "seed": 831653,
+   "window": [
+    45.89,
+    59.65
+   ],
+   "plan": {
+    "hook": "the band, dancing to the band",
+    "window": [
+     45.89,
+     59.65
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "grid",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "mix",
+    "palette": "mono",
+    "trip": "melt",
+    "outline": "8",
+    "words": "big",
+    "bg": "color",
+    "tone": "soft",
+    "hook": "the band, dancing to the band",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.67,
+    "bass": 0.68,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_16.mp4"
   }
  ],
  "since": "2026-11-22T06:56:33.728767+00:00",

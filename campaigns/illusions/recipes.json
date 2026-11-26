@@ -488,6 +488,36 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s09_illusion_682452.mp4",
+   "song": "recess-rewind",
+   "section": "s09",
+   "style": "illusion",
+   "seed": 682452,
+   "window": [
+    138.54,
+    156.06
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "stripes",
+    "shape": "key",
+    "palette": "ember",
+    "ask": "flip",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.7,
+    "bass": 0.64,
+    "other": 0.78
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ]
 }

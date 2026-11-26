@@ -159,6 +159,38 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s02_toon_964571.mp4",
+   "song": "silver-and-gold",
+   "section": "s02",
+   "style": "toon",
+   "seed": 964571,
+   "window": [
+    50.6,
+    75.35
+   ],
+   "plan": null,
+   "knobs": {
+    "pace": "beat",
+    "punch": "cut",
+    "stutter": "off",
+    "wash": "cream",
+    "frame": "tv",
+    "caption": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.49,
+    "drums": 0.55,
+    "bass": 0.84,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

@@ -262,6 +262,70 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s05_zoom_458073.mp4",
+   "song": "prologue",
+   "section": "s05",
+   "style": "zoom",
+   "seed": 458073,
+   "window": [
+    104.64,
+    126.27
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:95389",
+    "dive": "glide",
+    "mark": "none",
+    "wall": "blur",
+    "tour": "one",
+    "hook": "where",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.77,
+    "bass": 0.61,
+    "other": 0.22
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s08_zoom_688891.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s08",
+   "style": "zoom",
+   "seed": 688891,
+   "window": [
+    181.63,
+    188.65
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:135073",
+    "dive": "glide",
+    "mark": "ring",
+    "wall": "blur",
+    "tour": "one",
+    "hook": "where",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.35,
+    "drums": 0.35,
+    "bass": 0.38,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

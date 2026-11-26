@@ -59,6 +59,12 @@
     "clear",
     "rain",
     "snow"
+   ],
+   "subject": [
+    "creek",
+    "earth",
+    "sunrise",
+    "zinnias"
    ]
   }
  },
@@ -799,6 +805,69 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s04_ascii_427087.mp4",
+   "song": "subway-maintenance",
+   "section": "s04",
+   "style": "ascii",
+   "seed": 427087,
+   "window": [
+    97.71,
+    115.82
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "galaxy",
+    "ramp": "texture",
+    "palette": "sunset",
+    "layout": "code",
+    "sparks": "0.5",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.51,
+    "bass": 0.45,
+    "other": 0.65
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s03_ascii_293623.mp4",
+   "song": "passage-waiting",
+   "section": "s03",
+   "style": "ascii",
+   "seed": 293623,
+   "window": [
+    39.81,
+    58.14
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "wild",
+    "ramp": "texture",
+    "palette": "reef",
+    "layout": "clean",
+    "sparks": "1.0",
+    "subject": "sunrise",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.74,
+    "bass": 0.84,
+    "other": 0.82
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }

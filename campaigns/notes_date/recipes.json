@@ -194,6 +194,66 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s02_notes_date_787554.mp4",
+   "song": "subway-maintenance",
+   "section": "s02",
+   "style": "notes_date",
+   "seed": 787554,
+   "window": [
+    46.05,
+    54.1
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d050",
+    "look": "orchid",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.9,
+    "drums": 0.35,
+    "bass": 0.25,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "full_ride",
+   "file": "full-ride_s02_notes_date_786673.mp4",
+   "song": "full-ride",
+   "section": "s02",
+   "style": "notes_date",
+   "seed": 786673,
+   "window": [
+    35.25,
+    42.89
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d016",
+    "look": "sunset",
+    "ink": "black",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.72,
+    "bass": 0.65,
+    "other": 0.56
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

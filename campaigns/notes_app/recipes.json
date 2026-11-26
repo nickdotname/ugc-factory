@@ -429,6 +429,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "suspended",
+   "file": "suspended_s05_notes_152030.mp4",
+   "song": "suspended",
+   "section": "s05",
+   "style": "notes",
+   "seed": 152030,
+   "window": [
+    98.79,
+    108.81
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n047",
+    "look": "dusk",
+    "ink": "white",
+    "face": "tall",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.58,
+    "drums": 0.57,
+    "bass": 0.27,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s07_notes_203213.mp4",
+   "song": "evil-close-quarters",
+   "section": "s07",
+   "style": "notes",
+   "seed": 203213,
+   "window": [
+    154.37,
+    160.3
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n011",
+    "look": "orchid",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.91,
+    "drums": 0.64,
+    "bass": 0.79,
+    "other": 0.66
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s04_notes_402056.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s04",
+   "style": "notes",
+   "seed": 402056,
+   "window": [
+    77.14,
+    100.07
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n065",
+    "look": "sunset",
+    "ink": "white",
+    "face": "tall",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.71,
+    "bass": 0.68,
+    "other": 0.53
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "talk",
+   "file": "talk_s06_notes_572609.mp4",
+   "song": "talk",
+   "section": "s06",
+   "style": "notes",
+   "seed": 572609,
+   "window": [
+    118.11,
+    135.81
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n059",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.92,
+    "drums": 0.88,
+    "bass": 0.77,
+    "other": 0.4
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "fixation",
+   "file": "fixation_s03_notes_297435.mp4",
+   "song": "fixation",
+   "section": "s03",
+   "style": "notes",
+   "seed": 297435,
+   "window": [
+    102.19,
+    110.18
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n039",
+    "look": "sunset",
+    "ink": "white",
+    "face": "tall",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.86,
+    "bass": 0.8,
+    "other": 0.49
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

@@ -6409,6 +6409,136 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s08_psy_682233.mp4",
+   "song": "evil-close-quarters",
+   "section": "s08",
+   "style": "psy",
+   "seed": 682233,
+   "window": [
+    167.17,
+    181.98
+   ],
+   "plan": {
+    "field": "voronoi",
+    "sym": 8,
+    "pal": "gold",
+    "feedback": false,
+    "spin": 0.04085710117565173,
+    "warp": 0.9740316010095993,
+    "mirror": false,
+    "grain": true,
+    "strobe": true,
+    "lyrics": null,
+    "ring": false,
+    "motif": "star",
+    "contour": false,
+    "poster": false,
+    "font": "Poppins-Black.ttf",
+    "word_y": 0.72,
+    "scale": 3.102801223026925,
+    "second": null,
+    "flip_at": 0.6286030630854214,
+    "speed": 0.6,
+    "hook": ""
+   },
+   "knobs": {
+    "field": "voronoi",
+    "sym": "8",
+    "pal": "gold",
+    "feedback": "false",
+    "mirror": "false",
+    "grain": "true",
+    "strobe": "true",
+    "lyrics": "none",
+    "ring": "false",
+    "motif": "star",
+    "contour": "false",
+    "poster": "false",
+    "font": "Poppins-Black.ttf",
+    "word_y": "0.72",
+    "second": "none",
+    "speed": "0.6",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.97,
+    "drums": 0.63,
+    "bass": 0.69,
+    "other": 0.55
+   },
+   "lyrics_proven": true,
+   "clip": "hook_07.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s04_psy_492854.mp4",
+   "song": "subway-maintenance",
+   "section": "s04",
+   "style": "psy",
+   "seed": 492854,
+   "window": [
+    103.65,
+    109.69
+   ],
+   "plan": {
+    "field": "bryce",
+    "sym": 4,
+    "pal": "neon",
+    "feedback": true,
+    "spin": -0.0838287448697705,
+    "warp": 0.6281290306619044,
+    "mirror": true,
+    "grain": false,
+    "strobe": false,
+    "lyrics": null,
+    "ring": false,
+    "motif": null,
+    "contour": true,
+    "poster": false,
+    "font": "Poppins-Black.ttf",
+    "word_y": 0.5,
+    "scale": 3.215775847842413,
+    "second": "marble",
+    "flip_at": 0.5381776656238155,
+    "speed": 1.6,
+    "trip": false,
+    "hook": ""
+   },
+   "knobs": {
+    "field": "bryce",
+    "sym": "4",
+    "pal": "neon",
+    "feedback": "true",
+    "mirror": "true",
+    "grain": "false",
+    "strobe": "false",
+    "lyrics": "none",
+    "ring": "false",
+    "motif": "eye",
+    "contour": "true",
+    "poster": "false",
+    "font": "Poppins-Black.ttf",
+    "word_y": "0.5",
+    "second": "marble",
+    "speed": "1.6",
+    "trip": "false",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.64,
+    "drums": 0.53,
+    "bass": 0.68,
+    "other": 0.68
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ],
  "since": "2026-11-22T07:03:36.615150+00:00",
@@ -6510,6 +6640,10 @@
     "0.6",
     "1.0",
     "1.6"
+   ],
+   "trip": [
+    "true",
+    "false"
    ]
   },
   "collage": {

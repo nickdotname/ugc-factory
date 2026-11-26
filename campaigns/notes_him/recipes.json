@@ -457,6 +457,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s01_notes_him_902612.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s01",
+   "style": "notes_him",
+   "seed": 902612,
+   "window": [
+    3.3,
+    25.83
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m032",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.73,
+    "bass": 0.65,
+    "other": 0.17
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s02_notes_him_387673.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "notes_him",
+   "seed": 387673,
+   "window": [
+    27.33,
+    33.88
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m016",
+    "look": "sunset",
+    "ink": "black",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.04,
+    "drums": 0.05,
+    "bass": 0.01,
+    "other": 0.19
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s06_notes_him_688293.mp4",
+   "song": "evil-close-quarters",
+   "section": "s06",
+   "style": "notes_him",
+   "seed": 688293,
+   "window": [
+    123.21,
+    138.02
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m006",
+    "look": "rainbow",
+    "ink": "black",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.61,
+    "drums": 0.76,
+    "bass": 0.74,
+    "other": 0.75
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s06_notes_him_755424.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s06",
+   "style": "notes_him",
+   "seed": 755424,
+   "window": [
+    165.25,
+    172.11
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m067",
+    "look": "sunset",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.75,
+    "bass": 0.24,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "talk",
+   "file": "talk_s05_notes_him_713742.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "notes_him",
+   "seed": 713742,
+   "window": [
+    105.01,
+    116.81
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m088",
+    "look": "meadow",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.85,
+    "drums": 0.84,
+    "bass": 0.74,
+    "other": 0.57
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

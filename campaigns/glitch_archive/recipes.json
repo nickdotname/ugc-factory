@@ -37,6 +37,10 @@
    "label": [
     "rec",
     "none"
+   ],
+   "opener": [
+    "clean",
+    "melt"
    ]
   }
  },
@@ -616,6 +620,39 @@
    },
    "lyrics_proven": false,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "suspended",
+   "file": "suspended_s01_glitch_986258.mp4",
+   "song": "suspended",
+   "section": "s01",
+   "style": "glitch",
+   "seed": 986258,
+   "window": [
+    18.63,
+    26.32
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "city",
+    "main": "points",
+    "opener": "melt",
+    "accent": "none",
+    "tone": "xray",
+    "pace": "1",
+    "label": "none",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.78,
+    "bass": 0.47,
+    "other": 0.38
+   },
+   "lyrics_proven": false,
+   "clip": "hook_05.mp4"
   }
  ]
 }

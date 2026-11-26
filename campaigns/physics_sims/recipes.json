@@ -67,6 +67,24 @@
     "gust",
     "none"
    ]
+  },
+  "stopit": {
+   "thing": [
+    "car",
+    "bollard",
+    "crate",
+    "cone"
+   ],
+   "sky": [
+    "golden",
+    "noon",
+    "overcast"
+   ],
+   "ask": [
+    "pause",
+    "stop",
+    "timing"
+   ]
   }
  },
  "nightly": [
@@ -783,6 +801,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s07_physics_31444.mp4",
+   "song": "prologue",
+   "section": "s07",
+   "style": "physics",
+   "seed": 31444,
+   "window": [
+    156.81,
+    167.72
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "square",
+    "hits": "melody",
+    "palette": "ice",
+    "trail": "ribbon",
+    "hook": "none",
+    "rule": "lines",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.59,
+    "drums": 0.66,
+    "bass": 0.64,
+    "other": 0.29
+   },
+   "lyrics_proven": true,
+   "clip": "hook_09.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "suspended",
+   "file": "suspended_s05_fluid_284815.mp4",
+   "song": "suspended",
+   "section": "s05",
+   "style": "fluid",
+   "seed": 284815,
+   "window": [
+    99.61,
+    107.3
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "note",
+    "view": "speed",
+    "palette": "inferno",
+    "gust": "drums",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.6,
+    "drums": 0.55,
+    "bass": 0.22,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_fluid_806275.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "fluid",
+   "seed": 806275,
+   "window": [
+    168.55,
+    175.41
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "cassette",
+    "view": "smoke",
+    "palette": "magma",
+    "gust": "kick",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.6,
+    "drums": 0.76,
+    "bass": 0.61,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "suspended",
+   "file": "suspended_s02_stopit_518414.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "stopit",
+   "seed": 518414,
+   "window": [
+    29.17,
+    36.86
+   ],
+   "plan": null,
+   "knobs": {
+    "thing": "bollard",
+    "sky": "overcast",
+    "ask": "timing",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.9,
+    "bass": 0.46,
+    "other": 0.36
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "notta_problem",
+   "file": "notta-problem_s03_stopit_144292.mp4",
+   "song": "notta-problem",
+   "section": "s03",
+   "style": "stopit",
+   "seed": 144292,
+   "window": [
+    67.41,
+    81.16
+   ],
+   "plan": null,
+   "knobs": {
+    "thing": "car",
+    "sky": "noon",
+    "ask": "pause",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.51,
+    "drums": 0.5,
+    "bass": 0.76,
+    "other": 0.56
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

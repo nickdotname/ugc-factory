@@ -542,6 +542,70 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s04_retro_457995.mp4",
+   "song": "subway-maintenance",
+   "section": "s04",
+   "style": "retro",
+   "seed": 457995,
+   "window": [
+    103.65,
+    113.71
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "mixed",
+    "screen": "crt",
+    "frame": "none",
+    "trans": "flash",
+    "pace": "1",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.45,
+    "bass": 0.44,
+    "other": 0.63
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s02_retro_859134.mp4",
+   "song": "silver-and-gold",
+   "section": "s02",
+   "style": "retro",
+   "seed": 859134,
+   "window": [
+    64.39,
+    73.07
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "aero",
+    "screen": "clean",
+    "frame": "none",
+    "trans": "hard",
+    "pace": "2",
+    "hook": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.64,
+    "drums": 0.59,
+    "bass": 0.91,
+    "other": 0.45
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
   }
  ]
 }

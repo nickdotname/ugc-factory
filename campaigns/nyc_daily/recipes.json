@@ -80,6 +80,30 @@
     "sunset",
     "snow",
     "day"
+   ],
+   "pair": [
+    "bridge",
+    "river"
+   ],
+   "hook": [
+    "new york after dark",
+    "manhattan, still awake",
+    "the walk home through midtown",
+    "nights like this are why people stay",
+    "this city doesn't do quiet",
+    "when the whole city turns gold",
+    "the skyline right before the lights come on",
+    "golden hour over manhattan",
+    "every evening the city does this",
+    "the city goes quiet when it snows",
+    "new york, first snow",
+    "snow on the fire escapes",
+    "the one week new york slows down",
+    "new york doesn't look real sometimes",
+    "the city you see when you finally look up",
+    "a few seconds of new york",
+    "manhattan on a clear day",
+    "the buildings never get old"
    ]
   }
  },
@@ -703,6 +727,68 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s08_nyc_634589.mp4",
+   "song": "evil-close-quarters",
+   "section": "s08",
+   "style": "nyc",
+   "seed": 634589,
+   "window": [
+    168.97,
+    183.78
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "thennow",
+    "mood": "snow",
+    "look": "clean",
+    "pace": "beat2",
+    "pair": "bridge",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.96,
+    "drums": 0.66,
+    "bass": 0.68,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s02_nyc_457496.mp4",
+   "song": "prologue",
+   "section": "s02",
+   "style": "nyc",
+   "seed": 457496,
+   "window": [
+    27.33,
+    46.97
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "walk",
+    "mood": "night",
+    "look": "clean",
+    "pace": "bar",
+    "hook": "new york after dark",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.03,
+    "drums": 0.06,
+    "bass": 0.36,
+    "other": 0.25
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ]
 }

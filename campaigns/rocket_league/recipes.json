@@ -784,6 +784,39 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s06_rocket_120690.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "rocket",
+   "seed": 120690,
+   "window": [
+    135.21,
+    143.94
+   ],
+   "plan": {
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "flash"
+   },
+   "knobs": {
+    "format": "montage",
+    "frame": "blur",
+    "ramp": "slowmo",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.94,
+    "drums": 0.67,
+    "bass": 0.55,
+    "other": 0.22
+   },
+   "lyrics_proven": false,
+   "clip": "hook_05.mp4"
   }
  ]
 }

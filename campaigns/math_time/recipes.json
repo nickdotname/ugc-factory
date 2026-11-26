@@ -845,6 +845,35 @@
    },
    "lyrics_proven": true,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s05_math_621070.mp4",
+   "song": "prologue",
+   "section": "s05",
+   "style": "math",
+   "seed": 621070,
+   "window": [
+    104.64,
+    126.27
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sci8",
+    "subject": "fission",
+    "sky": "violet",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.77,
+    "bass": 0.61,
+    "other": 0.22
+   },
+   "lyrics_proven": false,
+   "clip": "hook_05.mp4"
   }
  ]
 }

@@ -1342,6 +1342,92 @@
    },
    "lyrics_proven": false,
    "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "suspended",
+   "file": "suspended_s02_liminal_879324.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "liminal",
+   "seed": 879324,
+   "window": [
+    29.17,
+    38.4
+   ],
+   "plan": {
+    "place": "lab",
+    "laps": 2,
+    "year": 1998,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "date",
+    "hook": "the school computer lab, 2003",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "lab",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "date",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.68,
+    "drums": 0.89,
+    "bass": 0.5,
+    "other": 0.36
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s09_liminal_372028.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "liminal",
+   "seed": 372028,
+   "window": [
+    190.11,
+    198.84
+   ],
+   "plan": {
+    "place": "rink",
+    "laps": 2,
+    "year": 1995,
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "roller rink birthday parties were a whole event",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "rink",
+    "pace": "walk",
+    "tint": "neutral",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.73,
+    "bass": 0.57,
+    "other": 0.28
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
   }
  ],
  "menu": {

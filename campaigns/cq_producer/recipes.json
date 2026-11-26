@@ -16797,6 +16797,341 @@
    },
    "lyrics_proven": true,
    "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s07_producer_951027.mp4",
+   "song": "evil-close-quarters",
+   "section": "s07",
+   "style": "producer",
+   "seed": 951027,
+   "window": [
+    144.37,
+    159.18
+   ],
+   "plan": {
+    "story": "strip",
+    "first": "Drums",
+    "steps": [
+     [
+      144.37,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ],
+     [
+      147.333,
+      [
+       "Drums"
+      ],
+      "DRUMS ONLY"
+     ],
+     [
+      150.296,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "ALL BACK IN"
+     ]
+    ],
+    "drop": 150.296,
+    "line": "the song, then the drums alone",
+    "pal": [
+     [
+      255,
+      196,
+      92
+     ],
+     [
+      255,
+      92,
+      120
+     ],
+     [
+      110,
+      170,
+      255
+     ],
+     [
+      90,
+      225,
+      170
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.015,
+    "caption": "inter",
+    "segs": [
+     [
+      144.37,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "the song, then the drums alone",
+    "hook_angle": "story",
+    "hook_mode": "story",
+    "faces": false
+   },
+   "knobs": {
+    "story": "strip",
+    "colours": "0",
+    "first": "Drums",
+    "punch": "0.015",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.91,
+    "drums": 0.82,
+    "bass": 0.51,
+    "other": 0.51
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s10_producer_706314.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "producer",
+   "seed": 706314,
+   "window": [
+    228.49,
+    241.58
+   ],
+   "plan": {
+    "story": "strip",
+    "first": "Vocals",
+    "steps": [
+     [
+      228.49,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ],
+     [
+      232.854,
+      [
+       "Vocals"
+      ],
+      "VOCAL ONLY"
+     ],
+     [
+      237.217,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "ALL BACK IN"
+     ]
+    ],
+    "drop": 237.217,
+    "line": "the song, then the vocal alone",
+    "pal": [
+     [
+      250,
+      250,
+      250
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.015,
+    "caption": "inter",
+    "segs": [
+     [
+      228.49,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "the song, then the vocal alone",
+    "hook_angle": "story",
+    "hook_mode": "story",
+    "faces": true,
+    "face_block": 7
+   },
+   "knobs": {
+    "story": "strip",
+    "colours": "1",
+    "first": "Vocals",
+    "punch": "0.015",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.46,
+    "drums": 0.62,
+    "bass": 0.58,
+    "other": 1.01
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s02_producer_709784.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s02",
+   "style": "producer",
+   "seed": 709784,
+   "window": [
+    66.99,
+    80.7
+   ],
+   "plan": {
+    "story": "build",
+    "first": "Vocals",
+    "steps": [
+     [
+      66.99,
+      [
+       "Vocals"
+      ],
+      "VOCAL ONLY"
+     ],
+     [
+      70.419,
+      [
+       "Drums",
+       "Vocals"
+      ],
+      "+ DRUMS"
+     ],
+     [
+      72.133,
+      [
+       "Bass",
+       "Drums",
+       "Vocals"
+      ],
+      "+ BASS"
+     ],
+     [
+      73.847,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ]
+    ],
+    "drop": 73.847,
+    "line": "how this song stacks up, from the vocal",
+    "pal": [
+     [
+      255,
+      196,
+      92
+     ],
+     [
+      255,
+      92,
+      120
+     ],
+     [
+      110,
+      170,
+      255
+     ],
+     [
+      90,
+      225,
+      170
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.015,
+    "caption": "montserrat",
+    "segs": [
+     [
+      66.99,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "how this song stacks up, from the vocal",
+    "hook_angle": "story",
+    "hook_mode": "story",
+    "faces": false
+   },
+   "knobs": {
+    "story": "build",
+    "colours": "0",
+    "first": "Vocals",
+    "punch": "0.015",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.69,
+    "bass": 0.57,
+    "other": 0.44
+   },
+   "lyrics_proven": true,
+   "clip": "hook_06.mp4"
   }
  ],
  "since": "2026-11-22T06:46:46.461118+00:00",

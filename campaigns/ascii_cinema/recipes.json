@@ -56,7 +56,20 @@
     "the_crowd_1928",
     "the_haunted_castle_1896",
     "the_impossible_voyage_1904",
-    "the_lost_world_1925"
+    "the_lost_world_1925",
+    "2_a_m_in_the_subway_1905",
+    "easy_street_1917",
+    "seven_chances_1925",
+    "sherlock_jr_1924",
+    "speedy_1928",
+    "steamboat_bill_jr_1928",
+    "the_adventurer_1917",
+    "the_cameraman_1928",
+    "the_floorwalker_1916",
+    "the_freshman_1925",
+    "the_immigrant_1917",
+    "the_navigator_1924",
+    "west_of_hot_dog_1924"
    ]
   }
  },
@@ -463,6 +476,37 @@
    },
    "lyrics_proven": false,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-26",
+   "creative": "prologue",
+   "file": "prologue_s06_cinema_984982.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "cinema",
+   "seed": 984982,
+   "window": [
+    130.83,
+    148.28
+   ],
+   "plan": null,
+   "knobs": {
+    "reel": "comedy",
+    "cell": "12",
+    "look": "paper",
+    "crt": "off",
+    "film": "speedy_1928",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.9,
+    "drums": 0.63,
+    "bass": 0.59,
+    "other": 0.25
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }
