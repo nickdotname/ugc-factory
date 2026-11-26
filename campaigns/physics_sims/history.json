@@ -780,8 +780,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-0c14472e-4538-42a2-b616-99d573b6d32e",
+      "post_ids": {
+        "physics_ig": "igo-0c14472e-4538-42a2-b616-99d573b6d32e"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
