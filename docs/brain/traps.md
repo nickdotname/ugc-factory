@@ -138,4 +138,4 @@ account cuts famous public-domain films (Nosferatu, Chaplin, Man Ray) with a gra
 everywhere, and a tint and a gate do not stop a match: public domain is not "original" to Instagram. Paused (paused:
 true, per_night 0). Loose Change's drop on Nov 17 looked the same. glitch.archive.exe and ascii.cinema.tty use the same
 library but change every pixel (datamosh, ASCII), so they are less exposed; watch them.
-Fixed the same day: vintage now redraws every frame as ink line art (studio/vintage_video.py, look=ink).
+Fixed the same day: vintage now redraws every frame as ink line art (studio/vintage_video.py, look=ink), into new libraries (assets-vintage_ink-<song>) so no old print-look clip can be posted.
