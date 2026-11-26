@@ -250,9 +250,9 @@
         {
           "account": "nyc_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-36cae1e9-1150-46c9-9617-d2bf099b9dbc",
           "last_error": null,
           "scheduled_for": "2026-11-26T18:09:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "the city never fully switches off\n🎧 Epilogue: Dismissal – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nstream Epilogue: Dismissal: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
