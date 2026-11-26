@@ -38,18 +38,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-28T09:20:00-05:00"
         }
       ],
       "captions": {
         "instagram": "drawn by the song's own drum track\n🎧 Full Ride – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Full Ride: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
