@@ -144,9 +144,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-1971078f-f769-44bc-bf08-02eca20e853e",
           "last_error": null,
           "scheduled_for": "2026-11-26T15:26:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "pause anywhere. it's all still code.\n🎧 Passage (Waiting) – @close__quarters #asciiart #creativecoding #generativeart #codeart #pixelart #python\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
