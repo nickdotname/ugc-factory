@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "illusions_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-26T14:20:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "once you see it you cannot unsee it\n🎧 Recess (Rewind) – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nlink in bio to stream Recess (Rewind)"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
