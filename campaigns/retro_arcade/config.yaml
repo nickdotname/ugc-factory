@@ -62,7 +62,7 @@ accounts:
   names: [retro_ig]
 
 posting:
-  posts_per_day: 4
+  posts_per_day: 2          # 4 until 2026-11-25 (median 16 views)
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10

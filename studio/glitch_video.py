@@ -286,6 +286,9 @@ class Video:
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed); self.r = r
         self.theme = K.pick('source', THEMES, r); self.main = K.pick('main', MAINS, r)
+        # the first frame: a clean, readable shot (the melt starts on the first cut) or mid-melt so the loop has no seam.
+        # Glitch had the highest early skip on the network (85%, 2026-11-25) and every frame 0 was unreadable mush.
+        self.opener = K.pick('opener', ['clean', 'melt'], r, weights=[3, 1])
         self.accent = K.pick('accent', ACCENTS, r); self.tone = K.pick('tone', TONES, r)
         self.pace = int(K.pick('pace', [1, 2], r)); self.label = K.pick('label', ['rec', 'none'], r)
         lib = library(self.theme)
@@ -327,6 +330,8 @@ class Video:
 
     def preroll(self):
         """Run the end-of-video melt once, so frame 0 starts where the last frame leaves off: mid-melt."""
+        if self.opener == 'clean':                                     # open on the plain picture; the seam melts back into it
+            self.mode = None; self.prev_g = qgray(self.plan.raw(0)[0]); self._clean_from = 0; return
         self.mode, self.acc = 'melt', cv2.resize(self.plan.raw(self.seam - 1)[0], (HW, HH), interpolation=cv2.INTER_AREA).astype(np.float32)
         prev = None
         for j in range(self.lead):

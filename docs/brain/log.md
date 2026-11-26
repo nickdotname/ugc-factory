@@ -189,3 +189,4 @@ Back to [[README]]. Newest first; one line per change worth remembering.
 - 2026-11-25: volume fitted to the data: dylancantor23 8->3, psych 4->2 and nostalgia 4->2 (fact reels carry them), Loose Change type 3->1. Daily totals did not grow with posts.
 - 2026-11-25: retire weak subjects by hand (nightly.yaml `retire:`): liminal school/pool, psy marble/spiral/warp/oil, glitch water/nature, nyc fact. Each did a fifth or less of the account's best subject.
 - 2026-11-25: new pages were not posting: their queue.json lacked generated_at (render/topup failed), and bpy crashed on the runner with no EGL. Both fixed; see traps.md.
+- 2026-11-25: openings: glitch opens on a clean readable shot (knob opener, clean 3:1; frame 0 was mid-melt, skip 85%); vintage favours the filled frame over the three-frame strip (layout 2:3); retro 4->2 a day (median 16 views).
