@@ -91,18 +91,18 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-28T08:41:00-05:00"
         }
       ],
       "captions": {
         "instagram": "it is what it is\n🎧 Epilogue: Dismissal – @close__quarters #relatable #humor #createmode\n\nEpilogue: Dismissal is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
