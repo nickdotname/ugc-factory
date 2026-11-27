@@ -144,9 +144,9 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-1cf4e047-5af7-41ae-98d2-a470ae3da6dc",
           "last_error": null,
           "scheduled_for": "2026-11-28T11:41:00-05:00"
         }
@@ -155,7 +155,7 @@
         "instagram": "anyway\n🎧 Recess (Rewind) – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Recess (Rewind)"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
