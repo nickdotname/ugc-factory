@@ -91,18 +91,18 @@
         {
           "account": "lowpoly_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-28T15:56:00-05:00"
         }
       ],
       "captions": {
         "instagram": "watch till the end\n🎧 Evil Close Quarters – @close__quarters #whatif #story #lowpoly #3danimation #blender\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
