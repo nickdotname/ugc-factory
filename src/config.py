@@ -666,6 +666,16 @@ INSTAGRAM_TOKEN_SLOTS: tuple[str, ...] = (
     *(f"IG_TOKEN_{n}" for n in range(2, 17)),
 )
 
+#: And for channels that post to YouTube directly: one OAuth refresh token per
+#: channel (a Brand Account channel is picked at consent time, so even channels
+#: under one Google login need one each). The Cloud project's client id and
+#: secret are shared by every slot and have fixed names of their own.
+YOUTUBE_TOKEN_SLOTS: tuple[str, ...] = tuple(
+    f"YT_REFRESH_TOKEN_{n}" for n in range(1, 17)
+)
+YOUTUBE_CLIENT_ID_SECRET = "YT_CLIENT_ID"
+YOUTUBE_CLIENT_SECRET_SECRET = "YT_CLIENT_SECRET"
+
 
 class BufferConfig(StrictModel):
     """Buffer channel binding (SPEC §9 ``buffer``).
