@@ -62,7 +62,7 @@ accounts:
   names: [psychedelic_station_ig]
 
 posting:
-  posts_per_day: 2               # visualisers; fact reels carry the account (4 until 2026-11-25, 8 before)
+  posts_per_day: 1               # visualisers; with 2 fact reels the account posts 3 a day (2 until 2026-11-27, 4 until 2026-11-25, 8 before)
   start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10

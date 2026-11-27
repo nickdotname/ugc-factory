@@ -66,7 +66,7 @@ accounts:
   names: [nostalgia_ig]
 
 posting:
-  posts_per_day: 3            # tapes; fact reels (2 a day, factreel.yml) carry the account (2 until docs/brain/reviews/2026-11-26, 4 before, 6 before that)
+  posts_per_day: 1            # tapes; fact reels (2 a day, factreel.yml) carry the account: 3 a day in all (3 tapes until 2026-11-27, 4 before, 6 before that)
   start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10

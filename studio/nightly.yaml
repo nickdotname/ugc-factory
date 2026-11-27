@@ -38,13 +38,13 @@ targets:
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
     retire: {field: [marble, spiral, warp, oil], strobe: ['true']}     # fields: 15-29 views vs tunnel 109, moire 79 (2026-11-25); strobe off 2026-11-26 (review: lock the winning look; the string 'true' is what the menu holds)
-    per_night: 2               # 4 until 2026-11-25 (8 before): its fact reels beat the visualisers 3-4x; they carry the account now
+    per_night: 1               # 2 until 2026-11-27, 4 until 2026-11-25 (8 before): its fact reels beat the visualisers 3-4x; they carry the account now
     join: 40
   # psy_station collage (studio/collage_video.py) dropped 2026-11-24: median 13 views over 3 posts, flat and samey.
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
     retire: {place: [school, pool]}                  # 2-3 views vs backrooms 138, mall 121 (2026-11-25)
-    per_night: 3               # 2 until 2026-11-26 (4 before, 7 before that): fact reels (median 224) carry the account; tapes median ~40
+    per_night: 1               # 3 until 2026-11-27 (4 before, 7 before that): fact reels (median 224) carry the account; tapes median ~40
     join: 40
   - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
     style: type
