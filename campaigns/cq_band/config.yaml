@@ -155,6 +155,9 @@ selection:
   # The band's own dance footage (studio/lofi/index.json) is scarce and is what people come here for: those clips
   # are three times likelier than a song's other clips (src/cli.py _style_boost, from recipes.json).
   favour_styles: {lofi: 3, cutout: 3}
+  # Slots reserved per studio style each day (docs/brain/reviews/2026-11-26: 27 cutouts rendered, 3 posted; the boost
+  # above lost to the older band clips' performance medians). Filled in this order, never-posted clips first.
+  style_quota: {cutout: 2, band: 1}
   dedupe_on: [hook]          # each video once: a new caption does not make it a new post
   repeats: false             # and never again later, even when the library runs short (the slot stays empty)
   caption_cooldown_days: 0

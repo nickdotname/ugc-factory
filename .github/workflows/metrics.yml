@@ -111,6 +111,7 @@ jobs:
             ${{ inputs.instagram_only == true && '--instagram-only' || '' }}
 
       - name: Commit metrics
+        if: ${{ !cancelled() }}   # a campaign that went red for insights_denied still commits what it read
         run: |
           git config user.name  "ugc-factory"
           git config user.email "ugc-factory@users.noreply.github.com"

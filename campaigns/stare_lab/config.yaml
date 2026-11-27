@@ -125,9 +125,9 @@ funnel:
   # Posted by the account itself under each reel right after it goes out (Instagram only;
   # Buffer's free plan refuses posts that carry one). Rotates; no asks for likes or tags.
   first_comment:
+    - "this one is set to {name} by @close__quarters, off EDUCATION"
     - "🎧 the song is {name} by @close__quarters, from their album EDUCATION"
-    - "song: {name} by @close__quarters. the full album EDUCATION is linked in our bio"
-    - "🎧 {name} – @close__quarters (EDUCATION, out now)"
+    - "music: {name} · @close__quarters · EDUCATION (2026)"
   # What each reel's sound is called on Instagram instead of "Original audio".
   audio_name: "{name} – Close Quarters"
   end_card: ""               # the render loops cleanly; a card would break the loop
