@@ -38,18 +38,18 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-27T20:20:00-05:00"
         }
       ],
       "captions": {
         "instagram": "this one's better at night\nPrologue: Before – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -299,7 +299,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "EDUCATION is out now. Full Ride is just one of them, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "this is what our album sounds like. EDUCATION, out now.\nFull Ride – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nFull Ride is out now. link in bio to stream it"
       },
@@ -342,7 +352,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Notta Problem is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "pov: it's 2am and this comes on shuffle\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Notta Problem"
       },
@@ -385,7 +405,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Evil Close Quarters, from EDUCATION. the whole album is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "your family computer in 2001 if it had taste\nEvil Close Quarters – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Evil Close Quarters: link in bio"
       },
