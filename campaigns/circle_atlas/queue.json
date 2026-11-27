@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-27T08:32:08.612579Z",
+  "generated_at": "2026-11-27T14:00:24.201676Z",
   "items": [
     {
-      "id": "0ffb5bb7-2aef-4369-918f-e50c22019c42",
-      "scheduled_for": "2026-11-27T08:52:00-05:00",
-      "rendered_at": "2026-11-27T08:32:08.612579Z",
-      "video_url": "https://factory.nickbenak.com/v/render-circle_atlas-2026-11-27/0ffb5bb7-2aef-4369-918f-e50c22019c42.mp4",
-      "caption": "every outline is just circles turning inside circles. enough of them and you get a coastline\n🎧 Won't Be the Same Again – @close__quarters #geography #maps #fourier #mathart #countries",
+      "id": "97637455-c27b-432f-8cfd-6d79b34ca863",
+      "scheduled_for": "2026-11-27T16:22:00-05:00",
+      "rendered_at": "2026-11-27T14:00:24.201676Z",
+      "video_url": "https://factory.nickbenak.com/v/render-circle_atlas-2026-11-27/97637455-c27b-432f-8cfd-6d79b34ca863.mp4",
+      "caption": "Fourier said any closed shape is a sum of circles. here is a country to prove it\n🎧 Prologue: Before – @close__quarters #geography #maps #fourier #mathart #countries",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,9 +16,52 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.462,
-        "anchor_y": 0.411,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.317,
+        "anchor_y": 0.63,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "Fourier said any closed shape is a sum of circles. here is a country to prove it\n🎧 Prologue: Before – @close__quarters #geography #maps #fourier #mathart #countries\n\nstream Prologue: Before: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "b7987a84-ea08-4b52-92e6-adc3d92167d4",
+      "scheduled_for": "2026-11-28T08:52:00-05:00",
+      "rendered_at": "2026-11-27T14:00:24.201676Z",
+      "video_url": "https://factory.nickbenak.com/v/render-circle_atlas-2026-11-27/b7987a84-ea08-4b52-92e6-adc3d92167d4.mp4",
+      "caption": "the circles never see the map. they only know how fast to spin\n🎧 Notta Problem – @close__quarters #geography #maps #fourier #mathart #countries",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.434,
+        "anchor_y": 0.611,
+        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -28,81 +71,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "notta_problem",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "fourier_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-aa2b9c8d-3e79-4a6a-b906-3f7d539347a8",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T16:22:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Notta Problem – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "every outline is just circles turning inside circles. enough of them and you get a coastline\n🎧 Won't Be the Same Again – @close__quarters #geography #maps #fourier #mathart #countries\n\nWon't Be the Same Again is out now. link in bio to stream it"
+        "instagram": "the circles never see the map. they only know how fast to spin\n🎧 Notta Problem – @close__quarters #geography #maps #fourier #mathart #countries\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "ac65d023-b961-4a7d-9e08-d5b5e49d228e",
-      "scheduled_for": "2026-11-27T16:22:00-05:00",
-      "rendered_at": "2026-11-27T08:32:08.612579Z",
-      "video_url": "https://factory.nickbenak.com/v/render-circle_atlas-2026-11-27/ac65d023-b961-4a7d-9e08-d5b5e49d228e.mp4",
-      "caption": "the real border, traced by nothing but spinning circles\n🎧 Recess (Rewind) – @close__quarters #geography #maps #fourier #mathart #countries",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.519,
-        "anchor_y": 0.617,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "recess_rewind",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "fourier_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-d2eda2ca-c611-4a1b-9913-e2dead7f35c7",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T08:52:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the real border, traced by nothing but spinning circles\n🎧 Recess (Rewind) – @close__quarters #geography #maps #fourier #mathart #countries\n\nlink in bio to stream Recess (Rewind)"
-      },
-      "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
