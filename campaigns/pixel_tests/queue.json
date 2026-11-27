@@ -38,9 +38,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-f3621ed1-0c91-4d69-8d7f-c85bbb646f52",
           "last_error": null,
           "scheduled_for": "2026-11-27T11:33:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "the answer is hiding in the song\n🎧 Won't Be the Same Again – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
