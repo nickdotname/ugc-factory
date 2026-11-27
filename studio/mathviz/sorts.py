@@ -256,7 +256,7 @@ def frame(i):
             for p, (s, col, sz) in enumerate(lines):
                 e = float(ease_back((k - 38.4 - 0.6 * p) / 0.4))
                 paste(c, text(s, F(FONT if sz >= 60 else INTER, sz), col, stroke=3 if sz >= 60 else 0), W / 2, 820 + p * 110, e * (1 + 0.04 * kick * (p == 2)), min(1, e))
-            paste(c, text('follow for part 2', F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
+            paste(c, text('%d numbers. %d sorts. one order.' % (N, len(NAMES)), F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
     amp, ph = shake_at(k, HITS, ST)
     o = finish(c, k, amp, ph, 1 + 0.008 * kick, W / 2, H / 2, ST)
     return overlay_fixed(o, ST, k, CL.beats, CREDIT)

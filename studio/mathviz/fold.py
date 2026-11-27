@@ -22,6 +22,7 @@ CREDIT = credit(SLUG)
 
 T0 = 1e-4                                               # a sheet of paper: 0.1 mm
 N = 42 if TARGET == 'moon' else 51
+DIST = {'moon': '384,400 KM', 'sun': '150,000,000 KM'}  # how far the target is: the last line, where the paper's height was
 def thick(n): return T0 * 2.0 ** n
 
 # when fold n lands (in beats): the first 8 one a beat, the last 4 one every two beats, the rest evenly in between
@@ -215,7 +216,7 @@ def frame(i):
         if k >= END + 3:                                         # where the count was: what it means
             ptext(c, '0.1 MM, DOUBLED', LW // 2, 108, 2, (255, 214, 90), align='c', box=(14, 12, 30))
             ptext(c, '%d TIMES.' % N, LW // 2, 128, 2, (255, 214, 90), align='c', box=(14, 12, 30))
-        if k >= 40: ptext(c, 'FOLLOW FOR THE NEXT ONE', LW // 2, 152, 1, (200, 210, 230), align='c', box=(14, 12, 30))
+        if k >= 40: ptext(c, 'THE %s: %s AWAY' % (TARGET.upper(), DIST[TARGET]), LW // 2, 152, 1, (200, 210, 230), align='c', box=(14, 12, 30))
     big = cv2.resize(np.clip(c, 0, 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST).astype(np.float32)
     paste(big, text(CREDIT, F(DEJAVU, 28), (230, 230, 240), stroke=3), W / 2, 1490)
     return np.clip(big, 0, 255).astype(np.uint8)
