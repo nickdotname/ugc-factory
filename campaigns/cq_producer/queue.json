@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "this is Myth of Sisyphus from EDUCATION (@close__quarters)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "dylancantor23_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-29T18:50:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "Myth of Sisyphus, one part at a time\nMyth of Sisyphus – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
