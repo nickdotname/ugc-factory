@@ -156,6 +156,7 @@ class World:
         self.far = np.zeros((LH, WX, 4), np.float32); self.mid = np.zeros((LH, WX, 4), np.float32)
         self.ground = np.zeros((LH, WX, 4), np.float32); self.fg = np.zeros((LH, WX, 4), np.float32)
         self.stars, self.windows, self.blinks, self.lights, self.bulbs, self.crystals = [], [], [], [], [], []
+        self.quiet = 0.0                       # 0..1: a test that needs the eye on the sky (count) turns the small lights down
         getattr(self, '_' + theme)(r)
         nr = random.Random(seed + 9)
         self.motes = [(nr.uniform(0, LW), nr.uniform(60, GY), nr.uniform(0, 6.28), nr.uniform(0.4, 1.0), nr.random()) for _ in range(46)]
@@ -433,12 +434,12 @@ class World:
                 sx = wx - PAD - mo
                 if not (-2 < sx < LW + 2): continue
                 lit = on < 0.42 + 0.08 * math.sin(t * 0.7 + ph * 40) + (0.25 if (int(beat) + int(ph * 7)) % 11 == 0 else 0)
-                col = np.array(P['win'][kind], np.float32) * (0.75 + 0.35 * bass) if lit else np.array((40, 32, 66), np.float32)
+                col = np.array(P['win'][kind], np.float32) * (0.75 + 0.35 * bass) * (1 - 0.55 * self.quiet) if lit else np.array((40, 32, 66), np.float32)
                 x0, x1 = max(0, sx), min(LW, sx + 3)
                 if x1 > x0: c[wy:wy + 3, x0:x1] = col
             for ax, ay, ph in self.blinks:
                 sx = ax - PAD - mo
-                if 0 <= sx < LW and (beat + ph * 4) % 2 < 1:
+                if 0 <= sx < LW and (beat + ph * 4) % 2 < 1 and self.quiet < 0.5:      # a blinking red glow reads as a small burst
                     c[ay, sx] = (255, 60, 70); glow(c, sx, ay, 4, (160, 30, 40), 0.8)
             nx, ny, nw, nh = self.neon; sx = nx - PAD - mo                                   # the neon frame pulses with the kick
             col = np.array(P['accent'], np.float32) * (0.6 + 0.5 * kick)
@@ -456,7 +457,7 @@ class World:
         for L in self.lights:
             if L['x'] is None: continue
             off = mo if L['layer'] == 0.45 else go if L['layer'] == 1.0 else 0
-            a = L['base'] + L['kick'] * kick + L['bass'] * bass
+            a = (L['base'] + L['kick'] * kick + L['bass'] * bass) * (1 - 0.6 * self.quiet)
             glow(c, L['x'] - (PAD + off if L['layer'] else 0), L['y'], L['r'], L['col'], a * 0.6)
         if self.bulbs:                                                                       # string lights: a chase that steps on the beat
             pts = []
@@ -468,8 +469,8 @@ class World:
             for sx, by, j in pts:
                 on = (j + int(beat * 2)) % 4 == 0
                 col = [(255, 210, 120), (255, 120, 170), (130, 220, 255)][j % 3]
-                c[by - 1:by + 2, sx] = col if on else np.array(col) * 0.45
-                if on: glow(c, sx, by, 5, col, 0.35 + 0.4 * kick)
+                c[by - 1:by + 2, sx] = np.array(col, np.float32) * (1.0 if on else 0.45) * (1 - 0.6 * self.quiet)
+                if on and self.quiet < 0.5: glow(c, sx, by, 5, col, 0.35 + 0.4 * kick)
 
     def front(self, c, t, beat, kick, bass, vox, cam):
         """In front of the test: drifting particles and the foreground layer."""
@@ -478,10 +479,10 @@ class World:
             xi, yi = int(x), int(y)
             if self.theme == 'forest':                                                        # fireflies, lit by the voice and the bass
                 a = 0.3 + 0.7 * max(vox, 0.5 * bass) * (0.5 + 0.5 * math.sin(t * 4 + ph * 3))
-                if a > 0.35: c[yi, xi] = c[yi, xi] * (1 - a) + np.array((255, 240, 140)) * a; glow(c, xi, yi, 3, (120, 110, 40), a * 0.8)
+                if a > 0.35 and self.quiet < 0.5: c[yi, xi] = c[yi, xi] * (1 - a) + np.array((255, 240, 140)) * a; glow(c, xi, yi, 3, (120, 110, 40), a * 0.8)
             elif self.theme == 'cave':                                                        # spores
                 col = self.P['crystal'][int(kind * 4) % 4]; a = 0.35 + 0.5 * bass
                 c[yi, xi] = c[yi, xi] * (1 - a) + np.array(col) * a
             else:                                                                             # dust in the city light
-                if kind < 0.6: c[yi, xi] = c[yi, xi] * 0.6 + np.array((220, 200, 255)) * 0.4 * (0.5 + kick)
+                if kind < 0.6 and self.quiet < 0.5: c[yi, xi] = c[yi, xi] * 0.6 + np.array((220, 200, 255)) * 0.4 * (0.5 + kick)
         self._layer(c, self.fg, int(round(cam * 1.5)))

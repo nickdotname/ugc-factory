@@ -6,20 +6,25 @@ tense middle and a reveal:
 
   pause   PAUSE WHEN IT FITS: a shape hops around a stone tablet with a hole its shape in it, landing on the hits.
           It sits exactly in the hole only once a round (on a snare where the round has one, else on a hit), for 4,
-          then 2, then 1 frame; near misses (a few pixels off, or mirrored) come just before. A frame counter runs so a paused viewer can check. Reveal: the
-          frozen fit and how many frames each round fit for.
+          then 2, then 1 frame; near misses (a few pixels off, or mirrored) come just before. A frame counter runs so a paused viewer can check,
+          and a stamp over the tablet says what a paused frame shows: FIT on the fit frames only, MISSED BY N PX (art
+          pixels, measured from the shape to the hole) or MIRRORED on a near miss. Reveal: the frozen fit and how many
+          frames each round fit for.
   cups    FOLLOW THE GEM: three identical pots, a gem under one, swapped on the song's hits (slow, then on every
           hit). WHICH POT? with a three-beat countdown, then they lift.
   memory  WATCH THE ORDER: six crystals light one at a time on the hits; then one question (WHICH LIT 4TH?) and the
           whole order replayed with numbers.
   count   COUNT THE FIREWORKS: one bursts on every snare of the stretch (each rocket launched so it bursts exactly on
-          the snare); HOW MANY? then a replay that tallies them.
+          the snare), high in the sky only; while you count, the world's small lights (window lights, string lights,
+          antenna blinks, dust) are turned down so nothing else looks like a burst. HOW MANY? then a replay that tallies them.
   beat    EARLY OR LATE? a creature bounces on a drum, landing exactly on every hit; the last landing is moved 3-4
           frames early or late, or left on time. Reveal: a slow-motion timeline of the hit and the landing, in ms.
 
 The pictures are pixel worlds drawn in code (studio/mathviz/pix8.py: a rooftop city, a moonlit forest, a crystal
 cave), on a 270 x 480 canvas blown up 4x, with a light bloom and optional scanlines. No game's characters, interface or
-fonts: the font is our own 5x7 one. Knobs: test, world, crt."""
+fonts: the font is our own 5x7 one. Knobs: test, world, crt.
+Every test runs 14-26 s: where 28 of the song's beats take less than 14 s (a fast song) the test counts in half
+time (HalfClock); where neither fits (Talk's 13.8 s, a stretch too near the song's end) it is not rendered (exit 3)."""
 import sys, os, math, random
 import numpy as np, cv2
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -34,7 +39,34 @@ if TEST == 'count' and WORLD_NAME == 'cave':            # fireworks need a sky: 
     WORLD_NAME = 'city'; K.CHOSEN['world'] = 'city'
 CRT = K.flag('crt', 0.6, _r)
 BEATS = {'pause': 26, 'cups': 25, 'memory': 28, 'count': 28, 'beat': 25}[TEST]
-CL = Clock(SLUG, B0, BEATS)
+
+
+class HalfClock(Clock):
+    """A Clock whose beat is `mult` of the song's: on a fast song a test counts in half time (one test beat = two of
+    the song's), so it is not over in 9-12 s; every move still lands on the song's own beats and hits."""
+    def __init__(self, slug, b0, beats, mult):
+        self.mult = mult; super().__init__(slug, b0, beats * mult); self.beats = beats; self.spb *= mult
+    def beat(self, i): return super().beat(i) / self.mult
+
+
+def _tempo_mult():
+    """1 if 28 of the song's beats from B0 take 14-26 s, 2 if 28 of its half-time beats do and the song lasts that
+    long, else None. Review 2026-11-26: the tests are meant to run 14-26 s."""
+    import json as _json
+    s = _json.load(open(os.path.join(audio.SONGS, SLUG, 'song.json')))
+    master = next((os.path.join(audio.SONGS, SLUG, 'master' + e) for e in ('.ogg', '.flac', '.wav') if os.path.exists(os.path.join(audio.SONGS, SLUG, 'master' + e))), None)
+    end = sf.info(master).duration if master else float('inf')
+    for m in (1, 2):
+        d = audio.time_of_beat(s, B0 + 28 * m) - audio.time_of_beat(s, B0)
+        if 14 <= d <= 26 and audio.time_of_beat(s, B0 + BEATS * m) <= end: return m
+    print('not rendered: 28 beats take %.1f s here (%.1f s in half time), outside 14-26 s (%s)' % (
+        audio.time_of_beat(s, B0 + 28) - audio.time_of_beat(s, B0), audio.time_of_beat(s, B0 + 56) - audio.time_of_beat(s, B0), SLUG))
+    sys.exit(3)
+
+
+import soundfile as sf
+MULT = _tempo_mult()
+CL = HalfClock(SLUG, B0, BEATS, MULT)
 CREDIT = credit(SLUG)
 WORLD = World(WORLD_NAME, SEED)
 # The hits: from the song's Ableton project where it has one (exact, and each kept only if it is heard in the
@@ -50,7 +82,7 @@ GOLD, WHITE, MINT, ROSE = (255, 206, 84), (255, 255, 255), (120, 255, 170), (255
 
 def fr(b):
     """The video frame (float) at beat b of the clip."""
-    return (audio.time_of_beat(CL.song, CL.b0 + b) - CL.t0) * FPS
+    return (audio.time_of_beat(CL.song, CL.b0 + CL.mult * b) - CL.t0) * FPS
 
 
 def hit_frames(b0, b1, gap_beats, kinds=('kick', 'snare'), min_frames=8):
@@ -261,6 +293,17 @@ class Pause:
             burst(c, cx, cy, dt - 4, GOLD, n=30, speed=2.2, life=24, seed=8, g=0.04)
             glow(c, cx, cy, 40, MINT, 0.6 * good)
 
+    def stamp(self, i):
+        """What a viewer paused on frame i would be told: FIT on a fit frame, MISSED BY N PX or MIRRORED while the
+        shape rests near the hole, else nothing. Read off the same state the frame is drawn from."""
+        j, R, x, y, mir, moving, sq, fit = self.state(float(i))
+        if fit: return 'FIT', MINT
+        if moving: return None
+        d = int(round(math.hypot(x - R['hole'][0], y - R['hole'][1])))
+        if mir and d == 0: return 'MIRRORED', ROSE
+        if 0 < d <= 12: return 'MISSED BY %d PX' % d, ROSE
+        return None
+
     def hud(self, c, i, k):
         if k < 18:
             j = self.round_at(i)
@@ -270,6 +313,8 @@ class Pause:
                 px = XC - 18 + q * 14; c[148:154, px:px + 8] = INK
                 c[149:153, px + 1:px + 7] = GOLD if q < j else (255, 255, 255) if q == j else (70, 60, 100)
             title(c, 'FRAME %04d' % i, XC, 162, 1, (170, 176, 210))
+            st = self.stamp(i)
+            if st: title(c, st[0], XC, 176, 2, WHITE, st[1], plate=(20, 14, 34))
         else:
             D = self.rounds[2]['D']
             header(c, 'IT FIT FOR', '1 FRAME' if D == 1 else '%d FRAMES' % D, col=MINT)
@@ -486,9 +531,13 @@ class Count:
         self.bursts = []
         for q, f in enumerate(thin):
             rise = int(min(16, 0.75 * CL.spb * FPS))
-            for _ in range(60):                                   # spread out, so the tally's numbers never sit on each other
-                x, y = r.randrange(46, 214), r.randrange(160, 262)
-                if all(math.hypot(x - B['x'], y - B['y']) > 34 for B in self.bursts): break
+            best = None
+            for _ in range(120):                                  # spread out, so the tally's numbers never sit on each other
+                x, y = r.randrange(40, 220), r.randrange(154, 226)    # the top 40 % of the sky under the header: clear of the skyline's lights
+                gap = min([math.hypot(x - B['x'], y - B['y']) for B in self.bursts] or [99])
+                if best is None or gap > best[0]: best = (gap, x, y)
+                if gap > 34: break
+            _, x, y = best                                        # crowded: the place farthest from the others
             self.bursts.append(dict(f=f, rise=rise, x0=r.randrange(40, 220), x=x, y=y,
                                     cols=FW_COLS[r.randrange(len(FW_COLS))], seed=q, kind=r.choice(['ring', 'peony', 'willow'])))
         self.n = len(self.bursts)
@@ -526,6 +575,8 @@ class Count:
                     if 0 <= qx < LW - 1 and 0 <= qy < GY - 1:
                         if s == 0 and scale > 0.8: c[qy:qy + 2, qx:qx + 2] = np.minimum(255, col * 1.2 + 40)
                         else: c[qy, qx] = col * (1 - 0.18 * s)
+
+    def quiet(self, k): return 1.0 if k < self.kr else max(0.0, 1 - (k - self.kr))     # the small lights come back for the tally
 
     def stage(self, c, i, k, e):
         f = float(i)
@@ -649,6 +700,7 @@ def frame(i):
     e = dict(kick=float(CL.kick[i]), snare=float(CL.snare[i]), hat=float(CL.hat[i]), bass=float(min(1.2, CL.bass[i])), vox=float(min(1.2, CL.vox[i])))
     cam = 12 * math.sin(t * 0.33) + 4 * math.sin(t * 0.81 + 1)
     c = np.zeros((LH, LW, 3), np.float32)
+    if hasattr(T, 'quiet'): WORLD.quiet = T.quiet(k)
     WORLD.back(c, t, k, e['kick'], e['snare'], e['hat'], e['bass'], cam)
     c *= DIM
     T.stage(c, i, k, e)

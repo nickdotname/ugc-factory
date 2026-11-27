@@ -139,6 +139,7 @@ targets:
     join: 30
   - campaign: pixel_tests   # 8bit.tests: play-along pixel tests built from the song's hits (studio/tests8_video.py); rebuilt 2026-11-24
     style: tests8
+    retire: {test: [flashes, read]}                  # the pre-rebuild tests: still on recipes.json's menu, so nightly could force them; the renderer has five
     per_night: 3               # 5 until 2026-11-26
     join: 30
   - campaign: notes_app     # moth.ate.my.notes: one thought on a gradient (studio/text_video.py); short, so nothing is joined
