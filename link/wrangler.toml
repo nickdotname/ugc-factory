@@ -1,0 +1,13 @@
+# cq-listen: the bio-link worker (worker.js), deployed from this folder with
+#   cd link && npx wrangler login && npx wrangler kv namespace list   # copy the id of cq-listen-clicks below
+#   npx wrangler deploy
+# Pasting worker.js into the Cloudflare dashboard's editor and pressing Deploy works too.
+name = "cq-listen"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+keep_vars = true      # TARGET (where the links send people) is set in the dashboard, Settings -> Variables; a deploy keeps it
+
+[[kv_namespaces]]
+binding = "CLICKS"
+id = "PASTE-THE-ID-OF-cq-listen-clicks-HERE"     # from `npx wrangler kv namespace list` (an id is not a secret)
