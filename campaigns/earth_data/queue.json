@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Full Ride by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "earth_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T08:35:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "every satellite in this frame is up there right now\n🎧 Full Ride – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nlink in bio to stream Full Ride"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
