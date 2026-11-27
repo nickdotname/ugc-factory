@@ -640,8 +640,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-30c5207f-a268-4412-998f-c790f60924d4",
+      "post_ids": {
+        "her_ig": "igo-30c5207f-a268-4412-998f-c790f60924d4"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
