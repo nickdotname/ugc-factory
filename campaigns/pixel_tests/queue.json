@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tests8_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T11:33:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the answer is hiding in the song\n🎧 Won't Be the Same Again – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
