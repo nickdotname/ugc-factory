@@ -3,7 +3,11 @@
 Each topic is a chain of short parts that escalate: the hook number, "but that's not the crazy part", the twist,
 something you can picture it against, the payoff. A part lasts one or two bars and gets its own scene; numbers count up,
 the characters (cells, hearts, eyes, all with faces) react to the kick, and a pixel dissolve changes scene on the
-downbeat. Every number is a well-established figure, noted beside it. Knobs: topic, sky (the palette)."""
+downbeat. Every number is a well-established figure, noted beside it. Knobs: topic, sky (the palette).
+
+At 24 beats (kit.short(), math_video's `beats` knob) a topic shows the six bars in SHORT: the hook number on frame 0 and
+the one payoff that follows from it directly (no part is shortened below what its count-up needs), looping into frame 0;
+the full chain (8-12 bars) is the 44-beat choice."""
 import sys, os, math, random
 import numpy as np, cv2
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -393,9 +397,15 @@ def scale_box(c, n, kp):
     c[10:26, x0:x0 + w] = (14, 12, 34); c[10, x0:x0 + w] = SOFT; c[25, x0:x0 + w] = SOFT; c[10:26, x0] = SOFT; c[10:26, x0 + w - 1] = SOFT
     ptext(c, s_, LW // 2, 14, 1, WHITE, align='c')
 
-PARTS = TOPICS[TOPIC]
+# the six-bar cut of each chain: (part index, bars). Each keeps a claim and the payoff that is true of it alone: the brain's
+# 7,000 links each and the 100 trillion they make; the heart's 7,500 L a day as a bathtub every half hour; one split, the
+# chain reaction and the coal it stands in for; the eyes' blur and the brain deleting it.
+SHORT = short()
+SHORT_PARTS = {'brain': [(0, 2), (2, 2), (3, 2)], 'heart': [(0, 2), (2, 2), (3, 1), (4, 1)],
+               'fission': [(0, 2), (4, 1), (5, 1), (7, 2)], 'eyes': [(0, 2), (1, 2), (2, 2)]}
+PARTS = [(bars, *TOPICS[TOPIC][j][1:]) for j, bars in SHORT_PARTS[TOPIC]] if SHORT else TOPICS[TOPIC]
 BEATS_N = sum(b for b, *_ in PARTS) * 4
-CL = Clock(SLUG, B0, BEATS_N)
+CL = Clock(SLUG, B0, BEATS_N, loop=SHORT)
 CREDIT = credit(SLUG)
 STARTS = np.cumsum([0] + [b * 4 for b, *_ in PARTS])
 

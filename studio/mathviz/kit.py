@@ -31,6 +31,15 @@ def conf(slug, b0):
     seed = int(sys.argv[sys.argv.index('--seed') + 1]) if '--seed' in sys.argv else 1
     return os.environ.get('CQ_MATH_SONG', slug), float(os.environ.get('CQ_MATH_B0', b0)), int(os.environ.get('CQ_MATH_SEED', seed))
 
+def beats(default=44):
+    """How many beats the scene has: 44 (eleven bars, the full explainer) or 24 (six bars: the question on frame 0, the
+    resolve by the end, and the last 9 frames fading into frame 0 so it loops). math_video.py's `beats` knob sets it
+    through the environment; by hand, --beats N."""
+    if '--beats' in sys.argv: return int(sys.argv[sys.argv.index('--beats') + 1])
+    return int(os.environ.get('CQ_MATH_BEATS', default))
+
+def short(): return beats() == 24
+
 def credit(slug):
     s = json.load(open(os.path.join(audio.SONGS, slug, 'song.json')))
     return '\u266a %s \u2014 %s' % (s.get('title', slug), s.get('artist', 'Close Quarters'))
@@ -60,9 +69,10 @@ class Clock:
     """Time in beats, from the song's measured beat map (studio/beatmap.py): b0 and the length are in beats, and
     beat(i) is the exact (fractional) beat at video frame i, so a scene choreographed in beats stays on the music
     even where the band speeds up or slows down."""
-    def __init__(self, slug, b0, beats):
+    def __init__(self, slug, b0, beats, loop=False):
         s = json.load(open(os.path.join(audio.SONGS, slug, 'song.json'))); self.song = s
         self.slug = slug; self.spb = 60 / s['tempo']; self.b0 = b0; self.beats = beats
+        self.loop = bool(loop)                                      # a short scene loops: render() fades its last 9 frames into frame 0
         self.t0 = audio.time_of_beat(s, b0); self.t1 = audio.time_of_beat(s, b0 + beats)
         a = audio.load(slug, self.t0, self.t1); self.n = a['n']
         k = audio.hits(a['kicks'], self.n, 7.0); self.kick = np.convolve(k, [0.25, 0.5, 0.25], 'same')   # a touch softened: no one-frame pops
@@ -247,10 +257,21 @@ def overlay_fixed(f, st, k, beats, credit):
     sp = text(credit, F(DEJAVU, 28), st.muted); paste(f, sp, CREDIT_AT[0] + sp.shape[1] / (2 * SS), CREDIT_AT[1])
     return np.clip(f, 0, 255).astype(np.uint8)
 
+LOOP_TAIL = 9   # frames: a looping scene's last 9 frames fade into frame 0 (as illusion, reveal and retro do), so the replay has no seam
+
 def render(frame, clock, out, style=None):
     import polish                                                    # bloom, grain, vignette (studio/polish.py); races get their own look
     _look = 'race' if 'race' in os.path.basename(sys.argv[0]) else 'math'; _raw = frame
-    frame = lambda i: polish.look(_raw(i), _look, i)
+    _polished = lambda i: polish.look(_raw(i), _look, i)
+    if getattr(clock, 'loop', False):
+        first = []
+        def frame(i):
+            o = _polished(i); tail = clock.n - i
+            if tail > LOOP_TAIL: return o
+            if not first: first.append(_polished(0).astype(np.float32))
+            a = (LOOP_TAIL + 1 - tail) / (LOOP_TAIL + 1)                     # 0.1 on the first of the nine, 0.9 on the last
+            return (o.astype(np.float32) * (1 - a) + first[0] * a).astype(np.uint8)
+    else: frame = _polished
     if '--frames' in sys.argv:
         fs = [min(int(x), clock.n - 1) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]   # past the end: the last frame
         ims = [Image.fromarray(frame(f)).resize((360, 640)) for f in fs]

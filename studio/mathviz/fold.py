@@ -3,7 +3,12 @@ fold; each fold lands on the music (one a beat, then faster, then slow again for
 past a house, a skyscraper, the clouds, Everest, the edge of space and the space station, until fold 42 passes the
 Moon (0.1 mm x 2^42 = 439,805 km; the Moon is 384,400 km away). The "sun" target runs on to fold 51 (225 million km,
 past the Sun's 150 million).
-python studio/mathviz/fold.py out.mp4 [--seed N] [--frames a,b,c]
+python studio/mathviz/fold.py out.mp4 [--seed N] [--beats 44|24] [--frames a,b,c]
+
+44 beats: the first eight folds one a beat, the middle ones two a beat, the last four one every two beats. 24 beats
+(kit.short()): the question on frame 0, four folds one a beat, the middle ones three or four a beat (every fold is
+still a doubling, the count and the height still exact), the last four one a beat, the answer in the last four beats,
+looping into frame 0.
 
 Everything is drawn on a 270 x 480 canvas in a few flat colours with ordered dithering, then blown up 4x with no
 smoothing: pixel art, with a 5x7 pixel font of our own. Knobs: target (moon / sun), room (night / day)."""
@@ -17,7 +22,8 @@ SLUG, B0, SEED = conf('talk', 96)
 _r = random.Random(SEED)
 TARGET = K.pick('target', ['moon', 'sun'], _r, weights=[3, 1])
 ROOM = K.pick('room', ['night', 'day'], _r)
-CL = Clock(SLUG, B0, 44)
+SHORT = short(); Q = lambda long, brief: brief if SHORT else long      # a cue in beats: the 44-beat value, the 24-beat value
+CL = Clock(SLUG, B0, Q(44, 24), loop=SHORT)
 CREDIT = credit(SLUG)
 
 T0 = 1e-4                                               # a sheet of paper: 0.1 mm
@@ -26,9 +32,16 @@ DIST = {'moon': '384,400 KM', 'sun': '150,000,000 KM'}  # how far the target is:
 def thick(n): return T0 * 2.0 ** n
 
 # when fold n lands (in beats): the first 8 one a beat, the last 4 one every two beats, the rest evenly in between
-_mid = N - 12
-FOLD_AT = [4 + j for j in range(8)] + [round((12 + j * 14 / _mid) * 4) / 4 for j in range(_mid)] + [28 + 2 * j for j in range(4)]
+# (short: the first 4 one a beat from beat 3, the middle ones over beats 7-16, the last 4 one a beat from 17)
+ASK = Q(4, 3)                                           # the question holds until here
+if SHORT:
+    _mid = N - 8
+    FOLD_AT = [3 + j for j in range(4)] + [round((7 + j * 10 / _mid) * 4) / 4 for j in range(_mid)] + [17 + j for j in range(4)]
+else:
+    _mid = N - 12
+    FOLD_AT = [4 + j for j in range(8)] + [round((12 + j * 14 / _mid) * 4) / 4 for j in range(_mid)] + [28 + 2 * j for j in range(4)]
 END = FOLD_AT[-1]
+MEANS, FAR = END + Q(3, 1), Q(40, END + 2)              # "0.1 mm doubled N times" (the count makes way for it); how far the target is
 
 # ---------------------------------------------------------------- the pixel font (5x7, our own)
 G = {
@@ -203,20 +216,20 @@ def frame(i):
     scene(c, k, kick)
     n, u = folded(k)
     # the count and the height, top left, once folding starts
-    if 3.5 <= k < END + 3:
+    if ASK - 0.5 <= k < MEANS:
         ptext(c, 'FOLD %03d' % n, 12, 104, 2, (120, 200, 255))
         ptext(c, fmt(height(k)), 12, 124, 2, (255, 214, 90))
     # the question, then the answer
-    if k < 4:
+    if k < ASK:
         ptext(c, 'HOW MANY FOLDS', LW // 2, 56, 2, (255, 255, 255), align='c', box=(14, 12, 30))
         ptext(c, 'TO REACH THE %s?' % TARGET.upper(), LW // 2, 76, 2, (255, 255, 255), align='c', box=(14, 12, 30))
     elif k >= END + 0.5:
         ptext(c, 'FOLD %d:' % N, LW // 2, 56, 3, (255, 214, 90), align='c', box=(14, 12, 30))
         ptext(c, 'PAST THE %s' % TARGET.upper(), LW // 2, 84, 2, (255, 255, 255), align='c', box=(14, 12, 30))
-        if k >= END + 3:                                         # where the count was: what it means
+        if k >= MEANS:                                           # where the count was: what it means
             ptext(c, '0.1 MM, DOUBLED', LW // 2, 108, 2, (255, 214, 90), align='c', box=(14, 12, 30))
             ptext(c, '%d TIMES.' % N, LW // 2, 128, 2, (255, 214, 90), align='c', box=(14, 12, 30))
-        if k >= 40: ptext(c, 'THE %s: %s AWAY' % (TARGET.upper(), DIST[TARGET]), LW // 2, 152, 1, (200, 210, 230), align='c', box=(14, 12, 30))
+        if k >= FAR: ptext(c, 'THE %s: %s AWAY' % (TARGET.upper(), DIST[TARGET]), LW // 2, 152, 1, (200, 210, 230), align='c', box=(14, 12, 30))
     big = cv2.resize(np.clip(c, 0, 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST).astype(np.float32)
     paste(big, text(CREDIT, F(DEJAVU, 28), (230, 230, 240), stroke=3), W / 2, 1490)
     return np.clip(big, 0, 255).astype(np.uint8)
