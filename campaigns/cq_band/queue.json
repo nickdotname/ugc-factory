@@ -38,18 +38,18 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-28T13:20:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the whole album is a school day\nMyth of Sisyphus – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Myth of Sisyphus: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -246,7 +246,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "EDUCATION is out now. Full Ride is just one of them, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the song you didn't know you needed today\nFull Ride – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nFull Ride is out now. link in bio to stream it"
       },
@@ -289,7 +299,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Silver and Gold is on EDUCATION, our album about college at NYU. out now everywhere 🎧",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the lyrics are the video. turn the sound on.\nSilver and Gold – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Silver and Gold"
       },
@@ -332,7 +352,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "Hair of the Dog, from EDUCATION. the whole album is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "lesson 2 of 15. class is in session.\nHair of the Dog – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Hair of the Dog: link in bio"
       },
@@ -375,7 +405,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "EDUCATION is out now. Talk is just one of them, link in bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "close_quarters_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the line at the end is the point\nTalk – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nTalk is out now. link in bio to stream it"
       },
