@@ -2435,6 +2435,108 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "e667f8ba6384cd25e4f8679ba1e82729a4729428f9c8d7decedf71c6e8ac8874",
+      "timestamp": "2026-11-27T08:32:59.647319Z",
+      "item_id": "4db7f5fd-dfe9-4a9e-8b61-fe919e5cd536",
+      "hook": "hook_06.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "this is what our album sounds like. EDUCATION, out now.\nFull Ride – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "creative": "full_ride",
+      "captions": {
+        "instagram": "this is what our album sounds like. EDUCATION, out now.\nFull Ride – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nFull Ride is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.568,
+        "anchor_y": 0.475,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "66cf7683843a4c492081b59a5806d277322268a5d644c8f3fdf4924aadb4b99b",
+      "timestamp": "2026-11-27T08:32:59.647319Z",
+      "item_id": "ea74fe56-46a0-4a6f-aaf8-dbb2675cf5ae",
+      "hook": "hook_07.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "pov: it's 2am and this comes on shuffle\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "creative": "notta_problem",
+      "captions": {
+        "instagram": "pov: it's 2am and this comes on shuffle\nNotta Problem – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Notta Problem"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.47,
+        "anchor_y": 0.26,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "7e9557c2d28f6c597ad624b9f1212205cdb4296d03daa6a37ab55a4660fc3e36",
+      "timestamp": "2026-11-27T08:32:59.647319Z",
+      "item_id": "4b1f8ed9-6ef2-45d6-a309-11d66c1e4286",
+      "hook": "hook_03.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "your family computer in 2001 if it had taste\nEvil Close Quarters – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop",
+      "title": null,
+      "creative": "evil_close_quarters",
+      "captions": {
+        "instagram": "your family computer in 2001 if it had taste\nEvil Close Quarters – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nstream Evil Close Quarters: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.705,
+        "anchor_y": 0.352,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
