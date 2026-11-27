@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Suspended by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "glitch_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T12:23:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "datamoshed on every kick\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
