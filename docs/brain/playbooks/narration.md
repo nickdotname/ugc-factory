@@ -27,10 +27,16 @@ text over the song. The voice is `studio/voice.py`; the renderer calls it, the p
    Statement, not an ask: it is not engagement bait.
 
 ## The knob
-`voice: on | off` in the low-poly renderer, picked through `K.pick('voice', ['on', 'off'], r)` like every other knob, so the
-learner measures whether a spoken story keeps people longer than silent words on the beat. Force it for a night with
-`set=voice=on` (or `off`) on `studio.yml`. When the voice is unavailable the clip is recorded as `off` whatever was
-picked, so the numbers stay honest.
+`voice: on | off` in the low-poly renderer (`Video.plan_spoken` / `plan_beats`), picked through `K.pick('voice',
+['on', 'off'], r, weights=[3, 1])` like every other knob, so the learner measures whether a spoken story keeps people
+longer than silent words on the beat. Force it for a night with `set=voice=on` (or `off`) on `studio.yml`. When the
+voice is unavailable (or the mix fails) the clip is recorded as `off` whatever was picked, so the numbers stay honest.
+
+With the voice on: one `speak()` per shot; a shot starts on the first beat after the previous narration ends (+0.3 s),
+lasts at least as long as its words, and each caption chunk appears as its first word is spoken (the "what if" chunk
+from frame 0, for the cover). A story longer than the clip is read again up to 1.3x faster; shots that still do not
+fit are left out whole (the log says `voice: 4 of 5 shots fit`), never cut mid-sentence. The posting core
+(`src/cli.py` `_voiced_clips` / `_disclosed`) appends the label to every caption of a clip whose recipe says `voice: on`.
 
 ## Where the model lives
 `~/.cache/huggingface/hub/models--hexgrad--Kokoro-82M` (about 330 MB plus `voices/af_heart.pt`). `studio.yml`

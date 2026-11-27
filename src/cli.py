@@ -897,6 +897,7 @@ def _render(
     # Campaign-wide recency: the same line should not open two posts of the
     # style on one account whichever songs they are.
     clip_styles = _clip_styles(config)
+    voiced = _voiced_clips(config)
     style_banks: dict[tuple[str, str], list[Description]] = {}
     for name, res in resources.items():
         for style in sorted(set(clip_styles.get(name, {}).values())):
@@ -1224,6 +1225,11 @@ def _render(
                     net_captions[service.value] = asked
             if not config.posting.fan_out:
                 caption = _with_cta(caption, config.buffer.service, creative, turn)
+        if selection.hook in voiced.get(creative_name, ()):
+            # A narrated clip says so, on every caption it can go out with.
+            caption = _disclosed(caption)
+            net_captions = {k: _disclosed(v) for k, v in net_captions.items()}
+            files = [(a, p, v.model_copy(update={"caption": _disclosed(v.caption)})) for a, p, v in files]
         comments = [
             line for line in (_fill(c, creative) for c in funnel.first_comment)
             if line
@@ -2540,6 +2546,30 @@ def _clip_styles(config: CampaignConfig) -> dict[str, dict[str, str]]:
         if entry.get("style") and entry.get("creative") and entry.get("clip"):
             out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = str(entry["style"])
     return out
+
+
+#: studio/voice.py disclosure(): Meta asks realistic AI-made voice to be labelled, so a narrated clip's caption says so.
+AI_VOICE_LABEL = "voice: ai narration"
+
+
+def _voiced_clips(config: CampaignConfig) -> dict[str, set[str]]:
+    """creative -> clips whose recipe says the AI narrator read the story (knobs.voice == 'on')."""
+    try:
+        rec = json.loads((_campaign_dir(config.slug) / "recipes.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out: dict[str, set[str]] = {}
+    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
+        if entry.get("creative") and entry.get("clip") and (entry.get("knobs") or {}).get("voice") == "on":
+            out.setdefault(str(entry["creative"]), set()).add(str(entry["clip"]))
+    return out
+
+
+def _disclosed(text: str | None) -> str | None:
+    """The caption with the AI-voice label on its last line, once."""
+    if text is None or AI_VOICE_LABEL in text.lower():
+        return text
+    return f"{text.rstrip()}\n\n{AI_VOICE_LABEL}"
 
 
 def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:

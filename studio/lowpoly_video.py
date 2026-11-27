@@ -8,7 +8,10 @@ The stories are ours (studio/lowpoly/stories.txt). Each shot of a story starts o
 one per beat (two per beat when the song is slow), so the words keep time with the song; the shots are rendered in
 Blender (studio/lowpoly/scene.py, run as a separate process: bpy is heavy) and the words drawn on top here.
 Knobs (studio/knobs.py): story (which one; nightly.py's FRESH rule keeps it from repeating), caption (yellow or
-white-pink word style), pace (a chunk every beat or every half beat).
+white-pink word style), pace (a chunk every beat or every half beat), voice (on: the story is read aloud by
+studio/voice.py, the caption chunks land on the spoken words, a shot lasts at least as long as its narration, the
+song ducks under the voice and its singer is muted; off, or no narrator on this host: silent words on the beat).
+The "what if" chunk is on screen from frame 0 either way, so the cover carries the question.
 """
 import json, os, random, re, shutil, subprocess, sys, tempfile
 import numpy as np
@@ -62,20 +65,14 @@ class Video:
         while beats and beats[0] < 4: beats.pop(0)
         beats = [0] + beats
         self.kick = audio.hits(a['kicks'], n, 6.0)
-        # lay the chunks on the beats, spread so the story fills the clip: every chunk gets the same whole number of
-        # beats, and a shot is never shorter than two of them
+        self.song_dir = song_dir
+        self.voice = K.pick('voice', ['on', 'off'], r, weights=[3, 1])   # read aloud or silent: the learner compares
+        self.voices, self.vdir = [], None                                  # [(wav, offset_s, dur_s)] of the narration
         story = bank[self.story]
-        total = sum(max(1, len(s['chunks'])) for s in story)
-        step = max(1, (len(beats) - 1) // max(1, total))
-        shots, captions, k = [], [], 0
-        for s in story:
-            if k >= len(beats) - 1: break
-            first = k
-            for c in s['chunks']:
-                if k >= len(beats): break
-                captions.append((beats[k], c)); k += step
-            k = max(k, first + 2)
-            shots.append(dict(s, start=beats[first], beats=beats[first:min(k, len(beats))]))
+        shots, captions = self.plan_spoken(story, beats, n) if self.voice == 'on' else (None, None)
+        if shots is None:
+            if self.voice == 'on': self.voice = K.CHOSEN['voice'] = 'off'   # no narrator here: recorded as it really went out
+            shots, captions = self.plan_beats(story, beats, n)
         for j, s in enumerate(shots): s['end'] = shots[j + 1]['start'] if j + 1 < len(shots) else n
         last = ('street', None)                                         # a close-up stays where the story is
         for s in shots:
@@ -87,6 +84,58 @@ class Video:
         self.credit = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
         sans = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
         self.f_credit = ImageFont.truetype(sans, 30) if os.path.exists(sans) else font(30)
+
+    @staticmethod
+    def plan_beats(story, beats, n):
+        """Silent words: the chunks on the beats, spread so the story fills the clip: every chunk gets the same whole
+        number of beats, and a shot is never shorter than two of them. -> (shots, [(frame, chunk)])"""
+        total = sum(max(1, len(s['chunks'])) for s in story)
+        step = max(1, (len(beats) - 1) // max(1, total))
+        shots, captions, k = [], [], 0
+        for s in story:
+            if k >= len(beats) - 1: break
+            first = k
+            for c in s['chunks']:
+                if k >= len(beats): break
+                captions.append((beats[k], c)); k += step
+            k = max(k, first + 2)
+            shots.append(dict(s, start=beats[first], beats=beats[first:min(k, len(beats))]))
+        return shots, captions
+
+    def plan_spoken(self, story, beats, n, gap=0.3, speed=1.0):
+        """The story read aloud, one narr.speak() per shot: a shot starts on the first beat after the last one's words
+        end, lasts at least as long as its narration, and its chunks appear as their first word is spoken (the first
+        chunk from frame 0, for the cover). A story too long for the clip is read again a little faster (1.3x at most)
+        before its last shots are left out. -> (shots, captions), or (None, None) when there is no narrator here."""
+        import voice as narr
+        self.vdir = self.vdir or tempfile.mkdtemp(prefix='lowpoly-voice-')
+        story = [s for s in story if s['chunks']]
+        try:
+            spoken = [narr.speak(' '.join(s['chunks']), voice=narr.VOICES['lowpoly_stories'], speed=speed, out_wav=os.path.join(self.vdir, 'v%02d.wav' % j))
+                      for j, s in enumerate(story)]
+        except narr.VoiceUnavailable as exc:
+            print('no voice tonight: %s' % exc, flush=True); self.cleanup(); return None, None
+        need = sum(d for _w, d, _t in spoken) + gap * len(spoken) + 0.5 * len(spoken)   # the half second: waiting for a beat
+        if need * FPS > n and speed == 1.0:
+            return self.plan_spoken(story, beats, n, gap, speed=min(1.3, round(need * FPS / n + 0.02, 2)))
+        shots, captions, cursor = [], [], 0; self.voices = []
+        for s, (wav, dur, words) in zip(story, spoken):
+            start = next((b for b in beats if b >= cursor), None)
+            if start is None or start + dur * FPS > n: break                             # cut off mid-sentence is worse than left out
+            self.voices.append((wav, start / FPS, dur))
+            counts = [len([w for w in c.split() if re.search(r'\w', w)]) for c in s['chunks']]
+            lined_up = sum(counts) == len(words); k = 0
+            for c, cnt in zip(s['chunks'], counts):
+                at = words[min(k, len(words) - 1)][1] if lined_up and words else dur * k / max(1, sum(counts))
+                captions.append((0 if not captions else start + int(round(at * FPS)), c)); k += cnt
+            cursor = int(np.ceil((start / FPS + dur + gap) * FPS))
+            shots.append(dict(s, start=start, beats=[b for b in beats if start <= b < cursor] or [start]))
+        if not shots: self.cleanup(); self.voices = []; return None, None
+        if len(shots) < len(story): print('voice: %d of %d shots fit the clip at %.2fx' % (len(shots), len(story), speed), flush=True)
+        return shots, captions
+
+    def cleanup(self):
+        if self.vdir: shutil.rmtree(self.vdir, ignore_errors=True); self.vdir = None
 
     def render_frames(self, only=None):
         """Blender renders the shots (only those holding the given frames, for a sheet) into a temporary folder."""
@@ -137,8 +186,8 @@ class Video:
                 if '--full' in sys.argv: Image.fromarray(fr).save(out[:-4] + '_f%d.png' % i)
             sheet = Image.new('RGB', (360 * len(ims), 640))
             for j, im in enumerate(ims): sheet.paste(im, (360 * j, 0))
-            sheet.save(out); shutil.rmtree(tmp, ignore_errors=True)
-            print('sheet', out, K.record()['knobs'], [(s['kind'], s['effect'], s['start']) for s in self.shots]); return
+            sheet.save(out); shutil.rmtree(tmp, ignore_errors=True); self.cleanup()
+            print('sheet', out, K.record()['knobs'], [(s['kind'], s['effect'], s['start'], s['end']) for s in self.shots], [(round(o, 2), d) for _w, o, d in self.voices]); return
         tmp = self.render_frames()
         part = out[:-4] + '.part.mp4'
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
@@ -148,6 +197,15 @@ class Video:
             p.stdin.write(self.frame(i, tmp).tobytes())
         p.stdin.close(); p.wait(); shutil.rmtree(tmp, ignore_errors=True)
         aud = out[:-4] + '.m4a'; audio.audio_clip(self.slug, self.t0, self.t1, aud)
+        if self.voices:                                                     # the narration over the song, the singer muted under it
+            import voice as narr
+            song = json.load(open(os.path.join(self.song_dir, 'song.json'))); mixed = out[:-4] + '.voice.m4a'
+            try:
+                narr.mix(aud, self.voices, mixed, stems=narr.stems_of(self.song_dir), t0=self.t0 - float(song.get('stems_start_sec') or 0))
+                os.replace(mixed, aud)
+            except RuntimeError as exc:                                     # the clip goes out silent rather than not at all
+                print('::warning::voice mix failed, silent clip: %s' % exc, flush=True); self.voice = K.CHOSEN['voice'] = 'off'
+        self.cleanup()
         r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', part, '-i', aud, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'copy', '-shortest', '-movflags', '+faststart', out])
         os.remove(part); os.remove(aud)
         if r.returncode: sys.exit('mux failed')
