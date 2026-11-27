@@ -379,6 +379,18 @@ def cards(a, t):
         d.text(((W_ - d.textlength(ln, font=fs)) / 2, y), ln, font=fs, fill=(255, 255, 255, int(255 * pop))); y += lh
     im.paste(lay, (0, 0), lay); return np.asarray(im)
 
+_CREDIT = '\u266a %s \u2014 %s' % (SONG.get('title', SONG.get('slug', '')).lower(), SONG.get('artist', 'Close Quarters').lower())
+_FCREDIT = None
+def credit(a):
+    """A small, muted song credit at y 1450 (inside Instagram's safe area): the one place the song is named on screen."""
+    global _FCREDIT
+    if _FCREDIT is None:
+        p = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+        _FCREDIT = ImageFont.truetype(p, 28) if os.path.exists(p) else _font(28)
+    im = Image.fromarray(a); lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(lay).text((W / 2, 1450), _CREDIT, font=_FCREDIT, fill=(255, 255, 255, 175), anchor='mm', stroke_width=2, stroke_fill=(0, 0, 0, 120))
+    im.paste(lay, (0, 0), lay); return np.asarray(im)
+
 def finish(img, i):
     a = (np.clip(img, 0, 1) * 255 + .5).astype(np.uint8)
     if a.shape[:2] != (H, W): a = cv2.resize(a, (W, H), interpolation=cv2.INTER_NEAREST if plan['field'] == 'bryce' else cv2.INTER_CUBIC)
@@ -391,7 +403,7 @@ def finish(img, i):
         a = cv2.resize(a[y0:y0 + ch, x0:x0 + cw], (W, H), interpolation=cv2.INTER_LINEAR); d = int(16 * p_)
         if d: a = a.copy(); a[:, d:, 0] = a[:, :-d, 0]; a[:, :-d, 2] = a[:, d:, 2]
     a = _hook.draw(overlays(np.ascontiguousarray(a), i), plan['hook'], i / FPS, y=.165)
-    if CARDS: a = cards(np.ascontiguousarray(a), i / FPS)
+    a = cards(np.ascontiguousarray(a), i / FPS) if CARDS else credit(a)       # a fact reel's cards have their own layout
     # No fade-in: Instagram uses the first frame as the cover, and a black one is a black square on the profile.
     # The end only dips (never to black) so the loop back to frame one is a breath, not a blink.
     return a                       # no dip at the end either: the sound crossfades into its own start, so the video loops

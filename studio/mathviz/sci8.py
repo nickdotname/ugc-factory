@@ -432,7 +432,7 @@ def frame(i):
             prev = cv2.warpAffine(prev, M, (LW, LH), flags=cv2.INTER_NEAREST, borderMode=cv2.BORDER_REPLICATE)
         m = (BY[:LH, :LW] > t)[..., None]; c = np.where(m, prev, c)
     big = cv2.resize(np.clip(c, 0, 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST).astype(np.float32)
-    paste(big, text(CREDIT, F(DEJAVU, 30), (230, 230, 240), stroke=3), W / 2, 1660)
+    paste(big, text(CREDIT, F(DEJAVU, 30), (230, 230, 240), stroke=3), W / 2, 1470)   # inside Instagram's safe area
     return np.clip(big, 0, 255).astype(np.uint8)
 
 if __name__ == '__main__':

@@ -30,7 +30,7 @@ from stare import scenes as S
 
 W, H, FPS = 1080, 1920, 30; audio.FPS = FPS
 PW, PH = 1000, 1000                          # the picture: a square in the middle, clear of Instagram's top and bottom
-PX, PY = (W - PW) // 2, 420
+PX, PY = (W - PW) // 2, 400                  # 400..1400: leaves room under it for the countdown and the credit
 CX, CY = W // 2, PY + PH // 2                # the dot sits in the middle of the picture
 BG = np.array((128, 128, 128), np.float32)   # mid grey round the picture, so nothing around it skews the afterimage
 CHASER = {'lilac': ((236, 142, 236), 'green'), 'teal': ((60, 200, 200), 'pink'), 'gold': ((240, 200, 40), 'blue')}
@@ -154,7 +154,7 @@ class Video:
         if stare:
             d.multiline_text((W / 2, 320), HOOK[self.kind], font=self.f_hook, fill=ink, anchor='mm', align='center', spacing=12)
             left = (self.switch - i) / FPS
-            d.text((W / 2, 1470), '%d' % int(np.ceil(left)), font=font('DejaVuSansMono-Bold.ttf', int(54 + 10 * k)), fill=sub, anchor='mm')
+            d.text((W / 2, 1436), '%d' % int(np.ceil(left)), font=font('DejaVuSansMono-Bold.ttf', int(54 + 10 * k)), fill=sub, anchor='mm')
         else:
             top_on = top; dt = (i - self.switch) / FPS
             if self.kind == 'colour':
@@ -164,7 +164,7 @@ class Video:
             else:
                 top = 'every disc is %s.\nthere was never a %s one' % (self.disc_name, self.ghost)
             if top_on: d.multiline_text((W / 2, 320), top, font=self.f_hook if '\n' not in top else self.f_two, fill=ink, anchor='mm', align='center', spacing=12)
-        d.text((W / 2, 1540), self.credit, font=self.f_credit, fill=sub, anchor='mm')
+        d.text((W / 2, 1484), self.credit, font=self.f_credit, fill=sub, anchor='mm')   # inside Instagram's safe area
         return np.asarray(im)
 
     def frame(self, i):

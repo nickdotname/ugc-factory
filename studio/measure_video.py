@@ -343,7 +343,7 @@ class Video:
         for t, x, y in labs:
             d.text((x, y), t, font=self.f_lab, fill=(245, 245, 245) if self.kind == 'grey' else self.pal['rule'] if self.kind not in ('cafewall', 'hering') else txt, anchor='mm',
                    stroke_width=3, stroke_fill=self.pal['bg'] if self.kind != 'grey' else (40, 40, 40))
-        d.text((W / 2, 1590), self.credit, font=self.f_credit, fill=tuple(int(c * 0.65 + b * 0.35) for c, b in zip(txt, self.pal['bg'])), anchor='mm')
+        d.text((W / 2, 1470), self.credit, font=self.f_credit, fill=tuple(int(c * 0.65 + b * 0.35) for c, b in zip(txt, self.pal['bg'])), anchor='mm')   # inside Instagram's safe area
         return np.asarray(im)
 
     def frame(self, i):

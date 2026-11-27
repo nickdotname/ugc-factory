@@ -59,7 +59,7 @@ def frame(i):
     # words
     if k < 4.6:
         a = 1 - float(ease_out((k - 3.8) / 0.5))
-        e1 = float(ease_back(k / 0.45)); e2 = float(ease_back((k - 1.5) / 0.45)); e3 = float(ease_back((k - 2.5) / 0.45))
+        e1 = 1.0; e2 = float(ease_back((k - 1.5) / 0.45)); e3 = float(ease_back((k - 2.5) / 0.45))
         paste(c, text('every sound you hear', F(FONT, 74), ST.fg), W / 2, 500, e1, a * min(1, e1))
         paste(c, text('is just', F(FONT, 74), ST.fg), W / 2, 600, e2, a * min(1, e2))
         paste(c, text('sine waves.', F(FONT, 132), ST.d), W / 2, 1250, e3 * (1 + 0.05 * kick), a * min(1, e3))

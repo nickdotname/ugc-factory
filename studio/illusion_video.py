@@ -132,7 +132,7 @@ class Video:
         self.credit = '♪ %s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
         self.f_big, self.f_mid = font(70), font(44)
         sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',) if os.path.exists(p)), None)
-        self.f_small = ImageFont.truetype(sans, 28) if sans else font(26)
+        self.f_small = ImageFont.truetype(sans, 36) if sans else font(34)                # the credit: 28 px was unreadable on a phone
 
     def cue(self, i):
         """How strongly depth is shown, and which way round: 0 none, +1 the true near side, -1 the far side as near."""
@@ -165,10 +165,10 @@ class Video:
             N = 12; top = 2.25 * 2 * math.pi / N                               # radians a frame at the end: past two spokes' spacing
             th = 0.5 * top * i * i / max(1, self.n)                            # the angle so far, speed rising steadily from rest
             rpm = top * i / max(1, self.n) * FPS * 60 / (2 * math.pi)
-            cv2.circle(img, P(CX, CY), int(S * 1.05 * 16), tuple(float(v) for v in self.pal[0]), 12, cv2.LINE_AA, 4)
+            cv2.circle(img, P(CX, CY), int(S * 1.0 * 16), tuple(float(v) for v in self.pal[0]), 12, cv2.LINE_AA, 4)
             for j in range(N):
                 q = th + j * 2 * math.pi / N
-                cv2.line(img, P(CX + 60 * math.cos(q), CY + 60 * math.sin(q)), P(CX + S * 1.0 * math.cos(q), CY + S * 1.0 * math.sin(q)), tuple(float(v) for v in self.pal[0]), 14, cv2.LINE_AA, 4)
+                cv2.line(img, P(CX + 60 * math.cos(q), CY + 60 * math.sin(q)), P(CX + S * 0.96 * math.cos(q), CY + S * 0.96 * math.sin(q)), tuple(float(v) for v in self.pal[0]), 14, cv2.LINE_AA, 4)
             cv2.circle(img, P(CX, CY), int((60 + 10 * k) * 16), tuple(float(v) for v in self.pal[-1]), -1, cv2.LINE_AA, 4)
             self._rpm = rpm
         elif self.kind == 'group':
@@ -218,8 +218,8 @@ class Video:
         if self.kind != 'stripes': img = img + cv2.GaussianBlur(img, (0, 0), 9) * 0.35
         im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
         d.multiline_text((W / 2, 300), self.says(i), font=self.f_big, fill=(255, 255, 255), anchor='mm', align='center', spacing=16, stroke_width=4, stroke_fill=(0, 0, 0))
-        if self.kind == 'wheel': d.text((W / 2, H * 0.755), '%d turns a minute' % self._rpm, font=self.f_mid, fill=(235, 235, 245), anchor='mm')
-        d.text((W / 2, H * 0.80), self.credit, font=self.f_small, fill=(180, 180, 195), anchor='mm')
+        if self.kind == 'wheel': d.text((W / 2, 1418), '%d turns a minute' % self._rpm, font=self.f_mid, fill=(235, 235, 245), anchor='mm')
+        d.text((W / 2, 1472), self.credit, font=self.f_small, fill=(180, 180, 195), anchor='mm')   # inside Instagram's safe area (y 250-1500)
         return np.asarray(im)
 
     def render(self, out):
