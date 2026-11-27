@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-11-27T08:32:47.076562Z",
+  "generated_at": "2026-11-27T14:02:03.318423Z",
   "items": [
     {
-      "id": "4cabc7db-dccf-4aa2-a073-d62e32377585",
+      "id": "ba6bb008-03c3-4ce6-a643-80a9a8d405f8",
       "scheduled_for": "2026-11-27T09:35:00-05:00",
-      "rendered_at": "2026-11-27T08:32:47.076562Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-27/4cabc7db-dccf-4aa2-a073-d62e32377585.mp4",
-      "caption": "recorded over somebody's birthday party\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
+      "rendered_at": "2026-11-27T14:02:03.318423Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-27/ba6bb008-03c3-4ce6-a643-80a9a8d405f8.mp4",
+      "caption": "you were here. you just don't remember the year\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
       "title": null,
       "parts": {
-        "hook": "hook_07.mp4",
+        "hook": "hook_06.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.577,
-        "anchor_y": 0.63,
+        "anchor_x": 0.544,
+        "anchor_y": 0.544,
         "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -33,23 +33,13 @@
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Suspended by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-e8249ec9-fde6-4b04-9563-0f546d6c6360",
-          "last_error": null,
-          "scheduled_for": "2026-11-30T09:35:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "recorded over somebody's birthday party\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nstream Suspended: link in bio"
+        "instagram": "you were here. you just don't remember the year\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
