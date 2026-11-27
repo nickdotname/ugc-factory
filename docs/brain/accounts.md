@@ -4,29 +4,29 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 
 | account | `accounts.yaml` name | campaign | style(s) / renderer | posts/day | window (NY) |
 |---|---|---|---|---|---|
-| @close__quarters | close_quarters_ig | cq_band | band, lofi, cursor (lyric styles: the band's own footage) | 8 | 9–23 |
-| @dylancantor23 | dylancantor23_ig | cq_producer | producer (stems build / strip in a DAW) | 8 | 9–23 |
-| @the.loose.change (was nickdotname) | nickdotname_ig (Buffer) | nick_studio, closequarters (**paused** 2026-11-24: every meme clip in its pool was ripped film/TV/game footage) | type (kinetic lyrics) + memes | 3 + 0 | 11–23 / all day |
-| @psychedelic.station | psychedelic_station_ig | psy_station | psy, collage (+ carousels, fact reels) | 10 | 9–23 |
-| @nostalgia.hub.vhs | nostalgia_ig | nostalgia | liminal (+ carousels, fact reels) | 6 | 9–23 |
-| @math.explainers | math_ig | math_time | math (integrals, Fourier, zeta, fold, sci8) | 5 | 8–23 |
-| @glitch.archive.exe | glitch_ig | glitch_archive | glitch | 5 | 9–23 |
-| @ascii.terminal.dreams | ascii_ig | ascii_art | ascii | 5 | 9–23 |
-| @physics.bounce.lab | physics_ig | physics_sims | physics (needs the song's Ableton hits) | 5 | 8–23 |
-| @earth.data.live | earth_ig | earth_data | earth | 5 | 8–23 |
-| @retro.vibes.arcade | retro_ig | retro_arcade | retro (Kaggle-made PS2 clips) | 4 | 9–23 |
-| @rocket.league.lit | rocket_ig | rocket_league | rocket (our own clips) | 5 | 8–23 |
-| @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | 5 | 8–23 |
-| @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (city walk, memes, then/now, facts) | 5 | 9–23 |
-| @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 5 | 9–23 |
-| @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (public-domain films set in type in a terminal, cut on the bar: comedy, dream or launch reels) | 5 | 8–23 |
-| @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 5 | 9–23 |
-| @rotation.illusions ("Rotation Illusions") | illusions_ig | illusions | illusion (dot shapes whose turning direction is up to your eyes; a disc that reads as a cone; a wheel that runs backwards) | 5 | 8–23 |
-| @algorithm.races ("Algorithm Races", no Page: Unified login, token `IG_TOKEN_2`) | races_ig | algo_races | race (sorting algorithms on the same shuffled numbers; search algorithms through one maze) | 5 | 8–23 |
-| @8bit.tests ("8-Bit Tests", no Page, token `IG_TOKEN_3`) | tests8_ig | pixel_tests | tests8 (play-along pixel tests: pause when it fits, follow the gem, watch the order, count the fireworks, early or late) | 5 | 8–23 |
-| @moth.ate.my.notes (no Page, token `IG_TOKEN_4`) | notes_ig | notes_app | notes (one thought on a gradient, like an Instagram text post; no song label on the card) | 5 | 8–23 |
-| @crying.in.trader.joes (no Page, token `IG_TOKEN_6`) | her_ig | notes_her | notes_her (one thought on a gradient in a girl's voice; bank studio/notes/her.txt) | 5 | 8–23 |
-| @grip.tape.thoughts (no Page, token `IG_TOKEN_5`) | him_ig | notes_him | notes_him (one thought on a gradient in a skater guy's voice; bank studio/notes/him.txt) | 5 | 8–23 |
+| @close__quarters | close_quarters_ig | cq_band | band, lofi, cursor (lyric styles: the band's own footage) | 3 (cutout 2, band 1; style quota) | 9–23 |
+| @dylancantor23 | dylancantor23_ig | cq_producer | producer (stems build / strip in a DAW) | 3 | 9–23 |
+| @the.loose.change (was nickdotname) | nickdotname_ig (Buffer) | nick_studio, closequarters (**paused** 2026-11-24: every meme clip in its pool was ripped film/TV/game footage) | type (kinetic lyrics) + memes | 1 + 0 | 12–23 / all day |
+| @psychedelic.station | psychedelic_station_ig | psy_station | psy, collage (+ carousels, fact reels) | 1 + 2 fact reels | 12–23 |
+| @nostalgia.hub.vhs | nostalgia_ig | nostalgia | liminal (+ carousels, fact reels) | 1 + 2 fact reels | 12–23 |
+| @math.explainers | math_ig | math_time | math (integrals, Fourier, zeta, fold, sci8) | 5 | 12–23 |
+| @glitch.archive.exe | glitch_ig | glitch_archive | glitch | 2 | 12–23 |
+| @ascii.terminal.dreams | ascii_ig | ascii_art | ascii | 5 | 12–23 |
+| @physics.bounce.lab | physics_ig | physics_sims | physics (needs the song's Ableton hits) | 5 (fluid 3, stopit 1, physics 1) | 12–23 |
+| @earth.data.live | earth_ig | earth_data | earth | 5 | 12–23 |
+| @retro.vibes.arcade | retro_ig | retro_arcade | retro (Kaggle-made PS2 clips) | **paused** 2026-11-27 (review) | — |
+| @rocket.league.lit | rocket_ig | rocket_league | rocket (our own clips) | 3 | 12–23 |
+| @vintage.media.archive | vintage_ig | vintage_archive | vintage (pre-1931 films as old prints) | **paused** 2026-11-27 (review; originality notice) | — |
+| @nyc.daily.aesthetic ("Daily NYC Memes & Culture") | nyc_ig | nyc_daily | nyc (city walk, memes, then/now, facts) | 4 | 12–23 |
+| @tiny.code.loops ("Tiny Code & Generative Art") | tinycode_ig | tiny_code | tinycode (a short numpy program and what it draws) | 3 | 12–23 |
+| @ascii.cinema.tty ("ASCII Cinema & Film") | cinema_ig | ascii_cinema | cinema (public-domain films set in type in a terminal, cut on the bar: comedy, dream or launch reels) | 3 | 12–23 |
+| @digital.petri.dish ("Digital Petri Dish & Artificial Life") | petri_ig | petri_dish | alife (a slime-mould simulation of thousands of simple agents, moving to the song) | 2 | 12–23 |
+| @rotation.illusions ("Rotation Illusions") | illusions_ig | illusions | illusion (dot shapes whose turning direction is up to your eyes; a disc that reads as a cone; a wheel that runs backwards) | 5 | 12–23 |
+| @algorithm.races ("Algorithm Races", no Page: Unified login, token `IG_TOKEN_2`) | races_ig | algo_races | race (sorting algorithms on the same shuffled numbers; search algorithms through one maze) | 3 | 12–23 |
+| @8bit.tests ("8-Bit Tests", no Page, token `IG_TOKEN_3`) | tests8_ig | pixel_tests | tests8 (play-along pixel tests: pause when it fits, follow the gem, watch the order, count the fireworks, early or late) | 3 | 12–23 |
+| @moth.ate.my.notes (no Page, token `IG_TOKEN_4`) | notes_ig | notes_app | notes (one thought on a gradient, like an Instagram text post; no song label on the card) | 2 | 12–23 |
+| @crying.in.trader.joes (no Page, token `IG_TOKEN_6`) | her_ig | notes_her | notes_her (one thought on a gradient in a girl's voice; bank studio/notes/her.txt) | 2 | 12–23 |
+| @grip.tape.thoughts (no Page, token `IG_TOKEN_5`) | him_ig | notes_him | notes_him (one thought on a gradient in a skater guy's voice; bank studio/notes/him.txt) | 2 | 12–23 |
 
 **closequarters memes** (when un-paused): the six songs share one clip pool, so a clip's 21-day cooldown is kept across every song and every account version (`Selector.select_batch_multi(visual_pools=...)`); Instagram and TikTok each get their own clip (`variation.per_account`), and with `repeats: false` an empty slot beats a repeat.
 
@@ -56,7 +56,14 @@ Each campaign's `brand/profile.jpg` is the account picture; the dashboard shows 
 - @situationship.notes: notes_date (notes_date), IG_TOKEN_9
 - @what.if.town: lowpoly_stories (lowpoly), IG_TOKEN_11
 - @dining.hall.philosopher: notes_college (notes_college), IG_TOKEN_10
-New accounts post 2 a day for their first week.
+New accounts post 2 a day for their first week. situationship.notes is **paused** since 2026-11-27 (its bank overlapped
+crying.in.trader.joes and carried the recommendation-guideline risk; the clean lines moved to the other banks).
+
+**Cadence since 2026-11-27** (docs/brain/reviews/2026-11-26): posts/day above is the whole day including fact reels; the
+carousel job is off; fact reels run twice a day on nostalgia and on psychedelic.station with non-drug specs only; niche
+windows open at noon New York (10–11 was the weakest hour, 17 and 20–23 the best); no two posts within 60 minutes on one
+account across jobs. The band accounts post **normal reels, not trials** (`trial_reels: false`). Each campaign has its own
+three first-comment wordings. cq_band picks by `selection.style_quota` (cutout 2, band 1).
 
 ### Adrianne's pages (2026-11-25)
 - **@eye.trick.lab** (`eyetrick_ig`, campaign `eye_tricks`): the illusion style, its own renders. Page "Eye Tricks".

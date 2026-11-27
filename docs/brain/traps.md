@@ -147,3 +147,19 @@ each posted the same video twice an hour apart before it was caught. Fixed three
 alone starts top-ups), the Instagram publisher holds a video only once per account (create_post returns the
 existing booking), and publish-due never sends a video the account has already posted. The 52 duplicates were set
 to failed, not deleted.
+
+## Found by the 2026-11-26 review (fixed 2026-11-27)
+
+- **A boost is not a quota.** cq_band's `favour_styles {cutout: 3}` never got the cutout style posted: the selector's
+  performance medians favoured the older band clips (27 cutouts rendered, at most 3 posted). `selection.style_quota`
+  (src/cli.py) now reserves slots per style, never-posted clips first; a boost only tilts what is left.
+- **Our own first comment is a comment.** `talk = comments / reach` in learn.py rewarded the lowest-reach posts because
+  every post carries exactly one comment, ours. `OWN_COMMENTS` is subtracted and no campaign scores talk by default.
+- **Trial reels on the destination account.** 53 of 54 band posts were trials: hidden from followers and off the grid.
+  Trial is for a risky format on a niche page, never for the account every credit points at.
+- **A denied insights call was a warning.** Ten accounts posted for days with no numbers while metrics stayed green;
+  `insights_denied` now turns the campaign red (`::error::`) and `scripts/ig_check.py` prints each token's permissions.
+- **A title filter is not a trademark filter.** Steamboat Willie passed `footage.TRADEMARK` because the title lacks
+  "mickey"; toons entries are now also judged by year (≤ 1930) and the two films are named in the pattern.
+- **Retire stops rendering, not posting.** A retired knob value stays in the library until its clips are used up (liminal's
+  office/pool rooms posted two days after being retired); purge the library or wait it out.
