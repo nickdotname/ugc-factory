@@ -69,7 +69,12 @@
     "the_freshman_1925",
     "the_immigrant_1917",
     "the_navigator_1924",
-    "west_of_hot_dog_1924"
+    "west_of_hot_dog_1924",
+    "artemis_ii_s_sls_rocket_lifted_off",
+    "big_trains_rolling",
+    "coney_island",
+    "launch_of_noaa_m_aboard_titan_ii_r",
+    "the_big_train"
    ]
   }
  },
@@ -507,6 +512,37 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "prologue",
+   "file": "prologue_s04_cinema_428207.mp4",
+   "song": "prologue",
+   "section": "s04",
+   "style": "cinema",
+   "seed": 428207,
+   "window": [
+    95.93,
+    102.48
+   ],
+   "plan": null,
+   "knobs": {
+    "reel": "launch",
+    "cell": "12",
+    "look": "amber",
+    "crt": "on",
+    "film": "the_big_train",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.52,
+    "bass": 0.68,
+    "other": 0.25
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
   }
  ]
 }

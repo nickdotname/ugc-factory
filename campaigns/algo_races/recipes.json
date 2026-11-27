@@ -342,6 +342,40 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s03_race_87293.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s03",
+   "style": "race",
+   "seed": 87293,
+   "window": [
+    35.51,
+    52.98
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "paths",
+    "theme": "midnight",
+    "font": "inter",
+    "grid": "none",
+    "shake": "1.3",
+    "glow": "0.6",
+    "chip": "tag",
+    "maze": "dijkstra-greedy-astar",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.53,
+    "bass": 0.65,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

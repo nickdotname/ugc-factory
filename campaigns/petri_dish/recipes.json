@@ -21,6 +21,10 @@
    "steps": [
     "1",
     "2"
+   ],
+   "species": [
+    "1",
+    "3"
    ]
   }
  },
@@ -444,6 +448,37 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "talk",
+   "file": "talk_s02_alife_511014.mp4",
+   "song": "talk",
+   "section": "s02",
+   "style": "alife",
+   "seed": 511014,
+   "window": [
+    45.76,
+    68.23
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "rain",
+    "palette": "gold",
+    "sense": "14",
+    "steps": "2",
+    "species": "1",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.87,
+    "bass": 0.77,
+    "other": 0.39
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ]
 }

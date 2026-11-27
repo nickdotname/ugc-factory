@@ -6539,6 +6539,140 @@
    },
    "lyrics_proven": false,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s06_psy_361766.mp4",
+   "song": "evil-close-quarters",
+   "section": "s06",
+   "style": "psy",
+   "seed": 361766,
+   "window": [
+    123.21,
+    132.1
+   ],
+   "plan": {
+    "field": "kaleido",
+    "sym": 4,
+    "pal": "acid",
+    "feedback": false,
+    "spin": -0.11487514968333844,
+    "warp": 1.480210767728302,
+    "mirror": true,
+    "grain": false,
+    "strobe": true,
+    "lyrics": "word",
+    "ring": true,
+    "motif": null,
+    "contour": false,
+    "poster": true,
+    "font": "Poppins-Bold.ttf",
+    "word_y": 0.5,
+    "scale": 4.458046688426153,
+    "second": "marble",
+    "flip_at": 0.6004479629578132,
+    "speed": 1.6,
+    "hook": "",
+    "relief": false,
+    "gl": true
+   },
+   "knobs": {
+    "field": "kaleido",
+    "sym": "4",
+    "pal": "acid",
+    "feedback": "false",
+    "mirror": "true",
+    "grain": "false",
+    "strobe": "true",
+    "lyrics": "word",
+    "ring": "true",
+    "motif": "none",
+    "contour": "false",
+    "poster": "true",
+    "font": "Poppins-Bold.ttf",
+    "word_y": "0.5",
+    "second": "marble",
+    "speed": "1.6",
+    "relief": "false",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.49,
+    "drums": 0.76,
+    "bass": 0.87,
+    "other": 0.68
+   },
+   "lyrics_proven": true,
+   "clip": "hook_08.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s02_psy_788373.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s02",
+   "style": "psy",
+   "seed": 788373,
+   "window": [
+    33.71,
+    49.5
+   ],
+   "plan": {
+    "field": "tunnel",
+    "sym": 8,
+    "pal": "acid",
+    "feedback": false,
+    "spin": 0.05070033254472135,
+    "warp": 0.6036191343320477,
+    "mirror": false,
+    "grain": true,
+    "strobe": false,
+    "lyrics": null,
+    "ring": true,
+    "motif": "eye",
+    "contour": false,
+    "poster": true,
+    "font": "DejaVuSerif-Bold.ttf",
+    "word_y": 0.5,
+    "scale": 3.9218760549229024,
+    "second": "marble",
+    "flip_at": 0.5663056478092353,
+    "speed": 1.6,
+    "hook": "",
+    "relief": true,
+    "gl": true
+   },
+   "knobs": {
+    "field": "tunnel",
+    "sym": "8",
+    "pal": "acid",
+    "feedback": "false",
+    "mirror": "false",
+    "grain": "true",
+    "strobe": "false",
+    "lyrics": "word",
+    "ring": "true",
+    "motif": "eye",
+    "contour": "false",
+    "poster": "true",
+    "font": "DejaVuSerif-Bold.ttf",
+    "word_y": "0.5",
+    "second": "marble",
+    "speed": "1.6",
+    "relief": "true",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.51,
+    "drums": 0.5,
+    "bass": 0.49,
+    "other": 0.52
+   },
+   "lyrics_proven": false,
+   "clip": "hook_07.mp4"
   }
  ],
  "since": "2026-11-22T07:03:36.615150+00:00",
@@ -6642,6 +6776,10 @@
     "1.6"
    ],
    "trip": [
+    "true",
+    "false"
+   ],
+   "relief": [
     "true",
     "false"
    ]

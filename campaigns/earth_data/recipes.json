@@ -594,6 +594,36 @@
    },
    "lyrics_proven": true,
    "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "full_ride",
+   "file": "full-ride_s03_earth_793316.mp4",
+   "song": "full-ride",
+   "section": "s03",
+   "style": "earth",
+   "seed": 793316,
+   "window": [
+    51.55,
+    63.78
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "flights",
+    "palette": "paper",
+    "spin": "fast",
+    "hook": "fact",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.7,
+    "bass": 0.77,
+    "other": 0.61
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }

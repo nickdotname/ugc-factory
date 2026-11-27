@@ -874,6 +874,35 @@
    },
    "lyrics_proven": false,
    "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "prologue",
+   "file": "prologue_s06_math_735769.mp4",
+   "song": "prologue",
+   "section": "s06",
+   "style": "math",
+   "seed": 735769,
+   "window": [
+    126.2,
+    148.99
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sci8",
+    "subject": "heart",
+    "sky": "plum",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.65,
+    "bass": 0.6,
+    "other": 0.24
+   },
+   "lyrics_proven": false,
+   "clip": "hook_06.mp4"
   }
  ]
 }

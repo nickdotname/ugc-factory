@@ -2097,6 +2097,39 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s02_type_366624.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s02",
+   "style": "type",
+   "seed": 366624,
+   "window": [
+    65.23,
+    78.94
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "block",
+    "palette": "news",
+    "font": "figtree",
+    "motion": "block",
+    "texture": "photocopy",
+    "echo": "halftone",
+    "flip": "line",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.67,
+    "bass": 0.61,
+    "other": 0.45
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
   }
  ],
  "since": "2026-11-22T20:42:47.589548+00:00",

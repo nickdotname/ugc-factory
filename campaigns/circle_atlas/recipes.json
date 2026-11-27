@@ -170,6 +170,64 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "prologue",
+   "file": "prologue_s10_reveal_296446.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "reveal",
+   "seed": 296446,
+   "window": [
+    230.11,
+    236.66
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Greenland",
+    "palette": "blueprint",
+    "ask": "name",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.44,
+    "drums": 0.64,
+    "bass": 0.48,
+    "other": 1.07
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s05_reveal_988641.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s05",
+   "style": "reveal",
+   "seed": 988641,
+   "window": [
+    133.41,
+    145.41
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Finland",
+    "palette": "chalk",
+    "ask": "early",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.65,
+    "drums": 0.67,
+    "bass": 0.72,
+    "other": 0.37
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

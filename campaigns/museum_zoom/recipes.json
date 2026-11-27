@@ -326,6 +326,70 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "passage_waiting",
+   "file": "passage-waiting_s06_zoom_585297.mp4",
+   "song": "passage-waiting",
+   "section": "s06",
+   "style": "zoom",
+   "seed": 585297,
+   "window": [
+    94.33,
+    112.29
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:130973",
+    "dive": "snap",
+    "mark": "ring",
+    "wall": "gallery",
+    "tour": "one",
+    "hook": "who",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.2,
+    "bass": 0.7,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s07_zoom_410171.mp4",
+   "song": "recess-rewind",
+   "section": "s07",
+   "style": "zoom",
+   "seed": 410171,
+   "window": [
+    104.43,
+    121.78
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:159639",
+    "dive": "snap",
+    "mark": "ring",
+    "wall": "gallery",
+    "tour": "two",
+    "hook": "who",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.84,
+    "bass": 0.62,
+    "other": 0.8
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

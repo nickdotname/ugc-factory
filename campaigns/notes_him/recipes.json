@@ -607,6 +607,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s04_notes_him_624789.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s04",
+   "style": "notes_him",
+   "seed": 624789,
+   "window": [
+    77.14,
+    100.07
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m062",
+    "look": "meadow",
+    "ink": "black",
+    "face": "strong",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.71,
+    "bass": 0.68,
+    "other": 0.53
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "fixation",
+   "file": "fixation_s02_notes_him_253893.mp4",
+   "song": "fixation",
+   "section": "s02",
+   "style": "notes_him",
+   "seed": 253893,
+   "window": [
+    94.33,
+    102.32
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m007",
+    "look": "rainbow",
+    "ink": "white",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.93,
+    "drums": 0.89,
+    "bass": 0.69,
+    "other": 0.51
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s08_notes_him_46837.mp4",
+   "song": "evil-close-quarters",
+   "section": "s08",
+   "style": "notes_him",
+   "seed": 46837,
+   "window": [
+    162.4,
+    184.87
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m053",
+    "look": "citrus",
+    "ink": "black",
+    "face": "strong",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.92,
+    "drums": 0.66,
+    "bass": 0.72,
+    "other": 0.61
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s04_notes_him_977168.mp4",
+   "song": "subway-maintenance",
+   "section": "s04",
+   "style": "notes_him",
+   "seed": 977168,
+   "window": [
+    102.67,
+    118.77
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m085",
+    "look": "citrus",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.47,
+    "bass": 0.47,
+    "other": 0.68
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s06_notes_him_424783.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s06",
+   "style": "notes_him",
+   "seed": 424783,
+   "window": [
+    152.55,
+    161.12
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m101",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.77,
+    "bass": 0.53,
+    "other": 0.27
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

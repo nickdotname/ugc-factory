@@ -192,6 +192,66 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s04_notes_college_265816.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s04",
+   "style": "notes_college",
+   "seed": 265816,
+   "window": [
+    52.98,
+    71.12
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "c003",
+    "look": "rainbow",
+    "ink": "black",
+    "face": "tall",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.65,
+    "bass": 0.7,
+    "other": 0.56
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s04_notes_college_280551.mp4",
+   "song": "subway-maintenance",
+   "section": "s04",
+   "style": "notes_college",
+   "seed": 280551,
+   "window": [
+    97.71,
+    111.79
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "c021",
+    "look": "meadow",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.66,
+    "drums": 0.54,
+    "bass": 0.56,
+    "other": 0.64
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

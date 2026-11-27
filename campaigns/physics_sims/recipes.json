@@ -951,6 +951,157 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "suspended",
+   "file": "suspended_s06_physics_895409.mp4",
+   "song": "suspended",
+   "section": "s06",
+   "style": "physics",
+   "seed": 895409,
+   "window": [
+    108.45,
+    122.3
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "rings",
+    "hits": "drums",
+    "palette": "sunset",
+    "trail": "ribbon",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.2,
+    "drums": 0.77,
+    "bass": 0.44,
+    "other": 0.88
+   },
+   "lyrics_proven": false,
+   "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01_fluid_319965.mp4",
+   "song": "silver-and-gold",
+   "section": "s01",
+   "style": "fluid",
+   "seed": 319965,
+   "window": [
+    37.09,
+    50.12
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "airfoil",
+    "view": "vorticity",
+    "palette": "magma",
+    "gust": "drums",
+    "hook": "gust",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.58,
+    "drums": 0.59,
+    "bass": 0.48,
+    "other": 0.71
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s04_fluid_227359.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s04",
+   "style": "fluid",
+   "seed": 227359,
+   "window": [
+    114.39,
+    121.25
+   ],
+   "plan": null,
+   "knobs": {
+    "obstacle": "guitar",
+    "view": "vorticity",
+    "palette": "magma",
+    "gust": "kick",
+    "hook": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.51,
+    "drums": 0.8,
+    "bass": 0.56,
+    "other": 0.33
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s03_stopit_562962.mp4",
+   "song": "silver-and-gold",
+   "section": "s03",
+   "style": "stopit",
+   "seed": 562962,
+   "window": [
+    80.65,
+    91.21
+   ],
+   "plan": null,
+   "knobs": {
+    "thing": "crate",
+    "sky": "noon",
+    "ask": "stop",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.79,
+    "bass": 0.75,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s04_stopit_295927.mp4",
+   "song": "subway-maintenance",
+   "section": "s04",
+   "style": "stopit",
+   "seed": 295927,
+   "window": [
+    102.67,
+    108.71
+   ],
+   "plan": null,
+   "knobs": {
+    "thing": "cone",
+    "sky": "golden",
+    "ask": "pause",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.6,
+    "drums": 0.65,
+    "bass": 0.74,
+    "other": 0.68
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

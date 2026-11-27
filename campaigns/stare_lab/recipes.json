@@ -23,6 +23,11 @@
    "hold": [
     "short",
     "long"
+   ],
+   "disc": [
+    "gold",
+    "lilac",
+    "teal"
    ]
   }
  },
@@ -143,6 +148,67 @@
     "drums": 0.22,
     "bass": 0.71,
     "other": 0.18
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "suspended",
+   "file": "suspended_s05_stare_958813.mp4",
+   "song": "suspended",
+   "section": "s05",
+   "style": "stare",
+   "seed": 958813,
+   "window": [
+    93.56,
+    108.81
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "colour",
+    "scene": "balloons",
+    "spin": "in",
+    "hold": "short",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.51,
+    "bass": 0.23,
+    "other": 0.64
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s04_stare_217602.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s04",
+   "style": "stare",
+   "seed": 217602,
+   "window": [
+    77.14,
+    100.07
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "chaser",
+    "scene": "tulips",
+    "spin": "in",
+    "hold": "long",
+    "disc": "teal",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.71,
+    "bass": 0.68,
+    "other": 0.53
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"

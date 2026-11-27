@@ -606,6 +606,70 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s03_retro_71247.mp4",
+   "song": "subway-maintenance",
+   "section": "s03",
+   "style": "retro",
+   "seed": 71247,
+   "window": [
+    70.09,
+    82.16
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "city",
+    "screen": "clean",
+    "frame": "none",
+    "trans": "hard",
+    "pace": "1",
+    "hook": "spot",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.78,
+    "bass": 0.28,
+    "other": 0.52
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s10_retro_41432.mp4",
+   "song": "evil-close-quarters",
+   "section": "s10",
+   "style": "retro",
+   "seed": 41432,
+   "window": [
+    217.23,
+    227.94
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "snow",
+    "screen": "clean",
+    "frame": "none",
+    "trans": "flash",
+    "pace": "2",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.64,
+    "bass": 0.78,
+    "other": 0.6
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }

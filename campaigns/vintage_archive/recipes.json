@@ -624,6 +624,43 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "suspended",
+   "file": "suspended_s03_vintage_634041.mp4",
+   "song": "suspended",
+   "section": "s03",
+   "style": "vintage",
+   "seed": 634041,
+   "window": [
+    61.41,
+    72.18
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "fill",
+    "tint": "sepia",
+    "crank": "1",
+    "gate": "rounded",
+    "cards": "lower",
+    "trip": "none",
+    "pace": "bar",
+    "slate": "on",
+    "look": "ink",
+    "pen": "brush",
+    "source": "silent",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.63,
+    "bass": 0.26,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

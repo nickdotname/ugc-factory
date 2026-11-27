@@ -1428,6 +1428,92 @@
    },
    "lyrics_proven": true,
    "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "suspended",
+   "file": "suspended_s05_liminal_96550.mp4",
+   "song": "suspended",
+   "section": "s05",
+   "style": "liminal",
+   "seed": 96550,
+   "window": [
+    98.79,
+    104.94
+   ],
+   "plan": {
+    "place": "playplace",
+    "laps": 2,
+    "year": 2002,
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "losing a shoe in the ball pit and never seeing it again",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "playplace",
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.63,
+    "drums": 0.57,
+    "bass": 0.26,
+    "other": 0.66
+   },
+   "lyrics_proven": false,
+   "clip": "hook_07.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s03-s04_liminal_599278.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s03-s04",
+   "style": "liminal",
+   "seed": 599278,
+   "window": [
+    35.51,
+    71.12
+   ],
+   "plan": {
+    "place": "school",
+    "laps": 9,
+    "year": 1997,
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "none",
+    "hook": "being sent to the office in third grade",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "school",
+    "pace": "walk",
+    "tint": "warm",
+    "tape": "chewed",
+    "label": "none",
+    "stamp": "none",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.59,
+    "bass": 0.67,
+    "other": 0.54
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ],
  "menu": {

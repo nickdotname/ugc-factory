@@ -149,6 +149,64 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "suspended",
+   "file": "suspended_s06_lowpoly_941777.mp4",
+   "song": "suspended",
+   "section": "s06",
+   "style": "lowpoly",
+   "seed": 941777,
+   "window": [
+    108.45,
+    116.14
+   ],
+   "plan": null,
+   "knobs": {
+    "story": "town in town",
+    "caption": "yellow",
+    "pace": "beat",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.36,
+    "drums": 0.74,
+    "bass": 0.47,
+    "other": 0.83
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s02_lowpoly_503131.mp4",
+   "song": "evil-close-quarters",
+   "section": "s02",
+   "style": "lowpoly",
+   "seed": 503131,
+   "window": [
+    45.85,
+    56.16
+   ],
+   "plan": null,
+   "knobs": {
+    "story": "volume",
+    "caption": "yellow",
+    "pace": "half",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.61,
+    "bass": 0.79,
+    "other": 0.67
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

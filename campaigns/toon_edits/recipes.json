@@ -191,6 +191,38 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s01_toon_773988.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s01",
+   "style": "toon",
+   "seed": 773988,
+   "window": [
+    19.37,
+    25.83
+   ],
+   "plan": null,
+   "knobs": {
+    "pace": "beat",
+    "punch": "cut",
+    "stutter": "on",
+    "wash": "pop",
+    "frame": "fit",
+    "caption": "hook",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.9,
+    "bass": 0.91,
+    "other": 0.18
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

@@ -518,6 +518,36 @@
    },
    "lyrics_proven": false,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "talk",
+   "file": "talk_s06_illusion_17217.mp4",
+   "song": "talk",
+   "section": "s06",
+   "style": "illusion",
+   "seed": 17217,
+   "window": [
+    122.43,
+    134.23
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "group",
+    "shape": "stair",
+    "palette": "candy",
+    "ask": "flip",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.9,
+    "drums": 0.92,
+    "bass": 0.73,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

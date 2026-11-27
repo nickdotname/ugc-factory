@@ -444,6 +444,36 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s01_tests8_90682.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s01",
+   "style": "tests8",
+   "seed": 90682,
+   "window": [
+    42.02,
+    65.37
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "tests8",
+    "test": "beat",
+    "world": "forest",
+    "crt": "true",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.4,
+    "bass": 0.83,
+    "other": 0.64
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

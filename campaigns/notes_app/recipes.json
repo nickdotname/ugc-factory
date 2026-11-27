@@ -579,6 +579,156 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "talk",
+   "file": "talk_s01_notes_478232.mp4",
+   "song": "talk",
+   "section": "s01",
+   "style": "notes",
+   "seed": 478232,
+   "window": [
+    25.85,
+    43.55
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n066",
+    "look": "orchid",
+    "ink": "white",
+    "face": "tall",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.92,
+    "bass": 0.73,
+    "other": 0.61
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "notta_problem",
+   "file": "notta-problem_s01_notes_628692.mp4",
+   "song": "notta-problem",
+   "section": "s01",
+   "style": "notes",
+   "seed": 628692,
+   "window": [
+    38.31,
+    45.19
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n049",
+    "look": "sunset",
+    "ink": "white",
+    "face": "tall",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.77,
+    "drums": 0.29,
+    "bass": 0.16,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s07_notes_357944.mp4",
+   "song": "recess-rewind",
+   "section": "s07",
+   "style": "notes",
+   "seed": 357944,
+   "window": [
+    104.43,
+    121.78
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n001",
+    "look": "lagoon",
+    "ink": "black",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.84,
+    "bass": 0.62,
+    "other": 0.8
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s05_notes_119147.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s05",
+   "style": "notes",
+   "seed": 119147,
+   "window": [
+    71.12,
+    88.56
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n079",
+    "look": "lagoon",
+    "ink": "black",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.47,
+    "bass": 0.66,
+    "other": 0.47
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "fixation",
+   "file": "fixation_s01_notes_553955.mp4",
+   "song": "fixation",
+   "section": "s01",
+   "style": "notes",
+   "seed": 553955,
+   "window": [
+    12.37,
+    18.36
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n075",
+    "look": "orchid",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.02,
+    "drums": 0.05,
+    "bass": 0.03,
+    "other": 0.42
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }
