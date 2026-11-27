@@ -13,8 +13,12 @@ that morning by studio/earthdata.py:
               it ("70 planes over Miami, tracked 27 Nov, 15:44 UTC"); each snare lights up one kind of plane among them
   quakes      every earthquake of magnitude 2.5+ in the last 30 days (USGS). The month is replayed with its clock
               bent so that the largest quakes land on the kicks; the date on screen is always the real one
+  iss         the ISS over one of the 30 cities: SGP4 on its CelesTrak elements finds every pass within 500 km of
+              one in the 24 hours up to the data (so it is always in the past), the camera dives to the city and the
+              ground track is drawn with the pass's UTC time, how far and how high, and whether it could be seen
+              (the ISS in sunlight while the city's sun is 6+ degrees down). The city is the knob `place`.
 The globe is drawn from Natural Earth outlines, lit by the real sun at the moment shown (the night side is dark).
-Knobs: scene, palette, spin, hook (studio/knobs.py learns which get watched).
+Knobs: scene, palette, spin, hook, place (studio/knobs.py learns which get watched).
 """
 import datetime as dt, json, math, os, random, subprocess, sys
 import numpy as np, cv2
@@ -134,6 +138,46 @@ def within(lat, lon, la, lo, km):
     return unit(np.asarray(lat, float), np.asarray(lon, float)) @ unit(np.array(la), np.array(lo)) > math.cos(km / 6371.0)
 
 
+def iss_sat(path):
+    """The ISS (NORAD 25544) from the CelesTrak file, and its elements' epoch; (None, None) if it is not in it."""
+    from sgp4.api import Satrec
+    lines = [l.rstrip() for l in open(path, errors='ignore')]
+    for k in range(len(lines) - 1):
+        if lines[k].startswith('1 25544') and lines[k + 1].startswith('2 25544'):
+            s = Satrec.twoline2rv(lines[k], lines[k + 1])
+            return s, dt.datetime(2000, 1, 1, 12, tzinfo=dt.timezone.utc) + dt.timedelta(days=s.jdsatepoch + s.jdsatepochF - 2451545.0)
+    return None, None
+
+
+def iss_at(sat, ts):
+    """Where the ISS was at each unix time in ts: Earth-fixed position in km, shape (n, 3) (NaN where SGP4 failed)."""
+    ts = np.atleast_1d(np.asarray(ts, float)); jd = ts / 86400 + 2440587.5; jd0 = np.floor(jd - 0.5) + 0.5
+    e, p, _ = sat.sgp4_array(jd0, jd - jd0); p = np.where((e == 0)[:, None], p, np.nan)
+    g = np.radians((280.46061837 + 360.98564736629 * (jd - 2451545.0)) % 360); c, s = np.cos(g), np.sin(g)
+    return np.stack([c * p[:, 0] + s * p[:, 1], -s * p[:, 0] + c * p[:, 1], p[:, 2]], -1)
+
+
+def iss_passes(sat, t_end, places, hours=24, km=500.0):
+    """Every pass of the ISS within km (ground distance) of one of places in the `hours` before t_end, all of them in
+    the past of the data, so "crossed" is true whenever the video is seen. Each: city, lat, lon, t (unix, to the second,
+    at the closest approach), km, alt_km, elev (degrees above the city's horizon), sunlit (the ISS out of Earth's
+    shadow), dark (the sun 6+ degrees below the city's horizon) and visible (both, and 10+ degrees up)."""
+    end = t_end.timestamp(); ts = np.arange(end - hours * 3600, end + 1, 20.0)
+    P = iss_at(sat, ts); U = P / np.linalg.norm(P, axis=1)[:, None]; out = []
+    for name, la, lo in places:
+        u = unit(np.array(la), np.array(lo)); ang = np.arccos(np.clip(U @ u, -1, 1))
+        for k in np.nonzero((ang[1:-1] <= ang[:-2]) & (ang[1:-1] <= ang[2:]) & (ang[1:-1] * 6371 < km + 200))[0] + 1:
+            t1 = np.arange(ts[k] - 20, ts[k] + 21, 1.0); p1 = iss_at(sat, t1); u1 = p1 / np.linalg.norm(p1, axis=1)[:, None]
+            j = int(np.nanargmax(u1 @ u)); t, p = float(t1[j]), p1[j]; d = math.acos(min(1.0, float(u1[j] @ u))) * 6371
+            if d > km or t > end: continue
+            sun = sun_dir(dt.datetime.fromtimestamp(t, dt.timezone.utc)); r = float(np.linalg.norm(p))
+            along = float(p @ sun); sunlit = along > 0 or float(np.linalg.norm(p - along * sun)) > 6371.0
+            v = p - 6371.0 * u; elev = math.degrees(math.asin(float(v @ u) / float(np.linalg.norm(v))))
+            dark = float(u @ sun) < math.sin(math.radians(-6))
+            out.append(dict(city=name, lat=la, lon=lo, t=t, km=d, alt_km=r - 6371.0, elev=elev, sunlit=sunlit, dark=dark, visible=sunlit and dark and elev >= 10))
+    return sorted(out, key=lambda x: x['t'])
+
+
 def taken_of(name):
     """When studio/earthdata.py took this file (latest.json), or None."""
     try: return dt.datetime.strptime(json.load(open(earthdata.LATEST))[name]['taken'], '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=dt.timezone.utc)
@@ -155,8 +199,13 @@ class Video:
         r = random.Random(seed); self.r = r
         self.files = earthdata.pull()
         scenes = [s for s, f in (('satellites', 'tle.txt'), ('flights', 'flights.json'), ('quakes', 'quakes.json')) if usable(self.files.get(f))]
+        self.passes = []
+        if 'satellites' in scenes:                                                  # the ISS over a city: only when it passed one in the data's last day
+            self.sat, epoch = iss_sat(self.files['tle.txt'])
+            if self.sat is not None: self.passes = iss_passes(self.sat, max(epoch, taken_of('tle.txt') or epoch), cities())
+            if self.passes: scenes.append('iss')
         if not scenes: sys.exit('no earth data (run: python studio/earthdata.py pull)')
-        self.scene = K.pick('scene', scenes, r, weights=[{'flights': 4, 'quakes': 2, 'satellites': 1}[s] for s in scenes])   # review 2026-11-26: the flights dive is the proven part
+        self.scene = K.pick('scene', scenes, r, weights=[{'flights': 4, 'quakes': 2, 'satellites': 1, 'iss': 2}[s] for s in scenes])   # review 2026-11-26: the flights dive is the proven part
         marble = all(usable(self.files.get(n)) for n in ('map_day.jpg', 'map_night.jpg'))
         # paper has had the most watched posts (4 of 10, small sample); marble only once NASA's maps are in the release
         looks = ['paper', 'paper', 'night', 'ember', 'ember'] + (['marble', 'marble'] if marble else [])   # blueprint dropped, ember x2 (review 2026-11-26)
@@ -176,21 +225,21 @@ class Video:
         self.f_tiny = font(24); self._fits = {}
         sans = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
         if os.path.exists(sans): self.f_small = ImageFont.truetype(sans, 28); self.f_tiny = ImageFont.truetype(sans, 23)
-        size = (8192, 4096) if self.scene == 'flights' else (TW, TH)              # sharper coasts for the close-up
+        size = (8192, 4096) if self.scene in ('flights', 'iss') else (TW, TH)              # sharper coasts for the close-up
         self.tex_night = None
         if self.pname == 'marble':
             self.tex = nasa_map(self.files['map_day.jpg'], *size); self.tex_night = nasa_map(self.files['map_night.jpg'], *size, night=True)
             if self.tex is None or self.tex_night is None: self.tex = texture(PALETTES['night'], *size); self.tex_night = None
         else: self.tex = texture(self.pal, *size)
-        self.trail = np.zeros((H, W, 3), np.float32); self.keep = {'satellites': 0.22, 'flights': 0.15, 'quakes': 0.2}[self.scene]
+        self.trail = np.zeros((H, W, 3), np.float32); self.keep = {'satellites': 0.22, 'flights': 0.15, 'quakes': 0.2, 'iss': 0.0}[self.scene]
         yy = np.arange(H, dtype=np.float32)[:, None, None]
         ss = lambda v: v * v * (3 - 2 * v)                                          # smooth edges: no hard bars on the close-ups
         ramp = lambda a, b: ss(np.clip((yy - a) / (b - a), 0, 1))
         self.band = 0.78 * ramp(1240, 1300) * (1 - ramp(1500, 1640))              # behind the numbers
         self.band = self.band + 0.5 * ramp(150, 270) * (1 - ramp(400, 540))       # and, lightly, behind the opening line
         rs = np.random.default_rng(7); self.stars = (rs.uniform(0, W, 260), rs.uniform(0, H, 260), rs.uniform(0.2, 1, 260))
-        self.taken = taken_of({'satellites': 'tle.txt', 'flights': 'flights.json', 'quakes': 'quakes.json'}[self.scene]) or dt.datetime.now(dt.timezone.utc)
-        self.place, self.zoom, self.ring, self.ring_top = None, R0 + 735, None, None                    # the city named on screen, how close the dive gets, its 200 km ring
+        self.taken = taken_of({'satellites': 'tle.txt', 'flights': 'flights.json', 'quakes': 'quakes.json', 'iss': 'tle.txt'}[self.scene]) or dt.datetime.now(dt.timezone.utc)
+        self.place, self.zoom, self.ring, self.ring_top = None, R0 + 735, None, None   # the city named on screen, how close the dive gets, its ring
         getattr(self, 'setup_' + self.scene)()
 
     # ---------------------------------------------------------------- the clock: faster on every kick
@@ -278,6 +327,27 @@ class Video:
         lo2 = lo + np.arctan2(np.sin(self.hdg) * np.sin(d) * np.cos(la), np.cos(d) - np.sin(la) * np.sin(la2))
         return unit(np.degrees(la2), np.degrees(lo2))
 
+    # ---------------------------------------------------------------- the ISS over a city
+    def setup_iss(self):
+        best = {}
+        for p in self.passes:                                                       # each city's best pass in the day: a visible one, else the closest
+            b = best.get(p['city'])
+            if b is None or (p['visible'], -p['km']) > (b['visible'], -b['km']): best[p['city']] = p
+        opts = list(best.values()); old = recent_places(); opts = [p for p in opts if p['city'] not in old] or opts
+        name = K.pick('place', [p['city'] for p in opts], self.r, weights=[3 if p['visible'] else 1 for p in opts])
+        self.ps = ps = next(p for p in opts if p['city'] == name)
+        self.place, self.lat0, self.lon0 = name, ps['lat'], ps['lon']
+        self.taken = dt.datetime.fromtimestamp(ps['t'], dt.timezone.utc)
+        self.ring = (ps['lat'], ps['lon'], ps['km'])                               # the circle the ISS's track touches: its closest approach
+        # a minute of orbit to a second (faster on the kicks), the closest approach on the kick nearest 65% of the way in
+        ic = min(self.kicks, key=lambda f: abs(f - 0.65 * self.n)) if self.kicks else int(0.65 * self.n)
+        w = self.warp(60.0, 1.5); self.sim = w - w[ic]
+        self.track_t = ps['t'] + np.arange(-50 * 60, 50 * 60 + 1, 10.0)          # an orbit's worth of ground track, either side of the pass
+        P = iss_at(self.sat, self.track_t); self.track = P / np.linalg.norm(P, axis=1)[:, None]
+        if ps['visible']: self.seen = 'a visible pass: the ISS in sunlight, the sky dark'
+        elif not ps['sunlit']: self.seen = "not visible: the ISS was in Earth's shadow"
+        else: self.seen = 'not visible: the sky over %s was too bright' % name
+
     # ---------------------------------------------------------------- earthquakes
     def setup_quakes(self):
         f = json.load(open(self.files['quakes.json']))['features']
@@ -312,7 +382,7 @@ class Video:
 
     # ---------------------------------------------------------------- drawing
     def view(self, i):
-        if self.scene == 'flights':                                                 # swing in and settle over the busy sky
+        if self.scene in ('flights', 'iss'):                                        # swing in and settle over the busy sky (or the city)
             p = 0.5 - 0.5 * math.cos(math.pi * min(1, i / (self.n * 0.7)))
             lon0 = math.radians(self.lon0 - (1 - p) * (20 if self.spin == 'slow' else 40)); lat0 = math.radians(self.lat0 - (1 - p) * 10)
         elif self.scene == 'quakes' and len(self.way) > 1:
@@ -331,7 +401,7 @@ class Video:
 
     def radius(self, i):
         R = R0
-        if self.scene == 'flights': R = R0 + (self.zoom - R0) * (0.5 - 0.5 * math.cos(math.pi * min(1, i / (self.n * 0.7))))   # in close to the busy sky
+        if self.scene in ('flights', 'iss'): R = R0 + (self.zoom - R0) * (0.5 - 0.5 * math.cos(math.pi * min(1, i / (self.n * 0.7))))   # in close to the busy sky
         return R * (1 + 0.035 * self.snare[i])
 
     def globe(self, img, i, view, R, sun):
@@ -377,7 +447,7 @@ class Video:
         c = tuple(float(v) * a for v in col)
         if vis.all(): cv2.polylines(marks, [np.round(np.stack([sx, sy], -1) * 4).astype(np.int32)], True, c, 3, cv2.LINE_AA, 2)
         if cv[0]: cv2.circle(marks, (int(cx[0] * 4), int(cy[0] * 4)), 4 * 5, c, -1, cv2.LINE_AA, 2)
-        self.ring_top = (float(cx[0]), float(sy.min())) if vis.all() else None
+        self.ring_top = (float(cx[0]), float(sy.min()), float(sy.max())) if vis.all() else None
 
     def splat(self, layer, sx, sy, cols, size=1.0):
         """Points onto a float image, each spread over the four pixels around it (smooth sub-pixel motion)."""
@@ -441,6 +511,25 @@ class Video:
             info = ('%s AIRLINERS TRACKED' % format(self.total, ','), when)
             if hl is not None: labels.append((None, None, '%s · %s over %s' % (hl, format(int(((self.family == hl) & self.local).sum()), ','), self.place)))
             if self.ring and near > 0.5: self.ring_mark(marks, view, R, ink[2], near)
+        elif self.scene == 'iss':
+            t = self.ps['t'] + float(self.sim[i]); when = dt.datetime.fromtimestamp(t, dt.timezone.utc); sun = sun_dir(when)
+            sx, sy, vis = self.project(self.track, np.ones(len(self.track)), view, R)
+            pts = np.round(np.stack([sx, sy], -1) * 4).astype(np.int32); past = self.track_t <= t
+            for seg, a in ((past, 1.0), (~past, 0.35)):                             # where it has been, bright; where it is going, faint
+                idx = np.nonzero(seg & vis & (np.abs(sx) < 4 * W) & (np.abs(sy) < 4 * H))[0]
+                for run in np.split(idx, np.nonzero(np.diff(idx) > 1)[0] + 1):
+                    if len(run) > 1: cv2.polylines(marks, [pts[run]], False, tuple(float(v) * a for v in ink[0]), 4, cv2.LINE_AA, 2)
+            near = float(np.clip((R - 500) / 300, 0, 1))
+            if near > 0.5: self.ring_mark(marks, view, R, ink[1], near)
+            p = iss_at(self.sat, [t])[0]; u = p / np.linalg.norm(p)
+            ix, iy, iv = self.project(u[None], np.ones(1), view, R)
+            if iv[0]:
+                cv2.circle(marks, (int(ix[0] * 4), int(iy[0] * 4)), int(4 * (9 + 4 * self.kick[i])), tuple(float(v) * 1.3 for v in ink[2]), -1, cv2.LINE_AA, 2)
+                cv2.circle(layer, (int(ix[0] * 4), int(iy[0] * 4)), 4 * 16, tuple(float(v) * 0.8 for v in ink[2]), -1, cv2.LINE_AA, 2)   # its glow
+                labels.append((ix[0], iy[0], 'ISS'))
+            km = math.acos(min(1.0, float(u @ unit(np.array(self.lat0), np.array(self.lon0))))) * 6371
+            info = ('ISS %d KM UP · %s KM FROM %s' % (round(np.linalg.norm(p) - 6371), format(int(round(km)), ','), self.place.upper()), when)
+            labels.append((None, None, self.seen))
         else:
             when = dt.datetime.fromtimestamp(float(self.clock[i]), dt.timezone.utc); sun = sun_dir(when)
             shown = self.qframe <= i
@@ -463,7 +552,7 @@ class Video:
                 if vis[k]:                                                          # named only when it is on our side of the globe
                     labels.append((sx[k], sy[k], 'M%.1f' % self.qm[k])); labels.append((None, None, 'M%.1f · %s' % (self.qm[k], self.qplace[k][:46])))
         self.globe(img, i, view, R, sun)
-        moving = self.scene == 'flights' and i < self.n * 0.7                  # no streaks smeared across the screen while the camera dives in
+        moving = self.scene in ('flights', 'iss') and i < self.n * 0.7                  # no streaks smeared across the screen while the camera dives in
         self.trail *= 0.35 if moving else 0.8; self.trail += layer * self.keep                      # crisp points now, a fainter streak behind them
         lit = layer + self.trail; glow = cv2.GaussianBlur(lit, (0, 0), 5); lit = lit + marks
         img = (img - (lit + glow * 0.6)) if paper else (img + lit + glow * (0.6 + 0.5 * self.kick[i]))
@@ -478,9 +567,10 @@ class Video:
             when = info[1].strftime('%d %b %Y  %H:%M:%S UTC') if self.scene != 'quakes' else info[1].strftime('%d %b %Y  %H:%M UTC')
             d.text((TX, 1325), info[0], font=self.fit(info[0], 58, 840), fill=txt, anchor='mm', **stroke)
             d.text((TX, 1375), when.upper(), font=self.f_mono, fill=dim, anchor='mm', **stroke)
-        if self.ring and self.scene == 'flights' and float(np.clip((R - 500) / 300, 0, 1)) > 0.5 and self.ring_top:   # the city's name over its ring
-            x, y = self.ring_top
-            if SAFE_TOP + 170 < y < SAFE_BOTTOM - 200: d.text((x, y - 14), self.place, font=self.f_lab, fill=txt, anchor='ms', **stroke)
+        if self.ring and float(np.clip((R - 500) / 300, 0, 1)) > 0.5 and self.ring_top:   # the city's name over its ring (under it, if the ISS is above)
+            x, top, bot = self.ring_top; ys = [y for lx, y, s in labels if s == 'ISS']
+            y, anchor = ((bot + 12, 'mt') if ys and ys[0] < bot + 70 else (top - 14, 'ms'))      # its label sits above it
+            if SAFE_TOP + 170 < y < SAFE_BOTTOM - 200: d.text((x, y), self.place, font=self.f_lab, fill=txt, anchor=anchor, **stroke)
         for x, y, s in labels:
             if x is None: d.text((TX, 1418), s, font=self.fit(s, 36, 840), fill=tuple(pal['ink'][2]), anchor='mm', **stroke)
             else:
@@ -489,7 +579,7 @@ class Video:
                 if left: d.line([(x - 8, y - 8), (x - 40, y - 40)], fill=txt, width=2); d.text((x - 46, y - 44), s, font=f, fill=txt, anchor='rs', **stroke)
                 else: d.line([(x + 8, y - 8), (x + 40, y - 40)], fill=txt, width=2); d.text((x + 46, y - 44), s, font=f, fill=txt, anchor='ls', **stroke)
         src = {'satellites': 'orbits: CelesTrak', 'flights': 'ADSB.lol (ODbL) at %s UTC, flown on by heading%s' % (self.taken.strftime('%H:%M'), ', ring %d km' % CITY_KM if self.ring else ''),
-               'quakes': 'data: USGS'}[self.scene] + (' · map: NASA' if self.tex_night is not None else ' · map: Natural Earth')
+               'quakes': 'data: USGS', 'iss': 'orbit: CelesTrak, propagated with SGP4'}[self.scene] + (' · map: NASA' if self.tex_night is not None else ' · map: Natural Earth')
         d.text((TX, 1455), self.credit, font=self.f_small, fill=dim, anchor='mm', **stroke)
         d.text((TX, 1486), src, font=self.f_tiny, fill=dim, anchor='mm', **stroke)
         return np.asarray(im)
@@ -511,6 +601,10 @@ class Video:
         if self.scene == 'flights':                                                 # ADSB.lol hears most planes, not all: "tracked"
             return '%s planes over %s,\n%s' % (format(self.count, ','), self.place, {'fact': 'tracked %s' % at,
                     'question': 'tracked at %s UTC. which ones?' % self.taken.strftime('%H:%M')}[self.hook])
+        if self.scene == 'iss':
+            over = 'crossed over' if self.ps['km'] < 250 else 'crossed the sky over'
+            at = '%s UTC on %s' % (self.taken.strftime('%H:%M'), self.taken.strftime('%-d %b'))
+            return {'fact': 'the ISS %s %s\nat %s' % (over, self.place, at), 'question': 'what crossed the sky over %s\nat %s?' % (self.place, at)}[self.hook]
         days = max(1, round((self.qt.max() - self.qt.min()) / 86400))
         return {'fact': '%d days of earthquakes\nin %d seconds' % (days, max(1, round(self.n / FPS))),
                 'question': 'how often does\nthe Earth shake?'}[self.hook]
