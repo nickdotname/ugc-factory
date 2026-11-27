@@ -69,7 +69,7 @@ def frame(i):
         for xv in (A_, B_): poly(c, [(X(xv), Y(0)), (X(xv), Y(0) - (Y(0) - Y(f(xv) + 0.35)) * min(bd, 1))], ST.c, 4)
     # words
     if k < TITLE + 0.8:
-        s1 = 1.0; s2 = float(ease_back((k - Q(2, 1.3)) / 0.45)); out_ = 1 - float(ease_out((k - TITLE - 0.3) / 0.45))
+        s1 = s2 = 1.0; out_ = 1 - float(ease_out((k - TITLE - 0.3) / 0.45))   # the whole question on frame 0 (the cover read 'What IS an')
         paste(c, tex(r'$\int$', 300, FAINT), W / 2, 830, 1 + 0.05 * kick, out_)
         paste(c, text('What IS an', F(FONT, 96), ST.fg), W / 2, 760, s1, min(1, s1) * out_)
         paste(c, text('integral?', F(FONT, 150), ST.a), W / 2, 905, s2 * (1 + 0.05 * kick), min(1, s2) * out_)

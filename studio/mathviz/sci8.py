@@ -409,11 +409,11 @@ CL = Clock(SLUG, B0, BEATS_N, loop=SHORT)
 CREDIT = credit(SLUG)
 STARTS = np.cumsum([0] + [b * 4 for b, *_ in PARTS])
 
-def headline(c, lines, age):
-    y = 46
+def headline(c, lines, age, first=False):
+    y = 64                                                    # 256 px at 4x: below Instagram's top bar (it was 46, under it)
     for j, (txt, col, sc) in enumerate(lines):
-        if age < 0.12 * j: break                              # each line lands a moment after the one above
-        drop = int(max(0.0, 1 - (age - 0.12 * j) / 0.12) * -10)
+        if age < 0.12 * j and not first: break                # each line lands a moment after the one above; the cover has them all
+        drop = 0 if first else int(max(0.0, 1 - (age - 0.12 * j) / 0.12) * -10)
         ptext(c, txt, LW // 2, y + drop, sc, col, align='c'); y += 7 * sc + 6
 
 def render_part(i, c, k, kick):
@@ -425,7 +425,7 @@ def render_part(i, c, k, kick):
         a, b, fmt = count; v = a + (b - a) * (1 - (1 - min(1, p * 1.4)) ** 3)
         lines = [(fmt.format(v) if t == '{}' else t, col, sc) for t, col, sc in lines]
         lines = [(t, col, sc if len(t) * 6 * sc < LW - 10 else max(2, (LW - 10) // (len(t) * 6))) for t, col, sc in lines]
-    headline(c, lines, kp); scale_box(c, n, kp)
+    headline(c, lines, kp, first=n == 0); scale_box(c, n, kp)
     return n
 
 def frame(i):

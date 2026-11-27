@@ -87,7 +87,7 @@ def frame(i):
     # words
     if k < TITLE + 0.8:
         a = 1 - float(ease_out((k - TITLE) / 0.5))
-        e1 = 1.0; e2 = float(ease_back((k - Q(1.4, 0.9)) / 0.45)); e3 = float(ease_back((k - Q(2.4, 1.6)) / 0.45))
+        e1 = e2 = e3 = 1.0       # the whole stake on frame 0, the cover (2026-11-27: it typed in over 2 beats, so the cover read 'this spiral hides a')
         paste(c, text('this spiral hides a', F(FONT, 74), ST.fg), W / 2, 520, e1, a * min(1, e1))
         paste(c, text('$1,000,000', F(FONT, 150), ST.a), W / 2, 760, e2 * (1 + 0.05 * kick), a * min(1, e2))
         paste(c, text('question.', F(FONT, 110), ST.fg), W / 2, 930, e3, a * min(1, e3))
