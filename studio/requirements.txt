@@ -9,3 +9,6 @@ PyYAML
 sgp4
 numba            # studio/fluid_video.py: the lattice Boltzmann solver
 moderngl         # studio/gl.py: real GLSL shaders drawn off-screen (EGL/llvmpipe)
+# studio/voice.py (narration for @what.if.town) needs kokoro>=0.9 (Python <3.13) and torch. Not listed here on purpose:
+# torch's default Linux wheel is the multi-GB CUDA build, so .github/workflows/studio.yml installs the CPU wheel and
+# kokoro only on nights that render the low-poly page, and caches the model (~/.cache/huggingface) by kokoro version.

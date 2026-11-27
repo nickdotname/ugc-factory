@@ -51,7 +51,8 @@ jobs:
 
       - name: Install ffmpeg and fonts
         run: |
-          bash scripts/apt_install.sh ffmpeg fonts-liberation fonts-dejavu-core fonts-inter libsndfile1
+          # espeak-ng: the fallback G2P of Kokoro, the narrator (studio/voice.py)
+          bash scripts/apt_install.sh ffmpeg fonts-liberation fonts-dejavu-core fonts-inter libsndfile1 espeak-ng
 
       - name: Install dependencies
         run: |
@@ -65,6 +66,31 @@ jobs:
           if grep -q "style: lowpoly" studio/nightly.yaml; then
             pip install -q "bpy>=4.2,<5"
           else echo "no low-poly page tonight"; fi
+
+      # The narrator for @what.if.town (studio/voice.py): Kokoro-82M on the CPU. torch's default Linux wheel is the CUDA
+      # build (gigabytes), so the CPU wheel is named first. Same nights as Blender: only the low-poly page speaks.
+      - name: Install the narrator (Kokoro)
+        id: kokoro
+        run: |
+          if grep -q "style: lowpoly" studio/nightly.yaml; then
+            pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+            pip install -q "kokoro>=0.9"
+            echo "version=$(pip show kokoro | awk '/^Version/{print $2}')" >> "$GITHUB_OUTPUT"
+          else echo "no narrated page tonight"; fi
+
+      # The model (~330 MB) and the voice, kept between runs; a new kokoro version starts a new cache.
+      - name: Cache the narrator's model
+        if: steps.kokoro.outputs.version != ''
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface/hub
+          key: kokoro-model-${{ steps.kokoro.outputs.version }}-af_heart
+
+      # Fills the cache on a miss. A failure here (huggingface.co down) only means tonight's stories are silent:
+      # voice.py raises VoiceUnavailable and the renderer carries on without a voice.
+      - name: Warm the narrator
+        if: steps.kokoro.outputs.version != ''
+        run: python -c "import sys; sys.path.insert(0, 'studio'); import voice; voice.warm(voice.VOICES['lowpoly_stories']); print('narrator ready')" || echo "::warning::the narrator's model could not be fetched; tonight's stories are silent"
 
       # Never allowed to stop the videos being made: it reports what it could not read and carries on.
       - name: Read the numbers
