@@ -88,3 +88,6 @@ exactly once on a later beat, then passes over us and the loop restarts on an em
 clip is whole loops. The aim is solved so the line sits clear of the title and the thing has left the picture
 before the loop ends. Approved by Dylan from a sample. No "guess the plate" or comment asks.
 Knobs: thing (car/bollard/crate/cone), sky, ask (the line under the title).
+
+## lowpoly (what.if.town)
+`studio/lowpoly_video.py`: a "what if" story told in big words on the beat over a blocky low-poly town (Blender Workbench, CC0 Kenney kits; stories in studio/lowpoly/stories.txt). Knobs: story, caption, pace, **voice** (2026-11-27, on 3 : off 1): the story is read by one fixed Kokoro voice (studio/voice.py), caption chunks land on the spoken words, shots last at least their narration, the song is ducked ~12 dB under the speech and the singer is swapped for the Drums+Bass+Other stems while she talks; the caption ends in `voice: ai narration` (Meta's label rule). If the voice is unavailable the clip renders on the beat grid with `voice: off`, never failing the job. Playbook: [[narration]].
