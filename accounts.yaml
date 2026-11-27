@@ -88,8 +88,10 @@ accounts:
   # (the "Dylan Cantor" Page), which is what allows a track from Instagram's
   # music catalogue to be attached.
   #
-  # Trial reels: shown to non-followers first and kept off the profile until
-  # graduated, which suits an account that is mostly testing what works.
+  # Trial reels OFF since 2026-11-26 (docs/brain/reviews/2026-11-26): 101 of 102 automated posts on the two band
+  # accounts went out as trials, hidden from followers and from the grid until graduated, and at ~99 median views
+  # none graduated; the one normal post did 631 views and 14 shares. trial_graduation stays for when trials are
+  # switched back on by hand (src/cli.py reads it only when trial_reels is true).
   - name: dylancantor23_ig
     network: instagram
     provider: instagram
@@ -97,13 +99,13 @@ accounts:
     api_key_secret: IG_TOKEN
     channel_id: "17841400966563600"
     post_type: reel
-    trial_reels: true
+    trial_reels: false
     trial_graduation: SS_PERFORMANCE
     title_strategy: derive
 
   # ── close__quarters ──────────────────────────────────────────────────
   # The band's own account. Same app and token as dylancantor23 (one Facebook
-  # login manages both Pages), posted to directly as trial reels.
+  # login manages both Pages), posted to directly. Normal reels, not trials, since 2026-11-26 (see dylancantor23_ig).
   - name: close_quarters_ig
     network: instagram
     provider: instagram
@@ -111,7 +113,7 @@ accounts:
     api_key_secret: IG_TOKEN
     channel_id: "17841467020770402"
     post_type: reel
-    trial_reels: true
+    trial_reels: false
     trial_graduation: SS_PERFORMANCE
     title_strategy: derive
 
@@ -484,3 +486,18 @@ accounts:
     channel_id: "17841441390199531"
     post_type: reel
     title_strategy: derive
+
+  # ── YouTube (direct) ─────────────────────────────────────────────────
+  # Channels posted to through YouTube's own API (src/publishers/youtube.py), held in
+  # outbox/yto-*.json until their slot. One refresh token per channel in YT_REFRESH_TOKEN_1..16
+  # (scripts/yt_connect.py fills a slot); YT_CLIENT_ID / YT_CLIENT_SECRET are shared. Nothing is
+  # public until Google's API audit clears: docs/brain/playbooks/add-youtube-channel.md.
+  # - name: rotation_yt
+  #   network: youtube
+  #   provider: youtube
+  #   api_key_secret: YT_REFRESH_TOKEN_1
+  #   channel_id: UCxxxxxxxxxxxxxxxxxxxxxx     # printed by scripts/yt_connect.py
+  #   post_type: short
+  #   title_strategy: require                 # Shorts show ~40 characters of a 100-character title
+  #   notify_subscribers: false               # on only for a channel posting once or twice a day
+  #   slot_offset_min: 0

@@ -15,6 +15,16 @@ numbers, and nightly.py chooses the next videos' knobs from those scores (Thomps
 have done well are chosen more, options with few posts still get tried, consistent losers are retired).
 A new knob, or a new option on an old one, needs no other change: it shows up on the menu the first
 time it is rendered and is tried from then on.
+
+A pick is recorded the moment it is made, so a knob a renderer asks for and then does not use (illusion_video
+picks a `shape` for every kind, but only some kinds draw one; tests8 picked `flashes`/`read` tests it never
+showed) would be scored against posts it had no part in. When a renderer finds a pick it will not use, it
+says so and the knob is left out of the record:
+
+    shape = knobs.pick('shape', SHAPES, r)
+    if kind not in ('cloud', 'wheel'): knobs.drop('shape')        # this video has no shape to learn from
+
+A knob whose value is None or '' is also ignored by learn.py.
 """
 import json, os
 
@@ -47,6 +57,11 @@ def pick(name, options, rng, weights=None):
 def flag(name, p, rng):
     """True with probability p, unless nightly chose."""
     return pick(name, [True, False], rng, weights=[p, 1 - p])
+
+
+def drop(name):
+    """Forget a pick the renderer did not use, so it is not written into the video's record and never scored."""
+    MENU.pop(name, None); CHOSEN.pop(name, None)
 
 
 def record():

@@ -4,8 +4,11 @@ Every account's schedule and numbers on one page, for Dylan and Nick: what is li
 what went out, and how each post did (views, likes, comments, sends, saves, average watch time). Tap a post to watch it.
 
 - `index.html`: the page (no build step). Tabs: **Up next**, **Posted** (sortable by views, sends, comments, saves, watch
-  time), **Accounts** (posts and views over the last 7 days, median views, a 14-day views line, next and best post).
+  time), **Accounts** (posts and views over the last 7 days, median views, followers with the change over 7 days, taps on
+  the account's bio link over 7 days, a 14-day views line, next and best post; a red "insights denied" line when a day's
+  posts came back without numbers).
 - `data.json`: what it shows, rewritten by `scripts/dash_data.py` at the end of every publish run (15 minutes).
+- `followers.json`: one row per account per day (followers, following, posts), 90 days, appended by the same script.
 - `worker.js`: the Cloudflare Worker on the domain. It serves both files from `main`, so merging a change here is all
   it takes to update the page.
 

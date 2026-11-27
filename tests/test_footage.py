@@ -121,3 +121,18 @@ def test_nyc_places_are_library_clips_and_labels_fit_the_safe_area():
     for pr in pairs:                                                    # a then-and-now pair has both halves
         assert any(lib[a]['theme'] == 'nyc' and p.get('pair') == pr for a, p in clips.items())
         assert any(lib[a]['theme'] == 'nyc_now' and p.get('pair') == pr and not p.get('skip') for a, p in clips.items())
+
+
+def test_toons_keep_out_live_trademarks_and_films_past_1930():
+    ok = lambda title, key='silent:x', **kw: F.fits(dict(theme='toons', source='silent', title=title, key=key, **kw))
+    assert ok("Koko's Earth Control", year=1928) and ok('Gertie The Dinosaur (1914)', year=1914)
+    assert not ok('Steamboat Willie', 'silent:steamboat-willie_1928', year=1928)       # PD, but Mickey is Disney's live trademark
+    assert not ok('Barnacle Bill 1930 Talkartoon', year=1930)                          # the proto-Betty Boop is in it
+    assert not ok('Aristocrats of Fashion', 'silent:Aristocr1940', year=1940)           # a 1940 film, indexed as 1930 until 11-26
+    assert ok('Aristocrats of Fashion', 'silent:Aristocr1940')                         # fetch checks a title before it knows the year
+    assert not ok('Cartoon Collection 1929-1938', year=1929)
+    lib = json.loads(__import__('pathlib').Path(F.INDEX).read_text())['clips']
+    toons = [e for e in lib if e['theme'] == 'toons' and F.fits(e)]
+    assert toons and all(e.get('year', 0) <= 1930 for e in toons)
+    assert not any(F.TRADEMARK.search(e['title']) for e in toons)
+    assert not any(e['key'] in ('silent:steamboat-willie_1928', 'silent:Aristocr1940', 'silent:BarnacleBill1930Talkartoon') for e in toons)

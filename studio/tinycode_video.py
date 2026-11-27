@@ -7,6 +7,10 @@ The top of the screen is an editor holding the whole program (a few lines of num
 characters); the square under it is what that program draws, frame by frame. The program shown is the program run:
 each PROGRAMS entry is exec'd every frame with t (seconds), k (the kick, 0..1), b (the bass) and N in scope, and
 returns points (x, y in -1..1) with a hue each, or (for the field ones) a brightness per pixel.
+Since 2026-11-27 the program types itself in over the first bar (two lines a beat) into an empty editor over an empty
+square, and the picture lands on the first kick after the last line, so the causality code -> picture is seen and the
+first second moves; the k token lights on every kick. Everything written sits inside Instagram's safe area (y 250-1500,
+left of the right-hand 150 px): editor from y 330 in 38 px mono, lines at most 36 characters, credit at y 1478.
 Knobs: program, palette, glow, trail.
 """
 import json, os, random, subprocess, sys, math
@@ -28,75 +32,94 @@ PROGRAMS = {
 r = sqrt(i / N) * (1 + .25 * k)
 a = i * 2.39996 + t * (1 - r)
 w = .2 * sin(9 * a + 3 * t)
-x, y = r * cos(a) * (1 + w), r * sin(a) * (1 - w)
+x = r * cos(a) * (1 + w)
+y = r * sin(a) * (1 - w)
 c = r + .1 * t""",
     'knot': """s = linspace(0, 2 * pi, N)
 p, q = 3, 5 + round(2 * k)
-x = (cos(q * s) + 2) * cos(p * s + t) / 3.2
-y = (cos(q * s) + 2) * sin(p * s + t) / 3.2
+R = cos(q * s) + 2
+x = R * cos(p * s + t) / 3.2
+y = R * sin(p * s + t) / 3.2
 y += .3 * sin(q * s - t) * (.6 + k)
 c = s / 2 / pi + .2 * sin(t)""",
     'ridges': """i = arange(N)
-row, s = i // 1500, i % 1500 / 750 - 1
-z = exp(-6 * s * s) * sin(row * 1.7 + 3 * t + 7 * s)
+row = i // 1500
+s = i % 1500 / 750 - 1
+z = exp(-6 * s * s)
+z *= sin(row * 1.7 + 3 * t + 7 * s)
 x = s * .9
-y = row / 20 - 1 + .3 * abs(z) * (1 + 2 * k)
+y = row / 20 - 1
+y += .3 * abs(z) * (1 + 2 * k)
 c = row / 40 + .1 * t""",
     'orbits': """i = arange(N)
 m = i % 7 + 1
 a = i * .013 + t * m / 4
 r = .2 + .11 * m
-r += .04 * sin(3 * m * a) * (1 + 3 * k)
+w = .04 * (1 + 3 * k)
+r += w * sin(3 * m * a)
 x, y = r * cos(a), r * sin(a) * .8
 c = m / 7 + .03 * t""",
-    'interference': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
+    'interference': """g = linspace(-1, 1, 1000)
+u, v = meshgrid(g, g)
 a = hypot(u - .4 * sin(t), v - .3)
-b = hypot(u + .4 * cos(t * .7), v + .3)
-F = sin(30 * a - 5 * t) + sin(30 * b - 5 * t)
+b = hypot(u + .4*cos(.7*t), v + .3)
+F = sin(30 * a - 5 * t)
+F += sin(30 * b - 5 * t)
 F = (F / 2) ** 2 * (.7 + .6 * k)
 C = .5 + .5 * sin(3 * (a - b) + t)""",
     'lissajous': """s = linspace(0, 2 * pi, N)
 a, b = 3, 4 + round(k)
-x = sin(a * s + t) * (1 - .3 * k * sin(9 * s))
+x = sin(a * s + t)
+x *= 1 - .3 * k * sin(9 * s)
 y = sin(b * s) * cos(s + t / 3)
 c = s / 2 / pi + .1 * t""",
     'rose': """s = linspace(0, 2 * pi, N)
 n = 5 + 2 * sin(t / 4)
 r = cos(n * s) * (.8 + .2 * k)
 r += .03 * sin(60 * s + 9 * t)
-x, y = r * cos(s + t / 5), r * sin(s + t / 5)
+x = r * cos(s + t / 5)
+y = r * sin(s + t / 5)
 c = abs(r) + .05 * t""",
     'spirograph': """s = linspace(0, 40 * pi, N)
 R, r = 1, .37 + .02 * sin(t / 3)
 d = .6 + .25 * k
-x = (R - r) * cos(s) + d * cos((R - r) / r * s)
-y = (R - r) * sin(s) - d * sin((R - r) / r * s)
-x, y, c = x / 1.4, y / 1.4, s / 40 / pi""",
+q = (R - r) / r * s
+x = (R - r) * cos(s) + d * cos(q)
+y = (R - r) * sin(s) - d * sin(q)
+x, y = x / 1.4, y / 1.4
+c = s / 40 / pi""",
     'attractor': """x = y = linspace(-1, 1, N)
 a = -1.4 + .1 * sin(t / 3)
 b = 1.6 + .2 * k
 for _ in range(24):
-    x, y = (sin(a * y) + cos(a * x),
-            sin(b * x) + .7 * cos(b * y))
-x, y, c = x / 2.2, y / 2, .3 * x + .05 * t""",
-    'plasma': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
+    x2 = sin(a * y) + cos(a * x)
+    y = sin(b * x) + .7 * cos(b * y)
+    x = x2
+c = .3 * x + .05 * t
+x, y = x / 2.2, y / 2""",
+    'plasma': """g = linspace(-1, 1, 1000)
+u, v = meshgrid(g, g)
 F = sin(9 * u + t) + sin(8 * v - t)
 F += sin(7 * (u + v) + 2 * t)
 F += sin(11 * hypot(u, v) - 3 * t)
 C = F / 8 + .1 * t
 F = .4 + .4 * (F / 4) ** 2 + .5 * k""",
-    'tunnel': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
-r, a = hypot(u, v) + .01, arctan2(v, u)
+    'tunnel': """g = linspace(-1, 1, 1000)
+u, v = meshgrid(g, g)
+r = hypot(u, v) + .01
+a = arctan2(v, u)
 z = 1 / r + 2 * t
-F = (sin(6 * a + 4 * z) > .3 - .4 * k) * r
-F = F * 1.4
+F = sin(6 * a + 4 * z) > .3 - .4 * k
+F = F * 1.4 * r
 C = z / 6 + a / 2 / pi""",
-    'metaballs': """u, v = meshgrid(*[linspace(-1, 1, 1000)] * 2)
+    'metaballs': """g = linspace(-1, 1, 1000)
+u, v = meshgrid(g, g)
 F = 0 * u
 for j in range(6):
-    p = .6 * sin(t * (.5 + j / 7) + j)
-    q = .6 * cos(t * (.4 + j / 9) + 2 * j)
-    F += .05 * (1 + k) / ((u-p)**2 + (v-q)**2)
+    p = .6 * sin(t*(.5 + j/7) + j)
+    q = .6 * cos(t*(.4 + j/9) + 2*j)
+    d = (u - p) ** 2 + (v - q) ** 2
+    F += .05 * (1 + k) / d
 C = .2 * sin(F) + .05 * t
 F = (F > 1) * .9 + .2 * tanh(F / 6)""",
     'galaxy': """i = arange(N)
@@ -122,7 +145,7 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed)
-        self.prog = K.pick('program', sorted(PROGRAMS), r)
+        self.prog = K.pick('program', sorted(PROGRAMS), r, weights=[2 if p in ('tunnel', 'rose', 'metaballs', 'plasma', 'attractor') else 1 for p in sorted(PROGRAMS)])   # the dense, fast ones x2 (review 2026-11-26)
         self.pal = K.pick('palette', sorted(PALETTES), r)
         self.glow = float(K.pick('glow', [0.6, 1.0, 1.5], r))
         self.trail = float(K.pick('trail', [0.0, 0.55, 0.8], r, weights=[1, 2, 1]))
@@ -131,33 +154,62 @@ class Video:
         self.kick = audio.hits(a['kicks'], n, 5.0); self.bass = np.convolve(a['bass'], np.ones(3) / 3, 'same')
         song = json.load(open(os.path.join(song_dir, 'song.json')))
         self.credit = '♪ %s — close quarters' % song.get('title', self.slug).lower()
-        self.S = 1000; self.prev = np.zeros((self.S, self.S, 3), np.float32)
-        self.f_code = ImageFont.truetype(MONO, 28); self.f_ui = ImageFont.truetype(MONO, 24)
-        self.editor = self.draw_editor()
+        self.lines = self.code.split('\n'); self.lh = 50 if len(self.lines) <= 8 else 44
+        self.ey = 330; eh = self.lh * len(self.lines) + 36                                   # the editor, under the header line at y 290
+        self.S = int(min(1000, 1440 - (self.ey + eh) - 24)) // 2 * 2; self.cy = self.ey + eh + 20   # the square, inside the safe area
+        self.prev = np.zeros((self.S, self.S, 3), np.float32)
+        self.f_code = ImageFont.truetype(MONO, 38); self.f_ui = ImageFont.truetype(MONO, 24); self.f_credit = ImageFont.truetype(MONO, 28)
+        self.f_head = ImageFont.truetype(os.path.join(REPO, 'fonts', 'Montserrat-ExtraBold.ttf'), 36) if os.path.exists(os.path.join(REPO, 'fonts', 'Montserrat-ExtraBold.ttf')) else self.f_credit
+        # typing: two lines a beat from frame 0 (one a beat would take 2-3 bars on the longer programs), each line typed
+        # across its half beat; the picture lands on the first kick at or after the last line, or right then if the song has none
+        half = a['spb'] * FPS / 2; self.typed_at = [(j + 1) * half for j in range(len(self.lines))]
+        done = self.typed_at[-1]; kicks = [int(f) for f in a['kicks'] if f >= done - 2]
+        self.land = min(kicks[0] if kicks else int(done), max(0, n - 1))
+        self.kick_frames = set(int(f) for f in a['kicks'])
+        self._editor = {}
 
     def colour(self, h):
         a, b, c, d = (np.array(x, np.float32) for x in PALETTES[self.pal])
         h = np.asarray(h, np.float32)[..., None]
         return np.clip(a + b * np.cos(2 * np.pi * (c * h + d)), 0, 1) * 255
 
-    def draw_editor(self):
-        lines = self.code.split('\n'); lh = 46
-        im = Image.new('RGB', (W - 80, lh * len(lines) + 40), (18, 20, 26)); d = ImageDraw.Draw(im)
-        kw = {'for', 'in', 'def', 'return'}
+    def typed(self, i):
+        """How many characters of the program are on screen at frame i: every line types in across its half beat."""
+        n = 0
+        for j, line in enumerate(self.lines):
+            a = self.typed_at[j] - (self.typed_at[1] - self.typed_at[0]); u = (i - a) / max(1.0, self.typed_at[j] - a)
+            n += len(line) + 1 if u >= 1 else max(0, int(len(line) * u)) if u > 0 else 0
+            if u < 1: break
+        return n
+
+    def draw_editor(self, chars, flash):
+        """The editor with the first `chars` characters typed; the k token lit when flash (a kick)."""
+        key = (chars, flash)
+        if key in self._editor: return self._editor[key]
+        if len(self._editor) > 400: self._editor.clear()
+        lines = self.lines; lh = self.lh
+        im = Image.new('RGB', (W - 80, lh * len(lines) + 36), (18, 20, 26)); d = ImageDraw.Draw(im)
+        kw = {'for', 'in', 'def', 'return'}; left = chars; cursor = True
         for j, line in enumerate(lines):
-            d.text((20, 22 + j * lh), '%2d' % (j + 1), font=self.f_code, fill=(70, 76, 90))
-            x = 80
-            for tok in __import__('re').findall(r"\d*\.?\d+|[A-Za-z_]+|\s+|.", line):
+            d.text((12, 18 + j * lh), '%2d' % (j + 1), font=self.f_code, fill=(70, 76, 90))
+            show = line[:max(0, left)]; left -= len(line) + 1
+            x = 64
+            for tok in __import__('re').findall(r"\d*\.?\d+|[A-Za-z_]+|\s+|.", show):
                 col = (230, 232, 240)
                 if tok[:1].isdigit() or tok[:1] == '.' and tok[1:2].isdigit(): col = (255, 184, 108)
                 elif tok in NS or tok in ('linspace', 'meshgrid'): col = (130, 200, 255)
                 elif tok in ('t', 'k', 'N'): col = (255, 121, 198)
                 elif tok in kw: col = (255, 121, 198)
-                d.text((x, 22 + j * lh), tok, font=self.f_code, fill=col); x += self.f_code.getlength(tok)
-        return np.asarray(im)
+                if tok == 'k' and flash:                                               # the drum pushes this variable: light it
+                    d.rounded_rectangle((x - 4, 14 + j * lh, x + self.f_code.getlength(tok) + 4, 14 + j * lh + lh - 6), 6, fill=(255, 121, 198)); col = (18, 20, 26)
+                d.text((x, 18 + j * lh), tok, font=self.f_code, fill=col); x += self.f_code.getlength(tok)
+            if cursor and show != line:                                           # the cursor on the line being typed
+                if (chars // 8) % 2 == 0: d.rectangle((x + 2, 20 + j * lh, x + 20, 20 + j * lh + lh - 14), fill=(230, 232, 240))
+                cursor = False
+        self._editor[key] = np.asarray(im); return self._editor[key]
 
     def canvas(self, i):
-        t = i / FPS; S = self.S
+        t = (i - self.land) / FPS; S = self.S
         ns = dict(NS, t=t, k=float(self.kick[i]), b=float(self.bass[i]), N=60000)
         exec(self.compiled, ns)
         if 'F' in ns:
@@ -182,15 +234,20 @@ class Video:
 
     def frame(self, i):
         out = np.full((H, W, 3), 8, np.float32)
-        e = self.editor; ey = 170; out[ey:ey + e.shape[0], 40:40 + e.shape[1]] = e
-        c = self.canvas(i); S = self.S
-        top = ey + e.shape[0]; cy = top + max(30, (H - 150 - top - S) // 2)   # the square sits in the middle of what is left
-        out[cy:cy + S, (W - S) // 2:(W - S) // 2 + S] = c
+        chars = len(self.code) + 1 if i >= self.land else self.typed(i)
+        e = self.draw_editor(chars, i in self.kick_frames or self.kick[i] > 0.85); ey = self.ey
+        out[ey:ey + e.shape[0], 40:40 + e.shape[1]] = e
+        S = self.S; cy = self.cy; x0 = (W - S) // 2
+        if i >= self.land: out[cy:cy + S, x0:x0 + S] = self.canvas(i)
+        else: out[cy:cy + S, x0:x0 + S] = (14, 15, 20)                               # the empty square the program is about to draw in
         im = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
-        d.text((40, 95), '%s.py' % self.prog, font=self.f_ui, fill=(200, 205, 215))
-        d.text((W - 40, 95), '%d chars · running' % len(self.code), font=self.f_ui, fill=(126, 231, 135) if (i // 15) % 2 == 0 else (80, 160, 95), anchor='ra')
-        d.text((40, H - 95), self.credit, font=self.f_ui, fill=(225, 225, 232))
-        d.text((W - 40, H - 95), 't = %5.2f   k = %.2f' % (i / FPS, self.kick[i]), font=self.f_ui, fill=(120, 124, 136), anchor='ra')
+        if i < self.land: d.rectangle((x0, cy, x0 + S - 1, cy + S - 1), outline=(40, 44, 56), width=2)
+        d.text((40, 290), '%d lines of python. this is all of it.' % len(self.lines), font=self.f_head, fill=(235, 236, 242), anchor='lm')
+        run = i >= self.land
+        d.text((40, 1442), '%s.py · %d chars · %s' % (self.prog, len(self.code), 'running' if run else 'typing'), font=self.f_ui,
+               fill=((126, 231, 135) if (i // 15) % 2 == 0 else (80, 160, 95)) if run else (200, 205, 215), anchor='lm')
+        d.text((930, 1442), 't = %5.2f   k = %.2f' % (max(0, i - self.land) / FPS, self.kick[i]), font=self.f_ui, fill=(120, 124, 136), anchor='rm')
+        d.text((40, 1478), self.credit, font=self.f_credit, fill=(225, 225, 232), anchor='lm')
         return np.asarray(im)
 
     def render(self, out):
@@ -199,10 +256,10 @@ class Video:
             ims = []
             for f in range(max(fs) + 1):
                 if f in fs: ims.append(Image.fromarray(self.frame(f)).resize((360, 640)))
-                elif self.trail: self.canvas(f)                                 # keep the trail honest
+                elif self.trail and f >= self.land: self.canvas(f)              # keep the trail honest
             sheet = Image.new('RGB', (360 * len(ims), 640))
             for j, im in enumerate(ims): sheet.paste(im, (360 * j, 0))
-            sheet.save(out); print('sheet', out, K.record()['knobs']); return
+            sheet.save(out); print('sheet', out, K.record()['knobs'], 'land', self.land, 'square', self.S); return
         tmp = out[:-4] + '.part.mp4'
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
                               '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '19'),

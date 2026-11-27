@@ -65,15 +65,15 @@ def frame(i):
         e = float(ease_back((k - 7) / 0.45)); circle(c, (X(P[0]), Y(P[1])), 12 * e * (1 + 0.15 * kick), ST.c, -1)
     # words
     if k < 4.6:
-        o_ = 1 - float(ease_out((k - 4.1) / 0.45)); s1 = float(ease_back(k / 0.45)); s2 = float(ease_back((k - 2) / 0.45))
-        paste(c, tex(r'$\frac{d}{dx}$', 230, ST.hx(mix(ST.bg, ST.fg, 0.16))), W / 2, 830, 1 + 0.05 * kick, min(1, k / 0.5) * o_)
+        o_ = 1 - float(ease_out((k - 4.1) / 0.45)); s1 = 1.0; s2 = float(ease_back((k - 2) / 0.45))
+        paste(c, tex(r'$\frac{d}{dx}$', 230, ST.hx(mix(ST.bg, ST.fg, 0.16))), W / 2, 830, 1 + 0.05 * kick, o_)
         paste(c, text('What IS a', F(FONT, 96), ST.fg), W / 2, 760, s1, min(1, s1) * o_)
         paste(c, text('derivative?', F(FONT, 140), ST.a), W / 2, 905, s2 * (1 + 0.05 * kick), min(1, s2) * o_)
         paste(c, text('the slope, in %d seconds' % seconds(CL), F(INTER, 40), ST.muted), W / 2, 1060, 1, float(ease_out((k - 3) / 0.5)) * o_)
     if k >= 4:
-        up = float(ease_out((k - 4) / 0.8)); paste(c, text('What IS a derivative?', F(FONT, 64), ST.fg), W / 2, 230 - 30 * (1 - up), 1, up)
-    if 6 <= k < 17: paste(c, tex(r'$f(x) = \frac{x^3}{3} - x$', 46, ST.hx(ST.a)), X(-1.3), Y(2.4), 1, float(ease_out((k - 6) / 0.6)) * (1 - float(ease_out((k - 16) / 0.8))))
-    chips(c, ST, k, [(8, 16, 1, 'pick a 2nd point, h away', ST.b), (16, 28, 2, 'halve h on every beat', ST.b), (28, 36, 3, 'let h hit zero', ST.c)])
+        up = float(ease_out((k - 4) / 0.8)); paste(c, text('What IS a derivative?', F(FONT, 64), ST.fg), W / 2, 360 - 30 * (1 - up), 1, up)   # under the credit row, even zoomed in
+    if 6 <= k < 17: paste(c, tex(r'$f(x) = \frac{x^3}{3} - x$', 46, ST.hx(ST.a)), X(-1.3), Y(2.1), 1, float(ease_out((k - 6) / 0.6)) * (1 - float(ease_out((k - 16) / 0.8))))
+    chips(c, ST, k, [(8, 16, 1, 'pick a 2nd point, h away', ST.b), (16, 28, 2, 'halve h on every beat', ST.b), (28, 36, 3, 'let h hit zero', ST.c)], 450)
     if 10 <= k < 32.2:
         fade = 1 - float(ease_out((k - 31.8) / 0.4)); e = float(ease_out((k - 10) / 0.5))
         paste(c, tex(r'$\mathrm{slope} = \frac{f(x+h) - f(x)}{h}$', 58, ST.hx(ST.fg)), W / 2, 1390, 1, e * fade)

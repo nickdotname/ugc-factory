@@ -29,9 +29,9 @@ import knobs as K
 
 W, H, FPS = 1080, 1920, 30; audio.FPS = FPS
 MAX_LEN = 24.0
-PY0, PH = 470, 830                  # the picture: full width, y 470..1300
+PY0, PH = 470, 790                  # the picture: full width, y 470..1260 (40 px shorter since 2026-11-27: the swatches, codes and credit all fit under it)
 GROUND = np.array([128, 128, 128], np.float32)     # what the surroundings fade to: a plain mid grey
-SW, SY = 150, 1400                  # swatch size and centre line
+SW, SY = 130, 1340                  # swatch size and centre line: swatches 1275-1405, codes ~1441, credit 1480
 PAGES = {'dark': dict(bg=(26, 26, 28), txt=(240, 240, 236), dim=(120, 120, 120)),
          'light': dict(bg=(236, 236, 234), txt=(24, 24, 26), dim=(140, 140, 140))}
 BACK = 'same colour.\nstill looks different.'
@@ -314,7 +314,7 @@ class Video:
                 side = -1 if apart < 540 else 1
                 x = apart + (540 + side * SW / 2 - apart) * ease(slide)
                 if slide >= 0.98: x = 540 + side * (SW / 2 + 70)
-                d.text((x, SY + SW / 2 + 48), hexof(col), font=self.f_lab, fill=txt, anchor='mm')
+                d.text((x, SY + SW / 2 + 36), hexof(col), font=self.f_lab, fill=txt, anchor='mm')
         if top:
             if i < self.t_pick[0]: t = self.ask
             elif i < self.t_back[0]: t = self.ill.answer() if i >= self.t_ctx[1] else self.ask
@@ -325,7 +325,7 @@ class Video:
                 x0, x1 = 340, 740; y = 420
                 d.rounded_rectangle((x0, y - 5, x1, y + 5), 5, fill=self.page['dim'])
                 d.rounded_rectangle((x0, y - 5 - 2 * k, x0 + (x1 - x0) * u, y + 5 + 2 * k), 5, fill=txt)
-        d.text((W / 2, 1590), self.credit, font=self.f_credit, fill=self.page['dim'], anchor='mm')
+        d.text((W / 2, 1482), self.credit, font=self.f_credit, fill=self.page['dim'], anchor='mm')   # inside Instagram's safe area
         return np.asarray(im)
 
     def frame(self, i):

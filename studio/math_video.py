@@ -20,7 +20,7 @@ import knobs as K
 import beat as audio
 
 TOPICS = ['integral', 'fourier', 'derivative', 'zeta', 'fold', 'sci8']
-TOPIC_WEIGHTS = [1, 1, 1, 3, 3, 5]  # the algorithm races (sorts, paths) moved to their own account on 2026-11-24: studio/race_video.py;  the Riemann hypothesis is in the news (AI results on it, Aug-Oct 2026); fold (paper to the Moon, in pixel art) is new
+TOPIC_WEIGHTS = [1, 3, 0, 3, 2, 1]  # review 2026-11-26: fourier and zeta are two of the four winners, sci8 the weakest (it was 5), derivative off until rebuilt; the races (sorts, paths) moved to their own account on 2026-11-24: studio/race_video.py
 BEATS = 44
 
 def start_beat(song_dir, t0):

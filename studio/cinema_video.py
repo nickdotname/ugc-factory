@@ -79,6 +79,19 @@ REELS = {
 # office drama the 'Girl Shy' query found instead of Lloyd's film.
 SKIP = re.compile(r'florida enchantment|four horsemen|rainbow trail|rien que les heures|iron mask|highway 101|'
                   r'we asked|expert|space weather|cable ship|space station live|replays|sounding rocket|girl who found herself', re.I)
+# Shapes, not people: the opener score (motion x contrast x outline) loved these, and a viewer cannot name what they are.
+# Never the opener, never inside the first bar (review 2026-11-26).
+ABSTRACT = re.compile(r'ballet m[eé]canique|emak|rhythmus|lichtspiel', re.I)
+
+
+def abstract(e):
+    return ABSTRACT.search('%s %s %s' % (e.get('title', ''), e.get('query', ''), e.get('key', ''))) is not None
+
+
+def film_title(e):
+    """('Nosferatu', '1922') from the file name the terminal shows: the top title for the first two seconds."""
+    m = re.match(r'(.*?)_?(1[89]\d\d)?$', film_name(e)); words = (m.group(1) if m else film_name(e)).replace('_', ' ').strip()
+    return ' '.join(w if w in ('a', 'of', 'the', 'in', 'to') else w.capitalize() for w in words.split()), (m.group(2) or '') if m else ''
 
 
 def usable(e, reel):
@@ -177,7 +190,7 @@ def reads(s, a=0, b=None):
 
 class Plan:
     """Which clip plays when, from which frame, and where the crop sits, cut on the beat grid."""
-    def __init__(self, lib, n, cuts, rng):
+    def __init__(self, lib, n, cuts, rng, bar=2 * FPS):
         self.n = n; self.cache = {}; stats = {}
         for e in lib:
             s = survey(e)
@@ -189,6 +202,7 @@ class Plan:
         quality = {e['asset']: reads(stats[e['asset']]) for e in lib}
         hooks = []
         for e in lib:
+            if abstract(e): continue
             s = stats[e['asset']]; off = best_window(s, segs[0][1], random.Random(1))
             if off is not None: hooks.append((reads(s, off, off + 15), e, off))
         hooks.sort(key=lambda h: -h[0]); best = []
@@ -196,11 +210,17 @@ class Plan:
             if film_name(h[1]) not in [film_name(b[1]) for b in best]: best.append(h)
         if not best: sys.exit('no clip has a clean opening stretch')
         _, first, off0 = rng.choice(best[:4])
+        # one or two films a video (six films in ten seconds was the old plan: nothing stayed long enough to be seen)
+        films = {film_name(first)}; others = sorted({film_name(e) for e in lib} - films)
+        if others and rng.random() < 0.6:
+            films.add(rng.choices(others, weights=[max(quality[e['asset']] for e in lib if film_name(e) == f) + 1e-6 for f in others])[0])
+        cast = [e for e in lib if film_name(e) in films]
         self.plan = [(0, first, off0)]; used = {first['asset']}; last = film_name(first)
         for k, (c, L) in enumerate(segs[1:], 1):
             if k == len(segs) - 1 and len(segs) > 2 and off0 >= L and not stats[first['asset']]['bad'][off0 - L:off0].any():
                 self.plan.append((c, first, off0 - L)); break                     # the last shot runs into the first frame: a loop
-            pool = [e for e in lib if film_name(e) != last and e['asset'] not in used] or [e for e in lib if film_name(e) != last] or lib
+            ok = [e for e in cast if c >= bar or not abstract(e)]
+            pool = [e for e in ok if film_name(e) != last and e['asset'] not in used] or [e for e in ok if e['asset'] not in used] or ok or [first]
             e, off = first, None
             for _ in range(6):
                 e = rng.choices(pool, weights=[quality[x['asset']] + 1e-6 for x in pool])[0]; off = best_window(stats[e['asset']], L, rng)
@@ -248,16 +268,15 @@ class Video:
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 5.0); self.snare = audio.hits(a['snares'], n, 9.0)
         self.bass = np.convolve(a['bass'], np.ones(5) / 5, 'same')
-        per = 4
-        while per > 1 and per * spb > 2.6: per //= 2
-        if per * spb < 1.2: per *= 2
+        per = 4                                                  # a bar a shot, two bars on a fast song: every shot >= 2 s (review 2026-11-26)
+        while per * spb < 2.0: per *= 2
         beats = [(int(b), int(round(fr))) for b, fr in a['beats'] if 0 <= fr < n]
         cuts = [0]
         for b, fr in beats:
-            if b % per == 0 and FPS * 0.8 <= fr <= n - FPS * 0.6 and fr - cuts[-1] >= FPS * 0.9: cuts.append(fr)
-        if len(cuts) == 1: cuts += list(range(int(FPS * 2), n - int(FPS * 0.8), int(FPS * 2)))
+            if b % per == 0 and FPS * 2.0 <= fr <= n - FPS * 1.2 and fr - cuts[-1] >= FPS * 2.0: cuts.append(fr)
+        if len(cuts) == 1 and n > FPS * 4: cuts += list(range(int(FPS * 2), n - int(FPS * 1.2), int(FPS * 2)))
         self.cuts = cuts
-        self.plan = Plan(lib, n, cuts, r)
+        self.plan = Plan(lib, n, cuts, r, bar=int(4 * spb * FPS))
         # the letter atlas, sorted by measured ink
         self.cw = self.cell; self.ch = int(round(self.cell * 1.8))
         f = ImageFont.truetype(BOLD, int(round(self.cell * 1.62)))
@@ -275,7 +294,8 @@ class Video:
         self.lohi = None; self.prev_k = -1
         song = json.load(open(os.path.join(song_dir, 'song.json')))
         self.credit = '♪ %s — close quarters' % song.get('title', self.slug).lower()
-        self.f_ui = ImageFont.truetype(MONO, 27); self.f_small = ImageFont.truetype(MONO, 23)
+        self.f_ui = ImageFont.truetype(MONO, 27); self.f_small = ImageFont.truetype(MONO, 23); self.f_title = ImageFont.truetype(BOLD, 52)
+        self.title = ', '.join(x for x in film_title(self.plan.plan[0][1]) if x)
         K.MENU['film'] = sorted({film_name(e) for e in lib}); K.CHOSEN['film'] = film_name(self.plan.plan[0][1])
 
     # ------------------------------------------------------------ the picture
@@ -357,6 +377,11 @@ class Video:
         d.rectangle([self.ox, PIC_Y1 + 6, self.ox + int((W - 2 * self.ox) * p), PIC_Y1 + 9], fill=(120, 120, 128))
         d.text((40, PIC_Y1 + 38), '$ play %s.mp4' % film_name(e), font=self.f_ui, fill=(126, 231, 135), anchor='lm')
         d.text((40, PIC_Y1 + 76), '%s   %02d:%02d' % (self.credit, int(t) // 60, int(t) % 60), font=self.f_small, fill=(205, 205, 212), anchor='lm')
+        if i < 2 * FPS + 10:                                                  # the film's name and year, two seconds from frame 0, then it fades
+            a = int(255 * min(1.0, (2 * FPS + 10 - i) / 10)); hi = LOOKS[self.look][2]
+            lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+            ImageDraw.Draw(lay).text((W / 2, 330), self.title, font=self.f_title, fill=hi + (a,), anchor='mm', stroke_width=5, stroke_fill=(0, 0, 0, a))
+            im.paste(lay, (0, 0), lay)
         return np.asarray(im)
 
     def render(self, out):

@@ -163,7 +163,7 @@ PLACE = {nm: k + 1 for k, nm in enumerate(ORDER)}
 HITS = {round(FIN[nm] * 2) / 2: 0.7 for nm in ORDER}
 HITS.update({RACE0: 0.9, 36: 0.6})
 
-LANE_Y0, LANE_H, GAP = 470, 250, 22
+LANE_Y0, LANE_H, GAP = 470, 240, 20                  # the last lane ends at 1490: inside Instagram's safe area
 def lane_box(k):
     y = LANE_Y0 + k * (LANE_H + GAP); return 70, y, W - 70, y + LANE_H
 
@@ -220,10 +220,10 @@ def frame(i):
     # the question stays up all race
     q = 'which one finishes first?'
     if k < 4.6:
-        e1 = float(ease_back(k / 0.45)); e2 = float(ease_back((k - 1.3) / 0.45)); e3 = float(ease_back((k - 2.4) / 0.45))
+        e1 = 1.0; e2 = float(ease_back((k - 1.3) / 0.45)); e3 = float(ease_back((k - 2.4) / 0.45))   # the title is on frame 0: the cover
         a = 1 - float(ease_out((k - 4.0) / 0.5))
-        paste(c, text('4 sorting algorithms.', F(FONT, 76), ST.fg), W / 2, 300, e1, a * min(1, e1))
-        paste(c, text('the same %d numbers.' % N, F(FONT, 60), ST.muted), W / 2, 385, e2, a * min(1, e2))
+        paste(c, text('4 sorting algorithms.', F(FONT, 76), ST.fg), W / 2, 325, e1, a * min(1, e1))
+        paste(c, text('the same %d numbers.' % N, F(FONT, 60), ST.muted), W / 2, 405, e2, a * min(1, e2))
         paste(c, text('which one', F(FONT, 92), ST.a, stroke=3), W / 2, 1600, e3 * (1 + 0.04 * kick), a * min(1, e3))
         paste(c, text('finishes first?', F(FONT, 92), ST.a, stroke=3), W / 2, 1700, e3 * (1 + 0.04 * kick), a * min(1, e3))
     else:
@@ -256,7 +256,7 @@ def frame(i):
             for p, (s, col, sz) in enumerate(lines):
                 e = float(ease_back((k - 38.4 - 0.6 * p) / 0.4))
                 paste(c, text(s, F(FONT if sz >= 60 else INTER, sz), col, stroke=3 if sz >= 60 else 0), W / 2, 820 + p * 110, e * (1 + 0.04 * kick * (p == 2)), min(1, e))
-            paste(c, text('follow for part 2', F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
+            paste(c, text('%d numbers. %d sorts. one order.' % (N, len(NAMES)), F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
     amp, ph = shake_at(k, HITS, ST)
     o = finish(c, k, amp, ph, 1 + 0.008 * kick, W / 2, H / 2, ST)
     return overlay_fixed(o, ST, k, CL.beats, CREDIT)

@@ -26,6 +26,14 @@ Back to [[README]]. EDUCATION by Close Quarters, 15 tracks. Each prepared song i
 (4, 9, 15 arrive with PR #92.) Physics needs `project_hits.json` from the Ableton project, so only songs with one
 appear there.
 
+## The song's audio page on Instagram
+
+`ig_audio_id` in `studio/songs/<slug>/song.json` is the track's id in Meta's music library (found by the
+`audio-search` workflow once the distributor has delivered EDUCATION). When set, topup attaches it to every Reel on a
+Facebook-login account (`PublishRequest.audio_id`, catalogue volume 1 so the baked-in sound keeps the lyrics in sync), so
+the audio sticker names the song and the band instead of the niche account's "Original audio". Unified-login accounts
+refuse the tag and post as named original audio as before (`instagram_audio_refused`).
+
 ## Preparing a song: see [[add-song]]
 
 - With vocals: `studio/prep_song.py` (vocal/instrumental split, Whisper word timing, sections from sung lines),

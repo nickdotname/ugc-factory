@@ -22,7 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import os
 import sys
 import uuid
@@ -35,6 +35,7 @@ from src.accounts import (
     ACCOUNTS_FILE,
     AccountConfig,
     AccountsConfig,
+    InstagramLogin,
     Provider,
     accounts_for,
     load_accounts,
@@ -58,6 +59,7 @@ from src.config import (
     load_campaign,
 )
 from src.descriptions import (
+    BANK_DIR,
     Description,
     bank_path_for,
     derive_title,
@@ -133,7 +135,9 @@ from src.quota import (
 from src.ports import Clock, Rng, SeededRng, SystemClock
 from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
 from src.publishers.buffer import BufferPublisher
+from src.publishers import DIRECT_PROVIDERS, holds_posts_in_repo, real_publisher
 from src.publishers.instagram import OUTBOX_DIR, InstagramPublisher
+from src.publishers.youtube import YouTubePublisher
 from src.analytics import (
     cache_path as analytics_cache_path,
     correlate,
@@ -296,15 +300,24 @@ def _library_from(
 
 
 def _creative_bank_path(
-    config: CampaignConfig, creative: CreativeConfig, campaign_dir: Path
+    config: CampaignConfig, creative: CreativeConfig, campaign_dir: Path,
+    style: str | None = None,
 ) -> Path:
     """The description bank one creative draws from.
 
-    Its own ``creatives/<name>/captions.txt`` when it has one, the campaign's
-    shared bank otherwise. A creative is often a different *subject* — a
-    different song, a different product angle — and copy written for one
-    reads as nonsense under another, so the bank can follow the clips.
+    A bank written for the clip's studio ``style`` first (the campaign's
+    ``captions/<style>.txt``, when it has one: a wind-tunnel video and a
+    bouncing ball share a song and an account but not a sentence), then the
+    creative's own ``creatives/<name>/captions.txt`` when it has one, the
+    campaign's shared bank otherwise. A creative is often a different
+    *subject* — a different song, a different product angle — and copy
+    written for one reads as nonsense under another, so the bank can follow
+    the clips.
     """
+    if style:
+        styled = campaign_dir / BANK_DIR / f"{style}.txt"
+        if styled.is_file():
+            return styled
     own = config.creative_dir(campaign_dir, creative) / "captions.txt"
     return own if own.is_file() else campaign_dir / "captions.txt"
 
@@ -831,13 +844,21 @@ def _render(
                 posted = {e.hook for e in resources[name].history.entries}
                 if any(clip not in posted for clip in clips):
                     weights[name] *= max(clips.values())
-        picks = selector.select_batch_multi(
-            pools, weights, count, config.composition.bodies_per_video,
-            config.composition.bodies_per_video_max,
-            performance=performance,
-            boost=boost,
-            visual_pools=_visual_pools(config, resources),
-        )
+        # The quota's slots first (selection.style_quota), then the ordinary
+        # selector fills what is left against pools that already hold them.
+        if config.selection.style_quota:
+            picks, pools = _quota_picks(
+                config, selector, pools, weights, count, _clip_styles(config), today, log,
+                performance=performance, visual_pools=_visual_pools(config, resources),
+            )
+        if len(picks) < count:
+            picks += selector.select_batch_multi(
+                pools, weights, count - len(picks), config.composition.bodies_per_video,
+                config.composition.bodies_per_video_max,
+                performance=performance,
+                boost=boost,
+                visual_pools=_visual_pools(config, resources),
+            )
     relaxed = [(name, o) for name, o in picks if o.relaxation is not Relaxation.NONE]
     if relaxed and not config.selection.repeats:
         # No repeats on this account: a relaxed pick would put up a video it
@@ -871,6 +892,25 @@ def _render(
     network_last_used = {
         service: _caption_last_used(full_history, service) for service in Service
     }
+    # Banks written for a studio style (captions/<style>.txt), loaded per song
+    # so {name} is the song's; the style of a clip comes from recipes.json.
+    # Campaign-wide recency: the same line should not open two posts of the
+    # style on one account whichever songs they are.
+    clip_styles = _clip_styles(config)
+    voiced = _voiced_clips(config)
+    style_banks: dict[tuple[str, str], list[Description]] = {}
+    for name, res in resources.items():
+        for style in sorted(set(clip_styles.get(name, {}).values())):
+            path = _creative_bank_path(config, res.creative, campaign_dir, style=style)
+            if path.parent.name == BANK_DIR and path.stem == style:
+                style_banks[(name, style)] = _load_captions(
+                    path, config.buffer.service, config.buffer.title_strategy,
+                    _caption_names(config, res.creative),
+                )
+    style_last_used: dict[str, datetime] = {}
+    for e in full_history.entries:
+        if e.caption and (e.caption not in style_last_used or e.timestamp > style_last_used[e.caption]):
+            style_last_used[e.caption] = e.timestamp
 
     # Fill the next free slots rather than deferring the whole batch a day.
     # SPEC §4.2 wanted the render->push gap as a review window, but the review
@@ -978,7 +1018,23 @@ def _render(
             timed_slots[pinned.id] if pinned is not None and pinned.at is not None
             else (freed_slots.pop(0) if freed_slots else next(free))
         )
-        record = res.record_for(selection.caption) if pinned is None else None
+        # A bank written for the clip's style beats the song's or the
+        # campaign's: on physics_sims "count the bounces" went out under
+        # wind-tunnel videos and the wind-tunnel lines under balls (11-26).
+        style = clip_styles.get(creative_name, {}).get(selection.hook)
+        style_bank = style_banks.get((creative_name, style or "")) if pinned is None else None
+        if style_bank:
+            chosen = pick_by_recency(
+                [d.body for d in style_bank], style_last_used, today, rng,
+                config.selection.caption_cooldown_days,
+            )
+            style_last_used[chosen] = today + timedelta(microseconds=index + 1)
+            selection = selection.model_copy(update={"caption": chosen})
+            log.info("caption_by_style", creative=creative_name, clip=selection.hook, style=style)
+        record = (
+            next((d for d in style_bank if d.body == selection.caption), None) if style_bank
+            else res.record_for(selection.caption)
+        ) if pinned is None else None
         overlay = pinned.overlay if pinned is not None else (
             record.overlay if record else None
         )
@@ -1169,6 +1225,11 @@ def _render(
                     net_captions[service.value] = asked
             if not config.posting.fan_out:
                 caption = _with_cta(caption, config.buffer.service, creative, turn)
+        if selection.hook in voiced.get(creative_name, ()):
+            # A narrated clip says so, on every caption it can go out with.
+            caption = _disclosed(caption)
+            net_captions = {k: _disclosed(v) for k, v in net_captions.items()}
+            files = [(a, p, v.model_copy(update={"caption": _disclosed(v.caption)})) for a, p, v in files]
         comments = [
             line for line in (_fill(c, creative) for c in funnel.first_comment)
             if line
@@ -1380,36 +1441,73 @@ def _account_publishers(
                 f"{slot} is not set — cannot publish to {account.name}. "
                 f"Set the secret, or set posting.dry_run: true."
             )
-        publishers[slot] = _real_publisher(account, api_key, log)
+        publishers[slot] = _real_publisher(account, api_key, log, env=env)
     return publishers
 
 
 def _real_publisher(
-    account: AccountConfig, secret: str, log: StructuredLogger
-) -> BufferPublisher | InstagramPublisher:
+    account: AccountConfig, secret: str, log: StructuredLogger,
+    env: Mapping[str, str] | None = None,
+) -> BufferPublisher | InstagramPublisher | YouTubePublisher:
     """The publisher one account posts through. Never a dry-run stand-in.
 
-    The one place that knows there is more than one kind: an account says
-    which with ``provider:`` in the accounts file, and everything else holds
-    a ``Publisher`` without caring.
+    An account says which kind with ``provider:`` in the accounts file, and
+    everything else holds a ``Publisher`` without caring. The direct kinds
+    (Instagram, YouTube) come from ``src.publishers.real_publisher``; ``env``
+    carries the shared YouTube client id and secret, and without it the
+    process environment is read. Buffer stays here, by this module's own
+    name, which is the seam the tests stand a fake in through.
     """
-    if account.provider is Provider.INSTAGRAM:
-        return InstagramPublisher(
-            secret, log,
-            outbox_dir=REPO_ROOT / OUTBOX_DIR,
-            login=account.login.value,
+    if account.provider in DIRECT_PROVIDERS:
+        return real_publisher(  # type: ignore[return-value]
+            account, secret, log, env=env, outbox_dir=REPO_ROOT / OUTBOX_DIR,
         )
     return BufferPublisher(secret, log, organization_id=account.organization_id)
+
+
+#: Volumes a Reel is posted with when its song's catalogue track is attached. The video keeps its own sound at
+#: full volume: that sound IS the song, cut to the window the lyrics and beats on screen were made for, and
+#: ``audio_configuration`` has no start offset, so letting the catalogue track play would start the song over
+#: from 0:00 under every lyric video. The track rides along at the lowest volume Instagram takes, which is all it
+#: needs to file the Reel under the song's audio page and credit the band instead of the niche account.
+AUDIO_TAG_VOLUME = 1
+AUDIO_TAG_VIDEO_VOLUME = 100
+SONGS_DIR = Path("studio") / "songs"
+
+
+def _song_audio(config: CampaignConfig, creative_name: str) -> dict[str, Any] | None:
+    """``audio_id`` and volumes for a creative's song, or None while the song has no catalogue id.
+
+    The creative's own ``ig_audio_id`` wins; otherwise ``studio/songs/<slug>/song.json`` (the slug is the creative
+    name with hyphens), where ``ig_audio_id``, ``ig_audio_volume`` and ``ig_video_volume`` sit beside the song's
+    other facts, so one file per song serves every campaign that posts it.
+    """
+    creative = next((c for c in config.creatives if c.name == creative_name), None)
+    audio_id = creative.ig_audio_id if creative else None
+    volume, video_volume = AUDIO_TAG_VOLUME, AUDIO_TAG_VIDEO_VOLUME
+    try:
+        song = json.loads(
+            (REPO_ROOT / SONGS_DIR / creative_name.replace("_", "-") / "song.json").read_text(encoding="utf-8")
+        )
+    except (OSError, ValueError):
+        song = {}
+    if isinstance(song, dict):
+        audio_id = audio_id or (str(song.get("ig_audio_id") or "").strip() or None)
+        volume = int(song.get("ig_audio_volume") or volume)
+        video_volume = int(song.get("ig_video_volume") or video_volume)
+    if not audio_id:
+        return None
+    return {"audio_id": audio_id, "audio_volume": volume, "video_volume": video_volume}
 
 
 def _held_post_paths(publisher: Publisher) -> list[Path]:
     """Files a publisher wrote that must be committed with the queue.
 
-    Buffer holds a scheduled post on its own servers. A direct Instagram
-    account's are held in the repo, so a push that is not committed is a post
-    that will never go out.
+    Buffer holds a scheduled post on its own servers. A direct Instagram or
+    YouTube account's are held in the repo, so a push that is not committed is
+    a post that will never go out.
     """
-    if isinstance(publisher, InstagramPublisher) and publisher.touched:
+    if holds_posts_in_repo(publisher):
         return [REPO_ROOT / OUTBOX_DIR]
     return []
 
@@ -1778,6 +1876,16 @@ def _push_to_account(
                 audio_name = (
                     config.funnel.audio_name.replace("{name}", song).strip() or None
                 )
+        # The song's own page: with its catalogue id attached the Reel is filed
+        # under the song and credited to the band, instead of being one more
+        # "Original audio" under the niche account. Only an account connected
+        # through Facebook Login may attach one (accounts.yaml `login`); the
+        # publisher posts the Reel with its named sound if Instagram refuses.
+        audio = (
+            _song_audio(config, item.creative)
+            if account.provider is Provider.INSTAGRAM
+            and account.login is InstagramLogin.FACEBOOK else None
+        ) or {}
 
         try:
             request = PublishRequest(
@@ -1788,6 +1896,9 @@ def _push_to_account(
                 video_url=video_url,
                 scheduled_for=due,
                 audio_name=audio_name,
+                audio_id=audio.get("audio_id"),
+                audio_volume=audio.get("audio_volume"),
+                video_volume=audio.get("video_volume"),
                 first_comment=account.first_comment or item.first_comment or None,
                 notify_subscribers=account.notify_subscribers,
                 post_type=account.post_type,
@@ -2423,23 +2534,125 @@ def _visual_pools(config: CampaignConfig, resources: Mapping[str, Any]) -> dict[
     }
 
 
-def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:
-    """creative -> clip -> factor, for clips whose studio style the campaign favours (selection.favour_styles).
-
-    The style of each clip is in the campaign's recipes.json, which the studio job writes as it ingests them."""
-    favour = config.selection.favour_styles
-    if not favour:
-        return None
+def _clip_styles(config: CampaignConfig) -> dict[str, dict[str, str]]:
+    """creative -> clip -> studio style, from the campaign's recipes.json (the studio job writes an entry as it
+    ingests each video). Empty when there is no such file: a campaign that is not studio-made has no styles."""
     try:
         rec = json.loads((_campaign_dir(config.slug) / "recipes.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
+        return {}
+    out: dict[str, dict[str, str]] = {}
+    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
+        if entry.get("style") and entry.get("creative") and entry.get("clip"):
+            out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = str(entry["style"])
+    return out
+
+
+#: studio/voice.py disclosure(): Meta asks realistic AI-made voice to be labelled, so a narrated clip's caption says so.
+AI_VOICE_LABEL = "voice: ai narration"
+
+
+def _voiced_clips(config: CampaignConfig) -> dict[str, set[str]]:
+    """creative -> clips whose recipe says the AI narrator read the story (knobs.voice == 'on')."""
+    try:
+        rec = json.loads((_campaign_dir(config.slug) / "recipes.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    out: dict[str, set[str]] = {}
+    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
+        if entry.get("creative") and entry.get("clip") and (entry.get("knobs") or {}).get("voice") == "on":
+            out.setdefault(str(entry["creative"]), set()).add(str(entry["clip"]))
+    return out
+
+
+def _disclosed(text: str | None) -> str | None:
+    """The caption with the AI-voice label on its last line, once."""
+    if text is None or AI_VOICE_LABEL in text.lower():
+        return text
+    return f"{text.rstrip()}\n\n{AI_VOICE_LABEL}"
+
+
+def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:
+    """creative -> clip -> factor, for clips whose studio style the campaign favours (selection.favour_styles)."""
+    favour = config.selection.favour_styles
+    if not favour:
         return None
     out: dict[str, dict[str, float]] = {}
-    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
-        factor = favour.get(str(entry.get("style")))
-        if factor and entry.get("creative") and entry.get("clip"):
-            out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = float(factor)
+    for name, clips in _clip_styles(config).items():
+        for clip, style in clips.items():
+            if favour.get(style):
+                out.setdefault(name, {})[clip] = float(favour[style])
     return out or None
+
+
+def _quota_picks(
+    config: CampaignConfig,
+    selector: Selector,
+    pools: dict[str, tuple[AssetLibrary, History]],
+    weights: Mapping[str, float],
+    count: int,
+    styles: Mapping[str, Mapping[str, str]],
+    now: datetime,
+    log: StructuredLogger,
+    *,
+    performance: Mapping[str, Mapping[str, Mapping[str, float]]] | None = None,
+    visual_pools: Mapping[str, str] | None = None,
+) -> tuple[list[tuple[str, Any]], dict[str, tuple[AssetLibrary, History]]]:
+    """The style quota's share of tonight's picks (selection.style_quota), and the pools with those picks already
+    written into their histories, so the ordinary selector that fills the remaining slots cannot pick them again.
+
+    Styles are filled in the order the config lists them, each from the clips recipes.json says are that style
+    across every song: the song's clips that have never posted first, then the rest of that style's clips. The
+    selector does the picking either way, so song spread, cooldowns and dedupe hold inside the quota too. A style
+    the libraries cannot fill is logged and its slots go to the ordinary selector.
+    """
+    picks: list[tuple[str, Any]] = []
+    pools = dict(pools)
+    bodies_per_video = config.composition.bodies_per_video
+    bodies_max = config.composition.bodies_per_video_max
+    for style, wanted in (config.selection.style_quota or {}).items():
+        wanted = min(wanted, count - len(picks))
+        if wanted <= 0:
+            break
+        got: list[tuple[str, Any]] = []
+        for unused_only in (True, False):
+            need = wanted - len(got)
+            if need <= 0:
+                break
+            sub: dict[str, tuple[AssetLibrary, History]] = {}
+            for name, (library, history) in pools.items():
+                posted = {h for e in history.entries for h in entry_hooks(e)}
+                hooks = tuple(
+                    h for h in library.hooks
+                    if styles.get(name, {}).get(h) == style and (not unused_only or h not in posted)
+                )
+                if hooks:
+                    sub[name] = (replace(library, hooks=hooks), history)
+            if not sub:
+                continue
+            batch = selector.select_batch_multi(
+                sub, weights, need, bodies_per_video, bodies_max,
+                performance=performance, visual_pools=visual_pools,
+            )
+            for name, outcome in batch:
+                sel = outcome.selection
+                library, history = pools[name]
+                pools[name] = (library, History(entries=[
+                    *history.entries,
+                    HistoryEntry(
+                        tuple_hash=tuple_hash(sel, config.selection.dedupe_on),
+                        timestamp=now + timedelta(microseconds=len(picks) + len(got) + 1),
+                        item_id="", hook=sel.hook, bodies=sel.bodies, music=sel.music,
+                        music_offset_sec=sel.music_offset_sec, caption=sel.caption, creative=name,
+                    ),
+                ]))
+            got += batch
+        picks += got
+        if len(got) < wanted:
+            log.warning("style_quota_short", style=style, wanted=wanted, picked=len(got))
+        else:
+            log.info("style_quota_filled", style=style, picked=len(got))
+    return picks, pools
 
 
 def _performance_medians(
@@ -2882,13 +3095,15 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
             if config.posting.fan_out else []
         )
         direct = bool(reached) and all(
-            a.provider is Provider.INSTAGRAM for a in reached
+            a.provider in DIRECT_PROVIDERS for a in reached
         )
+        # "Instagram only" predates YouTube: it means the accounts posted to
+        # directly, whose figures cost no Buffer requests.
         instagram_only = bool(getattr(args, "instagram_only", False))
         if instagram_only and not any(
-            a.provider is Provider.INSTAGRAM for a in reached
+            a.provider in DIRECT_PROVIDERS for a in reached
         ):
-            print(f"{config.slug} posts to no Instagram account directly — nothing to fetch")
+            print(f"{config.slug} posts to no account directly — nothing to fetch")
             return 0
         windows_wanted = not instagram_only and not direct
 
@@ -2896,7 +3111,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         local_date = now.astimezone(config.zone).strftime("%Y-%m-%d")
         path = _campaign_dir(config.slug) / "metrics.json"
         history = load_metrics(path)
-        publishers: dict[str, BufferPublisher | InstagramPublisher] = {}
+        publishers: dict[str, BufferPublisher | InstagramPublisher | YouTubePublisher] = {}
         snapshots: list[Snapshot] = []
         lifetime_refused: tuple[datetime, datetime] | None = None
         channel = ""
@@ -2973,12 +3188,12 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         # account the campaign reaches is fetched, through its own login, and
         # every figure is filed under the account it came from.
         sources: list[
-            tuple[str | None, BufferPublisher | InstagramPublisher, str]
+            tuple[str | None, BufferPublisher | InstagramPublisher | YouTubePublisher, str]
         ] = [(None, publishers[config.buffer.api_key_secret], channel)] if windows_wanted else []
         if config.posting.fan_out:
             sources = []
             for account in reached:
-                if instagram_only and account.provider is not Provider.INSTAGRAM:
+                if instagram_only and account.provider not in DIRECT_PROVIDERS:
                     continue        # Buffer accounts are read once a day, in the full run
                 slot = account.api_key_secret
                 if slot not in publishers:
@@ -2989,11 +3204,16 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                             reason=f"{slot} is not set",
                         )
                         continue
-                    publishers[slot] = _real_publisher(account, key, log)
+                    publishers[slot] = _real_publisher(account, key, log, env=env)
                 sources.append(
                     (account.name, publishers[slot], _account_channel(account, env))
                 )
 
+        # Accounts whose every post came back without numbers because the
+        # token may not read them. Logged, printed as a job error and the
+        # command exits 1 for this campaign, so the job goes red: the matrix
+        # runs fail-fast: false, so the other campaigns still get their turn.
+        denied_accounts: list[str] = []
         try:
             fresh: list[Any] = []
             for account_name, source, source_channel in sources:
@@ -3006,6 +3226,19 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                         account=account_name, error=str(exc)[:200],
                     )
                     continue
+                denied = getattr(source, "insights_denied", {}).get(source_channel)
+                if denied:
+                    log.warning(
+                        "insights_denied", account=account_name, campaign=config.slug, **denied,
+                    )
+                    print(
+                        f"::error::{config.slug}: no insights permission on {account_name} "
+                        f"({denied['posts']} published posts, {denied['error_class']}, Graph code "
+                        f"{denied['graph_code']}). The token in its slot lacks "
+                        f"instagram_business_manage_insights / instagram_manage_insights, or the Page "
+                        f"role lacks Insights: see docs/brain/traps.md and scripts/ig_check.py."
+                    )
+                    denied_accounts.append(str(account_name))
                 # Stamped with when they were read, so the dashboard can say how
                 # old a post's numbers are.
                 fresh += [
@@ -3135,7 +3368,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                      posts_only=True, accounts=len(sources))
             print(f"\n  {config.slug} · per-post figures from {len(sources)} "
                   f"Instagram account(s) · {local_date}")
-            return 0
+            return 1 if denied_accounts else 0
         log.info(
             "metrics_saved", campaign=config.slug, date=local_date,
             metrics=len(snapshot.metrics), snapshots=len(history.snapshots),
@@ -3155,7 +3388,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         for metric in snapshot.metrics:
             suffix = "%" if metric.unit == "percentage" else ""
             print(f"    {metric.name:<22} {metric.value:>10,.1f}{suffix}")
-        return 0
+        return 1 if denied_accounts else 0
     except UgcError as exc:
         log.exception("metrics_failed", exc)
         notifier.failure("metrics", exc, campaign=config.slug)
@@ -3623,7 +3856,7 @@ def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
                         f"that is already being held"
                     )
                 publishers[slot] = (
-                    _real_publisher(account, key, log)
+                    _real_publisher(account, key, log, env=env)
                     if account is not None
                     else BufferPublisher(key, log, organization_id=organization_id)
                 )
@@ -3718,11 +3951,11 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
     registry = load_accounts(REPO_ROOT / ACCOUNTS_FILE)
     direct = [
         a for a in registry.live
-        if a.provider is Provider.INSTAGRAM
+        if a.provider in DIRECT_PROVIDERS
         and (not args.account or a.name == args.account)
     ]
     if not direct:
-        print("no account posts to Instagram directly; nothing to do")
+        print("no account posts to Instagram or YouTube directly; nothing to do")
         return 0
 
     by_slot: dict[str, list[AccountConfig]] = {}
@@ -3753,8 +3986,8 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
                   f"{', '.join(names.values())}", file=sys.stderr)
             exit_code = 1
             continue
-        publisher = _real_publisher(accounts[0], token, log)
-        assert isinstance(publisher, InstagramPublisher)  # filtered above
+        publisher = _real_publisher(accounts[0], token, log, env=env)
+        assert isinstance(publisher, (InstagramPublisher, YouTubePublisher))  # filtered above
         if args.dry_run:
             for channel, name in names.items():
                 state = publisher.queue_state(channel)

@@ -64,19 +64,19 @@ def frame(i):
         for xv in (A_, B_): poly(c, [(X(xv), Y(0)), (X(xv), Y(0) - (Y(0) - Y(f(xv) + 0.35)) * min(bd, 1))], ST.c, 4)
     # words
     if k < 4.6:
-        s1 = float(ease_back(k / 0.45)); s2 = float(ease_back((k - 2) / 0.45)); out_ = 1 - float(ease_out((k - 4.1) / 0.45))
-        paste(c, tex(r'$\int$', 300, FAINT), W / 2, 830, 1 + 0.05 * kick, min(1, k / 0.5) * out_)
+        s1 = 1.0; s2 = float(ease_back((k - 2) / 0.45)); out_ = 1 - float(ease_out((k - 4.1) / 0.45))
+        paste(c, tex(r'$\int$', 300, FAINT), W / 2, 830, 1 + 0.05 * kick, out_)
         paste(c, text('What IS an', F(FONT, 96), ST.fg), W / 2, 760, s1, min(1, s1) * out_)
         paste(c, text('integral?', F(FONT, 150), ST.a), W / 2, 905, s2 * (1 + 0.05 * kick), min(1, s2) * out_)
         paste(c, text('calculus in %d seconds' % seconds(CL), F(INTER, 40), ST.muted), W / 2, 1060, 1, float(ease_out((k - 3) / 0.5)) * out_)
     if k >= 4:
         up = float(ease_out((k - 4) / 0.8))
-        paste(c, text('What IS an integral?', F(FONT, 64), ST.fg), W / 2, 260 - 30 * (1 - up), 1, up)
+        paste(c, text('What IS an integral?', F(FONT, 64), ST.fg), W / 2, 350 - 30 * (1 - up), 1, up)   # under the credit row, even zoomed in
     if 6 <= k: paste(c, tex(r'$f(x) = 1 + x - \frac{x^2}{4}$', 46, ST.hx(ST.a)), W / 2, 540, 1, float(ease_out((k - 6) / 0.6)) * (1 - float(ease_out((k - 27) / 1))))
     if 9 <= k:
         for xv, lab in ((A_, r'$a=0$'), (B_, r'$b=4$')): paste(c, tex(lab, 40, ST.hx(ST.c)), X(xv), Y(0) + 48, 1, float(ease_out((k - 9) / 0.5)))
     if 10 <= k < 12.2: paste(c, text('area = ?', F(FONT, 90), ST.c), X(2), Y(0.8), float(ease_back((k - 10) / 0.45)), 1 - float(ease_out((k - 11.7) / 0.5)))
-    chips(c, ST, k, [(12, 16, 1, 'slice it into rectangles', ST.b), (16, 24, 2, 'double them every bar', ST.b), (24, 28, 3, 'infinitely thin', ST.c)], 380)
+    chips(c, ST, k, [(12, 16, 1, 'slice it into rectangles', ST.b), (16, 24, 2, 'double them every bar', ST.b), (24, 28, 3, 'infinitely thin', ST.c)], 440)
     if 12 <= k < 24.2:
         if n_drop: est = sum(f(A_ + r) for r in range(n_drop)); lab = '%d rectangle%s' % (n_drop, 's' if n_drop > 1 else '')
         else: est = left_sum(n_now); lab = '%d rectangles' % n_now

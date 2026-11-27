@@ -233,8 +233,8 @@ class Video:
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
         self.credit = '%s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
         self.kind = K.pick('obstacle', ['title', 'guitar', 'note', 'headphones', 'plane', 'cassette', 'cylinder', 'airfoil'], r,
-                           weights=[4, 2, 1, 1, 1, 1, 1, 1])
-        self.view = K.pick('view', ['speed', 'vorticity', 'smoke'], r, weights=[3, 1, 2])
+                           weights=[2, 2, 1, 3, 3, 2, 1, 1])      # review 2026-11-26: the headphones and the plane made the two biggest posts
+        self.view = K.pick('view', ['speed', 'vorticity', 'smoke'], r, weights=[2, 2, 1])   # vorticity was on both
         self.cmap = K.pick('palette', ['inferno', 'plasma', 'magma', 'turbo'], r, weights=[3, 2, 1, 1])
         self.gust = K.pick('gust', ['kick', 'drums'], r, weights=[3, 1])
         self.hookline = 'none' if os.environ.get('CQ_HOOK') == 'none' else K.pick('hook', ['gust', 'none'], r)
@@ -346,7 +346,7 @@ class Video:
             lo, hi = ('clockwise', 'counter-clockwise') if self.view == 'vorticity' else ('low speed', 'high speed')
             d.text((160, y + 96), lo, font=self.f_lab, fill=(255, 255, 255), anchor='lm', **sh)
             d.text((920, y + 96), hi, font=self.f_lab, fill=(255, 255, 255), anchor='rm', **sh)
-        y = 1480
+        y = 1500                                                 # the equations sit under the credit, below Instagram's safe area
         for eq in self.eqs:
             a = eq[..., 3].astype(np.float32)                    # a soft dark halo so the formula reads over any colour
             halo = cv2.GaussianBlur(cv2.dilate(a, np.ones((5, 5), np.uint8)), (0, 0), 6)
@@ -355,7 +355,7 @@ class Video:
             e_im = Image.fromarray(eq)
             if e_im.width > 860: e_im = e_im.resize((860, int(e_im.height * 860 / e_im.width)), Image.LANCZOS)
             im.paste(e_im, (int(W / 2 - e_im.width / 2), int(y)), e_im); y += e_im.height + 22
-        d.text((W / 2, H - 70), self.credit, font=self.f_small, fill=(235, 235, 240), anchor='mm', **sh)
+        d.text((W / 2, 1466), self.credit, font=self.f_small, fill=(235, 235, 240), anchor='mm', **sh)   # inside Instagram's safe area (y 250-1500)
         return np.asarray(im)
 
     def render(self, out):

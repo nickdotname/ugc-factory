@@ -14,7 +14,7 @@ sys.path.insert(0, HERE)
 import math_video as M
 
 TOPICS = ['sorts', 'paths']
-WEIGHTS = [3, 2]
+WEIGHTS = [2, 3]   # paths over sorts: 1659 views vs 169 on math.explainers (review 2026-11-26)
 
 if __name__ == '__main__':
     M.main(TOPICS, WEIGHTS)

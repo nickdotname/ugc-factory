@@ -244,6 +244,14 @@ class TestShippedRegistry:
             "IG_TOKEN_11": {Service.INSTAGRAM},
         }
 
+    def test_the_band_accounts_post_normal_reels(self) -> None:
+        """Review 2026-11-26: trial reels kept the band's own grid empty for everyone a niche
+        account sent there. The funnel ends on these two profiles, so their posts show."""
+        cfg = load_accounts(REPO_ROOT / "accounts.yaml")
+        for name in ("close_quarters_ig", "dylancantor23_ig"):
+            account = cfg.by_name(name)
+            assert account is not None and account.trial_reels is False, name
+
     def test_every_shipped_campaign_channel_has_an_account(self) -> None:
         """The three clubs campaigns are the three nickdotname channels. If a
         channel id here drifts from the campaign still posting to it, fan-out

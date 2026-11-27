@@ -56,7 +56,7 @@ class Reader:
 class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); r = random.Random(seed); self.r = r
-        self.format = K.pick('format', ['asis', 'montage'], r); self.frame_kind = K.pick('frame', ['blur', 'crop'], r, weights=[2, 1])
+        self.format = K.pick('format', ['asis', 'montage'], r, weights=[4, 1]);   # review 2026-11-26: the as-is clips win self.frame_kind = K.pick('frame', ['blur', 'crop'], r, weights=[2, 1])
         self.ramp = K.pick('ramp', ['slowmo', 'none'], r)
         clips = lib.pull()
         if not clips: sys.exit('the Rocket League library is empty: add clips with studio/rocket_lib.py')

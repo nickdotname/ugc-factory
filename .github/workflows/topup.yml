@@ -100,6 +100,27 @@ jobs:
           IG_TOKEN_14: ${{ secrets.IG_TOKEN_14 }}
           IG_TOKEN_15: ${{ secrets.IG_TOKEN_15 }}
           IG_TOKEN_16: ${{ secrets.IG_TOKEN_16 }}
+          # YouTube (direct): the Cloud project's OAuth client, one refresh token per channel,
+          # and the per-project daily upload cap the publisher's ledger enforces.
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN_1: ${{ secrets.YT_REFRESH_TOKEN_1 }}
+          YT_REFRESH_TOKEN_2: ${{ secrets.YT_REFRESH_TOKEN_2 }}
+          YT_REFRESH_TOKEN_3: ${{ secrets.YT_REFRESH_TOKEN_3 }}
+          YT_REFRESH_TOKEN_4: ${{ secrets.YT_REFRESH_TOKEN_4 }}
+          YT_REFRESH_TOKEN_5: ${{ secrets.YT_REFRESH_TOKEN_5 }}
+          YT_REFRESH_TOKEN_6: ${{ secrets.YT_REFRESH_TOKEN_6 }}
+          YT_REFRESH_TOKEN_7: ${{ secrets.YT_REFRESH_TOKEN_7 }}
+          YT_REFRESH_TOKEN_8: ${{ secrets.YT_REFRESH_TOKEN_8 }}
+          YT_REFRESH_TOKEN_9: ${{ secrets.YT_REFRESH_TOKEN_9 }}
+          YT_REFRESH_TOKEN_10: ${{ secrets.YT_REFRESH_TOKEN_10 }}
+          YT_REFRESH_TOKEN_11: ${{ secrets.YT_REFRESH_TOKEN_11 }}
+          YT_REFRESH_TOKEN_12: ${{ secrets.YT_REFRESH_TOKEN_12 }}
+          YT_REFRESH_TOKEN_13: ${{ secrets.YT_REFRESH_TOKEN_13 }}
+          YT_REFRESH_TOKEN_14: ${{ secrets.YT_REFRESH_TOKEN_14 }}
+          YT_REFRESH_TOKEN_15: ${{ secrets.YT_REFRESH_TOKEN_15 }}
+          YT_REFRESH_TOKEN_16: ${{ secrets.YT_REFRESH_TOKEN_16 }}
+          YT_DAILY_UPLOADS: "100"
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
