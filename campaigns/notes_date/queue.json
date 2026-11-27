@@ -38,9 +38,9 @@
         {
           "account": "date_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-c30d61f7-d15f-46b9-865e-bc304b91a174",
           "last_error": null,
           "scheduled_for": "2026-11-29T08:18:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "the talking stage is undefeated\n🎧 Suspended – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
