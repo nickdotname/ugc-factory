@@ -6,14 +6,15 @@ renderer (the "Reveal" idea in docs/brain/backlog.md; paused until its Instagram
     python studio/reveal_video.py SONG_DIR SEED SHEET.png --frames 0,150,300
 
 The outline is a real country's coastline and borders (Natural Earth 1:110m, public domain: studio/reveal/shapes.json,
-built by studio/reveal/build_shapes.py). Its Fourier series is computed here; stage one draws it with 2 or 3 circles
-(a blob), and every stage adds more (the biggest terms first) until ~150 circles trace it almost exactly. Each stage is
-one full turn of the circles, a whole number of beats long, starting on a beat. The number of circles and how far the
+built by studio/reveal/build_shapes.py). Its Fourier series is computed here; stage one draws it with 3 circles in
+one bar (two beats on a slow song), so a hint of the shape is there inside ~2 s, and every stage adds more (the biggest
+terms first) until ~150 circles trace it almost exactly. Each stage is one full turn of the circles, a whole number of
+beats long, starting on a beat. The number of circles and how far the
 drawing is from the real outline (mean distance as a share of the country's longer side) are computed, never made up.
 Then the answer: the real outline fills in and the name appears. The last frames fade back into frame 0 (loop).
 Knobs (studio/knobs.py): country (its level, easy or hard, follows from it), palette, ask (the opening line).
 """
-import json, math, os, random, subprocess, sys
+import datetime, json, math, os, random, subprocess, sys
 import numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
 
@@ -59,8 +60,13 @@ class Video:
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed)
         names = [n for n in json.load(open(os.path.join(HERE, 'reveal', 'shapes.json')))['shapes'] if n not in DROP]
-        pool = sorted(names)                    # one knob over every country (nightly keeps it fresh); easy ones 3x as likely
-        self.country = K.pick('country', pool, r, weights=[3 if n in EASY else 1 for n in pool])
+        pool = sorted(names)                    # one knob over every country (nightly keeps it fresh)
+        # easy ones 6x as likely for the account's first three weeks (2026-11-27 to 2026-12-18: a new page needs "I got it"
+        # moments; docs/brain/reviews/2026-11-26/science.md), then 3x again once there are followers who play
+        easy = 6 if datetime.date.today() < datetime.date(2026, 12, 18) else 3
+        if easy > 3 and K.FORCED.get('country') not in EASY:              # nightly picks the country evenly (freshness): in these
+            K.FORCED.pop('country', None)                                  # weeks a hard pick is drawn again at easy 6 : 1
+        self.country = K.pick('country', pool, r, weights=[easy if n in EASY else 1 for n in pool])
         self.level = 'easy' if self.country in EASY else 'hard'
         pal = PALETTES[K.pick('palette', sorted(PALETTES), r)]
         self.bg, self.ring, self.arm, self.pen, self.ink = [np.array(c, np.float32) for c in pal]
@@ -81,11 +87,13 @@ class Video:
         B = len(bf)
         if B < 12: print('not rendered: %d beats is too short for the circles to get anywhere (%s %.1f-%.1f s)' % (B, self.slug, t0, t1)); sys.exit(3)
         rev = 4 if B >= 18 else 3
-        per = max(2, min(8, (B - rev) // 7))                                  # up to seven turns fill the stretch; the answer takes what is left
-        st = max(2, min(7, (B - rev) // per))
-        ladder = sorted(set(int(round(x)) for x in np.geomspace(2 if st >= 5 else 3, 150, st)))
+        one = 4 if bf[4] <= 2.5 * FPS else 2                                  # stage one: one bar of 3 circles (two beats on a slow song)
+        per = max(2, min(8, (B - rev - one) // 6))                            # up to six more turns fill the stretch; the answer takes what is left
+        st = 1 + max(1, min(6, (B - rev - one) // per))
+        ladder = sorted(set(int(round(x)) for x in np.geomspace(3, 150, st)))
         self.ladder = ladder
-        cuts = [0] + [bf[min(B - 1, (j + 1) * per)] for j in range(len(ladder))]
+        ends = np.cumsum([one] + [per] * (len(ladder) - 1))
+        cuts = [0] + [bf[min(B - 1, int(e))] for e in ends]
         self.stages = [(cuts[j], cuts[j + 1], ladder[j]) for j in range(len(ladder))]
         self.reveal = cuts[-1]
         th = np.linspace(0, 2 * np.pi, M, endpoint=False)

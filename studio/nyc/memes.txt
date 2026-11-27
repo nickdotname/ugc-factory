@@ -1,0 +1,46 @@
+# nyc.daily.aesthetic's meme lines (studio/nyc_video.py, kind meme), each written for the clip it needs.
+# A line is "<the line>    needs: <tag>": the video opens (and mostly stays) on clips whose places.json tags hold
+# that tag, so the picture is the second beat of the joke. A line whose tag no clip has yet (subway car, bodega,
+# scaffolding, rain, ferry, pizza) waits for Nick's own clips: label them in places.json and the line comes into use.
+# Statements only: no asks, nothing about a real person, nothing a clip does not show. Rewritten 2026-11-27
+# (docs/brain/reviews/2026-11-26/worlds.md §3). Keep a line's position: the learner's `meme` knob is its line number
+# among the non-comment lines, so add new lines at the end.
+
+my apartment listing said "private outdoor space"    needs: fire escape
+the fire escape is a balcony if you believe in yourself    needs: fire escape
+paying $3,800 a month for this exact view    needs: window view
+my window at 1am. the city is still doing its thing.    needs: window view
+the city at 5am hits different    needs: empty street
+the steam coming out of the street is normal. nobody knows why.    needs: steam
+being from here means you never look up at the buildings    needs: look up
+me pretending to be a tourist for exactly one block    needs: look up
+the grid makes sense until you go below 14th street    needs: street sign
+every car in midtown honking at the same red light    needs: traffic
+trying to get a cab at 5pm on a friday    needs: taxi
+"it's like a 10 minute drive" - someone who has never driven here    needs: traffic
+when the express train actually shows up first    needs: train
+me pretending i didn't just miss the train by 2 seconds    needs: train
+the train above ground at golden hour is the only good part of the commute    needs: train
+pov: "we are being held momentarily by the train's dispatcher"    needs: train
+walking the brooklyn bridge once so you can say you did    needs: brooklyn bridge
+the manhattan bridge, for people who already did the brooklyn bridge    needs: manhattan bridge
+the east river looks clean from up here    needs: river view
+the skyline right before rent is due    needs: skyline
+central park on a weekday morning, before everyone else finds out    needs: park
+new yorkers when it's 55 degrees and sunny    needs: sunny
+the city goes quiet for exactly one morning a year    needs: snow
+first snow: beautiful. day three: grey slush to the ankle    needs: slush
+nyc weather: four seasons in one week    needs: snow
+the one week a year the brownstones look like a christmas card    needs: brownstone
+me walking 4 blocks out of my way to avoid one slow tourist    needs: sidewalk
+the view from the roof you're technically not allowed on    needs: rooftops
+"you get used to the noise" - me, still not used to the noise    needs: traffic
+the empty subway car is empty for a reason    needs: subway car
+when the L train is down again this weekend    needs: subway platform
+when someone stops dead at the top of the subway stairs    needs: subway stairs
+the bodega guy remembering your order >>>    needs: bodega
+when the bodega cat finally lets you pet it    needs: bodega cat
+that scaffolding has been up since before i moved here    needs: scaffolding
+every umbrella in midtown at exactly eye level    needs: rain
+the 2am dollar slice that fixes everything    needs: pizza
+staten island ferry: the best free date in the city    needs: ferry

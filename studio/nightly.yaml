@@ -109,7 +109,7 @@ targets:
     join: 30
   - campaign: nyc_daily     # nyc.daily.aesthetic: New York clips as memes and animated facts (studio/nyc_video.py)
     style: nyc
-    retire: {kind: [fact]}                           # fact 16 views vs meme 116 (2026-11-25)
+    retire: {kind: [fact, thennow]}                  # fact 16 views vs meme 116 (2026-11-25); thennow off until its old film looks right (2026-11-27). meme : walk 1 : 1
     per_night: 4               # 5 until 2026-11-26
     join: 30
   - campaign: tiny_code     # tiny.code.loops: a few lines of numpy shown in an editor, and what they draw (studio/tinycode_video.py)
@@ -179,8 +179,8 @@ targets:
     per_night: 2               # 5 until 2026-11-26
     join: 12
   - campaign: circle_atlas     # @fourier.reveal (from 2026-11-26): countries drawn by Fourier circles (studio/reveal_video.py)
-    style: reveal
-    per_night: 2
+    style: reveal              # 2026-11-27 to 2026-12-18: easy countries 6 : 1 over hard (reveal_video.py re-draws a hard pick), then 3 : 1
+    per_night: 2               # stage one is 3 circles for one bar, so the shape shows inside ~2 s
     join: 24
   # @eye.trick.lab (from 2026-11-26) is the one eye-tricks page (docs/brain/reviews/2026-11-26): three styles, one each a
   # night, so the learner ranks `style` on one account before any of them gets its own handle. posts_per_day 3 = 1+1+1.
