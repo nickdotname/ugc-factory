@@ -21,6 +21,9 @@ Playbooks (step by step):
 - [[add-song]]: a new song (with or without vocals)
 - [[new-format]]: a new video style
 - [[health-check]]: is everything posting? what to look at, in order
+- [[add-youtube-channel]]: a YouTube channel posting Shorts through the direct publisher
+- [[narration]]: the AI narration on what.if.town (voice, ducking, disclosure)
+- [[operator-checklist-2026-11-27]]: the hand steps left after the 2026-11-26 review (tokens, audio pages, link worker, Google)
 
 ## The system in one paragraph
 
