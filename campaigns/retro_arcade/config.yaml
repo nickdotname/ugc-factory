@@ -63,7 +63,7 @@ accounts:
 
 posting:
   posts_per_day: 2          # 4 until 2026-11-25 (median 16 views)
-  start_hour: 9
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
@@ -73,7 +73,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false  # live: the account is linked to its Page and in accounts.yaml
+  paused: true                 # PAUSED docs/brain/reviews/2026-11-26: 48 near-still AI clips are not a PS2 feed (median 16 views); Kaggle budget moves to ascii subject clips
   dry_run: false
 
 video:

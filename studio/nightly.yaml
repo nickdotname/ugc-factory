@@ -16,34 +16,35 @@ targets:
     join: 45                # glue neighbouring sections into videos up to this many seconds
   # close__quarters, 2026-11-24: the band's own dance footage is what has worked (two hand-posted dance videos: 169 and
   # 346 views, 5-6 s watched, 21 shares on one) and the desktop lyric videos have not (median 76 views, 2.9 s, n=27).
-  # So fewer desktop videos and more full-screen cut-outs; the small media-player window (lofi) is kept at one a night
-  # for comparison only (median 48 views, 1.7 s, n=2).
+  # 2026-11-26 (docs/brain/reviews/2026-11-26): 3 a day, cutout 2 + band 1, matching posts_per_day; the 7 cutouts a
+  # night never shipped because render boosts a style instead of giving it a quota (plan item 9). cursor and lofi
+  # retired (lofi median 48 views, 1.7 s): per_night 0 keeps their libraries and recipes without adding to them.
   - campaign: cq_band       # close__quarters: retro desktop lyric videos
     style: band
-    per_night: 6
+    per_night: 1               # 6 until 2026-11-26
     join: 50
   - campaign: cq_band       # close__quarters: the band's own dance footage, cut out, in a Y2K media player (studio/lofi_video.py)
     style: lofi
-    per_night: 1
+    per_night: 0               # retired 2026-11-26
     join: 50
   - campaign: cq_band       # close__quarters: the band made of mouse cursors in a 3D Windows 98 world (studio/cursor_video.py)
     style: cursor
-    per_night: 2
+    per_night: 0               # retired 2026-11-26
     join: 50
   - campaign: cq_band       # close__quarters: the band's dance footage cut out full screen and thrown around on the beat (studio/cutout_video.py)
     style: cutout
-    per_night: 7
+    per_night: 2               # 7 until 2026-11-26
     join: 40
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
-    retire: {field: [marble, spiral, warp, oil]}     # 15-29 views vs tunnel 109, moire 79 (2026-11-25)
+    retire: {field: [marble, spiral, warp, oil], strobe: ['true']}     # fields: 15-29 views vs tunnel 109, moire 79 (2026-11-25); strobe off 2026-11-26 (review: lock the winning look; the string 'true' is what the menu holds)
     per_night: 2               # 4 until 2026-11-25 (8 before): its fact reels beat the visualisers 3-4x; they carry the account now
     join: 40
   # psy_station collage (studio/collage_video.py) dropped 2026-11-24: median 13 views over 3 posts, flat and samey.
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
     retire: {place: [school, pool]}                  # 2-3 views vs backrooms 138, mall 121 (2026-11-25)
-    per_night: 2               # 4 until 2026-11-25 (7 before): fact reels (median 224) carry the account; tapes median ~40
+    per_night: 3               # 2 until 2026-11-26 (4 before, 7 before that): fact reels (median 224) carry the account; tapes median ~40
     join: 40
   - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
     style: type
@@ -56,31 +57,36 @@ targets:
     join: 30
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
     style: math
+    retire: {topic: [derivative]}                    # the weakest topic in the 2026-11-26 review (fourier 3 / zeta 3 / fold 2 / sci8 1 is the renderer's menu weight)
     per_night: 5
     join: 40
   - campaign: glitch_archive  # glitch.archive: public-domain footage, moshed / tracked / sorted on the beat (studio/footage.py for the clips)
     style: glitch
     retire: {source: [water, nature]}                # 26-50 views vs space 83, mixed 78 (2026-11-25)
-    per_night: 5
+    per_night: 2               # 5 until 2026-11-26
     join: 30
   - campaign: rocket_league  # rocket.league.lit: our Rocket League clips to the songs, straight or as montages (studio/rocket_lib.py for the clips)
     style: rocket
-    per_night: 5
+    per_night: 3               # 5 until 2026-11-26
     join: 30
+  # physics_sims, 2026-11-26: 5 a day split fluid 3 / stopit 1 / balls 1 (fluid is the account's winner; the review asked
+  # fluid 4 / stopit 2 / balls 1, which is 7 videos for 5 slots).
   - campaign: physics_sims  # satisfying physics sims: every collision lands on a hit from the song
     style: physics
-    per_night: 3               # 4 until 2026-11-25: room for stopit
+    retire: {scene: [square, pendulum]}              # docs/brain/reviews/2026-11-26: circle and rings stay
+    per_night: 1               # 3 until 2026-11-26 (4 before)
     join: 30
   - campaign: physics_sims  # wind-tunnel fluid sims (studio/fluid_video.py): the song title, a guitar or a wing in real Navier-Stokes flow
     style: fluid
-    per_night: 2
+    per_night: 3               # 2 until 2026-11-26
     join: 30
   - campaign: physics_sims  # "can you stop this?" (studio/stopit_video.py): our own low-poly street, a thing thrown through a red line on a beat
     style: stopit
-    per_night: 2
+    per_night: 1               # 2 until 2026-11-26
     join: 30
   - campaign: ascii_art     # the ASCII account: 3D scenes drawn in letters, with their code (scene and look are knobs)
     style: ascii
+    retire: {scene: [aurora, daisies, planet]}       # the three weakest scenes (docs/brain/reviews/2026-11-26, science.md)
     per_night: 5
     join: 30
   - campaign: earth_data    # the real planet on the beat: satellites, airliners, earthquakes (studio/earthdata.py fetches them daily)
@@ -88,29 +94,34 @@ targets:
     per_night: 5
     join: 30
   - campaign: retro_arcade  # retro.vibes.arcade: PS2-era game levels made on Kaggle (studio/retro_gen.py), cut on the bar
-    style: retro
+    style: retro               # PAUSED 2026-11-26 (docs/brain/reviews/2026-11-26): 48 near-still AI clips, median 16 views; the campaign is paused too
+    paused: true
     per_night: 2               # 4 until 2026-11-25: median 16 views, the weakest style; fewer, better-spaced posts
     join: 30
   - campaign: vintage_archive  # vintage.media.archive: films and cartoons from before 1931, cut on the beat as old prints (studio/vintage_video.py)
-    style: vintage
-    per_night: 2               # back 2026-11-25 as ink line art (look=ink); was paused after an originality notice
+    style: vintage             # PAUSED 2026-11-26 (docs/brain/reviews/2026-11-26): abstract openers, an originality notice; fold into ascii.cinema.tty or fix the opener first
+    paused: true
+    per_night: 1               # 2 until 2026-11-26; back 2026-11-25 as ink line art (look=ink) after the originality notice
     join: 30
   - campaign: nyc_daily     # nyc.daily.aesthetic: New York clips as memes and animated facts (studio/nyc_video.py)
     style: nyc
     retire: {kind: [fact]}                           # fact 16 views vs meme 116 (2026-11-25)
-    per_night: 5
+    per_night: 4               # 5 until 2026-11-26
     join: 30
   - campaign: tiny_code     # tiny.code.loops: a few lines of numpy shown in an editor, and what they draw (studio/tinycode_video.py)
     style: tinycode
-    per_night: 5
+    retire: {program: [lissajous, galaxy, ridges, orbits]}   # the thin programs (docs/brain/reviews/2026-11-26, science.md)
+    per_night: 3               # 5 until 2026-11-26
     join: 30
   - campaign: ascii_cinema  # ascii.cinema.tty: a public-domain film clip as coloured ASCII in a terminal (studio/cinema_video.py)
     style: cinema
-    per_night: 5
+    per_night: 3               # 5 until 2026-11-26
     join: 30
   - campaign: petri_dish    # digital.petri.dish: a slime-mould simulation moving to the song (studio/alife_video.py)
     style: alife
-    per_night: 5
+    retire: {start: [seeds, rain]}                   # only `ring` starts now (docs/brain/reviews/2026-11-26). The warm-up (CQ_WARMUP, 90 steps before
+    per_night: 2               # 5 until 2026-11-26: the arc is being rethought (warm-up off, a frame-0 line) before volume
+                               # the song) cannot be switched off here: nightly.py has no per-target env; alife_video.py's default is the place.
     join: 30
   - campaign: eye_tricks     # @eye.trick.lab: replaced 2026-11-26 by stare_lab (its own format, not rotation.illusions')
     style: illusion
@@ -118,23 +129,24 @@ targets:
     join: 30
   - campaign: illusions     # rotation.illusions: turning shapes your eyes cannot pin down (studio/illusion_video.py)
     style: illusion
+    retire: {kind: [cone]}                           # docs/brain/reviews/2026-11-26: cloud 5 / shadow 4 / group 4 / stripes 2 / wheel 1 is the renderer's weighting
     per_night: 5
     join: 30
   - campaign: algo_races    # algorithm.races: sorting and pathfinding algorithms racing each other (studio/race_video.py)
     style: race
-    per_night: 5
+    per_night: 3               # 5 until 2026-11-26
     join: 30
   - campaign: pixel_tests   # 8bit.tests: play-along pixel tests built from the song's hits (studio/tests8_video.py); rebuilt 2026-11-24
     style: tests8
-    per_night: 5
+    per_night: 3               # 5 until 2026-11-26
     join: 30
   - campaign: notes_app     # moth.ate.my.notes: one thought on a gradient (studio/text_video.py); short, so nothing is joined
     style: notes
-    per_night: 5
+    per_night: 2               # 5 until 2026-11-26: every notes page at 2 while its numbers are still blind
     join: 12
   - campaign: notes_her     # crying.in.trader.joes: girl's-voice text page (studio/text_her_video.py)
     style: notes_her
-    per_night: 5
+    per_night: 2               # 5 until 2026-11-26
     join: 12
   - campaign: toon_edits     # @rubberhose.radio
     style: toon
@@ -145,7 +157,8 @@ targets:
     per_night: 2
     join: 12
   - campaign: notes_date     # @situationship.notes
-    style: notes_date
+    style: notes_date          # PAUSED 2026-11-26 (docs/brain/reviews/2026-11-26): merge into crying.in.trader.joes or make it the clean mixed-signals page first
+    paused: true
     per_night: 2
     join: 12
   - campaign: lowpoly_stories     # @what.if.town
@@ -158,7 +171,7 @@ targets:
     join: 12
   - campaign: notes_him     # grip.tape.thoughts: skater guy's-voice text page (studio/text_him_video.py)
     style: notes_him
-    per_night: 5
+    per_night: 2               # 5 until 2026-11-26
     join: 12
   - campaign: circle_atlas     # @fourier.reveal (from 2026-11-26): countries drawn by Fourier circles (studio/reveal_video.py)
     style: reveal
@@ -166,7 +179,7 @@ targets:
     join: 24
   - campaign: stare_lab        # @eye.trick.lab (from 2026-11-26): stare-at-the-dot illusions (studio/stare_video.py)
     style: stare
-    per_night: 2
+    per_night: 3               # the one eye-tricks page: stare 2 + hue/measure 1 a night once those styles post here (docs/brain/reviews/2026-11-26)
     join: 24
   - campaign: ink_marbling     # marbled.by.math (planned): paper marbling by exact equations (studio/ebru_video.py). Ready page:
     style: ebru                # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=ink_marbling still renders it

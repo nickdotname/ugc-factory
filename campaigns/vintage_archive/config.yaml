@@ -63,8 +63,8 @@ accounts:
   names: [vintage_ig]
 
 posting:
-  posts_per_day: 2
-  start_hour: 8
+  posts_per_day: 1            # 2 until docs/brain/reviews/2026-11-26; paused below
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
@@ -74,7 +74,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # back 2026-11-25 as ink line art, after the originality notice
+  paused: true                 # PAUSED docs/brain/reviews/2026-11-26: opener and originality notice; fold into ascii.cinema.tty or fix the opener before posting again
   dry_run: false
 
 video:

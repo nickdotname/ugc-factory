@@ -53,7 +53,7 @@ accounts:
   names: [close_quarters_ig]
 
 posting:
-  posts_per_day: 8              # six trial reels a day across the songs below
+  posts_per_day: 3            # cutout 2 + band 1 a day (docs/brain/reviews/2026-11-26); 8 until then
   start_hour: 9
   end_hour: 23
   max_buffer_queue: 10

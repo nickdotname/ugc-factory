@@ -64,8 +64,9 @@ accounts:
   names: [races_ig]
 
 posting:
-  posts_per_day: 5
-  start_hour: 8                # early: mornings were empty across the network
+  posts_per_day: 3            # 5 until docs/brain/reviews/2026-11-26
+  cover_at_sec: 3          # the grid cover: the race with its title on, not the empty first frame
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1

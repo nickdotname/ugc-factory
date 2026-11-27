@@ -2,8 +2,10 @@ name: factreel
 
 # Posts one fact reel: a carousel already on the profile told in 15 seconds over
 # the audio-reactive visuals and a stretch of a song (studio/post_factreel.py).
-# Started twice a day by the publish job; does nothing when every posted
-# carousel already has its reel.
+# Started twice a day by the publish job (5:45pm and 8:45pm New York; four times
+# until 2026-11-26), for nostalgia.hub.vhs and psychedelic.station only, and on
+# psychedelic.station only from specs that are not about drugs (DRUGS in the
+# script). Does nothing when every eligible carousel already has its reels.
 on:
   workflow_dispatch:
     inputs:

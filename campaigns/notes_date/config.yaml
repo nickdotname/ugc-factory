@@ -61,7 +61,7 @@ accounts:
 
 posting:
   posts_per_day: 2
-  start_hour: 8                # early: mornings were empty across the network
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
@@ -71,7 +71,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # live 2026-11-25; new account: 2 a day for its first week
+  paused: true                 # PAUSED docs/brain/reviews/2026-11-26: merge into crying.in.trader.joes or make it the clean mixed-signals page first
   dry_run: false
 
 video:
