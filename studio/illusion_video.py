@@ -119,13 +119,15 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed)
-        self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel', 'group', 'stripes'], r, weights=[5, 3, 2, 2, 3, 3])
-        self.shape = K.pick('shape', SHAPES, r); self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
+        # review 2026-11-26: cloud, shadow and group won (8 of 15 posts got a batch), cone never did, the wheel is slow: cone is off the menu
+        self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel', 'group', 'stripes'], r, weights=[5, 4, 0, 1, 4, 2])
+        self.shape = K.pick('shape', SHAPES, r) if self.kind in ('cloud', 'shadow') else None   # only the kinds that draw a shape record one (the learner saw phantom shapes)
+        self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
         self.ask = K.pick('ask', sorted(ASKS), r)
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 6.0)
         self.turn = 8 * self.spb * FPS                                         # frames in a turn: two bars
-        self.pts = shape(self.shape, 5200, seed); self.col = np.array([self.pal[k % len(self.pal)] for k in range(len(self.pts))], np.float32)
+        if self.shape: self.pts = shape(self.shape, 5200, seed); self.col = np.array([self.pal[k % len(self.pal)] for k in range(len(self.pts))], np.float32)
         ph = [0.42, 0.62, 0.82]                                                # undecided, cued one way, cued the other, undecided again
         self.marks = [int(p * n) for p in ph]
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)

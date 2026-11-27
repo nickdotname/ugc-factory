@@ -233,8 +233,8 @@ class Video:
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
         self.credit = '%s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
         self.kind = K.pick('obstacle', ['title', 'guitar', 'note', 'headphones', 'plane', 'cassette', 'cylinder', 'airfoil'], r,
-                           weights=[4, 2, 1, 1, 1, 1, 1, 1])
-        self.view = K.pick('view', ['speed', 'vorticity', 'smoke'], r, weights=[3, 1, 2])
+                           weights=[2, 2, 1, 3, 3, 2, 1, 1])      # review 2026-11-26: the headphones and the plane made the two biggest posts
+        self.view = K.pick('view', ['speed', 'vorticity', 'smoke'], r, weights=[2, 2, 1])   # vorticity was on both
         self.cmap = K.pick('palette', ['inferno', 'plasma', 'magma', 'turbo'], r, weights=[3, 2, 1, 1])
         self.gust = K.pick('gust', ['kick', 'drums'], r, weights=[3, 1])
         self.hookline = 'none' if os.environ.get('CQ_HOOK') == 'none' else K.pick('hook', ['gust', 'none'], r)

@@ -122,7 +122,7 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed)
-        self.prog = K.pick('program', sorted(PROGRAMS), r)
+        self.prog = K.pick('program', sorted(PROGRAMS), r, weights=[2 if p in ('tunnel', 'rose', 'metaballs', 'plasma', 'attractor') else 1 for p in sorted(PROGRAMS)])   # the dense, fast ones x2 (review 2026-11-26)
         self.pal = K.pick('palette', sorted(PALETTES), r)
         self.glow = float(K.pick('glow', [0.6, 1.0, 1.5], r))
         self.trail = float(K.pick('trail', [0.0, 0.55, 0.8], r, weights=[1, 2, 1]))

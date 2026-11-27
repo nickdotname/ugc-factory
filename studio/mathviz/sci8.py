@@ -12,7 +12,7 @@ from pixel import ptext, dgrad, disc, LW, LH, BY
 
 SLUG, B0, SEED = conf('fixation', 96)
 _r = random.Random(SEED)
-TOPIC = K.pick('subject', ['brain', 'heart', 'eyes', 'fission'], _r, weights=[1, 1, 1, 3])
+TOPIC = K.pick('subject', ['brain', 'heart', 'eyes', 'fission'], _r, weights=[2, 0, 1, 1])   # review 2026-11-26: brain best, heart off
 SKY = K.pick('sky', ['violet', 'navy', 'plum'], _r)
 BG = {'violet': ((40, 30, 92), (24, 18, 58)), 'navy': ((18, 30, 76), (8, 14, 40)), 'plum': ((70, 28, 84), (34, 14, 48))}[SKY]
 GOLD, WHITE, SOFT, INK = (255, 214, 90), (248, 248, 255), (200, 205, 235), (16, 12, 32)
