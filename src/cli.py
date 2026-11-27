@@ -1445,15 +1445,18 @@ def _real_publisher(
 ) -> BufferPublisher | InstagramPublisher | YouTubePublisher:
     """The publisher one account posts through. Never a dry-run stand-in.
 
-    ``src.publishers.real_publisher`` is the one place that knows there is
-    more than one kind: an account says which with ``provider:`` in the
-    accounts file, and everything else holds a ``Publisher`` without caring.
-    ``env`` carries the shared YouTube client id and secret; without it the
-    process environment is read.
+    An account says which kind with ``provider:`` in the accounts file, and
+    everything else holds a ``Publisher`` without caring. The direct kinds
+    (Instagram, YouTube) come from ``src.publishers.real_publisher``; ``env``
+    carries the shared YouTube client id and secret, and without it the
+    process environment is read. Buffer stays here, by this module's own
+    name, which is the seam the tests stand a fake in through.
     """
-    return real_publisher(  # type: ignore[return-value]
-        account, secret, log, env=env, outbox_dir=REPO_ROOT / OUTBOX_DIR,
-    )
+    if account.provider in DIRECT_PROVIDERS:
+        return real_publisher(  # type: ignore[return-value]
+            account, secret, log, env=env, outbox_dir=REPO_ROOT / OUTBOX_DIR,
+        )
+    return BufferPublisher(secret, log, organization_id=account.organization_id)
 
 
 #: Volumes a Reel is posted with when its song's catalogue track is attached. The video keeps its own sound at
