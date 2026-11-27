@@ -159,7 +159,7 @@ class Video:
         if i < c: return '← now it turns left'
         return 'same dots the whole time.\nyou choose'
 
-    def draw(self, i):
+    def draw(self, i, top=True):
         img = np.zeros((H, W, 3), np.float32); k = float(self.kick[min(i, len(self.kick) - 1)])
         def P(x, y): return (int(round(x * 16)), int(round(y * 16)))
         if self.kind == 'cone':
@@ -223,14 +223,14 @@ class Video:
                     cv2.circle(img, P(sx[j], sy[j]), int(max(1.0, rad[j]) * 16), tuple(float(v) for v in self.col[j] * lum[j]), -1, cv2.LINE_AA, 4)
         if self.kind != 'stripes': img = img + cv2.GaussianBlur(img, (0, 0), 9) * 0.35
         im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
-        d.multiline_text((W / 2, 300), self.says(i), font=self.f_big, fill=(255, 255, 255), anchor='mm', align='center', spacing=16, stroke_width=4, stroke_fill=(0, 0, 0))
+        if top: d.multiline_text((W / 2, 300), self.says(i), font=self.f_big, fill=(255, 255, 255), anchor='mm', align='center', spacing=16, stroke_width=4, stroke_fill=(0, 0, 0))
         if self.kind == 'wheel': d.text((W / 2, 1418), '%d turns a minute' % self._rpm, font=self.f_mid, fill=(235, 235, 245), anchor='mm')
         d.text((W / 2, 1472), self.credit, font=self.f_small, fill=(180, 180, 195), anchor='mm')   # inside Instagram's safe area (y 250-1500)
         return np.asarray(im)
 
     def frame(self, i):
         """The last 9 frames fade into frame 0 (as stare_video.py does): a clean loop on an account whose viewers replay."""
-        o = self.draw(i); tail = 9
+        tail = 9; o = self.draw(i, top=i < self.n - tail - 4)      # the last line clears just before the fade, so two lines never cross
         if i >= self.n - tail:
             if self._first is None: self._first = self.draw(0).astype(np.float32)
             a = (i - (self.n - tail) + 1) / (tail + 1)
