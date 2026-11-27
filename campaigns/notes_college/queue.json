@@ -91,18 +91,18 @@
         {
           "account": "college_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-28T15:52:00-05:00"
         }
       ],
       "captions": {
         "instagram": "dorm life\n🎧 Epilogue: Dismissal – @close__quarters #college #collegelife #relatable #dormlife\n\nEpilogue: Dismissal is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
