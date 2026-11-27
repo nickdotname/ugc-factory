@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "rocket_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T11:15:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "kickoff, but make it musical\n🎧 Suspended – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
