@@ -91,18 +91,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-12-01T09:20:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the bass is what's bending the picture\n🎧 Recess (Rewind) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nRecess (Rewind) is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
