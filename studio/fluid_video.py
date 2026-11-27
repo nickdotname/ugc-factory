@@ -11,6 +11,10 @@ when it turns turbulent), which reproduces the incompressible Navier-Stokes equa
 that peels off is real. The inflow speeds up on every kick of the song, so the gusts are the drums. Three ways to
 look at it (a knob): speed (a colour map with flowing streaks drawn along the flow, line integral convolution),
 vorticity (which way the air spins) or smoke (a rake of smoke lines upstream, and a band of smoke on every kick).
+Frame 0 asks the question the picture answers, about this obstacle in this view ("which way does the air spin behind
+a paper plane?": the vorticity colours and their clockwise / counter-clockwise key are the answer), held for the
+whole video; under it, small, what it is ("Paper Plane Wake · Navier-Stokes simulation"); the gust line ("sound on:
+every gust is a kick") is always on, just above the colour key (docs/brain/reviews/2026-11-26/science.md).
 """
 import json, math, os, random, subprocess, sys
 import numpy as np, cv2
@@ -237,7 +241,6 @@ class Video:
         self.view = K.pick('view', ['speed', 'vorticity', 'smoke'], r, weights=[2, 2, 1])   # vorticity was on both
         self.cmap = K.pick('palette', ['inferno', 'plasma', 'magma', 'turbo'], r, weights=[3, 2, 1, 1])
         self.gust = K.pick('gust', ['kick', 'drums'], r, weights=[3, 1])
-        self.hookline = 'none' if os.environ.get('CQ_HOOK') == 'none' else K.pick('hook', ['gust', 'none'], r)
         a = audio.load(self.slug, t0, t1); self.n = a['n']
         frames = a['kicks'] if self.gust == 'kick' and len(a['kicks']) >= 4 else a['onsets']
         self.env = audio.hits(frames, self.n, decay=4.5)
@@ -246,9 +249,19 @@ class Video:
         nice = {'title': '"%s" Wake Formation' % self.title, 'guitar': 'Guitar Wake Formation', 'note': 'Music Note Wake Formation',
                 'headphones': 'Headphone Wake Formation', 'plane': 'Paper Plane Wake Formation', 'cassette': 'Cassette Wake Formation',
                 'cylinder': 'Kármán Vortex Street', 'airfoil': 'Wing Stall at %d°' % getattr(self.shape, 'aoa', 16)}
-        self.head = nice[self.kind]; self.sub = 'Navier–Stokes Simulation'
-        self.f_head = fraunces(76 if len(self.head) < 24 else 62, 560); self.f_sub = fraunces(50, 420); self.f_lab = fraunces(40, 420)
+        self.head = nice[self.kind] + ' · Navier–Stokes simulation'
+        thing = {'title': 'the word "%s"' % self.title.lower(), 'guitar': 'a guitar', 'note': 'a music note', 'headphones': 'headphones',
+                 'plane': 'a paper plane', 'cassette': 'a cassette', 'cylinder': 'a cylinder',
+                 'airfoil': 'a wing tilted %d°' % getattr(self.shape, 'aoa', 16)}[self.kind]
+        self.question = {'vorticity': 'which way does the air spin behind %s?',     # answered by the spin colours and their key
+                         'speed': 'where does the air go fastest around %s?',        # answered by the hot jets at its edges
+                         'smoke': 'what does %s do to the wind?'}[self.view] % thing  # answered by the smoke lines tearing behind it
+        self.f_q = font('Poppins-Bold.ttf', 66); self.f_head = fraunces(36, 460); self.f_lab = fraunces(40, 420)
         self.f_small = font('Montserrat-ExtraBold.ttf', 30)
+        self.q_rows = []
+        for w in self.question.split():                      # two lines at most, inside x 96-984
+            if self.q_rows and self.f_q.getlength(self.q_rows[-1] + ' ' + w) <= 860: self.q_rows[-1] += ' ' + w
+            else: self.q_rows.append(w)
         self.lut = cmap_lut('spin' if self.view == 'vorticity' else self.cmap)
         self.eqs = equation_png()
         # the lattice
@@ -332,10 +345,11 @@ class Video:
     def overlay(self, arr, e):
         im = Image.fromarray(arr); d = ImageDraw.Draw(im)
         sh = dict(stroke_width=3, stroke_fill=(20, 12, 24))
-        d.text((W / 2, 300), self.head, font=self.f_head, fill=(255, 255, 255), anchor='mm', **sh)
-        d.text((W / 2, 385), self.sub, font=self.f_sub, fill=(255, 255, 255), anchor='mm', **sh)
-        if self.hookline == 'gust':
-            d.text((W / 2, 452), 'sound on: every gust is a kick', font=self.f_small, fill=(255, 255, 255), anchor='mm', **sh)
+        y = 300
+        for row in self.q_rows:                                  # the question, from frame 0 (the cover)
+            d.text((W / 2, y), row, font=self.f_q, fill=(255, 255, 255), anchor='mm', stroke_width=5, stroke_fill=(16, 10, 20)); y += 82
+        d.text((W / 2, y + 6), self.head, font=self.f_head, fill=(235, 235, 240), anchor='mm', **sh)
+        d.text((W / 2, 1238), 'sound on: every gust is a kick', font=self.f_small, fill=(255, 255, 255), anchor='mm', **sh)
         y = 1300
         if self.view == 'smoke':
             d.text((W / 2, y + 30), 'smoke pulse = kick drum', font=self.f_lab, fill=(255, 255, 255), anchor='mm', **sh)
@@ -353,7 +367,7 @@ class Video:
             eq = np.dstack([eq[..., :3], np.clip(np.maximum(a, halo * 0.55), 0, 255).astype(np.uint8)])
             eq[..., :3][a < 40] = 10
             e_im = Image.fromarray(eq)
-            if e_im.width > 860: e_im = e_im.resize((860, int(e_im.height * 860 / e_im.width)), Image.LANCZOS)
+            if e_im.width > 560: e_im = e_im.resize((560, int(e_im.height * 560 / e_im.width)), Image.LANCZOS)
             im.paste(e_im, (int(W / 2 - e_im.width / 2), int(y)), e_im); y += e_im.height + 22
         d.text((W / 2, 1466), self.credit, font=self.f_small, fill=(235, 235, 240), anchor='mm', **sh)   # inside Instagram's safe area (y 250-1500)
         return np.asarray(im)
@@ -379,7 +393,7 @@ class Video:
         r = subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', tmp, '-i', aud, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'copy', '-shortest', '-movflags', '+faststart', out])
         os.remove(tmp); os.remove(aud)
         if r.returncode: sys.exit('mux failed')
-        json.dump(K.record(), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
+        json.dump(dict(K.record(), plan=dict(hook=self.question, hook_mode='hold')), open(out[:-4] + '.json', 'w')); print('done', out, K.record()['knobs'])
 
 
 Video.frame = _polish.wrap(Video.frame, 'fluid')      # bloom, grain, grade, vignette: studio/polish.py
