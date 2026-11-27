@@ -123,6 +123,7 @@ class Video:
         self.p0 = np.array([self.rng.uniform(-1.2, 1.2), lift, self.speed * tl + 6.0])   # where it stands: a few metres ahead when we reach it
         self.g = -9.8 * 0.35                                                 # floaty, like the game clips
         self.p0[2] = self.speed * tl + 2.6                                   # we reach it on the hit beat
+        aimed = False
         for _ in range(3000):                                                 # aim: in frame and clear of the title when it
             self.vx = self.rng.uniform(-1.5, 1.5); self.p0[0] = self.rng.uniform(-1.2, 1.2)   # crosses the line, still rising,
             self.Dz, self.T, self.wz = self.rng.uniform(6, 22), self.rng.uniform(0.3, 0.8), self.rng.uniform(2.0, 10.0)   # and gone
@@ -131,7 +132,10 @@ class Video:
             ph, _R = self.pose(self.jh)
             if ph[2] - self.speed * self.jh / FPS < 4.0 or not self.gone(): continue
             self.loop = self.silhouette(self.jh); lo, hi = self.loop.min(0), self.loop.max(0)
-            if lo[1] > 440 and hi[1] < HY - 20 and lo[0] > 50 and hi[0] < W - 50 and 120 < hi[1] - lo[1] < 700 and self.gone(): break
+            if lo[1] > 440 and hi[1] < HY - 20 and lo[0] > 50 and hi[0] < W - 50 and 120 < hi[1] - lo[1] < 700 and self.gone(): aimed = True; break
+        if not aimed:                       # no throw crosses its line in frame on this stretch: no video (exit 3, nightly skips it).
+            # 2026-11-27: it used to keep the last try, and physics.bounce.lab posted a car with its line drawn as a dot in the corner.
+            print('no throw lands its line in frame on this stretch: skipped'); sys.exit(3)
         self.street_layout(seed)
         song = json.load(open(os.path.join(song_dir, 'song.json')))
         self.credit = '♪ %s — %s' % (song.get('title', self.slug).lower(), song.get('artist', 'Close Quarters').lower())
