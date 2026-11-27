@@ -2728,8 +2728,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-bf5080bd-cad9-48f7-9224-3d38bf5e7af6",
+      "post_ids": {
+        "psychedelic_station_ig": "igo-bf5080bd-cad9-48f7-9224-3d38bf5e7af6"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
