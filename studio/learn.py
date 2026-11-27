@@ -240,7 +240,14 @@ def learn(camp, zone, now):
     return dict(posts=len(rows), waiting=young, typical_views=med([r[0]['views'] for r in rows]), weights=weights, stats=stats, retired=retired), text
 
 
-LINK_NAMES = {'psy': 'psychedelic.station', 'nostalgia': 'nostalgia.hub.vhs', 'cq': 'close__quarters', 'dc': 'dylancantor23'}
+LINK_NAMES = {'cq': 'close__quarters', 'dc': 'dylancantor23', 'psy': 'psychedelic.station', 'nostalgia': 'nostalgia.hub.vhs',
+              'math': 'math.explainers', 'glitch': 'glitch.archive.exe', 'ascii': 'ascii.terminal.dreams', 'physics': 'physics.bounce.lab',
+              'earth': 'earth.data.live', 'retro': 'retro.vibes.arcade', 'rocket': 'rocket.league.lit', 'loose': 'the.loose.change',
+              'vintage': 'vintage.media.archive', 'nyc': 'nyc.daily.aesthetic', 'tinycode': 'tiny.code.loops', 'cinema': 'ascii.cinema.tty',
+              'petri': 'digital.petri.dish', 'illusions': 'rotation.illusions', 'races': 'algorithm.races', '8bit': '8bit.tests',
+              'notes': 'moth.ate.my.notes', 'toon': 'rubberhose.radio', 'zoom': 'zoom.into.art', 'date': 'situationship.notes',
+              'lowpoly': 'what.if.town', 'college': 'dining.hall.philosopher', 'eyetrick': 'eye.trick.lab', 'fourier': 'fourier.reveal',
+              'her': 'crying.in.trader.joes', 'him': 'grip.tape.thoughts'}   # one tracked bio-link path per account (link/README.md)
 
 def clicks(now):
     """Taps on each account's bio link (link/worker.js), last 7 days, kept in studio/clicks.json. This is the

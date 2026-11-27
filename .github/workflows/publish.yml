@@ -143,6 +143,7 @@ jobs:
           pip install -q Pillow || true
           python scripts/dash_data.py
           git add cqdash/data.json
+          git add cqdash/followers.json 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -q -m "dashboard numbers [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
