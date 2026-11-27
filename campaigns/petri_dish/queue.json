@@ -38,9 +38,9 @@
         {
           "account": "petri_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-6fced588-af9a-4221-aee8-2c2da0ba553a",
           "last_error": null,
           "scheduled_for": "2026-11-27T09:30:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "life, sort of, in a grid\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nTalk is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
