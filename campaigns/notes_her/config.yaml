@@ -141,10 +141,9 @@ overlay:
 funnel:
   name: Education by Close Quarters
   link: ""                    # your smart link — fill this in before going live
-  cta:
-    - "link in bio to stream {name}"
-    - "stream {name}: link in bio"
-    - "{name} is out now. link in bio to stream it"
+  # No ask on a text page (docs/brain/reviews/2026-11-26/notes.md §9.4): the caption is the card's own line,
+  # then one credit line from captions.txt; the first comment carries the album.
+  cta: []
   cta_by_network:
     youtube:                  # YouTube descriptions carry a real link
       - "Full song — {name}: {link}"
