@@ -42,10 +42,18 @@ it so [[learning]] can score it; `CQ_KNOBS` forces knobs.
 Open PRs adding styles (not merged at the time of writing): **fluid** (wind-tunnel Navier-Stokes sims for
 physics.bounce.lab, #80), sorting/maze races for math (#77), goldfish for ascii (#79). See [[backlog]].
 
+**Fact reels, both accounts, from 2026-11-27: 12 s at most** (`MAX_S`, reviews/2026-11-26/archive.md 1-2: under 10 s
+completed at 0.41-0.50, the old 18-22 s reels at 0.16-0.2). `plan_cards`: the headline on frame 0 (2.2 s, up to 3.4 s
+for a long one), then at most two slides (`SLIDES`) at their reading time, a second only when it still fits; part 2
+starts at the first slide part 1 did not tell. The reel ends on the last fact and loops to the headline. The "rest is in
+the carousel on our page" card (and the caption's carousel line) only when that carousel is really up on the account
+(`carousel_up`: in posted.json with its post published) and the card fits; the carousel job is off, so new specs end on
+the fact.
+
 **nostalgia.hub.vhs fact reels** (`post_factreel.py` over `liminal_video.py`, cards by `studio/cards.py`): the same timing as psychedelic.station's; the headline card is fully on screen on frame 0 (it used to fade in, so the cover was an empty corridor) and the cards stay clear of the right-hand 150 px. A nostalgia carousel spec may name the room its reel is set in (`"place": "mall"` for Blockbuster, `lab` for AIM / Encarta / LimeWire ...), passed as `CQ_PLACE`. The retro carousel's last slide is a statement, not a save/follow ask.
 
 **psychedelic.station fact reels** (`post_factreel.py` over `psy_video.py`): the carousel's headline is on screen
-from frame 0; each slide stays up for its reading time (1.2 s + 0.26 s a word, 3–5.5 s), so a reel runs ~18–22 s; the
+from frame 0; each slide stays up for its reading time (1.2 s + 0.26 s a word, 3–5.5 s), within the 12 s above; the
 caption opens on the carousel's hook minus its "slide N" sentence (or a spec's own `reel_hook`). Carousel specs:
 every fact sourced in the spec's `sources`; no dose amounts or sourcing information on any slide; no follow-asks.
 

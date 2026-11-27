@@ -3,9 +3,11 @@
 
     python studio/post_factreel.py [--spec <carousel slug>] [--account NAME] [--no-post]
 
-A fact reel is a carousel told in 15 seconds: the headline and three of its slides as text cards over
-the audio-reactive visuals, with a stretch of a Close Quarters song under it, ending on a pointer to the
-full carousel. For every account in ACCOUNTS, it takes the oldest carousel already posted that has no reel yet, so every
+A fact reel is a carousel told in at most 12 seconds (MAX_S): the headline and one or two of its slides as text
+cards over the visuals, with a stretch of a Close Quarters song under it, ending on the last fact. A pointer to the
+carousel ("the rest is in the carousel on our page") is added, card and caption line, only when that carousel is
+really up on the account (posted.json and its outbox item published) and the card still fits in 12 s. Reels under
+10 s completed at 0.41-0.50, 20 s ones at 0.16 (docs/brain/reviews/2026-11-26). For every account in ACCOUNTS, it takes the oldest carousel already posted that has no reel yet, so every
 reel has a carousel on the profile to send people to; specs about drugs (DRUGS) are skipped. Recorded in
 studio/carousels/reeled.json.
 """
@@ -21,7 +23,8 @@ ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.
 # Per look: the renderer that draws the visuals and the tags the caption ends on.
 LOOKS = {'retro': ('liminal_video.py', '#nostalgia #2000s #90skids #liminalspaces #y2k'),
          '':      ('psy_video.py',     '#psychedelic #declassified #rabbithole #conspiracy #history')}
-OPEN_S, END_S = 2.8, 2.4
+OPEN_S, END_S, MAX_S = 2.2, 1.8, 12.0        # headline (at least; 3.4 s for a long one), pointer card, the whole reel (2.8 / 2.4 / ~18-22 s until 2026-11-27)
+SLIDES = 2                                    # at most this many slides a reel; a second one only if it fits in MAX_S
 ACCOUNTS = ('nostalgia_ig', 'psychedelic_station_ig')     # the only accounts fact reels go to (2026-11-26)
 # psychedelic.station's fact reels were all LSD / psilocybin stories, and Instagram's Recommendation Guidelines keep
 # posts about regulated substances out of non-followers' feeds: the account's test batches fell to 0 of 8
@@ -34,6 +37,31 @@ DRUGS = re.compile(r"\b(LSD|acid|psilocybin|magic mushrooms?|mushrooms|DMT|MDMA|
 def drug_spec(slug):
     sp = json.load(open(specs[slug]))
     return bool(DRUGS.search(' '.join([sp['headline']] + [s[1] for s in sp['slides']])))
+
+def carousel_up(slug, name):
+    """Whether this spec's carousel is on the account's profile: posted by post_carousel.py and its post published.
+    (The carousel job is off since 2026-11-26, so a reel must not point people at a carousel that is not there.)"""
+    for p in posted:
+        if p.get('slug') != slug or p.get('account') != name: continue
+        f = os.path.join(REPO, 'outbox', '%s.json' % p.get('post'))
+        if not os.path.exists(f) or json.load(open(f)).get('status') == 'published': return True
+    return False
+
+def plan_cards(spec, part, pointer):
+    """The cards ([t0, t1, big, small]) and the reel's length: the headline on frame 0, then the slides that fit in
+    MAX_S at their reading time (at most SLIDES; part 2 picks up where part 1 stopped), then the pointer card only when
+    `pointer` and it fits. Otherwise the reel ends on the last fact and loops to the headline."""
+    start = 0 if part == 1 else len(plan_cards(spec, 1, False)[0]) - 1                     # the slides part 1 did not tell
+    opener = spec['headline'] if part == 1 else 'Part 2: ' + spec['headline'][0].lower() + spec['headline'][1:]
+    t = round(max(OPEN_S, min(3.4, 0.25 * len(opener.split()))), 2)                          # a long headline gets the time to read it
+    cards = [[0, t, '', opener]]
+    for b, txt, *_ in spec['slides'][start:start + SLIDES]:                                    # a slide may also name its pictures
+        d = read_time(txt)
+        if len(cards) > 1 and t + d > MAX_S: break
+        cards.append([round(t, 2), round(t + d, 2), b, txt]); t += d
+    if pointer and t + END_S <= MAX_S:
+        cards.append([round(t, 2), round(t + END_S, 2), 'the rest', 'the whole story and its sources are in the carousel on our page.']); t += END_S
+    return cards, round(t, 2)
 
 def read_time(text):
     """Seconds a slide stays up: a beat for the big word, then ~4 words a second, kept between 3 and 5.5 s."""
@@ -67,7 +95,7 @@ def clear_slot(channel_id, now, gap_min=60):
     return when
 
 def reel(slug, name):
-    """Each posted carousel gets two reels: part 1 tells slides 1-3, part 2 picks up at slide 4 for people who
+    """Each posted carousel gets two reels: part 1 tells the first one or two slides, part 2 the next for people who
     saw part 1 (and its own hook for people who didn't)."""
     part = count.get(slug, 0) + 1
     spec = json.load(open(specs[slug])); acct = ACCTS.get(name)
@@ -75,16 +103,10 @@ def reel(slug, name):
     renderer, tags = LOOKS.get(spec.get('theme', ''), LOOKS[''])
     rng = random.Random(slug + datetime.date.today().isoformat() + str(part))
 
-    # the cards: hook, three slides, the pointer. The headline is on screen from frame 0 (it is the cover and the
-    # hook); each slide stays long enough to read at a comfortable pace (about 4 words a second plus a beat for the
-    # big word), instead of the old flat 3.3 s that cut 25-word slides off mid-sentence. ~15-20 s in all.
-    slides = spec['slides'][:3] if part == 1 else spec['slides'][3:6]
-    opener = spec['headline'] if part == 1 else 'Part 2: ' + spec['headline'][0].lower() + spec['headline'][1:]
-    cards = [[0, OPEN_S, '', opener]]; t = OPEN_S
-    for b, txt, *_ in slides:                                                                 # a slide may also name its pictures
-        d = read_time(txt); cards.append([round(t, 2), round(t + d, 2), b, txt]); t += d
-    cards.append([round(t, 2), round(t + END_S, 2), 'the full story', 'all 6 slides and the sources are in the carousel on our page.'])
-    dur = round(t + END_S, 2)
+    # the cards: the headline on frame 0 (it is the cover and the hook), one or two slides, each up long enough to read
+    # (about 4 words a second plus a beat for the big word), and the pointer only when the carousel is really up.
+    up = carousel_up(slug, name)
+    cards, dur = plan_cards(spec, part, up)
 
     # the music: a stretch of a Close Quarters song, at its own speed
     songs = []
@@ -113,7 +135,7 @@ def reel(slug, name):
     subprocess.run(['gh', 'release', 'upload', tag, os.path.join(tmp, nm)], check=True, cwd=REPO)
     base = yaml.safe_load(open(os.path.join(REPO, 'site.yaml')))['media_base_url'].rstrip('/')
     first = reel_line(spec) if part == 1 else 'part 2 of ' + spec['headline'].rstrip('.').lower()
-    caption = '%s\nthe full story, with sources, is the carousel on our page\n🎧 %s – @close__quarters %s' % (first, title, tags)
+    caption = '%s\n%s🎧 %s – @close__quarters %s' % (first, 'the full story, with sources, is the carousel on our page\n' if up else '', title, tags)
     pid = 'igo-' + str(uuid.uuid4()); due = clear_slot(acct['channel_id'], now)
     import collabs                                   # one collab post a day brings the band account in
     collab = collabs.invite(name, sum(1 for r in reeled if r.get('account') == name and r.get('date') == now.strftime('%Y-%m-%d') and r.get('collab')))

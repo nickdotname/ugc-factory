@@ -26,7 +26,8 @@ def script_defs(name):
     src = open(os.path.join(STUDIO, name)).read(); ns = {'__name__': name[:-3] + '_defs', '__file__': os.path.join(STUDIO, name)}
     for node in ast.parse(src).body:
         keep = isinstance(node, (ast.Import, ast.ImportFrom, ast.FunctionDef)) or (
-            isinstance(node, ast.Assign) and all(isinstance(t, ast.Name) and t.id.isupper() for t in node.targets))
+            isinstance(node, ast.Assign) and all(n.id.isupper() for t in node.targets
+                                                  for n in (t.elts if isinstance(t, ast.Tuple) else [t]) if isinstance(n, ast.Name)))
         if not keep: continue
         try: exec(compile(ast.Module([node], []), name, 'exec'), ns)
         except (NameError, KeyError, ImportError): pass
@@ -75,3 +76,39 @@ def test_glitch_captions_name_no_old_films_and_ask_nothing():
     for ln in lines:
         assert not BAIT.search(ln), ln
         assert not re.search(r'public domain|old reel|archive|creek|tape', ln, re.I), ln
+
+
+# ---------------------------------------------------------------- fact reels (nostalgia, psychedelic.station)
+def _specs():
+    import glob
+    for f in sorted(glob.glob(os.path.join(STUDIO, 'carousels', '**', '*.json'), recursive=True)):
+        if os.path.basename(f) in ('posted.json', 'reeled.json'): continue
+        sp = json.load(open(f))
+        if sp.get('slides') and sp.get('theme') != 'band': yield sp
+
+
+def test_fact_reels_are_twelve_seconds_at_most_with_two_slides():
+    F = script_defs('post_factreel.py')
+    assert F['MAX_S'] <= 12 and F['SLIDES'] == 2
+    n = 0
+    for sp in _specs():
+        for part in (1, 2):
+            for pointer in (True, False):
+                cards, dur = F['plan_cards'](sp, part, pointer)
+                facts = [c for c in cards[1:] if 'carousel' not in c[3]]
+                assert dur <= 12.0 and 1 <= len(facts) <= 2, (sp['slug'], part, dur)
+                assert cards[0][0] == 0 and cards[-1][1] == dur                 # headline from frame 0, nothing after the last card
+                for c in facts: assert c[1] - c[0] >= F['read_time'](c[3]) - 0.01   # the reading-time rule holds
+                if not pointer: assert not any('carousel' in c[3] for c in cards), sp['slug']
+                n += 1
+        one = F['plan_cards'](sp, 1, False)[0]; two = F['plan_cards'](sp, 2, False)[0]
+        told = [c[3] for c in one[1:]]
+        assert two[1][3] not in told                                            # part 2 picks up where part 1 stopped
+    assert n
+
+
+def test_a_reel_points_at_a_carousel_only_when_it_is_up():
+    F = script_defs('post_factreel.py')
+    F['posted'] = [dict(slug='a', account='nostalgia_ig', post='p1')]
+    assert F['carousel_up']('a', 'nostalgia_ig')                              # posted (its outbox item may be archived)
+    assert not F['carousel_up']('a', 'psychedelic_station_ig') and not F['carousel_up']('b', 'nostalgia_ig')
