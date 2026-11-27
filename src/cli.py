@@ -2603,11 +2603,27 @@ def cmd_ingest(args: argparse.Namespace, env: dict[str, str]) -> int:
     else:
         jobs.append((inbox, tag, tuple(PartKind), ""))
 
+    # Names this creative has already posted count as taken too: when a creative
+    # moves to a fresh Release (vintage_archive -> vintage_ink), a new
+    # hook_02.mp4 must not share a name with the old library's posted hook_02,
+    # or render reads it as a repeat and drops it (vintage.media.archive posted
+    # nothing 26-27 Nov). A shared pool counts every creative's history.
+    posted_names: set[str] = set()
+    history_file = _campaign_dir(config.slug) / "history.json"
+    if history_file.exists():
+        for entry in load_history(history_file).entries:
+            if video_tag == tag and entry.creative not in (None, creative.name):
+                continue
+            posted_names.update(n for n in (entry.hook, *entry.bodies) if n)
+
     print(f"\ncreative: {creative.name}")
     plans = []
     for folder, dest, kinds, label in jobs:
+        existing = store.list_assets(dest)
+        if PartKind.HOOK in kinds or PartKind.BODY in kinds:
+            existing = sorted(set(existing) | posted_names)
         plan = build_plan(
-            folder, store.list_assets(dest), renderer, log,
+            folder, existing, renderer, log,
             kinds=kinds, music_label=label,
         )
         print(f"inbox: {folder}  →  {dest}")

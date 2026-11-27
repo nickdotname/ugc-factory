@@ -360,6 +360,9 @@ class Video:
             self.melt_step(i, cur, g, qgray(self.plan.leadin(1))); self.prev_g = g
             return cv2.resize(self.acc, (W, H)), cur
         if i > 0 and not seam and i in self.cuts:                          # a cut: the key frame is lost
+            if self.mode is None or self.acc is None:                      # the picture on screen is the clean last frame
+                # (with the clean opener acc was never set and the first cut crashed in remap: no glitch video 26-27 Nov)
+                self.acc = cv2.resize(self.plan.raw(i - 1)[0], (HW, HH), interpolation=cv2.INTER_AREA).astype(np.float32)
             self.mode = 'melt'; self.dropped += 1; self.until = self.snap_after(i, 2 if self.main == 'mosh' else 1)
             nxt = qgray(self.plan.raw(i + 1)[0]) if i + 1 < self.seam else g
             self.melt_step(i, cur, g, nxt); self.prev_g = g
