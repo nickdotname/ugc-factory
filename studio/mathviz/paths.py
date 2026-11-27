@@ -81,7 +81,7 @@ RATE = slow / (RACE1 - RACE0)                  # cells looked at per beat, the s
 FIN = {nm: RACE0 + len(RES[nm][0]) / RATE for nm in NAMES}
 ORDER = sorted(NAMES, key=lambda nm: FIN[nm]); PLACE = {nm: k + 1 for k, nm in enumerate(ORDER)}
 HITS = {round(FIN[nm] * 2) / 2: 0.7 for nm in NAMES}; HITS.update({RACE0: 0.9, 35: 0.6})
-LANE_Y0, LANE_H, GAP = 470, 340, 26
+LANE_Y0, LANE_H, GAP = 470, 325, 20                  # the last lane ends at 1485: inside Instagram's safe area
 CELL = min((W - 140) / COLS, (LANE_H - 60) / ROWS)
 LANE_COL = {nm: c for nm, c in zip(NAMES, (ST.b, ST.c, ST.d))}
 
@@ -115,8 +115,8 @@ def frame(i):
     c = BG.copy()
     if k < 4.6:
         a = 1 - float(ease_out((k - 4.0) / 0.5))
-        for j, (s, sz, col, y) in enumerate((('3 ways to escape', 80, ST.fg, 300), ('the same maze.', 60, ST.muted, 385))):
-            e = float(ease_back((k - 1.2 * j) / 0.45)); paste(c, text(s, F(FONT, sz), col), W / 2, y, e, a * min(1, e))
+        for j, (s, sz, col, y) in enumerate((('3 ways to escape', 80, ST.fg, 325), ('the same maze.', 60, ST.muted, 405))):
+            e = 1.0 if j == 0 else float(ease_back((k - 1.2 * j) / 0.45));   # the title is on frame 0: the cover paste(c, text(s, F(FONT, sz), col), W / 2, y, e, a * min(1, e))
         e = float(ease_back((k - 2.4) / 0.45))
         paste(c, text('which gets out first?', F(FONT, 84), ST.a, stroke=3), W / 2, 1660, e * (1 + 0.04 * kick), a * min(1, e))
     else:

@@ -125,13 +125,13 @@ class Video:
         self.files = earthdata.pull()
         scenes = [s for s, f in (('satellites', 'tle.txt'), ('flights', 'flights.json'), ('quakes', 'quakes.json')) if usable(self.files.get(f))]
         if not scenes: sys.exit('no earth data (run: python studio/earthdata.py pull)')
-        self.scene = K.pick('scene', scenes, r)
+        self.scene = K.pick('scene', scenes, r, weights=[{'flights': 4, 'quakes': 2, 'satellites': 1}[s] for s in scenes])   # review 2026-11-26: the flights dive is the proven part
         marble = all(usable(self.files.get(n)) for n in ('map_day.jpg', 'map_night.jpg'))
         # paper has had the most watched posts (4 of 10, small sample); marble only once NASA's maps are in the release
-        looks = ['paper', 'paper', 'night', 'blueprint', 'ember'] + (['marble', 'marble'] if marble else [])
+        looks = ['paper', 'paper', 'night', 'ember', 'ember'] + (['marble', 'marble'] if marble else [])   # blueprint dropped, ember x2 (review 2026-11-26)
         self.pname = K.pick('palette', looks, r); self.pal = PALETTES[self.pname]
         self.spin = K.pick('spin', ['slow', 'fast'], r)
-        self.hook = K.pick('hook', ['fact', 'question'], r)
+        self.hook = K.pick('hook', ['fact', 'question'], r, weights=[1, 2])   # the question opener made the 1112-view post
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
         ht = a.get('hit_times') or []
         f_of = lambda x: int(round(x * FPS))

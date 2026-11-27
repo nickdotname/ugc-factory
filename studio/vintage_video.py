@@ -72,13 +72,20 @@ def condensed(size):
     return serif(size)
 
 
+ABSTRACT = re.compile(r'ballet m[eé]canique|emak|rhythmus|lichtspiel', re.I)   # shapes, not people: never the opener, never in the first bar (review 2026-11-26)
+
+
+def abstract(e):
+    return ABSTRACT.search('%s %s %s' % (e.get('title', ''), e.get('query', ''), e.get('key', ''))) is not None
+
+
 def film_label(e):
     """('Nosferatu', '1922') for a library entry: a clean title and the year the index records it was published."""
     t = TITLES.get(e.get('key'))
     if not t:
         t = re.sub(r'_+', ' ', e.get('title') or '')
-        t = re.sub(r'\b(DVD|quality|silent|HD|1080p|720p)\b|\(\s*\)|\s+-\s+.*$|\s+George M[ée]li[èe]s', '', t, flags=re.I)
-        t = re.sub(r'\s+', ' ', t).strip(' -()') or 'Untitled'
+        t = re.sub(r'\b(DVD|quality|silent|HD|1080p|720p)\b|\(\s*(1[89]\d\d)?\s*\)?\s*$|\s+-\s+.*$|\s+George M[ée]li[èe]s|\s+by\s+.*$|^charlie chaplin\'s\s*', '', t, flags=re.I)
+        t = re.sub(r'\s+', ' ', t).strip(' -()"\'') or 'Untitled'                    # 'Charlie Chaplin\'s "The Adventurer" (1917' -> 'The Adventurer'
     m = re.search(r'(18[89]\d|19[0-3]\d)', e.get('licence') or '')
     return t, (m.group(1) if m else '')
 
@@ -150,7 +157,7 @@ def best_window(s, L, rng):
 
 class Plan:
     """Which clip plays when, from which frame, cut on the beat grid."""
-    def __init__(self, lib, n, cuts, rng, stats=None):
+    def __init__(self, lib, n, cuts, rng, stats=None, bar=2 * FPS):
         self.cache = {}; self.n = n
         if stats is None:
             stats = {}
@@ -165,19 +172,27 @@ class Plan:
         quality = {e['asset']: float(np.median(stats[e['asset']]['mot'])) * sharp(stats[e['asset']]) for e in lib}
         # the opener: movement and contrast in the first half-second of its best stretch, one candidate per film
         hooks = []
+        film = lambda x: film_label(x)[0]
         for e in lib:
+            if abstract(e): continue
             s = stats[e['asset']]; off = best_window(s, segs[0][1], random.Random(1))
             if off is not None: hooks.append((float(s['mot'][off:off + 15].mean()) * float(s['con'][off:off + 15].mean()) * sharp(s), e, off))
         hooks.sort(key=lambda h: -h[0]); best = []
         for h in hooks:
-            if film_label(h[1])[0] not in [film_label(b[1])[0] for b in best]: best.append(h)
+            if film(h[1]) not in [film(b[1]) for b in best]: best.append(h)
+        if not best: sys.exit('no clip has a clean opening stretch')
         _, first, off0 = rng.choice(best[:3])
-        film = lambda x: film_label(x)[0]
+        # one or two films a video (six films in ten seconds was the old plan: nothing stayed long enough to be seen)
+        films = {film(first)}; others = sorted({film(e) for e in lib} - films)
+        if others and rng.random() < 0.6:
+            films.add(rng.choices(others, weights=[max(quality[e['asset']] for e in lib if film(e) == f) + 1e-6 for f in others])[0])
+        cast = [e for e in lib if film(e) in films]
         self.plan = [(0, first, off0)]; used = {first['asset']}; last_key = film(first)
         for k, (c, L) in enumerate(segs[1:], 1):
             if k == len(segs) - 1 and len(segs) > 2 and off0 >= L and not stats[first['asset']]['bad'][off0 - L:off0].any():
                 self.plan.append((c, first, off0 - L)); break                         # the last shot runs into the first frame: a loop
-            pool = [e for e in lib if film(e) != last_key and e['asset'] not in used] or [e for e in lib if film(e) != last_key] or lib
+            ok = [e for e in cast if c >= bar or not abstract(e)]
+            pool = [e for e in ok if film(e) != last_key and e['asset'] not in used] or [e for e in ok if e['asset'] not in used] or ok or [first]
             e, off = first, None
             for _ in range(6):
                 e = rng.choices(pool, weights=[quality[x['asset']] + 1e-4 for x in pool])[0]; off = best_window(stats[e['asset']], L, rng)
@@ -243,16 +258,18 @@ class Video:
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 6.0)
         self.bass = np.convolve(a['bass'], np.ones(7) / 7, 'same')
-        # cuts on the beat grid: every two beats or every bar, never more than ~2.2 s apart
+        # cuts on the beat grid: every two beats or every bar, and every shot at least 2 s (review 2026-11-26: six films in
+        # ten seconds, nothing on screen long enough to be seen), so on a fast song 'beat2' is really a bar
         per = 2 if self.pace == 'beat2' else 4
-        while per > 1 and per * self.spb > 2.2: per //= 2
+        while per * self.spb < 2.0: per *= 2
         beats = [(int(b), int(round(fr))) for b, fr in a['beats'] if 0 <= fr < n]
         cuts = [0]
         for b, fr in beats:
-            if b % per == 0 and FPS * 0.6 <= fr <= n - FPS * 0.6 and fr - cuts[-1] >= FPS * 0.45: cuts.append(fr)
-        if len(cuts) < 2: cuts = list(range(0, n, int(FPS * 1.8)))
-        self.clips = Plan(lib, n, cuts, r)
-        self.ghost = Plan(lib, n, cuts[::2], random.Random(seed + 7), self.clips.stats) if self.trip == 'double' else None
+            if b % per == 0 and FPS * 2.0 <= fr <= n - FPS * 1.2 and fr - cuts[-1] >= FPS * 2.0: cuts.append(fr)
+        if len(cuts) < 2 and n > FPS * 4: cuts = list(range(0, n - int(FPS * 1.2), int(FPS * 2)))
+        bar = int(4 * self.spb * FPS)
+        self.clips = Plan(lib, n, cuts, r, bar=bar)
+        self.ghost = Plan(lib, n, cuts[::2], random.Random(seed + 7), self.clips.stats, bar=bar) if self.trip == 'double' else None
         # in the strip every other cut rolls the next frame up into the gate; the rest are hard cuts with a splice flash
         self.rolls = {c for j, (c, *_r) in enumerate(self.clips.plan) if j and j % 2 == 0} if self.layout == 'strip' else set()
         song = json.load(open(os.path.join(song_dir, 'song.json')))
@@ -442,7 +459,7 @@ class Video:
         elif self.cards == 'lower':
             txt = next((txt for s, e2, txt in self.lines if s <= i < e2), None)
             if txt: self.draw_lower(d, txt)
-        if self.slate == 'on' and not (card and self.layout == 'fill'): self.draw_slate(d, e)
+        if (self.slate == 'on' or i < 2 * FPS) and not (card and self.layout == 'fill'): self.draw_slate(d, e)   # title and year for the first 2 s of every video, all through with slate on
         d.text((W / 2, SAFE_BOTTOM - 24), self.credit, font=self.f_credit, fill=self.ink, anchor='mm', stroke_width=3, stroke_fill=(0, 0, 0))
         self.prev_pic = g
         return np.asarray(out)

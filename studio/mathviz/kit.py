@@ -238,10 +238,13 @@ def finish(canvas, k, sh_amp, sh_phase, zoom=1.0, cx=W / 2, cy=H / 2, st=None):
         f = cv2.warpAffine(f, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
     return f
 
+CREDIT_AT = (40, 268)   # top left, just inside Instagram's safe area (y 250-1500): at y 1885 it sat under the caption, and
+                        # every scene's bottom band (1300-1800) is full of its own type, so the credit lives in the top band
+
 def overlay_fixed(f, st, k, beats, credit):
     """What stays still while the camera moves: the progress bar and the song credit."""
     f[0:8] = np.array(st.grid, np.float32); f[0:8, :int(W * min(1, k / beats))] = np.array(st.a, np.float32)
-    paste(f, text(credit, F(DEJAVU, 26), st.muted), W / 2, 1885)
+    sp = text(credit, F(DEJAVU, 28), st.muted); paste(f, sp, CREDIT_AT[0] + sp.shape[1] / (2 * SS), CREDIT_AT[1])
     return np.clip(f, 0, 255).astype(np.uint8)
 
 def render(frame, clock, out, style=None):

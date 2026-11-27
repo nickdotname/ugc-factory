@@ -12,7 +12,7 @@ from pixel import ptext, dgrad, disc, LW, LH, BY
 
 SLUG, B0, SEED = conf('fixation', 96)
 _r = random.Random(SEED)
-TOPIC = K.pick('subject', ['brain', 'heart', 'eyes', 'fission'], _r, weights=[1, 1, 1, 3])
+TOPIC = K.pick('subject', ['brain', 'heart', 'eyes', 'fission'], _r, weights=[2, 0, 1, 1])   # review 2026-11-26: brain best, heart off
 SKY = K.pick('sky', ['violet', 'navy', 'plum'], _r)
 BG = {'violet': ((40, 30, 92), (24, 18, 58)), 'navy': ((18, 30, 76), (8, 14, 40)), 'plum': ((70, 28, 84), (34, 14, 48))}[SKY]
 GOLD, WHITE, SOFT, INK = (255, 214, 90), (248, 248, 255), (200, 205, 235), (16, 12, 32)
@@ -432,7 +432,7 @@ def frame(i):
             prev = cv2.warpAffine(prev, M, (LW, LH), flags=cv2.INTER_NEAREST, borderMode=cv2.BORDER_REPLICATE)
         m = (BY[:LH, :LW] > t)[..., None]; c = np.where(m, prev, c)
     big = cv2.resize(np.clip(c, 0, 255).astype(np.uint8), (W, H), interpolation=cv2.INTER_NEAREST).astype(np.float32)
-    paste(big, text(CREDIT, F(DEJAVU, 30), (230, 230, 240), stroke=3), W / 2, 1660)
+    paste(big, text(CREDIT, F(DEJAVU, 30), (230, 230, 240), stroke=3), W / 2, 1470)   # inside Instagram's safe area
     return np.clip(big, 0, 255).astype(np.uint8)
 
 if __name__ == '__main__':
