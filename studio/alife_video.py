@@ -11,7 +11,7 @@ Knobs: start (ring, seeds, rain), palette, sense (how far ahead they smell), ste
 opening line, 64 px from frame 0, each true of every video). CQ_WARMUP (default 10) is the number of steps before frame 0:
 it was 90, which threw away the best four seconds (the colony exploding out of the seed) before the song started.
 
-goal (food 3 : none 1, since 2026-11-27) gives the clip an arc with an end (docs/brain/reviews/2026-11-26/perception.md §4):
+goal (food 3 : race 2 : none 1, since 2026-11-27) gives the clip an arc with an end (docs/brain/reviews/2026-11-26/perception.md §4):
   food  3-5 meals (knob `meals`) inside the ring the colony starts as. It falls in on them, then only an agent fresh from
         a meal lays much trail, so the veins that lead nowhere fade and the ones between meals stay. 'connected: N of M'
         is measured every frame off the trail (connected components of the trail above THR); the closing line says
@@ -87,8 +87,8 @@ PALETTES = {'gold': [(0, 0, 0), (90, 30, 0), (255, 170, 40), (255, 250, 220)],
 SPECIES = {'gold': [(255, 170, 40), (255, 90, 60), (255, 240, 200)], 'bio': [(0, 230, 190), (60, 140, 255), (200, 255, 120)],
            'violet': [(220, 60, 255), (60, 120, 255), (255, 120, 200)], 'ember': [(255, 60, 40), (255, 190, 60), (120, 40, 255)]}
 NAMES = {'gold': ['gold', 'red', 'cream'], 'bio': ['teal', 'blue', 'lime'], 'violet': ['violet', 'blue', 'pink'], 'ember': ['red', 'amber', 'indigo']}   # a colony's name on screen
-GOALS = ['food', 'none']                          # what the colony is after: meals to join, nothing (the race is built, not yet on the menu)
-GOAL_ODDS = [3, 1]
+GOALS = ['food', 'race', 'none']                  # what the colony is after: meals to join, one meal to reach first, nothing
+GOAL_ODDS = [3, 2, 1]
 WORDS = {3: 'three', 4: 'four', 5: 'five'}
 SCENT = [float(v) for v in os.environ.get('CQ_SCENT', '1.5,24').split(',')]   # a meal's smell: strength (the trail tops out at 2.5), reach in px
 MEAL_R = 24                                       # a meal's radius on the grid
@@ -277,16 +277,16 @@ class Video:
             d.ellipse((cx - 30, cy - 30, cx + 30, cy + 30), outline=(on if isinstance(on, tuple) else (255, 255, 255)) if on else (140, 140, 150), width=5 if on else 2)
             d.ellipse((cx - 13, cy - 13, cx + 13, cy + 13), fill=(255, 255, 245))
         closing = self.goal != 'none' and i >= self.n - END
-        fading = self.goal != 'none' and i >= self.n - LOOP              # the fade brings frame 0's line back; two lines crossing would be mush
+        fading = self.goal != 'none' and i >= self.n - LOOP              # the fade brings frame 0's lines back; two sets crossing would be mush
         # everything written stays inside Instagram's safe area (y 250-1500, left of the right-hand 150 px)
         if not fading: d.multiline_text((W / 2, 262), self.end() if closing else self.says, font=self.f_line, fill=(255, 255, 255), anchor='ma', align='center', spacing=14, stroke_width=5, stroke_fill=(0, 0, 0))
         count = None
         if self.goal == 'food': count = 'connected: %d of %d' % (self.joined, len(self.food))
         elif self.goal == 'race':
             count = '   '.join('%s: %s' % (NAMES[self.pal][q], 'there' if q in self.reached else '%d px' % self.gap[q] if self.gap[q] is not None else '...') for q in range(2))
-        if count: d.text((W / 2 - 40, 1330), count, font=self.f_count, fill=(255, 255, 255), anchor='mm', stroke_width=4, stroke_fill=(0, 0, 0))
+        if count and not fading: d.text((W / 2 - 40, 1330), count, font=self.f_count, fill=(255, 255, 255), anchor='mm', stroke_width=4, stroke_fill=(0, 0, 0))
         what = {'food': ' · %d meals' % len(self.food), 'race': ' · 2 colonies · 1 meal'}.get(self.goal, ' · 3 colonies' if self.species > 1 else '')
-        d.text((40, 1400), 'physarum · %s agents%s · step %05d' % (format(self.x.size, ','), what, self.age), font=self.f_ui, fill=(225, 225, 232), anchor='lm', stroke_width=3, stroke_fill=(0, 0, 0))
+        if not fading: d.text((40, 1400), 'physarum · %s agents%s · step %05d' % (format(self.x.size, ','), what, self.age), font=self.f_ui, fill=(225, 225, 232), anchor='lm', stroke_width=3, stroke_fill=(0, 0, 0))
         d.text((40, 1432), 'each one smells left, ahead, right · turns · steps · leaves a trail', font=self.f_small, fill=(170, 174, 186), anchor='lm', stroke_width=3, stroke_fill=(0, 0, 0))
         d.text((40, 1476), self.credit, font=self.f_credit, fill=(225, 225, 232), anchor='lm', stroke_width=3, stroke_fill=(0, 0, 0))
         img = np.asarray(im)
