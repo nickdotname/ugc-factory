@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "races_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T08:26:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "every step lands on the beat\n🎧 Epilogue: Dismissal – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nEpilogue: Dismissal is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
