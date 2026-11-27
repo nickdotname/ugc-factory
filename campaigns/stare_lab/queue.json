@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "eyetrick_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T16:07:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "hold your eyes still long enough and the picture changes without changing\n🎧 Passage (Waiting) – @close__quarters #illusion #opticalillusion #afterimage #perception #brain\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
