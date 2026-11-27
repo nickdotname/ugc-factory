@@ -1,108 +1,45 @@
 {
-  "generated_at": "2026-11-26T16:19:52.607719Z",
+  "generated_at": "2026-11-27T08:32:47.076562Z",
   "items": [
     {
-      "id": "61ab9e08-ab19-430e-a54c-e3d0956f61f6",
-      "scheduled_for": "2026-11-26T09:35:00-05:00",
-      "rendered_at": "2026-11-26T14:02:23.550479Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-26/61ab9e08-ab19-430e-a54c-e3d0956f61f6.mp4",
-      "caption": "somewhere you went every week and never once took a picture of\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
+      "id": "4cabc7db-dccf-4aa2-a073-d62e32377585",
+      "scheduled_for": "2026-11-27T09:35:00-05:00",
+      "rendered_at": "2026-11-27T08:32:47.076562Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-27/4cabc7db-dccf-4aa2-a073-d62e32377585.mp4",
+      "caption": "recorded over somebody's birthday party\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_07.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.389,
-        "anchor_y": 0.67,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.577,
+        "anchor_y": 0.63,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-2e74e3e0-d84a-4ca7-a4d9-b899b2ec9c93",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T09:35:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "somewhere you went every week and never once took a picture of\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nSuspended is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "3e4ed6f5-4267-49f5-a163-c7e4f81fb8fa",
-      "scheduled_for": "2026-11-26T16:35:00-05:00",
-      "rendered_at": "2026-11-26T14:02:23.550479Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-26/3e4ed6f5-4267-49f5-a163-c7e4f81fb8fa.mp4",
-      "caption": "the last day before everybody grew up\n🎧 Won't Be the Same Again – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.315,
-        "anchor_y": 0.605,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "wont_be_the_same_again",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-217fa846-a9cb-4074-88d6-0cb3086305dd",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T16:35:00-05:00"
-        }
-      ],
+      "first_comment": "song: Suspended by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "the last day before everybody grew up\n🎧 Won't Be the Same Again – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nlink in bio to stream Won't Be the Same Again"
+        "instagram": "recorded over somebody's birthday party\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
