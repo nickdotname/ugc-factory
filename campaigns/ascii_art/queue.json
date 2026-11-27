@@ -38,9 +38,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-bb124eea-2002-4690-a3a6-7c6f065e719d",
           "last_error": null,
           "scheduled_for": "2026-11-27T09:50:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "made of nothing but ASCII\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nstream Suspended: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

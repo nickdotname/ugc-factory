@@ -1032,8 +1032,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-bb124eea-2002-4690-a3a6-7c6f065e719d",
+      "post_ids": {
+        "ascii_ig": "igo-bb124eea-2002-4690-a3a6-7c6f065e719d"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
