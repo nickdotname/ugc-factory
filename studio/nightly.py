@@ -161,10 +161,12 @@ def thompson(options, stats, r, retired=()):
 # The knob that says what a video is about, for each style. The learner would happily show a winning subject night
 # after night (math posted Fourier four times running), so whatever the knobs come out as, a video's subject is never
 # one the account showed in its last REPEAT_NIGHTS nights (see freshen).
-SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place', 'earth': 'scene',
+SUBJECT = {'math': 'topic', 'physics': 'scene', 'ascii': 'scene', 'psy': 'field', 'liminal': 'place',
            'glitch': 'source', 'retro': 'theme', 'cursor': 'world', 'fluid': 'obstacle', 'growth': 'look', 'rocket': 'format',
            'type': 'layout', 'band': 'wall', 'lofi': 'theme', 'collage': 'palette', 'vintage': 'tint', 'nyc': 'kind', 'tinycode': 'program', 'cinema': 'look', 'alife': 'start', 'scene': 'place', 'illusion': 'shape', 'race': 'topic', 'tests8': 'test', 'notes': 'line', 'notes_her': 'line', 'notes_him': 'line', 'toon': 'wash', 'zoom': 'work', 'notes_date': 'line', 'notes_college': 'line', 'lowpoly': 'story', 'reveal': 'country', 'stopit': 'thing', 'stare': 'scene', 'ebru': 'pattern', 'measure': 'kind', 'hue': 'kind'}
 REPEAT_NIGHTS = 3                                     # a subject is not shown again on an account for this many nights
+# earth is not in SUBJECT (2026-11-27): with four scenes and a 3-night rule it made one video a night. Its subject is the
+# place now (the city a flights or ISS video dives on), and earth_video.py itself drops cities used in the last 3 nights.
 
 # Text pages: a line is never posted twice until the whole bank has been. The renderer alone cannot promise that
 # (videos of one night render side by side, before any of them is in recipes.json; 2026-11-24 moth.ate.my.notes

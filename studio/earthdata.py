@@ -19,7 +19,7 @@ import json, os, subprocess, sys, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__)); DIR = os.path.join(HERE, 'earthdata'); CACHE = os.path.join(DIR, 'cache')
 LATEST = os.path.join(DIR, 'latest.json'); REPO = os.environ.get('GITHUB_REPOSITORY', 'nickdotname/ugc-factory'); RELEASE = 'earth-data'
-UA = {'User-Agent': 'CloseQuartersEarthData/1.0 (https://closequarters.vip; closequartersandloosechange@gmail.com)'}
+UA = {'User-Agent': 'CloseQuartersEarthData/1.0 (https://closequarters.vip; contact via the site)'}
 SOURCES = {
     'tle.txt': ['https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'],
     'quakes.json': ['https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson'],

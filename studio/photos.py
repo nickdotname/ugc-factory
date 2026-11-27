@@ -23,7 +23,7 @@ FREE = re.compile(r'^(public domain|pd\b|pd-|cc0|cc by(-sa)?\b|cc-by)', re.I)
 NO_CREDIT = re.compile(r'^(public domain|pd\b|pd-|cc0)', re.I)   # what a video can show with nowhere to put a credit
 STORE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'photos'); INDEX = os.path.join(STORE, 'index.json')
 CACHE = STORE; QUERIES = os.path.join(STORE, 'queries.json')
-UA = {'User-Agent': 'CloseQuartersCarousels/1.0 (https://closequarters.vip; closequartersandloosechange@gmail.com) python-urllib/3'}
+UA = {'User-Agent': 'CloseQuartersCarousels/1.0 (https://closequarters.vip; contact via the site) python-urllib/3'}
 
 
 def _clean(html):

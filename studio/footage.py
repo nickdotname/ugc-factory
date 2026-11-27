@@ -23,7 +23,7 @@ import hashlib, json, os, re, subprocess, sys, time, urllib.error, urllib.parse,
 HERE = os.path.dirname(os.path.abspath(__file__)); DIR = os.path.join(HERE, 'footage')
 INDEX = os.path.join(DIR, 'index.json'); QUERIES = os.path.join(DIR, 'queries.json'); CACHE = os.path.join(DIR, 'cache')
 REPO = os.environ.get('GITHUB_REPOSITORY', 'nickdotname/ugc-factory'); RELEASE = 'footage-library'
-UA = {'User-Agent': 'CloseQuartersFootage/1.0 (https://closequarters.vip; closequartersandloosechange@gmail.com) python-urllib/3'}
+UA = {'User-Agent': 'CloseQuartersFootage/1.0 (https://closequarters.vip; contact via the site) python-urllib/3'}
 NO_CREDIT = re.compile(r'^(public domain|pd\b|pd-|cc0)', re.I)
 CLIP_SEC, PER_FILM, MAX_H = 10.0, 3, 960
 MIN_H = 360          # a piece from a copy less tall than this (the 320x240 dupes of old films) looks smeared on a phone: not kept
