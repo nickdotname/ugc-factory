@@ -61,11 +61,14 @@ targets:
     retire: {topic: [derivative]}                    # the weakest topic in the 2026-11-26 review (fourier 3 / zeta 3 / fold 2 / sci8 1 is the renderer's menu weight)
     per_night: 5
     join: 40
-  - campaign: glitch_archive  # glitch.archive: public-domain footage, moshed / tracked / sorted on the beat (studio/footage.py for the clips)
+  - campaign: glitch_archive  # glitch.archive: NASA footage and our own (Rocket League, Nick's NYC), clean shots with a mosh on the cut (studio/glitch_video.py)
     style: glitch
-    retire: {source: [water, nature]}                # 26-50 views vs space 83, mixed 78 (2026-11-25)
+    # 2026-11-27 (docs/brain/reviews/2026-11-26, archive.md 3): the renderer offers only space / rocket / nyc now; the old
+    # sources stay retired here so the recorded menu never forces them. Duotone made a launch mud; accent rgb got views
+    # with no keeps; main track 38 median over 5.
+    retire: {source: [water, nature, city, archive, mixed], tone: [duotone], accent: [rgb], main: [track]}
     per_night: 2               # 5 until 2026-11-26
-    join: 30
+    join: 20                   # 30 until 2026-11-27: <=10 s completed 0.35, 20-35 s 0.13
   - campaign: rocket_league  # rocket.league.lit: our Rocket League clips to the songs, straight or as montages (studio/rocket_lib.py for the clips)
     style: rocket
     per_night: 3               # 5 until 2026-11-26

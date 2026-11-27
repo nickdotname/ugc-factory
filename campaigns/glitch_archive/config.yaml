@@ -1,8 +1,10 @@
-# glitch.archive: public-domain footage (creeks, forests, cities, space, old
-# film; studio/footage.py) cut on the beat and broken on purpose: datamosh,
-# blob tracking, pixel sorting, slit-scan, point clouds, with colour tones and
-# accents on top (studio/glitch_video.py). Every one of those is a knob, so the
-# learner finds out which looks people watch.
+# glitch.archive: NASA's own footage (launches, Earth from orbit; studio/footage.py
+# theme space) and ours (Rocket League clips, studio/rocket_lib.py; Nick's own New
+# York clips), never the archive films and never the band. Clean shots of at least
+# 2 s, named on screen for the first 2 s ("Antares launch, NASA"), with a half-second
+# datamosh on each cut (knob mode: transition), or the old melt under everything
+# (mode: bed) so the learner can compare (studio/glitch_video.py). From 2026-11-27,
+# docs/brain/reviews/2026-11-26 archive.md section 3.
 #
 # Finished videos with their own sound. One creative per SONG. New videos are
 # added every night by the studio job (studio/nightly.yaml); what each is made
