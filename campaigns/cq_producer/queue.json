@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-27T08:34:08.439242Z",
+  "generated_at": "2026-11-27T14:01:44.787099Z",
   "items": [
     {
-      "id": "b9646711-119a-4d37-9241-36281bbacc94",
+      "id": "68bd1132-d7a6-4972-a910-9dfbcf8b6968",
       "scheduled_for": "2026-11-27T09:30:00-05:00",
-      "rendered_at": "2026-11-27T08:34:08.439242Z",
-      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-27/b9646711-119a-4d37-9241-36281bbacc94.mp4",
-      "caption": "Myth of Sisyphus, one part at a time\nMyth of Sisyphus – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "rendered_at": "2026-11-27T14:01:44.787099Z",
+      "video_url": "https://factory.nickbenak.com/v/render-cq_producer-2026-11-27/68bd1132-d7a6-4972-a910-9dfbcf8b6968.mp4",
+      "caption": "Suspended, one part at a time\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,40 +16,30 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.426,
-        "anchor_y": 0.564,
+        "anchor_x": 0.493,
+        "anchor_y": 0.307,
         "rotate_deg": 0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "myth_of_sisyphus",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "this is Myth of Sisyphus from EDUCATION (@close__quarters)",
-      "posts": [
-        {
-          "account": "dylancantor23_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-f626abd1-c976-42fc-80ec-0be7473fd1a0",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T18:50:00-05:00"
-        }
-      ],
+      "first_comment": "Suspended – @close__quarters. EDUCATION is out now, link in bio",
+      "posts": [],
       "captions": {
-        "instagram": "Myth of Sisyphus, one part at a time\nMyth of Sisyphus – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nstream Myth of Sisyphus: link in bio"
+        "instagram": "Suspended, one part at a time\nSuspended – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
