@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
-"""glitch.archive: public-domain footage of creeks, forests, cities, space and old industrial film, broken on the beat.
+"""glitch.archive: NASA's own footage and ours (Rocket League, Nick's New York), clean shots with a datamosh on the cut.
 
     python studio/glitch_video.py SONG_DIR SEED OUT.mp4        (CQ_WINDOW="t0,t1" picks the stretch of the song)
 
 The nightly job's renderer for the "glitch" style (studio/nightly.py). Clips come from the footage library
-(studio/footage.py), are surveyed once (motion, contrast, colour, and which frames are unusable: black, fades, a
-title card on a plain ground), and are cut on the song's bar lines. The opener is the liveliest, most colourful clip.
+(studio/footage.py, theme space), our Rocket League library (studio/rocket_lib.py) and our own New York clips (footage
+theme nyc, source own; never the archive films, never the band), are surveyed once (motion, contrast, colour, and which
+frames are unusable: black, fades, a title card on a plain ground), and are cut on the song's bar lines, no shot under
+2 s and the first one at least 3 s, so a launch is seen leaving the pad before the cut. The opener is the liveliest,
+most colourful clip, and what it is ("Antares launch, NASA") is written large at the top for its first 2 s
+(docs/brain/reviews/2026-11-26: 84% skipped a melting grey crowd nobody could name; space and named things got tested).
 
-Every cut is a datamosh melt, the way a video file breaks when a key frame is lost: the old picture is not replaced
+The knob `mode` says how much of the video is broken. `transition` (3 in 4): the footage plays clean and only the cut
+melts, for half a second, the way a datamosh transition is used everywhere else. `bed` (the old look): every cut is a
+datamosh melt, the way a video file breaks when a key frame is lost: the old picture is not replaced
 but dragged along the new clip's motion, block by block (16 px macroblocks, as a codec moves them), with the new
 picture seeping through, until the next beat, where the clean frame snaps back (the key frame arrives). The video's
 last beat melts into its first frame, so frame 0 is already mid-melt and the end runs seamlessly into the start.
 
-Over that runs one main treatment, picked per video:
+In `bed` one main treatment runs over it, picked per video:
   mosh    the melts last two beats, and on kicks the picture "blooms": one frame's motion repeated, so the pixels
           stream on in the direction they were moving, until the next beat
   track   blob tracking: whatever moves gets a box, a crosshair, an ID and coordinates, joined to its neighbour
@@ -21,7 +27,7 @@ Over that runs one main treatment, picked per video:
   slit    slit-scan: each band of rows shows a different moment (a wave of delays the kick pushes along)
   points  a point cloud: brightness taken as depth, the picture turned in 3D and drawn as dots
 accents: rgb (the colour channels drift apart), blocks (macroblock smears on the snare), none;
-tones: natural, thermal, mono, duotone, xray, night. All are knobs (studio/knobs.py), so the learner finds out which
+tones: natural, thermal, mono, duotone, xray, night (duotone, which made a launch mud, only when forced). All are knobs (studio/knobs.py), so the learner finds out which
 looks people watch. Text stays out of Instagram's interface (top 250 px, bottom 420 px, right 150 px).
 """
 import json, math, os, random, re, subprocess, sys
@@ -33,13 +39,30 @@ sys.path.insert(0, os.path.join(HERE, 'mathviz')); sys.path.insert(0, HERE)
 import beat as audio
 import knobs as K
 import footage
+import rocket_lib
 
 W, H, FPS = 1080, 1920, 30
-THEMES = ['water', 'nature', 'city', 'space', 'archive', 'mixed']
-OWN = ('water', 'nature', 'city', 'space', 'archive')      # 'mixed' is these five: never vintage's silent films or the nyc clips
+# What a video is made of (knob `source`): NASA's footage, our Rocket League clips, or our own New York clips. The
+# creeks, forests, cities and Prelinger films went 2026-11-26 (review: 26-72 views against space 83; vintage and cinema
+# have the old films). A source with too few clips on this checkout is not offered.
+THEMES = ['space', 'rocket', 'nyc']
+SOURCE_ODDS = {'space': 3, 'rocket': 2, 'nyc': 2}
+MIN_CLIPS = {'space': 6, 'rocket': 4, 'nyc': 4}
+OWN = ('space',)                                           # the footage library's themes this account may use (nyc: our own clips only)
 MAINS = ['mosh', 'track', 'sort', 'slit', 'points']
 ACCENTS = ['rgb', 'blocks', 'none']
 TONES = ['natural', 'thermal', 'mono', 'duotone', 'xray', 'night']
+TONE_ODDS = [6, 1, 1, 0, 1, 2]                             # natural first; duotone only when nightly forces it
+MODES = ['transition', 'bed']
+TRANSITION = 15                                            # frames a cut melts for in mode `transition` (0.5 s)
+MIN_SHOT, FIRST_SHOT = 60, 90                              # frames: no shot under 2 s, the first at least 3 s
+TITLE_FRAMES = 60                                          # the opener's name is up for the first 2 s
+# What each clip is, said the way a person would (the index's titles are file names). First match wins; a space clip
+# matching none is named from its title.
+NAMES = [(r'artemis ii', 'Artemis II launch, NASA'), (r'antares', 'Antares launch, NASA'),
+         (r'titan ii', 'NOAA-M on a Titan II, NASA'), (r'galileo flyby', 'Earth seen by Galileo, 1990'),
+         (r'earth views from the international space station|earth day 2017', 'Earth from the space station, NASA'),
+         (r'earth from orbit', 'Earth from orbit, NASA'), (r'aurora time lapse', 'Aurora over Alaska, NASA')]
 # Films in the library that are not material for this account, found by looking at every clip (2026-11-24): presenters
 # and talking heads, explainer graphics with captions, sponsor films (brand logos, a car-company cartoon mascot), a
 # slaughterhouse, ribbon-cuttings with officials, the escalator of a living politician's tower, broadcaster logos.
@@ -102,27 +125,68 @@ class Clips:
 # ------------------------------------------------------------------------------------------------ the footage
 def usable(e):
     """A clip this account may show: not ruled out by footage.BLOCK (checked here too, so a blocked clip still in the
-    index or the cache never gets in), not one of the films above, and from the account's own themes."""
+    index or the cache never gets in), not one of the films above, and NASA's (theme space) or our own New York clips."""
     words = '%s %s %s' % (e.get('title', ''), e.get('key', ''), e.get('query', ''))
-    return (e.get('theme') in OWN and not footage.BLOCK.search(words) and not SKIP_TITLE.search(words)
+    ours = e.get('theme') == 'nyc' and e.get('source') == 'own'
+    return ((e.get('theme') in OWN or ours) and not footage.BLOCK.search(words) and not SKIP_TITLE.search(words)
             and e.get('asset') not in SKIP_ASSET)
 
 
+def path_of(e):
+    return e.get('path') or os.path.join(footage.CACHE, e['asset'])
+
+
+def _places():
+    try: return json.load(open(os.path.join(HERE, 'nyc', 'places.json')))['clips']
+    except (OSError, ValueError, KeyError): return {}
+
+
+def own_nyc():
+    """The library's own New York clips (Nick's, theme nyc, source own) that places.json does not skip."""
+    skip = {k for k, v in _places().items() if v.get('skip')}
+    return [e for e in footage.index().get('clips', []) if e.get('theme') == 'nyc' and e.get('source') == 'own'
+            and e['asset'] not in skip and usable(e)]
+
+
 def library(theme):
-    lib = [e for e in footage.pull(OWN if theme == 'mixed' else (theme,)) if usable(e)]
-    if len(lib) < 6: lib = [e for e in footage.pull(OWN) if usable(e)]
-    return lib
+    """The clips of one source on this machine (pulled from their release when missing)."""
+    if theme == 'rocket':                                  # our Rocket League recordings (rocket.league.lit's library)
+        try: clips = rocket_lib.pull()
+        except Exception: clips = [c for c in rocket_lib.index()['clips'] if os.path.exists(os.path.join(rocket_lib.CACHE, c['asset']))]
+        return [dict(c, theme='rocket', title='Rocket League', key='rocket:' + c['asset'], film=c['asset'],
+                     path=os.path.join(rocket_lib.CACHE, c['asset'])) for c in clips]
+    if theme == 'nyc':
+        own = [e['asset'] for e in own_nyc()]
+        if not own: return []
+        try: got = footage.pull(('nyc',), assets=own)
+        except Exception: got = [e for e in own_nyc() if os.path.exists(path_of(e))]
+        return [dict(e, film=e['asset']) for e in got if e['asset'] in own]
+    try: got = footage.pull(OWN)
+    except Exception: got = [e for e in footage.index().get('clips', []) if e.get('theme') in OWN and os.path.exists(path_of(e))]
+    return [e for e in got if usable(e)]
+
+
+def name(e):
+    """What a clip is, for the title line: 'Antares launch, NASA', 'Rocket League, our clip', 'Central Park'."""
+    if e.get('theme') == 'rocket': return 'Rocket League, our clip'
+    if e.get('theme') == 'nyc': return (_places().get(e['asset']) or {}).get('place') or 'New York, our own footage'
+    t = e.get('title', '')
+    for pat, nm in NAMES:
+        if re.search(pat, t, re.I): return nm
+    f = re.sub(r'\s*\(.*?\)|\b(4K|UHD|HD)\b', '', film(e)).strip(' -')
+    f = f[:36].rsplit(' ', 1)[0] if len(f) > 36 else f
+    return f + ('' if 'nasa' in f.lower() else ', NASA')
 
 
 def survey(e):
     """Per-frame facts about one clip, read once at low size: movement, contrast, colour, which frames are unusable
     (black, a fade, a title card on a plain ground), and the crop that removes black bars baked into the copy."""
-    memo = os.path.join(footage.CACHE, e['asset'] + '.glitch.json')
+    memo = os.path.join(footage.CACHE, e['asset'] + '.glitch.json')       # every source's memo here: the footage cache is git-ignored
     try:
         s = json.load(open(memo))
         return dict(s, mot=np.array(s['mot']), con=np.array(s['con']), bad=np.array(s['bad'], bool), crop=tuple(s['crop']))
     except (OSError, ValueError, KeyError): pass
-    cap = cv2.VideoCapture(os.path.join(footage.CACHE, e['asset'])); prev = None; mot, con, bad, sat = [], [], [], []
+    cap = cv2.VideoCapture(path_of(e)); prev = None; mot, con, bad, sat = [], [], [], []
     acc = None; size = None
     while True:
         ok, f = cap.read()
@@ -151,7 +215,7 @@ def survey(e):
         crop = (int(cols[0] / 320 * w + pad), int(rows[0] / 180 * h + pad), int((cols[-1] + 1) / 320 * w - pad), int((rows[-1] + 1) / 180 * h - pad))
     else: crop = (0, 0, w, h)
     out = dict(n=n, mot=mot, con=np.array(con), bad=bad, crop=crop, sat=float(np.mean(sat)) if sat else 0.0)
-    try: json.dump(dict(out, mot=[round(float(x), 5) for x in mot], con=[round(float(x), 4) for x in out['con']], bad=[bool(x) for x in bad], crop=list(crop)), open(memo, 'w'))
+    try: os.makedirs(footage.CACHE, exist_ok=True); json.dump(dict(out, mot=[round(float(x), 5) for x in mot], con=[round(float(x), 4) for x in out['con']], bad=[bool(x) for x in bad], crop=list(crop)), open(memo, 'w'))
     except OSError: pass
     return out
 
@@ -169,7 +233,18 @@ def best_window(s, L, rng, lead=0):
     return int(starts[rng.choice(top)])
 
 
+def window(e, s, L, rng, lead=0):
+    """best_window, except that a clip with known moments (our Rocket League clips) is placed so its biggest moment
+    lands 60% of the way into the shot: the goal is seen, not cut away from."""
+    for t, _score in (e.get('moments') or [])[:1]:
+        n = s['n']; L2 = max(1, min(L, n - lead)); off = int(round(t * FPS - 0.6 * L2))
+        off = max(lead, min(off, n - L2))
+        if not s['bad'][max(0, off - lead):off + L2].any(): return off
+    return best_window(s, L, rng, lead)
+
+
 def film(e):
+    if e.get('film'): return e['film']                                 # our own clips: each clip is its own "film"
     t = re.sub(r'\.(webm|ogv|ogg|mp4)$', '', e.get('title', ''), flags=re.I)
     t = re.sub(r'\s*\((\d{6,}|PIA\d+|SVS\d+)\)|\[|\]|\s*\(Part [IV]+\)', '', t)
     return re.sub(r'\s+', ' ', t).strip()
@@ -192,7 +267,7 @@ class Plan:
         mot = {e['asset']: float(np.median(stats[e['asset']]['mot'])) for e in lib}
         hooks = []
         for e in lib:
-            s = stats[e['asset']]; off = best_window(s, segs[0][1], random.Random(1), lead)
+            s = stats[e['asset']]; off = window(e, s, segs[0][1], random.Random(1), lead)
             if off is None: continue
             score = float(s['mot'][off:off + 15].mean()) * float(s['con'][off:off + 15].mean()) * (0.5 + s['sat'])
             hooks.append((score, e, off))
@@ -208,7 +283,7 @@ class Plan:
             e, off = first, None
             for _ in range(6):
                 w = [(mot[x['asset']] if motion_first else mot[x['asset']] ** 0.5) + 1e-4 for x in pool]
-                e = rng.choices(pool, weights=w)[0]; off = best_window(stats[e['asset']], L, rng)
+                e = rng.choices(pool, weights=w)[0]; off = window(e, stats[e['asset']], L, rng)
                 if off is not None: break
             if off is None: e, off = first, off0
             self.plan.append((c, e, off, rng.uniform(1.0, 1.1), rng.uniform(-0.2, 0.2))); used.add(e['asset']); last = film(e)
@@ -220,18 +295,19 @@ class Plan:
     def _read(self, e, off, count, zoom, pan):
         """count frames from off, cropped to the 9:16 picture at the clip's own size (the bars cut off first)."""
         x0, y0, x1, y1 = self.stats[e['asset']]['crop']
-        cap = cv2.VideoCapture(os.path.join(footage.CACHE, e['asset'])); cap.set(cv2.CAP_PROP_POS_FRAMES, off); fr = []
+        cap = cv2.VideoCapture(path_of(e)); cap.set(cv2.CAP_PROP_POS_FRAMES, max(0, off)); fr = []
         while len(fr) < min(count, 400):
             ok, f = cap.read()
-            if not ok:
+            if not ok or f is None or not f.size:
                 if not fr: break
                 fr += fr[::-1]; continue                                  # a short clip plays forward then back
-            f = f[y0:y1, x0:x1]; h, w = f.shape[:2]
+            f = f[y0:y1, x0:x1] if f[y0:y1, x0:x1].size else f              # a crop surveyed on another copy: the whole frame
+            h, w = f.shape[:2]
             ch, cw = h / zoom, min(w, h * 9 / 16) / zoom
             cx = (w - cw) * (0.5 + pan); cy = (h - ch) / 2
             fr.append(np.ascontiguousarray(f[int(cy):int(cy + ch), int(cx):int(cx + cw)]))
         cap.release()
-        return fr or [np.zeros((16, 9, 3), np.uint8)]
+        return fr or [np.zeros((160, 90, 3), np.uint8)]                    # an unreadable clip: black, never an empty array (cv2.remap crashed on one)
 
     def frames(self, k):
         if k not in self.cache:
@@ -285,14 +361,19 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed); self.r = r
-        self.theme = K.pick('source', THEMES, r); self.main = K.pick('main', MAINS, r)
+        libs = {t: library(t) for t in THEMES}
+        have = [t for t in THEMES if len(libs[t]) >= MIN_CLIPS[t]] or [t for t in THEMES if libs[t]]
+        if not have: sys.exit('the footage library is empty: run the footage workflow (and rocket_lib.py pull) first')
+        self.theme = K.pick('source', have, r, weights=[SOURCE_ODDS[t] for t in have])
+        # transition: clean shots, half a second of mosh on each cut; bed: the old 15 s of melt (the learner compares them)
+        self.mode_kind = K.pick('mode', MODES, r, weights=[3, 1])
+        self.main = K.pick('main', MAINS, r) if self.mode_kind == 'bed' else 'mosh'
         # the first frame: a clean, readable shot (the melt starts on the first cut) or mid-melt so the loop has no seam.
         # Glitch had the highest early skip on the network (85%, 2026-11-25) and every frame 0 was unreadable mush.
-        self.opener = K.pick('opener', ['clean', 'melt'], r, weights=[3, 1])
-        self.accent = K.pick('accent', ACCENTS, r); self.tone = K.pick('tone', TONES, r)
-        self.pace = int(K.pick('pace', [1, 2], r)); self.label = K.pick('label', ['rec', 'none'], r)
-        lib = library(self.theme)
-        if not lib: sys.exit('the footage library is empty: run the footage workflow first')
+        self.opener = K.pick('opener', ['clean', 'melt'], r, weights=[3, 1]) if self.mode_kind == 'bed' else 'clean'
+        self.accent = K.pick('accent', ACCENTS, r); self.tone = K.pick('tone', TONES, r, weights=TONE_ODDS)
+        self.pace = int(K.pick('pace', [1, 2], r, weights=[1, 3])); self.label = K.pick('label', ['rec', 'none'], r)
+        lib = libs[self.theme]
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
         P = audio.project(self.slug, t0, t1)                                  # the song's own hits where it has a project
         kicks = [int(round(t * FPS)) for t, _s in (P or {}).get('kick', [])] or [int(k) for k in a['kicks']]
@@ -302,13 +383,16 @@ class Video:
         self.bass = np.convolve(a['bass'], np.ones(5) / 5, 'same')
         beats = [(b, int(round(f))) for b, f in a['beats'] if 0 <= f < n]
         self.beat_frames = sorted(f for _b, f in beats)
-        # cuts on bar lines (every bar, or every other), never a sliver of a shot at either end
+        # cuts on bar lines (every bar, or every other), no shot under MIN_SHOT and the first at least FIRST_SHOT: with
+        # pace 1 the Antares rocket was cut away before it left the pad (review 2026-11-26)
         bar = 4 * self.pace
-        cuts = [0] + [f for b, f in beats if b % bar == 0 and 12 <= f <= n - 24]
+        cuts = [0]
+        for b, f in beats:
+            if b % bar == 0 and f >= cuts[-1] + (FIRST_SHOT if len(cuts) == 1 else MIN_SHOT) and f <= n - 24: cuts.append(f)
         # the seam: from the last beat (8-24 frames before the end) the picture melts into the opening frame
         last = [f for f in self.beat_frames if 8 <= n - f <= 24]
         self.seam = last[-1] if last else n - 12
-        while len(cuts) > 1 and cuts[-1] > self.seam - 12: cuts.pop()
+        while len(cuts) > 1 and cuts[-1] > self.seam - MIN_SHOT: cuts.pop()
         self.lead = n - self.seam
         self.plan = Plan(lib, n, cuts, r, self.lead, motion_first=self.main in ('mosh', 'slit'))
         self.cuts = set(c for c, *_r in self.plan.plan)
@@ -317,6 +401,9 @@ class Video:
         self.f_rec, self.f_lab, self.f_box = font(34), font(27), font(28)
         sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', '/Library/Fonts/Arial Unicode.ttf') if os.path.exists(p)), None)
         self.f_credit = ImageFont.truetype(sans, 30) if sans else self.f_lab
+        bold = next((p for p in (os.path.join(REPO, 'fonts', 'Montserrat-ExtraBold.ttf'), '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf') if os.path.exists(p)), None)
+        self.f_title = ImageFont.truetype(bold, 56) if bold else self.f_rec
+        self.title = name(self.plan.plan[0][1])
         self.buf = []; self.tracks = {}; self.next_id = 1; self.dropped = 0
         self.mode = None; self.acc = None; self.until = 0; self.F = None
         self.preroll()
@@ -360,13 +447,18 @@ class Video:
             self.melt_step(i, cur, g, qgray(self.plan.leadin(1))); self.prev_g = g
             return cv2.resize(self.acc, (W, H)), cur
         if i > 0 and not seam and i in self.cuts:                          # a cut: the key frame is lost
-            self.mode = 'melt'; self.dropped += 1; self.until = self.snap_after(i, 2 if self.main == 'mosh' else 1)
+            if self.mode is None or self.acc is None:                      # the old picture is the last clean frame (it was None
+                self.acc = cv2.resize(self.plan.raw(i - 1)[0], (HW, HH), interpolation=cv2.INTER_AREA).astype(np.float32)   # after a clean opener: the remap crash)
+            self.mode = 'melt'; self.dropped += 1
+            if self.mode_kind == 'transition':                             # half a second, back on a beat when one is near
+                self.until = next((b for b in self.beat_frames if i + 10 <= b <= i + 20), i + TRANSITION)
+            else: self.until = self.snap_after(i, 2 if self.main == 'mosh' else 1)
             nxt = qgray(self.plan.raw(i + 1)[0]) if i + 1 < self.seam else g
             self.melt_step(i, cur, g, nxt); self.prev_g = g
             return cv2.resize(self.acc, (W, H)), cur
         if self.mode and i >= self.until: self.mode = None; self._clean_from = i   # the key frame arrives, on the beat
         beat = self.spb * FPS
-        if (self.main == 'mosh' and self.mode is None and i in self.kicks and not seam and i > 8
+        if (self.main == 'mosh' and self.mode_kind == 'bed' and self.mode is None and i in self.kicks and not seam and i > 8
                 and i - getattr(self, '_clean_from', 0) >= beat - 2 and getattr(self, '_bloomed', None) != k
                 and self.r.random() < 0.6):                                # at most one bloom a shot, a beat after the snap
             nxt_cut = min([c for c in self.cuts if c > i] + [self.seam])
@@ -493,22 +585,34 @@ class Video:
         if self.main == 'track': img = self.track(f, cur, i)
         elif self.main in ('sort', 'slit', 'points'): img = getattr(self, self.main)(f, i)
         else: img = f
-        img = self.tone_fx(self.accent_fx(img, i))
+        img = self.tone_fx(self.accent_fx(img, i) if self.mode_kind == 'bed' or self.mode else img)   # transition: the accent is part of the cut
         img = img * (1 + 0.12 * self.kick[i])                              # a little lift on the kick
         g = np.random.default_rng(i).normal(0, 6, (H // 4, W // 4)).astype(np.float32)
         img = img + cv2.resize(g, (W, H), interpolation=cv2.INTER_NEAREST)[..., None]   # grain
         out = Image.fromarray(cv2.cvtColor(np.clip(img, 0, 255).astype(np.uint8), cv2.COLOR_BGR2RGB)); d = ImageDraw.Draw(out)
         if self.main == 'track': self.draw_tracks(d, i)
-        if self.label == 'rec':                                            # below Instagram's top bar
+        if i < TITLE_FRAMES: self.draw_title(d, i)                         # what this is, for the first 2 s
+        elif self.label == 'rec':                                          # below Instagram's top bar
             e = self.plan.plan[0][1] if i >= self.seam else self.plan.segment(i)[1][1]
             t = self.t0 + i / FPS; y = SAFE_TOP + 16
-            if (i // 15) % 2 == 0: d.ellipse([48, y + 6, 74, y + 32], fill=(230, 40, 40))
+            if (i // 15) % 2 == 0: d.ellipse([96, y + 6, 122, y + 32], fill=(230, 40, 40))
             kw = dict(stroke_width=3, stroke_fill=(0, 0, 0))
-            d.text((88, y), 'REC  %02d:%02d:%02d' % (t // 60, t % 60, (i % FPS)), font=self.f_rec, fill=(245, 245, 245), **kw)
-            d.text((48, y + 50), ('SRC  ' + film(e))[:44], font=self.f_lab, fill=(225, 225, 225), **kw)
-            d.text((48, y + 88), 'KEYFRAMES DROPPED  %02d' % self.dropped, font=self.f_lab, fill=(225, 225, 225), **kw)
-        d.text((48, H - SAFE_BOTTOM - 24), self.credit, font=self.f_credit, fill=(240, 240, 240), anchor='ls', stroke_width=3, stroke_fill=(0, 0, 0))
+            d.text((136, y), 'REC  %02d:%02d:%02d' % (t // 60, t % 60, (i % FPS)), font=self.f_rec, fill=(245, 245, 245), **kw)
+            d.text((96, y + 50), ('SRC  ' + name(e))[:44], font=self.f_lab, fill=(225, 225, 225), **kw)
+            d.text((96, y + 88), 'KEYFRAMES DROPPED  %02d' % self.dropped, font=self.f_lab, fill=(225, 225, 225), **kw)
+        d.text((96, H - SAFE_BOTTOM - 24), self.credit, font=self.f_credit, fill=(240, 240, 240), anchor='ls', stroke_width=3, stroke_fill=(0, 0, 0))
         return np.asarray(out)
+
+    def draw_title(self, d, i):
+        """The opener's name, large, white on a heavy black outline, inside y 250-420 and x 96-924 (two lines at most)."""
+        words, rows = self.title.split(), ['']
+        for w in words:
+            t = (rows[-1] + ' ' + w).strip()
+            if d.textlength(t, font=self.f_title) <= 924 - 96 or not rows[-1]: rows[-1] = t
+            else: rows.append(w)
+        y = SAFE_TOP + 14
+        for row in rows[:2]:
+            d.text((96, y), row, font=self.f_title, fill=(255, 255, 255), stroke_width=6, stroke_fill=(0, 0, 0)); y += 70
 
     def render(self, out):
         if '--frames' in sys.argv:
@@ -521,7 +625,7 @@ class Video:
                     if full: Image.fromarray(fr).save(out[:-4] + '_f%03d.png' % i)
             sheet = Image.new('RGB', (360 * len(ims), 640))
             for j, im in enumerate(ims): sheet.paste(im, (360 * j, 0))
-            sheet.save(out); print('sheet', out, K.record()['knobs'], [film(p[1]) for p in self.plan.plan]); return
+            sheet.save(out); print('sheet', out, K.record()['knobs'], [(p[0], name(p[1])) for p in self.plan.plan]); return
         tmp = out[:-4] + '.part.mp4'
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
                               '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '19'),
