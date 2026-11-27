@@ -45,8 +45,8 @@ In order of impact. Nothing here needs a secret in chat: tokens go straight into
 2. Submit the **YouTube API Services Audit and Quota Extension form** now: until the audit clears, every upload from
    the project is locked to private. Read the real quota numbers in Cloud Console → Quotas (sources disagree) and ask
    for more on the same form.
-3. Create the pilot channels as Brand Account channels under one Google login (rotation.illusions, math.explainers,
-   ascii.terminal.dreams, physics.bounce.lab, close__quarters); phone-verify each (lifts the 10-uploads-a-day cap).
+3. Create the pilot channels as Brand Account channels under one Google login (rotation.illusions,
+   ascii.terminal.dreams, physics.bounce.lab, close__quarters; math once its new Instagram account is live); phone-verify each (lifts the 10-uploads-a-day cap).
 4. Per channel, on the laptop: `YT_CLIENT_ID=… YT_CLIENT_SECRET=… python scripts/yt_connect.py <n>` → the refresh token
    goes straight into `YT_REFRESH_TOKEN_<n>`; add the printed `accounts.yaml` entry (example at the end of the file).
    Playbook: [[add-youtube-channel]].
@@ -62,7 +62,17 @@ In order of impact. Nothing here needs a secret in chat: tokens go straight into
 - `SECRETS_PAT` expiry: the one untracked single point of failure for token refreshes.
 - The dashboard: followers Δ7d per account, bio taps, and any red "insights denied" line.
 
-## 8. Decisions still open (yours)
+## 8. The new math account (replacing the deleted @math.explainers)
+1. Create it and link it to the right Page, as in [[add-account]] (Creator account, Page under Dylan's Facebook, app
+   granted). Pick the handle; the old one may stay reserved for a while after deletion.
+2. Get its Instagram user id (`me/accounts?fields=name,instagram_business_account{username}` in the Graph API Explorer).
+3. In a PR: `accounts.yaml` → `math_ig` → `channel_id: "<new id>"` (and the handle in `scripts/dash_data.py` HANDLES,
+   `studio/replies.py` ACCOUNTS, `studio/learn.py` LINK_NAMES and `link/README.md` if it changed); `campaigns/math_time/config.yaml`
+   `paused: false`; `studio/nightly.yaml` math_time target: delete `paused: true`.
+4. A new account starts at 2 a day for its first week (`posts_per_day: 2`, nightly `per_night: 2`), then back to 5.
+5. Leave math.explainers out of the YouTube pilot until it is back.
+
+## 9. Decisions still open (yours)
 - the.loose.change: rebuild the meme pool from own footage and move it off Buffer (needs Nick's login on
   connect.closequarters.vip), or retire it.
 - retro.vibes.arcade is paused: send the Kaggle budget to ascii's single-subject clips, or rebuild on our own renders.

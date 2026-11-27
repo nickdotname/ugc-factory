@@ -76,7 +76,10 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # live: the account is linked to its Page and branded
+  # PAUSED 2026-11-27: the @math.explainers Instagram account was deleted (it was linked to the wrong profile).
+  # A new account will replace it: put its Instagram user id in accounts.yaml (math_ig channel_id), then paused -> false
+  # here and in studio/nightly.yaml. Everything else (creatives, captions, first comments, menu) is ready.
+  paused: true
   dry_run: false
 
 video:

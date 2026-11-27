@@ -93,3 +93,12 @@ def test_an_account_denied_insights_turns_the_campaign_red(campaign: Path, monke
 def test_an_account_that_can_be_read_stays_green(campaign: Path, monkeypatch, capsys) -> None:
     code, out = _run(monkeypatch, False, capsys)
     assert code == 0 and "::error::" not in out
+
+
+def test_a_paused_campaign_whose_account_is_gone_stays_green(campaign: Path, monkeypatch, capsys) -> None:
+    # math.explainers was deleted on 2026-11-27 and its campaign paused: every call now says "does not exist",
+    # which is not something anyone can act on until the new account is in, so it must not turn the job red.
+    cfg = campaign / "config.yaml"
+    cfg.write_text(cfg.read_text(encoding="utf-8").replace("  dry_run: false", "  dry_run: false\n  paused: true"), encoding="utf-8")
+    code, out = _run(monkeypatch, True, capsys)
+    assert code == 0 and "::error::" not in out

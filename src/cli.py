@@ -3260,7 +3260,11 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                     )
                     continue
                 denied = getattr(source, "insights_denied", {}).get(source_channel)
-                if denied:
+                if denied and config.posting.paused:
+                    # A paused campaign posts nothing, so a refusal is not actionable: its account may be gone
+                    # (math.explainers was deleted 2026-11-27). Logged, never red.
+                    log.warning("insights_denied_paused", account=account_name, campaign=config.slug, **denied)
+                elif denied:
                     log.warning(
                         "insights_denied", account=account_name, campaign=config.slug, **denied,
                     )

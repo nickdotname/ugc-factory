@@ -57,6 +57,7 @@ targets:
     join: 30
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
     style: math
+    paused: true               # 2026-11-27: @math.explainers was deleted; un-pause with the campaign when its new account exists
     retire: {topic: [derivative]}                    # the weakest topic in the 2026-11-26 review (fourier 3 / zeta 3 / fold 2 / sci8 1 is the renderer's menu weight)
     per_night: 5
     join: 40

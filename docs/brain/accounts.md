@@ -9,7 +9,7 @@ Back to [[README]]. Source of truth: `accounts.yaml` (channels) and `campaigns/*
 | @the.loose.change (was nickdotname) | nickdotname_ig (Buffer) | nick_studio, closequarters (**paused** 2026-11-24: every meme clip in its pool was ripped film/TV/game footage) | type (kinetic lyrics) + memes | 1 + 0 | 12–23 / all day |
 | @psychedelic.station | psychedelic_station_ig | psy_station | psy, collage (+ carousels, fact reels) | 1 + 2 fact reels | 12–23 |
 | @nostalgia.hub.vhs | nostalgia_ig | nostalgia | liminal (+ carousels, fact reels) | 1 + 2 fact reels | 12–23 |
-| @math.explainers | math_ig | math_time | math (integrals, Fourier, zeta, fold, sci8) | 5 | 12–23 |
+| @math.explainers (**deleted 2026-11-27**: linked to the wrong profile; a new account will replace it) | math_ig | math_time | math (integrals, Fourier, zeta, fold, sci8) | **paused** | — |
 | @glitch.archive.exe | glitch_ig | glitch_archive | glitch | 2 | 12–23 |
 | @ascii.terminal.dreams | ascii_ig | ascii_art | ascii | 5 | 12–23 |
 | @physics.bounce.lab | physics_ig | physics_sims | physics (needs the song's Ableton hits) | 5 (fluid 3, stopit 1, physics 1) | 12–23 |
