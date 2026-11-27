@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Hair of the Dog – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "toon_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T15:38:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "almost 100 years old and still bouncing\n🎧 Hair of the Dog – @close__quarters #rubberhose #oldcartoons #1930s #animation #vintagecartoon\n\nHair of the Dog is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
