@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Evil Close Quarters by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "tinycode_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T12:43:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "change one number and it's a different picture\n🎧 Evil Close Quarters – @close__quarters #creativecoding #generativeart #python #numpy #codeart\n\nstream Evil Close Quarters: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
