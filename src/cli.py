@@ -135,7 +135,9 @@ from src.quota import (
 from src.ports import Clock, Rng, SeededRng, SystemClock
 from src.publishers.base import DryRunPublisher, PublishRequest, Publisher
 from src.publishers.buffer import BufferPublisher
+from src.publishers import DIRECT_PROVIDERS, holds_posts_in_repo, real_publisher
 from src.publishers.instagram import OUTBOX_DIR, InstagramPublisher
+from src.publishers.youtube import YouTubePublisher
 from src.analytics import (
     cache_path as analytics_cache_path,
     correlate,
@@ -1433,24 +1435,26 @@ def _account_publishers(
                 f"{slot} is not set — cannot publish to {account.name}. "
                 f"Set the secret, or set posting.dry_run: true."
             )
-        publishers[slot] = _real_publisher(account, api_key, log)
+        publishers[slot] = _real_publisher(account, api_key, log, env=env)
     return publishers
 
 
 def _real_publisher(
-    account: AccountConfig, secret: str, log: StructuredLogger
-) -> BufferPublisher | InstagramPublisher:
+    account: AccountConfig, secret: str, log: StructuredLogger,
+    env: Mapping[str, str] | None = None,
+) -> BufferPublisher | InstagramPublisher | YouTubePublisher:
     """The publisher one account posts through. Never a dry-run stand-in.
 
-    The one place that knows there is more than one kind: an account says
-    which with ``provider:`` in the accounts file, and everything else holds
-    a ``Publisher`` without caring.
+    An account says which kind with ``provider:`` in the accounts file, and
+    everything else holds a ``Publisher`` without caring. The direct kinds
+    (Instagram, YouTube) come from ``src.publishers.real_publisher``; ``env``
+    carries the shared YouTube client id and secret, and without it the
+    process environment is read. Buffer stays here, by this module's own
+    name, which is the seam the tests stand a fake in through.
     """
-    if account.provider is Provider.INSTAGRAM:
-        return InstagramPublisher(
-            secret, log,
-            outbox_dir=REPO_ROOT / OUTBOX_DIR,
-            login=account.login.value,
+    if account.provider in DIRECT_PROVIDERS:
+        return real_publisher(  # type: ignore[return-value]
+            account, secret, log, env=env, outbox_dir=REPO_ROOT / OUTBOX_DIR,
         )
     return BufferPublisher(secret, log, organization_id=account.organization_id)
 
@@ -1493,11 +1497,11 @@ def _song_audio(config: CampaignConfig, creative_name: str) -> dict[str, Any] | 
 def _held_post_paths(publisher: Publisher) -> list[Path]:
     """Files a publisher wrote that must be committed with the queue.
 
-    Buffer holds a scheduled post on its own servers. A direct Instagram
-    account's are held in the repo, so a push that is not committed is a post
-    that will never go out.
+    Buffer holds a scheduled post on its own servers. A direct Instagram or
+    YouTube account's are held in the repo, so a push that is not committed is
+    a post that will never go out.
     """
-    if isinstance(publisher, InstagramPublisher) and publisher.touched:
+    if holds_posts_in_repo(publisher):
         return [REPO_ROOT / OUTBOX_DIR]
     return []
 
@@ -3061,13 +3065,15 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
             if config.posting.fan_out else []
         )
         direct = bool(reached) and all(
-            a.provider is Provider.INSTAGRAM for a in reached
+            a.provider in DIRECT_PROVIDERS for a in reached
         )
+        # "Instagram only" predates YouTube: it means the accounts posted to
+        # directly, whose figures cost no Buffer requests.
         instagram_only = bool(getattr(args, "instagram_only", False))
         if instagram_only and not any(
-            a.provider is Provider.INSTAGRAM for a in reached
+            a.provider in DIRECT_PROVIDERS for a in reached
         ):
-            print(f"{config.slug} posts to no Instagram account directly — nothing to fetch")
+            print(f"{config.slug} posts to no account directly — nothing to fetch")
             return 0
         windows_wanted = not instagram_only and not direct
 
@@ -3075,7 +3081,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         local_date = now.astimezone(config.zone).strftime("%Y-%m-%d")
         path = _campaign_dir(config.slug) / "metrics.json"
         history = load_metrics(path)
-        publishers: dict[str, BufferPublisher | InstagramPublisher] = {}
+        publishers: dict[str, BufferPublisher | InstagramPublisher | YouTubePublisher] = {}
         snapshots: list[Snapshot] = []
         lifetime_refused: tuple[datetime, datetime] | None = None
         channel = ""
@@ -3152,12 +3158,12 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
         # account the campaign reaches is fetched, through its own login, and
         # every figure is filed under the account it came from.
         sources: list[
-            tuple[str | None, BufferPublisher | InstagramPublisher, str]
+            tuple[str | None, BufferPublisher | InstagramPublisher | YouTubePublisher, str]
         ] = [(None, publishers[config.buffer.api_key_secret], channel)] if windows_wanted else []
         if config.posting.fan_out:
             sources = []
             for account in reached:
-                if instagram_only and account.provider is not Provider.INSTAGRAM:
+                if instagram_only and account.provider not in DIRECT_PROVIDERS:
                     continue        # Buffer accounts are read once a day, in the full run
                 slot = account.api_key_secret
                 if slot not in publishers:
@@ -3168,7 +3174,7 @@ def cmd_metrics(args: argparse.Namespace, env: dict[str, str]) -> int:
                             reason=f"{slot} is not set",
                         )
                         continue
-                    publishers[slot] = _real_publisher(account, key, log)
+                    publishers[slot] = _real_publisher(account, key, log, env=env)
                 sources.append(
                     (account.name, publishers[slot], _account_channel(account, env))
                 )
@@ -3820,7 +3826,7 @@ def cmd_queue(args: argparse.Namespace, env: dict[str, str]) -> int:
                         f"that is already being held"
                     )
                 publishers[slot] = (
-                    _real_publisher(account, key, log)
+                    _real_publisher(account, key, log, env=env)
                     if account is not None
                     else BufferPublisher(key, log, organization_id=organization_id)
                 )
@@ -3915,11 +3921,11 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
     registry = load_accounts(REPO_ROOT / ACCOUNTS_FILE)
     direct = [
         a for a in registry.live
-        if a.provider is Provider.INSTAGRAM
+        if a.provider in DIRECT_PROVIDERS
         and (not args.account or a.name == args.account)
     ]
     if not direct:
-        print("no account posts to Instagram directly; nothing to do")
+        print("no account posts to Instagram or YouTube directly; nothing to do")
         return 0
 
     by_slot: dict[str, list[AccountConfig]] = {}
@@ -3950,8 +3956,8 @@ def cmd_publish_due(args: argparse.Namespace, env: dict[str, str]) -> int:
                   f"{', '.join(names.values())}", file=sys.stderr)
             exit_code = 1
             continue
-        publisher = _real_publisher(accounts[0], token, log)
-        assert isinstance(publisher, InstagramPublisher)  # filtered above
+        publisher = _real_publisher(accounts[0], token, log, env=env)
+        assert isinstance(publisher, (InstagramPublisher, YouTubePublisher))  # filtered above
         if args.dry_run:
             for channel, name in names.items():
                 state = publisher.queue_state(channel)

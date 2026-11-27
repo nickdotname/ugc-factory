@@ -545,3 +545,24 @@ def test_the_factory_builds_a_youtube_publisher_from_the_env(tmp_path):
     assert publisher._token_secret == "YT_REFRESH_TOKEN_1"
     with pytest.raises(ConfigError, match="YT_CLIENT_ID"):
         real_publisher(_account(), "rt", log, env={}, outbox_dir=tmp_path / "outbox")
+
+
+def test_a_youtube_account_resolves_through_account_publishers(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from src import cli
+
+    monkeypatch.setattr(cli, "REPO_ROOT", tmp_path)
+    log = StructuredLogger({}, io.StringIO())
+    config = SimpleNamespace(slug="t", posting=SimpleNamespace(dry_run=False))
+    env = {"YT_REFRESH_TOKEN_1": "rt", "YT_CLIENT_ID": "cid", "YT_CLIENT_SECRET": "cs", "YT_DAILY_UPLOADS": "7"}
+    publishers = cli._account_publishers([_account()], config, env, log)  # type: ignore[arg-type]
+    publisher = publishers["YT_REFRESH_TOKEN_1"]
+    assert isinstance(publisher, YouTubePublisher)
+    assert publisher.outbox.directory == tmp_path / "outbox"
+    assert publisher.quota.daily_uploads == 7
+    assert cli._held_post_paths(publisher) == []            # nothing written yet
+    publisher.create_post(request(scheduled_for=NOW + timedelta(hours=1)))
+    assert cli._held_post_paths(publisher) == [tmp_path / "outbox"]
+    with pytest.raises(ConfigError, match="YT_CLIENT_ID"):
+        cli._account_publishers([_account()], config, {"YT_REFRESH_TOKEN_1": "rt"}, log)  # type: ignore[arg-type]
