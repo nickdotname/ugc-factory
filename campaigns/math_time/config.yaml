@@ -76,7 +76,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false                # live: the account is linked to its Page and branded
+  paused: true                 # 2026-11-27: @math.explainers 'profile isn't available'; the token cannot reach it. Unpause when Dylan restores it
   dry_run: false
 
 video:
