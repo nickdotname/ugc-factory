@@ -7,7 +7,10 @@
   "pair: the same place in old film and today, for the then-and-now split. year: when an old film was made (from the index).",
   "skip: never used, and why. A clip of theme nyc_now or nyc not listed here is used with no label and hero 0.",
   "For old films hero picks the opening film too (the bright shots of the bridge towers, not the dark truss).",
-  "Pairs are kept only where both halves show the same place (the bridge, the river): the 1905 subway and the 1905 rooftops had no honest match today."
+  "Pairs are kept only where both halves show the same place (the bridge, the river): the 1905 subway and the 1905 rooftops had no honest match today.",
+  "tags: what is in the picture, looked at 2026-11-27 (fire escape, snow, night, window view, park, river, look up,",
+  "bridge, street sign, empty street, traffic, taxi, train, sunset, rooftops, sidewalk, slush, steam ...). A meme line in",
+  "studio/nyc/memes.txt opens on a clip whose tags hold its needs: tag; a line no clip has waits until one does."
  ],
  "clips": {
   "ca8653111ac8fb8c.mp4": {
@@ -15,117 +18,139 @@
   },
   "0291abae37a13308.mp4": {
    "mood": "day",
-   "hero": 1
+   "hero": 1,
+   "tags": ["fire escape", "brick", "look up"]
   },
   "25dca305c46df06a.mp4": {
    "mood": "day",
-   "hero": 1
+   "hero": 1,
+   "tags": ["fire escape", "brick", "look up"]
   },
   "9fce278697e74747.mp4": {
    "mood": "snow",
-   "hero": 1
+   "hero": 1,
+   "tags": ["snow", "fire escape"]
   },
   "6335f2d514ed355b.mp4": {
    "mood": "night",
-   "hero": 3
+   "hero": 3,
+   "tags": ["night", "window view", "avenue", "skyline"]
   },
   "041ae9a835029e9f.mp4": {
    "mood": "night",
-   "hero": 3
+   "hero": 3,
+   "tags": ["night", "window view", "avenue", "skyline", "empire state"]
   },
   "941ea3f50aa72246.mp4": {
    "place": "Central Park",
    "area": "Manhattan",
    "mood": "day",
-   "hero": 2
+   "hero": 2,
+   "tags": ["park", "sunny", "lake"]
   },
   "dc1f7d6afe4aa015.mp4": {
    "mood": "snow",
-   "hero": 2
+   "hero": 2,
+   "tags": ["snow", "brownstone", "tree"]
   },
   "46b5fcb158f2cd53.mp4": {
    "mood": "snow",
-   "hero": 2
+   "hero": 2,
+   "tags": ["snow", "brownstone", "tree"]
   },
   "e8e7511c5ae40edf.mp4": {
    "place": "East River",
    "mood": "day",
    "hero": 2,
-   "pair": "river"
+   "pair": "river",
+   "tags": ["river", "river view", "skyline"]
   },
   "961380d94336fbd4.mp4": {
    "mood": "day",
-   "hero": 0
+   "hero": 0,
+   "tags": ["fire escape", "brick", "look up", "sunny"]
   },
   "bfe080dd91eefcdc.mp4": {
    "place": "Brooklyn Bridge",
    "ll": "40.7061° N  73.9969° W",
    "mood": "day",
    "hero": 3,
-   "pair": "bridge"
+   "pair": "bridge",
+   "tags": ["bridge", "brooklyn bridge", "look up"]
   },
   "35be0f7af019cf25.mp4": {
    "place": "Chrysler Building",
    "area": "Midtown",
    "ll": "40.7516° N  73.9755° W",
    "mood": "day",
-   "hero": 3
+   "hero": 3,
+   "tags": ["look up", "skyscraper", "landmark", "sunny"]
   },
   "76d4596e00c7a7ab.mp4": {
    "place": "Madison Avenue",
    "area": "Manhattan",
    "mood": "day",
-   "hero": 1
+   "hero": 1,
+   "tags": ["street sign", "look up"]
   },
   "bd3e2300250d63df.mp4": {
    "place": "Madison Avenue",
    "area": "Manhattan",
    "mood": "day",
-   "hero": 1
+   "hero": 1,
+   "tags": ["street sign", "look up"]
   },
   "2004e68e61e70902.mp4": {
    "mood": "day",
-   "hero": 1
+   "hero": 1,
+   "tags": ["look up", "skyscraper", "sunny"]
   },
   "84afd2b2cba295cc.mp4": {
    "place": "Midtown",
    "area": "Manhattan",
    "mood": "night",
-   "hero": 3
+   "hero": 3,
+   "tags": ["night", "empty street", "empire state"]
   },
   "a63c728cf7a85901.mp4": {
    "mood": "day",
-   "hero": 1
+   "hero": 1,
+   "tags": ["street", "traffic", "sunny"]
   },
   "5622961856e68725.mp4": {
    "place": "Manhattan",
    "mood": "sunset",
-   "hero": 2
+   "hero": 2,
+   "tags": ["bridge", "skyline", "traffic"]
   },
   "1437dec0ccf21d16.mp4": {
    "place": "Manhattan",
    "mood": "sunset",
-   "hero": 2
+   "hero": 2,
+   "tags": ["bridge", "skyline", "traffic"]
   },
   "5496b4bc5cef94fa.mp4": {
    "mood": "day",
    "hero": 0,
    "place": "Nassau Street",
-   "area": "Financial District"
+   "area": "Financial District",
+   "tags": ["look up", "narrow street"]
   },
   "9558471c9bc20029.mp4": {
    "place": "Brooklyn Bridge",
    "ll": "40.7061° N  73.9969° W",
    "mood": "day",
    "hero": 2,
-   "pair": "bridge"
+   "pair": "bridge",
+   "tags": ["bridge", "brooklyn bridge", "river"]
   },
   "0df272c92c53aeb3.mp4": {
    "place": "Brooklyn Bridge",
    "ll": "40.7061° N  73.9969° W",
    "mood": "day",
    "hero": 2,
-   "pair": "bridge"
+   "pair": "bridge",
+   "tags": ["bridge", "brooklyn bridge", "river"]
   },
   "c31a0fbaa741824d.mp4": {
    "skip": "a billboard with a real person's face (a campaign-style ad) is in frame"
@@ -135,23 +160,28 @@
   },
   "4a5ea0948b16f090.mp4": {
    "mood": "day",
-   "hero": 0
+   "hero": 0,
+   "tags": ["rooftops", "sunny"]
   },
   "4a57359d737693d5.mp4": {
    "mood": "day",
-   "hero": 2
+   "hero": 2,
+   "tags": ["traffic", "taxi", "crosswalk", "from above"]
   },
   "a231789cef63d98e.mp4": {
    "mood": "day",
-   "hero": 2
+   "hero": 2,
+   "tags": ["traffic", "taxi", "from above"]
   },
   "2321830e615118f6.mp4": {
    "mood": "day",
-   "hero": 2
+   "hero": 2,
+   "tags": ["traffic", "taxi", "from above"]
   },
   "1276ca8a3b8de136.mp4": {
    "mood": "day",
-   "hero": 0
+   "hero": 0,
+   "tags": ["look up", "skyscraper"]
   },
   "f46fd19eb736b47c.mp4": {
    "skip": "a VOTE billboard: politics stays off this account"
@@ -159,17 +189,20 @@
   "4e41ce9d29229d59.mp4": {
    "place": "Lower Manhattan",
    "mood": "sunset",
-   "hero": 3
+   "hero": 3,
+   "tags": ["train", "skyline", "sunset"]
   },
   "3486778884279171.mp4": {
    "place": "Lower Manhattan",
    "mood": "sunset",
-   "hero": 3
+   "hero": 3,
+   "tags": ["train", "skyline", "sunset"]
   },
   "3a03babcc7b08cfc.mp4": {
    "place": "Lower Manhattan",
    "mood": "sunset",
-   "hero": 3
+   "hero": 3,
+   "tags": ["train", "skyline", "sunset"]
   },
   "1345b72a175c8b4b.mp4": {
    "skip": "someone else's mural is the subject"
@@ -177,22 +210,26 @@
   "478c55e0b24c6871.mp4": {
    "place": "Manhattan",
    "mood": "snow",
-   "hero": 2
+   "hero": 2,
+   "tags": ["snow", "rooftops", "from above"]
   },
   "a0ffbf503f63aac9.mp4": {
    "mood": "snow",
-   "hero": 1
+   "hero": 1,
+   "tags": ["snow", "slush", "sidewalk"]
   },
   "faf29cdd9ffb4024.mp4": {
    "mood": "snow",
-   "hero": 1
+   "hero": 1,
+   "tags": ["snow", "slush", "sidewalk"]
   },
   "e3a18a56dc6546a1.mp4": {
    "skip": "a woman walking is the subject"
   },
   "d647e80c0c0db571.mp4": {
    "mood": "day",
-   "hero": 0
+   "hero": 0,
+   "tags": ["look up", "flag"]
   },
   "4f6bd626f5196297.mp4": {
    "skip": "the I-heart-NY mark is a trademark"
@@ -204,21 +241,24 @@
    "place": "Madison Ave & E 56th St",
    "area": "Midtown",
    "mood": "night",
-   "hero": 3
+   "hero": 3,
+   "tags": ["night", "steam", "street sign", "look up"]
   },
   "20a89edfd618ee91.mp4": {
    "place": "Chrysler Building",
    "area": "Midtown",
    "ll": "40.7516° N  73.9755° W",
    "mood": "night",
-   "hero": 1
+   "hero": 1,
+   "tags": ["night", "sidewalk"]
   },
   "48fd47fd041cf096.mp4": {
    "place": "Manhattan Bridge",
    "ll": "40.7075° N  73.9908° W",
    "mood": "day",
    "hero": 2,
-   "pair": "river"
+   "pair": "river",
+   "tags": ["bridge", "manhattan bridge", "river"]
   },
   "91fea4bbba8c6097.mp4": {
    "skip": "two people walking at the camera are the subject"

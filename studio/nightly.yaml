@@ -106,7 +106,7 @@ targets:
     join: 30
   - campaign: nyc_daily     # nyc.daily.aesthetic: New York clips as memes and animated facts (studio/nyc_video.py)
     style: nyc
-    retire: {kind: [fact]}                           # fact 16 views vs meme 116 (2026-11-25)
+    retire: {kind: [fact, thennow]}                  # fact 16 views vs meme 116 (2026-11-25); thennow off until its old film looks right (2026-11-27). meme : walk 1 : 1
     per_night: 4               # 5 until 2026-11-26
     join: 30
   - campaign: tiny_code     # tiny.code.loops: a few lines of numpy shown in an editor, and what they draw (studio/tinycode_video.py)

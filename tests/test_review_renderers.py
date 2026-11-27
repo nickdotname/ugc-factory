@@ -39,3 +39,23 @@ class TestRocket:
         for c in self.clips:
             if c["w"] > c["h"]:
                 assert c.get("track") and all(0.2 <= x <= 0.8 for x in c["track"]), c["asset"]
+
+
+class TestNycMemes:
+    N = pytest.importorskip("nyc_video")
+    places = json.loads((REPO / "studio" / "nyc" / "places.json").read_text())["clips"]
+
+    def test_every_line_names_the_shot_it_needs(self):
+        assert len(self.N.MEMES) >= 30
+        for line, need in self.N.MEMES:
+            assert line and need, line
+            assert not re.search(r"\b(comment|tag a|tag your|follow|share|save this|link in bio)\b", line, re.I), line
+
+    def test_most_lines_have_a_clip_that_pays_them_off(self):
+        tags = {t for p in self.places.values() if not p.get("skip") for t in p.get("tags", ())}
+        ready = [l for l, need in self.N.MEMES if need in tags]
+        assert len(ready) >= 25, len(ready)
+
+    def test_skipped_clips_carry_no_tags(self):
+        for a, p in self.places.items():
+            assert not (p.get("skip") and p.get("tags")), a

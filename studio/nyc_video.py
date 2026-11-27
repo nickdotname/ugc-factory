@@ -10,10 +10,13 @@ split, public-domain films of the same places (theme nyc: the Brooklyn Bridge in
 (the label on screen), its mood, how well it opens a video, and the clips never to use (a person as the subject, a
 trademark, a billboard about an election).
 
-  kind   walk (the main one): full-screen city cut on the beat, a short line at the top for the first bars, the
-         place's name and, for a landmark, its coordinates on each cut. meme: the white caption bar over the same
-         city. thennow: the same place in an old film (top) and today (bottom), cut together. fact: a New York
-         number, readable from frame 0, over the city.
+  kind   walk: full-screen city cut on the beat, a short line at the top for the first bars, the place's name
+         and, for a landmark, its coordinates on each cut. meme: the white caption bar, its line written for one
+         kind of shot (studio/nyc/memes.txt, `needs:` a places.json tag): the video opens on a clip with that tag,
+         holds it for the first 2.4 s while the line is read, and cuts mostly to clips with the same tag, so the
+         picture is the joke's second beat. walk and meme 1 : 1 (review 2026-11-26). thennow: the same place in an
+         old film (top) and today (bottom): off until the old film is cleaned up and there are 5+ pairs. fact: a New
+         York number over the city: retired 2026-11-25 (16 views vs meme 116).
   mood   night, sunset, snow, day: the opening clip and most of the cuts share it, and so does the line at the top
   look   the grade: cine (teal shadows, warm highlights), night (cool, crushed, lights bloom), film (warm, faded,
          grain), clean
@@ -40,38 +43,18 @@ W, H, FPS = 1080, 1920, 30
 SAFE_X0, SAFE_X1, SAFE_Y0, SAFE_Y1 = 96, 930, 250, 1500
 PLACES = json.load(open(os.path.join(HERE, 'nyc', 'places.json')))['clips']
 
-MEMES = [
-    "pov: \"we are being held momentarily by the train's dispatcher\"",
-    "me walking 4 blocks out of my way to avoid one slow tourist",
-    "\"it's like a 10 minute walk\" - a new yorker, describing 30 minutes",
-    "the 2am dollar slice that fixes everything",
-    "when the express train actually shows up first",
-    "pov: you moved here for the \"energy\"",
-    "when the bodega cat finally lets you pet it",
-    "new yorkers when it's 55 degrees and sunny",
-    "me pretending i didn't just miss the train by 2 seconds",
-    "the empty subway car is empty for a reason",
-    "nyc weather: four seasons in one week",
-    "the bodega guy remembering your order >>>",
-    "when someone stops dead at the top of the subway stairs",
-    "my apartment listing said \"cozy\"",
-    "car alarm at 3am. nobody moves.",
-    "that scaffolding has been up since before i moved here",
-    "every umbrella in midtown at exactly eye level",
-    "the walk from the train to my apartment is my whole cardio",
-    "me after one week here: \"as a new yorker...\"",
-    "brooklyn people explaining manhattan is \"too much\"",
-    "when the L train is down again this weekend",
-    "jaywalking is a personality here",
-    "a $9 iced coffee hits different after a 45 minute commute",
-    "\"showtime!\" at 8am on a monday",
-    "pov: the A train skipped your stop and you're in queens now",
-    "staten island ferry: the best free date in the city",
-    "me saying \"sorry\" while walking straight through you",
-    "when it's sunny and the whole city is in the same park",
-    "being from here means you never look up at the buildings",
-    "the city at 5am hits different",
-]
+def memes(path=os.path.join(HERE, 'nyc', 'memes.txt')):
+    """[(line, needs)] from studio/nyc/memes.txt: each line with the places.json tag its picture must show."""
+    out = []
+    for row in open(path, encoding='utf-8'):
+        row = row.rstrip('\n')
+        if not row.strip() or row.lstrip().startswith('#'): continue
+        line, _, need = row.partition('needs:')
+        out.append((line.strip(), need.strip()))
+    return out
+
+
+MEMES = memes()
 # (number, how it is written, what it counts)
 FACTS = [
     (843, '{:,.0f}', 'acres of central park'),
@@ -197,16 +180,28 @@ class Video:
         today, films = library()
         if len(today) < 3: sys.exit('no New York footage: run the footage workflow (theme nyc_now) first')
         pairs = sorted({info(e)['pair'] for e in films} & {info(e).get('pair') for e in today} - {None})
-        self.kind = K.pick('kind', ['walk', 'meme', 'thennow', 'fact'], r, weights=[5, 3, 2 if pairs else 0, 1])
-        have = {m: sum(1 for e in today if info(e).get('mood') == m and info(e).get('hero', 0) >= 2) for m in MOODS}
-        self.mood = K.pick('mood', MOODS, r, weights=[1 if have[m] else 0 for m in MOODS] if any(have.values()) else None)
+        # meme + walk 2:2 (docs/brain/reviews/2026-11-26/worlds.md §3): fact stays retired (nightly.yaml too), thennow is
+        # off until its old film is levelled, sharpened and cropped and there are 5+ pairs (the 1899 bridge reads as mud)
+        self.kind = K.pick('kind', ['walk', 'meme', 'thennow', 'fact'], r, weights=[1, 1, 0, 0])
+        self.need = None
+        if self.kind == 'meme':                                                     # the line first: it decides the picture
+            tagged = {t for e in today for t in info(e).get('tags', ())}
+            ok = [j for j, (_l, nd) in enumerate(MEMES) if nd in tagged] or list(range(len(MEMES)))
+            want = K.FORCED.get('meme'); j = int(want) if want is not None and want.isdigit() and int(want) in ok else r.choice(ok)
+            K.MENU['meme'] = [str(q) for q in ok]; K.CHOSEN['meme'] = str(j)
+            self.text, self.need = MEMES[j]
+            if self.need not in tagged: self.need = None
+        mine = [e for e in today if self.need in info(e).get('tags', ())] if self.need else today
+        have = {m: sum(1 for e in mine if info(e).get('mood') == m and (self.need or info(e).get('hero', 0) >= 2)) for m in MOODS}
+        self.mood = K.pick('mood', MOODS, r, weights=[have[m] if self.need else (1 if have[m] else 0) for m in MOODS] if any(have.values()) else None)
         self.look = K.pick('look', LOOKS, r, weights=[2, 4, 1, 0] if self.mood == 'night' and self.kind != 'thennow' else [3, 0, 2, 1])   # the night grade turns daylight grey
         self.pace = K.pick('pace', ['beat2', 'bar'], r)
         self.pair = K.pick('pair', pairs or ['none'], r) if self.kind == 'thennow' else None
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']; spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 6.0)
         step = 2 if self.pace == 'beat2' or 4 * spb > 2.6 else 4
-        self.cuts = sorted({0} | {int(round(fr)) for b, fr in a['beats'] if b % step == 0 and 8 <= fr <= n - 8})
+        first = int(2.4 * FPS) if self.kind == 'meme' else 8                       # a meme holds its first shot while the line is read
+        self.cuts = sorted({0} | {int(round(fr)) for b, fr in a['beats'] if b % step == 0 and first <= fr <= n - 8})
         self.ends = self.cuts[1:] + [n]
         self.top_h = 952                                                             # thennow: the old film's half
         if self.kind == 'thennow':
@@ -216,7 +211,6 @@ class Video:
             self.plan_old = []; self.plan_new = self.plan(today)
         self.fonts()
         if self.kind == 'meme':
-            self.text = MEMES[r.randrange(len(MEMES))]; K.CHOSEN['line'] = str(MEMES.index(self.text)); K.MENU['line'] = [str(j) for j in range(len(MEMES))]
             self.rows = wrap(self.text, self.f_meme, W - 150)
             self.panel = 268 + 76 * len(self.rows) + 40                              # the white bar, from the top
         elif self.kind == 'fact':
@@ -244,6 +238,10 @@ class Video:
             mine = lambda e: self.kind == 'thennow' or info(e).get('mood') == mood
             heroes = [e for e in pool if info(e).get('hero', 0) >= 3 and mine(e)] or [e for e in pool if info(e).get('hero', 0) >= 2 and mine(e)] or \
                      sorted(pool, key=lambda e: -info(e).get('hero', 0))[:4]
+            if self.need:                                                         # a meme opens on the thing its line is about
+                fits = [e for e in pool if self.need in info(e).get('tags', ())]
+                top = max(info(e).get('hero', 0) + (1 if mine(e) else 0) for e in fits)
+                heroes = [e for e in fits if info(e).get('hero', 0) + (1 if mine(e) else 0) >= top - 1]
             first = r.choice(heroes)
         lo, hi = lens[-1], total[first['asset']] - lens[0]
         out = [(first, r.randint(lo, hi) if hi >= lo else max(0, hi))]
@@ -254,7 +252,8 @@ class Video:
                 out.append((first, out[0][1])); continue                              # the loop: back into frame 0
             prev = out[-1][0]
             cand = [e for e in pool if e['key'] != prev['key'] and (not last or e['key'] != first['key'])] or pool
-            wts = [(10 if old or info(e).get('mood') == mood else 1) * (1 + info(e).get('hero', 0)) / (1 + 2 * used.get(e['asset'], 0)) for e in cand]
+            wts = [(10 if old or info(e).get('mood') == mood else 1) * (8 if self.need in info(e).get('tags', ()) else 1) *
+                   (1 + info(e).get('hero', 0)) / (1 + 2 * used.get(e['asset'], 0)) for e in cand]
             e = r.choices(cand, weights=wts)[0]; used[e['asset']] = used.get(e['asset'], 0) + 1
             out.append((e, r.randrange(0, max(1, total[e['asset']] - lens[k]))))
         return out
