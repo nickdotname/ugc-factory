@@ -6,8 +6,10 @@ pit, the roller rink's cosmic carpet, the school computer lab, a school hallway,
     python studio/liminal_video.py studio/songs/<slug> <seed> out.png --frames 0,200     (CQ_FULL=1: full-size frames)
 
 No footage: every frame is ray-cast from nothing, so nothing in it is anyone else's (no logos, no characters).
-The seed picks the place, its light, the tape's date stamp and how the camera drifts; a line naming one specific
-memory of that place is on screen from the first frame. The corridor repeats, and the camera moves exactly a whole
+The seed picks the place, its light, the tape's date stamp and how the camera drifts. From the first frame a line puts
+the viewer in the room, in the second person, with something about to go wrong ("you're the last kid in the play place.
+the lights go out"), and inside the first second it does: the lights die on a drum hit, stay out for a moment and
+stutter back (docs/brain/reviews/2026-11-26/archive.md 2: the rooms read as screensavers, 77% skipped). The corridor repeats, and the camera moves exactly a whole
 number of repeats in the clip (the step bob and tilt are whole cycles too), so the video loops with no seam. The lights
 hum with the music and flicker on the hardest drum hits, and a tracking band tears through on them.
 A recipe .json is written beside the video.
@@ -46,8 +48,15 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import knobs as 
 # Childhood places first (2026-11-24 review): the play place, the roller rink and the school computer lab are the
 # rooms people say "I was HERE" about, and a specific memory is what gets sent to a friend; the empty yellow back
 # rooms have been everywhere since the 2026 film. office and parking were dropped: nothing in them is a memory.
-PLACES = ['playplace', 'playplace', 'rink', 'rink', 'lab', 'lab', 'school', 'school', 'mall', 'pool', 'backrooms', 'hotel']
-if os.environ.get('CQ_PLACE'): K.FORCED.setdefault('place', os.environ['CQ_PLACE'])
+# RETIRED (2026-11-27, nightly.yaml's retire for nostalgia says the same): pool, school and hotel never got a test batch
+# (median 4 views). They are not on the menu, so no tape draws them, not even the one in ten nightly leaves to chance;
+# a fact reel (CQ_CARDS) may still set its story in one through CQ_PLACE, behind its cards.
+RETIRED = ('office', 'parking', 'pool', 'school', 'hotel')
+PLACES = ['playplace', 'playplace', 'rink', 'rink', 'lab', 'lab', 'mall', 'mall', 'backrooms', 'backrooms']
+_want = os.environ.get('CQ_PLACE', '')
+if _want and (_want not in RETIRED or _cards.CARDS):
+    K.FORCED.setdefault('place', _want)
+    if _want not in PLACES: PLACES = PLACES + [_want]
 place = K.pick('place', PLACES, rng)
 P = dict(backrooms=dict(width=3.2, height=2.6, period=4.0, fog=(.42, .38, .22), fogd=.11, gap=(1.2, 2.6), eye=1.55, gloss=0, pace=.45),
          pool=dict(width=4.4, height=3.2, period=3.0, fog=(.62, .78, .80), fogd=.08, gap=(0.9, 2.4), eye=1.55, gloss=0, pace=.5),
@@ -331,34 +340,38 @@ def frame(i):
     fog = np.exp(-P['fogd'] * t)[..., None]
     col = col * fog + np.array(P['fog'], np.float32) * (1 - fog) * (.75 + .25 * hum)
     col *= 1 + np.array([warm, .05 if tint == 'green' else 0, -warm], np.float32)
-    return np.clip(col, 0, 1.2)
+    return np.clip(col * dark(i), 0, 1.2)
+
+# ---- something wrong by second 1 -------------------------------------------------------------
+# The line says the lights go out; inside the first second they do, on a drum hit (frame 9-27, else frame 15), everything
+# (the lab's screens too) for 0.4 s, then they stutter back. A fact reel's cards need the room lit: none there.
+BLACKOUT = None if _cards.CARDS else next((k for k in range(9, min(28, N - 20)) if hit[k] > .5), min(15, max(0, N - 21)))
+OUT = [.04] * 12 + [.7, .08, .9, .15, 1.0]                 # dark, then the tubes catching: on, off, on, flicker, on
+def dark(i):
+    if BLACKOUT is None or not BLACKOUT <= i < BLACKOUT + len(OUT): return 1.0
+    return OUT[i - BLACKOUT]
 
 # ---- the line on screen ----------------------------------------------------------------------
-# One specific memory, true of any video of that place, held for the whole clip so it reads on a replay.
-# Statements, not asks: no "comment", no "tag", no "if you remember this you had a good childhood".
+# You, in this room, and the lights about to go: second person, present tense, true of every video of that place (the
+# blackout above happens in all of them), held for the whole clip so it reads on a replay. Statements, not asks.
+# (Until 2026-11-27 these were memories, "the ball pit at every birthday party in 1999": good copy nobody stayed for.)
 LINES = {
-    'playplace': ["the ball pit at every birthday party in 1999", "losing a shoe in the ball pit and never seeing it again",
-                  "the play place you begged to stop at on road trips", "socks only. no shoes past this point",
-                  "the tube slide that was always way too hot", "you were the last kid here before close"],
-    'rink':      ["roller rink birthday parties were a whole event", "the carpet at the bowling alley. you know the one",
-                  "couples skate. you stayed on the wall", "the rink on a friday night in 2001",
-                  "the arcade carpet you could stare at for hours"],
-    'lab':       ["the computer lab after everyone went home", "the school computer lab, 2003",
-                  "the whole class on the same typing game", "the starfield screensaver on every monitor",
-                  "computer lab day was the best day of the week"],
-    'school':    ["the hallway after the last bell", "the last day of school before summer",
-                  "being sent to the office in third grade", "the hallway smelled like floor wax and lunch"],
-    'mall':      ["the mall on a weekday morning in 2002", "the mall after every store pulled the shutters down",
-                  "the mall the year before it closed"],
-    'pool':      ["the hotel pool at 10pm on the family road trip", "swim lessons at 8am in january",
-                  "the indoor pool on a rainy saturday"],
-    'hotel':     ["walking to the ice machine at midnight", "the hotel hallway on the family road trip"],
-    'backrooms': ["the door at the back of the furniture store", "the part of the building you weren't meant to see",
-                  "getting lost in a building as a kid"],
+    'playplace': ["you're the last kid in the play place. the lights go out", "you're still in the ball pit at closing. the lights go out",
+                  "you lost your shoe in the ball pit. then the lights go out", "your mom said five more minutes. then the lights go out"],
+    'rink':      ["you're the last one on the rink. the lights cut out", "couples skate is over and you're still out here. the lights go out",
+                  "you're lacing your skates on the carpet. the lights go out"],
+    'lab':       ["you stayed in the computer lab after the bell. the power cuts out", "you're the last one in the computer lab. every screen goes black",
+                  "you're saving your game to a floppy. the power cuts out"],
+    'mall':      ["you're still in the mall after closing. the lights go out", "every shutter is down and you're still inside. the lights go out",
+                  "you lost your mom in the mall. then the lights go out"],
+    'backrooms': ["you went through the door at the back of the store. the lights go out", "you don't remember walking in here. the lights go out",
+                  "you've been walking this hallway for an hour. the lights go out"],
 }
 def _line():
-    if os.environ.get('CQ_HOOK'): return '' if os.environ['CQ_HOOK'] == 'none' else os.environ['CQ_HOOK']
-    return random.Random(seed * 7919 + 11).choice(LINES[place])
+    # the line is the format now: a tape always has one (nightly's 'opening line: without' is not honoured here); a
+    # line nightly chose is used as it is
+    if os.environ.get('CQ_HOOK') and os.environ['CQ_HOOK'] != 'none': return os.environ['CQ_HOOK']
+    return random.Random(seed * 7919 + 11).choice(LINES.get(place) or ["you're the last one here. the lights go out"])
 
 # ---- the tape --------------------------------------------------------------------------------
 MON = 'JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC'.split()
@@ -388,8 +401,8 @@ def _agree(line):
     if m: hour = int(m.group(1)) % 12 + (12 if m.group(2) == 'pm' else 0)
     elif 'midnight' in low: hour = 0
     elif 'morning' in low: hour = r.choice([9, 10, 11])
-    elif 'night' in low or 'before close' in low: hour = r.choice([20, 21, 22])
-    elif 'last bell' in low or 'after everyone went home' in low: hour = r.choice([15, 16])
+    elif 'night' in low or 'before close' in low or 'closing' in low: hour = r.choice([20, 21, 22])
+    elif 'last bell' in low or 'after the bell' in low or 'after everyone went home' in low: hour = r.choice([15, 16])
     want = {'monday': 0, 'tuesday': 1, 'wednesday': 2, 'thursday': 3, 'friday': 4, 'saturday': 5, 'sunday': 6}
     wd = next((v for k, v in want.items() if k in low), None)
     if wd is None and 'weekday' in low: wd = r.choice([0, 1, 2, 3])

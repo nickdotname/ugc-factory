@@ -43,7 +43,7 @@ targets:
   # psy_station collage (studio/collage_video.py) dropped 2026-11-24: median 13 views over 3 posts, flat and samey.
   - campaign: nostalgia     # nostalgia.hub.vhs: liminal VHS tapes
     style: liminal
-    retire: {place: [school, pool]}                  # 2-3 views vs backrooms 138, mall 121 (2026-11-25)
+    retire: {place: [school, pool, office, parking, hotel]}   # 2-3 views vs backrooms 138, mall 121 (2026-11-25); liminal_video.py's RETIRED says the same, so not even an explore video draws them (2026-11-27)
     per_night: 1               # 3 until 2026-11-27 (4 before, 7 before that): fact reels (median 224) carry the account; tapes median ~40
     join: 40
   - campaign: nick_studio   # Loose Change (formerly nickdotname, through Buffer): kinetic type, its own look, unlike close__quarters and dylancantor23
