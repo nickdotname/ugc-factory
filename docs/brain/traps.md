@@ -160,3 +160,9 @@ Three accounts posted nothing for a day and a half. Two separate bugs, plus smal
   fresh ones get hook_03 and up.
 - **petri / glitch / vintage** make one video a night when the 3-night subject rule finds nothing fresh, so one
   crash or one repeat empties the queue. Watch these three first in a health check.
+
+## An account that "does not exist" (2026-11-27, @math.explainers)
+Publisher error `Object with ID '<ig id>' does not exist, cannot be loaded due to missing permissions` while other
+accounts on the same `IG_TOKEN` post fine, and instagram.com/<handle> says "Profile isn't available": the account was
+removed, disabled or renamed on Instagram (or unlinked from its Page). Not a token problem. Pause its campaign and the
+nightly target, then ask the operator to open the account in the app (appeal, reactivate, or relink the Page).

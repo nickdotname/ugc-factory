@@ -56,6 +56,7 @@ targets:
     join: 30
   - campaign: math_time     # Math In Time: math explainers moving to the music (topic and look are knobs)
     style: math
+    paused: true            # 2026-11-27: @math.explainers unreachable (removed or disabled on Instagram)
     per_night: 5
     join: 40
   - campaign: glitch_archive  # glitch.archive: public-domain footage, moshed / tracked / sorted on the beat (studio/footage.py for the clips)
