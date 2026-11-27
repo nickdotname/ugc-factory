@@ -64,13 +64,13 @@ accounts:
 
 posting:
   posts_per_day: 2            # 5 until docs/brain/reviews/2026-11-26: every notes page at 2 while its numbers are still blind
-  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
-  end_hour: 23
+  start_hour: 15             # NY. The five text pages are staggered so none posts in the same minutes as another
+  end_hour: 1
   max_buffer_queue: 10
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
   # accounts.
-  slot_offset_min: 47
+  slot_offset_min: 23        # grip.tape 15:23 and 20:23 NY, for the skate crowd (the window crosses midnight)
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
