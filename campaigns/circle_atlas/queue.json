@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Won't Be the Same Again – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "fourier_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T16:22:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "every outline is just circles turning inside circles. enough of them and you get a coastline\n🎧 Won't Be the Same Again – @close__quarters #geography #maps #fourier #mathart #countries\n\nWon't Be the Same Again is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "fourier_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "the real border, traced by nothing but spinning circles\n🎧 Recess (Rewind) – @close__quarters #geography #maps #fourier #mathart #countries\n\nlink in bio to stream Recess (Rewind)"
       },
