@@ -653,6 +653,39 @@
    },
    "lyrics_proven": false,
    "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-27",
+   "creative": "suspended",
+   "file": "suspended_s05_glitch_982976.mp4",
+   "song": "suspended",
+   "section": "s05",
+   "style": "glitch",
+   "seed": 982976,
+   "window": [
+    93.56,
+    108.81
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "archive",
+    "main": "mosh",
+    "opener": "clean",
+    "accent": "rgb",
+    "tone": "mono",
+    "pace": "1",
+    "label": "none",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.51,
+    "bass": 0.23,
+    "other": 0.64
+   },
+   "lyrics_proven": false,
+   "clip": "hook_06.mp4"
   }
  ]
 }
