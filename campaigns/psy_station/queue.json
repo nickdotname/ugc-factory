@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-11-27T08:33:48.167169Z",
+  "generated_at": "2026-11-27T14:01:44.854697Z",
   "items": [
     {
-      "id": "d96e05e8-6447-41fc-982c-83b5c1e48f28",
+      "id": "7276c0aa-d53d-4646-98aa-979650e37483",
       "scheduled_for": "2026-11-27T09:20:00-05:00",
-      "rendered_at": "2026-11-27T08:33:48.167169Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-27/d96e05e8-6447-41fc-982c-83b5c1e48f28.mp4",
-      "caption": "the patterns are listening\n🎧 Hair of the Dog – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "rendered_at": "2026-11-27T14:01:44.854697Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-27/7276c0aa-d53d-4646-98aa-979650e37483.mp4",
+      "caption": "the vocals move the light\n🎧 Hair of the Dog – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.397,
-        "anchor_y": 0.725,
+        "anchor_x": 0.579,
+        "anchor_y": 0.479,
         "rotate_deg": -0.0,
-        "brightness": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -33,33 +33,23 @@
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Hair of the Dog by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-26314500-45b1-427c-81f3-b762be69ea69",
-          "last_error": null,
-          "scheduled_for": "2026-11-30T16:20:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "the patterns are listening\n🎧 Hair of the Dog – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Hair of the Dog: link in bio"
+        "instagram": "the vocals move the light\n🎧 Hair of the Dog – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Hair of the Dog"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "64539e0f-1001-4493-910c-9aca5a908078",
+      "id": "1ca2aee4-c1e9-4c2b-af59-9c0093d06099",
       "scheduled_for": "2026-11-27T16:20:00-05:00",
-      "rendered_at": "2026-11-27T08:33:48.167169Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-27/64539e0f-1001-4493-910c-9aca5a908078.mp4",
-      "caption": "the bass is what's bending the picture\n🎧 Recess (Rewind) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive",
+      "rendered_at": "2026-11-27T14:01:44.854697Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-27/1ca2aee4-c1e9-4c2b-af59-9c0093d06099.mp4",
+      "caption": "1960s light shows did this with oil, water and a projector. this one is maths\n🎧 Passage (Waiting) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive",
       "title": null,
       "parts": {
         "hook": "hook_04.mp4",
@@ -69,9 +59,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.693,
-        "anchor_y": 0.317,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.336,
+        "anchor_y": 0.43,
+        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
@@ -81,28 +71,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "recess_rewind",
+      "creative": "passage_waiting",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Recess (Rewind) – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-0e8c6c24-17f0-4430-888a-88f6095d676d",
-          "last_error": null,
-          "scheduled_for": "2026-12-01T09:20:00-05:00"
-        }
-      ],
+      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "the bass is what's bending the picture\n🎧 Recess (Rewind) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nRecess (Rewind) is out now. link in bio to stream it"
+        "instagram": "1960s light shows did this with oil, water and a projector. this one is maths\n🎧 Passage (Waiting) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
