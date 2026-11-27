@@ -898,6 +898,7 @@ def _render(
     # style on one account whichever songs they are.
     clip_styles = _clip_styles(config)
     voiced = _voiced_clips(config)
+    clip_cards = _clip_cards(config)
     style_banks: dict[tuple[str, str], list[Description]] = {}
     for name, res in resources.items():
         for style in sorted(set(clip_styles.get(name, {}).values())):
@@ -1038,6 +1039,12 @@ def _render(
         overlay = pinned.overlay if pinned is not None else (
             record.overlay if record else None
         )
+        # A text card's own line opens its caption (notes pages, 2026-11-27).
+        card = clip_cards.get(creative_name, {}).get(selection.hook) if pinned is None else None
+        if card:
+            selection = selection.model_copy(
+                update={"caption": card_caption(card, selection.caption, config.buffer.service)}
+            )
         title = selection.title if pinned is not None else (
             record.title if record else None
         )
@@ -2534,15 +2541,20 @@ def _visual_pools(config: CampaignConfig, resources: Mapping[str, Any]) -> dict[
     }
 
 
-def _clip_styles(config: CampaignConfig) -> dict[str, dict[str, str]]:
-    """creative -> clip -> studio style, from the campaign's recipes.json (the studio job writes an entry as it
-    ingests each video). Empty when there is no such file: a campaign that is not studio-made has no styles."""
+def _recipes(config: CampaignConfig) -> list[dict]:
+    """The campaign's recipes.json `nightly` entries (the studio job writes one as it ingests each video). Empty when
+    there is no such file: a campaign that is not studio-made has no recipes."""
     try:
         rec = json.loads((_campaign_dir(config.slug) / "recipes.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return {}
+        return []
+    return [e for e in (rec.get("nightly", []) if isinstance(rec, dict) else []) if isinstance(e, dict)]
+
+
+def _clip_styles(config: CampaignConfig) -> dict[str, dict[str, str]]:
+    """creative -> clip -> studio style, from the campaign's recipes.json."""
     out: dict[str, dict[str, str]] = {}
-    for entry in rec.get("nightly", []) if isinstance(rec, dict) else []:
+    for entry in _recipes(config):
         if entry.get("style") and entry.get("creative") and entry.get("clip"):
             out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = str(entry["style"])
     return out
@@ -2570,6 +2582,27 @@ def _disclosed(text: str | None) -> str | None:
     if text is None or AI_VOICE_LABEL in text.lower():
         return text
     return f"{text.rstrip()}\n\n{AI_VOICE_LABEL}"
+
+
+def _clip_cards(config: CampaignConfig) -> dict[str, dict[str, str]]:
+    """creative -> clip -> the text on the card, for clips whose recipe carries one (`plan.caption`, written by
+    studio/text_video.py): a text page's post opens on its own line, the thing people search for and the share
+    preview shows, not on a tag from the bank."""
+    out: dict[str, dict[str, str]] = {}
+    for entry in _recipes(config):
+        card = (entry.get("plan") or {}).get("caption") if isinstance(entry.get("plan"), dict) else None
+        if card and entry.get("creative") and entry.get("clip"):
+            out.setdefault(str(entry["creative"]), {})[str(entry["clip"])] = str(card).strip()
+    return out
+
+
+def card_caption(card: str, body: str, service: Service) -> str:
+    """A text card's caption: the card's own line first, then the bank's credit and hashtags. The bank's text alone
+    when the card is already in it or the two together would not fit the network."""
+    if not card or card.lower() in body.lower():
+        return body
+    joined = f"{card}\n{body}"
+    return body if check_description(joined, service) else joined
 
 
 def _style_boost(config: CampaignConfig) -> dict[str, dict[str, float]] | None:

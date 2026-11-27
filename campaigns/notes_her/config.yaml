@@ -64,13 +64,13 @@ accounts:
 
 posting:
   posts_per_day: 2            # 5 until docs/brain/reviews/2026-11-26: every notes page at 2 while its numbers are still blind
-  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
-  end_hour: 23
+  start_hour: 12             # NY. The five text pages are staggered so none posts in the same minutes as another
+  end_hour: 0
   max_buffer_queue: 10
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
   # accounts.
-  slot_offset_min: 44
+  slot_offset_min: 58        # trader.joes 12:58 and 18:58 NY (the window runs to midnight)
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
@@ -141,10 +141,9 @@ overlay:
 funnel:
   name: Education by Close Quarters
   link: ""                    # your smart link — fill this in before going live
-  cta:
-    - "link in bio to stream {name}"
-    - "stream {name}: link in bio"
-    - "{name} is out now. link in bio to stream it"
+  # No ask on a text page (docs/brain/reviews/2026-11-26/notes.md §9.4): the caption is the card's own line,
+  # then one credit line from captions.txt; the first comment carries the album.
+  cta: []
   cta_by_network:
     youtube:                  # YouTube descriptions carry a real link
       - "Full song — {name}: {link}"
