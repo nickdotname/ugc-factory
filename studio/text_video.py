@@ -37,6 +37,7 @@ W, H, FPS = 1080, 1920, 30
 MAX_SEC = {'none': 7.0, 'beat': 9.0}    # a text post is read in a few seconds: short, so a re-read is a second loop
 TAIL = 9                                # frames of the loop fade at the end
 RISE = 6                                # frames the payoff takes to land
+SAFE = (96, 924)                        # the x range Instagram's own buttons and caption leave clear; the text sits in it
 BANK = os.path.join(HERE, 'notes', 'lines.txt'); RECIPES = os.path.join(REPO, 'campaigns', 'notes_app', 'recipes.json')
 PREFIX = 'n'            # line ids: n001, n002, ... (each voice's bank has its own letter)
 HANDLE = 'moth.ate.my.notes'            # the note's title in the notes look
@@ -200,7 +201,7 @@ class Video:
         Rows are laid out once for the whole card, so the setup never moves when the payoff lands."""
         notes = self.look == 'notes'
         file, weight, size, pitch = ('Figtree.ttf', 500, NOTES['body'], NOTES['pitch']) if notes else FACES[self.face]
-        width = W - 2 * NOTES['x'] if notes else 900
+        width = SAFE[1] - NOTES['x'] if notes else SAFE[1] - SAFE[0]        # inside Instagram's safe column (x 96-924)
         def font(sz):
             f = ImageFont.truetype(os.path.join(REPO, 'fonts', file), sz)
             if weight: f.set_variation_by_axes([weight])
@@ -227,7 +228,7 @@ class Video:
             yy = y + sum(heights[:start])
             for row, h in zip(rows[start:end], heights[start:end]):
                 if row:
-                    at, anchor = ((NOTES['x'], yy), 'ls') if notes else ((W / 2, yy), 'ms')
+                    at, anchor = ((NOTES['x'], yy), 'ls') if notes else ((sum(SAFE) / 2, yy), 'ms')
                     d.text(at, row, font=f, fill=ink, anchor=anchor); ds.text((at[0], yy + 4), row, font=f, fill=255, anchor=anchor)
                 yy += h
             start = end
