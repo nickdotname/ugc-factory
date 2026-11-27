@@ -1,27 +1,70 @@
 {
-  "generated_at": "2026-11-26T16:20:00.431778Z",
+  "generated_at": "2026-11-27T08:32:09.518508Z",
   "items": [
     {
-      "id": "a61c0ad2-54ea-4a44-a4e3-446d70560ebe",
-      "scheduled_for": "2026-11-26T11:47:00-05:00",
-      "rendered_at": "2026-11-26T14:02:16.174103Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-26/a61c0ad2-54ea-4a44-a4e3-446d70560ebe.mp4",
-      "caption": "respectfully\n🎧 Subway Maintenance – @close__quarters #skateboarding #relatable #humor",
+      "id": "8fb473e7-889a-42a0-b13a-3aca1e42475b",
+      "scheduled_for": "2026-11-27T08:47:00-05:00",
+      "rendered_at": "2026-11-27T08:32:09.518508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-27/8fb473e7-889a-42a0-b13a-3aca1e42475b.mp4",
+      "caption": "no notes\n🎧 Fixation – @close__quarters #skateboarding #relatable #humor",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.466,
-        "anchor_y": 0.66,
+        "anchor_x": 0.599,
+        "anchor_y": 0.483,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "fixation",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Fixation by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "no notes\n🎧 Fixation – @close__quarters #skateboarding #relatable #humor\n\nstream Fixation: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "1e286bd1-3461-4775-a189-3f2c2d9f7c81",
+      "scheduled_for": "2026-11-27T11:47:00-05:00",
+      "rendered_at": "2026-11-27T08:32:09.518508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-27/1e286bd1-3461-4775-a189-3f2c2d9f7c81.mp4",
+      "caption": "skate or die (mostly die)\n🎧 Subway Maintenance – @close__quarters #skateboarding #relatable #humor",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.642,
+        "anchor_y": 0.356,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -34,206 +77,37 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Subway Maintenance – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "him_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-66ecc05d-7553-4818-9cb7-9839c2767007",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T11:47:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "respectfully\n🎧 Subway Maintenance – @close__quarters #skateboarding #relatable #humor\n\nSubway Maintenance is out now. link in bio to stream it"
+        "instagram": "skate or die (mostly die)\n🎧 Subway Maintenance – @close__quarters #skateboarding #relatable #humor\n\nSubway Maintenance is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "b5253220-59ef-49ba-9eb9-7b914de786e1",
-      "scheduled_for": "2026-11-26T14:47:00-05:00",
-      "rendered_at": "2026-11-26T14:02:16.174103Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-26/b5253220-59ef-49ba-9eb9-7b914de786e1.mp4",
-      "caption": "grip tape wisdom\n🎧 Hair of the Dog – @close__quarters #skateboarding #relatable #humor",
+      "id": "a51d633a-c265-40d0-8b25-932029b2e2b1",
+      "scheduled_for": "2026-11-27T14:47:00-05:00",
+      "rendered_at": "2026-11-27T08:32:09.518508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-27/a51d633a-c265-40d0-8b25-932029b2e2b1.mp4",
+      "caption": "bro\n🎧 Evil Close Quarters – @close__quarters #skateboarding #relatable #humor",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.681,
-        "anchor_y": 0.379,
-        "rotate_deg": -0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "hair_of_the_dog",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "him_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-25f1fc23-1fdc-4a27-a832-a837a2408f15",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T14:47:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "grip tape wisdom\n🎧 Hair of the Dog – @close__quarters #skateboarding #relatable #humor\n\nlink in bio to stream Hair of the Dog"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "de92f2bf-d17a-4b56-9f2c-c95d0702c6c7",
-      "scheduled_for": "2026-11-26T17:47:00-05:00",
-      "rendered_at": "2026-11-26T14:02:16.174103Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-26/de92f2bf-d17a-4b56-9f2c-c95d0702c6c7.mp4",
-      "caption": "the streets are talking\n🎧 Recess (Rewind) – @close__quarters #skateboarding #relatable #humor",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.53,
-        "anchor_y": 0.572,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.66,
+        "anchor_y": 0.632,
+        "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "recess_rewind",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Recess (Rewind) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "him_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-8617d386-3eb8-400d-848e-e6045ae90a40",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T17:47:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the streets are talking\n🎧 Recess (Rewind) – @close__quarters #skateboarding #relatable #humor\n\nstream Recess (Rewind): link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "8424c218-b240-4790-97cb-7a00b5e8bf86",
-      "scheduled_for": "2026-11-26T20:47:00-05:00",
-      "rendered_at": "2026-11-26T14:02:16.174103Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-26/8424c218-b240-4790-97cb-7a00b5e8bf86.mp4",
-      "caption": "it is what it is\n🎧 Talk – @close__quarters #skateboarding #relatable #humor",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.464,
-        "anchor_y": 0.479,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "talk",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Talk – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "him_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-773f65ac-85cc-4a32-ae59-0798fdff797e",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T20:47:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "it is what it is\n🎧 Talk – @close__quarters #skateboarding #relatable #humor\n\nTalk is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "74dd9b9d-301c-4c19-8805-854fdbedb28c",
-      "scheduled_for": "2026-11-27T08:47:00-05:00",
-      "rendered_at": "2026-11-26T14:02:16.174103Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-26/74dd9b9d-301c-4c19-8805-854fdbedb28c.mp4",
-      "caption": "real\n🎧 Evil Close Quarters – @close__quarters #skateboarding #relatable #humor",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.585,
-        "anchor_y": 0.399,
-        "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
@@ -246,22 +120,98 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "him_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-36899c3b-696a-43be-8abd-5223225131ab",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T08:47:00-05:00"
-        }
-      ],
+      "posts": [],
       "captions": {
-        "instagram": "real\n🎧 Evil Close Quarters – @close__quarters #skateboarding #relatable #humor\n\nlink in bio to stream Evil Close Quarters"
+        "instagram": "bro\n🎧 Evil Close Quarters – @close__quarters #skateboarding #relatable #humor\n\nlink in bio to stream Evil Close Quarters"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "b5a90042-cf2e-4cde-aec8-96621ad12b5b",
+      "scheduled_for": "2026-11-27T17:47:00-05:00",
+      "rendered_at": "2026-11-27T08:32:09.518508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-27/b5a90042-cf2e-4cde-aec8-96621ad12b5b.mp4",
+      "caption": "bro moment\n🎧 Won't Be the Same Again – @close__quarters #skateboarding #relatable #humor",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.44,
+        "anchor_y": 0.37,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "bro moment\n🎧 Won't Be the Same Again – @close__quarters #skateboarding #relatable #humor\n\nstream Won't Be the Same Again: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "048703e2-0f6d-4ede-9ef9-8df84f4db9f8",
+      "scheduled_for": "2026-11-27T20:47:00-05:00",
+      "rendered_at": "2026-11-27T08:32:09.518508Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-27/048703e2-0f6d-4ede-9ef9-8df84f4db9f8.mp4",
+      "caption": "it is what it is\n🎧 Myth of Sisyphus – @close__quarters #skateboarding #relatable #humor",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.303,
+        "anchor_y": 0.301,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "myth_of_sisyphus",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "it is what it is\n🎧 Myth of Sisyphus – @close__quarters #skateboarding #relatable #humor\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
