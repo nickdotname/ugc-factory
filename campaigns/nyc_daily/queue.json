@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Evil Close Quarters by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nyc_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T12:33:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "new york keeps its own tempo\n🎧 Evil Close Quarters – @close__quarters #nyc #newyork #newyorkcity #nycaesthetic #nyclife\n\nstream Evil Close Quarters: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
