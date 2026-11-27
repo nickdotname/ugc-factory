@@ -67,7 +67,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-04bd8474-e220-4452-b9dd-cee41c3af6bc": {
       "post_id": "igo-04bd8474-e220-4452-b9dd-cee41c3af6bc",
@@ -136,7 +136,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-4e03f0be-ff39-4c7b-b204-e31ccb9b2f76": {
       "post_id": "igo-4e03f0be-ff39-4c7b-b204-e31ccb9b2f76",
@@ -205,7 +205,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-94a39c0d-22c0-4829-80db-2e7615b98b58": {
       "post_id": "igo-94a39c0d-22c0-4829-80db-2e7615b98b58",
@@ -215,7 +215,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 1346.0,
+          "value": 1350.0,
           "unit": "count"
         },
         {
@@ -251,13 +251,13 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 5.34,
+          "value": 5.3500000000000005,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 99.42313333333334,
+          "value": 99.69893333333334,
           "unit": "count"
         },
         {
@@ -274,7 +274,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-11100280-7081-4cae-814f-fe336d57dbeb": {
       "post_id": "igo-11100280-7081-4cae-814f-fe336d57dbeb",
@@ -343,7 +343,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-6fc2937b-ba8f-4243-bcf6-2ad0537378fb": {
       "post_id": "igo-6fc2937b-ba8f-4243-bcf6-2ad0537378fb",
@@ -412,7 +412,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-f52f754c-287d-4789-93a5-f59c3feb739f": {
       "post_id": "igo-f52f754c-287d-4789-93a5-f59c3feb739f",
@@ -481,7 +481,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-cb5de723-dac3-42d3-85c6-92dfa6d85c17": {
       "post_id": "igo-cb5de723-dac3-42d3-85c6-92dfa6d85c17",
@@ -550,7 +550,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-4d59d768-7cbf-4800-a902-e3fb82fe7694": {
       "post_id": "igo-4d59d768-7cbf-4800-a902-e3fb82fe7694",
@@ -619,7 +619,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-7e668b35-73b7-4ef3-beb7-1af68c0ee7aa": {
       "post_id": "igo-7e668b35-73b7-4ef3-beb7-1af68c0ee7aa",
@@ -688,7 +688,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-13f569da-0be9-42f4-8ec3-3b7868e23d1d": {
       "post_id": "igo-13f569da-0be9-42f4-8ec3-3b7868e23d1d",
@@ -757,7 +757,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-27fa066c-1095-41cf-8365-109c15316a4e": {
       "post_id": "igo-27fa066c-1095-41cf-8365-109c15316a4e",
@@ -767,13 +767,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 152.0,
+          "value": 153.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 119.0,
+          "value": 120.0,
           "unit": "count"
         },
         {
@@ -803,19 +803,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 2.69,
+          "value": 2.681,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 5.693866666666667,
+          "value": 5.7207,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 78.7,
+          "value": 78.9,
           "unit": "count"
         },
         {
@@ -826,7 +826,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-a6b3b63e-0694-46e0-9553-8066eb86cdc1": {
       "post_id": "igo-a6b3b63e-0694-46e0-9553-8066eb86cdc1",
@@ -895,7 +895,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-5d561012-55fe-4789-81c3-37eb6082c911": {
       "post_id": "igo-5d561012-55fe-4789-81c3-37eb6082c911",
@@ -964,7 +964,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-78bc5dc0-d640-4eee-876d-5478097fcfda": {
       "post_id": "igo-78bc5dc0-d640-4eee-876d-5478097fcfda",
@@ -1033,7 +1033,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-84fbadae-82c1-4180-9153-240a1a9c5705": {
       "post_id": "igo-84fbadae-82c1-4180-9153-240a1a9c5705",
@@ -1102,7 +1102,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-b9035db0-2ca1-465a-9cd0-c9da4f9ce87f": {
       "post_id": "igo-b9035db0-2ca1-465a-9cd0-c9da4f9ce87f",
@@ -1171,7 +1171,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-5a42d152-b6f5-459c-b217-5e78be12854c": {
       "post_id": "igo-5a42d152-b6f5-459c-b217-5e78be12854c",
@@ -1240,7 +1240,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-cdd2cddd-e236-4d44-95e1-54d6c6bd91a9": {
       "post_id": "igo-cdd2cddd-e236-4d44-95e1-54d6c6bd91a9",
@@ -1309,7 +1309,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-d5aca399-ecc3-4204-aa41-ed77d2bc7367": {
       "post_id": "igo-d5aca399-ecc3-4204-aa41-ed77d2bc7367",
@@ -1319,13 +1319,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 993.0,
+          "value": 1003.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 834.0,
+          "value": 844.0,
           "unit": "count"
         },
         {
@@ -1355,13 +1355,13 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.638,
+          "value": 4.649,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 65.16618333333334,
+          "value": 66.02255000000001,
           "unit": "count"
         },
         {
@@ -1378,7 +1378,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-1c5de328-4ab2-4ab1-8c60-9006de9efc49": {
       "post_id": "igo-1c5de328-4ab2-4ab1-8c60-9006de9efc49",
@@ -1447,7 +1447,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-990fba29-3a80-41b6-9f7c-aad65f6f8929": {
       "post_id": "igo-990fba29-3a80-41b6-9f7c-aad65f6f8929",
@@ -1457,19 +1457,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 490.0,
+          "value": 509.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 400.0,
+          "value": 417.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 9.0,
+          "value": 10.0,
           "unit": "count"
         },
         {
@@ -1493,19 +1493,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.7090000000000005,
+          "value": 4.708,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 31.236383333333336,
+          "value": 32.64685,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 54.6,
+          "value": 54.0,
           "unit": "count"
         },
         {
@@ -1516,7 +1516,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-4d9dddec-5628-4350-9e00-526e76539abe": {
       "post_id": "igo-4d9dddec-5628-4350-9e00-526e76539abe",
@@ -1526,13 +1526,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 190.0,
+          "value": 200.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 157.0,
+          "value": 167.0,
           "unit": "count"
         },
         {
@@ -1562,19 +1562,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 3.976,
+          "value": 3.848,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 10.804116666666667,
+          "value": 11.096433333333334,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 76.2,
+          "value": 75.9,
           "unit": "count"
         },
         {
@@ -1585,7 +1585,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-1971078f-f769-44bc-bf08-02eca20e853e": {
       "post_id": "igo-1971078f-f769-44bc-bf08-02eca20e853e",
@@ -1595,13 +1595,13 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 161.0,
+          "value": 165.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 135.0,
+          "value": 136.0,
           "unit": "count"
         },
         {
@@ -1631,19 +1631,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 2.696,
+          "value": 2.695,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 6.4275166666666665,
+          "value": 6.468516666666667,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 80.4,
+          "value": 80.0,
           "unit": "count"
         },
         {
@@ -1654,7 +1654,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-5e11d021-d7cf-49db-8f08-02009ce07df7": {
       "post_id": "igo-5e11d021-d7cf-49db-8f08-02009ce07df7",
@@ -1664,19 +1664,19 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 555.0,
+          "value": 617.0,
           "unit": "count"
         },
         {
           "type": "reach",
           "name": "Reach",
-          "value": 481.0,
+          "value": 537.0,
           "unit": "count"
         },
         {
           "type": "reactions",
           "name": "Reactions",
-          "value": 18.0,
+          "value": 21.0,
           "unit": "count"
         },
         {
@@ -1700,19 +1700,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 4.0760000000000005,
+          "value": 4.0920000000000005,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 33.291383333333336,
+          "value": 37.172650000000004,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 65.7,
+          "value": 64.6,
           "unit": "count"
         },
         {
@@ -1723,7 +1723,7 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     },
     "igo-bd1efe9b-cdf5-4f5f-81ec-9efa89c69da2": {
       "post_id": "igo-bd1efe9b-cdf5-4f5f-81ec-9efa89c69da2",
@@ -1733,7 +1733,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 124.0,
+          "value": 125.0,
           "unit": "count"
         },
         {
@@ -1781,7 +1781,7 @@
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 82.3,
+          "value": 81.6,
           "unit": "count"
         },
         {
@@ -1792,7 +1792,76 @@
         }
       ],
       "account": "ascii_ig",
-      "fetched_at": "2026-11-27T12:31:51.140654Z"
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
+    },
+    "igo-bb124eea-2002-4690-a3a6-7c6f065e719d": {
+      "post_id": "igo-bb124eea-2002-4690-a3a6-7c6f065e719d",
+      "service": "instagram",
+      "sent_at": "2026-11-27T14:52:43.467128Z",
+      "metrics": [
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 92.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 24.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 2.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "saves",
+          "name": "Saves",
+          "value": 0.0,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 1.947,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 0.7464333333333334,
+          "unit": "count"
+        },
+        {
+          "type": "skipRate",
+          "name": "Skip Rate (%)",
+          "value": 24.4,
+          "unit": "count"
+        },
+        {
+          "type": "reposts",
+          "name": "Reposts",
+          "value": 0.0,
+          "unit": "count"
+        }
+      ],
+      "account": "ascii_ig",
+      "fetched_at": "2026-11-27T15:32:22.901552Z"
     }
   }
 }
