@@ -575,6 +575,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-27T08:32:50.550356Z",
+      "item_id": "82f0452b-94a2-43e7-ba77-b4573ef30a92",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the screen is flat. tell that to your brain\n🎧 Talk – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser",
+      "title": null,
+      "creative": "talk",
+      "captions": {
+        "instagram": "the screen is flat. tell that to your brain\n🎧 Talk – @close__quarters #opticalillusion #illusion #mindtrick #perception #brainteaser\n\nstream Talk: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.723,
+        "anchor_y": 0.623,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
