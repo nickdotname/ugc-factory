@@ -112,3 +112,42 @@ def test_a_reel_points_at_a_carousel_only_when_it_is_up():
     F['posted'] = [dict(slug='a', account='nostalgia_ig', post='p1')]
     assert F['carousel_up']('a', 'nostalgia_ig')                              # posted (its outbox item may be archived)
     assert not F['carousel_up']('a', 'psychedelic_station_ig') and not F['carousel_up']('b', 'nostalgia_ig')
+
+
+# ---------------------------------------------------------------- liminal tapes (nostalgia.hub.vhs)
+def _liminal_consts():
+    tree = ast.parse(open(os.path.join(STUDIO, 'liminal_video.py')).read()); out = {}
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name) and node.targets[0].id in ('RETIRED', 'PLACES', 'LINES', 'OUT'):
+            out[node.targets[0].id] = eval(compile(ast.Expression(node.value), 'liminal_video.py', 'eval'), {})   # literals and list arithmetic only
+    return out
+
+
+def test_retired_rooms_cannot_be_drawn():
+    L = _liminal_consts()
+    retired = set(target('nostalgia', 'liminal')['retire']['place'])
+    assert {'office', 'parking', 'pool', 'school', 'hotel'} <= retired and retired <= set(L['RETIRED'])
+    assert not set(L['PLACES']) & retired                                       # not even a free (explore) video draws one
+
+
+def test_every_tape_line_is_second_person_and_true_of_the_blackout():
+    L = _liminal_consts()
+    assert set(L['LINES']) == set(L['PLACES'])
+    for place, lines in L['LINES'].items():
+        for ln in lines:
+            assert re.search(r"\byou", ln), ln
+            assert re.search(r'lights (go|cut) out|power cuts out|screen goes black', ln), ln
+            assert not BAIT.search(ln) and '?' not in ln, ln
+    assert min(L['OUT']) < 0.1 and L['OUT'][-1] == 1.0                            # dark, then back on
+
+
+def test_nostalgia_and_psy_caption_banks():
+    for ln in bank('nostalgia'):
+        assert re.search(r"\b(you|your)", ln, re.I), ln
+        assert not BAIT.search(ln) and '?' not in ln, ln
+    drugs = script_defs('post_factreel.py')['DRUGS']
+    for camp in ('psy_station', 'nostalgia', 'glitch_archive'):
+        text = open(os.path.join(REPO, 'campaigns', camp, 'captions.txt'), encoding='utf-8').read()
+        assert not drugs.search(text) and not re.search(r'trip|\bhigh\b|stoned|microdos|shroom', text, re.I), camp
+        # no stale per-song copy of an old bank overrides the campaign's (src/cli.py _creative_bank_path)
+        assert not os.path.exists(os.path.join(REPO, 'campaigns', camp, 'creatives', 'talk', 'captions.txt')), camp
