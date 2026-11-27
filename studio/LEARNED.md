@@ -2578,93 +2578,95 @@ No posts with numbers yet.
 
 ## illusions
 
-14 posts counted (1 more are too new). Typical post: 1564 views, 9.0 seconds watched.
+15 posts counted. Typical post: 1376 views, 9.2 seconds watched.
 
 **song**
 - suspended: weight 1.05 — 2 posts, 1196 views, 10.3s watched, 1 shares+saves per 1,000 views
 - talk: weight 1.04 — 1 post, 2376 views, 19.7s watched, 0 shares+saves per 1,000 views
-- notta_problem: weight 1.03 — 2 posts, 2166 views, 9.9s watched, 0 shares+saves per 1,000 views
+- notta_problem: weight 1.04 — 2 posts, 2166 views, 9.9s watched, 0 shares+saves per 1,000 views
+- prologue: weight 1.01 — 2 posts, 1187 views, 7.9s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again: weight 1.00 — 1 post, 1376 views, 11.4s watched, 1 shares+saves per 1,000 views
-- prologue: weight 1.00 — 2 posts, 1187 views, 7.9s watched, 0 shares+saves per 1,000 views
-- recess_rewind: weight 0.99 — 2 posts, 979 views, 9.5s watched, 5 shares+saves per 1,000 views
 - myth_of_sisyphus: weight 0.98 — 1 post, 472 views, 7.3s watched, 0 shares+saves per 1,000 views
+- recess_rewind: weight 0.97 — 3 posts, 241 views, 11.5s watched, 4 shares+saves per 1,000 views
 - epilogue_dismissal: weight 0.97 — 2 posts, 1331 views, 7.7s watched, 8 shares+saves per 1,000 views
 - passage_waiting: weight 0.95 — 1 post, 207 views, 6.7s watched, 0 shares+saves per 1,000 views
 
 **section**
 - recess_rewind/s08: weight 1.05 — 1 post, 1766 views, 11.5s watched, 5 shares+saves per 1,000 views
 - talk/s07: weight 1.04 — 1 post, 2376 views, 19.7s watched, 0 shares+saves per 1,000 views
-- epilogue_dismissal/s07: weight 1.04 — 1 post, 2462 views, 9.5s watched, 8 shares+saves per 1,000 views
-- suspended/s02: weight 1.03 — 1 post, 2088 views, 12.0s watched, 1 shares+saves per 1,000 views
+- suspended/s02: weight 1.04 — 1 post, 2088 views, 12.0s watched, 1 shares+saves per 1,000 views
+- suspended/s05: weight 1.03 — 1 post, 304 views, 8.7s watched, 0 shares+saves per 1,000 views
 - notta_problem/s02: weight 1.03 — 1 post, 2003 views, 9.2s watched, 0 shares+saves per 1,000 views
-- suspended/s05: weight 1.02 — 1 post, 304 views, 8.7s watched, 0 shares+saves per 1,000 views
+- epilogue_dismissal/s07: weight 1.03 — 1 post, 2462 views, 9.5s watched, 8 shares+saves per 1,000 views
+- prologue/s09: weight 1.01 — 1 post, 1753 views, 8.7s watched, 0 shares+saves per 1,000 views
 - notta_problem/s06: weight 1.01 — 1 post, 2329 views, 10.6s watched, 0 shares+saves per 1,000 views
 - wont_be_the_same_again/s03: weight 1.00 — 1 post, 1376 views, 11.4s watched, 1 shares+saves per 1,000 views
 - prologue/s09: weight 1.00 — 1 post, 1753 views, 8.7s watched, 0 shares+saves per 1,000 views
 - prologue/s02: weight 1.00 — 1 post, 621 views, 7.2s watched, 0 shares+saves per 1,000 views
 
 **length**
-- 20-35s: weight 1.05 — 3 posts, 2088 views, 12.0s watched, 1 shares+saves per 1,000 views
-- under 10s: weight 1.04 — 3 posts, 621 views, 8.7s watched, 0 shares+saves per 1,000 views
-- under 20s: weight 0.94 — 8 posts, 1112 views, 8.1s watched, 3 shares+saves per 1,000 views
+- 20-35s: weight 1.06 — 3 posts, 2088 views, 12.0s watched, 1 shares+saves per 1,000 views
+- under 10s: weight 1.05 — 3 posts, 621 views, 8.7s watched, 0 shares+saves per 1,000 views
+- under 20s: weight 0.94 — 9 posts, 472 views, 8.7s watched, 3 shares+saves per 1,000 views
 
 **hour posted**
 - 23:00: weight 1.08 — 2 posts, 1927 views, 11.7s watched, 3 shares+saves per 1,000 views
-- 22:00: weight 1.04 — 1 post, 2462 views, 9.5s watched, 8 shares+saves per 1,000 views
-- 08:00: weight 1.02 — 3 posts, 472 views, 8.7s watched, 0 shares+saves per 1,000 views
+- 22:00: weight 1.03 — 1 post, 2462 views, 9.5s watched, 8 shares+saves per 1,000 views
+- 08:00: weight 1.03 — 3 posts, 472 views, 8.7s watched, 0 shares+saves per 1,000 views
 - 20:00: weight 1.01 — 1 post, 2329 views, 10.6s watched, 0 shares+saves per 1,000 views
 - 18:00: weight 1.00 — 1 post, 1376 views, 11.4s watched, 1 shares+saves per 1,000 views
 - 13:00: weight 1.00 — 1 post, 621 views, 7.2s watched, 0 shares+saves per 1,000 views
-- 11:00: weight 0.97 — 2 posts, 1288 views, 12.8s watched, 0 shares+saves per 1,000 views
 - 14:00: weight 0.96 — 2 posts, 980 views, 7.7s watched, 0 shares+saves per 1,000 views
+- 11:00: weight 0.96 — 3 posts, 241 views, 12.4s watched, 0 shares+saves per 1,000 views
 - 17:00: weight 0.94 — 1 post, 192 views, 7.5s watched, 0 shares+saves per 1,000 views
 
 **caption**
 - a mug made of dots with no depth at all. your brain decides which way : weight 1.05 — 1 post, 1766 views, 11.5s watched, 5 shares+saves per 1,000 views
 - you are not seeing what is on the screen: weight 1.04 — 1 post, 2376 views, 19.7s watched, 0 shares+saves per 1,000 views
-- which way is it turning? it is the same dots the whole time. sound on.: weight 1.04 — 1 post, 2462 views, 9.5s watched, 8 shares+saves per 1,000 views
+- it turns one way. are you sure which?: weight 1.04 — 1 post, 2088 views, 12.0s watched, 1 shares+saves per 1,000 views
 - your eyes are guessing and they are very confident: weight 1.03 — 1 post, 2003 views, 9.2s watched, 0 shares+saves per 1,000 views
-- it turns one way. are you sure which?: weight 1.03 — 1 post, 2088 views, 12.0s watched, 1 shares+saves per 1,000 views
-- sound on. your eyes will argue with you: weight 1.02 — 1 post, 304 views, 8.7s watched, 0 shares+saves per 1,000 views
+- which way is it turning? it is the same dots the whole time. sound on.: weight 1.03 — 1 post, 2462 views, 9.5s watched, 8 shares+saves per 1,000 views
+- sound on. your eyes will argue with you: weight 1.03 — 1 post, 304 views, 8.7s watched, 0 shares+saves per 1,000 views
+- your brain made a decision here without asking you: weight 1.01 — 1 post, 1753 views, 8.7s watched, 0 shares+saves per 1,000 views
 - every dot is where it should be. the rest is you: weight 1.01 — 1 post, 2329 views, 10.6s watched, 0 shares+saves per 1,000 views
-- your brain made a decision here without asking you: weight 1.00 — 1 post, 1753 views, 8.7s watched, 0 shares+saves per 1,000 views
 - watch it twice. it will not look the same: weight 1.00 — 1 post, 1376 views, 11.4s watched, 1 shares+saves per 1,000 views
 - no tricks in the edit. the trick is in your head: weight 1.00 — 1 post, 621 views, 7.2s watched, 0 shares+saves per 1,000 views
 
 **knob:ask**
-- which: weight 1.06 — 8 posts, 1759 views, 9.9s watched, 1 shares+saves per 1,000 views
+- which: weight 1.05 — 9 posts, 1753 views, 10.6s watched, 1 shares+saves per 1,000 views
 - flip: weight 1.03 — 2 posts, 1541 views, 8.3s watched, 6 shares+saves per 1,000 views
 - sure: weight 0.90 — 4 posts, 203 views, 7.1s watched, 1 shares+saves per 1,000 views
 
 **knob:cut**
-- short: weight 1.04 — 3 posts, 621 views, 8.7s watched, 0 shares+saves per 1,000 views
-- full: weight 0.99 — 7 posts, 2088 views, 10.6s watched, 2 shares+saves per 1,000 views
-- tight: weight 0.97 — 4 posts, 1112 views, 8.0s watched, 2 shares+saves per 1,000 views
+- short: weight 1.05 — 3 posts, 621 views, 8.7s watched, 0 shares+saves per 1,000 views
+- full: weight 0.99 — 8 posts, 1732 views, 11.0s watched, 2 shares+saves per 1,000 views
+- tight: weight 0.98 — 4 posts, 1112 views, 8.0s watched, 2 shares+saves per 1,000 views
 
 **knob:kind**
 - cloud: weight 1.07 — 3 posts, 2329 views, 10.6s watched, 4 shares+saves per 1,000 views
-- group: weight 1.05 — 2 posts, 1340 views, 14.2s watched, 0 shares+saves per 1,000 views
 - shadow: weight 1.03 — 3 posts, 1753 views, 11.4s watched, 1 shares+saves per 1,000 views
+- group: weight 1.03 — 3 posts, 304 views, 12.4s watched, 0 shares+saves per 1,000 views
 - wheel: weight 0.96 — 3 posts, 472 views, 7.5s watched, 0 shares+saves per 1,000 views
 - cone: weight 0.91 — 3 posts, 207 views, 6.7s watched, 0 shares+saves per 1,000 views
 
 **knob:palette**
-- candy: weight 1.05 — 4 posts, 2045 views, 9.9s watched, 0 shares+saves per 1,000 views
-- acid: weight 1.03 — 2 posts, 1498 views, 13.4s watched, 0 shares+saves per 1,000 views
+- candy: weight 1.04 — 5 posts, 2003 views, 10.6s watched, 0 shares+saves per 1,000 views
+- acid: weight 1.04 — 2 posts, 1498 views, 13.4s watched, 0 shares+saves per 1,000 views
 - ice: weight 0.98 — 3 posts, 1376 views, 11.4s watched, 3 shares+saves per 1,000 views
 - bone: weight 0.95 — 5 posts, 304 views, 7.5s watched, 5 shares+saves per 1,000 views
 
 **knob:shape**
 - mug: weight 1.08 — 2 posts, 2071 views, 15.6s watched, 2 shares+saves per 1,000 views
+- donut: weight 1.03 — 1 post, 304 views, 8.7s watched, 0 shares+saves per 1,000 views
 - chair: weight 1.03 — 1 post, 2003 views, 9.2s watched, 0 shares+saves per 1,000 views
-- donut: weight 1.02 — 1 post, 304 views, 8.7s watched, 0 shares+saves per 1,000 views
 - planet: weight 1.01 — 2 posts, 1280 views, 9.6s watched, 1 shares+saves per 1,000 views
+- hourglass: weight 1.01 — 1 post, 1753 views, 8.7s watched, 0 shares+saves per 1,000 views
 - cube: weight 1.01 — 1 post, 2329 views, 10.6s watched, 0 shares+saves per 1,000 views
 - key: weight 1.00 — 1 post, 621 views, 7.2s watched, 0 shares+saves per 1,000 views
 - hourglass: weight 1.00 — 1 post, 1753 views, 8.7s watched, 0 shares+saves per 1,000 views
 - guitar: weight 1.00 — 1 post, 1376 views, 11.4s watched, 1 shares+saves per 1,000 views
+- rocket: weight 0.98 — 1 post, 241 views, 12.4s watched, 0 shares+saves per 1,000 views
 - knot: weight 0.98 — 2 posts, 1334 views, 8.1s watched, 7 shares+saves per 1,000 views
-- helix: weight 0.94 — 1 post, 192 views, 7.5s watched, 0 shares+saves per 1,000 views
 
 ## algo_races
 
