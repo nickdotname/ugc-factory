@@ -12,7 +12,8 @@ that morning by studio/earthdata.py:
               `place`, not one dived to in the last 3 nights) and the opening line counts the planes within 200 km of
               it ("70 planes over Miami, tracked 27 Nov, 15:44 UTC"); each snare lights up one kind of plane among them
   quakes      every earthquake of magnitude 2.5+ in the last 30 days (USGS). The month is replayed with its clock
-              bent so that the largest quakes land on the kicks; the date on screen is always the real one
+              bent so that the largest quakes land on the kicks; the date on screen is always the real one. A short
+              cut (under 10 s) replays only the 24 hours up to the feed's time when they hold 5+ quakes
   iss         the ISS over one of the 30 cities: SGP4 on its CelesTrak elements finds every pass within 500 km of
               one in the 24 hours up to the data (so it is always in the past), the camera dives to the city and the
               ground track is drawn with the pass's UTC time, how far and how high, and whether it could be seen
@@ -52,6 +53,7 @@ PALETTES = {
                   ink=[(20, 20, 30), (200, 50, 40), (30, 90, 200), (20, 130, 90), (120, 60, 160)], text=(28, 26, 24)),
 }
 CITY_KM = 200.0                           # "N planes over <city>": every plane within this of the city centre, along the ground
+DAY_SECS, SHORT_SECS = 86400, 10.0       # a quakes video this short (a 6-9 s cut) shows the last day of the feed, not the month
 REGION_KM = 2000.0                        # ... or, with no busy hub, over a whole region (18 degrees round its middle)
 GROUPS = [('STARLINK', 'Starlink'), ('ONEWEB', 'OneWeb'), ('NAV', 'navigation (GPS & co.)'), ('GEO', 'geostationary'), ('OTHER', 'science, weather & the rest')]
 
@@ -350,16 +352,22 @@ class Video:
 
     # ---------------------------------------------------------------- earthquakes
     def setup_quakes(self):
-        f = json.load(open(self.files['quakes.json']))['features']
+        j = json.load(open(self.files['quakes.json'])); f = j['features']
+        gen = (j.get('metadata') or {}).get('generated')                            # when USGS made the feed: the end of its window
+        if gen: self.taken = dt.datetime.fromtimestamp(gen / 1000, dt.timezone.utc)
         q = sorted(((x['properties']['time'] / 1000, x['properties']['mag'] or 0, x['geometry']['coordinates'], x['properties'].get('place') or '') for x in f), key=lambda z: z[0])
+        # a short cut replays only the 24 hours up to the feed when they hold 5+ quakes ("live" beat "30 days", review 2026-11-26)
+        day = self.taken.timestamp() - DAY_SECS
+        self.day = self.n <= SHORT_SECS * FPS and sum(z[0] >= day for z in q) >= 5
+        if self.day: q = [z for z in q if z[0] >= day]
         self.qt = np.array([z[0] for z in q]); self.qm = np.array([z[1] for z in q], float)
         self.qU = unit(np.array([z[2][1] for z in q]), np.array([z[2][0] for z in q])); self.qd = np.array([z[2][2] for z in q], float); self.qplace = [z[3] for z in q]
-        n = self.n; start, end = self.qt.min(), self.qt.max() + 3600
-        # bend the month's clock: the biggest quakes on the kicks, in the order they happened
-        m = min(len(self.kicks), int((self.qm >= 5.0).sum()))
+        n = self.n; start, end = (day, self.taken.timestamp()) if self.day else (self.qt.min(), self.qt.max() + 3600)
+        # bend the clock: the biggest quakes on the kicks (M5+ of a month, M4+ of a day), in the order they happened
+        m = min(len(self.kicks), int((self.qm >= (4.0 if self.day else 5.0)).sum()))
         big = sorted(np.argsort(-self.qm)[:m]) if m else []
         ks = [self.kicks[int(round(j))] for j in np.linspace(0, len(self.kicks) - 1, m)] if m else []
-        start = start + 0.08 * (end - start)                                       # the first days already on the globe at the first frame
+        start = start + 0.08 * (end - start)                                       # the first hours or days already on the globe at the first frame
         big = [b for b in big if self.qt[b] > start]; ks = ks[len(ks) - len(big):] if big else []
         fx = [0] + list(ks) + [n - 1]; tx = [start] + [self.qt[b] for b in big] + [end]
         keep = [0] + [k for k in range(1, len(fx)) if fx[k] > fx[k - 1] and tx[k] > tx[k - 1]]
@@ -545,7 +553,7 @@ class Video:
                 if 0 <= a < life and m >= 4.3:                                      # the ripple: wide for the big ones, a blip for the rest
                     rr = ((4 + 30 * a) * (10 ** (0.3 * (m - 5))) if m >= 5 else 3 + 14 * a) * R / 380
                     cv2.circle(layer, (int(sx[k] * 4), int(sy[k] * 4)), int(rr * 4), tuple(float(v) * (1 - a / life) * (1.3 if m >= 5 else 0.6) for v in col), 2 + int(m >= 6), cv2.LINE_AA, 2)
-            info = ('%s QUAKES OF M2.5+' % format(int(shown.sum()), ','), when)
+            k = int(shown.sum()); info = ('%s QUAKE%s OF M2.5+' % (format(k, ','), '' if k == 1 else 'S'), when)
             near = [f for f in self.big if 0 <= i - f < FPS * 1.4]
             if near:
                 k = self.big[max(near)]
@@ -605,6 +613,10 @@ class Video:
             over = 'crossed over' if self.ps['km'] < 250 else 'crossed the sky over'
             at = '%s UTC on %s' % (self.taken.strftime('%H:%M'), self.taken.strftime('%-d %b'))
             return {'fact': 'the ISS %s %s\nat %s' % (over, self.place, at), 'question': 'what crossed the sky over %s\nat %s?' % (self.place, at)}[self.hook]
+        if self.day:
+            at = '%s, %s UTC' % (self.taken.strftime('%-d %b'), self.taken.strftime('%H:%M'))
+            return {'fact': '%d earthquakes of M2.5+\nin the 24 hours to %s' % (self.total, at),
+                    'question': 'how often did the Earth shake\nin the 24 hours to %s?' % at}[self.hook]
         days = max(1, round((self.qt.max() - self.qt.min()) / 86400))
         return {'fact': '%d days of earthquakes\nin %d seconds' % (days, max(1, round(self.n / FPS))),
                 'question': 'how often does\nthe Earth shake?'}[self.hook]
