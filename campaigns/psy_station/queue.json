@@ -91,18 +91,18 @@
         {
           "account": "psychedelic_station_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-12-01T16:20:00-05:00"
         }
       ],
       "captions": {
         "instagram": "1960s light shows did this with oil, water and a projector. this one is maths\n🎧 Passage (Waiting) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
