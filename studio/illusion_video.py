@@ -20,8 +20,10 @@ Every video is a real perception effect drawn from scratch, and every line on sc
 Shapes are our own, built here from formulas (a mug, a knot, a double helix, a tilted cube, a guitar, a ringed planet,
 a spiral stair, a chair, a key, an hourglass, a rocket, a tilted donut): none is taken from anywhere, and the staging (a full-screen
 object, the flip done for you, the speed readout) is ours; no platform ring, no "difficulty" rating.
-One turn takes a whole number of bars, and the dots swell on the kick.
-Knobs (studio/knobs.py): kind, shape, palette, ask (the opening question).
+One turn takes a whole number of bars, the clip is cut to a whole number of turns and its last 9 frames fade into frame 0,
+so it loops without a seam; the dots swell on the kick.
+Knobs (studio/knobs.py): kind, shape (cloud and shadow only), palette, ask (the opening question), phase (when the two cues
+come: pct = at 42 / 62 / 82 % of the clip, secs = undecided 5 s, cued right 3 s, cued left 3 s, 'you choose' to the end).
 """
 import json, math, os, random, subprocess, sys
 import numpy as np, cv2
@@ -123,13 +125,15 @@ class Video:
         self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel', 'group', 'stripes'], r, weights=[5, 4, 0, 1, 4, 2])
         self.shape = K.pick('shape', SHAPES, r) if self.kind in ('cloud', 'shadow') else None   # only the kinds that draw a shape record one (the learner saw phantom shapes)
         self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
-        self.ask = K.pick('ask', sorted(ASKS), r)
-        a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
+        self.ask = K.pick('ask', sorted(ASKS), r); self.phase = K.pick('phase', ['pct', 'secs'], r)
+        a = audio.load(self.slug, t0, t1); n = a['n']; self.spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 6.0)
         self.turn = 8 * self.spb * FPS                                         # frames in a turn: two bars
+        self.n = n = int(round(max(1, n // self.turn) * self.turn)); self.t1 = t0 + n / FPS   # whole turns: the last frame runs into the first
         if self.shape: self.pts = shape(self.shape, 5200, seed); self.col = np.array([self.pal[k % len(self.pal)] for k in range(len(self.pts))], np.float32)
         ph = [0.42, 0.62, 0.82]                                                # undecided, cued one way, cued the other, undecided again
-        self.marks = [int(p * n) for p in ph]
+        self.marks = [min(int(sec * FPS), int(p * n)) for sec, p in zip((5, 8, 11), ph)] if self.phase == 'secs' else [int(p * n) for p in ph]
+        self._first = None
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
         self.credit = '♪ %s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
         self.f_big, self.f_mid = font(70), font(44)
@@ -155,8 +159,8 @@ class Video:
         if i < c: return '← now it turns left'
         return 'same dots the whole time.\nyou choose'
 
-    def frame(self, i):
-        img = np.zeros((H, W, 3), np.float32); k = float(self.kick[min(i, self.n - 1)])
+    def draw(self, i):
+        img = np.zeros((H, W, 3), np.float32); k = float(self.kick[min(i, len(self.kick) - 1)])
         def P(x, y): return (int(round(x * 16)), int(round(y * 16)))
         if self.kind == 'cone':
             th = 2 * math.pi * i / self.turn
@@ -224,13 +228,22 @@ class Video:
         d.text((W / 2, 1472), self.credit, font=self.f_small, fill=(180, 180, 195), anchor='mm')   # inside Instagram's safe area (y 250-1500)
         return np.asarray(im)
 
+    def frame(self, i):
+        """The last 9 frames fade into frame 0 (as stare_video.py does): a clean loop on an account whose viewers replay."""
+        o = self.draw(i); tail = 9
+        if i >= self.n - tail:
+            if self._first is None: self._first = self.draw(0).astype(np.float32)
+            a = (i - (self.n - tail) + 1) / (tail + 1)
+            o = (o.astype(np.float32) * (1 - a) + self._first * a).astype(np.uint8)
+        return o
+
     def render(self, out):
         if '--frames' in sys.argv:
             fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
             ims = [Image.fromarray(self.frame(min(f, self.n - 1))).resize((360, 640)) for f in fs]
             sheet = Image.new('RGB', (360 * len(ims), 640))
             for j, im in enumerate(ims): sheet.paste(im, (360 * j, 0))
-            sheet.save(out); print('sheet', out, K.record()['knobs'], self.n, 'frames'); return
+            sheet.save(out); print('sheet', out, K.record()['knobs'], self.n, 'frames', round(self.n / self.turn, 2), 'turns', 'marks', self.marks); return
         tmp = out[:-4] + '.part.mp4'
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
                               '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '19'),
