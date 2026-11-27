@@ -6,7 +6,7 @@
       "sent_at": "2026-11-26T14:47:21.850785Z",
       "metrics": [],
       "account": "fourier_ig",
-      "fetched_at": "2026-11-27T15:51:54.307159Z"
+      "fetched_at": "2026-11-27T18:47:14.222489Z"
     },
     "igo-cbe193a3-db66-4e30-9d92-52085e329c5f": {
       "post_id": "igo-cbe193a3-db66-4e30-9d92-52085e329c5f",
@@ -14,7 +14,7 @@
       "sent_at": "2026-11-26T13:43:20.328804Z",
       "metrics": [],
       "account": "fourier_ig",
-      "fetched_at": "2026-11-27T15:51:54.307159Z"
+      "fetched_at": "2026-11-27T18:47:14.222489Z"
     },
     "igo-a383ee60-2dce-45ca-8b3a-81d96cf228c5": {
       "post_id": "igo-a383ee60-2dce-45ca-8b3a-81d96cf228c5",
@@ -24,7 +24,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 154.0,
+          "value": 155.0,
           "unit": "count"
         },
         {
@@ -60,19 +60,19 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 9.578,
+          "value": 9.609,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 20.1153,
+          "value": 20.339133333333333,
           "unit": "count"
         },
         {
           "type": "skipRate",
           "name": "Skip Rate (%)",
-          "value": 50.8,
+          "value": 50.4,
           "unit": "count"
         },
         {
@@ -83,7 +83,7 @@
         }
       ],
       "account": "fourier_ig",
-      "fetched_at": "2026-11-27T15:51:54.307159Z"
+      "fetched_at": "2026-11-27T18:47:14.222489Z"
     }
   }
 }
