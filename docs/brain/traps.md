@@ -147,3 +147,16 @@ each posted the same video twice an hour apart before it was caught. Fixed three
 alone starts top-ups), the Instagram publisher holds a video only once per account (create_post returns the
 existing booking), and publish-due never sends a video the account has already posted. The 52 duplicates were set
 to failed, not deleted.
+
+## glitch, vintage and petri went quiet (2026-11-26/27)
+Three accounts posted nothing for a day and a half. Two separate bugs, plus small libraries:
+- **glitch.archive.exe:** since the `clean` opener (2026-11-25, weighted 3:1) the mosh accumulator was never set
+  before the first cut, so `cv2.remap` got an empty image and every clean-opener render crashed (studio's red X on
+  27 Nov: `FAIL suspended_s05_glitch`). A cut now starts its melt from the clean frame that was on screen.
+- **vintage.media.archive:** the ink libraries (`assets-vintage_ink-<song>`) started numbering at `hook_01`, the
+  same names the old print-look library had already posted. History is keyed by creative + file name, so render
+  read every new ink clip as a repeat (`repeat_dropped ... kept 0`). Ingest now counts the creative's posted names as
+  taken, so a new library continues the numbering. The two ink clips already uploaded as hook_01/02 stay blocked;
+  fresh ones get hook_03 and up.
+- **petri / glitch / vintage** make one video a night when the 3-night subject rule finds nothing fresh, so one
+  crash or one repeat empties the queue. Watch these three first in a health check.
