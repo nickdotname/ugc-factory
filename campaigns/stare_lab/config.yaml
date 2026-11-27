@@ -1,7 +1,13 @@
-# stare.lab (planned handle; account not created yet): illusions that happen in your own eyes after you hold them
-# still (studio/stare_video.py): a landscape in opposite colours that turns grey (afterimage), a turning spiral then a
-# still picture (motion aftereffect), and the lilac chaser. Every picture is drawn in code (studio/stare/scenes.py).
-# No footage, no band. Six of the album's steadier songs (not the illusion pages' full rotation).
+# @eye.trick.lab: the one eye-tricks page (docs/brain/reviews/2026-11-26), three studio styles, one of each a night:
+#   stare    illusions that happen in your own eyes after you hold them still (studio/stare_video.py): a landscape in
+#            opposite colours that turns grey (afterimage), a turning spiral then a still picture (motion aftereffect),
+#            and the lilac chaser. Captions: captions.txt (the shared bank).
+#   hue      one colour that looks like two, proven with hex codes read off the frame (studio/hue_video.py).
+#            Captions: captions/hue.txt.
+#   measure  classic size/straightness/grey illusions, asked, then measured (studio/measure_video.py).
+#            Captions: captions/measure.txt.
+# A style's own bank (captions/<style>.txt, src/cli.py) wins over the shared one, so no stare line lands on a ruler.
+# Every picture is drawn in code. No footage, no band. Six of the album's steadier songs (not the illusion pages' full rotation).
 #
 # Finished videos with their own sound. One creative per SONG. New videos are
 # added every night by the studio job (studio/nightly.yaml) once the target there is unpaused.
@@ -29,13 +35,13 @@ creatives:
     title: "Myth of Sisyphus"
     assets_release: assets-stare_lab-myth_of_sisyphus
 
-# @stare.lab (planned) only, posted to Instagram directly as regular reels.
+# @eye.trick.lab only, posted to Instagram directly as regular reels.
 accounts:
   mode: allow
   names: [eyetrick_ig]          # @eye.trick.lab (Adrianne's), from 2026-11-26
 
 posting:
-  posts_per_day: 3            # stare 2 + hue/measure 1 a night planned (docs/brain/reviews/2026-11-26); 1 until then
+  posts_per_day: 3            # stare 1 + hue 1 + measure 1 a night (studio/nightly.yaml)
   start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10

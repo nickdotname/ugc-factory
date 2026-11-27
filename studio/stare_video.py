@@ -16,7 +16,9 @@ Three kinds, all drawn here (no footage):
 The landscapes (studio/stare/scenes.py) are drawn from shapes with a seed: lake at sunset, beach, balloons over
 hills, autumn wood, tulip field, aurora, desert. Everything on screen is true of the picture (the grey one really is
 grey; the chaser really has no green disc). The stare lasts until a beat 8-14 s in; the last 9 frames fade back
-into frame 0 so the reel loops. Knobs (studio/knobs.py): kind, scene, spin (spiral in or out), hold (stare length).
+into frame 0 so the reel loops. So the first seconds are not a still in the feed, the picture starts 2.5 % large and
+settles to its size over the first 3.2 s (it is still for the rest of the stare, where the afterimage builds) and the
+dot swells a little on every kick. Knobs (studio/knobs.py): kind, scene, spin (spiral in or out), hold (stare length).
 """
 import os, random, subprocess, sys
 import numpy as np, cv2
@@ -37,6 +39,7 @@ CHASER = {'lilac': ((236, 142, 236), 'green'), 'teal': ((60, 200, 200), 'pink'),
 HOOK = {'colour': 'stare at the dot\nuntil it turns grey', 'spiral': 'stare at the dot\nuntil the spiral stops',
         'chaser': 'stare at the cross.\ndon\'t follow the gap'}
 MAX_LEN = 24.0                               # longer stretches are cut to this (the stare is the point, not the length)
+SETTLE, ZOOM = 3.2, 0.025                    # the opening pull-back: seconds, and how much larger frame 0 is
 
 
 def font(name, size):
@@ -136,7 +139,11 @@ class Video:
 
     def draw(self, i, top=True):
         img = np.empty((H, W, 3), np.float32); img[:] = BG
-        img[PY:PY + PH, PX:PX + PW] = self.picture(i)
+        pic = self.picture(i); u = i / (SETTLE * FPS)
+        if u < 1:                                                  # review 2026-11-26: 0-3 s must not be a still
+            z = 1 + ZOOM * (1 - u * u * (3 - 2 * u)); M = cv2.getRotationMatrix2D((PW / 2, PH / 2), 0, z)
+            pic = cv2.warpAffine(pic, M, (PW, PH), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+        img[PY:PY + PH, PX:PX + PW] = pic
         im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
         stare = i < self.switch
         # the fixation mark: a dot (or a cross for the chaser), and a thin ring that fills while you stare
@@ -144,7 +151,7 @@ class Video:
         if self.kind == 'chaser':
             d.line([(CX - 18, CY), (CX + 18, CY)], fill=(20, 20, 20), width=5); d.line([(CX, CY - 18), (CX, CY + 18)], fill=(20, 20, 20), width=5)
         else:
-            rr = 9
+            rr = 9 + 4 * k                                         # swells on the kick; it stays where it is
             d.ellipse([CX - rr - 3, CY - rr - 3, CX + rr + 3, CY + rr + 3], fill=(255, 255, 255))
             d.ellipse([CX - rr, CY - rr, CX + rr, CY + rr], fill=(10, 10, 10))
         if stare:

@@ -178,9 +178,19 @@ targets:
     style: reveal
     per_night: 2
     join: 24
-  - campaign: stare_lab        # @eye.trick.lab (from 2026-11-26): stare-at-the-dot illusions (studio/stare_video.py)
+  # @eye.trick.lab (from 2026-11-26) is the one eye-tricks page (docs/brain/reviews/2026-11-26): three styles, one each a
+  # night, so the learner ranks `style` on one account before any of them gets its own handle. posts_per_day 3 = 1+1+1.
+  - campaign: stare_lab        # stare-at-the-dot illusions (studio/stare_video.py)
     style: stare
-    per_night: 3               # the one eye-tricks page: stare 2 + hue/measure 1 a night once those styles post here (docs/brain/reviews/2026-11-26)
+    per_night: 1               # 3 until 2026-11-27
+    join: 24
+  - campaign: stare_lab        # colour illusions proven with hex codes read off the frame (studio/hue_video.py); captions/hue.txt
+    style: hue
+    per_night: 1
+    join: 24
+  - campaign: stare_lab        # size/straightness illusions, then measured (studio/measure_video.py); captions/measure.txt
+    style: measure
+    per_night: 1
     join: 24
   - campaign: ink_marbling     # marbled.by.math (planned): paper marbling by exact equations (studio/ebru_video.py). Ready page:
     style: ebru                # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=ink_marbling still renders it

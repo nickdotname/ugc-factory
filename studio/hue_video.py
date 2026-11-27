@@ -86,7 +86,7 @@ class Confetti:
             'pinkteal':   dict(a=(255, 60, 200), b=(0, 210, 200), t=(170, 170, 170))}
     ask = 'what colour\nare the dots?'
     def __init__(s, r, flip, set_):
-        s.c = s.SETS[set_]; s.p = 26; s.w = 9; s.flip = flip
+        s.c = s.SETS[set_]; s.p = 26; s.w = 10; s.flip = flip      # 10 px from an even row: whole 2x2 chroma blocks, so Instagram's 4:2:0 re-encode keeps the stripes' colour
         s.dots = []
         y = 80
         while y < PH - 70:
