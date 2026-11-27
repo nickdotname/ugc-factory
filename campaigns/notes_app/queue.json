@@ -250,9 +250,9 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-089afda0-d4f7-4f40-83b7-a0ae2598ff7f",
           "last_error": null,
           "scheduled_for": "2026-11-28T17:41:00-05:00"
         }
@@ -261,7 +261,7 @@
         "instagram": "posting this and logging off\n🎧 Notta Problem – @close__quarters #relatable #humor #createmode\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
