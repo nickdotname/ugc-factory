@@ -73,7 +73,7 @@ class _Source:
 
 
 def _run(monkeypatch, denied: bool, capsys) -> tuple[int, str]:
-    monkeypatch.setattr(cli, "_real_publisher", lambda account, secret, log: _Source(denied))
+    monkeypatch.setattr(cli, "_real_publisher", lambda account, secret, log, **_kw: _Source(denied))
     code = cli.cmd_metrics(
         argparse.Namespace(command="metrics", campaign="alarm", dry_run=False, days=30, instagram_only=True),
         {"IG_TOKEN_2": "tok"},

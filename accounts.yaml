@@ -486,3 +486,18 @@ accounts:
     channel_id: "17841441390199531"
     post_type: reel
     title_strategy: derive
+
+  # ── YouTube (direct) ─────────────────────────────────────────────────
+  # Channels posted to through YouTube's own API (src/publishers/youtube.py), held in
+  # outbox/yto-*.json until their slot. One refresh token per channel in YT_REFRESH_TOKEN_1..16
+  # (scripts/yt_connect.py fills a slot); YT_CLIENT_ID / YT_CLIENT_SECRET are shared. Nothing is
+  # public until Google's API audit clears: docs/brain/playbooks/add-youtube-channel.md.
+  # - name: rotation_yt
+  #   network: youtube
+  #   provider: youtube
+  #   api_key_secret: YT_REFRESH_TOKEN_1
+  #   channel_id: UCxxxxxxxxxxxxxxxxxxxxxx     # printed by scripts/yt_connect.py
+  #   post_type: short
+  #   title_strategy: require                 # Shorts show ~40 characters of a 100-character title
+  #   notify_subscribers: false               # on only for a channel posting once or twice a day
+  #   slot_offset_min: 0
