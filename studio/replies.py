@@ -55,7 +55,11 @@ ACCOUNTS = {
     'zoom_ig': ('17841412150686933', 'zoom.into.art'),
     'toon_ig': ('17841465424467444', 'rubberhose.radio'),
 }
-TOKENS = {'races_ig': 'IG_TOKEN_2', 'tests8_ig': 'IG_TOKEN_3', 'notes_ig': 'IG_TOKEN_4', 'her_ig': 'IG_TOKEN_6', 'him_ig': 'IG_TOKEN_5'}     # accounts with no Facebook Page have a token of their own; the rest share IG_TOKEN
+# Accounts with no Facebook Page (Unified login) have a token of their own, in the slot accounts.yaml names; the rest
+# share IG_TOKEN, except the two Pages Adrianne owns (eyetrick_ig, fourier_ig), read with their Page token from
+# IG_PAGE_TOKENS (Instagram user id -> token), the way src/publishers/instagram.py posts to them.
+TOKENS = {'races_ig': 'IG_TOKEN_2', 'tests8_ig': 'IG_TOKEN_3', 'notes_ig': 'IG_TOKEN_4', 'her_ig': 'IG_TOKEN_6', 'him_ig': 'IG_TOKEN_5',
+          'toon_ig': 'IG_TOKEN_7', 'zoom_ig': 'IG_TOKEN_8', 'date_ig': 'IG_TOKEN_9', 'college_ig': 'IG_TOKEN_10', 'lowpoly_ig': 'IG_TOKEN_11'}
 OURS = {u for _, u in ACCOUNTS.values()} | {'the.loose.change'}
 BAND = {'close_quarters_ig'}            # the band's own account doesn't tag itself
 
@@ -147,6 +151,13 @@ def when(s):
     return dt.datetime.fromisoformat(str(s).replace('Z', '+00:00').replace('+0000', '+00:00'))
 
 
+def page_tokens():
+    """IG_PAGE_TOKENS: Instagram user id -> never-expiring Page token, or nothing."""
+    try: data = json.loads(os.environ.get('IG_PAGE_TOKENS') or '{}')
+    except ValueError: return {}
+    return {str(k): str(v) for k, v in data.items() if v} if isinstance(data, dict) else {}
+
+
 def load_state():
     try:
         with open(STATE) as fh: s = json.load(fh)
@@ -170,18 +181,23 @@ def run(dry=False, now=None):
     shared = os.environ.get('IG_TOKEN')
     if not shared: print('no IG_TOKEN; nothing to do'); return 0
     now = now or dt.datetime.now(dt.timezone.utc)
-    s = load_state(); prune(s, now); titles = song_titles(); sent_total = 0; live = set()
+    s = load_state(); prune(s, now); titles = song_titles(); sent_total = 0; live = set(); pages = page_tokens()
+    read_accounts = read_posts = read_comments = 0; skipped = []     # for the one-line summary the publish log shows
     for account, (uid, handle) in ACCOUNTS.items():
-        own = TOKENS.get(account); token = os.environ.get(own) if own else shared
-        if not token: print('no %s; skipping %s' % (own, handle)); continue
+        own = TOKENS.get(account)
+        if uid in pages: token, own = pages[uid], 'IG_PAGE_TOKENS'
+        else: token = os.environ.get(own) if own else shared
+        if not token: print('no %s; skipping %s' % (own, handle)); skipped.append(handle); continue
         try:
             media = graph('GET', '%s/media' % uid, token, fields='id,comments_count,timestamp', limit=25).get('data', [])
         except NoPermission as exc:
             print('no permission to read %s: %s\n-> the %s needs instagram_manage_comments' % (handle, exc, own or 'IG_TOKEN'))
+            skipped.append(handle)
             if own: continue                # its own token: the others are unaffected
             break
         except Exception as exc:
-            print('could not read %s: %s' % (handle, exc)); continue
+            print('could not read %s: %s' % (handle, exc)); skipped.append(handle); continue
+        read_accounts += 1; read_posts += len(media)
         budget = min(PER_RUN, room(s, account, now))
         for m in media:
             mid, n = str(m['id']), int(m.get('comments_count') or 0)
@@ -192,6 +208,7 @@ def run(dry=False, now=None):
                 print('no permission to read comments on %s: %s\n-> the IG_TOKEN needs instagram_manage_comments' % (handle, exc)); return sent_total
             except Exception as exc:
                 print('could not read comments on %s %s: %s' % (handle, mid, exc)); continue
+            read_comments += len(comments)
             held = False                                                       # a question left for a later run (over the cap)
             for c in sorted(comments, key=lambda c: c.get('timestamp', '')):
                 cid = str(c['id'])
@@ -216,7 +233,9 @@ def run(dry=False, now=None):
         live.update(str(m['id']) for m in media)
     if live: s['seen'] = {k: v for k, v in s['seen'].items() if k in live}   # posts that dropped out of the last 25
     save(s, dry)
-    print('replies sent:', sent_total)
+    print('replies: read %d posts on %d of %d accounts, looked at %d new comments, %s %d%s' % (
+        read_posts, read_accounts, len(ACCOUNTS), read_comments, 'would answer' if dry else 'answered', sent_total,
+        '; skipped %s' % ', '.join(skipped) if skipped else ''))
     return sent_total
 
 

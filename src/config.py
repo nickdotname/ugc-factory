@@ -581,6 +581,14 @@ class SelectionConfig(StrictModel):
     #: what people come to the band's account for.
     favour_styles: dict[str, float] = Field(default_factory=dict)
 
+    #: Slots a night reserved per studio style, ``{cutout: 2, band: 1}``:
+    #: filled style by style from the clips recipes.json says are that style,
+    #: clips never posted first, before the ordinary selector fills the rest.
+    #: A boost (``favour_styles``) only tilts the odds, and a song's measured
+    #: medians tilt them back: 27 cutouts sat unposted for four nights behind
+    #: the band style they were meant to replace. A quota is a promise.
+    style_quota: dict[str, int] | None = None
+
     #: Ceiling on the advantage a winner can accumulate. Uncapped weighting is
     #: a feedback loop: a clip that got lucky early is picked more, gathers
     #: more luck, and entrenches. Every option keeps a floor of 1 so nothing
@@ -607,6 +615,19 @@ class SelectionConfig(StrictModel):
     #: pick that only exists by relaxing dedupe is dropped and the slot stays
     #: empty: posting less beats posting a duplicate.
     repeats: bool = True
+
+    @field_validator("style_quota")
+    @classmethod
+    def _quota_is_whole_slots(cls, v: dict[str, int] | None) -> dict[str, int] | None:
+        for style, slots in (v or {}).items():
+            if not style.strip():
+                raise ValueError("selection.style_quota has an empty style name")
+            if slots < 1:
+                raise ValueError(
+                    f"selection.style_quota[{style!r}] is {slots}; a style with "
+                    f"no slots is left out, not set to 0"
+                )
+        return v or None
 
     @field_validator("dedupe_on")
     @classmethod
@@ -923,6 +944,11 @@ class CreativeConfig(StrictModel):
     #: lives. Fill ``{name}`` and ``{link}`` in the campaign's funnel text.
     title: str = ""
     link: str = ""
+    #: The song's id in Instagram's music catalogue (``scripts/ig_audio_search.py``), attached to every Reel of
+    #: this creative posted directly to a Facebook-login account so it is filed under the song's audio page.
+    #: Normally left empty here and read from ``studio/songs/<slug>/song.json`` (``ig_audio_id``), where the
+    #: song's other facts live; set here only to override that for one campaign.
+    ig_audio_id: str | None = None
 
     @field_validator("music_cues")
     @classmethod

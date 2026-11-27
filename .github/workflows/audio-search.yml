@@ -1,0 +1,67 @@
+# Which Close Quarters tracks can a Reel be tagged with? (scripts/ig_audio_search.py)
+#
+# Every reel the engine posts is "Original audio" under the niche account's own name; the one way a song spreads
+# on Reels is its audio page, which needs the song's catalogue audio_id attached at publish time. This asks
+# Instagram, with the band account's token, what it finds for a search (default: "close quarters" in the licensed
+# music catalogue) and prints title, artist, length and audio_id. No token is ever printed.
+#
+# Operator steps:
+#   1. Run this (Actions > audio-search > Run workflow). Tick `songs` to search every song title in studio/songs.
+#   2. Fifteen rows with artist "Close Quarters" means EDUCATION has reached Meta's music library from the
+#      distributor. Copy each song's audio_id into studio/songs/<slug>/song.json as "ig_audio_id": "<id>" (the
+#      `-> studio/songs/...` lines print the exact key) and open a PR. From then on topup attaches the song to every
+#      Reel of it posted to a Facebook-login account; the video keeps its own sound (the song, cut to the window the
+#      lyrics were made for) and the catalogue track rides along at volume 1 for the attribution.
+#   3. No rows: the album has not reached Meta yet. Check the distributor's store list includes Facebook/Instagram
+#      and run this again in a few days. Meanwhile `type: original_sound` with a song's name as the query finds
+#      the band's own named original sounds, which can be attached the same way as an interim audio page.
+#   4. "Application does not have permission": the token lacks the Instagram publishing permission for the audio
+#      endpoint, or the account is not linked through a Facebook Page (Unified-login accounts cannot attach audio).
+name: audio-search
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "search text (ignored when `songs` is ticked)"
+        default: "close quarters"
+      account:
+        description: "account from accounts.yaml whose token asks (a Facebook-login account)"
+        default: "close_quarters_ig"
+      type:
+        description: "music = Instagram's licensed catalogue; original_sound = sounds accounts posted themselves"
+        type: choice
+        options: [music, original_sound]
+        default: music
+      songs:
+        description: "one search per song title in studio/songs instead of `query`"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q requests pyyaml
+      - name: Ask Instagram which audio the account may attach
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_PAGE_TOKENS: ${{ secrets.IG_PAGE_TOKENS }}
+          ACCOUNT: ${{ inputs.account }}
+          QUERY: ${{ inputs.query }}
+          KIND: ${{ inputs.type }}
+          SONGS: ${{ inputs.songs }}
+        run: |
+          if [ "$SONGS" = "true" ]; then
+            python scripts/ig_audio_search.py --account "$ACCOUNT" --type "$KIND" --songs
+          else
+            python scripts/ig_audio_search.py --account "$ACCOUNT" --type "$KIND" --query "$QUERY"
+          fi
