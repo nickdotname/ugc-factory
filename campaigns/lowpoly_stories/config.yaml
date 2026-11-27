@@ -61,13 +61,13 @@ accounts:
 
 posting:
   posts_per_day: 2
-  start_hour: 8                # early: mornings were empty across the network
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
   # Keeps these posts off the minute another campaign uses on the same
   # accounts.
-  slot_offset_min: 26
+  slot_offset_min: 29          # moved 2026-11-26 off another campaign's minute (all niche windows start at noon now)
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
@@ -150,9 +150,9 @@ funnel:
   # Posted by the account itself under each reel right after it goes out (Instagram only;
   # Buffer's free plan refuses posts that carry one). Rotates; no asks for likes or tags.
   first_comment:
+    - "♪ {name} — @close__quarters. fifteen songs on EDUCATION; this is one of them"
     - "🎧 the song is {name} by @close__quarters, from their album EDUCATION"
     - "song: {name} by @close__quarters. the full album EDUCATION is linked in our bio"
-    - "🎧 {name} – @close__quarters (EDUCATION, out now)"
   # What each reel's sound is called on Instagram instead of "Original audio".
   audio_name: "{name} – Close Quarters"
   end_card: ""               # the render loops cleanly; a card would break the loop

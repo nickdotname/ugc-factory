@@ -51,7 +51,11 @@ HARD = re.compile(r'strip|burlesque|nud|naked|sex|venereal|nazi|hitler|racis|min
 
 # Cartoons from before 1931 are public domain, but some of their characters are still live trademarks that their
 # owners defend (Disney's, Felix, Betty Boop, Popeye). The 'toons' theme leaves every film with one of them alone.
-TRADEMARK = re.compile(r'mickey|minnie|disney|oswald|felix|betty.?boop|popeye|silly.?symphon|pluto|goofy|donald|woody|bugs bunny|looney|merrie', re.I)
+# Steamboat Willie (1928) is PD and its title has no "Mickey" in it, but Mickey is the trademark Disney defends hardest
+# and the film is rights-matched on every platform; Barnacle Bill (1930) has the proto-Betty Boop in it, and Fleischer
+# Studios disputes that Betty is PD at all. Both named here, by title, so no caller has to know.
+TRADEMARK = re.compile(r'mickey|minnie|disney|oswald|felix|betty.?boop|popeye|silly.?symphon|pluto|goofy|donald|woody|bugs bunny|looney|merrie|'
+                       r'steamboat.?willie|barnacle.?bill', re.I)
 
 
 def blocked(text, rule=None):
@@ -340,10 +344,11 @@ TOON_NOT = re.compile(r'collection|compil|\b(19[0-9]{2})\s*[-–]\s*(19[0-9]{2})
 
 
 def fits(e):
-    """Whether an index entry belongs in its theme (nyc: a New York place, not news; toons: one cartoon, nobody's live
-    trademark, no compilation or remix). Our own clips always do."""
+    """Whether an index entry belongs in its theme (nyc: a New York place, not news; toons: one cartoon from 1930 or
+    before, nobody's live trademark, no compilation or remix). Our own clips always do."""
     if e.get('source') == 'own': return True
     if e.get('theme') == 'toons':
+        if (e.get('year') or 0) > 1930: return False                   # indexed with a year past the PD line (Aristocr1940 said 1930)
         t = '%s %s' % (e.get('title', ''), e.get('key', ''))
         return not TRADEMARK.search(t) and not TOON_NOT.search(t)
     if e.get('theme') != 'nyc': return True

@@ -14,12 +14,16 @@ An Obsidian vault (open `docs/brain/` as a vault, or just read it on GitHub). Ev
 - [[ready-pages]]: pages built and paused, waiting for their Instagram account (with handle ideas)
 - [[backlog]]: ideas and half-built things, with enough detail to pick up
 - [[log]]: dated changes
+- `reviews/`: dated whole-network reviews; start with `reviews/2026-11-26/README.md` (every account's verdict and the ranked plan)
 
 Playbooks (step by step):
 - [[add-account]]: a new Instagram account, from signup to its first post
 - [[add-song]]: a new song (with or without vocals)
 - [[new-format]]: a new video style
 - [[health-check]]: is everything posting? what to look at, in order
+- [[add-youtube-channel]]: a YouTube channel posting Shorts through the direct publisher
+- [[narration]]: the AI narration on what.if.town (voice, ducking, disclosure)
+- [[operator-checklist-2026-11-27]]: the hand steps left after the 2026-11-26 review (tokens, audio pages, link worker, Google)
 
 ## The system in one paragraph
 

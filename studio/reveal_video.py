@@ -147,8 +147,8 @@ class Video:
             d.text((W / 2, 480), 'level: %s' % self.level, font=self.f_small, fill=sub, anchor='mm')
             pop = 1.0 + 0.25 * max(0.0, 1 - (i - a) / 6.0) if j > 0 else 1.0
             fn = font('DejaVuSansMono-Bold.ttf', int(66 * pop)) if pop > 1.001 else self.f_num
-            d.text((W / 2, 1390), '%d circle%s' % (N, '' if N == 1 else 's'), font=fn, fill=tuple(int(x) for x in self.pen), anchor='mm')
-            d.text((W / 2, 1462), 'off by %s%% of its size' % ('%.0f' % self.err[N] if self.err[N] >= 1.5 else '%.1f' % max(0.1, self.err[N])),
+            d.text((W / 2, 1350), '%d circle%s' % (N, '' if N == 1 else 's'), font=fn, fill=tuple(int(x) for x in self.pen), anchor='mm')
+            d.text((W / 2, 1415), 'off by %s%% of its size' % ('%.0f' % self.err[N] if self.err[N] >= 1.5 else '%.1f' % max(0.1, self.err[N])),
                    font=self.f_mid, fill=sub, anchor='mm')
         else:
             u = min(1.0, (i - self.reveal) / (0.35 * FPS)); sc = 0.8 + 0.2 * u
@@ -156,9 +156,9 @@ class Video:
             while d.textlength(name, font=f) > 820 and f.size > 60: f = font('Anton-Regular.ttf', f.size - 8)
             d.text((W / 2, 360), name, font=f, fill=ink, anchor='mm')
             extra = {'New Zealand (South Island)': ' (south island)', 'Japan': ' (honshu, its biggest island)'}.get(self.country, '')
-            d.text((W / 2, 1390), 'drawn with %d circles%s' % (self.ladder[-1], extra), font=self.f_mid, fill=sub, anchor='mm')
-            d.text((W / 2, 1460), 'outline: natural earth', font=self.f_small, fill=sub, anchor='mm')
-        d.text((W / 2, 1540), self.credit, font=self.f_credit, fill=sub, anchor='mm')
+            d.text((W / 2, 1350), 'drawn with %d circles%s' % (self.ladder[-1], extra), font=self.f_mid, fill=sub, anchor='mm')
+            d.text((W / 2, 1412), 'outline: natural earth', font=self.f_small, fill=sub, anchor='mm')
+        d.text((W / 2, 1470), self.credit, font=self.f_credit, fill=sub, anchor='mm')   # inside Instagram's safe area
         return np.asarray(im)
 
     def frame(self, i):

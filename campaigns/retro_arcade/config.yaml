@@ -63,7 +63,7 @@ accounts:
 
 posting:
   posts_per_day: 2          # 4 until 2026-11-25 (median 16 views)
-  start_hour: 9
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   max_backlog_days: 1
@@ -73,7 +73,7 @@ posting:
   fan_out: true
   # Both switches are ON so nothing can post until you have looked at a
   # sample. To go live: paused -> false, then dry_run -> false.
-  paused: false  # live: the account is linked to its Page and in accounts.yaml
+  paused: true                 # PAUSED docs/brain/reviews/2026-11-26: 48 near-still AI clips are not a PS2 feed (median 16 views); Kaggle budget moves to ascii subject clips
   dry_run: false
 
 video:
@@ -152,9 +152,9 @@ funnel:
   # Posted by the account itself under each reel right after it goes out (Instagram only;
   # Buffer's free plan refuses posts that carry one). Rotates; no asks for likes or tags.
   first_comment:
-    - "🎧 the song is {name} by @close__quarters, from their album EDUCATION"
-    - "song: {name} by @close__quarters. the full album EDUCATION is linked in our bio"
-    - "🎧 {name} – @close__quarters (EDUCATION, out now)"
+    - "the sound is {name}, by @close__quarters. album: EDUCATION"
+    - "track: {name}. band: @close__quarters. album: EDUCATION, out now"
+    - "♪ {name} — @close__quarters. fifteen songs on EDUCATION; this is one of them"
   # What each reel's sound is called on Instagram instead of "Original audio".
   audio_name: "{name} – Close Quarters"
   end_card: ""               # the render loops cleanly; a card would break the loop

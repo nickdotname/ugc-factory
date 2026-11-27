@@ -81,7 +81,7 @@ RATE = slow / (RACE1 - RACE0)                  # cells looked at per beat, the s
 FIN = {nm: RACE0 + len(RES[nm][0]) / RATE for nm in NAMES}
 ORDER = sorted(NAMES, key=lambda nm: FIN[nm]); PLACE = {nm: k + 1 for k, nm in enumerate(ORDER)}
 HITS = {round(FIN[nm] * 2) / 2: 0.7 for nm in NAMES}; HITS.update({RACE0: 0.9, 35: 0.6})
-LANE_Y0, LANE_H, GAP = 470, 340, 26
+LANE_Y0, LANE_H, GAP = 470, 325, 20                  # the last lane ends at 1485: inside Instagram's safe area
 CELL = min((W - 140) / COLS, (LANE_H - 60) / ROWS)
 LANE_COL = {nm: c for nm, c in zip(NAMES, (ST.b, ST.c, ST.d))}
 
@@ -115,8 +115,8 @@ def frame(i):
     c = BG.copy()
     if k < 4.6:
         a = 1 - float(ease_out((k - 4.0) / 0.5))
-        for j, (s, sz, col, y) in enumerate((('3 ways to escape', 80, ST.fg, 300), ('the same maze.', 60, ST.muted, 385))):
-            e = float(ease_back((k - 1.2 * j) / 0.45)); paste(c, text(s, F(FONT, sz), col), W / 2, y, e, a * min(1, e))
+        for j, (s, sz, col, y) in enumerate((('3 ways to escape', 80, ST.fg, 325), ('the same maze.', 60, ST.muted, 405))):
+            e = 1.0 if j == 0 else float(ease_back((k - 1.2 * j) / 0.45));   # the title is on frame 0: the cover paste(c, text(s, F(FONT, sz), col), W / 2, y, e, a * min(1, e))
         e = float(ease_back((k - 2.4) / 0.45))
         paste(c, text('which gets out first?', F(FONT, 84), ST.a, stroke=3), W / 2, 1660, e * (1 + 0.04 * kick), a * min(1, e))
     else:
@@ -138,7 +138,8 @@ def frame(i):
         for j, (s, col, sz, fnt) in enumerate(rows):
             t0 = 34.3 if k < 39 else 39.0
             e = float(ease_back((k - t0 - 0.5 * j) / 0.4)); paste(c, text(s, F(fnt, sz), col, stroke=3 if fnt == FONT else 0), W / 2, 820 + 100 * j, e, min(1, e))
-        paste(c, text('follow for part 2', F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
+        least, most = (round(100 * len(RES[nm][0]) / OPEN) for nm in (min(NAMES, key=lambda nm: len(RES[nm][0])), max(NAMES, key=lambda nm: len(RES[nm][0]))))
+        paste(c, text('same maze: %d%% of it searched vs %d%%' % (least, most), F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
     amp, ph = shake_at(k, HITS, ST)
     o = finish(c, k, amp, ph, 1 + 0.008 * kick, W / 2, H / 2, ST)
     return overlay_fixed(o, ST, k, CL.beats, CREDIT)

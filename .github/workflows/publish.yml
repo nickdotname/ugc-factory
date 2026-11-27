@@ -70,6 +70,27 @@ jobs:
           IG_TOKEN_14: ${{ secrets.IG_TOKEN_14 }}
           IG_TOKEN_15: ${{ secrets.IG_TOKEN_15 }}
           IG_TOKEN_16: ${{ secrets.IG_TOKEN_16 }}
+          # YouTube (direct): the Cloud project's OAuth client, one refresh token per channel,
+          # and the per-project daily upload cap the publisher's ledger enforces.
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN_1: ${{ secrets.YT_REFRESH_TOKEN_1 }}
+          YT_REFRESH_TOKEN_2: ${{ secrets.YT_REFRESH_TOKEN_2 }}
+          YT_REFRESH_TOKEN_3: ${{ secrets.YT_REFRESH_TOKEN_3 }}
+          YT_REFRESH_TOKEN_4: ${{ secrets.YT_REFRESH_TOKEN_4 }}
+          YT_REFRESH_TOKEN_5: ${{ secrets.YT_REFRESH_TOKEN_5 }}
+          YT_REFRESH_TOKEN_6: ${{ secrets.YT_REFRESH_TOKEN_6 }}
+          YT_REFRESH_TOKEN_7: ${{ secrets.YT_REFRESH_TOKEN_7 }}
+          YT_REFRESH_TOKEN_8: ${{ secrets.YT_REFRESH_TOKEN_8 }}
+          YT_REFRESH_TOKEN_9: ${{ secrets.YT_REFRESH_TOKEN_9 }}
+          YT_REFRESH_TOKEN_10: ${{ secrets.YT_REFRESH_TOKEN_10 }}
+          YT_REFRESH_TOKEN_11: ${{ secrets.YT_REFRESH_TOKEN_11 }}
+          YT_REFRESH_TOKEN_12: ${{ secrets.YT_REFRESH_TOKEN_12 }}
+          YT_REFRESH_TOKEN_13: ${{ secrets.YT_REFRESH_TOKEN_13 }}
+          YT_REFRESH_TOKEN_14: ${{ secrets.YT_REFRESH_TOKEN_14 }}
+          YT_REFRESH_TOKEN_15: ${{ secrets.YT_REFRESH_TOKEN_15 }}
+          YT_REFRESH_TOKEN_16: ${{ secrets.YT_REFRESH_TOKEN_16 }}
+          YT_DAILY_UPLOADS: "100"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
@@ -143,6 +164,7 @@ jobs:
           pip install -q Pillow || true
           python scripts/dash_data.py
           git add cqdash/data.json
+          git add cqdash/followers.json 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -q -m "dashboard numbers [skip ci]"
           for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
@@ -167,8 +189,9 @@ jobs:
             06:45) gh workflow run studio.yml --ref main ;;                      # 1:45am New York: tonight's new videos
             08:30) gh workflow run render.yml --ref main -f dry_run=false ;;     # 3:30am: turn tonight's videos into posts (render is demand-driven, so a second run adds nothing)
             09:00|15:00|21:00) gh workflow run topup.yml --ref main -f dry_run=false ;;  # 4am, 10am, 4pm: book them into the day's slots
-            17:15) gh workflow run carousel.yml --ref main ;;  # 12:15pm New York: one a day (2026-11-24: carousels reach few people; they exist so fact reels have something to point to)
-            15:45|18:45|22:45|01:45) gh workflow run factreel.yml --ref main ;;  # 10:45am, 1:45pm, 5:45pm, 8:45pm New York
+            # carousel.yml is no longer started here (2026-11-26, docs/brain/reviews/2026-11-26): 33 carousels reached 3-18 people each.
+            # Fact reels carry on from the carousels already posted; by hand: gh workflow run carousel.yml -f spec=<name>.
+            22:45|01:45) gh workflow run factreel.yml --ref main ;;  # 5:45pm, 8:45pm New York, the account's best hours; 4 a day until 2026-11-26
             06:30) gh workflow run metrics.yml --ref main ;;                     # 1:30am: every account's numbers, Buffer's too
             00:30|03:30|09:30|12:30|15:30|18:30|21:30) gh workflow run metrics.yml --ref main -f instagram_only=true ;;  # every 3 hours: the Instagram accounts' numbers (no Buffer requests)
           esac

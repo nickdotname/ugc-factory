@@ -1,6 +1,8 @@
-# Which Instagram accounts can their tokens reach? (scripts/ig_check.py)
+# Which Instagram accounts can their tokens reach, and what may each token read? (scripts/ig_check.py)
 # Run by hand after adding an account or a token: it prints, per account, the username Instagram answers with and
-# which host the token works on. No token is ever printed.
+# which host the token works on; then, per token, its permissions (flagged when the insights permission is missing,
+# which is why an account has no numbers) and the Pages it manages with their tasks (no ANALYZE = no insights).
+# No token is ever printed. Red means something to fix: a token that cannot reach its account or read its insights.
 name: ig-check
 
 on:

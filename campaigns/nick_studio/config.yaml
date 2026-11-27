@@ -52,7 +52,7 @@ accounts:
 
 posting:
   posts_per_day: 1              # type videos median ~20 since Nov 20; one a day while the account is checked (3 before)
-  start_hour: 11
+  start_hour: 12             # noon NY (docs/brain/reviews/2026-11-26): 10-11 is the weakest hour, 17 and 20-23 the best
   end_hour: 23
   max_buffer_queue: 10
   buffer_share: 4          # of the ten posts Buffer holds for the channel: the memes (closequarters) have six

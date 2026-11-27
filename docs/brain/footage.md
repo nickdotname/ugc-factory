@@ -46,6 +46,9 @@ cartoons: watch the first vintage posts and add a frame check if anything slips 
 
 The silent theme is small (Nov 2026: 7 films, 21 usable clips; 6 of them are 320x240 copies of Nosferatu), so vintage posts repeat films often. The Veil Dance (Schleiertanz, 1906) is blocked: its dancers wear body stockings that read as nude at phone size. More silent films (Keaton, Chaplin, Lloyd, Lumière and city films are in `queries.json` but nothing from them is in the library yet) would help vintage more than any look change.
 
+`footage.TRADEMARK` keeps live characters out of the toons pull (Mickey, Betty Boop, Felix, ... and, since 2026-11-27, Steamboat
+Willie and Barnacle Bill by title); a toons entry dated after 1930 is out whatever its title (Aristocrats of Fashion is 1940).
+
 ## Our own clips
 
 - **NYC** (PR #94): add Google Drive links (shared "anyone with the link"), one per line, to

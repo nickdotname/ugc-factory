@@ -21,7 +21,25 @@ posted = json.load(open(POSTED)) if os.path.exists(POSTED) else []
 done = {p['slug'] for p in posted}
 ACCTS = {x['name']: x for x in yaml.safe_load(open(os.path.join(REPO, 'accounts.yaml')))['accounts']}
 SKIP = ('posted.json', 'reeled.json')
-DAILY_CAP = {'close_quarters_ig': 0}            # no carousels on the band's own page
+# No carousels on the band's own page, and none on psychedelic.station since 2026-11-26: its 18 reached 3-18 people
+# each (docs/brain/reviews/2026-11-26). --spec still posts one by hand. The publish job no longer starts this script.
+DAILY_CAP = {'close_quarters_ig': 0, 'psychedelic_station_ig': 0}
+
+def clear_slot(channel_id, now, gap_min=60):
+    """The first minute from now at least gap_min from every post the account holds or has sent (outbox/). topup keeps
+    its own slots an hour apart and the publisher holds a post that follows another within MIN_GAP, but a post due
+    'now' from this job landed beside whatever topup had already booked for the next hour: psychedelic.station had 62
+    of 88 posts within 45 minutes of another (docs/brain/reviews/2026-11-26). The same helper is in post_factreel.py."""
+    times = []
+    for f in glob.glob(os.path.join(REPO, 'outbox', '*.json')):
+        it = json.load(open(f))
+        if str(it.get('channel_id')) != str(channel_id) or it.get('status') not in ('queued', 'publishing', 'published'): continue
+        try: t = datetime.datetime.fromisoformat(it.get('published_at') if it.get('status') == 'published' else it.get('scheduled_for'))
+        except (TypeError, ValueError): continue
+        times.append(t if t.tzinfo else t.replace(tzinfo=datetime.timezone.utc))
+    gap, when = datetime.timedelta(minutes=gap_min), now
+    while when < now + datetime.timedelta(hours=24) and any(abs(when - t) < gap for t in times): when += datetime.timedelta(minutes=5)
+    return when
 
 def waiting():
     """Every unposted spec, in folder then name order, with the account it is for."""
@@ -45,13 +63,13 @@ def make(path, name):
     if subprocess.run(['gh', 'release', 'view', tag], capture_output=True, cwd=REPO).returncode != 0:
         subprocess.run(['gh', 'release', 'create', tag, '--title', tag, '--notes', 'Carousel slides, served to Instagram by the site.'], check=True, cwd=REPO)
     subprocess.run(['gh', 'release', 'upload', tag, *files], check=True, cwd=REPO)
-    pid = 'igo-' + str(uuid.uuid4())
+    pid = 'igo-' + str(uuid.uuid4()); due = clear_slot(acct['channel_id'], now)
     item = dict(id=pid, channel_id=str(acct['channel_id']), status='queued', video_url=None, image_urls=urls, caption=spec['caption'], first_comment=None,
                 share_to_feed=True, trial=False, trial_graduation=None, audio_id=None, audio_volume=None, video_volume=None,
-                scheduled_for=now.isoformat(), created_at=now.isoformat(), attempts=0)
+                scheduled_for=due.isoformat(), created_at=now.isoformat(), attempts=0)
     os.makedirs(os.path.join(REPO, 'outbox'), exist_ok=True); json.dump(item, open(os.path.join(REPO, 'outbox', pid + '.json'), 'w'), indent=2, sort_keys=True)
     posted.append(dict(slug=spec['slug'], date=now.strftime('%Y-%m-%d'), post=pid, account=name, slides=len(urls))); json.dump(posted, open(POSTED, 'w'), indent=1)
-    print('held', pid, 'for', name, '(%d slides)' % len(urls)); return name
+    print('held', pid, 'for', name, '(%d slides)' % len(urls), 'due', due.strftime('%H:%M UTC')); return name
 
 if a.spec:
     path = a.spec if os.path.exists(a.spec) else os.path.join(CDIR, a.spec + '.json')

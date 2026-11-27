@@ -39,6 +39,7 @@ from pydantic import Field, field_validator, model_validator
 from src.config import (
     BUFFER_KEY_SLOTS,
     INSTAGRAM_TOKEN_SLOTS,
+    YOUTUBE_TOKEN_SLOTS,
     PostType,
     StrictModel,
     TitleStrategy,
@@ -60,6 +61,8 @@ class Provider(str, Enum):
     #: Instagram's own API, with the repo holding posts until they are due
     #: (see ``src/publishers/instagram.py``).
     INSTAGRAM = "instagram"
+    #: YouTube's Data API, same outbox idea (``src/publishers/youtube.py``).
+    YOUTUBE = "youtube"
 
 
 class InstagramLogin(str, Enum):
@@ -127,11 +130,10 @@ class AccountConfig(StrictModel):
 
     @model_validator(mode="after")
     def _key_slot_is_wired(self) -> "AccountConfig":
-        slots = (
-            INSTAGRAM_TOKEN_SLOTS
-            if self.provider is Provider.INSTAGRAM
-            else BUFFER_KEY_SLOTS
-        )
+        slots = {
+            Provider.INSTAGRAM: INSTAGRAM_TOKEN_SLOTS,
+            Provider.YOUTUBE: YOUTUBE_TOKEN_SLOTS,
+        }.get(self.provider, BUFFER_KEY_SLOTS)
         if self.api_key_secret not in slots:
             raise ValueError(
                 f"api_key_secret must be one of {list(slots)} — these are the "
@@ -145,6 +147,11 @@ class AccountConfig(StrictModel):
             raise ValueError(
                 f"account {self.name!r}: provider instagram can only post to "
                 f"the instagram network, not {self.network.value}"
+            )
+        if self.provider is Provider.YOUTUBE and self.network is not Service.YOUTUBE:
+            raise ValueError(
+                f"account {self.name!r}: provider youtube can only post to "
+                f"the youtube network, not {self.network.value}"
             )
         if self.trial_reels and self.provider is not Provider.INSTAGRAM:
             raise ValueError(

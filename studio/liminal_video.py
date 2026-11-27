@@ -371,6 +371,8 @@ def _font(name, size):
         return ImageFont.load_default()
 FMONO = _font('DejaVuSansMono-Bold.ttf', 54)
 FLINE = _font('Poppins-Bold.ttf', 70)
+FCREDIT = _font('DejaVuSansMono-Bold.ttf', 28)
+CREDIT = '\u266a %s \u2014 %s' % (SONG.get('title', os.path.basename(SONG_DIR)).lower(), SONG.get('artist', 'Close Quarters').lower())
 def _agree(line):
     """The tape's date stamp never contradicts the line: 'in 2001' is stamped 2001, 'friday night' is a Friday evening,
     'in january' is January, 'at 10pm' reads PM 10. (A line said 2001 over a 1995 stamp; 'at 10pm' over AM 2:48.)"""
@@ -443,6 +445,7 @@ def tape(rgb, i):
     im = Image.fromarray(a); d = ImageDraw.Draw(im)
     secs = (i // FPS) % 60
     if label != 'none': d.text((70, 262), label, font=FMONO, fill=(240, 60, 50) if label.startswith('REC') and (i // 15) % 2 == 0 else (240, 240, 240))
+    d.text((70, 328), CREDIT, font=FCREDIT, fill=(225, 225, 225), stroke_width=2, stroke_fill=(0, 0, 0))   # the song, small, in the tape's chrome (the stamp owns y 1360-1480)
     if stamp != 'none':
         d.text((70, H - 560), '%s %02d %d' % (MON[month - 1], day, year), font=FMONO, fill=(240, 240, 240))
         d.text((70, H - 495), '%s %d:%02d:%02d' % ('AM' if hour < 12 else 'PM', hour % 12 or 12, minute, secs), font=FMONO, fill=(240, 240, 240))

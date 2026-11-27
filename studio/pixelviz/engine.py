@@ -173,7 +173,7 @@ class Video:
         ly = self.lyric(t)
         if ly: d.text((24, sy + 68), '>>> print("%s")' % ly, font=self.fs, fill=(126, 231, 135))
         d.text((W - 150, 40), '● t %05.1f' % t, font=self.fs, fill=(88, 166, 255))
-        d.text((24, 40), self.label, font=self.fs, fill=(110, 118, 130))
+        d.text((W - 24, sy + 30), self.label, font=self.fs, fill=(150, 160, 175), anchor='ra')   # in the status bar, inside the safe area (at (24, 40) it sat under the top bar)
         return np.asarray(im)
 
     def render(self, out):

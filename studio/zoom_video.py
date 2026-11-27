@@ -102,7 +102,7 @@ class Video:
         a = audio.load(self.slug, t0, t1); self.n = n = a['n']
         self.kick = audio.hits(a['kicks'], n, 6.0)
         bars = [int(round(fr)) for b, fr in a['beats'] if b % 4 == 0 and 0 <= fr < n]
-        self.drop = next((f for f in bars if f >= n * 0.3), int(n * 0.35))
+        self.drop = next((f for f in bars if f >= 1.5 * FPS), int(1.5 * FPS))    # the dive inside ~1.5 s: the cut to the detail IS the hook (it was the first bar after 30% of the clip, ~6 s of push-in)
         later = [f for f in bars if f >= self.drop + 3 * FPS and f < n - 2.5 * FPS]
         self.second = later[0] if (self.tour == 'two' and later) else None
         self.spots = details(img, r, 2 if self.second else 1)

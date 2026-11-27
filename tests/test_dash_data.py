@@ -105,6 +105,102 @@ def test_post_metrics_keep_their_read_time_through_the_cache(tmp_path: Path) -> 
     assert load_posts(tmp_path / "old.json").posts["igo-y"].fetched_at is None
 
 
+def graph(mod, monkeypatch, profile: dict, stats: dict | None = None):
+    """Stand in for Instagram and the bio-link worker: what each URL dash_data fetches would answer."""
+    calls: list[str] = []
+
+    def fake_get(url, token=None):
+        calls.append(url)
+        if url.endswith("/stats"):
+            if stats is None: raise OSError("no worker")
+            return json.dumps(stats).encode()
+        if "graph.facebook.com" in url:
+            assert token, "Instagram is only asked with a token"
+            if "business_discovery" in url: return json.dumps({"business_discovery": profile}).encode()
+            return json.dumps(profile).encode()
+        return b"\xff\xd8not really a jpeg"
+
+    monkeypatch.setattr(mod, "_get", fake_get)
+    return calls
+
+
+def test_follower_counts_are_logged_once_a_day(dash, monkeypatch: pytest.MonkeyPatch) -> None:
+    from datetime import date, timedelta
+
+    mod, root = dash
+    monkeypatch.setenv("IG_TOKEN", "x")
+    prof = {"profile_picture_url": "https://example.test/p.jpg", "followers_count": 120, "follows_count": 7, "media_count": 31}
+    calls = graph(mod, monkeypatch, prof)
+    outbox(root, "igo-a")
+    today = date.today().isoformat()
+    week_ago = (date.today() - timedelta(days=7)).isoformat()
+    long_ago = (date.today() - timedelta(days=120)).isoformat()
+    (root / "followers.json").write_text(json.dumps({"accounts": {"nyc_ig": {
+        week_ago: {"followers": 100, "follows": 7, "media": 20}, long_ago: {"followers": 1}}}}))
+    data = build(mod, root)
+    nyc = next(a for a in data["accounts"] if a["name"] == "nyc_ig")
+    assert nyc["followers"] == 120 and nyc["media"] == 31 and nyc["follows"] == 7
+    assert nyc["followers_7d"] == 20 and nyc["followers_since"] == week_ago
+    assert nyc["followers_at"] == today and nyc["followers_log"] == {week_ago: 100, today: 120}
+    assert nyc["pfp"].startswith("data:image/jpeg;base64,")
+    log = json.loads((root / "followers.json").read_text())["accounts"]["nyc_ig"]
+    assert set(log) == {week_ago, today}, "the row from 120 days ago is dropped; today's is added"
+    assert log[today] == {"followers": 120, "follows": 7, "media": 31}
+    # the Buffer-only account is looked up by handle through ours
+    assert any("business_discovery.username%28the.loose.change%29" in u and "followers_count" in u for u in calls)
+    # five minutes later nothing is fetched again and the numbers stand
+    n = len(calls)
+    data2 = build(mod, root)
+    assert len(calls) == n, "Instagram is asked once a day"
+    assert next(a for a in data2["accounts"] if a["name"] == "nyc_ig")["followers_7d"] == 20
+
+
+def test_the_follower_log_is_rebuilt_from_data_json_when_the_file_is_missing(dash, monkeypatch: pytest.MonkeyPatch) -> None:
+    from datetime import date, timedelta
+
+    mod, root = dash
+    monkeypatch.setenv("IG_TOKEN", "x")
+    graph(mod, monkeypatch, {"profile_picture_url": "https://example.test/p.jpg", "followers_count": 130})
+    outbox(root, "igo-a")
+    y = (date.today() - timedelta(days=1)).isoformat()
+    (root / "data.json").write_text(json.dumps({"accounts": [{"name": "nyc_ig", "followers_log": {y: 125}}], "posts": []}))
+    nyc = next(a for a in build(mod, root)["accounts"] if a["name"] == "nyc_ig")
+    assert nyc["followers"] == 130 and nyc["followers_7d"] == 5 and nyc["followers_since"] == y
+    assert json.loads((root / "followers.json").read_text())["accounts"]["nyc_ig"][y] == {"followers": 125}
+
+
+def test_bio_link_taps_per_account(dash, monkeypatch: pytest.MonkeyPatch) -> None:
+    from datetime import date, timedelta
+
+    mod, root = dash
+    (root / "site.yaml").write_text("link_base: https://links.example.test\n")
+    days = [(date.today() - timedelta(days=k)).isoformat() for k in range(6, -1, -1)]
+    stats = {d: {} for d in days}
+    stats[days[-1]] = {"nyc": 3, "other": 9}
+    stats[days[0]] = {"nyc": 1}
+    stats["week"] = {"nyc": 4, "other": 9}
+    stats["last"] = {"nyc": {"at": "2026-11-26T12:00:00.000Z", "app": "instagram"}}
+    graph(mod, monkeypatch, {}, stats)
+    outbox(root, "igo-a")
+    accs = {a["name"]: a for a in build(mod, root)["accounts"]}
+    assert accs["nyc_ig"]["link"] == "/nyc" and accs["nyc_ig"]["taps7"] == 4
+    assert accs["nyc_ig"]["taps"] == [1, 0, 0, 0, 0, 0, 3] and accs["nyc_ig"]["tap_last"] == "2026-11-26T12:00:00.000Z"
+    assert accs["math_ig"]["taps7"] == 0 and accs["math_ig"]["tap_last"] is None
+    # the worker unreachable: the last numbers stand rather than vanish
+    graph(mod, monkeypatch, {}, None)
+    outbox(root, "igo-b")
+    accs = {a["name"]: a for a in build(mod, root)["accounts"]}
+    assert accs["nyc_ig"]["taps7"] == 4 and accs["nyc_ig"]["link"] == "/nyc"
+
+
+def test_every_handle_has_a_bio_link_path(dash) -> None:
+    mod, _ = dash
+    assert set(mod.LINKS.values()) == set(mod.HANDLES), "one tracked path per account (link/README.md, learn.py LINK_NAMES)"
+    worker = (REPO_ROOT / "link" / "worker.js").read_text()
+    for path in mod.LINKS:
+        assert f'"{path}"' in worker, f"/{path} is not a source in link/worker.js"
+
+
 def test_posts_waiting_in_buffer_are_shown(dash) -> None:
     """queue.json forgets a pushed item at the next render; Buffer still holds it."""
     mod, root = dash

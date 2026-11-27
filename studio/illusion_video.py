@@ -20,8 +20,10 @@ Every video is a real perception effect drawn from scratch, and every line on sc
 Shapes are our own, built here from formulas (a mug, a knot, a double helix, a tilted cube, a guitar, a ringed planet,
 a spiral stair, a chair, a key, an hourglass, a rocket, a tilted donut): none is taken from anywhere, and the staging (a full-screen
 object, the flip done for you, the speed readout) is ours; no platform ring, no "difficulty" rating.
-One turn takes a whole number of bars, and the dots swell on the kick.
-Knobs (studio/knobs.py): kind, shape, palette, ask (the opening question).
+One turn takes a whole number of bars, the clip is cut to a whole number of turns and its last 9 frames fade into frame 0,
+so it loops without a seam; the dots swell on the kick.
+Knobs (studio/knobs.py): kind, shape (cloud and shadow only), palette, ask (the opening question), phase (when the two cues
+come: pct = at 42 / 62 / 82 % of the clip, secs = undecided 5 s, cued right 3 s, cued left 3 s, 'you choose' to the end).
 """
 import json, math, os, random, subprocess, sys
 import numpy as np, cv2
@@ -119,20 +121,24 @@ class Video:
     def __init__(self, song_dir, seed, t0, t1):
         self.slug = os.path.basename(os.path.normpath(song_dir)); self.t0, self.t1 = t0, t1
         r = random.Random(seed)
-        self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel', 'group', 'stripes'], r, weights=[5, 3, 2, 2, 3, 3])
-        self.shape = K.pick('shape', SHAPES, r); self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
-        self.ask = K.pick('ask', sorted(ASKS), r)
-        a = audio.load(self.slug, t0, t1); self.n = n = a['n']; self.spb = a['spb']
+        # review 2026-11-26: cloud, shadow and group won (8 of 15 posts got a batch), cone never did, the wheel is slow: cone is off the menu
+        self.kind = K.pick('kind', ['cloud', 'shadow', 'cone', 'wheel', 'group', 'stripes'], r, weights=[5, 4, 0, 1, 4, 2])
+        self.shape = K.pick('shape', SHAPES, r) if self.kind in ('cloud', 'shadow') else None   # only the kinds that draw a shape record one (the learner saw phantom shapes)
+        self.pal = [np.array(c, np.float32) for c in PALETTES[K.pick('palette', sorted(PALETTES), r)]]
+        self.ask = K.pick('ask', sorted(ASKS), r); self.phase = K.pick('phase', ['pct', 'secs'], r)
+        a = audio.load(self.slug, t0, t1); n = a['n']; self.spb = a['spb']
         self.kick = audio.hits(a['kicks'], n, 6.0)
         self.turn = 8 * self.spb * FPS                                         # frames in a turn: two bars
-        self.pts = shape(self.shape, 5200, seed); self.col = np.array([self.pal[k % len(self.pal)] for k in range(len(self.pts))], np.float32)
+        self.n = n = int(round(max(1, n // self.turn) * self.turn)); self.t1 = t0 + n / FPS   # whole turns: the last frame runs into the first
+        if self.shape: self.pts = shape(self.shape, 5200, seed); self.col = np.array([self.pal[k % len(self.pal)] for k in range(len(self.pts))], np.float32)
         ph = [0.42, 0.62, 0.82]                                                # undecided, cued one way, cued the other, undecided again
-        self.marks = [int(p * n) for p in ph]
+        self.marks = [min(int(sec * FPS), int(p * n)) for sec, p in zip((5, 8, 11), ph)] if self.phase == 'secs' else [int(p * n) for p in ph]
+        self._first = None
         song = json.load(open(os.path.join(song_dir, 'song.json'))); self.title = song.get('title', self.slug)
         self.credit = '♪ %s — %s' % (self.title.lower(), song.get('artist', 'Close Quarters').lower())
         self.f_big, self.f_mid = font(70), font(44)
         sans = next((p for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',) if os.path.exists(p)), None)
-        self.f_small = ImageFont.truetype(sans, 28) if sans else font(26)
+        self.f_small = ImageFont.truetype(sans, 36) if sans else font(34)                # the credit: 28 px was unreadable on a phone
 
     def cue(self, i):
         """How strongly depth is shown, and which way round: 0 none, +1 the true near side, -1 the far side as near."""
@@ -153,8 +159,8 @@ class Video:
         if i < c: return '← now it turns left'
         return 'same dots the whole time.\nyou choose'
 
-    def frame(self, i):
-        img = np.zeros((H, W, 3), np.float32); k = float(self.kick[min(i, self.n - 1)])
+    def draw(self, i, top=True):
+        img = np.zeros((H, W, 3), np.float32); k = float(self.kick[min(i, len(self.kick) - 1)])
         def P(x, y): return (int(round(x * 16)), int(round(y * 16)))
         if self.kind == 'cone':
             th = 2 * math.pi * i / self.turn
@@ -165,10 +171,10 @@ class Video:
             N = 12; top = 2.25 * 2 * math.pi / N                               # radians a frame at the end: past two spokes' spacing
             th = 0.5 * top * i * i / max(1, self.n)                            # the angle so far, speed rising steadily from rest
             rpm = top * i / max(1, self.n) * FPS * 60 / (2 * math.pi)
-            cv2.circle(img, P(CX, CY), int(S * 1.05 * 16), tuple(float(v) for v in self.pal[0]), 12, cv2.LINE_AA, 4)
+            cv2.circle(img, P(CX, CY), int(S * 1.0 * 16), tuple(float(v) for v in self.pal[0]), 12, cv2.LINE_AA, 4)
             for j in range(N):
                 q = th + j * 2 * math.pi / N
-                cv2.line(img, P(CX + 60 * math.cos(q), CY + 60 * math.sin(q)), P(CX + S * 1.0 * math.cos(q), CY + S * 1.0 * math.sin(q)), tuple(float(v) for v in self.pal[0]), 14, cv2.LINE_AA, 4)
+                cv2.line(img, P(CX + 60 * math.cos(q), CY + 60 * math.sin(q)), P(CX + S * 0.96 * math.cos(q), CY + S * 0.96 * math.sin(q)), tuple(float(v) for v in self.pal[0]), 14, cv2.LINE_AA, 4)
             cv2.circle(img, P(CX, CY), int((60 + 10 * k) * 16), tuple(float(v) for v in self.pal[-1]), -1, cv2.LINE_AA, 4)
             self._rpm = rpm
         elif self.kind == 'group':
@@ -217,10 +223,19 @@ class Video:
                     cv2.circle(img, P(sx[j], sy[j]), int(max(1.0, rad[j]) * 16), tuple(float(v) for v in self.col[j] * lum[j]), -1, cv2.LINE_AA, 4)
         if self.kind != 'stripes': img = img + cv2.GaussianBlur(img, (0, 0), 9) * 0.35
         im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
-        d.multiline_text((W / 2, 300), self.says(i), font=self.f_big, fill=(255, 255, 255), anchor='mm', align='center', spacing=16, stroke_width=4, stroke_fill=(0, 0, 0))
-        if self.kind == 'wheel': d.text((W / 2, H * 0.755), '%d turns a minute' % self._rpm, font=self.f_mid, fill=(235, 235, 245), anchor='mm')
-        d.text((W / 2, H * 0.80), self.credit, font=self.f_small, fill=(180, 180, 195), anchor='mm')
+        if top: d.multiline_text((W / 2, 300), self.says(i), font=self.f_big, fill=(255, 255, 255), anchor='mm', align='center', spacing=16, stroke_width=4, stroke_fill=(0, 0, 0))
+        if self.kind == 'wheel': d.text((W / 2, 1418), '%d turns a minute' % self._rpm, font=self.f_mid, fill=(235, 235, 245), anchor='mm')
+        d.text((W / 2, 1472), self.credit, font=self.f_small, fill=(180, 180, 195), anchor='mm')   # inside Instagram's safe area (y 250-1500)
         return np.asarray(im)
+
+    def frame(self, i):
+        """The last 9 frames fade into frame 0 (as stare_video.py does): a clean loop on an account whose viewers replay."""
+        tail = 9; o = self.draw(i, top=i < self.n - tail - 4)      # the last line clears just before the fade, so two lines never cross
+        if i >= self.n - tail:
+            if self._first is None: self._first = self.draw(0).astype(np.float32)
+            a = (i - (self.n - tail) + 1) / (tail + 1)
+            o = (o.astype(np.float32) * (1 - a) + self._first * a).astype(np.uint8)
+        return o
 
     def render(self, out):
         if '--frames' in sys.argv:
@@ -228,7 +243,7 @@ class Video:
             ims = [Image.fromarray(self.frame(min(f, self.n - 1))).resize((360, 640)) for f in fs]
             sheet = Image.new('RGB', (360 * len(ims), 640))
             for j, im in enumerate(ims): sheet.paste(im, (360 * j, 0))
-            sheet.save(out); print('sheet', out, K.record()['knobs'], self.n, 'frames'); return
+            sheet.save(out); print('sheet', out, K.record()['knobs'], self.n, 'frames', round(self.n / self.turn, 2), 'turns', 'marks', self.marks); return
         tmp = out[:-4] + '.part.mp4'
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
                               '-c:v', 'libx264', '-preset', os.environ.get('CQ_PRESET', 'veryfast'), '-crf', os.environ.get('CQ_CRF', '19'),

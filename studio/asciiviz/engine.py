@@ -233,6 +233,12 @@ class Video:
         ground = cv2.resize(wash.astype(np.float32) * lift, (C * self.cw, R * self.ch), interpolation=cv2.INTER_LINEAR)
         return np.clip(ground * (1 - mask) + up(ink.astype(np.float32)) * mask, 0, 255), R * C, int(spark.sum())
 
+    def credit_at(self, d):
+        """The song credit inside Instagram's safe area (y 250-1500): at (24, 40) it sat under the top bar. In the code layout
+        the art starts at y 130, so it goes in the status bar's free middle; otherwise just above the art."""
+        if self.layout == 'code': d.text((W / 2, 1406), self.label, font=self.fs, fill=(150, 160, 175), anchor='mm')
+        else: d.text((24, 270), self.label, font=self.fs, fill=(150, 160, 175))
+
     def frame_colour(self, i):
         """The colour scenes' page: a header line of live counts, the art, the line being printed, the code underneath."""
         t = i / FPS; SC = self.SC
@@ -246,7 +252,7 @@ class Video:
             if 4 <= hl < view - self.lh: crop[hl - 4:hl + self.lh - 4] = crop[hl - 4:hl + self.lh - 4] * 0.8 + np.array([40, 52, 70]) * 0.6
             img[py + 52:py + 52 + crop.shape[0]] = crop
         im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); d = ImageDraw.Draw(im)
-        d.text((24, 40), self.label, font=self.fs, fill=(110, 118, 130))
+        self.credit_at(d)
         d.text((W - 150, 40), '● t %05.1f' % t, font=self.fs, fill=(88, 166, 255))
         d.text((24, 76), SC.stats(i, sparks) + '    letters %s' % format(letters, ','), font=self.fs, fill=(140, 150, 166))
         ly = self.lyric(t)
@@ -298,7 +304,7 @@ class Video:
                 while self.fl.getlength(ly) > W - 80 and ' ' in ly: ly = ly.split(' ', 1)[1]
                 d.text((W / 2, stats_y + 110), ly, font=self.fl, fill=(126, 231, 135), anchor='mm')
         d.text((W - 150, 40), '● t %05.1f' % t, font=self.fs, fill=(88, 166, 255))
-        d.text((24, 40), self.label, font=self.fs, fill=(110, 118, 130))
+        self.credit_at(d)
         return np.asarray(im)
 
     def render(self, out):

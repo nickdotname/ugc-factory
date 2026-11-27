@@ -39,7 +39,8 @@ main{padding:12px 14px calc(40px + env(safe-area-inset-bottom));max-width:980px;
 .thumb.still{background-size:cover;background-position:center;cursor:default}.thumb.still:after{content:none}
 .err{margin-top:4px;color:var(--bad);font-size:12px}.bad{color:var(--bad)}.as{color:var(--dim)}
 .note{font-size:12px;color:var(--dim);margin:-2px 0 6px}.more{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:8px 12px;font:inherit;cursor:pointer}
-.warnline{margin-top:8px;font-size:12px;font-weight:700;color:var(--warn)}
+.warnline{margin-top:8px;font-size:12px;font-weight:700;color:var(--warn)}.warnline.bad{color:var(--bad)}
+.kpi .d{font-size:12px;font-weight:700;color:var(--ok);margin-left:4px}.kpi .d.neg{color:var(--bad)}.kpi .d.flat{color:var(--dim)}
 .song{margin-top:4px;font-weight:600}.what{color:var(--muted);font-size:13px}
 .cap{margin-top:6px;color:var(--muted);font-size:13px;white-space:pre-line;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .cap.open{-webkit-line-clamp:unset}
@@ -187,9 +188,21 @@ function drawAccounts() {
     const last = pub.slice().sort((x, y) => y.t - x.t)[0];
     const late = lined.filter(p => state(p)[0] === 'late').length, failed = ps.filter(p => p.status === 'failed' && Date.now() - p.t < 7 * 864e5).length;
     const per = days.map(k => pub.filter(p => dayKey(p.t) === k).reduce((s, p) => s + (p.m.views || 0), 0));
-    return `<div class="acard" data-acc="${a.name}"><div class="ahead">${av(a.name, 'big')}<div><h3>@${esc(a.handle)}</h3><div class="sub">${lined.length} booked${ready ? ` · ${ready} ready` : ''} · ${pub.length} posted (60 days)</div></div></div>
+    // Instagram answered no insights for a whole day: every post published in the last 24 h is without numbers, and the
+    // oldest went out over 6 h ago, so the 3-hourly metrics run has had its turn. Buffer's accounts are read once a day: left out.
+    const day = pub.filter(p => !p.via && Date.now() - p.t < 864e5);
+    const denied = day.length && day.some(p => Date.now() - p.t > 6 * 36e5) && !day.some(p => p.m.views != null);
+    // followers: today's count and the change since the row 7 days back (or the oldest row the log has within the week)
+    const d7 = a.followers_7d, span = a.followers_since ? Math.floor((Date.now() - new Date(a.followers_since + 'T00:00:00Z')) / 864e5) : null;
+    const delta = d7 == null ? '' : `<span class="d ${d7 < 0 ? 'neg' : d7 ? '' : 'flat'}">${d7 > 0 ? '+' : ''}${d7}</span>`;
+    const fn = v => v == null ? '–' : v < 1e4 ? String(v) : n(v);
+    return `<div class="acard" data-acc="${a.name}"><div class="ahead">${av(a.name, 'big')}<div><h3>@${esc(a.handle)}</h3><div class="sub">${lined.length} booked${ready ? ` · ${ready} ready` : ''} · ${pub.length} posted (60 days)${a.link ? ` · bio ${esc(a.link)}` : ''}</div></div></div>
       ${late || failed ? `<div class="warnline">${late ? `${late} overdue` : ''}${late && failed ? ' · ' : ''}${failed ? `${failed} failed this week` : ''}</div>` : ''}
+      ${denied ? `<div class="warnline bad">insights denied · no numbers on ${day.length} post${day.length > 1 ? 's' : ''} in 24 h</div>` : ''}
       <div class="kpis"><div class="kpi"><b>${wk.length}</b><span>posts 7d</span></div><div class="kpi"><b>${had.length ? n(had.reduce((s, p) => s + p.m.views, 0)) : '–'}</b><span>views 7d</span></div><div class="kpi"><b>${n(med)}</b><span>median views</span></div></div>
+      ${a.followers != null || a.taps7 != null ? `<div class="kpis"><div class="kpi"><b>${fn(a.followers)}${delta}</b><span>followers${span ? ` · ${Math.min(span, 7)}d` : ''}</span></div>
+        <div class="kpi"><b>${a.taps7 != null ? a.taps7 : '–'}</b><span>bio taps 7d${a.tap_last ? ` · last ${ago(a.tap_last)}` : a.taps7 != null ? ' · none yet' : ''}</span></div>
+        <div class="kpi"><b>${fn(a.media)}</b><span>posts on grid</span></div></div>` : ''}
       ${spark(per)}<div class="next">${nxt ? `next: <b>${dayLabel(nxt.t)} ${fmt(nxt.t, {hour: 'numeric', minute: '2-digit'})}</b> · ${esc(nxt.song || '')}` : 'nothing booked'}</div>
       <div class="next">${last ? `last post: <b>${ago(last.posted || last.due)}</b>` : 'nothing posted yet'}${a.numbers_at ? ` · numbers as of ${ago(a.numbers_at)}` : had.length < wk.length ? ' · numbers not in yet' : ''}</div>
       ${best ? `<div class="next">best: <b>${n(best.m.views)}</b> views · ${esc(best.song || '')}${best.what ? ' · ' + esc(best.what) : ''}</div>` : ''}</div>`;
