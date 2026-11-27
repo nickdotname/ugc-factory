@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-26T16:20:07.890293Z",
+  "generated_at": "2026-11-27T08:32:03.986846Z",
   "items": [
     {
-      "id": "f377fbd6-b8e0-47dd-b9a2-710e48c960e2",
-      "scheduled_for": "2026-11-26T16:07:00-05:00",
-      "rendered_at": "2026-11-26T16:20:07.890293Z",
-      "video_url": "https://factory.nickbenak.com/v/render-stare_lab-2026-11-26/f377fbd6-b8e0-47dd-b9a2-710e48c960e2.mp4",
-      "caption": "the trick only works if your eyes don't move. blink and it starts over\n🎧 Prologue: Before – @close__quarters #illusion #opticalillusion #afterimage #perception #brain",
+      "id": "1661c2bc-a414-406e-a987-beb68efee944",
+      "scheduled_for": "2026-11-27T16:07:00-05:00",
+      "rendered_at": "2026-11-27T08:32:03.986846Z",
+      "video_url": "https://factory.nickbenak.com/v/render-stare_lab-2026-11-27/1661c2bc-a414-406e-a987-beb68efee944.mp4",
+      "caption": "hold your eyes still long enough and the picture changes without changing\n🎧 Passage (Waiting) – @close__quarters #illusion #opticalillusion #afterimage #perception #brain",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,8 +16,8 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.626,
-        "anchor_y": 0.711,
+        "anchor_x": 0.268,
+        "anchor_y": 0.301,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
@@ -28,28 +28,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "prologue",
+      "creative": "passage_waiting",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "eyetrick_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-42350e01-980c-4b7f-84d2-945834630145",
-          "last_error": null,
-          "scheduled_for": "2026-11-26T16:07:00-05:00"
-        }
-      ],
+      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "the trick only works if your eyes don't move. blink and it starts over\n🎧 Prologue: Before – @close__quarters #illusion #opticalillusion #afterimage #perception #brain\n\nlink in bio to stream Prologue: Before"
+        "instagram": "hold your eyes still long enough and the picture changes without changing\n🎧 Passage (Waiting) – @close__quarters #illusion #opticalillusion #afterimage #perception #brain\n\nstream Passage (Waiting): link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
