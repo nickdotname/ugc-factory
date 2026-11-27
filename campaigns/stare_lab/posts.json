@@ -6,7 +6,7 @@
       "sent_at": "2026-11-26T14:36:34.839741Z",
       "metrics": [],
       "account": "eyetrick_ig",
-      "fetched_at": "2026-11-27T16:13:22.428083Z"
+      "fetched_at": "2026-11-27T19:11:11.252602Z"
     },
     "igo-93173a5d-58b1-4d4b-94c6-17e639e0b469": {
       "post_id": "igo-93173a5d-58b1-4d4b-94c6-17e639e0b469",
@@ -14,7 +14,7 @@
       "sent_at": "2026-11-26T13:31:52.879604Z",
       "metrics": [],
       "account": "eyetrick_ig",
-      "fetched_at": "2026-11-27T16:13:22.428083Z"
+      "fetched_at": "2026-11-27T19:11:11.252602Z"
     },
     "igo-42350e01-980c-4b7f-84d2-945834630145": {
       "post_id": "igo-42350e01-980c-4b7f-84d2-945834630145",
@@ -24,7 +24,7 @@
         {
           "type": "views",
           "name": "Views",
-          "value": 1582.0,
+          "value": 1584.0,
           "unit": "count"
         },
         {
@@ -60,13 +60,13 @@
         {
           "type": "averageTimeWatched",
           "name": "Avg. Watch Time (sec)",
-          "value": 9.364,
+          "value": 9.372,
           "unit": "count"
         },
         {
           "type": "totalTimeWatched",
           "name": "Watch Time (min)",
-          "value": 178.24326666666667,
+          "value": 178.54313333333334,
           "unit": "count"
         },
         {
@@ -83,7 +83,7 @@
         }
       ],
       "account": "eyetrick_ig",
-      "fetched_at": "2026-11-27T16:13:22.428083Z"
+      "fetched_at": "2026-11-27T19:11:11.252602Z"
     }
   }
 }
