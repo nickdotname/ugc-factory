@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Subway Maintenance by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "college_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T08:22:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "college in one sentence\n🎧 Subway Maintenance – @close__quarters #college #collegelife #relatable #dormlife\n\nstream Subway Maintenance: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "college_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "dorm life\n🎧 Epilogue: Dismissal – @close__quarters #college #collegelife #relatable #dormlife\n\nEpilogue: Dismissal is out now. link in bio to stream it"
       },
