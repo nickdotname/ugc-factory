@@ -59,6 +59,7 @@ from src.config import (
     load_campaign,
 )
 from src.descriptions import (
+    BANK_DIR,
     Description,
     bank_path_for,
     derive_title,
@@ -297,15 +298,24 @@ def _library_from(
 
 
 def _creative_bank_path(
-    config: CampaignConfig, creative: CreativeConfig, campaign_dir: Path
+    config: CampaignConfig, creative: CreativeConfig, campaign_dir: Path,
+    style: str | None = None,
 ) -> Path:
     """The description bank one creative draws from.
 
-    Its own ``creatives/<name>/captions.txt`` when it has one, the campaign's
-    shared bank otherwise. A creative is often a different *subject* — a
-    different song, a different product angle — and copy written for one
-    reads as nonsense under another, so the bank can follow the clips.
+    A bank written for the clip's studio ``style`` first (the campaign's
+    ``captions/<style>.txt``, when it has one: a wind-tunnel video and a
+    bouncing ball share a song and an account but not a sentence), then the
+    creative's own ``creatives/<name>/captions.txt`` when it has one, the
+    campaign's shared bank otherwise. A creative is often a different
+    *subject* — a different song, a different product angle — and copy
+    written for one reads as nonsense under another, so the bank can follow
+    the clips.
     """
+    if style:
+        styled = campaign_dir / BANK_DIR / f"{style}.txt"
+        if styled.is_file():
+            return styled
     own = config.creative_dir(campaign_dir, creative) / "captions.txt"
     return own if own.is_file() else campaign_dir / "captions.txt"
 
@@ -880,6 +890,24 @@ def _render(
     network_last_used = {
         service: _caption_last_used(full_history, service) for service in Service
     }
+    # Banks written for a studio style (captions/<style>.txt), loaded per song
+    # so {name} is the song's; the style of a clip comes from recipes.json.
+    # Campaign-wide recency: the same line should not open two posts of the
+    # style on one account whichever songs they are.
+    clip_styles = _clip_styles(config)
+    style_banks: dict[tuple[str, str], list[Description]] = {}
+    for name, res in resources.items():
+        for style in sorted(set(clip_styles.get(name, {}).values())):
+            path = _creative_bank_path(config, res.creative, campaign_dir, style=style)
+            if path.parent.name == BANK_DIR and path.stem == style:
+                style_banks[(name, style)] = _load_captions(
+                    path, config.buffer.service, config.buffer.title_strategy,
+                    _caption_names(config, res.creative),
+                )
+    style_last_used: dict[str, datetime] = {}
+    for e in full_history.entries:
+        if e.caption and (e.caption not in style_last_used or e.timestamp > style_last_used[e.caption]):
+            style_last_used[e.caption] = e.timestamp
 
     # Fill the next free slots rather than deferring the whole batch a day.
     # SPEC §4.2 wanted the render->push gap as a review window, but the review
@@ -987,7 +1015,23 @@ def _render(
             timed_slots[pinned.id] if pinned is not None and pinned.at is not None
             else (freed_slots.pop(0) if freed_slots else next(free))
         )
-        record = res.record_for(selection.caption) if pinned is None else None
+        # A bank written for the clip's style beats the song's or the
+        # campaign's: on physics_sims "count the bounces" went out under
+        # wind-tunnel videos and the wind-tunnel lines under balls (11-26).
+        style = clip_styles.get(creative_name, {}).get(selection.hook)
+        style_bank = style_banks.get((creative_name, style or "")) if pinned is None else None
+        if style_bank:
+            chosen = pick_by_recency(
+                [d.body for d in style_bank], style_last_used, today, rng,
+                config.selection.caption_cooldown_days,
+            )
+            style_last_used[chosen] = today + timedelta(microseconds=index + 1)
+            selection = selection.model_copy(update={"caption": chosen})
+            log.info("caption_by_style", creative=creative_name, clip=selection.hook, style=style)
+        record = (
+            next((d for d in style_bank if d.body == selection.caption), None) if style_bank
+            else res.record_for(selection.caption)
+        ) if pinned is None else None
         overlay = pinned.overlay if pinned is not None else (
             record.overlay if record else None
         )
