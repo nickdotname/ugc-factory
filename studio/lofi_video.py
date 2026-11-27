@@ -15,7 +15,8 @@ and then one of them climbs out of the window frame.
 Knobs (studio/knobs.py), so the learner finds out what gets watched: chrome (the window style), wall (the desktop),
 theme (its colours), pop (how often someone climbs out), tint (how often the cut-out is recoloured), pace (a new
 scene every bar or every two). If the stretch asked for is not covered by footage the renderer moves it to the
-nearest one that is, keeping its length.
+nearest one that is, keeping its length. A `short` cut from nightly (6-9 s, CQ_LOOP=1, CQ_LYRICS=none: the footage
+carries without words) loops: its last 9 frames fade into frame 0.
 """
 import io, json, math, os, random, subprocess, sys
 import numpy as np, cv2
@@ -307,6 +308,22 @@ def plan(T0, T1, seed, st):
                            seed=r.random() * 10, x=r.uniform(0.35, 0.65), split=r.choice(SPLITS), tone=r.choice(TONES)))
     return scenes
 
+def loop_wanted(T0, T1):
+    """Whether this cut replays as a loop: nightly says so on a `short` cut (CQ_LOOP=1); by hand, any cut under 10 s does."""
+    return os.environ.get('CQ_LOOP', '1' if T1 - T0 < 10 else '0') == '1'
+
+LOOP_TAIL = 9
+def looped(draw, n, loop):
+    """draw(i), with the last 9 of n frames faded into frame 0 when `loop` (as illusion_video.py does): no seam on the replay."""
+    first = []
+    def frame(i):
+        o = draw(i); tail = n - i
+        if not loop or tail > LOOP_TAIL: return o
+        if not first: first.append(draw(0).astype(np.float32))
+        a = (LOOP_TAIL + 1 - tail) / (LOOP_TAIL + 1)                     # 0.1 on the first of the nine, 0.9 on the last
+        return (o.astype(np.float32) * (1 - a) + first[0] * a).astype(np.uint8)
+    return frame
+
 def fit_window(T0, T1, seed):
     """The stretch to play: the one asked for if footage covers it, else the nearest covered one of the same length."""
     L = T1 - T0
@@ -351,13 +368,14 @@ def main():
               theme=K.pick('theme', sorted(THEMES), r), pop=int(K.pick('pop', [0, 1, 3], r, weights=[1, 2, 2])),
               tint=float(K.pick('tint', [0.0, 0.4], r)), pace=int(K.pick('pace', [1, 2], r, weights=[3, 1])), length=_dur(MASTER))
     scenes = plan(T0, T1, seed, st)
+    n = int((T1 - T0) * FPS); draw = looped(lambda i: frame(i, T0, st, scenes), n, loop_wanted(T0, T1))
     if '--frames' in sys.argv:
-        fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
-        ims = [Image.fromarray(frame(f, T0, st, scenes)).resize((360, 640)) for f in fs]
+        fs = [min(int(x), n - 1) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
+        ims = [Image.fromarray(draw(f)).resize((360, 640)) for f in fs]
         sheet = Image.new('RGB', (360 * len(ims), 640))
         for k, im in enumerate(ims): sheet.paste(im, (360 * k, 0))
         sheet.save(out); print('sheet', out, round(T0, 2), round(T1, 2), K.record()['knobs'], [s['kind'] for s in scenes]); return
-    tmp = out[:-4] + '.part.mp4'; n = int((T1 - T0) * FPS)
+    tmp = out[:-4] + '.part.mp4'
     p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
                           '-ss', '%.3f' % T0, '-t', '%.3f' % (T1 - T0), '-i', MASTER,
                           '-af', 'afade=t=in:d=0.04,afade=t=out:st=%.2f:d=0.5' % max(0, T1 - T0 - 0.5),
@@ -365,7 +383,7 @@ def main():
                           '-maxrate', os.environ.get('CQ_MAXRATE', '8M'), '-bufsize', os.environ.get('CQ_BUFSIZE', '16M'),
                           '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
     for i in range(n):
-        p.stdin.write(frame(i, T0, st, scenes).tobytes())
+        p.stdin.write(draw(i).tobytes())
         if i % 90 == 0: print(i, '/', n, flush=True)
     p.stdin.close(); p.wait()
     if p.returncode: sys.exit('encode failed')

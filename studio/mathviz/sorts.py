@@ -1,10 +1,12 @@
 """Math In Time: a sorting-algorithm race. Four algorithms sort the same shuffled numbers side by side, one step each
 at the same rate, so you watch O(n log n) leave O(n^2) behind; each finisher gets its place on the beat it lands on,
 then what the gap means at a million numbers.
-python studio/mathviz/sorts.py out.mp4 [--seed N] [--frames a,b,c]
+python studio/mathviz/sorts.py out.mp4 [--seed N] [--beats 44|24] [--frames a,b,c]
 
 Every step is a real comparison or write of the algorithm named over it (the traces are recorded from running it).
-Which four race, how many bars and how they are drawn are knobs."""
+Which four race, how many bars and how they are drawn are knobs. At 24 beats (kit.short()) the race is run on 32
+numbers (the `bars` knob is dropped from the record), the slowest finisher lands on beat 17.5, and the podium is the
+resolve: the "at a million numbers" lines need beats the short does not have. Loops into frame 0."""
 import sys, os, math, random
 import numpy as np, cv2
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -12,7 +14,9 @@ from kit import *
 
 SLUG, B0, SEED = conf('fixation', 64)
 ST = Style(SEED)
-CL = Clock(SLUG, B0, 44)
+SHORT = short(); Q = lambda long, brief: brief if SHORT else long      # a cue in beats: the 44-beat value, the 24-beat value
+CL = Clock(SLUG, B0, Q(44, 24), loop=SHORT)
+TITLE, CD, RES = Q(4.0, 2.4), Q(4, 3), Q(34, 18)       # the title fades; 3-2-1-go, one a beat; the lanes fade and the podium comes up
 CREDIT = credit(SLUG)
 R = random.Random(SEED * 31 + 7)
 BG = background(ST); FONT = FONTS[ST.font]
@@ -136,6 +140,7 @@ LINEUPS = {'classic': ['bubble', 'insertion', 'merge', 'quick'], 'fast': ['merge
            'bogo': ['bubble', 'quick', 'merge', 'bogo']}
 LINEUP = K.pick('lineup', ['classic', 'fast', 'slow', 'mixed', 'bogo'], random.Random(SEED), weights=[3, 2, 2, 2, 1])
 N = int(K.pick('bars', [32, 48, 64], random.Random(SEED + 1), weights=[2, 3, 1]))
+if SHORT: N = 32; K.drop('bars')                       # fewer numbers in half the beats: the same steps a beat as the long race
 LOOK = K.pick('bars_look', ['bars', 'dots', 'rainbow'], random.Random(SEED + 2))
 VALUES = list(range(1, N + 1)); R.shuffle(VALUES)
 
@@ -151,7 +156,7 @@ def trace(name, cap):
         if len(states) > cap: return np.array(states, np.int16), touch, False
     return np.array(states, np.int16), touch, True
 
-RACE0, RACE1 = 7.0, 33.0                       # the race runs from beat 7; the slowest real finisher lands on beat 33
+RACE0, RACE1 = Q(7.0, 6.0), Q(33.0, 17.5)      # the race runs from beat 7; the slowest real finisher lands on beat 33 (short: 6 and 17.5)
 NAMES = LINEUPS[LINEUP]
 TR = {}
 for nm in NAMES: TR[nm] = trace(nm, 400000 if nm != 'bogo' else 60000)
@@ -161,7 +166,7 @@ FIN = {nm: RACE0 + (len(TR[nm][0]) - 1) / RATE if TR[nm][2] else None for nm in 
 ORDER = sorted([nm for nm in NAMES if FIN[nm] is not None], key=lambda nm: FIN[nm])
 PLACE = {nm: k + 1 for k, nm in enumerate(ORDER)}
 HITS = {round(FIN[nm] * 2) / 2: 0.7 for nm in ORDER}
-HITS.update({RACE0: 0.9, 36: 0.6})
+HITS.update({RACE0: 0.9, Q(36, 19): 0.6})
 
 LANE_Y0, LANE_H, GAP = 470, 240, 20                  # the last lane ends at 1490: inside Instagram's safe area
 def lane_box(k):
@@ -219,33 +224,33 @@ def frame(i):
     c = BG.copy()
     # the question stays up all race
     q = 'which one finishes first?'
-    if k < 4.6:
-        e1 = 1.0; e2 = float(ease_back((k - 1.3) / 0.45)); e3 = float(ease_back((k - 2.4) / 0.45))   # the title is on frame 0: the cover
-        a = 1 - float(ease_out((k - 4.0) / 0.5))
+    if k < TITLE + 0.6:
+        e1 = 1.0; e2 = float(ease_back((k - Q(1.3, 0.8)) / 0.45)); e3 = float(ease_back((k - Q(2.4, 1.5)) / 0.45))   # the title is on frame 0: the cover
+        a = 1 - float(ease_out((k - TITLE) / 0.5))
         paste(c, text('4 sorting algorithms.', F(FONT, 76), ST.fg), W / 2, 325, e1, a * min(1, e1))
         paste(c, text('the same %d numbers.' % N, F(FONT, 60), ST.muted), W / 2, 405, e2, a * min(1, e2))
         paste(c, text('which one', F(FONT, 92), ST.a, stroke=3), W / 2, 1600, e3 * (1 + 0.04 * kick), a * min(1, e3))
         paste(c, text('finishes first?', F(FONT, 92), ST.a, stroke=3), W / 2, 1700, e3 * (1 + 0.04 * kick), a * min(1, e3))
     else:
-        paste(c, text(q, F(FONT, 58), ST.a), W / 2, 330, 1, window(k, 4.4, 34.5))
-    show = 1 if k < 34 else 1 - 0.9 * float(ease_out((k - 34) / 0.8))
+        paste(c, text(q, F(FONT, 58), ST.a), W / 2, 330, 1, window(k, TITLE + 0.4, RES + 0.5))
+    show = 1 if k < RES else 1 - 0.9 * float(ease_out((k - RES) / 0.8))
     for n_, nm in enumerate(NAMES): draw_lane(c, n_, nm, k, kick)
     if show < 1: c[:] = c * show + BG * (1 - show)
-    if 4 <= k < 7.6:                                         # 3, 2, 1, go: one a beat
-        n = int(k - 4); lab = ['3', '2', '1', 'GO'][min(3, n)]
-        e = float(ease_back((k - 4 - n) / 0.3))
-        paste(c, text(lab, F(FONT, 240), ST.c if lab == 'GO' else ST.fg, stroke=6), W / 2, 1000, e * (1 + 0.06 * kick), min(1, e) * (1 - float(ease_out((k - 4 - n - 0.7) / 0.3))))
-    if k >= 34:                                              # the results, then what they mean at scale
+    if CD <= k < CD + 3.6:                                   # 3, 2, 1, go: one a beat
+        n = int(k - CD); lab = ['3', '2', '1', 'GO'][min(3, n)]
+        e = float(ease_back((k - CD - n) / 0.3))
+        paste(c, text(lab, F(FONT, 240), ST.c if lab == 'GO' else ST.fg, stroke=6), W / 2, 1000, e * (1 + 0.06 * kick), min(1, e) * (1 - float(ease_out((k - CD - n - 0.7) / 0.3))))
+    if k >= RES:                                             # the results, then (44 beats) what they mean at scale
         for p, nm in enumerate(ORDER[:3]):
-            e = float(ease_back((k - 34.3 - 0.5 * p) / 0.4))
+            e = float(ease_back((k - RES - 0.3 - 0.5 * p) / 0.4))
             secs = (FIN[nm] - RACE0) * CL.spb
-            paste(c, text('%d. %s  %.1fs' % (p + 1, ALGOS[nm][1], secs), F(FONT, 60), ST.d if p == 0 else ST.fg, stroke=3), W / 2, 820 + p * 95, e, min(1, e) * window(k, 34.3, 38.4))
+            paste(c, text('%d. %s  %.1fs' % (p + 1, ALGOS[nm][1], secs), F(FONT, 60), ST.d if p == 0 else ST.fg, stroke=3), W / 2, 820 + p * 95, e, min(1, e) * window(k, RES + 0.3, 99 if SHORT else 38.4))
         # at a million numbers and a billion comparisons a second: n^2/2 comparisons ~ 8 min (bubble, selection), n^2/4 ~ 4 min
         # (insertion, on average); n log2 n ~ 0.02 s (merge), ~1.4 n log2 n ~ 0.03 s (quick), ~2 n log2 n ~ 0.04 s (heap)
         SLOWT = {'bubble': '~8 minutes', 'selection': '~8 minutes', 'insertion': '~4 minutes'}
         FASTT = {'merge': '~0.02 seconds', 'quick': '~0.03 seconds', 'heap': '~0.04 seconds'}
         sq = [nm for nm in NAMES if nm in SLOWT]; fast = [nm for nm in ORDER if nm in FASTT]
-        if k >= 38.4:
+        if k >= 38.4 and not SHORT:
             if 'bogo' in NAMES:
                 lines = [('bogosort shuffles until sorted.', ST.muted, 50), ('%d numbers would take' % N, ST.fg, 60), ('%s years' % bogo_years(), ST.c, 96), ('(a billion shuffles a second)', ST.muted, 36)]
             elif sq and fast:
@@ -256,7 +261,7 @@ def frame(i):
             for p, (s, col, sz) in enumerate(lines):
                 e = float(ease_back((k - 38.4 - 0.6 * p) / 0.4))
                 paste(c, text(s, F(FONT if sz >= 60 else INTER, sz), col, stroke=3 if sz >= 60 else 0), W / 2, 820 + p * 110, e * (1 + 0.04 * kick * (p == 2)), min(1, e))
-            paste(c, text('%d numbers. %d sorts. one order.' % (N, len(NAMES)), F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
+        paste(c, text('%d numbers. %d sorts. one order.' % (N, len(NAMES)), F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - Q(41.5, 20.5)) / 0.6)))
     amp, ph = shake_at(k, HITS, ST)
     o = finish(c, k, amp, ph, 1 + 0.008 * kick, W / 2, H / 2, ST)
     return overlay_fixed(o, ST, k, CL.beats, CREDIT)

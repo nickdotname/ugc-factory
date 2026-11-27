@@ -1,10 +1,13 @@
 """Math In Time: a pathfinding race. Three search algorithms solve the same maze side by side, one cell each at the
 same rate: depth-first wanders, breadth-first floods, A* heads for the exit. Each lights its route on the beat it gets
 out, then the numbers: how much of the maze each had to look at, and how long its route was.
-python studio/mathviz/paths.py out.mp4 [--seed N] [--frames a,b,c]
+python studio/mathviz/paths.py out.mp4 [--seed N] [--beats 44|24] [--frames a,b,c]
 
 The mazes are generated (a randomised depth-first carve with a few extra openings, so routes differ in length), and
-every lit cell is a real step of the algorithm named over it. Which three race and the look are knobs."""
+every lit cell is a real step of the algorithm named over it. Which three race and the look are knobs. At 24 beats
+(kit.short()) the maze is 31 x 11 instead of 47 x 15 (bigger cells, a race that reads at twice the pace), the last
+one out lands on beat 16, and the share of the maze each searched and the A* line come up together as the resolve.
+Loops into frame 0."""
 import sys, os, math, random, heapq
 from collections import deque
 import numpy as np, cv2
@@ -13,7 +16,9 @@ from kit import *
 
 SLUG, B0, SEED = conf('talk', 32)
 ST = Style(SEED)
-CL = Clock(SLUG, B0, 44)
+SHORT = short(); Q = lambda long, brief: brief if SHORT else long      # a cue in beats: the 44-beat value, the 24-beat value
+CL = Clock(SLUG, B0, Q(44, 24), loop=SHORT)
+TITLE, CD, OVER = Q(4.0, 2.4), Q(4, 3), Q(34, 17.5)     # the title fades; 3-2-1-go, one a beat; the lanes fade and the numbers come up
 CREDIT = credit(SLUG)
 BG = background(ST); FONT = FONTS[ST.font]
 def mix(c1, c2, t): return tuple(int(a * (1 - t) + b * t) for a, b in zip(c1, c2))
@@ -21,7 +26,7 @@ def mix(c1, c2, t): return tuple(int(a * (1 - t) + b * t) for a, b in zip(c1, c2
 MAZE = K.pick('maze', ['bfs-dfs-astar', 'dijkstra-greedy-astar', 'dfs-greedy-astar'], random.Random(SEED))
 NAMES = MAZE.split('-')
 LABEL = {'bfs': 'breadth-first', 'dfs': 'depth-first', 'astar': 'A*', 'greedy': 'greedy best-first', 'dijkstra': "Dijkstra"}
-COLS, ROWS = 47, 15                           # odd: walls on even cells, rooms on odd
+COLS, ROWS = Q(47, 31), Q(15, 11)             # odd: walls on even cells, rooms on odd (short: a smaller maze, bigger cells)
 
 
 def carve(seed):
@@ -75,12 +80,12 @@ def search(kind):
 
 RES = {nm: search(nm) for nm in NAMES}
 OPEN = int((~G).sum())
-RACE0, RACE1 = 7.0, 31.0
+RACE0, RACE1 = Q(7.0, 6.0), Q(31.0, 16.0)
 slow = max(len(RES[nm][0]) for nm in NAMES)
 RATE = slow / (RACE1 - RACE0)                  # cells looked at per beat, the same in every lane
 FIN = {nm: RACE0 + len(RES[nm][0]) / RATE for nm in NAMES}
 ORDER = sorted(NAMES, key=lambda nm: FIN[nm]); PLACE = {nm: k + 1 for k, nm in enumerate(ORDER)}
-HITS = {round(FIN[nm] * 2) / 2: 0.7 for nm in NAMES}; HITS.update({RACE0: 0.9, 35: 0.6})
+HITS = {round(FIN[nm] * 2) / 2: 0.7 for nm in NAMES}; HITS.update({RACE0: 0.9, Q(35, 19): 0.6})
 LANE_Y0, LANE_H, GAP = 470, 325, 20                  # the last lane ends at 1485: inside Instagram's safe area
 CELL = min((W - 140) / COLS, (LANE_H - 60) / ROWS)
 LANE_COL = {nm: c for nm, c in zip(NAMES, (ST.b, ST.c, ST.d))}
@@ -113,33 +118,35 @@ def lane(c, k, nm, kb, kick):
 def frame(i):
     k = CL.beat(i); kick = float(CL.kick[i])
     c = BG.copy()
-    if k < 4.6:
-        a = 1 - float(ease_out((k - 4.0) / 0.5))
+    if k < TITLE + 0.6:
+        a = 1 - float(ease_out((k - TITLE) / 0.5))
         for j, (s, sz, col, y) in enumerate((('3 ways to escape', 80, ST.fg, 325), ('the same maze.', 60, ST.muted, 405))):
-            e = 1.0 if j == 0 else float(ease_back((k - 1.2 * j) / 0.45));   # the title is on frame 0: the cover paste(c, text(s, F(FONT, sz), col), W / 2, y, e, a * min(1, e))
-        e = float(ease_back((k - 2.4) / 0.45))
+            e = 1.0 if j == 0 else float(ease_back((k - Q(1.2, 0.8) * j) / 0.45));   # the title is on frame 0: the cover paste(c, text(s, F(FONT, sz), col), W / 2, y, e, a * min(1, e))
+        e = float(ease_back((k - Q(2.4, 1.5)) / 0.45))
         paste(c, text('which gets out first?', F(FONT, 84), ST.a, stroke=3), W / 2, 1660, e * (1 + 0.04 * kick), a * min(1, e))
     else:
-        paste(c, text('which gets out first?', F(FONT, 58), ST.a), W / 2, 330, 1, window(k, 4.4, 34.5))
+        paste(c, text('which gets out first?', F(FONT, 58), ST.a), W / 2, 330, 1, window(k, TITLE + 0.4, OVER + 0.5))
     for j, nm in enumerate(NAMES): lane(c, j, nm, k, kick)
-    if k >= 34:
-        f = float(ease_out((k - 34) / 0.8)); c[:] = c * (1 - 0.9 * f) + BG * 0.9 * f
-    if 4 <= k < 7.6:
-        n = int(k - 4); lab = ['3', '2', '1', 'GO'][min(3, n)]; e = float(ease_back((k - 4 - n) / 0.3))
-        paste(c, text(lab, F(FONT, 240), ST.c if lab == 'GO' else ST.fg, stroke=6), W / 2, 1000, e * (1 + 0.06 * kick), min(1, e) * (1 - float(ease_out((k - 4 - n - 0.7) / 0.3))))
-    if k >= 34.3:
+    if k >= OVER:
+        f = float(ease_out((k - OVER) / 0.8)); c[:] = c * (1 - 0.9 * f) + BG * 0.9 * f
+    if CD <= k < CD + 3.6:
+        n = int(k - CD); lab = ['3', '2', '1', 'GO'][min(3, n)]; e = float(ease_back((k - CD - n) / 0.3))
+        paste(c, text(lab, F(FONT, 240), ST.c if lab == 'GO' else ST.fg, stroke=6), W / 2, 1000, e * (1 + 0.06 * kick), min(1, e) * (1 - float(ease_out((k - CD - n - 0.7) / 0.3))))
+    if k >= OVER + 0.3:
         best = min(NAMES, key=lambda nm: len(RES[nm][1]))
         rows = [('maze checked before getting out:', ST.muted, 46, INTER)]
         rows += [('%s  %d%%' % (LABEL[nm], round(100 * len(RES[nm][0]) / OPEN)), LANE_COL[nm], 66, FONT) for nm in ORDER]
         longest = max(NAMES, key=lambda nm: len(RES[nm][1]))
         if len(RES[longest][1]) > len(RES[best][1]) * 1.05:
             rows += [('%s’s route: %.1fx longer' % (LABEL[longest], len(RES[longest][1]) / len(RES[best][1])), ST.fg, 50, FONT)]
-        if k >= 39: rows = [('A* knows roughly where the exit is.', ST.fg, 50, FONT), ('your maps app runs on the same idea.', ST.muted, 44, INTER)]
-        for j, (s, col, sz, fnt) in enumerate(rows):
-            t0 = 34.3 if k < 39 else 39.0
-            e = float(ease_back((k - t0 - 0.5 * j) / 0.4)); paste(c, text(s, F(fnt, sz), col, stroke=3 if fnt == FONT else 0), W / 2, 820 + 100 * j, e, min(1, e))
+        why = [('A* knows roughly where the exit is.', ST.fg, 50, FONT), ('your maps app runs on the same idea.', ST.muted, 44, INTER)]
+        WHY = OVER + Q(5, 3)                                  # the A* line takes the numbers' place (44 beats) or sits under them (short)
+        shown = [(r_, OVER + 0.3, j) for j, r_ in enumerate(rows)] if k < WHY or SHORT else []
+        if k >= WHY: shown += [(r_, WHY, j) for j, r_ in enumerate(why)]
+        for y_, ((s, col, sz, fnt), t0, j) in enumerate(shown):
+            e = float(ease_back((k - t0 - 0.5 * j) / 0.4)); paste(c, text(s, F(fnt, sz), col, stroke=3 if fnt == FONT else 0), W / 2, 820 + 100 * y_, e, min(1, e))
         least, most = (round(100 * len(RES[nm][0]) / OPEN) for nm in (min(NAMES, key=lambda nm: len(RES[nm][0])), max(NAMES, key=lambda nm: len(RES[nm][0]))))
-        paste(c, text('same maze: %d%% of it searched vs %d%%' % (least, most), F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
+        if not SHORT: paste(c, text('same maze: %d%% of it searched vs %d%%' % (least, most), F(INTER, 40), ST.muted), W / 2, 1560, 1, float(ease_out((k - 41.5) / 0.6)))
     amp, ph = shake_at(k, HITS, ST)
     o = finish(c, k, amp, ph, 1 + 0.008 * kick, W / 2, H / 2, ST)
     return overlay_fixed(o, ST, k, CL.beats, CREDIT)
