@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "cinema_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-27T08:05:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "every frame of this is typed. no pixels, only letters\n🎧 Prologue: Before – @close__quarters #asciiart #textmode #terminal #publicdomain #film\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
