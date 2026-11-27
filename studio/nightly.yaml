@@ -130,7 +130,7 @@ targets:
     join: 30
   - campaign: illusions     # rotation.illusions: turning shapes your eyes cannot pin down (studio/illusion_video.py)
     style: illusion
-    retire: {kind: [cone]}                           # docs/brain/reviews/2026-11-26: cloud 5 / shadow 4 / group 4 / stripes 2 / wheel 1 is the renderer's weighting
+    retire: {kind: [cone]}                           # docs/brain/reviews/2026-11-26: cloud 5 / shadow 4 / group 4 / stripes 2 / necker 2 / walker 2 / ames 2 / wheel 1 is the renderer's weighting
     per_night: 5
     join: 30
   - campaign: algo_races    # algorithm.races: sorting and pathfinding algorithms racing each other (studio/race_video.py)
