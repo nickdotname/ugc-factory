@@ -118,3 +118,47 @@ def test_no_permission_stops_quietly(tmp_path, monkeypatch):
     monkeypatch.setattr(R, "STATE", str(tmp_path / "state.json"))
     monkeypatch.setenv("IG_TOKEN", "x")
     assert R.run() == 0
+
+
+def test_every_account_with_its_own_token_is_read_with_it():
+    """accounts.yaml is the source of truth for which slot opens which account; replies.py must agree, or the
+    shared IG_TOKEN is tried on an account it cannot read (toon, zoom, date, lowpoly, college until 2026-11-26)."""
+    import yaml
+    accounts = {a["name"]: a for a in yaml.safe_load(
+        (Path(__file__).resolve().parent.parent / "accounts.yaml").read_text(encoding="utf-8"))["accounts"]}
+    for name, (uid, handle) in R.ACCOUNTS.items():
+        assert name in accounts, name
+        assert accounts[name]["channel_id"] == uid, name
+        slot = accounts[name]["api_key_secret"]
+        if slot == "IG_TOKEN":
+            assert name not in R.TOKENS, name
+        elif slot.startswith("IG_TOKEN"):
+            assert R.TOKENS.get(name) == slot, (name, slot)
+
+
+def test_page_tokens_are_used_for_the_accounts_they_cover(tmp_path, monkeypatch, capsys):
+    now = dt.datetime(2026, 11, 23, 16, 0, tzinfo=dt.timezone.utc)
+    seen = {}
+
+    def graph(method, path, token, **params):
+        if method == "GET" and path.endswith("/media"):
+            seen[path.split("/")[0]] = token
+            return {"data": []}
+        raise AssertionError(path)
+
+    monkeypatch.setattr(R, "graph", graph)
+    monkeypatch.setattr(R, "STATE", str(tmp_path / "state.json"))
+    monkeypatch.setattr(R, "song_titles", lambda: {})
+    monkeypatch.setenv("IG_TOKEN", "shared")
+    monkeypatch.setenv("IG_TOKEN_7", "toon-tok")
+    monkeypatch.setenv("IG_PAGE_TOKENS", json.dumps({R.ACCOUNTS["eyetrick_ig"][0]: "page-tok"}))
+    for slot in ("IG_TOKEN_2", "IG_TOKEN_3", "IG_TOKEN_4", "IG_TOKEN_5", "IG_TOKEN_6", "IG_TOKEN_8",
+                 "IG_TOKEN_9", "IG_TOKEN_10", "IG_TOKEN_11"):
+        monkeypatch.delenv(slot, raising=False)
+    assert R.run(now=now) == 0
+    assert seen[R.ACCOUNTS["eyetrick_ig"][0]] == "page-tok"
+    assert seen[R.ACCOUNTS["toon_ig"][0]] == "toon-tok"
+    assert seen[R.ACCOUNTS["math_ig"][0]] == "shared"
+    assert R.ACCOUNTS["zoom_ig"][0] not in seen                      # no IG_TOKEN_8: skipped, not tried with IG_TOKEN
+    out = capsys.readouterr().out.splitlines()[-1]
+    assert out.startswith("replies: read 0 posts on") and "skipped" in out and "zoom.into.art" in out
