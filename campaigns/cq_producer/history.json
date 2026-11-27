@@ -2152,8 +2152,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-56ce3840-f190-41e1-b11b-0f4436de183c",
+      "post_ids": {
+        "dylancantor23_ig": "igo-56ce3840-f190-41e1-b11b-0f4436de183c"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
