@@ -197,9 +197,9 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-c4be1803-8561-4c9a-a57e-f504d3cb039a",
           "last_error": null,
           "scheduled_for": "2026-11-28T14:41:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "somebody had to say it\n🎧 Fixation – @close__quarters #relatable #humor #createmode\n\nstream Fixation: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
