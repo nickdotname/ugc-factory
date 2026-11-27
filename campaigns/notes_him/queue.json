@@ -38,18 +38,18 @@
         {
           "account": "him_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-29T08:47:00-05:00"
         }
       ],
       "captions": {
         "instagram": "it is what it is\n🎧 Myth of Sisyphus – @close__quarters #skateboarding #relatable #humor\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
