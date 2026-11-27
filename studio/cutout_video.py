@@ -19,6 +19,8 @@ print; soft, blurred and darkened like a shallow focus) so the cut-out stays the
 Movement: each beat sends the cut-out to a new spot, angle and size on a spring (it overshoots and settles), the
 kick squashes it, each bar slides it in from a side, and the camera drifts like it's handheld.
 Knobs (studio/knobs.py): stage (which of the four it leans on), palette, trip, outline, words, bg, tone.
+A `short` cut from nightly (6-9 s, CQ_LOOP=1, CQ_LYRICS=none: no words, the footage carries) loops: its last 9
+frames fade into frame 0 (lofi_video.looped).
 Band footage: this style is only ever for @close__quarters (CLAUDE.md).
 """
 import json, math, os, random, subprocess, sys
@@ -250,13 +252,14 @@ class Video:
         return a
 
     def render(self, out):
+        n = int((self.T1 - self.T0) * FPS); draw = LV.looped(self.frame, n, LV.loop_wanted(self.T0, self.T1))
         if '--frames' in sys.argv:
-            fs = [int(x) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
-            ims = [Image.fromarray(self.frame(f)).resize((360, 640)) for f in fs]
+            fs = [min(int(x), n - 1) for x in sys.argv[sys.argv.index('--frames') + 1].split(',')]
+            ims = [Image.fromarray(draw(f)).resize((360, 640)) for f in fs]
             sheet = Image.new('RGB', (360 * len(ims), 640))
             for k, im in enumerate(ims): sheet.paste(im, (360 * k, 0))
             sheet.save(out); print('sheet', out, round(self.T0, 2), round(self.T1, 2), K.record()['knobs'], [s['kind'] for s in self.plan]); return
-        tmp = out[:-4] + '.part.mp4'; n = int((self.T1 - self.T0) * FPS)
+        tmp = out[:-4] + '.part.mp4'
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS), '-i', '-',
                               '-ss', '%.3f' % self.T0, '-t', '%.3f' % (self.T1 - self.T0), '-i', LV.MASTER,
                               '-af', 'afade=t=in:d=0.04,afade=t=out:st=%.2f:d=0.5' % max(0, self.T1 - self.T0 - 0.5),
@@ -264,7 +267,7 @@ class Video:
                               '-maxrate', os.environ.get('CQ_MAXRATE', '8M'), '-bufsize', os.environ.get('CQ_BUFSIZE', '16M'),
                               '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', tmp], stdin=subprocess.PIPE)
         for i in range(n):
-            p.stdin.write(self.frame(i).tobytes())
+            p.stdin.write(draw(i).tobytes())
             if i % 90 == 0: print(i, '/', n, flush=True)
         p.stdin.close(); p.wait()
         if p.returncode: sys.exit('encode failed')

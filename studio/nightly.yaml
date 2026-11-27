@@ -22,19 +22,19 @@ targets:
   - campaign: cq_band       # close__quarters: retro desktop lyric videos
     style: band
     per_night: 1               # 6 until 2026-11-26
-    join: 50
+    join: 20
   - campaign: cq_band       # close__quarters: the band's own dance footage, cut out, in a Y2K media player (studio/lofi_video.py)
     style: lofi
     per_night: 0               # retired 2026-11-26
-    join: 50
+    join: 20
   - campaign: cq_band       # close__quarters: the band made of mouse cursors in a 3D Windows 98 world (studio/cursor_video.py)
     style: cursor
     per_night: 0               # retired 2026-11-26
-    join: 50
+    join: 20
   - campaign: cq_band       # close__quarters: the band's dance footage cut out full screen and thrown around on the beat (studio/cutout_video.py)
     style: cutout
     per_night: 2               # 7 until 2026-11-26
-    join: 40
+    join: 20
   - campaign: psy_station   # psychedelic.station: audio-reactive visuals
     style: psy
     retire: {field: [marble, spiral, warp, oil], strobe: ['true']}     # fields: 15-29 views vs tunnel 109, moire 79 (2026-11-25); strobe off 2026-11-26 (review: lock the winning look; the string 'true' is what the menu holds)

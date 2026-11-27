@@ -268,6 +268,24 @@ def tighten(song_dir, win, rng, short=False):
     while st + dur > t1 + 0.05 and dur - bar >= (5.5 if short else 9.5): dur -= bar
     return (round(max(0.0, st), 2), round(min(t1, st + dur), 2))
 
+def cuts_for(style):
+    """The lengths a style's video can have. The picture styles and the band's own footage styles (cutout, lofi) can be a
+    6-9 s loop too (2026-11-26 review: on the band account completion was 0.29 under 12 s against 0.16 at 12-20 s, and
+    the footage carries without words); the other lyric styles keep the whole stretch or its strongest 10-20 s; the
+    WHOLE styles are choreographed in beats and never cut (math and race have their own `beats` knob for this)."""
+    if style in WHOLE: return ['full']
+    return ['full', 'tight', 'short'] if style in VISUAL or style in FOOTAGE else ['full', 'tight']
+
+def choose_cut(style, how, learned, rng, seed):
+    """How much of its stretch one video gets: 'full', 'tight' (10-20 s from its strongest line) or 'short' (a 6-9 s
+    loop). Left to chance (`how` 'free') a style that offers short follows CUT_PRIOR's odds and the rest TIGHT; otherwise
+    Thompson sampling on the account's own knob:cut results, over CUT_PRIOR where short is offered."""
+    cuts = cuts_for(style)
+    if len(cuts) == 1: return cuts[0]
+    if how == 'free': return rng.choices(cuts, weights=[CUT_PRIOR[c][1] for c in cuts])[0] if 'short' in cuts else ('full' if rng.random() >= TIGHT else 'tight')
+    stats = dict(CUT_PRIOR if 'short' in cuts else {}, **((learned.get('stats') or {}).get('knob:cut') or {}))
+    return thompson(cuts, stats, random.Random(seed + 1), (learned.get('retired') or {}).get('knob:cut') or ())
+
 SET = dict(x.split('=', 1) for x in a.set.replace(' ', '').split(',') if '=' in x)
 SKIP = 3              # a renderer's exit code for "no video in this stretch" (studio/physics_video.py)
 SOLO = {k: '1' for k in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMBA_NUM_THREADS', 'OPENCV_FOR_THREADS_NUM')}
@@ -379,12 +397,9 @@ for t in cfg['targets']:
         if style in BANKED: kn = dict(kn, **{sub: fresh_line(style, recent, random.Random(seed + 3))})
         if sub in kn: tonight.append(kn[sub])
         if SET: kn, how = dict(kn, **SET), 'set'                  # a run asked for a particular look (a new format to see now)
-        cuts = ['full', 'tight', 'short'] if style in VISUAL else ['full', 'tight']    # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
-        cut_stats = dict(CUT_PRIOR if style in VISUAL else {}, **((L.get('stats') or {}).get('knob:cut') or {}))
-        if how == 'free': cut = rng.choices(cuts, weights=[CUT_PRIOR[c][1] for c in cuts])[0] if style in VISUAL else ('full' if rng.random() >= TIGHT else 'tight')
-        else: cut = thompson(cuts, cut_stats, random.Random(seed + 1), (L.get('retired') or {}).get('knob:cut') or ())
-        if style in WHOLE: cut = 'full'
+        cut = choose_cut(style, how, L, rng, seed)              # how much of the stretch: the whole of it, 10-20s from its strongest line, or a 6-9s loop
         if cut != 'full': win = tighten(os.path.join(HERE, 'songs', slug), win, random.Random(seed), short=cut == 'short')
+        if cut == 'short' and style in FOOTAGE: lyr, extra = False, dict(extra, CQ_LOOP='1')   # a 6-9 s loop of the band: no words on it (CQ_LYRICS=none), its last 9 frames fade into frame 0
         seeds.add(seed); inbox = os.path.join(REPO, 'inbox', folder.get(cr, '%s-%s' % (camp, cr)), 'hooks'); os.makedirs(inbox, exist_ok=True)
         out = os.path.join(inbox, '%s_%s_%s_%d.mp4' % (slug, sid, style, seed)); jobs.append((os.path.join(HERE, 'songs', slug), style, seed, out, win, (kn, extra), lyr)); meta.append((cr, slug, sid, cut, how))
     print('== %s: %d videos (%s)' % (camp, len(jobs), style), flush=True)
