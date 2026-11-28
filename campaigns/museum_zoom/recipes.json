@@ -390,6 +390,70 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_s07_zoom_345303.mp4",
+   "song": "notta-problem",
+   "section": "s07",
+   "style": "zoom",
+   "seed": 345303,
+   "window": [
+    140.29,
+    154.04
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:144601",
+    "dive": "glide",
+    "mark": "ring",
+    "wall": "gallery",
+    "tour": "one",
+    "hook": "age",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.62,
+    "drums": 0.69,
+    "bass": 0.77,
+    "other": 0.28
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s04_zoom_671323.mp4",
+   "song": "recess-rewind",
+   "section": "s04",
+   "style": "zoom",
+   "seed": 671323,
+   "window": [
+    53.01,
+    70.16
+   ],
+   "plan": null,
+   "knobs": {
+    "work": "cleveland:141209",
+    "dive": "glide",
+    "mark": "none",
+    "wall": "blur",
+    "tour": "one",
+    "hook": "where",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.58,
+    "bass": 0.66,
+    "other": 0.62
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

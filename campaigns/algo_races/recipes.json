@@ -376,6 +376,42 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s02_race_274612.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s02",
+   "style": "race",
+   "seed": 274612,
+   "window": [
+    33.42,
+    50.15
+   ],
+   "plan": null,
+   "knobs": {
+    "topic": "sorts",
+    "theme": "midnight",
+    "font": "montserrat",
+    "grid": "none",
+    "shake": "1.3",
+    "glow": "1.0",
+    "chip": "tag",
+    "lineup": "mixed",
+    "bars": "64",
+    "bars_look": "dots",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.54,
+    "drums": 0.51,
+    "bass": 0.51,
+    "other": 0.52
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

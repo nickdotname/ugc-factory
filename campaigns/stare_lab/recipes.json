@@ -212,6 +212,67 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "prologue",
+   "file": "prologue_s05_stare_362392.mp4",
+   "song": "prologue",
+   "section": "s05",
+   "style": "stare",
+   "seed": 362392,
+   "window": [
+    104.64,
+    126.27
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "spiral",
+    "scene": "sunset",
+    "spin": "in",
+    "hold": "long",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.77,
+    "bass": 0.61,
+    "other": 0.22
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01_stare_58318.mp4",
+   "song": "silver-and-gold",
+   "section": "s01",
+   "style": "stare",
+   "seed": 58318,
+   "window": [
+    28.0,
+    51.13
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "chaser",
+    "scene": "aurora",
+    "spin": "out",
+    "hold": "short",
+    "disc": "teal",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.64,
+    "drums": 0.55,
+    "bass": 0.48,
+    "other": 0.62
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

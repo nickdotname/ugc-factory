@@ -314,6 +314,66 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "fixation",
+   "file": "fixation_s03_notes_date_412250.mp4",
+   "song": "fixation",
+   "section": "s03",
+   "style": "notes_date",
+   "seed": 412250,
+   "window": [
+    103.81,
+    109.8
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d042",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.87,
+    "bass": 0.81,
+    "other": 0.53
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "silver_and_gold",
+   "file": "silver-and-gold_s01_notes_date_830746.mp4",
+   "song": "silver-and-gold",
+   "section": "s01",
+   "style": "notes_date",
+   "seed": 830746,
+   "window": [
+    28.29,
+    47.83
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "d048",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.67,
+    "drums": 0.55,
+    "bass": 0.49,
+    "other": 0.63
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

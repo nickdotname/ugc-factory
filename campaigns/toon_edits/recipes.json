@@ -223,6 +223,38 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "prologue",
+   "file": "prologue_s07_toon_915520.mp4",
+   "song": "prologue",
+   "section": "s07",
+   "style": "toon",
+   "seed": 915520,
+   "window": [
+    149.87,
+    165.14
+   ],
+   "plan": null,
+   "knobs": {
+    "pace": "beat2",
+    "punch": "kick",
+    "stutter": "off",
+    "wash": "bw",
+    "frame": "tv",
+    "caption": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.64,
+    "drums": 0.67,
+    "bass": 0.62,
+    "other": 0.27
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

@@ -686,6 +686,39 @@
    },
    "lyrics_proven": false,
    "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s08_glitch_968032.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s08",
+   "style": "glitch",
+   "seed": 968032,
+   "window": [
+    181.63,
+    188.65
+   ],
+   "plan": null,
+   "knobs": {
+    "source": "mixed",
+    "main": "points",
+    "opener": "clean",
+    "accent": "blocks",
+    "tone": "duotone",
+    "pace": "2",
+    "label": "rec",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.35,
+    "drums": 0.35,
+    "bass": 0.38,
+    "other": 0.7
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

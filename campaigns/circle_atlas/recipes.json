@@ -228,6 +228,64 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "talk",
+   "file": "talk_s05_reveal_732903.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "reveal",
+   "seed": 732903,
+   "window": [
+    102.3,
+    117.04
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Iran",
+    "palette": "night",
+    "ask": "early",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.87,
+    "drums": 0.85,
+    "bass": 0.77,
+    "other": 0.53
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_s06_reveal_489455.mp4",
+   "song": "notta-problem",
+   "section": "s06",
+   "style": "reveal",
+   "seed": 489455,
+   "window": [
+    126.47,
+    137.59
+   ],
+   "plan": null,
+   "knobs": {
+    "country": "Vietnam",
+    "palette": "chalk",
+    "ask": "name",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.87,
+    "bass": 0.17,
+    "other": 0.31
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

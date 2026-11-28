@@ -479,6 +479,37 @@
    },
    "lyrics_proven": false,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "talk",
+   "file": "talk_s05_alife_373384.mp4",
+   "song": "talk",
+   "section": "s05",
+   "style": "alife",
+   "seed": 373384,
+   "window": [
+    105.01,
+    112.88
+   ],
+   "plan": null,
+   "knobs": {
+    "start": "seeds",
+    "palette": "bio",
+    "sense": "14",
+    "steps": "2",
+    "species": "1",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.84,
+    "bass": 0.79,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
   }
  ]
 }

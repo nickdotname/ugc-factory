@@ -729,6 +729,156 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_s05_notes_827883.mp4",
+   "song": "notta-problem",
+   "section": "s05",
+   "style": "notes",
+   "seed": 827883,
+   "window": [
+    110.27,
+    121.73
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n068",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.66,
+    "bass": 0.77,
+    "other": 0.38
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s07_notes_797284.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s07",
+   "style": "notes",
+   "seed": 797284,
+   "window": [
+    165.37,
+    172.23
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n056",
+    "look": "sunset",
+    "ink": "black",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.64,
+    "drums": 0.69,
+    "bass": 0.61,
+    "other": 0.4
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s01_notes_542328.mp4",
+   "song": "recess-rewind",
+   "section": "s01",
+   "style": "notes",
+   "seed": 542328,
+   "window": [
+    0.42,
+    17.83
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n053",
+    "look": "orchid",
+    "ink": "white",
+    "face": "round",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.49,
+    "bass": 0.67,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "subway_maintenance",
+   "file": "subway-maintenance_s04_notes_821693.mp4",
+   "song": "subway-maintenance",
+   "section": "s04",
+   "style": "notes",
+   "seed": 821693,
+   "window": [
+    102.67,
+    116.75
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n008",
+    "look": "orchid",
+    "ink": "white",
+    "face": "tall",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.46,
+    "bass": 0.4,
+    "other": 0.67
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "suspended",
+   "file": "suspended_s02_notes_790449.mp4",
+   "song": "suspended",
+   "section": "s02",
+   "style": "notes",
+   "seed": 790449,
+   "window": [
+    28.88,
+    50.75
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "n074",
+    "look": "orchid",
+    "ink": "white",
+    "face": "round",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.82,
+    "drums": 0.7,
+    "bass": 0.38,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
   }
  ]
 }

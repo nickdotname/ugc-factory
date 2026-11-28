@@ -543,6 +543,37 @@
    },
    "lyrics_proven": true,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s03_cinema_16308.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s03",
+   "style": "cinema",
+   "seed": 16308,
+   "window": [
+    87.95,
+    105.09
+   ],
+   "plan": null,
+   "knobs": {
+    "reel": "dream",
+    "cell": "14",
+    "look": "paper",
+    "crt": "off",
+    "film": "the_impossible_voyage_1904",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.82,
+    "bass": 0.48,
+    "other": 0.29
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

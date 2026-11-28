@@ -698,6 +698,43 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_s06_vintage_956326.mp4",
+   "song": "notta-problem",
+   "section": "s06",
+   "style": "vintage",
+   "seed": 956326,
+   "window": [
+    125.03,
+    136.49
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "fill",
+    "tint": "rose",
+    "crank": "1",
+    "gate": "rounded",
+    "cards": "none",
+    "trip": "none",
+    "pace": "bar",
+    "slate": "on",
+    "look": "ink",
+    "pen": "brush",
+    "source": "silent",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.8,
+    "drums": 0.85,
+    "bass": 0.23,
+    "other": 0.32
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ]
 }

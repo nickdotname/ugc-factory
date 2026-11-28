@@ -757,6 +757,156 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "talk",
+   "file": "talk_s04_notes_him_681514.mp4",
+   "song": "talk",
+   "section": "s04",
+   "style": "notes_him",
+   "seed": 681514,
+   "window": [
+    77.99,
+    91.76
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m045",
+    "look": "dusk",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.32,
+    "drums": 0.82,
+    "bass": 0.68,
+    "other": 0.72
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s02_notes_him_61970.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s02",
+   "style": "notes_him",
+   "seed": 61970,
+   "window": [
+    64.72,
+    86.37
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m091",
+    "look": "sunset",
+    "ink": "black",
+    "face": "round",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.69,
+    "bass": 0.54,
+    "other": 0.42
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "prologue",
+   "file": "prologue_s10_notes_him_15449.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "notes_him",
+   "seed": 15449,
+   "window": [
+    228.49,
+    241.58
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m070",
+    "look": "citrus",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.46,
+    "drums": 0.62,
+    "bass": 0.58,
+    "other": 1.01
+   },
+   "lyrics_proven": true,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "myth_of_sisyphus",
+   "file": "myth-of-sisyphus_s03_notes_him_742531.mp4",
+   "song": "myth-of-sisyphus",
+   "section": "s03",
+   "style": "notes_him",
+   "seed": 742531,
+   "window": [
+    61.35,
+    73.63
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m012",
+    "look": "rainbow",
+    "ink": "black",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.68,
+    "bass": 0.81,
+    "other": 0.48
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s08_notes_him_618742.mp4",
+   "song": "recess-rewind",
+   "section": "s08",
+   "style": "notes_him",
+   "seed": 618742,
+   "window": [
+    121.78,
+    138.54
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "m073",
+    "look": "rainbow",
+    "ink": "black",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.51,
+    "bass": 0.67,
+    "other": 0.72
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }

@@ -207,6 +207,64 @@
    },
    "lyrics_proven": true,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "recess_rewind",
+   "file": "recess-rewind_s06_lowpoly_33381.mp4",
+   "song": "recess-rewind",
+   "section": "s06",
+   "style": "lowpoly",
+   "seed": 33381,
+   "window": [
+    87.33,
+    104.43
+   ],
+   "plan": null,
+   "knobs": {
+    "story": "gym",
+    "caption": "yellow",
+    "pace": "beat",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.58,
+    "bass": 0.67,
+    "other": 0.63
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_s04_lowpoly_182874.mp4",
+   "song": "notta-problem",
+   "section": "s04",
+   "style": "lowpoly",
+   "seed": 182874,
+   "window": [
+    83.11,
+    89.99
+   ],
+   "plan": null,
+   "knobs": {
+    "story": "wifi",
+    "caption": "yellow",
+    "pace": "beat",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.84,
+    "drums": 0.3,
+    "bass": 0.17,
+    "other": 1.02
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
   }
  ]
 }

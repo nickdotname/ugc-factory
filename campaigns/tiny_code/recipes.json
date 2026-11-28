@@ -545,6 +545,36 @@
    },
    "lyrics_proven": true,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s04_tinycode_944738.mp4",
+   "song": "evil-close-quarters",
+   "section": "s04",
+   "style": "tinycode",
+   "seed": 944738,
+   "window": [
+    77.14,
+    100.13
+   ],
+   "plan": null,
+   "knobs": {
+    "program": "spirograph",
+    "palette": "acid",
+    "glow": "0.6",
+    "trail": "0.8",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.82,
+    "bass": 0.57,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
   }
  ]
 }

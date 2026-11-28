@@ -548,6 +548,36 @@
    },
    "lyrics_proven": true,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "suspended",
+   "file": "suspended_s06_illusion_192053.mp4",
+   "song": "suspended",
+   "section": "s06",
+   "style": "illusion",
+   "seed": 192053,
+   "window": [
+    108.45,
+    120.76
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "group",
+    "shape": "chair",
+    "palette": "acid",
+    "ask": "sure",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.24,
+    "drums": 0.77,
+    "bass": 0.46,
+    "other": 0.85
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
   }
  ]
 }

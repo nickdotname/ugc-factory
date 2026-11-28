@@ -820,6 +820,37 @@
    },
    "lyrics_proven": true,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "prologue",
+   "file": "prologue_s10_nyc_645650.mp4",
+   "song": "prologue",
+   "section": "s10",
+   "style": "nyc",
+   "seed": 645650,
+   "window": [
+    230.63,
+    239.36
+   ],
+   "plan": null,
+   "knobs": {
+    "kind": "thennow",
+    "mood": "snow",
+    "look": "film",
+    "pace": "beat2",
+    "pair": "river",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.47,
+    "drums": 0.62,
+    "bass": 0.53,
+    "other": 0.97
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
   }
  ]
 }

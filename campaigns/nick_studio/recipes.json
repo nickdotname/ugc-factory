@@ -2130,6 +2130,39 @@
    },
    "lyrics_proven": true,
    "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "fixation",
+   "file": "fixation_s02_type_194229.mp4",
+   "song": "fixation",
+   "section": "s02",
+   "style": "type",
+   "seed": 194229,
+   "window": [
+    86.97,
+    100.95
+   ],
+   "plan": null,
+   "knobs": {
+    "layout": "scroll",
+    "palette": "hazard",
+    "font": "figtree",
+    "motion": "block",
+    "texture": "riso",
+    "echo": "none",
+    "flip": "line",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.99,
+    "drums": 0.9,
+    "bass": 0.58,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_03.mp4"
   }
  ],
  "since": "2026-11-22T20:42:47.589548+00:00",

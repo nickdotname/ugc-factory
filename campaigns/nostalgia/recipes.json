@@ -1514,6 +1514,92 @@
    },
    "lyrics_proven": false,
    "clip": "hook_02.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s01-s02_liminal_931992.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s01-s02",
+   "style": "liminal",
+   "seed": 931992,
+   "window": [
+    0.36,
+    35.51
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 4,
+    "year": 1998,
+    "pace": "slow",
+    "tint": "cold",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "date",
+    "hook": "",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "backrooms",
+    "pace": "slow",
+    "tint": "cold",
+    "tape": "clean",
+    "label": "none",
+    "stamp": "date",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.3,
+    "bass": 0.7,
+    "other": 0.28
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "prologue",
+   "file": "prologue_s03_liminal_327167.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "liminal",
+   "seed": 327167,
+   "window": [
+    69.69,
+    80.6
+   ],
+   "plan": {
+    "place": "backrooms",
+    "laps": 2,
+    "year": 1994,
+    "pace": "walk",
+    "tint": "green",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "hook": "getting lost in a building as a kid",
+    "lyrics": null
+   },
+   "knobs": {
+    "place": "backrooms",
+    "pace": "walk",
+    "tint": "green",
+    "tape": "worn",
+    "label": "REC \u25cf",
+    "stamp": "none",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.51,
+    "drums": 0.58,
+    "bass": 0.8,
+    "other": 0.4
+   },
+   "lyrics_proven": false,
+   "clip": "hook_07.mp4"
   }
  ],
  "menu": {

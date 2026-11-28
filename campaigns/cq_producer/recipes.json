@@ -17475,6 +17475,343 @@
    },
    "lyrics_proven": true,
    "clip": "hook_06.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s03_producer_778462.mp4",
+   "song": "evil-close-quarters",
+   "section": "s03",
+   "style": "producer",
+   "seed": 778462,
+   "window": [
+    55.58,
+    77.49
+   ],
+   "plan": {
+    "story": "strip",
+    "first": "Vocals",
+    "steps": [
+     [
+      55.58,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ],
+     [
+      58.543,
+      [
+       "Vocals"
+      ],
+      "VOCAL ONLY"
+     ],
+     [
+      61.506,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "ALL BACK IN"
+     ]
+    ],
+    "drop": 61.506,
+    "line": "full mix. then just the vocal",
+    "pal": [
+     [
+      250,
+      250,
+      250
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.03,
+    "caption": "inter",
+    "segs": [
+     [
+      55.58,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "full mix. then just the vocal",
+    "hook_angle": "story",
+    "hook_mode": "story",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "story": "strip",
+    "colours": "1",
+    "first": "Vocals",
+    "punch": "0.03",
+    "caption": "inter",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.82,
+    "bass": 0.69,
+    "other": 0.63
+   },
+   "lyrics_proven": true,
+   "clip": "hook_05.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_s05_producer_119221.mp4",
+   "song": "notta-problem",
+   "section": "s05",
+   "style": "producer",
+   "seed": 119221,
+   "window": [
+    101.28,
+    123.57
+   ],
+   "plan": {
+    "story": "build",
+    "first": "Vocals",
+    "steps": [
+     [
+      101.28,
+      [
+       "Vocals"
+      ],
+      "VOCAL ONLY"
+     ],
+     [
+      105.864,
+      [
+       "Drums",
+       "Vocals"
+      ],
+      "+ DRUMS"
+     ],
+     [
+      108.155,
+      [
+       "Bass",
+       "Drums",
+       "Vocals"
+      ],
+      "+ BASS"
+     ],
+     [
+      110.447,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ]
+    ],
+    "drop": 110.447,
+    "line": "the vocal on its own first. then the whole song",
+    "pal": [
+     [
+      250,
+      250,
+      250
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.015,
+    "caption": "anton",
+    "segs": [
+     [
+      101.28,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "",
+    "hook_angle": "none",
+    "hook_mode": "story",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "story": "build",
+    "colours": "1",
+    "first": "Vocals",
+    "punch": "0.015",
+    "caption": "anton",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.75,
+    "drums": 0.75,
+    "bass": 0.55,
+    "other": 0.36
+   },
+   "lyrics_proven": true,
+   "clip": "hook_12.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_producer_964331.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "producer",
+   "seed": 964331,
+   "window": [
+    26.09,
+    46.37
+   ],
+   "plan": {
+    "story": "strip",
+    "first": "Drums",
+    "steps": [
+     [
+      26.09,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "FULL MIX"
+     ],
+     [
+      29.47,
+      [
+       "Drums"
+      ],
+      "DRUMS ONLY"
+     ],
+     [
+      32.851,
+      [
+       "Bass",
+       "Drums",
+       "Other",
+       "Vocals"
+      ],
+      "ALL BACK IN"
+     ]
+    ],
+    "drop": 32.851,
+    "line": "the same bars with only the drums",
+    "pal": [
+     [
+      250,
+      250,
+      250
+     ],
+     [
+      255,
+      210,
+      60
+     ],
+     [
+      90,
+      220,
+      160
+     ],
+     [
+      255,
+      120,
+      200
+     ]
+    ],
+    "bg": [
+     12,
+     13,
+     17
+    ],
+    "punch": 0.015,
+    "caption": "inter",
+    "segs": [
+     [
+      26.09,
+      [
+       null,
+       110
+      ],
+      0,
+      []
+     ]
+    ],
+    "hook": "the same bars with only the drums",
+    "hook_angle": "story",
+    "hook_mode": "story",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "story": "strip",
+    "colours": "1",
+    "first": "Drums",
+    "punch": "0.015",
+    "caption": "inter",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.79,
+    "drums": 0.9,
+    "bass": 0.91,
+    "other": 0.16
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
   }
  ],
  "since": "2026-11-22T06:46:46.461118+00:00",

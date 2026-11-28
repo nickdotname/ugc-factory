@@ -252,6 +252,66 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s06_notes_college_656865.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s06",
+   "style": "notes_college",
+   "seed": 656865,
+   "window": [
+    88.56,
+    105.89
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "c023",
+    "look": "meadow",
+    "ink": "black",
+    "face": "strong",
+    "cut": "full"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.53,
+    "bass": 0.63,
+    "other": 0.41
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "hair_of_the_dog",
+   "file": "hair-of-the-dog_s02_notes_college_603468.mp4",
+   "song": "hair-of-the-dog",
+   "section": "s02",
+   "style": "notes_college",
+   "seed": 603468,
+   "window": [
+    26.09,
+    36.23
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "c006",
+    "look": "citrus",
+    "ink": "white",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.83,
+    "drums": 0.91,
+    "bass": 0.94,
+    "other": 0.19
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
   }
  ]
 }

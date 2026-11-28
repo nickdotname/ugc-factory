@@ -721,6 +721,156 @@
    },
    "lyrics_proven": false,
    "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "talk",
+   "file": "talk_s07_notes_her_819886.mp4",
+   "song": "talk",
+   "section": "s07",
+   "style": "notes_her",
+   "seed": 819886,
+   "window": [
+    151.31,
+    157.21
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h016",
+    "look": "rainbow",
+    "ink": "black",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.24,
+    "drums": 0.82,
+    "bass": 0.72,
+    "other": 0.51
+   },
+   "lyrics_proven": false,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "full_ride",
+   "file": "full-ride_s04_notes_her_284890.mp4",
+   "song": "full-ride",
+   "section": "s04",
+   "style": "notes_her",
+   "seed": 284890,
+   "window": [
+    83.35,
+    95.58
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h012",
+    "look": "dusk",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.71,
+    "bass": 0.68,
+    "other": 0.57
+   },
+   "lyrics_proven": true,
+   "clip": "hook_01.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "prologue",
+   "file": "prologue_s09_notes_her_161145.mp4",
+   "song": "prologue",
+   "section": "s09",
+   "style": "notes_her",
+   "seed": 161145,
+   "window": [
+    190.11,
+    196.66
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h021",
+    "look": "citrus",
+    "ink": "white",
+    "face": "strong",
+    "cut": "short"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.86,
+    "drums": 0.76,
+    "bass": 0.5,
+    "other": 0.26
+   },
+   "lyrics_proven": true,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "epilogue_dismissal",
+   "file": "epilogue-dismissal_s01_notes_her_710614.mp4",
+   "song": "epilogue-dismissal",
+   "section": "s01",
+   "style": "notes_her",
+   "seed": 710614,
+   "window": [
+    0.36,
+    17.88
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h027",
+    "look": "rainbow",
+    "ink": "black",
+    "face": "strong",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.0,
+    "drums": 0.22,
+    "bass": 0.71,
+    "other": 0.18
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "suspended",
+   "file": "suspended_s01_notes_her_150324.mp4",
+   "song": "suspended",
+   "section": "s01",
+   "style": "notes_her",
+   "seed": 150324,
+   "window": [
+    14.29,
+    28.14
+   ],
+   "plan": null,
+   "knobs": {
+    "line": "h025",
+    "look": "rainbow",
+    "ink": "white",
+    "face": "round",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.83,
+    "bass": 0.39,
+    "other": 0.34
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

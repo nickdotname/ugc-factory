@@ -16951,6 +16951,588 @@
    },
    "lyrics_proven": true,
    "clip": "hook_25.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s06_band_598651.mp4",
+   "song": "evil-close-quarters",
+   "section": "s06",
+   "style": "band",
+   "seed": 598651,
+   "window": [
+    129.87,
+    141.72
+   ],
+   "plan": {
+    "wall": "rings",
+    "acc": [
+     161,
+     86,
+     45
+    ],
+    "theme": "black",
+    "bg": [
+     20,
+     20,
+     24
+    ],
+    "segs": [
+     [
+      129.93,
+      "face+player",
+      0,
+      [
+       "track",
+       "pip",
+       "pipwave"
+      ]
+     ],
+     [
+      131.63,
+      "face+wave",
+      1,
+      [
+       "track",
+       "pip"
+      ]
+     ],
+     [
+      133.71,
+      "face+player",
+      2,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      136.11,
+      "face+paint",
+      3,
+      [
+       "trail",
+       "track",
+       "invert"
+      ]
+     ],
+     [
+      137.05,
+      "face+cmd",
+      3,
+      [
+       "trail",
+       "pip"
+      ]
+     ],
+     [
+      138.77,
+      "face+notepad",
+      4,
+      [
+       "track",
+       "pip",
+       "stamp"
+      ]
+     ],
+     [
+      140.47,
+      "face+paint",
+      5,
+      [
+       "stamp",
+       "track"
+      ]
+     ]
+    ],
+    "punch": 0.02,
+    "scan": false,
+    "chroma": 2,
+    "chrome": "xp",
+    "caption": "montserrat",
+    "hook": "this song is perfect. no notes.",
+    "hook_angle": "statement",
+    "hook_mode": "flash",
+    "faces": true,
+    "face_block": 6
+   },
+   "knobs": {
+    "theme": "black",
+    "pictures": "0.6",
+    "wall": "rings",
+    "punch": "0.02",
+    "scan": "false",
+    "chroma": "2",
+    "chrome": "xp",
+    "caption": "montserrat",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.74,
+    "drums": 0.78,
+    "bass": 0.69,
+    "other": 0.76
+   },
+   "lyrics_proven": true,
+   "clip": "hook_09.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "fixation",
+   "file": "fixation_fixation_a1-2_lofi_317119.mp4",
+   "song": "fixation",
+   "section": "fixation_a1-2",
+   "style": "lofi",
+   "seed": 317119,
+   "window": [
+    86.54,
+    97.84
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     86.54,
+     97.84
+    ],
+    "scenes": [
+     "flat",
+     "rainbow",
+     "flat",
+     "rainbow",
+     "split",
+     "flat",
+     "split"
+    ],
+    "people": [
+     "a",
+     "b"
+    ]
+   },
+   "knobs": {
+    "chrome": "win95",
+    "wall": "tiles",
+    "theme": "purple",
+    "pop": "3",
+    "tint": "0.0",
+    "pace": "1",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 1.02,
+    "drums": 0.9,
+    "bass": 0.51,
+    "other": 0.5
+   },
+   "lyrics_proven": true,
+   "clip": "hook_19.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "evil_close_quarters",
+   "file": "evil-close-quarters_s07_cursor_704005.mp4",
+   "song": "evil-close-quarters",
+   "section": "s07",
+   "style": "cursor",
+   "seed": 704005,
+   "window": [
+    141.4,
+    163.05
+   ],
+   "plan": {
+    "hook": "",
+    "worlds": [
+     "corridor"
+    ]
+   },
+   "knobs": {
+    "world": "corridor",
+    "glow": "purple",
+    "cursor": "arrows",
+    "drift": "1.6",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.9,
+    "drums": 0.8,
+    "bass": 0.58,
+    "other": 0.55
+   },
+   "lyrics_proven": true,
+   "clip": "hook_10.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "fixation",
+   "file": "fixation_s03_cutout_639820.mp4",
+   "song": "fixation",
+   "section": "s03",
+   "style": "cutout",
+   "seed": 639820,
+   "window": [
+    101.9,
+    114.77
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     101.9,
+     114.77
+    ],
+    "scenes": [
+     "echo",
+     "big",
+     "big",
+     "big",
+     "big",
+     "echo",
+     "big"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "big",
+    "palette": "acid",
+    "trip": "none",
+    "outline": "14",
+    "words": "none",
+    "bg": "space",
+    "tone": "soft",
+    "hook": "none",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.72,
+    "drums": 0.84,
+    "bass": 0.74,
+    "other": 0.56
+   },
+   "lyrics_proven": true,
+   "clip": "hook_21.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_notta_a1-3_cutout_603792.mp4",
+   "song": "notta-problem",
+   "section": "notta_a1-3",
+   "style": "cutout",
+   "seed": 603792,
+   "window": [
+    123.69,
+    139.69
+   ],
+   "plan": {
+    "hook": "our album. our living room.",
+    "window": [
+     123.69,
+     139.69
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "grid",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "echo",
+    "palette": "candy",
+    "trip": "glitch",
+    "outline": "0",
+    "words": "big",
+    "bg": "archive",
+    "tone": "soft",
+    "hook": "our album. our living room.",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.78,
+    "drums": 0.8,
+    "bass": 0.37,
+    "other": 0.3
+   },
+   "lyrics_proven": true,
+   "clip": "hook_21.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-0_cutout_66804.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-0",
+   "style": "cutout",
+   "seed": 66804,
+   "window": [
+    7.87,
+    18.57
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     7.87,
+     18.57
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "echo",
+    "palette": "mono",
+    "trip": "melt",
+    "outline": "14",
+    "words": "none",
+    "bg": "city",
+    "tone": "duo",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.68,
+    "bass": 0.75,
+    "other": 0.59
+   },
+   "lyrics_proven": true,
+   "clip": "hook_19.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_wbtsa_b1-1_cutout_724647.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "wbtsa_b1-1",
+   "style": "cutout",
+   "seed": 724647,
+   "window": [
+    88.92,
+    104.92
+   ],
+   "plan": {
+    "hook": "the band, dancing to the band",
+    "window": [
+     88.92,
+     104.92
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "grid",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "duo",
+    "palette": "edu",
+    "trip": "melt",
+    "outline": "0",
+    "bg": "color",
+    "tone": "duo",
+    "hook": "the band, dancing to the band",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.73,
+    "drums": 0.81,
+    "bass": 0.48,
+    "other": 0.29
+   },
+   "lyrics_proven": false,
+   "clip": "hook_26.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "notta_problem",
+   "file": "notta-problem_notta_a1-0_cutout_809522.mp4",
+   "song": "notta-problem",
+   "section": "notta_a1-0",
+   "style": "cutout",
+   "seed": 809522,
+   "window": [
+    101.57,
+    115.32
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     101.57,
+     115.32
+    ],
+    "scenes": [
+     "grid",
+     "grid",
+     "big",
+     "echo",
+     "grid",
+     "grid",
+     "grid"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "grid",
+    "palette": "edu",
+    "trip": "melt",
+    "outline": "8",
+    "words": "big",
+    "bg": "archive",
+    "tone": "soft",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.81,
+    "drums": 0.83,
+    "bass": 0.3,
+    "other": 0.39
+   },
+   "lyrics_proven": true,
+   "clip": "hook_20.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "fixation",
+   "file": "fixation_fixation_a1-0_cutout_334980.mp4",
+   "song": "fixation",
+   "section": "fixation_a1-0",
+   "style": "cutout",
+   "seed": 334980,
+   "window": [
+    70.54,
+    86.54
+   ],
+   "plan": {
+    "hook": "the band, dancing to the band",
+    "window": [
+     70.54,
+     86.54
+    ],
+    "scenes": [
+     "echo",
+     "big",
+     "big",
+     "grid",
+     "big",
+     "big",
+     "echo",
+     "echo",
+     "big"
+    ],
+    "people": [
+     "a"
+    ]
+   },
+   "knobs": {
+    "stage": "mix",
+    "palette": "acid",
+    "trip": "glitch",
+    "outline": "14",
+    "bg": "water",
+    "tone": "soft",
+    "hook": "the band, dancing to the band",
+    "cut": "tight"
+   },
+   "chosen": "free",
+   "playing": {
+    "vocals": 0.71,
+    "drums": 0.89,
+    "bass": 0.64,
+    "other": 0.43
+   },
+   "lyrics_proven": false,
+   "clip": "hook_20.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "full_ride",
+   "file": "full-ride_fullride_b1-3_cutout_302320.mp4",
+   "song": "full-ride",
+   "section": "fullride_b1-3",
+   "style": "cutout",
+   "seed": 302320,
+   "window": [
+    29.01,
+    42.77
+   ],
+   "plan": {
+    "hook": "",
+    "window": [
+     29.01,
+     42.77
+    ],
+    "scenes": [
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "echo",
+     "big",
+     "big",
+     "echo"
+    ],
+    "people": [
+     "b"
+    ]
+   },
+   "knobs": {
+    "stage": "duo",
+    "palette": "candy",
+    "trip": "glitch",
+    "outline": "14",
+    "words": "none",
+    "bg": "color",
+    "tone": "soft",
+    "hook": "none",
+    "cut": "tight"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.88,
+    "drums": 0.67,
+    "bass": 0.65,
+    "other": 0.55
+   },
+   "lyrics_proven": true,
+   "clip": "hook_20.mp4"
   }
  ],
  "since": "2026-11-22T06:56:33.728767+00:00",

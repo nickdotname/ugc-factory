@@ -670,6 +670,70 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "prologue",
+   "file": "prologue_s03_retro_163781.mp4",
+   "song": "prologue",
+   "section": "s03",
+   "style": "retro",
+   "seed": 163781,
+   "window": [
+    73.93,
+    82.66
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "mall",
+    "screen": "crt",
+    "frame": "none",
+    "trans": "hard",
+    "pace": "1",
+    "hook": "spot",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.61,
+    "drums": 0.63,
+    "bass": 0.74,
+    "other": 0.26
+   },
+   "lyrics_proven": false,
+   "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "wont_be_the_same_again",
+   "file": "wont-be-the-same-again_s06_retro_71672.mp4",
+   "song": "wont-be-the-same-again",
+   "section": "s06",
+   "style": "retro",
+   "seed": 71672,
+   "window": [
+    150.76,
+    164.83
+   ],
+   "plan": null,
+   "knobs": {
+    "theme": "hub",
+    "screen": "crt",
+    "frame": "none",
+    "trans": "slide",
+    "pace": "1",
+    "hook": "spot",
+    "cut": "full"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.81,
+    "bass": 0.52,
+    "other": 0.28
+   },
+   "lyrics_proven": false,
+   "clip": "hook_02.mp4"
   }
  ]
 }

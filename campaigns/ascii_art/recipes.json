@@ -898,6 +898,37 @@
    },
    "lyrics_proven": false,
    "clip": "hook_03.mp4"
+  },
+  {
+   "date": "2026-11-28",
+   "creative": "suspended",
+   "file": "suspended_s01_ascii_768553.mp4",
+   "song": "suspended",
+   "section": "s01",
+   "style": "ascii",
+   "seed": 768553,
+   "window": [
+    20.95,
+    28.64
+   ],
+   "plan": null,
+   "knobs": {
+    "scene": "jelly",
+    "ramp": "dense",
+    "palette": "sunset",
+    "layout": "clean",
+    "sparks": "1.6",
+    "cut": "short"
+   },
+   "chosen": "learned",
+   "playing": {
+    "vocals": 0.7,
+    "drums": 0.84,
+    "bass": 0.48,
+    "other": 0.34
+   },
+   "lyrics_proven": false,
+   "clip": "hook_04.mp4"
   }
  ]
 }
