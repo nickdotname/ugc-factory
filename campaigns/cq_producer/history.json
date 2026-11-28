@@ -2159,6 +2159,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "e667f8ba6384cd25e4f8679ba1e82729a4729428f9c8d7decedf71c6e8ac8874",
+      "timestamp": "2026-11-28T12:37:13.851303Z",
+      "item_id": "d2bd2a9f-b8f9-478f-a8bd-02341f52d92b",
+      "hook": "hook_06.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "one track alone sounds nothing like the song\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic",
+      "title": null,
+      "creative": "wont_be_the_same_again",
+      "captions": {
+        "instagram": "one track alone sounds nothing like the song\nWon't Be the Same Again – @close__quarters · EDUCATION out now #producer #musicproducer #beatbreakdown #stems #newmusic\n\nlink in bio to stream Won't Be the Same Again"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.419,
+        "anchor_y": 0.499,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
