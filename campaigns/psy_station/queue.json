@@ -1,76 +1,66 @@
 {
-  "generated_at": "2026-11-27T14:01:44.854697Z",
+  "generated_at": "2026-11-28T08:32:50.605330Z",
   "items": [
     {
-      "id": "7276c0aa-d53d-4646-98aa-979650e37483",
-      "scheduled_for": "2026-11-27T09:20:00-05:00",
-      "rendered_at": "2026-11-27T14:01:44.854697Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-27/7276c0aa-d53d-4646-98aa-979650e37483.mp4",
-      "caption": "the vocals move the light\n🎧 Hair of the Dog – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "id": "56cd2d4a-e31f-48fe-b2e9-fcf014dca40b",
+      "scheduled_for": "2026-11-28T09:20:00-05:00",
+      "rendered_at": "2026-11-28T08:32:50.605330Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-28/56cd2d4a-e31f-48fe-b2e9-fcf014dca40b.mp4",
+      "caption": "a slow melt, a loud song\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_05.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.579,
-        "anchor_y": 0.479,
-        "rotate_deg": -0.0,
+        "anchor_x": 0.668,
+        "anchor_y": 0.607,
+        "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
-      "creative": "hair_of_the_dog",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 the song is Hair of the Dog by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-bf5080bd-cad9-48f7-9224-3d38bf5e7af6",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T16:20:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Suspended – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "the vocals move the light\n🎧 Hair of the Dog – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nlink in bio to stream Hair of the Dog"
+        "instagram": "a slow melt, a loud song\n🎧 Suspended – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "1ca2aee4-c1e9-4c2b-af59-9c0093d06099",
-      "scheduled_for": "2026-11-27T16:20:00-05:00",
-      "rendered_at": "2026-11-27T14:01:44.854697Z",
-      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-27/1ca2aee4-c1e9-4c2b-af59-9c0093d06099.mp4",
-      "caption": "1960s light shows did this with oil, water and a projector. this one is maths\n🎧 Passage (Waiting) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive",
+      "id": "27050d2f-37b8-4b3f-a8d0-d89f015fc768",
+      "scheduled_for": "2026-11-28T16:20:00-05:00",
+      "rendered_at": "2026-11-28T08:32:50.605330Z",
+      "video_url": "https://factory.nickbenak.com/v/render-psy_station-2026-11-28/27050d2f-37b8-4b3f-a8d0-d89f015fc768.mp4",
+      "caption": "watch it twice. the second time you'll see the drums\n🎧 Epilogue: Dismissal – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive",
       "title": null,
       "parts": {
-        "hook": "hook_04.mp4",
+        "hook": "hook_03.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.336,
-        "anchor_y": 0.43,
+        "anchor_x": 0.407,
+        "anchor_y": 0.283,
         "rotate_deg": 0.0,
         "brightness": 0.0,
         "saturation": 1.0,
@@ -81,28 +71,18 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "passage_waiting",
+      "creative": "epilogue_dismissal",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "psychedelic_station_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-b987e944-4203-4ef3-8238-0c7be809f24b",
-          "last_error": null,
-          "scheduled_for": "2026-12-01T16:20:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Epilogue: Dismissal by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "1960s light shows did this with oil, water and a projector. this one is maths\n🎧 Passage (Waiting) – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nstream Passage (Waiting): link in bio"
+        "instagram": "watch it twice. the second time you'll see the drums\n🎧 Epilogue: Dismissal – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nlink in bio to stream Epilogue: Dismissal"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
