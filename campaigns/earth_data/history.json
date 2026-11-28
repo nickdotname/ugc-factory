@@ -789,6 +789,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-28T08:31:57.265163Z",
+      "item_id": "b9fdcc91-5917-4bf4-8dd3-204cd65771eb",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "low earth orbit is busier than you think\n🎧 Full Ride – @close__quarters #dataviz #datavisualization #earth #space #maps",
+      "title": null,
+      "creative": "full_ride",
+      "captions": {
+        "instagram": "low earth orbit is busier than you think\n🎧 Full Ride – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Full Ride: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.664,
+        "anchor_y": 0.477,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
