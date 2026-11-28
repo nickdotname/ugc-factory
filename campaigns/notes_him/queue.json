@@ -197,18 +197,18 @@
         {
           "account": "him_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-29T20:47:00-05:00"
         }
       ],
       "captions": {
         "instagram": "grip tape wisdom\n🎧 Talk – @close__quarters #skateboarding #relatable #humor\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
