@@ -856,8 +856,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-600e9459-64d7-4888-9a62-758806b3c15d",
+      "post_ids": {
+        "nyc_ig": "igo-600e9459-64d7-4888-9a62-758806b3c15d"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
