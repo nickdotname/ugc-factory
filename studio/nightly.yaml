@@ -189,3 +189,8 @@ targets:
     paused: true
     per_night: 2
     join: 24
+  - campaign: two_chemicals    # two.chemicals (planned): Turing patterns grown live on the beat (studio/turing_video.py). Ready page:
+    style: turing              # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=two_chemicals still renders it
+    paused: true
+    per_night: 2
+    join: 24
