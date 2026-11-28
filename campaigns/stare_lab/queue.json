@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "eyetrick_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-29T16:07:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "nothing on the screen changes the way you think it does. your eyes do\n🎧 Suspended – @close__quarters #illusion #opticalillusion #afterimage #perception #brain\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
