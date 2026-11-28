@@ -38,9 +38,9 @@
         {
           "account": "petri_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-7c16ca8d-33dc-4104-b6c0-cb8bc69105d2",
           "last_error": null,
           "scheduled_for": "2026-11-28T09:30:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "a petri dish made of maths\n🎧 Talk – @close__quarters #artificiallife #generativeart #slimemold #simulation #creativecoding\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
