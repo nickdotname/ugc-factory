@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Prologue: Before by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "psychedelic_station_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-12-03T09:20:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the colours are on the kick\n🎧 Prologue: Before – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Prologue: Before: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "psychedelic_station_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "turn the sound up and see if your eyes can find the beat\n🎧 Epilogue: Dismissal – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nEpilogue: Dismissal is out now. link in bio to stream it"
       },
