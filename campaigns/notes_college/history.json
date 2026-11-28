@@ -280,8 +280,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-08a764e0-f7fb-463d-8f99-cb6102df578f",
+      "post_ids": {
+        "college_ig": "igo-08a764e0-f7fb-463d-8f99-cb6102df578f"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
