@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-27T08:32:10.662808Z",
+  "generated_at": "2026-11-28T08:33:30.883955Z",
   "items": [
     {
-      "id": "4b87756a-d979-4cf4-a886-e72bdb1a2233",
-      "scheduled_for": "2026-11-27T08:12:00-05:00",
-      "rendered_at": "2026-11-27T08:32:10.662808Z",
-      "video_url": "https://factory.nickbenak.com/v/render-museum_zoom-2026-11-27/4b87756a-d979-4cf4-a886-e72bdb1a2233.mp4",
-      "caption": "the corner is where it gets good\n🎧 Recess (Rewind) – @close__quarters #arthistory #museum #painting #details #zoomin",
+      "id": "62d967f0-e760-4432-a036-79ebc8d25de8",
+      "scheduled_for": "2026-11-28T08:12:00-05:00",
+      "rendered_at": "2026-11-28T08:33:30.883955Z",
+      "video_url": "https://factory.nickbenak.com/v/render-museum_zoom-2026-11-28/62d967f0-e760-4432-a036-79ebc8d25de8.mp4",
+      "caption": "someone painted this by hand\n🎧 Notta Problem – @close__quarters #arthistory #museum #painting #details #zoomin",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -16,62 +16,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.675,
-        "anchor_y": 0.272,
+        "anchor_x": 0.536,
+        "anchor_y": 0.428,
         "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "recess_rewind",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "zoom_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-69740417-5466-4c16-a83e-cd2d90c3806a",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T08:12:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "the corner is where it gets good\n🎧 Recess (Rewind) – @close__quarters #arthistory #museum #painting #details #zoomin\n\nlink in bio to stream Recess (Rewind)"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "04a71b19-58f4-4a09-967a-bc8a3e3295f5",
-      "scheduled_for": "2026-11-27T15:42:00-05:00",
-      "rendered_at": "2026-11-27T08:32:10.662808Z",
-      "video_url": "https://factory.nickbenak.com/v/render-museum_zoom-2026-11-27/04a71b19-58f4-4a09-967a-bc8a3e3295f5.mp4",
-      "caption": "public domain, full resolution\n🎧 Passage (Waiting) – @close__quarters #arthistory #museum #painting #details #zoomin",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.37,
-        "anchor_y": 0.334,
-        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -81,28 +28,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "passage_waiting",
+      "creative": "notta_problem",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Passage (Waiting) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "zoom_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-4e75ef96-dd48-4773-afeb-a9777a3b4fa8",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T15:42:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Notta Problem – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "public domain, full resolution\n🎧 Passage (Waiting) – @close__quarters #arthistory #museum #painting #details #zoomin\n\nstream Passage (Waiting): link in bio"
+        "instagram": "someone painted this by hand\n🎧 Notta Problem – @close__quarters #arthistory #museum #painting #details #zoomin\n\nNotta Problem is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "476829f2-e5fe-4cdf-9e3e-71463e2d3849",
+      "scheduled_for": "2026-11-28T15:42:00-05:00",
+      "rendered_at": "2026-11-28T08:33:30.883955Z",
+      "video_url": "https://factory.nickbenak.com/v/render-museum_zoom-2026-11-28/476829f2-e5fe-4cdf-9e3e-71463e2d3849.mp4",
+      "caption": "the details are the whole point\n🎧 Recess (Rewind) – @close__quarters #arthistory #museum #painting #details #zoomin",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.601,
+        "anchor_y": 0.715,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "recess_rewind",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Recess (Rewind) by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "the details are the whole point\n🎧 Recess (Rewind) – @close__quarters #arthistory #museum #painting #details #zoomin\n\nlink in bio to stream Recess (Rewind)"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
