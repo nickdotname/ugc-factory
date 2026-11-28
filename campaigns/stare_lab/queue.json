@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Silver and Gold – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "eyetrick_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T16:07:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "what you see at the end comes from your own eyes, not the screen\n🎧 Silver and Gold – @close__quarters #illusion #opticalillusion #afterimage #perception #brain\n\nSilver and Gold is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
