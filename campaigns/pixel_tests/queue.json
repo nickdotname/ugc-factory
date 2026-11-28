@@ -38,9 +38,9 @@
         {
           "account": "tests8_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-be7c0bd2-a55b-4d99-b6cd-df77244c5da7",
           "last_error": null,
           "scheduled_for": "2026-11-28T08:33:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "keep your eyes on it until the end\n🎧 Won't Be the Same Again – @close__quarters #pixelart #8bit #braintest #reactiontime #memorytest\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
