@@ -91,18 +91,18 @@
         {
           "account": "physics_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-29T11:25:00-05:00"
         }
       ],
       "captions": {
         "instagram": "this is weirdly satisfying with sound\n🎧 Evil Close Quarters – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
