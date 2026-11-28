@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """Add a new band dance video to the cut-out library (studio/lofi/index.json, release lofi-library).
 
+    python studio/lofi_add.py fetch REEL_LINK OUT.mp4 [--account close_quarters_ig]   # our own reel, through the Graph API
     python studio/lofi_add.py match VIDEO                      # which song is playing, and from which second
     python studio/lofi_add.py cut VIDEO OUT_DIR --id plaza --who a,b [--clean-watermark]
     python studio/lofi_add.py index --id plaza --song SLUG --offset S --frames N --who a,b --source NAME [--trial]
+
+`fetch` downloads one of our own reels by its link through the Graph API (the account's token from accounts.yaml), which
+gives the posted video without the "@account" stamp a saved reel carries. Instagram leaves media_url out of a reel whose
+sound it holds rights to; then the operator's phone file is the way in. Run from Actions (lofi-from-reel.yml): cloud
+sessions cannot reach Instagram.
 
 `match` finds the song by its music: a coarse chroma + onset match against every master in studio/songs, then the
 exact second by cross-correlating the raw audio (it refuses anything under 0.4 correlation, so a video with other
@@ -56,6 +62,27 @@ def match(video):
     print('song %s from %.3f s (correlation %.2f; next best %s)' % (slug, off, r, best[1][1] if len(best) > 1 else '-'))
     if r < 0.4: sys.exit('the music does not line up with any song closely enough (%.2f): not filed' % r)
     return slug, off
+
+
+def fetch(link, out, account='close_quarters_ig'):
+    import re, urllib.parse, urllib.request, yaml
+    code = re.search(r'/(?:reel|reels|p|tv)/([A-Za-z0-9_-]+)', link)
+    if not code: sys.exit('not a reel link: %s' % link)
+    code = code.group(1)
+    acc = next(a for a in yaml.safe_load(open(os.path.join(os.path.dirname(HERE), 'accounts.yaml')))['accounts'] if a.get('name') == account)
+    token = os.environ.get(acc.get('api_key_secret') or 'IG_TOKEN', '')
+    if not token: sys.exit('%s is not set (the token for %s)' % (acc.get('api_key_secret'), account))
+    url = 'https://graph.facebook.com/v21.0/%s/media?%s' % (acc['channel_id'], urllib.parse.urlencode(
+        {'fields': 'id,permalink,shortcode,media_type,media_url,timestamp', 'limit': 100, 'access_token': token}))
+    for _ in range(20):                                  # newest first, 100 a page: the reel is in the first few pages
+        page = json.load(urllib.request.urlopen(url, timeout=60))
+        for m in page.get('data', []):
+            if m.get('shortcode') == code or code in (m.get('permalink') or ''):
+                if not m.get('media_url'): sys.exit('Instagram gives no media_url for this reel (its sound is licensed): use the phone file')
+                urllib.request.urlretrieve(m['media_url'], out); print('fetched %s (%s, %s) -> %s' % (code, m.get('media_type'), m.get('timestamp'), out)); return out
+        url = (page.get('paging') or {}).get('next')
+        if not url: break
+    sys.exit('no reel %s on %s' % (code, account))
 
 
 def clean_watermark(rgb, person):
@@ -220,11 +247,12 @@ def add_index(cid, song, offset, frames, who, source, trial, outdoors=False):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('cmd', choices=['match', 'cut', 'index']); ap.add_argument('video', nargs='?'); ap.add_argument('out', nargs='?')
+    ap.add_argument('cmd', choices=['fetch', 'match', 'cut', 'index']); ap.add_argument('--account', default='close_quarters_ig'); ap.add_argument('video', nargs='?'); ap.add_argument('out', nargs='?')
     for k in ('id', 'who', 'song', 'source'): ap.add_argument('--' + k)
     ap.add_argument('--offset', type=float); ap.add_argument('--frames', type=int)
     ap.add_argument('--trial', action='store_true'); ap.add_argument('--outdoors', action='store_true'); ap.add_argument('--clean-watermark', action='store_true')
     a = ap.parse_args()
-    if a.cmd == 'match': match(a.video)
+    if a.cmd == 'fetch': fetch(a.video, a.out, a.account)
+    elif a.cmd == 'match': match(a.video)
     elif a.cmd == 'cut': cut(a.video, a.out, a.id, a.who or 'a,b', a.clean_watermark)
     else: add_index(a.id, a.song, a.offset, a.frames, a.who or 'a,b', a.source, a.trial, a.outdoors)

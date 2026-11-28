@@ -1,0 +1,77 @@
+name: lofi-from-reel
+
+# One of our own reels of the band dancing, into the cut-out library (studio/lofi_add.py): fetched through the Graph
+# API (no saved-reel stamp), matched to its song, each person cut out, filed in studio/lofi/index.json, the tars into
+# the lofi-library release. Band footage is used only on @close__quarters and @dylancantor23.
+on:
+  workflow_dispatch:
+    inputs:
+      link:
+        description: "the reel's link (instagram.com/reel/...)"
+        required: true
+      account:
+        description: "the account it was posted on (accounts.yaml name)"
+        default: "close_quarters_ig"
+      id:
+        description: "a short name for the clips (letters only): plaza, roof, ..."
+        required: true
+      who:
+        description: "who is in it, left to right in the first frame where they stand apart (a = cap / long coat, b = curly hair)"
+        default: "a,b"
+      trial:
+        description: "post videos built from it as trial reels"
+        type: boolean
+        default: true
+      outdoors:
+        description: "filmed outside (keeps the 'our living room' line off it)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lofi-inbox
+  cancel-in-progress: false
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      IG_TOKEN: ${{ secrets.IG_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Tools
+        run: |
+          bash scripts/apt_install.sh ffmpeg libsndfile1
+          pip install -q pyyaml numpy scipy librosa soundfile opencv-python-headless pillow "mediapipe==0.10.14"
+      - name: Fetch, match, cut
+        env:
+          LINK: ${{ github.event.inputs.link }}
+          ACCOUNT: ${{ github.event.inputs.account }}
+          ID: ${{ github.event.inputs.id }}
+          WHO: ${{ github.event.inputs.who }}
+        run: |
+          set -e
+          case "$ID" in (*[!a-z]*|'') echo "id must be lower-case letters"; exit 1;; esac
+          python studio/lofi_add.py fetch "$LINK" reel.mp4 --account "$ACCOUNT"
+          python studio/lofi_add.py match reel.mp4 | tee match.txt
+          SONG=$(sed -n 's/^song \([^ ]*\) from \([0-9.]*\) s.*/\1/p' match.txt); OFF=$(sed -n 's/^song \([^ ]*\) from \([0-9.]*\) s.*/\2/p' match.txt)
+          python studio/lofi_add.py cut reel.mp4 out --id "$ID" --who "$WHO"
+          N=$(python -c "import tarfile,glob; print(max(len(tarfile.open(f).getmembers()) for f in glob.glob('out/*.tar')))")
+          FLAGS=""; [ "${{ github.event.inputs.trial }}" = "true" ] && FLAGS="$FLAGS --trial"; [ "${{ github.event.inputs.outdoors }}" = "true" ] && FLAGS="$FLAGS --outdoors"
+          python studio/lofi_add.py index --id "$ID" --song "$SONG" --offset "$OFF" --frames "$N" --who "$WHO" --source "$LINK" $FLAGS
+      - name: Into the release, and the index into the repo
+        run: |
+          for f in out/*.tar; do gh release upload lofi-library "$f" --clobber; done
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git add studio/lofi/index.json
+          git diff --cached --quiet && exit 0
+          git commit -q -m "lofi clips from ${{ github.event.inputs.link }} [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin "$GITHUB_REF_NAME" && git push -q origin "HEAD:$GITHUB_REF_NAME" && break; sleep 5; done

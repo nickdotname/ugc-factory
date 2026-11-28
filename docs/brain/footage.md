@@ -69,6 +69,9 @@ Willie and Barnacle Bill by title); a toons entry dated after 1930 is out whatev
   read them from the inbox until then. A `trial` clip makes every video built from it a trial reel (src/cli.py
   `_trial_clips`) and goes first in nightly until 3 videos per clip; `outdoors` keeps the "our living room" line off it.
   Where two clips of one person cover the same seconds, the newer one is used.
+  **From one of our own reels:** Actions → `lofi-from-reel` with the reel's link, a short id and who is in it: it fetches the
+  posted video through the Graph API (no saved-reel stamp), then runs match, cut and index, and puts the tars straight in
+  the release. Instagram withholds the file of a reel whose sound it has licensed; then the phone file is the way in.
   - **plaza** (2026-11-28): Dylan and Nick in the plaza, Won't Be the Same Again 111.3-123.7 s, saved from Instagram
     (stamp painted out), `trial` and `outdoors`.
 
