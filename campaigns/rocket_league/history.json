@@ -863,6 +863,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "c2beffffc884921a061efd7492193746f070ac5dba46671500c27b77bbb67181",
+      "timestamp": "2026-11-28T12:31:35.767863Z",
+      "item_id": "bf034591-ee23-444f-a1ba-7f935bf0c44b",
+      "hook": "hook_05.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "this went in on the snare\n🎧 Suspended – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "this went in on the snare\n🎧 Suspended – @close__quarters #rocketleague #rlclips #rocketleagueclips #rlcs #gaming\n\nSuspended is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.526,
+        "anchor_y": 0.652,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
