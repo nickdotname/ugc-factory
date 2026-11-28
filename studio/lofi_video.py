@@ -68,6 +68,13 @@ import sync_check                                   # lines whose sync is not pr
 LINES = [[e, [list(x) for x in ws]] for e, ws in sync_check.load_lines(SONG_DIR, _OWN if _LP == _OWN else None)] if SONG_DIR and os.path.exists(_LP) else []
 SHOW_LYRICS = os.environ.get('CQ_LYRICS') != 'none' and bool(LINES)     # nightly says none where the words do not measure as in sync (own lines too)
 CLIPS = {}                                       # who -> [(clip id, song time of frame 1, frames)], filled in main()
+USED = set()                                     # the clips a video drew from (its recipe says so: a `trial` clip makes it a trial reel)
+
+
+def footage_record():
+    """What the recipe says about the footage: which clips, and whether any is marked trial in studio/lofi/index.json."""
+    trial = {c['id'] for c in LIB.index()['clips'] if c.get('trial')}
+    return dict(footage=sorted(USED), trial=bool(USED & trial))
 
 def _dur(path):
     out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', path], capture_output=True, text=True).stdout
@@ -77,8 +84,9 @@ def _dur(path):
 _cache = {}
 def person(who, T):
     """The RGBA cut-out of `who` at song time T (10 per second), or None where none of their clips reach."""
-    for cid, off, n, fps in CLIPS.get(who, ()):
+    for cid, off, n, fps in reversed(CLIPS.get(who, ())):         # newest footage first where two clips of one person overlap
         if off <= T <= off + (n - 0.5) / fps:
+            USED.add(cid)
             k = int(np.clip(math.floor((T - off) * fps), 0, n - 1)) + 1
             key = (cid, k)
             if key not in _cache:
@@ -389,7 +397,7 @@ def main():
     if p.returncode: sys.exit('encode failed')
     os.replace(tmp, out)
     json.dump(dict(K.record(), plan=dict(hook='', window=[round(T0, 2), round(T1, 2)], scenes=[s['kind'] for s in scenes],
-                                          people=sorted({s['who'] for s in scenes}))), open(out[:-4] + '.json', 'w'))
+                                          people=sorted({s['who'] for s in scenes}), **footage_record())), open(out[:-4] + '.json', 'w'))
     print('done', out, K.record()['knobs'])
 
 

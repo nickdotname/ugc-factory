@@ -1,0 +1,43 @@
+name: lofi-inbox
+
+# New band cut-out clips into the lofi-library release. studio/lofi_add.py makes one tar per person and files them in
+# studio/lofi/index.json; the tars come in through studio/lofi/inbox/ (a cloud session cannot upload release assets),
+# and this moves each one into the release, then takes it out of the repo so git does not carry the footage.
+# Until it has run, studio/lofi_lib.py reads a clip straight from the inbox.
+on:
+  push:
+    branches: [main]
+    paths: ["studio/lofi/inbox/*.tar"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lofi-inbox
+  cancel-in-progress: false
+
+jobs:
+  move:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Into the release
+        run: |
+          shopt -s nullglob
+          have=$(gh release view lofi-library --json assets -q '.assets[].name')
+          for f in studio/lofi/inbox/*.tar; do
+            n=$(basename "$f")
+            if echo "$have" | grep -qx "$n"; then echo "$n already in the release"; else gh release upload lofi-library "$f"; echo "uploaded $n"; fi
+            git rm -q "$f"
+          done
+      - name: Out of the repo
+        run: |
+          git config user.name  "ugc-factory"
+          git config user.email "ugc-factory@users.noreply.github.com"
+          git diff --cached --quiet && exit 0
+          git commit -q -m "lofi clips moved to the release [skip ci]"
+          for i in 1 2 3 4 5; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done

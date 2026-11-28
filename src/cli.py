@@ -1804,6 +1804,7 @@ def _push_to_account(
     ]
 
     pushed = 0
+    trial_clips = _trial_clips(config)
     for item in to_push:
         post = post_for(item, account.name)
         assert post is not None  # claimable_for only returns items with one
@@ -1894,6 +1895,11 @@ def _push_to_account(
             and account.login is InstagramLogin.FACEBOOK else None
         ) or {}
 
+        # Trial when the account always posts trials, or when this video is built on footage marked trial.
+        trial = account.trial_reels or (
+            account.provider is Provider.INSTAGRAM
+            and item.parts.get("hook") in trial_clips.get(item.creative, ())
+        )
         try:
             request = PublishRequest(
                 channel_id=channel,
@@ -1909,10 +1915,8 @@ def _push_to_account(
                 first_comment=account.first_comment or item.first_comment or None,
                 notify_subscribers=account.notify_subscribers,
                 post_type=account.post_type,
-                trial=account.trial_reels,
-                trial_graduation=(
-                    account.trial_graduation.value if account.trial_reels else None
-                ),
+                trial=trial,
+                trial_graduation=account.trial_graduation.value if trial else None,
                 cover_at_ms=(
                     None if config.posting.cover_at_sec is None
                     else int(config.posting.cover_at_sec * 1000)
@@ -2549,6 +2553,17 @@ def _recipes(config: CampaignConfig) -> list[dict]:
     except (OSError, ValueError):
         return []
     return [e for e in (rec.get("nightly", []) if isinstance(rec, dict) else []) if isinstance(e, dict)]
+
+
+def _trial_clips(config: CampaignConfig) -> dict[str, set[str]]:
+    """creative -> clips built on footage marked `trial` in studio/lofi/index.json (the recipe's plan.trial): new band
+    footage is tried on non-followers first, while the band account itself posts normal reels."""
+    out: dict[str, set[str]] = {}
+    for entry in _recipes(config):
+        plan = entry.get("plan") if isinstance(entry.get("plan"), dict) else {}
+        if plan.get("trial") and entry.get("creative") and entry.get("clip"):
+            out.setdefault(str(entry["creative"]), set()).add(str(entry["clip"]))
+    return out
 
 
 def _clip_styles(config: CampaignConfig) -> dict[str, dict[str, str]]:

@@ -24,9 +24,17 @@ def clips_for(slug):
     return [c for c in index()['clips'] if c['song'] == slug]
 
 
+INBOX = os.path.join(DIR, 'inbox')   # new clips wait here until lofi-inbox.yml moves them into the release
+
+
 def _fetch(asset):
-    """Download one tar from the release (REST only, so it works wherever gh is signed in) and unpack it."""
+    """Download one tar from the release (REST only, so it works wherever gh is signed in) and unpack it; a clip still
+    in studio/lofi/inbox/ (added in a PR, not yet moved to the release) is unpacked from there."""
     os.makedirs(CACHE, exist_ok=True); rel = index().get('release', 'lofi-library')
+    local = os.path.join(INBOX, asset)
+    if os.path.exists(local):
+        with tarfile.open(local) as tf: tf.extractall(CACHE)
+        return
     info = json.loads(subprocess.run(['gh', 'api', 'repos/%s/releases/tags/%s' % (REPO, rel)], capture_output=True, text=True, check=True).stdout)
     a = next((x for x in info['assets'] if x['name'] == asset), None)
     if a is None: raise FileNotFoundError('%s is not in the %s release' % (asset, rel))

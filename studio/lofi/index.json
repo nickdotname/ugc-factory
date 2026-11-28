@@ -71,6 +71,30 @@
    "who": "a",
    "asset": "notta_a1.tar",
    "source": "IMG_7962.mov"
+  },
+  {
+   "id": "plaza_a1",
+   "song": "wont-be-the-same-again",
+   "offset": 111.267,
+   "frames": 125,
+   "fps": 10,
+   "who": "a",
+   "asset": "plaza_a1.tar",
+   "source": "plaza dance (saved from Instagram, watermark painted out)",
+   "trial": true,
+   "outdoors": true
+  },
+  {
+   "id": "plaza_b1",
+   "song": "wont-be-the-same-again",
+   "offset": 111.267,
+   "frames": 125,
+   "fps": 10,
+   "who": "b",
+   "asset": "plaza_b1.tar",
+   "source": "plaza dance (saved from Instagram, watermark painted out)",
+   "trial": true,
+   "outdoors": true
   }
  ]
 }

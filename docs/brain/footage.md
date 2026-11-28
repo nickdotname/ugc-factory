@@ -57,8 +57,20 @@ Willie and Barnacle Bill by title); a toons entry dated after 1930 is out whatev
 - **Rocket League**: `studio/rocket_lib.py` → release `rocket-library`, index `studio/rocket/index.json`, with
   each clip's "moments" (goal explosions, big hits) found from sound and picture. Clips were added from a shared
   Drive folder by a one-off `rocket-inbox` workflow.
-- **Band footage** (lofi style): `studio/lofi/index.json`, from the band's own dance videos. Band only on
-  @close__quarters and @dylancantor23.
+- **Band footage** (lofi and cutout styles): `studio/lofi/index.json`, from the band's own dance videos. Band only on
+  @close__quarters and @dylancantor23. **Adding a video** (`studio/lofi_add.py`, 2026-11-28): `match VIDEO` finds the
+  song and the second it starts at from the music (refuses under 0.4 correlation); `cut VIDEO OUT --id NAME --who a,b`
+  (Python 3.11 with `pip install mediapipe==0.10.14`, no download) cuts each person out, tells two people apart by how
+  they look (a = cap / long coat, b = curly hair; learned from the first frame where they stand apart), follows each
+  with a 9:16 crop so they fill the frame like the older clips, holds the nearest clean frame where they overlap, and
+  with `--clean-watermark` paints out Instagram's "@account" stamp from a saved reel (the original phone file is
+  better); `index ... [--trial] [--outdoors]` files the clips. Put the tars in `studio/lofi/inbox/`: `lofi-inbox.yml`
+  moves them into the lofi-library release on merge (a cloud session cannot upload release assets), and the renderers
+  read them from the inbox until then. A `trial` clip makes every video built from it a trial reel (src/cli.py
+  `_trial_clips`) and goes first in nightly until 3 videos per clip; `outdoors` keeps the "our living room" line off it.
+  Where two clips of one person cover the same seconds, the newer one is used.
+  - **plaza** (2026-11-28): Dylan and Nick in the plaza, Won't Be the Same Again 111.3-123.7 s, saved from Instagram
+    (stamp painted out), `trial` and `outdoors`.
 
 ## Made on Kaggle
 

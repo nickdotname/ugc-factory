@@ -132,6 +132,9 @@ def lofi_cover(slug, win):
     return sum(any(a <= t <= b for a, b in runs) for t in ts) / max(1, len(ts))
 
 FOOTAGE = {'lofi', 'cutout', 'scene'}   # styles built on the band's own dance footage (studio/lofi/index.json)
+try: TRIAL_CLIPS = {c['id'] for c in json.load(open(os.path.join(HERE, 'lofi', 'index.json')))['clips'] if c.get('trial')}
+except (OSError, ValueError, KeyError): TRIAL_CLIPS = set()
+TRIAL_FIRST = 3                         # videos made from each trial clip's stretch before it waits its turn (two clips of one take: six in all)
 
 def footage_windows(slug, length=16.0, step=8.0):
     """Stretches inside the band's footage of a song, whether or not the song's lyric timing covers them: the footage
@@ -378,7 +381,10 @@ for t in cfg['targets']:
     for m in made:
         if m.get('style') == style: of_song[m.get('song')] = of_song.get(m.get('song'), 0) + 1
     rng = random.Random(today + camp + style); rng.shuffle(cands)
-    cands.sort(key=lambda c: (of_song.get(c[0], 0) if style in FOOTAGE else 0, (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0))))
+    # New band footage marked `trial` (studio/lofi/index.json) goes first until TRIAL_FIRST videos are made from it: it was
+    # added to be tried, and the song-spread rule below would otherwise leave a well-covered song's new clip waiting.
+    fresh_trial = lambda c: style in FOOTAGE and c[2].split('-')[0] in TRIAL_CLIPS and uses.get((c[0], c[2]), 0) < TRIAL_FIRST
+    cands.sort(key=lambda c: (not fresh_trial(c), of_song.get(c[0], 0) if style in FOOTAGE else 0, (uses.get((c[0], c[2]), 0) + 1) / (wsong.get(c[1], 1.0) * wsec.get('%s/%s' % (c[1], c[2]), 1.0))))
     have = len(rec.get('nightly', []))                       # what the current libraries hold
     want = a.count or max(t['per_night'], min(cfg.get('first_fill_cap', 16), t.get('first_fill', cfg.get('first_fill', 0)) - have) if t['style'] not in VISUAL else t['per_night'])
     picked, per_song = [], {}

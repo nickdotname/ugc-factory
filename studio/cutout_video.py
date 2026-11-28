@@ -91,7 +91,9 @@ class Video:
         self.words = K.pick('words', ['big', 'none'], r, weights=[4, 1]) if LV.SHOW_LYRICS else 'none'
         self.bg = K.pick('bg', list(BGS), r, weights=[2, 3, 2, 2, 1])
         self.tone = K.pick('tone', ['duo', 'soft'], r)
-        self.hook = os.environ.get('CQ_HOOK') or K.pick('hook', HOOKS + ['none'], r)
+        outside = any(c.get('outdoors') and c['offset'] < self.T1 and self.T0 < c['offset'] + c['frames'] / c['fps'] for c in LIB.clips_for(LV.SLUG))
+        hooks = [h for h in HOOKS if not (outside and 'living room' in h)]          # every opening line is true of the footage under it
+        self.hook = os.environ.get('CQ_HOOK') or K.pick('hook', hooks + ['none'], r)
         if self.hook == 'none': self.hook = ''
         self.moves = random.Random(seed * 7919)          # where each beat sends the cut-out (drawn per beat, below)
         beats = [b for b in LV.BEATS if self.T0 - 2 <= b <= self.T1 + 2]
@@ -273,7 +275,7 @@ class Video:
         if p.returncode: sys.exit('encode failed')
         os.replace(tmp, out)
         json.dump(dict(K.record(), plan=dict(hook=self.hook, window=[round(self.T0, 2), round(self.T1, 2)], scenes=[s['kind'] for s in self.plan],
-                                              people=sorted({s['who'] for s in self.plan}))), open(out[:-4] + '.json', 'w'))
+                                              people=sorted({s['who'] for s in self.plan}), **LV.footage_record())), open(out[:-4] + '.json', 'w'))
         print('done', out, K.record()['knobs'])
 
 
