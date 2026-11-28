@@ -287,6 +287,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-28T08:33:38.702606Z",
+      "item_id": "b6ce49e6-e618-4030-832e-00d3cd6dd2e9",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "i feel attacked\n🎧 Fixation – @close__quarters #situationship #relatable #datinghumor #talkingstage",
+      "title": null,
+      "creative": "fixation",
+      "captions": {
+        "instagram": "i feel attacked\n🎧 Fixation – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nFixation is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.421,
+        "anchor_y": 0.74,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-28T08:33:38.702606Z",
+      "item_id": "e0ede69f-2ce4-4b53-9a8d-21b54f1d2b93",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "not me in the comments of my own life\n🎧 Silver and Gold – @close__quarters #situationship #relatable #datinghumor #talkingstage",
+      "title": null,
+      "creative": "silver_and_gold",
+      "captions": {
+        "instagram": "not me in the comments of my own life\n🎧 Silver and Gold – @close__quarters #situationship #relatable #datinghumor #talkingstage\n\nlink in bio to stream Silver and Gold"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.572,
+        "anchor_y": 0.289,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
