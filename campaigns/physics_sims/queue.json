@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-29T08:25:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the hits come straight from the session\n🎧 Won't Be the Same Again – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "this is weirdly satisfying with sound\n🎧 Evil Close Quarters – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
@@ -120,7 +140,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Evil Close Quarters by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "physics_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "every bounce is a beat. sound on.\n🎧 Evil Close Quarters – @close__quarters #satisfying #physics #simulation #oddlysatisfying #bouncingball\n\nlink in bio to stream Evil Close Quarters"
       },
