@@ -189,6 +189,11 @@ targets:
     paused: true
     per_night: 2
     join: 24
+  - campaign: hidden_depth     # hidden.in.dots (planned): magic-eye pictures of our own shapes, solved on the beat (studio/depth_video.py). Ready page:
+    style: depth               # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=hidden_depth still renders it
+    paused: true
+    per_night: 2
+    join: 24
   - campaign: two_chemicals    # two.chemicals (planned): Turing patterns grown live on the beat (studio/turing_video.py). Ready page:
     style: turing              # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=two_chemicals still renders it
     paused: true
