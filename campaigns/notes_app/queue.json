@@ -250,18 +250,18 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-29T17:41:00-05:00"
         }
       ],
       "captions": {
         "instagram": "real ones know\n🎧 Won't Be the Same Again – @close__quarters #relatable #humor #createmode\n\nstream Won't Be the Same Again: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
