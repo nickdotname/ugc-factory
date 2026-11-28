@@ -244,8 +244,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-a134ed4c-d32c-4038-aa71-84193e8e458c",
+      "post_ids": {
+        "college_ig": "igo-a134ed4c-d32c-4038-aa71-84193e8e458c"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
