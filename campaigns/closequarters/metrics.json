@@ -1429,6 +1429,136 @@
         }
       ],
       "metrics_updated_at": "2026-11-27T02:49:11.335000Z"
+    },
+    {
+      "date": "2026-11-28",
+      "scope": "lifetime",
+      "fetched_at": "2026-11-28T06:35:03.955177Z",
+      "window_start": "2026-11-15T00:00:00Z",
+      "window_end": "2026-11-29T00:00:00Z",
+      "service": "tiktok",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 61.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 65.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 5.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 3.93,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 1806.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 1682.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 150.02,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 4.53,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-11-28T01:50:09.629000Z"
+    },
+    {
+      "date": "2026-11-28",
+      "scope": "rolling",
+      "fetched_at": "2026-11-28T06:35:03.955177Z",
+      "window_start": "2026-10-29T00:00:00Z",
+      "window_end": "2026-11-28T00:00:00Z",
+      "service": "tiktok",
+      "metrics": [
+        {
+          "type": "postCount",
+          "name": "Posts",
+          "value": 113.0,
+          "unit": "count"
+        },
+        {
+          "type": "reactions",
+          "name": "Reactions",
+          "value": 67.0,
+          "unit": "count"
+        },
+        {
+          "type": "comments",
+          "name": "Comments",
+          "value": 5.0,
+          "unit": "count"
+        },
+        {
+          "type": "engagementRate",
+          "name": "Eng. Rate",
+          "value": 3.01,
+          "unit": "percentage"
+        },
+        {
+          "type": "views",
+          "name": "Views",
+          "value": 2425.0,
+          "unit": "count"
+        },
+        {
+          "type": "shares",
+          "name": "Shares",
+          "value": 1.0,
+          "unit": "count"
+        },
+        {
+          "type": "reach",
+          "name": "Reach",
+          "value": 2207.0,
+          "unit": "count"
+        },
+        {
+          "type": "totalTimeWatched",
+          "name": "Watch Time (min)",
+          "value": 184.47,
+          "unit": "count"
+        },
+        {
+          "type": "averageTimeWatched",
+          "name": "Avg. Watch Time (sec)",
+          "value": 3.85,
+          "unit": "count"
+        }
+      ],
+      "metrics_updated_at": "2026-11-28T01:50:09.633000Z"
     }
   ]
 }
