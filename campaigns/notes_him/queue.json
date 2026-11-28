@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-27T14:00:25.350795Z",
+  "generated_at": "2026-11-28T08:31:56.548209Z",
   "items": [
     {
-      "id": "048703e2-0f6d-4ede-9ef9-8df84f4db9f8",
-      "scheduled_for": "2026-11-27T20:47:00-05:00",
-      "rendered_at": "2026-11-27T08:32:09.518508Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-27/048703e2-0f6d-4ede-9ef9-8df84f4db9f8.mp4",
-      "caption": "it is what it is\n🎧 Myth of Sisyphus – @close__quarters #skateboarding #relatable #humor",
+      "id": "12871df1-1486-4ef9-981f-7bdaf5ba1827",
+      "scheduled_for": "2026-11-28T08:47:00-05:00",
+      "rendered_at": "2026-11-28T08:31:56.548209Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-28/12871df1-1486-4ef9-981f-7bdaf5ba1827.mp4",
+      "caption": "just push\n🎧 Prologue: Before – @close__quarters #skateboarding #relatable #humor",
       "title": null,
       "parts": {
         "hook": "hook_02.mp4",
@@ -16,10 +16,139 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.303,
-        "anchor_y": 0.301,
+        "anchor_x": 0.511,
+        "anchor_y": 0.452,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Prologue: Before by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "just push\n🎧 Prologue: Before – @close__quarters #skateboarding #relatable #humor\n\nlink in bio to stream Prologue: Before"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "5d64dda7-d542-4ae1-8e39-b4da0ced58ee",
+      "scheduled_for": "2026-11-28T11:47:00-05:00",
+      "rendered_at": "2026-11-28T08:31:56.548209Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-28/5d64dda7-d542-4ae1-8e39-b4da0ced58ee.mp4",
+      "caption": "certified moment\n🎧 Recess (Rewind) – @close__quarters #skateboarding #relatable #humor",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.499,
+        "anchor_y": 0.638,
         "rotate_deg": 0.0,
         "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "recess_rewind",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Recess (Rewind) by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "certified moment\n🎧 Recess (Rewind) – @close__quarters #skateboarding #relatable #humor\n\nstream Recess (Rewind): link in bio"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "cc0d0cd7-6f4c-4d97-9a32-29d0834836c5",
+      "scheduled_for": "2026-11-28T14:47:00-05:00",
+      "rendered_at": "2026-11-28T08:31:56.548209Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-28/cc0d0cd7-6f4c-4d97-9a32-29d0834836c5.mp4",
+      "caption": "bro\n🎧 Myth of Sisyphus – @close__quarters #skateboarding #relatable #humor",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.658,
+        "anchor_y": 0.558,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "myth_of_sisyphus",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "bro\n🎧 Myth of Sisyphus – @close__quarters #skateboarding #relatable #humor\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "63c5b6e8-a840-44ec-9bcc-1168dd89766d",
+      "scheduled_for": "2026-11-28T17:47:00-05:00",
+      "rendered_at": "2026-11-28T08:31:56.548209Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-28/63c5b6e8-a840-44ec-9bcc-1168dd89766d.mp4",
+      "caption": "grip tape wisdom\n🎧 Talk – @close__quarters #skateboarding #relatable #humor",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.64,
+        "anchor_y": 0.572,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": 0.0,
         "grain": 0.0,
@@ -28,28 +157,61 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "creative": "myth_of_sisyphus",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "him_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-f23273ce-16a3-4ca6-b357-58e70a9875a3",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T08:47:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "it is what it is\n🎧 Myth of Sisyphus – @close__quarters #skateboarding #relatable #humor\n\nMyth of Sisyphus is out now. link in bio to stream it"
+        "instagram": "grip tape wisdom\n🎧 Talk – @close__quarters #skateboarding #relatable #humor\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "3cc21808-c725-47ab-8a20-5a0e941cda37",
+      "scheduled_for": "2026-11-28T20:47:00-05:00",
+      "rendered_at": "2026-11-28T08:31:56.548209Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_him-2026-11-28/3cc21808-c725-47ab-8a20-5a0e941cda37.mp4",
+      "caption": "the boys get it\n🎧 Won't Be the Same Again – @close__quarters #skateboarding #relatable #humor",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.268,
+        "anchor_y": 0.528,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "wont_be_the_same_again",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "the boys get it\n🎧 Won't Be the Same Again – @close__quarters #skateboarding #relatable #humor\n\nstream Won't Be the Same Again: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
