@@ -184,3 +184,8 @@ targets:
     paused: true
     per_night: 2
     join: 24
+  - campaign: one_angle        # one.angle.only (planned): impossible objects built in 3D, turned on the beat (studio/angle_video.py). Ready page:
+    style: angle               # paused until the Instagram account exists (docs/brain/ready-pages.md); campaign=one_angle still renders it
+    paused: true
+    per_night: 2
+    join: 24
