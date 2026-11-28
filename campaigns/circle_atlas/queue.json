@@ -91,9 +91,9 @@
         {
           "account": "fourier_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-2e6114cd-5dc2-46fc-b2fd-f5daa516d4a5",
           "last_error": null,
           "scheduled_for": "2026-11-30T08:52:00-05:00"
         }
@@ -102,7 +102,7 @@
         "instagram": "two circles make a blob. a hundred and fifty make a country\n🎧 Notta Problem – @close__quarters #geography #maps #fourier #mathart #countries\n\nstream Notta Problem: link in bio"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
