@@ -1,4 +1,48 @@
 {
-  "generated_at": "2026-11-27T14:00:18.343165Z",
-  "items": []
+  "generated_at": "2026-11-28T08:32:39.033184Z",
+  "items": [
+    {
+      "id": "0f5bfd51-5d47-423f-a71d-fd749031dce7",
+      "scheduled_for": "2026-11-28T17:30:00-05:00",
+      "rendered_at": "2026-11-28T08:32:39.033184Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nick_studio-2026-11-28/0f5bfd51-5d47-423f-a71d-fd749031dce7.mp4",
+      "caption": "psychedelic hip-hop, printed word by word.\nSuspended by Close Quarters, from the album EDUCATION (out now). kinetic type lyric video.",
+      "title": null,
+      "parts": {
+        "hook": "hook_03.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.489,
+        "anchor_y": 0.289,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": null,
+      "posts": [],
+      "captions": {
+        "instagram": "psychedelic hip-hop, printed word by word.\nSuspended by Close Quarters, from the album EDUCATION (out now). kinetic type lyric video.\n\nSuspended is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    }
+  ]
 }
