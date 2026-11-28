@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Notta Problem by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "lowpoly_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-29T08:26:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the town has never recovered\n🎧 Notta Problem – @close__quarters #whatif #story #lowpoly #3danimation #blender\n\nlink in bio to stream Notta Problem"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
@@ -77,7 +87,17 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Recess (Rewind) by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "lowpoly_ig",
+          "network": "instagram",
+          "status": "pending",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": null
+        }
+      ],
       "captions": {
         "instagram": "small town, big problem\n🎧 Recess (Rewind) – @close__quarters #whatif #story #lowpoly #3danimation #blender\n\nstream Recess (Rewind): link in bio"
       },
