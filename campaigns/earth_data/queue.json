@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Full Ride by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "earth_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T08:35:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "low earth orbit is busier than you think\n🎧 Full Ride – @close__quarters #dataviz #datavisualization #earth #space #maps\n\nstream Full Ride: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
