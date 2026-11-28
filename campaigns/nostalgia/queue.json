@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
-      "posts": [],
+      "posts": [
+        {
+          "account": "nostalgia_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-12-02T09:35:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "nobody was filming. except this one tape\n🎧 Prologue: Before – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
