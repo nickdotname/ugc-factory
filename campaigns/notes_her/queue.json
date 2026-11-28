@@ -1,118 +1,12 @@
 {
-  "generated_at": "2026-11-27T14:00:34.632591Z",
+  "generated_at": "2026-11-28T08:32:44.642474Z",
   "items": [
     {
-      "id": "50a35ea4-d140-446a-9e97-8d8600bf6740",
-      "scheduled_for": "2026-11-27T11:44:00-05:00",
-      "rendered_at": "2026-11-27T14:00:34.632591Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-27/50a35ea4-d140-446a-9e97-8d8600bf6740.mp4",
-      "caption": "no thoughts just this\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.287,
-        "anchor_y": 0.362,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": 0.0
-      },
-      "creative": "wont_be_the_same_again",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "song: Won't Be the Same Again by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-760cf1bb-2283-4c1b-9083-ce525c8fe0ae",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T11:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "no thoughts just this\n🎧 Won't Be the Same Again – @close__quarters #relatable #girlhumor #createmode\n\nstream Won't Be the Same Again: link in bio"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "b2ec765a-5a19-4518-8128-6b61bcf26705",
-      "scheduled_for": "2026-11-27T14:44:00-05:00",
-      "rendered_at": "2026-11-27T14:00:34.632591Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-27/b2ec765a-5a19-4518-8128-6b61bcf26705.mp4",
-      "caption": "it's giving\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_03.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.444,
-        "anchor_y": 0.677,
-        "rotate_deg": -0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": 0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "epilogue_dismissal",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 Epilogue: Dismissal – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-30c5207f-a268-4412-998f-c790f60924d4",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T14:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "it's giving\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode\n\nEpilogue: Dismissal is out now. link in bio to stream it"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "79890d4d-3ff7-4e08-9af7-4766334684ba",
-      "scheduled_for": "2026-11-27T17:44:00-05:00",
-      "rendered_at": "2026-11-27T14:00:34.632591Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-27/79890d4d-3ff7-4e08-9af7-4766334684ba.mp4",
-      "caption": "literally me\n🎧 Passage (Waiting) – @close__quarters #relatable #girlhumor #createmode",
+      "id": "d8592295-a57a-4f31-b390-f46e3a928c9b",
+      "scheduled_for": "2026-11-28T08:44:00-05:00",
+      "rendered_at": "2026-11-28T08:32:44.642474Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-28/d8592295-a57a-4f31-b390-f46e3a928c9b.mp4",
+      "caption": "not me\n🎧 Talk – @close__quarters #relatable #girlhumor #createmode",
       "title": null,
       "parts": {
         "hook": "hook_01.mp4",
@@ -122,62 +16,9 @@
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.293,
-        "anchor_y": 0.572,
+        "anchor_x": 0.599,
+        "anchor_y": 0.262,
         "rotate_deg": 0.0,
-        "brightness": 0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "passage_waiting",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Passage (Waiting) by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-5088f920-470e-4605-a550-bf62746fd697",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T17:44:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "literally me\n🎧 Passage (Waiting) – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Passage (Waiting)"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "cabc1544-cda9-44ff-96c0-7bdf8f168bc8",
-      "scheduled_for": "2026-11-27T20:44:00-05:00",
-      "rendered_at": "2026-11-27T14:00:34.632591Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-27/cabc1544-cda9-44ff-96c0-7bdf8f168bc8.mp4",
-      "caption": "i'm fine. this is fine\n🎧 Myth of Sisyphus – @close__quarters #relatable #girlhumor #createmode",
-      "title": null,
-      "parts": {
-        "hook": "hook_01.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.687,
-        "anchor_y": 0.577,
-        "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -185,52 +26,42 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "myth_of_sisyphus",
+      "creative": "talk",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Myth of Sisyphus by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-5580ec0d-1ed9-44c8-8c56-b4e219f2c741",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T20:44:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Talk by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "i'm fine. this is fine\n🎧 Myth of Sisyphus – @close__quarters #relatable #girlhumor #createmode\n\nstream Myth of Sisyphus: link in bio"
+        "instagram": "not me\n🎧 Talk – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Talk"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
     },
     {
-      "id": "3b19d33b-b0e3-4c4d-8803-9313aef24644",
-      "scheduled_for": "2026-11-28T08:44:00-05:00",
-      "rendered_at": "2026-11-27T14:00:34.632591Z",
-      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-27/3b19d33b-b0e3-4c4d-8803-9313aef24644.mp4",
-      "caption": "bestie\n🎧 Recess (Rewind) – @close__quarters #relatable #girlhumor #createmode",
+      "id": "18215de5-9a17-4468-82a7-6c1a4a94f1c8",
+      "scheduled_for": "2026-11-28T11:44:00-05:00",
+      "rendered_at": "2026-11-28T08:32:44.642474Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-28/18215de5-9a17-4468-82a7-6c1a4a94f1c8.mp4",
+      "caption": "the delusion is strong today\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode",
       "title": null,
       "parts": {
-        "hook": "hook_01.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.656,
-        "anchor_y": 0.499,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.664,
+        "anchor_y": 0.277,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
         "hue_deg": -0.0,
@@ -240,28 +71,147 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "recess_rewind",
+      "creative": "epilogue_dismissal",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Recess (Rewind) – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "her_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-dd22373e-17b9-4d13-b745-0610f378f946",
-          "last_error": null,
-          "scheduled_for": "2026-11-29T08:44:00-05:00"
-        }
-      ],
+      "first_comment": "song: Epilogue: Dismissal by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
       "captions": {
-        "instagram": "bestie\n🎧 Recess (Rewind) – @close__quarters #relatable #girlhumor #createmode\n\nRecess (Rewind) is out now. link in bio to stream it"
+        "instagram": "the delusion is strong today\n🎧 Epilogue: Dismissal – @close__quarters #relatable #girlhumor #createmode\n\nstream Epilogue: Dismissal: link in bio"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "9c2c8abd-3eaf-45f4-a8af-4c0d476ab5ce",
+      "scheduled_for": "2026-11-28T14:44:00-05:00",
+      "rendered_at": "2026-11-28T08:32:44.642474Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-28/9c2c8abd-3eaf-45f4-a8af-4c0d476ab5ce.mp4",
+      "caption": "literally me\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_04.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.421,
+        "anchor_y": 0.723,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "prologue",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
+      "captions": {
+        "instagram": "literally me\n🎧 Prologue: Before – @close__quarters #relatable #girlhumor #createmode\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "1b990e2d-438d-4c2a-a5f9-c90c4669a393",
+      "scheduled_for": "2026-11-28T17:44:00-05:00",
+      "rendered_at": "2026-11-28T08:32:44.642474Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-28/1b990e2d-438d-4c2a-a5f9-c90c4669a393.mp4",
+      "caption": "be so for real\n🎧 Suspended – @close__quarters #relatable #girlhumor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_02.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.464,
+        "anchor_y": 0.691,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "creative": "suspended",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [],
+      "captions": {
+        "instagram": "be so for real\n🎧 Suspended – @close__quarters #relatable #girlhumor #createmode\n\nlink in bio to stream Suspended"
+      },
+      "titles": {},
+      "status": "pending",
+      "attempts": 0,
+      "buffer_post_id": null,
+      "last_error": null
+    },
+    {
+      "id": "b4bf63b0-7e63-4fba-9b8a-f7805d9225d4",
+      "scheduled_for": "2026-11-28T20:44:00-05:00",
+      "rendered_at": "2026-11-28T08:32:44.642474Z",
+      "video_url": "https://factory.nickbenak.com/v/render-notes_her-2026-11-28/b4bf63b0-7e63-4fba-9b8a-f7805d9225d4.mp4",
+      "caption": "we've all been there\n🎧 Full Ride – @close__quarters #relatable #girlhumor #createmode",
+      "title": null,
+      "parts": {
+        "hook": "hook_01.mp4",
+        "bodies": "",
+        "music": "",
+        "music_offset_sec": "0"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.46,
+        "anchor_y": 0.272,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "creative": "full_ride",
+      "overlay": null,
+      "accounts": null,
+      "lineup_id": null,
+      "variants": {},
+      "first_comment": "song: Full Ride by @close__quarters. the full album EDUCATION is linked in our bio",
+      "posts": [],
+      "captions": {
+        "instagram": "we've all been there\n🎧 Full Ride – @close__quarters #relatable #girlhumor #createmode\n\nstream Full Ride: link in bio"
+      },
+      "titles": {},
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
