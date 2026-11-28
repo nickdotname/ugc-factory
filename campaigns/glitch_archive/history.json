@@ -850,8 +850,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-be393a7f-1e46-456f-b36a-1dd95a4f7dba",
+      "post_ids": {
+        "glitch_ig": "igo-be393a7f-1e46-456f-b36a-1dd95a4f7dba"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
