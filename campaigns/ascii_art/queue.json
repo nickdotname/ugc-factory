@@ -38,9 +38,9 @@
         {
           "account": "ascii_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-ed0c6713-cb9c-4b7c-8379-4d967abf9fea",
           "last_error": null,
           "scheduled_for": "2026-11-28T12:38:00-05:00"
         }
@@ -49,7 +49,7 @@
         "instagram": "it's a text file. a very busy text file.\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nSuspended is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
