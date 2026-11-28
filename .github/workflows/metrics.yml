@@ -133,8 +133,5 @@ jobs:
             echo "no metrics change"
           else
             git commit -m "metrics: ${{ matrix.campaign }} $(date -u +%Y-%m-%d) [skip ci]"
-            for i in 1 2 3 4; do
-              git push && break
-              git pull --rebase || { git rebase --abort; exit 1; }
-            done
+            bash scripts/push_retry.sh
           fi

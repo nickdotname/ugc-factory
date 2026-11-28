@@ -166,3 +166,13 @@ Publisher error `Object with ID '<ig id>' does not exist, cannot be loaded due t
 accounts on the same `IG_TOKEN` post fine, and instagram.com/<handle> says "Profile isn't available": the account was
 removed, disabled or renamed on Instagram (or unlinked from its Page). Not a token problem. Pause its campaign and the
 nightly target, then ask the operator to open the account in the app (appeal, reactivate, or relink the Page).
+
+## Render made the videos but the queue never reached main (2026-11-28)
+- Symptom: an account has nothing booked today; topup logs `queue_empty` for its campaign although `render.yml`
+  was green and the render release (`render-<c>-<date>`) has the new mp4s. No `render: <c> <date>` commit on main.
+- Cause: the matrix jobs' inline push loop (`for i in 1 2 3 4; do git push && break; git pull --rebase; done`)
+  rebased after the 4th rejection and stopped without pushing, and the step still exited 0. With ~40 campaigns
+  committing at once, ascii_art, cq_producer, rocket_league and tiny_code lost their renders.
+- Fix: every committing matrix job (render, metrics, analytics, queue) now calls `scripts/push_retry.sh`:
+  up to 12 attempts with a spread-out sleep, and the step **fails** (red) if the commit never lands.
+- Recovery: re-dispatch `render.yml` with `campaign=<c>`, then `topup.yml`.
