@@ -197,9 +197,9 @@
         {
           "account": "notes_ig",
           "network": "instagram",
-          "status": "claimed",
+          "status": "pushed",
           "attempts": 0,
-          "buffer_post_id": null,
+          "buffer_post_id": "igo-bd7ffb33-1677-4948-af6a-0382e359d9c7",
           "last_error": null,
           "scheduled_for": "2026-11-29T14:41:00-05:00"
         }
@@ -208,7 +208,7 @@
         "instagram": "and what about it\n🎧 Suspended – @close__quarters #relatable #humor #createmode\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "claimed",
+      "status": "pushed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
