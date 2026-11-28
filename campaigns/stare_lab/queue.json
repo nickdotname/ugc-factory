@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-11-28T08:32:17.206000Z",
+  "generated_at": "2026-11-28T13:15:52.796417Z",
   "items": [
     {
-      "id": "49317484-cae3-40fd-be94-a6685a934ba1",
+      "id": "48d38db7-3570-4183-8f73-f801c9782376",
       "scheduled_for": "2026-11-28T16:07:00-05:00",
-      "rendered_at": "2026-11-28T08:32:17.206000Z",
-      "video_url": "https://factory.nickbenak.com/v/render-stare_lab-2026-11-28/49317484-cae3-40fd-be94-a6685a934ba1.mp4",
-      "caption": "what you see at the end comes from your own eyes, not the screen\n🎧 Silver and Gold – @close__quarters #illusion #opticalillusion #afterimage #perception #brain",
+      "rendered_at": "2026-11-28T13:15:52.796417Z",
+      "video_url": "https://factory.nickbenak.com/v/render-stare_lab-2026-11-28/48d38db7-3570-4183-8f73-f801c9782376.mp4",
+      "caption": "nothing on the screen changes the way you think it does. your eyes do\n🎧 Suspended – @close__quarters #illusion #opticalillusion #afterimage #perception #brain",
       "title": null,
       "parts": {
-        "hook": "hook_02.mp4",
+        "hook": "hook_01.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.605,
-        "anchor_y": 0.444,
+        "anchor_x": 0.738,
+        "anchor_y": 0.299,
         "rotate_deg": 0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -26,30 +26,20 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": 0.0
+        "music_tilt_db": -0.0
       },
-      "creative": "silver_and_gold",
+      "creative": "suspended",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "🎧 Silver and Gold – @close__quarters (EDUCATION, out now)",
-      "posts": [
-        {
-          "account": "eyetrick_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-0e5a3834-3eb6-4db2-8a0d-291500e10d08",
-          "last_error": null,
-          "scheduled_for": "2026-11-28T16:07:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
+      "posts": [],
       "captions": {
-        "instagram": "what you see at the end comes from your own eyes, not the screen\n🎧 Silver and Gold – @close__quarters #illusion #opticalillusion #afterimage #perception #brain\n\nSilver and Gold is out now. link in bio to stream it"
+        "instagram": "nothing on the screen changes the way you think it does. your eyes do\n🎧 Suspended – @close__quarters #illusion #opticalillusion #afterimage #perception #brain\n\nlink in bio to stream Suspended"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
