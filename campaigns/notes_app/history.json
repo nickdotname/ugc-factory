@@ -820,8 +820,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-20dee0b8-cd49-4e4d-bcaf-60add11ad789",
+      "post_ids": {
+        "notes_ig": "igo-20dee0b8-cd49-4e4d-bcaf-60add11ad789"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
