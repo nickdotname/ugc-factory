@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Myth of Sisyphus by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "races_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T08:26:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "it's not luck. it's the algorithm\n🎧 Myth of Sisyphus – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nlink in bio to stream Myth of Sisyphus"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
