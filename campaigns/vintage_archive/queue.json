@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "song: Notta Problem by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [],
+      "posts": [
+        {
+          "account": "vintage_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T08:40:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "the print is scratched. we kept the scratches\n🎧 Notta Problem – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nstream Notta Problem: link in bio"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
