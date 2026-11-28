@@ -91,18 +91,18 @@
         {
           "account": "close_quarters_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-28T22:05:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the lyrics are the video. turn the sound on.\nSilver and Gold – Close Quarters · EDUCATION out now #newmusic #lyricvideo #y2k #indiemusic #psychedelichiphop\n\nlink in bio to stream Silver and Gold"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
