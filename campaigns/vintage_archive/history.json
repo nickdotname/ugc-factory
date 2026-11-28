@@ -575,6 +575,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-28T08:33:31.692901Z",
+      "item_id": "8e4993ba-7bc6-4de6-aa3a-ed5e336dba85",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the print is scratched. we kept the scratches\n🎧 Notta Problem – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive",
+      "title": null,
+      "creative": "notta_problem",
+      "captions": {
+        "instagram": "the print is scratched. we kept the scratches\n🎧 Notta Problem – @close__quarters #silentfilm #vintagefilm #oldfilm #publicdomain #filmarchive\n\nstream Notta Problem: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.55,
+        "anchor_y": 0.664,
+        "rotate_deg": 0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
