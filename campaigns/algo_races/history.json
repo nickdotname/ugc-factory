@@ -323,6 +323,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "49cb002bead6a3b57cd36ab82425badc05966ab3672d3895219efa0a7bbd62b3",
+      "timestamp": "2026-11-28T08:31:51.736725Z",
+      "item_id": "16cc93e3-c426-4b44-ac3d-56d60cbb9bc5",
+      "hook": "hook_01.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "it's not luck. it's the algorithm\n🎧 Myth of Sisyphus – @close__quarters #algorithms #computerscience #coding #programming #datastructures",
+      "title": null,
+      "creative": "myth_of_sisyphus",
+      "captions": {
+        "instagram": "it's not luck. it's the algorithm\n🎧 Myth of Sisyphus – @close__quarters #algorithms #computerscience #coding #programming #datastructures\n\nlink in bio to stream Myth of Sisyphus"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.711,
+        "anchor_y": 0.681,
+        "rotate_deg": 0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
