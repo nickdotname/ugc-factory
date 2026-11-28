@@ -1039,6 +1039,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-28T12:29:00.294955Z",
+      "item_id": "a727ab0e-2e52-442a-ba58-1cd3c18ade23",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "it's a text file. a very busy text file.\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python",
+      "title": null,
+      "creative": "suspended",
+      "captions": {
+        "instagram": "it's a text file. a very busy text file.\n🎧 Suspended – @close__quarters #asciiart #creativecoding #generativeart #codeart #python\n\nSuspended is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.411,
+        "anchor_y": 0.489,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": -0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
