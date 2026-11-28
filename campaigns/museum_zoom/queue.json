@@ -91,18 +91,18 @@
         {
           "account": "zoom_ig",
           "network": "instagram",
-          "status": "pending",
+          "status": "claimed",
           "attempts": 0,
           "buffer_post_id": null,
           "last_error": null,
-          "scheduled_for": null
+          "scheduled_for": "2026-11-30T15:42:00-05:00"
         }
       ],
       "captions": {
         "instagram": "the details are the whole point\n🎧 Recess (Rewind) – @close__quarters #arthistory #museum #painting #details #zoomin\n\nlink in bio to stream Recess (Rewind)"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
