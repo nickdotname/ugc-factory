@@ -928,8 +928,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-fba51003-442c-4993-9668-863e2ef53d4a",
+      "post_ids": {
+        "notes_ig": "igo-fba51003-442c-4993-9668-863e2ef53d4a"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
