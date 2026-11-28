@@ -34,12 +34,22 @@
       "lineup_id": null,
       "variants": {},
       "first_comment": "🎧 the song is Won't Be the Same Again by @close__quarters, from their album EDUCATION",
-      "posts": [],
+      "posts": [
+        {
+          "account": "cinema_ig",
+          "network": "instagram",
+          "status": "claimed",
+          "attempts": 0,
+          "buffer_post_id": null,
+          "last_error": null,
+          "scheduled_for": "2026-11-28T08:05:00-05:00"
+        }
+      ],
       "captions": {
         "instagram": "movie night in the command line\n🎧 Won't Be the Same Again – @close__quarters #asciiart #textmode #terminal #publicdomain #film\n\nlink in bio to stream Won't Be the Same Again"
       },
       "titles": {},
-      "status": "pending",
+      "status": "claimed",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
