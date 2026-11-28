@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-11-27T14:01:40.095839Z",
+  "generated_at": "2026-11-28T08:32:02.371284Z",
   "items": [
     {
-      "id": "b9e1ee2b-4464-4b78-9644-4563325169d1",
-      "scheduled_for": "2026-11-27T09:35:00-05:00",
-      "rendered_at": "2026-11-27T12:24:14.345686Z",
-      "video_url": "https://factory.nickbenak.com/v/render-glitch_archive-2026-11-27/b9e1ee2b-4464-4b78-9644-4563325169d1.mp4",
-      "caption": "datamoshed on every kick\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart",
+      "id": "15e57807-65ef-4aff-9582-f27dc269f1f0",
+      "scheduled_for": "2026-11-28T09:35:00-05:00",
+      "rendered_at": "2026-11-28T08:32:02.371284Z",
+      "video_url": "https://factory.nickbenak.com/v/render-glitch_archive-2026-11-28/15e57807-65ef-4aff-9582-f27dc269f1f0.mp4",
+      "caption": "keyframes removed on purpose\n🎧 Myth of Sisyphus – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart",
       "title": null,
       "parts": {
-        "hook": "hook_06.mp4",
+        "hook": "hook_02.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.434,
-        "anchor_y": 0.636,
+        "anchor_x": 0.632,
+        "anchor_y": 0.489,
         "rotate_deg": -0.0,
         "brightness": -0.0,
         "saturation": 1.0,
@@ -26,30 +26,20 @@
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
-      "creative": "suspended",
+      "creative": "myth_of_sisyphus",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Suspended by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "glitch_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-c91801d9-a08c-4b48-b755-b2887967ec9a",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T12:23:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Myth of Sisyphus – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "datamoshed on every kick\n🎧 Suspended – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nstream Suspended: link in bio"
+        "instagram": "keyframes removed on purpose\n🎧 Myth of Sisyphus – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nMyth of Sisyphus is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null

@@ -821,6 +821,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "a4252ef478b30e9bd383b1e86137cf33e81564897af5386e5f7ce0e3cd231bf4",
+      "timestamp": "2026-11-28T08:32:02.371284Z",
+      "item_id": "15e57807-65ef-4aff-9582-f27dc269f1f0",
+      "hook": "hook_02.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "keyframes removed on purpose\n🎧 Myth of Sisyphus – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart",
+      "title": null,
+      "creative": "myth_of_sisyphus",
+      "captions": {
+        "instagram": "keyframes removed on purpose\n🎧 Myth of Sisyphus – @close__quarters #glitchart #datamosh #glitch #experimentalvideo #newmediaart\n\nMyth of Sisyphus is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.632,
+        "anchor_y": 0.489,
+        "rotate_deg": -0.0,
+        "brightness": -0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
