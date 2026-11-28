@@ -83,8 +83,5 @@ jobs:
             # pushing still loses whenever another job lands in the gap
             # between the two, which is exactly how this failed — top-up
             # commits every four hours and needs no help to win that race.
-            for i in 1 2 3 4; do
-              git push && break
-              git pull --rebase || { git rebase --abort; exit 1; }
-            done
+            bash scripts/push_retry.sh
           fi

@@ -120,8 +120,5 @@ jobs:
             git commit -m "withdraw ${{ inputs.discard }} for ${{ matrix.campaign }} [skip ci]"
             # Same retry as every other committing workflow: pull-then-push
             # loses any race that opens between the two.
-            for i in 1 2 3 4; do
-              git push && break
-              git pull --rebase || { git rebase --abort; exit 1; }
-            done
+            bash scripts/push_retry.sh
           fi

@@ -134,9 +134,14 @@ jobs:
             # one branch, so every job but the first gets a non-fast-forward
             # rejection. Each only touches its own campaigns/<slug>/ files, so
             # rebasing is safe and cannot conflict.
-            for i in 1 2 3 4; do
-              git push && break
-              echo "push rejected, rebasing (attempt $i)"
+            # (same as scripts/push_retry.sh: never stop on a rebase without
+            # pushing it, and fail the job if the commit never lands)
+            pushed=""
+            for i in $(seq 1 12); do
+              if git push; then pushed=1; break; fi
+              echo "push rejected, rebasing (attempt $i of 12)"
+              sleep $(( (RANDOM % 8) + i ))
               git pull --rebase || { git rebase --abort; exit 1; }
             done
+            [ -n "$pushed" ] || { echo "::error::render commit never reached main"; exit 1; }
           fi
