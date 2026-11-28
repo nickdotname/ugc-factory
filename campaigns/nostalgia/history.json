@@ -1475,6 +1475,40 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "66cf7683843a4c492081b59a5806d277322268a5d644c8f3fdf4924aadb4b99b",
+      "timestamp": "2026-11-28T13:16:02.096704Z",
+      "item_id": "9f0da507-094e-46e4-b7c0-5ea6b48932b2",
+      "hook": "hook_07.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "nobody was filming. except this one tape\n🎧 Prologue: Before – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "nobody was filming. except this one tape\n🎧 Prologue: Before – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nPrologue: Before is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.528,
+        "anchor_y": 0.564,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }

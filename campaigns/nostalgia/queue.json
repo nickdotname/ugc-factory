@@ -1,108 +1,45 @@
 {
-  "generated_at": "2026-11-28T08:31:54.924904Z",
+  "generated_at": "2026-11-28T13:16:02.096704Z",
   "items": [
     {
-      "id": "43572727-8191-493a-a522-c1edc28b2d0e",
+      "id": "9f0da507-094e-46e4-b7c0-5ea6b48932b2",
       "scheduled_for": "2026-11-28T09:35:00-05:00",
-      "rendered_at": "2026-11-28T08:31:54.924904Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-28/43572727-8191-493a-a522-c1edc28b2d0e.mp4",
-      "caption": "no wifi, no group chat, just this\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
+      "rendered_at": "2026-11-28T13:16:02.096704Z",
+      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-28/9f0da507-094e-46e4-b7c0-5ea6b48932b2.mp4",
+      "caption": "nobody was filming. except this one tape\n🎧 Prologue: Before – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
       "title": null,
       "parts": {
-        "hook": "hook_05.mp4",
+        "hook": "hook_07.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.354,
-        "anchor_y": 0.634,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
-        "saturation": 1.0,
-        "hue_deg": -0.0,
-        "grain": 0.0,
-        "speed": 1.0,
-        "mirror": 0.0,
-        "music_tempo": 1.0,
-        "music_tilt_db": -0.0
-      },
-      "creative": "suspended",
-      "overlay": null,
-      "accounts": null,
-      "lineup_id": null,
-      "variants": {},
-      "first_comment": "🎧 the song is Suspended by @close__quarters, from their album EDUCATION",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-f5320c87-5dcd-45c1-9490-f23f34565b7a",
-          "last_error": null,
-          "scheduled_for": "2026-12-01T09:35:00-05:00"
-        }
-      ],
-      "captions": {
-        "instagram": "no wifi, no group chat, just this\n🎧 Suspended – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nlink in bio to stream Suspended"
-      },
-      "titles": {},
-      "status": "pushed",
-      "attempts": 0,
-      "buffer_post_id": null,
-      "last_error": null
-    },
-    {
-      "id": "43fa2401-0a8c-48a7-98ed-08ed85eaa4c3",
-      "scheduled_for": "2026-11-28T16:35:00-05:00",
-      "rendered_at": "2026-11-28T08:31:54.924904Z",
-      "video_url": "https://factory.nickbenak.com/v/render-nostalgia-2026-11-28/43fa2401-0a8c-48a7-98ed-08ed85eaa4c3.mp4",
-      "caption": "the room looked so much bigger back then\n🎧 Epilogue: Dismissal – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs",
-      "title": null,
-      "parts": {
-        "hook": "hook_02.mp4",
-        "bodies": "",
-        "music": "",
-        "music_offset_sec": "0"
-      },
-      "treatment": {
-        "zoom": 0.0,
-        "anchor_x": 0.489,
-        "anchor_y": 0.258,
-        "rotate_deg": 0.0,
+        "anchor_x": 0.528,
+        "anchor_y": 0.564,
+        "rotate_deg": -0.0,
         "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": -0.0,
+        "hue_deg": 0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
         "music_tilt_db": 0.0
       },
-      "creative": "epilogue_dismissal",
+      "creative": "prologue",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Epilogue: Dismissal by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "nostalgia_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-1f0c6639-81ef-469b-a5d9-80580adb5a6f",
-          "last_error": null,
-          "scheduled_for": "2026-12-01T16:35:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Prologue: Before – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "the room looked so much bigger back then\n🎧 Epilogue: Dismissal – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nstream Epilogue: Dismissal: link in bio"
+        "instagram": "nobody was filming. except this one tape\n🎧 Prologue: Before – @close__quarters #nostalgia #90skids #2000s #childhood #liminalspaces #vhs\n\nPrologue: Before is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
