@@ -2726,8 +2726,10 @@
         "music_tempo": 1.0,
         "music_tilt_db": -0.0
       },
-      "buffer_post_id": null,
-      "post_ids": {},
+      "buffer_post_id": "igo-ff01f6d0-7f62-4a01-b4a8-c2fe5b275ec8",
+      "post_ids": {
+        "close_quarters_ig": "igo-ff01f6d0-7f62-4a01-b4a8-c2fe5b275ec8"
+      },
       "overlay": null,
       "lineup_id": null,
       "variants": {}
