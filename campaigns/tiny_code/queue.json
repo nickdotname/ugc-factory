@@ -1,55 +1,45 @@
 {
-  "generated_at": "2026-11-27T14:01:39.243661Z",
+  "generated_at": "2026-11-28T12:34:06.244745Z",
   "items": [
     {
-      "id": "7f8aa7be-7262-4bd4-a66f-79cc35e26f51",
-      "scheduled_for": "2026-11-27T09:55:00-05:00",
-      "rendered_at": "2026-11-27T14:01:39.243661Z",
-      "video_url": "https://factory.nickbenak.com/v/render-tiny_code-2026-11-27/7f8aa7be-7262-4bd4-a66f-79cc35e26f51.mp4",
-      "caption": "change one number and it's a different picture\n🎧 Evil Close Quarters – @close__quarters #creativecoding #generativeart #python #numpy #codeart",
+      "id": "9f0ac2a9-24b0-4682-b879-55b7e762d4f1",
+      "scheduled_for": "2026-11-28T09:55:00-05:00",
+      "rendered_at": "2026-11-28T12:34:06.244745Z",
+      "video_url": "https://factory.nickbenak.com/v/render-tiny_code-2026-11-28/9f0ac2a9-24b0-4682-b879-55b7e762d4f1.mp4",
+      "caption": "a picture you could fit in a tweet\n🎧 Evil Close Quarters – @close__quarters #creativecoding #mathart #algorithmicart #python",
       "title": null,
       "parts": {
-        "hook": "hook_03.mp4",
+        "hook": "hook_04.mp4",
         "bodies": "",
         "music": "",
         "music_offset_sec": "0"
       },
       "treatment": {
         "zoom": 0.0,
-        "anchor_x": 0.452,
-        "anchor_y": 0.411,
-        "rotate_deg": 0.0,
-        "brightness": -0.0,
+        "anchor_x": 0.554,
+        "anchor_y": 0.534,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
         "saturation": 1.0,
-        "hue_deg": 0.0,
+        "hue_deg": -0.0,
         "grain": 0.0,
         "speed": 1.0,
         "mirror": 0.0,
         "music_tempo": 1.0,
-        "music_tilt_db": -0.0
+        "music_tilt_db": 0.0
       },
       "creative": "evil_close_quarters",
       "overlay": null,
       "accounts": null,
       "lineup_id": null,
       "variants": {},
-      "first_comment": "song: Evil Close Quarters by @close__quarters. the full album EDUCATION is linked in our bio",
-      "posts": [
-        {
-          "account": "tinycode_ig",
-          "network": "instagram",
-          "status": "pushed",
-          "attempts": 0,
-          "buffer_post_id": "igo-562ac3c7-50fb-432e-b016-a887e7cb32ff",
-          "last_error": null,
-          "scheduled_for": "2026-11-27T12:43:00-05:00"
-        }
-      ],
+      "first_comment": "🎧 Evil Close Quarters – @close__quarters (EDUCATION, out now)",
+      "posts": [],
       "captions": {
-        "instagram": "change one number and it's a different picture\n🎧 Evil Close Quarters – @close__quarters #creativecoding #generativeart #python #numpy #codeart\n\nstream Evil Close Quarters: link in bio"
+        "instagram": "a picture you could fit in a tweet\n🎧 Evil Close Quarters – @close__quarters #creativecoding #mathart #algorithmicart #python\n\nEvil Close Quarters is out now. link in bio to stream it"
       },
       "titles": {},
-      "status": "pushed",
+      "status": "pending",
       "attempts": 0,
       "buffer_post_id": null,
       "last_error": null
