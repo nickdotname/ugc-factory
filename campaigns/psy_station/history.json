@@ -2843,6 +2843,74 @@
       "overlay": null,
       "lineup_id": null,
       "variants": {}
+    },
+    {
+      "tuple_hash": "66cf7683843a4c492081b59a5806d277322268a5d644c8f3fdf4924aadb4b99b",
+      "timestamp": "2026-11-28T13:17:31.565379Z",
+      "item_id": "f23826f8-ec6f-4983-a58e-f67f2258a938",
+      "hook": "hook_07.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "the colours are on the kick\n🎧 Prologue: Before – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart",
+      "title": null,
+      "creative": "prologue",
+      "captions": {
+        "instagram": "the colours are on the kick\n🎧 Prologue: Before – @close__quarters #psychedelic #trippy #visuals #psychedelicart #trippyart\n\nstream Prologue: Before: link in bio"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.744,
+        "anchor_y": 0.389,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": 0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
+    },
+    {
+      "tuple_hash": "88be32c79949dd3aa1dcfdcee4a5a4e4c6ff1c2537914c3f4d86b5b3895368ee",
+      "timestamp": "2026-11-28T13:17:31.565379Z",
+      "item_id": "e9c69899-edb1-40e4-ac2b-792c5b0891da",
+      "hook": "hook_04.mp4",
+      "bodies": [],
+      "music": null,
+      "music_offset_sec": 0.0,
+      "caption": "turn the sound up and see if your eyes can find the beat\n🎧 Epilogue: Dismissal – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive",
+      "title": null,
+      "creative": "epilogue_dismissal",
+      "captions": {
+        "instagram": "turn the sound up and see if your eyes can find the beat\n🎧 Epilogue: Dismissal – @close__quarters #psychedelic #trippy #psychedelicart #visualizer #audioreactive\n\nEpilogue: Dismissal is out now. link in bio to stream it"
+      },
+      "treatment": {
+        "zoom": 0.0,
+        "anchor_x": 0.644,
+        "anchor_y": 0.575,
+        "rotate_deg": -0.0,
+        "brightness": 0.0,
+        "saturation": 1.0,
+        "hue_deg": -0.0,
+        "grain": 0.0,
+        "speed": 1.0,
+        "mirror": 0.0,
+        "music_tempo": 1.0,
+        "music_tilt_db": 0.0
+      },
+      "buffer_post_id": null,
+      "post_ids": {},
+      "overlay": null,
+      "lineup_id": null,
+      "variants": {}
     }
   ]
 }
